@@ -1,0 +1,28 @@
+//
+//  DWImageViewController.h
+//  Denwen
+//
+//  Created by Denwen on 9/13/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+//  DWImageViewController which wraps around GImageView to present a controller for 
+//  viewing images
+//
+
+#import <UIKit/UIKit.h>
+
+#import "DWURLConnection.h"
+#import "DWImageView.h"
+#import "DWCache.h"
+#import "DWGUIManager.h"
+#import "Constants.h"
+
+@interface DWImageViewController : UIViewController<DWURLConnectionDelegate,UIScrollViewDelegate> {
+	DWURLConnection *connection;
+	NSString *url;
+	NSString *key;
+}
+
+- (id)initWithImageURL:(NSString*)theURL;
+
+@end

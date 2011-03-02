@@ -1,0 +1,156 @@
+// !$*UTF8*$!
+{
+	1D6058900D05DD3D006BFB54 /* TableSearch */ = {
+		activeExec = 0;
+		executables = (
+			26D9D99012E04EB800F1117B /* TableSearch */,
+		);
+	};
+	26D9D99012E04EB800F1117B /* TableSearch */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = TableSearch;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	26D9D99812E04EC900F1117B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 531F16A40D6367A3003D33FB /* AppDelegate.h */;
+		name = "AppDelegate.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1015;
+		vrLoc = 0;
+	};
+	26D9D99912E04EC900F1117B /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 533407740E06E7DD009822AC /* MainViewController.m */;
+	};
+	26D9D9A012E04EC900F1117B /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	26D9D9A112E04EC900F1117B /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	26D9D9B512E04FFA00F1117B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533407740E06E7DD009822AC /* MainViewController.m */;
+		name = "MainViewController.m: 84";
+		rLen = 0;
+		rLoc = 3730;
+		rType = 0;
+		vrLen = 1446;
+		vrLoc = 2525;
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 26D9D99012E04EB800F1117B /* TableSearch */;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* TableSearch */;
+		codeSenseManager = 26D9D9A112E04EC900F1117B /* Code sense */;
+		executables = (
+			26D9D99012E04EB800F1117B /* TableSearch */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					698,
+					20,
+					48.16259765625,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					658,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 316690104;
+			PBXWorkspaceStateSaveDate = 316690104;
+		};
+		perUserProjectItems = {
+			26D9D99812E04EC900F1117B /* PBXTextBookmark */ = 26D9D99812E04EC900F1117B /* PBXTextBookmark */;
+			26D9D99912E04EC900F1117B /* PBXBookmark */ = 26D9D99912E04EC900F1117B /* PBXBookmark */;
+			26D9D9B512E04FFA00F1117B /* PBXTextBookmark */ = 26D9D9B512E04FFA00F1117B /* PBXTextBookmark */;
+		};
+		sourceControlManager = 26D9D9A012E04EC900F1117B /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	531F16A40D6367A3003D33FB /* AppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {572, 715}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1015}";
+		};
+	};
+	533407740E06E7DD009822AC /* MainViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {908, 2899}}";
+			sepNavSelRange = "{3730, 0}";
+			sepNavVisRange = "{2525, 1446}";
+		};
+	};
+}
