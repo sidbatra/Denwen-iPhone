@@ -5,6 +5,7 @@ drao
 
 
 sbat
+-url scheme for denwen.com and sbat.denwen.com
 
 -----
 -remove unused fields from JSON
@@ -14,7 +15,6 @@ sbat
 -optimize json being sent especially for user and place show. 
 -auto start apnd daemon on processing server -- handle restarts
 -auto refresh views if selected after a long time
--url scheme for denwen.com and sbat.denwen.com
 
 common
 -unit testing 
