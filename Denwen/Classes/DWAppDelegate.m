@@ -112,6 +112,10 @@
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_FACEBOOK_URL_OPENED 
 															object:url];	
 	}
+	else if([[url absoluteString] hasPrefix:@"denwen"]) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:N_DENWEN_URL_OPENED 
+															object:url];	
+	}
 	
 	return YES;
 }
@@ -301,6 +305,7 @@
 }
 
 	
+
 #pragma mark -
 #pragma mark Login delegate methods
 

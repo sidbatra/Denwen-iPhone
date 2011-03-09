@@ -167,9 +167,9 @@
 
 // User just finished creating a new place
 //
-- (void)newPlaceCreated:(NSInteger)placeID {
+- (void)newPlaceCreated:(NSString*)placeHashedID {
 	
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeID
+	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeHashedID
 																	withNewItemPrompt:YES 
 																		  andDelegate:self];
 	[uiShell.navigationController pushViewController:placeView animated:NO];
@@ -566,7 +566,6 @@
 	[alert show];
 	[alert release];
 }
-
 
 
 

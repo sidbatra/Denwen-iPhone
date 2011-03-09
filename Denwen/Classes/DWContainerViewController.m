@@ -27,8 +27,8 @@
 
 // Fired when a place is selected in an item cell within a child of the ItemFeedViewController
 //
-- (void)placeSelected:(int)placeID {
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeID withNewItemPrompt:NO andDelegate:self];
+- (void)placeSelected:(NSString*)placeHashedID {
+	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeHashedID withNewItemPrompt:NO andDelegate:self];
 	[self.navigationController pushViewController:placeView animated:YES];
 	[placeView release];
 }

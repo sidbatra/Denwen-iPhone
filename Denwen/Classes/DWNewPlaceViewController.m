@@ -370,7 +370,7 @@ replacementString:(NSString *)string {
 		[place release];
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_NEW_PLACE_CREATED object:place];
-		[_delegate newPlaceCreated:place.databaseID];
+		[_delegate newPlaceCreated:place.hashedId];
 	}
 	else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 

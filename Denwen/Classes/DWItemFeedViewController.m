@@ -519,7 +519,7 @@
 //
 - (void)didTapPlaceName:(id)sender event:(id)event {
 	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag atRow:ITEMS_INDEX];
-	[_delegate placeSelected:item.place.databaseID];
+	[_delegate placeSelected:item.place.hashedId];
 }
 
 
@@ -527,7 +527,7 @@
 //
 - (void)didTapPlaceImage:(id)sender event:(id)event {
 	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag atRow:ITEMS_INDEX];
-	[_delegate placeSelected:item.place.databaseID];
+	[_delegate placeSelected:item.place.hashedId];
 }
 
 

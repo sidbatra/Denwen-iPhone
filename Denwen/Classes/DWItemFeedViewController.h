@@ -67,7 +67,7 @@
 @end
 
 @protocol DWItemFeedViewControllerDelegate
-- (void)placeSelected:(int)placeID;
+- (void)placeSelected:(NSString*)placeHashedID;
 - (void)userSelected:(int)userID;
 - (void)attachmentSelected:(NSString*)url;
 - (void)urlSelected:(NSString*)url;

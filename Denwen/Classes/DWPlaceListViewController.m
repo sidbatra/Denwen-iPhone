@@ -498,7 +498,7 @@
 						[_placeManager getFilteredPlace:indexPath.row] :
 						[_placeManager getPlaceAtRow:indexPath.section andColumn:indexPath.row];
 		
-		[_delegate placeSelected:place.databaseID];
+		[_delegate placeSelected:place.hashedId];
 		
 		//Deselect the currently selected row 
 		if(self.searchDisplayController.isActive)

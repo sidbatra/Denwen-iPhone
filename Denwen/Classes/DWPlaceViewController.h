@@ -34,12 +34,13 @@
 	BOOL _isViewLoaded;
 	BOOL _isReadyForCreateItem;
 	
-	int _placeID;
+	NSString *_placeHashedID;
 }
 
+@property (copy) NSString *placeHashedID;
 @property (retain) DWFollowing *following;
 
 
-- (id)initWithPlaceID:(int)placeID withNewItemPrompt:(bool)newItemPrompt andDelegate:(id)delegate;
+- (id)initWithPlaceID:(NSString*)placeHashedID withNewItemPrompt:(BOOL)newItemPrompt andDelegate:(id)delegate;
 
 @end

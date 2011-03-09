@@ -31,7 +31,7 @@
 @implementation DWPlaceViewController
 
 
-@synthesize following=_following;
+@synthesize placeHashedID=_placeHashedID,following=_following;
 
 
 
@@ -41,11 +41,11 @@
 
 // Init the view along with its member variables 
 //
-- (id)initWithPlaceID:(int)placeID withNewItemPrompt:(bool)newItemPrompt andDelegate:(id)delegate {
+- (id)initWithPlaceID:(NSString*)placeHashedID withNewItemPrompt:(BOOL)newItemPrompt andDelegate:(id)delegate {
 	self = [super initWithDelegate:delegate];
 	
 	if (self) {
-		_placeID = placeID;
+		self.placeHashedID = placeHashedID;
 		_newItemPrompt = newItemPrompt;
 		_isViewLoaded = NO;
 		_isReadyForCreateItem = NO;
@@ -210,17 +210,17 @@
 	NSString *urlString = nil;
 	
 	if([DWSessionManager isSessionActive])
-		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?email=%@&password=%@&page=%d&ff=mobile",
-					 PLACE_SHOW_URI,
-					 _placeID,
+		urlString = [[NSString alloc] initWithFormat:@"%@%@.json?email=%@&password=%@&page=%d&ff=mobile",
+					 PLACE_HASHED_SHOW_URI,
+					 self.placeHashedID,
 					 currentUser.email,
 					 currentUser.encryptedPassword,
 					 _currentPage
 					 ];
 	else
-		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&ff=mobile",
-					 PLACE_SHOW_URI,
-					 _placeID,
+		urlString = [[NSString alloc] initWithFormat:@"%@%@.json?page=%d&ff=mobile",
+					 PLACE_HASHED_SHOW_URI,
+					 self.placeHashedID,
 					 _currentPage
 					 ];
 	
@@ -781,6 +781,7 @@
 		[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
 	}
 	
+	self.placeHashedID = nil;
 	self.following = nil;
 	
 	[_followRequestManager release];
