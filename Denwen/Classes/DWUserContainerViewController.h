@@ -8,16 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DWPlaceViewController.h"
-#import "DWUserViewController.h"
-#import "DWImageViewController.h"
-#import "DWWebViewController.h"
+#import "DWContainerViewController.h"
+
 
 #import "DWSessionManager.h"
 #import "Constants.h"
 
 
-@interface DWUserContainerViewController : UIViewController <DWItemFeedViewControllerDelegate> {
+@interface DWUserContainerViewController : DWContainerViewController {
 	DWUserViewController *userViewController;
 }
 

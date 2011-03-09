@@ -245,6 +245,8 @@
 		BBEEC5A812F4F9D100EB2AE6 /* DWURLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEEC5A712F4F9D100EB2AE6 /* DWURLHelper.m */; };
 		BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */; };
 		BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */; };
+		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
+		BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -610,6 +612,9 @@
 		BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceViewController.h; path = Classes/DWPlaceViewController.h; sourceTree = "<group>"; };
 		BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlaceViewController.m; path = Classes/DWPlaceViewController.m; sourceTree = "<group>"; };
 		BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWPlaceViewController.xib; path = Classes/DWPlaceViewController.xib; sourceTree = "<group>"; };
+		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
+		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
+		BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWContainerViewController.xib; path = Classes/DWContainerViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -771,6 +776,8 @@
 				BB3311F412F24A2600B713F9 /* Users */,
 				BBC2FA4212F234E1001BF5D6 /* Places */,
 				BBC2FA4112F234DB001BF5D6 /* Items */,
+				BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */,
+				BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */,
 				BB17BAE312EA3A3F00DD42FC /* DWLoginViewController.h */,
 				BB17BAE412EA3A3F00DD42FC /* DWLoginViewController.m */,
 				BBD1EAD212EC1218003C1BC7 /* DWSignupViewController.h */,
@@ -864,6 +871,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */,
 				BB99755012F3DC4600425678 /* DWUserContainerViewController.xib */,
 				BB3311F712F24A4100B713F9 /* DWUserViewController.xib */,
 				26CAF7A812F21E110058C01E /* DWItemsContainerViewController.xib */,
@@ -1459,6 +1467,7 @@
 				BBCE3A65131CC38D008BDA82 /* Default.png in Resources */,
 				BBCE3A66131CC38D008BDA82 /* Default@2x.png in Resources */,
 				BBCE3A86131CC6AF008BDA82 /* iTunesArtwork in Resources */,
+				BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1565,6 +1574,7 @@
 				BB40089313123696000BDE4D /* FBLoginDialog.m in Sources */,
 				BB40089413123696000BDE4D /* FBRequest.m in Sources */,
 				BBE3107613148C160069E1AA /* DWNotificationHelper.m in Sources */,
+				BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

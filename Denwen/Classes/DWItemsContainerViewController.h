@@ -10,11 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "DWFollowedItemsViewController.h"
-#import "DWPlaceViewController.h"
 #import "DWSelectPlaceViewController.h"
-#import "DWUserViewController.h"
-#import "DWImageViewController.h"
-#import "DWWebViewController.h"
+#import "DWContainerViewController.h"
 #import "DWNotificationHelper.h"
 
 #import "DWSessionManager.h"
@@ -22,7 +19,7 @@
 
 
 
-@interface DWItemsContainerViewController : UIViewController <DWItemFeedViewControllerDelegate> {
+@interface DWItemsContainerViewController : DWContainerViewController {
 	DWFollowedItemsViewController *followedViewController;
 	
 	BOOL _isCurrentSelectedTab;

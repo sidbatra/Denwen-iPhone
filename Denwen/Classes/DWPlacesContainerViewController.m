@@ -14,8 +14,6 @@
 - (void)addRightBarButtonItem;
 - (void)removeRightBarButtonItem;
 
-- (BOOL)isSelectedTab;
-
 - (void)loadSelectedView:(UISegmentedControl*)segmentedControl;
 - (void)hidePreviouslySelectedView:(UISegmentedControl*)segmentedControl;
 
@@ -146,13 +144,6 @@
 }
 
 
-// Tests if its the currently selected tab
-//
-- (BOOL)isSelectedTab {
-	return self.navigationController.tabBarController.selectedViewController == self.navigationController;
-}
-
-
 // Hides the view previously selected by the segmentControl
 //
 - (void)hidePreviouslySelectedView:(UISegmentedControl*)segmentedControl {
@@ -228,50 +219,6 @@
 
 
 #pragma mark -
-#pragma mark ItemFeedViewControllerDelegate
-
-
-// Fired when a place is selected in an item cell within a child of the ItemFeedViewController
-//
-- (void)placeSelected:(int)placeID {
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeID withNewItemPrompt:NO andDelegate:self];
-	[self.navigationController pushViewController:placeView animated:YES];
-	[placeView release];
-}
-
-
-// Fired when a user is selected in an item cell within a child of the ItemFeedViewController
-//
-- (void)userSelected:(int)userID {
-	DWUserViewController *userView = [[DWUserViewController alloc] initWithUserID:userID andDelegate:self];
-	[self.navigationController pushViewController:userView animated:YES];
-	[userView release];
-}
-
-
-// Fired when an attachment is clicked on in an item cell within a child of the ItemFeedViewController
-//
-- (void)attachmentSelected:(NSString *)url {
-	DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:url];
-	imageView.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:imageView animated:YES];
-	[imageView release];
-}
-
-
-// Fired when a url is clicked on in an item cell within a child of the ItemFeedViewController
-//
-- (void)urlSelected:(NSString *)url {
-	DWWebViewController *webViewController = [[DWWebViewController alloc] 
-											  initWithResourceURL:url]; 
-	webViewController.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:webViewController animated:YES];
-	[webViewController release];
-}
-
-
-
-#pragma mark -
 #pragma mark NewPlaceViewControllerDelegate
 
 // User cancels the new place creation process
@@ -296,20 +243,13 @@
 
 
 
+
 #pragma mark -
 #pragma mark Memory management
 
 
 - (void)viewDidUnload {	
 	NSLog(@"unload called on places container");
-}
-
-
-// The usual memory warning
-//
-- (void)didReceiveMemoryWarning {
-	if(self.navigationController.tabBarController.selectedViewController != self.navigationController)
-		[super didReceiveMemoryWarning];   
 }
 
 

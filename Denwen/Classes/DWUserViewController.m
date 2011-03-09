@@ -574,17 +574,15 @@
 #pragma mark -
 #pragma mark Memory management
 
+//
+//
 - (void)viewDidUnload {
 	[super viewDidUnload];
-	
-	NSLog(@"unload called on user view");
-
 }
 
 // The usual memory warning
 //
 - (void)didReceiveMemoryWarning {
-	//if(!_isCurrenUserProfile || uiShell.navigationController.tabBarController.selectedViewController != uiShell.navigationController)
 	[super didReceiveMemoryWarning];  
 }
 
