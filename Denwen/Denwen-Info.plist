@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.denwen.denwenapp</string>
+	<string>com.denwen.denwenexperiment</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -41,6 +41,8 @@
 			<array>
 				<string>fb176869555684965</string>
 				<string>fb127979053940843</string>
+				<string>denwen</string>
+				<string>sbat.denwen</string>
 			</array>
 		</dict>
 	</array>
