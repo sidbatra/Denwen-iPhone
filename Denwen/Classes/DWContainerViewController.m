@@ -9,7 +9,36 @@
 #import "DWContainerViewController.h"
 
 
+@interface DWContainerViewController() 
+-(void)displaySelectedPlace:(NSString*)placeHashedID;
+@end
+
+
 @implementation DWContainerViewController
+
+
+
+
+#pragma mark -
+#pragma mark View lifecycle
+
+
+// Init the view along with its member variables 
+//
+- (id)init {
+	self = [super init];
+	
+	if (self) {		
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(denwenURLOpened:) 
+													 name:N_DENWEN_URL_OPENED
+												   object:nil];
+		
+	}
+    
+	return self;
+}
 
 
 
@@ -17,6 +46,32 @@
 //
 - (BOOL)isSelectedTab {
 	return self.navigationController.tabBarController.selectedViewController == self.navigationController;
+}
+
+
+// Push a placeViewController onto the nav stack 
+//
+-(void)displaySelectedPlace:(NSString*)placeHashedID {
+	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeHashedID withNewItemPrompt:NO andDelegate:self];
+	[self.navigationController pushViewController:placeView animated:YES];
+	[placeView release];
+}
+
+
+
+#pragma mark -
+#pragma mark Notification handlers
+
+
+// Refresh UI when user logs in
+//
+- (void)denwenURLOpened:(NSNotification*)notification {
+	if([self isSelectedTab]) {
+		NSString *url = (NSString*)[notification object];
+		NSLog(@"URL IS %@ -- %@",url,[url substringFromIndex:11]);
+		
+		[self displaySelectedPlace:[url substringFromIndex:11]];
+	}
 }
 
 
@@ -28,9 +83,7 @@
 // Fired when a place is selected in an item cell within a child of the ItemFeedViewController
 //
 - (void)placeSelected:(NSString*)placeHashedID {
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeHashedID withNewItemPrompt:NO andDelegate:self];
-	[self.navigationController pushViewController:placeView animated:YES];
-	[placeView release];
+	[self displaySelectedPlace:placeHashedID];
 }
 
 

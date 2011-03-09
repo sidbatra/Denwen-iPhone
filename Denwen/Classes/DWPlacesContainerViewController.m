@@ -195,7 +195,6 @@
 	DWNewPlaceViewController *newPlaceView = [[DWNewPlaceViewController alloc] initWithDelegate:self];
 	[self.navigationController presentModalViewController:newPlaceView animated:YES];
 	[newPlaceView release];
-	 
 }
 
 

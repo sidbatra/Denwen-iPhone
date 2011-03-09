@@ -114,7 +114,7 @@
 	}
 	else if([[url absoluteString] hasPrefix:@"denwen"]) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_DENWEN_URL_OPENED 
-															object:url];	
+															object:[url absoluteString]];	
 	}
 	
 	return YES;
