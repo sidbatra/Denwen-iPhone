@@ -18,8 +18,8 @@
 
 // Init the view along with its member variables 
 //
-- (id)initWithRootViewController:(UIViewController *)rootViewController {
-	self = [super initWithRootViewController:rootViewController];
+- (id)init {
+	self = [super init];
 	
 	if(self) {
 		self.title = PROFILE_TAB_NAME;
@@ -34,34 +34,88 @@
 //
 - (void)viewDidLoad {
     [super viewDidLoad];
-		
-	/*
-	UIBarButtonItem *backButton =  [[UIBarButtonItem alloc] initWithTitle:BACK_BUTTON_TITLE
-																	style:UIBarButtonItemStyleBordered
-																   target:nil
-																   action:nil];
-	self.navigationItem.backBarButtonItem = backButton;
-	[backButton release];
-	*/
+	
+	//Add subviews
+	//
+	if(!userViewController)
+		userViewController = [[DWUserViewController alloc] initWithUserID:currentUser.databaseID 
+																 hideBackButton:YES 
+																	andDelegate:self];
+	[self.view addSubview:userViewController.view];
 }
+
+
 
 
 
 #pragma mark -
-#pragma mark Mmory Management
+#pragma mark ItemFeedViewController delegate methods
+
+// Fired when a place is selected in an item cell within a child of the ItemFeedViewController
+//
+- (void)placeSelected:(int)placeID {
+	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeID withNewItemPrompt:NO andDelegate:self];
+	[self.navigationController pushViewController:placeView animated:YES];
+	[placeView release];
+}
+
+
+// Fired when a user is selected in an item cell within a child of the ItemFeedViewController
+//
+- (void)userSelected:(int)userID {
+	DWUserViewController *userView = [[DWUserViewController alloc] initWithUserID:userID andDelegate:self];
+	[self.navigationController pushViewController:userView animated:YES];
+	[userView release];
+}
+
+
+// Fired when an attachment is clicked on in an item cell within a child of the ItemFeedViewController
+//
+- (void)attachmentSelected:(NSString *)url {
+	DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:url];
+	imageView.hidesBottomBarWhenPushed = YES;
+	[self.navigationController pushViewController:imageView animated:YES];
+	[imageView release];
+}
+
+
+// Fired when a url is clicked on in an item cell within a child of the ItemFeedViewController
+//
+- (void)urlSelected:(NSString *)url {
+	DWWebViewController *webViewController = [[DWWebViewController alloc] initWithResourceURL:url]; 
+	webViewController.hidesBottomBarWhenPushed = YES;
+	[self.navigationController pushViewController:webViewController animated:YES];
+	[webViewController release];
+}
+
+
+
+
+
+#pragma mark -
+#pragma mark Memory management
+
+//
+//
+- (void)viewDidUnload {	
+	NSLog(@"unload called on user container");
+}
+
 
 // The usual memory warning
 //
 - (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];   
+	if(self.navigationController.tabBarController.selectedViewController != self.navigationController)
+		[super didReceiveMemoryWarning];   
 }
 
 
 // The usual memory cleanup
-//
+// 
 - (void)dealloc {
-    [super dealloc];
+	[userViewController release];
+    
+	[super dealloc];
 }
-
 
 @end

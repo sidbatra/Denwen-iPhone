@@ -22,7 +22,7 @@
 
 
 
-@interface DWAppDelegate : NSObject <UIApplicationDelegate, UINavigationBarDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate,DWItemFeedViewControllerDelegate> {
+@interface DWAppDelegate : NSObject <UIApplicationDelegate, UINavigationBarDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate> {
     UIWindow *window;
 	UIToolbar *signupToolbar;
 	

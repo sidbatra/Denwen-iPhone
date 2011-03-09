@@ -17,8 +17,8 @@
 #import "Constants.h"
 
 
-@interface DWUserContainerViewController : UINavigationController {
-	
+@interface DWUserContainerViewController : UIViewController <DWItemFeedViewControllerDelegate> {
+	DWUserViewController *userViewController;
 }
 
 @end
