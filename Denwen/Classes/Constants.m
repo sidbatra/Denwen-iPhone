@@ -219,6 +219,8 @@ NSString * const SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME = @"nearby_off.png";
 int const INITIAL_PAGE_FOR_REQUESTS = 0;
 
 
+NSString * const DENWEN_URL_PREFIX = @"denwen://p/";
+NSString * const FACEBOOK_URL_PREFIX = @"fb";
 
 
 #ifdef PRODUCTION

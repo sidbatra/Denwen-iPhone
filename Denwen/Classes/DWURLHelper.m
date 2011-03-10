@@ -8,6 +8,8 @@
 
 #import "DWURLHelper.h"
 
+NSURL *launchURL = nil;
+
 
 @implementation DWURLHelper
 

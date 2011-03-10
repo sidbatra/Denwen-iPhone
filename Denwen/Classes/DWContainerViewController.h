@@ -16,6 +16,8 @@
 #import "DWImageViewController.h"
 #import "DWWebViewController.h"
 
+#import "DWURLHelper.h"
+
 @interface DWContainerViewController : UIViewController <DWItemFeedViewControllerDelegate,DWPlaceListViewControllerDelegate> {
 	
 }

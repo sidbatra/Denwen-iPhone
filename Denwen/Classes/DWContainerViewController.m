@@ -10,7 +10,8 @@
 
 
 @interface DWContainerViewController() 
--(void)displaySelectedPlace:(NSString*)placeHashedID;
+- (void)displaySelectedPlace:(NSString*)placeHashedID;
+- (void)processLaunchURL:(NSString*)url;
 @end
 
 
@@ -41,6 +42,15 @@
 }
 
 
+// Test if a launchURL exists on viewDidLoad logic
+//
+- (void)viewDidLoad {
+	if(launchURL) {
+		[self processLaunchURL:[launchURL absoluteString]];
+		launchURL = nil;
+	}
+}
+
 
 // Tests if its the currently selected tab
 //
@@ -58,6 +68,14 @@
 }
 
 
+// Dispatch logic when a URL is opened by the application
+//
+- (void)processLaunchURL:(NSString*)url {
+	if([url hasPrefix:DENWEN_URL_PREFIX])
+		[self displaySelectedPlace:[url substringFromIndex:[DENWEN_URL_PREFIX length]]];
+}
+
+
 
 #pragma mark -
 #pragma mark Notification handlers
@@ -68,9 +86,7 @@
 - (void)denwenURLOpened:(NSNotification*)notification {
 	if([self isSelectedTab]) {
 		NSString *url = (NSString*)[notification object];
-		NSLog(@"URL IS %@ -- %@",url,[url substringFromIndex:11]);
-		
-		[self displaySelectedPlace:[url substringFromIndex:11]];
+		[self processLaunchURL:url];
 	}
 }
 

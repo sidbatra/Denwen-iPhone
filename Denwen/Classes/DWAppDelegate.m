@@ -52,6 +52,8 @@
 												 name:N_FOLLOWED_ITEMS_READ
 											   object:nil];
 	
+	launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
+	
 
     return YES;
 }
@@ -108,11 +110,11 @@
 //
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
 
-	if([[url absoluteString] hasPrefix:@"fb"]) {
+	if([[url absoluteString] hasPrefix:FACEBOOK_URL_PREFIX]) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_FACEBOOK_URL_OPENED 
 															object:url];	
 	}
-	else if([[url absoluteString] hasPrefix:@"denwen"]) {
+	else {
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_DENWEN_URL_OPENED 
 															object:[url absoluteString]];	
 	}

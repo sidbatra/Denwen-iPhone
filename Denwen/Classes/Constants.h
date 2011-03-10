@@ -166,6 +166,9 @@ extern NSString * const SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME;
 
 extern int const INITIAL_PAGE_FOR_REQUESTS;
 
+extern NSString * const DENWEN_URL_PREFIX;
+extern NSString * const FACEBOOK_URL_PREFIX;
+
 extern NSString * const NEARBY_ITEMS_URI;
 extern NSString * const FOLLOWED_ITEMS_URI;
 extern NSString * const POPULAR_ITEMS_URI;
