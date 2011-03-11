@@ -5,10 +5,8 @@ drao
 
 
 sbat
--url scheme for denwen.com and sbat.denwen.com
 -add login details to all requests
 -track sharing requests
--fix default images for user and place
 
 -----
 -remove unused fields from JSON

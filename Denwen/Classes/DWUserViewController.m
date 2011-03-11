@@ -190,11 +190,23 @@
 	[super loadItems];
 	
 
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&ff=mobile",
-						   USER_SHOW_URI,
-						   _userID,
-						   _currentPage
-						   ];
+	NSString *urlString = nil;
+	
+	if([DWSessionManager isSessionActive])
+		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&email=%@&password=%@&ff=mobile",
+							   USER_SHOW_URI,
+							   _userID,
+							   _currentPage,
+							   currentUser.email,
+							   currentUser.encryptedPassword
+							   ];
+	else
+		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&ff=mobile",
+							   USER_SHOW_URI,
+							   _userID,
+							   _currentPage
+							   ];
+	
 	[_requestManager sendGetRequest:urlString];
 	[urlString release];
 	

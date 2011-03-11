@@ -80,11 +80,24 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile",
+
+	NSString *urlString = nil;
+	
+	if([DWSessionManager isSessionActive])
+		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile&email=%@&password=%@",
 						   NEARBY_PLACES_URI,
 						   currentUserLocation.coordinate.latitude,
-						   currentUserLocation.coordinate.longitude
-						   ];
+						   currentUserLocation.coordinate.longitude,
+						   currentUser.email,
+						   currentUser.encryptedPassword							
+					   ];
+	else
+		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile",
+						 NEARBY_PLACES_URI,
+						 currentUserLocation.coordinate.latitude,
+						 currentUserLocation.coordinate.longitude
+					 ];
+	
 	[_requestManager sendGetRequest:urlString];
 	[urlString release];
 }
