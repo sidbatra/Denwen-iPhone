@@ -16,5 +16,4 @@ sbat
 -auto refresh views if selected after a long time
 
 common
--unit testing 
 -app freezes on coming from background
