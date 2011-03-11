@@ -79,10 +79,22 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?page=%d&ff=mobile",
-						   POPULAR_PLACES_URI,
-						   _currentPage
-						   ];
+	
+	NSString *urlString = nil;
+	
+	if([DWSessionManager isSessionActive])
+		urlString = [[NSString alloc] initWithFormat:@"%@?page=%d&ff=mobile&email=%@&password=%@",
+					   POPULAR_PLACES_URI,
+					   _currentPage,
+					   currentUser.email,
+					   currentUser.encryptedPassword							
+					   ];
+	else
+		urlString = [[NSString alloc] initWithFormat:@"%@?page=%d&ff=mobile",
+					 POPULAR_PLACES_URI,
+					 _currentPage
+					 ];
+	
 	[_requestManager sendGetRequest:urlString];
 	[urlString release];
 }
@@ -91,10 +103,22 @@
 // Send a request to search places based on the given query
 //
 - (void)searchPlaces:(NSString*)query {
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?q=%@&ff=mobile",
-						   SEARCH_PLACES_URI,
-						   [DWURLHelper encodeString:query]
-						   ];
+	
+	NSString *urlString = nil;
+	
+	if([DWSessionManager isSessionActive])
+		urlString = [[NSString alloc] initWithFormat:@"%@?q=%@&ff=mobile&email=%@&password=%@",
+					   SEARCH_PLACES_URI,
+					   [DWURLHelper encodeString:query],
+					   currentUser.email,
+					   currentUser.encryptedPassword							
+					   ];
+	else
+		urlString = [[NSString alloc] initWithFormat:@"%@?q=%@&ff=mobile",
+					 SEARCH_PLACES_URI,
+					 [DWURLHelper encodeString:query]
+					 ];
+	
 	[_searchRequestManager sendGetRequest:urlString];
 	[urlString release];
 }

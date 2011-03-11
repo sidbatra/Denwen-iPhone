@@ -5,13 +5,11 @@ drao
 
 
 sbat
--add login details to all requests
--track sharing requests
 
 -----
+-analytics
 -remove unused fields from JSON
 -handle text basd alert when app is open
--cleaner way of inserting new followed items on top
 -forgot password 
 -optimize json being sent especially for user and place show. 
 -auto start apnd daemon on processing server -- handle restarts
