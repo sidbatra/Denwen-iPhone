@@ -20,9 +20,7 @@
 @interface DWSelectPlaceViewController : DWPlaceListViewController {
 	IBOutlet UITableView *tableView;
 	
-	DWRequestManager *_nearbyRequestManager;
 	DWRequestManager *_followedRequestManager;
-	DWRequestManager *_popularRequestManager;
 	
 	id<DWSelectPlaceViewControllerDelegate> _selectPlaceDelegate;
 }

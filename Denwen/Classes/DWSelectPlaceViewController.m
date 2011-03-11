@@ -31,7 +31,7 @@
 //
 - (id)initWithDelegate:(id)delegate {
 	
-	self = [super initWithNibName:@"DWPlaceListViewController" bundle:nil searchType:YES withCapacity:3 andDelegate:delegate];
+	self = [super initWithNibName:@"DWPlaceListViewController" bundle:nil searchType:YES withCapacity:1 andDelegate:delegate];
 	
 	if(self) {
 		_selectPlaceDelegate = delegate;
@@ -47,12 +47,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	_nearbyRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:0];
-	_followedRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:1];
-	_popularRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:2];
+	_followedRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:0];
 
 	self.title = @"Places";
-	self.searchDisplayController.searchBar.placeholder = @"Search Nearby, Followed or Popular Places";
+	self.searchDisplayController.searchBar.placeholder = @"Search Your Places";
 	self.navigationItem.prompt = @"Choose a place to post at";
 	
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
@@ -89,30 +87,15 @@
 //
 - (void)loadPlaces {
 	[super loadPlaces];
+
 	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile",
-				 NEARBY_PLACES_URI,
-				 currentUserLocation.coordinate.latitude,
-				 currentUserLocation.coordinate.longitude
-				 ];
-	
-	[_nearbyRequestManager sendGetRequest:urlString];
-	[urlString release];
-	
-	
-	urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&ff=mobile",
+	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&ff=mobile",
 						   FOLLOWED_PLACES_URI,
 						   currentUser.email,
 						   currentUser.encryptedPassword
 						   ];
 	[_followedRequestManager sendGetRequest:urlString];
 	[urlString release];
-	
-	
-	urlString = [[NSString alloc] initWithFormat:@"%@?ff=mobile",
-						   POPULAR_PLACES_URI];
-	[_popularRequestManager sendGetRequest:urlString];
-	[urlString release];	
 }
 
 
@@ -130,14 +113,12 @@
 		NSArray *places = [body objectForKey:PLACES_JSON_KEY];
 		[_placeManager populatePlaces:places atIndex:instanceID];
 				
-		if(_placeManager.rowsFilled==3) {
-			_isLoadedOnce = YES;
-			_tableViewUsage = TABLE_VIEW_AS_DATA;
-			
-			[self markEndOfPagination];
-			[self.tableView reloadData];
-			[self finishedLoadingPlaces];
-		}
+		_isLoadedOnce = YES;
+		_tableViewUsage = TABLE_VIEW_AS_DATA;
+		
+		[self markEndOfPagination];
+		[self.tableView reloadData];
+		[self finishedLoadingPlaces];
 	}
 	else {
 			
@@ -156,14 +137,6 @@
 
 #pragma mark -
 #pragma mark Table view data source
-
-
-// Override the number of sections
-//
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.searchDisplayController.isActive ? 1 : 3;
-}
-
 
 
 // Override the number of rows in section method to display message cells when there are no nearby or followed
@@ -186,16 +159,8 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	NSString *title = @"";
 	
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA) {
-		if(!self.searchDisplayController.isActive) {
-			if(section==0)
-				title = NEARBY_TITLE;
-			else if(section==1)
-				title = FOLLOWED_TITLE;
-			else if(section==2)
-				title = POPULAR_TITLE;
-		}
-	}
+	if(_tableViewUsage == TABLE_VIEW_AS_DATA && !self.searchDisplayController.isActive)
+		title = FOLLOWED_TITLE;
 	
 	return title;
 }
@@ -214,12 +179,7 @@
 	   
 	   cell.selectionStyle = UITableViewCellSelectionStyleNone;	
 		
-		if(indexPath.section==0)
-			cell.textLabel.text = NO_PLACES_NEARBY_MSG;
-		else if(indexPath.section==1)
-			cell.textLabel.text = FOLLOW_NO_PLACES_SELF_MSG;
-		else
-			cell.textLabel.text = [NSString stringWithString:@""];
+	   cell.textLabel.text = FOLLOW_NO_PLACES_SELF_MSG;
 	   
 	   return cell;
 	}
@@ -268,9 +228,7 @@
 //
 - (void)dealloc {
 	
-	[_nearbyRequestManager release];
 	[_followedRequestManager release];
-	[_popularRequestManager release];
 	
 	_selectPlaceDelegate = nil;
 	
