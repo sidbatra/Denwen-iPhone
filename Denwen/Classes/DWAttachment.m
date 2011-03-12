@@ -46,7 +46,7 @@
 	_isProcessed = [[attachment objectForKey:@"is_processed"] boolValue];
 	
 	self.fileUrl = [attachment objectForKey:@"actual_url"];
-	self.previewUrl = [attachment objectForKey:@"medium_url"];
+	self.previewUrl = [attachment objectForKey:@"large_url"];
 }
 
 
