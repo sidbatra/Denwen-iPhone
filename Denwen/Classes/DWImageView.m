@@ -25,7 +25,7 @@
 	CGRect frameToCenter = imageView.frame;
 	CGSize screenSize = [DWGUIManager currentScreenSize];
 	float screenWidth = screenSize.width;
-	float screenHeight = screenSize.height - 50;
+	float screenHeight = screenSize.height;// - 50;
 	
 	// center horizontally
 	if (frameToCenter.size.width < screenWidth)

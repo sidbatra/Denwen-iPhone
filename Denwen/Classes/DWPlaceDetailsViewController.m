@@ -55,7 +55,7 @@
 //
 - (void)viewWillAppear:(BOOL)animated {
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 }
 
 
