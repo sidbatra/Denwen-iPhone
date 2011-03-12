@@ -59,6 +59,7 @@
 	
 	self.name = [place objectForKey:@"name"];
 	self.hashedId = [place objectForKey:@"hashed_id"];
+	_followersCount = [[place objectForKey:@"followings_count"] integerValue];
 	
 	CLLocation *tempLocation = [[CLLocation alloc] initWithLatitude:[[place objectForKey:@"latitude"] floatValue] 
 							   longitude:[[place objectForKey:@"longitude"] floatValue]];
@@ -264,6 +265,24 @@
 	
 	return result;
 }
+
+
+// Title text used on place view pages
+//
+- (NSString*)titleText {
+	NSString *text = nil;
+	
+	if(_followersCount == 0)
+		text = [NSString stringWithFormat:@"%@",_name];
+	else if(_followersCount == 1)
+		text = [NSString stringWithFormat:@"%d is following",_followersCount];
+	else
+		text = [NSString stringWithFormat:@"%d are following",_followersCount];
+	
+	return text;
+}
+
+
 
 #pragma mark -
 #pragma mark DWURLConnectionDelegate

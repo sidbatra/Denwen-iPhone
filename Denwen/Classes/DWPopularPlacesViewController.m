@@ -104,6 +104,9 @@
 //
 - (void)searchPlaces:(NSString*)query {
 	
+	if(query.length < 1)
+		return;
+	
 	NSString *urlString = nil;
 	
 	if([DWSessionManager isSessionActive])

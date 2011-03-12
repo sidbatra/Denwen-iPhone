@@ -316,7 +316,7 @@
 			if(![followJSON isKindOfClass:[NSNull class]] && [followJSON count])
 				[self createFollowing:followJSON];
 
-			self.title = _place.name;
+			self.title = [_place titleText];
 			
 			
 			_tableViewUsage = TABLE_VIEW_AS_DATA;			
