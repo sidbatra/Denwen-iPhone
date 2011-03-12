@@ -32,6 +32,15 @@
 												 name:N_NEW_PLACE_CREATED 
 											   object:nil];
 		
+		if (&UIApplicationWillEnterForegroundNotification != NULL) {
+			[[NSNotificationCenter defaultCenter] addObserver:self 
+													 selector:@selector(applicationEnteringForeground:) 
+														 name:UIApplicationWillEnterForegroundNotification
+													   object:nil];
+		}
+		
+		
+		
 	}
 	return self;
 }
@@ -68,6 +77,13 @@
 		[self addNewPlace:place];
 }
 
+
+// Fired when the app is about to enter the foreground
+//
+- (void)applicationEnteringForeground:(NSNotification*)notification {
+	if(_isLoadedOnce)
+		[self hardRefresh];
+}
 
 
 
@@ -124,6 +140,8 @@
 			self.messageCellText = NO_PLACES_NEARBY_MSG;
 			_tableViewUsage = TABLE_VIEW_AS_MESSAGE;
 		}
+		
+		_isLoadedOnce = YES;
 
 		[self markEndOfPagination];
 		[self.tableView reloadData];
