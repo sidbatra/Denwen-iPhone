@@ -131,7 +131,7 @@
 	[followButton setBackgroundImage:[UIImage imageNamed:FOLLOW_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME] forState:UIControlStateHighlighted];
 	
 	// rounded corners and border customization
-	[[followButton layer] setCornerRadius:5.0f];
+	[[followButton layer] setCornerRadius:2.5f];
 	[[followButton layer] setMasksToBounds:YES];
 	
 	followButton.tag = _rowInTable;
@@ -163,7 +163,7 @@
 	[unfollowButton setBackgroundImage:[UIImage imageNamed:FOLLOWING_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME] forState:UIControlStateHighlighted];
 	
 	// rounded corners and border customization
-	[[unfollowButton layer] setCornerRadius:5.0f];
+	[[unfollowButton layer] setCornerRadius:2.5f];
 	[[unfollowButton layer] setMasksToBounds:YES];
 	
 	unfollowButton.tag = _rowInTable;
@@ -196,7 +196,7 @@
 	[shareButton setBackgroundImage:[UIImage imageNamed:SHARE_PLACE_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME] forState:UIControlStateHighlighted];
 	
 	// rounded corners and border customization
-	[[shareButton layer] setCornerRadius:5.0f];
+	[[shareButton layer] setCornerRadius:2.5f];
 	[[shareButton layer] setMasksToBounds:YES];
 	
 	shareButton.tag = _rowInTable;

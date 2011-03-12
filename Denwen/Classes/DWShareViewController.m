@@ -71,7 +71,7 @@
 	
 	//rounded corners and border customization
 	[[sharingOptionsContainerView layer] setCornerRadius:5.0f];
-	[[sharingOptionsContainerView layer] setBorderWidth:1.0f];
+	[[sharingOptionsContainerView layer] setBorderWidth:0.0f];
 	[[sharingOptionsContainerView layer] setMasksToBounds:YES];
 	[[sharingOptionsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
 	

@@ -86,6 +86,8 @@
 - (void) createPlaceImage {
 	CGRect rect = CGRectMake(7, 10, 48, 48); 
 	placeImage = [[UIButton alloc] initWithFrame:rect];
+	//placeImage.layer.cornerRadius = 1.0;
+	//placeImage.layer.masksToBounds = YES;
 	
 	[placeImage addTarget:_eventTarget action:@selector(didTapPlaceImage:event:) 
 		 forControlEvents:UIControlEventTouchUpInside];
@@ -113,6 +115,8 @@
 //
 - (void) createAttachmentImage {
 	attachmentImage = [[UIButton alloc] init];
+	attachmentImage.layer.cornerRadius = 2.5;
+	attachmentImage.layer.masksToBounds = YES;
 	
 	[attachmentImage addTarget:_eventTarget action:@selector(didTapAttachmentImage:event:) 
 			  forControlEvents:UIControlEventTouchUpInside];
