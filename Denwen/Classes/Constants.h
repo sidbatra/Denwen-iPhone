@@ -91,6 +91,7 @@ extern NSString * const SHARE_PLACE_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME;
 extern NSString * const ARROW_BUTTON_IMAGE_NAME;
 extern NSString * const MODALVIEW_BACKGROUND_IMAGE;
 
+extern int const STATUS_BAR_STYLE;
 extern int const FEED_TABLE_HEIGHT;
 extern int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH;
 extern int const MAX_DYNAMIC_CELL_HEIGHT;

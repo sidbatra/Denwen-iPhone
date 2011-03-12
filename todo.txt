@@ -5,6 +5,11 @@ drao
 
 
 sbat
+-nearby refresh when coming out of background
+-cache followed places of user for faster posting
+-video
+-research pull to refresh
+-full full screen image and web views
 
 -----
 -analytics

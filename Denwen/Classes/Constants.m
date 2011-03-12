@@ -136,6 +136,8 @@ NSString * const NEW_POST_TEXTVIEW_PLACEHOLDER_TEXT = @"What's going on here?";
 
 /* App UI Attributes */
 
+int const STATUS_BAR_STYLE = UIStatusBarStyleBlackOpaque;
+
 // Feed table and cell related
 int const FEED_TABLE_HEIGHT = 416;
 int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH = 304;
