@@ -100,7 +100,7 @@
 		//_arrowImage=layer;
 		
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		view.frame = CGRectMake(25.0f, frame.size.height - 38.0f, 20.0f, 20.0f);
+		view.frame = CGRectMake(frame.size.width / 2 - 20.0f, frame.size.height - 38.0f, 20.0f, 20.0f);
 		[self addSubview:view];
 		_activityView = view;
 		[view release];
@@ -175,6 +175,7 @@
 				//[CATransaction commit];
 			}
 			
+			_statusLabel.hidden = NO;
 			_statusLabel.text = NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
 			[_activityView stopAnimating];
 			//[CATransaction begin];
@@ -188,7 +189,8 @@
 			break;
 		case EGOOPullRefreshLoading:
 			
-			_statusLabel.text = NSLocalizedString(@"Loading...", @"Loading Status");
+			//_statusLabel.text = NSLocalizedString(@"Loading...", @"Loading Status");
+			_statusLabel.hidden = YES;
 			[_activityView startAnimating];
 			//[CATransaction begin];
 			//[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
