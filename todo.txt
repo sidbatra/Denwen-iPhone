@@ -5,7 +5,6 @@ drao
 
 sbat
 -video rotation leads to rotated thumbnails
--research pull to refresh
 
 -----
 -analytics

@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 	
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 
@@ -165,15 +165,15 @@ int const PAGINATION_CELL_HEIGHT = 60;
 
 
 // Image sizes
-int const SIZE_PLACE_SMALL_IMAGE = 48;
-int const SIZE_PLACE_MEDIUM_IMAGE = 75;
+int const SIZE_PLACE_SMALL_IMAGE = 75;
+int const SIZE_PLACE_MEDIUM_IMAGE = 100;
 int const SIZE_PLACE_LARGE_IMAGE = 320;
-int const SIZE_PLACE_PRE_UPLOAD_IMAGE = 50;
-int const SIZE_USER_SMALL_IMAGE = 20;
-int const SIZE_USER_MEDIUM_IMAGE = 75;
-int const SIZE_USER_PRE_UPLOAD_IMAGE = 50;
-int const SIZE_ATTACHMENT_IMAGE = 100;
-int const SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE = 50;
+int const SIZE_PLACE_PRE_UPLOAD_IMAGE = 75;
+int const SIZE_USER_SMALL_IMAGE = 30;
+int const SIZE_USER_MEDIUM_IMAGE = 100;
+int const SIZE_USER_PRE_UPLOAD_IMAGE = 75;
+int const SIZE_ATTACHMENT_IMAGE = 250;
+int const SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE = 75;
 
 
 NSString * const DEFAULT_CELL_IDENTIFIER = @"Cell";
@@ -360,7 +360,7 @@ NSString * const FIRST_TAKE_PHOTO_MSG = @"Take Photo";
 NSString * const FIRST_CHOOSE_PHOTO_MSG = @"Choose Existing";
 NSString * const BETTER_TAKE_PHOTO_MSG = @"Take Better Photo";
 NSString * const BETTER_CHOOSE_PHOTO_MSG = @"Choose Better Photo";
-NSString * const TAKE_MEDIA_MSG = @"Use Camera";
+NSString * const TAKE_MEDIA_MSG = @"Take Photo or Video";
 NSString * const CHOOSE_MEDIA_MSG = @"Choose Existing";
 NSString * const CANCEL_PHOTO_MSG = @"Cancel";
 NSString * const CANCEL_MEDIA_MSG = @"Cancel";
