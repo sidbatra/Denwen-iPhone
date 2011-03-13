@@ -429,6 +429,7 @@
 		
 		DWPlaceCell *cell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
 		cell.placeBackgroundImage.image = placeWithImage.largePreviewImage;
+		[self.refreshHeaderView applyBackgroundImage:placeWithImage.largePreviewImage];
 	}	
 }
 

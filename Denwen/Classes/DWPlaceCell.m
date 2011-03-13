@@ -98,6 +98,7 @@
 	CGRect rect = CGRectMake(7, 7, 75, 75); 
 	placeImage = [[UIButton alloc] initWithFrame:rect];
 	placeImage.tag = _rowInTable;
+	placeImage.hidden = YES;
 	
 	[placeImage addTarget:_eventTarget action:@selector(didTapPlaceMediumImage:event:) 
 		 forControlEvents:UIControlEventTouchUpInside];
@@ -115,7 +116,7 @@
 	changePlaceImage.image = [UIImage imageNamed:CHANGE_PIC_IMAGE_NAME];
 	changePlaceImage.hidden = YES;
 	
-	[self.contentView addSubview:changePlaceImage];	
+	//[self.contentView addSubview:changePlaceImage];	
 	[changePlaceImage release];
 }
 

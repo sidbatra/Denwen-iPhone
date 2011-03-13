@@ -42,9 +42,24 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+		self.clipsToBounds = YES; //Clip the background image view
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		self.backgroundColor = [UIColor colorWithRed:200.0/255.0 green:205.0/255.0 blue:208.0/255.0 alpha:1.0];
+		
+		
+		_backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,frame.size.height-67,frame.size.width,300)];
+		_backgroundImageView.contentMode = UIViewContentModeScaleToFill;
+		_backgroundImageView.clipsToBounds = YES;
+		[self addSubview:_backgroundImageView];
+		[_backgroundImageView release];
+		
+		_transparentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height)];
+		_transparentImageView.hidden = YES;
+		_transparentImageView.contentMode = UIViewContentModeScaleToFill;
+		_transparentImageView.image = [UIImage imageNamed:TRANSPARENT_PLACEHOLDER_IMAGE_NAME];
+		[self addSubview:_transparentImageView];
+		[_transparentImageView release];
 
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 30.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -70,19 +85,19 @@
 		_statusLabel=label;
 		[label release];
 		
-		CALayer *layer = [CALayer layer];
-		layer.frame = CGRectMake(25.0f, frame.size.height - 65.0f, 30.0f, 55.0f);
-		layer.contentsGravity = kCAGravityResizeAspect;
-		layer.contents = (id)[UIImage imageNamed:@"grayArrow.png"].CGImage;
+		//CALayer *layer = [CALayer layer];
+		//layer.frame = CGRectMake(25.0f, frame.size.height - 65.0f, 30.0f, 55.0f);
+		//layer.contentsGravity = kCAGravityResizeAspect;
+		//layer.contents = (id)[UIImage imageNamed:@"grayArrow.png"].CGImage;
 		
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
 		if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-			layer.contentsScale = [[UIScreen mainScreen] scale];
+			//layer.contentsScale = [[UIScreen mainScreen] scale];
 		}
 #endif
 		
-		[[self layer] addSublayer:layer];
-		_arrowImage=layer;
+		//[[self layer] addSublayer:layer];
+		//_arrowImage=layer;
 		
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 		view.frame = CGRectMake(25.0f, frame.size.height - 38.0f, 20.0f, 20.0f);
@@ -103,20 +118,33 @@
 #pragma mark -
 #pragma mark Setters
 
+// Apply a background image to the refresh view
+//
+- (void)applyBackgroundImage:(UIImage*)image {
+	_backgroundImageView.image = image;
+	_transparentImageView.hidden = NO;
+	self.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+	_statusLabel.textColor = [UIColor whiteColor];
+	_statusLabel.shadowColor = [UIColor blackColor];
+	_statusLabel.shadowOffset = CGSizeMake(0.0f, -0.5f);
+	_activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+}
+
+
 - (void)refreshLastUpdatedDate {
 	
 	if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceLastUpdated:)]) {
 		
-		NSDate *date = [_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
+		//NSDate *date = [_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
 		
-		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-		[formatter setAMSymbol:@"AM"];
-		[formatter setPMSymbol:@"PM"];
-		[formatter setDateFormat:@"MM/dd/yyyy hh:mm:a"];
-		_lastUpdatedLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [formatter stringFromDate:date]];
-		[[NSUserDefaults standardUserDefaults] setObject:_lastUpdatedLabel.text forKey:@"EGORefreshTableView_LastRefresh"];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-		[formatter release];
+		//NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+		//[formatter setAMSymbol:@"AM"];
+		//[formatter setPMSymbol:@"PM"];
+		//[formatter setDateFormat:@"MM/dd/yyyy hh:mm:a"];
+		//_lastUpdatedLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [formatter stringFromDate:date]];
+		//[[NSUserDefaults standardUserDefaults] setObject:_lastUpdatedLabel.text forKey:@"EGORefreshTableView_LastRefresh"];
+		//[[NSUserDefaults standardUserDefaults] synchronize];
+		//[formatter release];
 		
 	} else {
 		
@@ -134,7 +162,7 @@
 			_statusLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
-			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
+			//_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
 			[CATransaction commit];
 			
 			break;
@@ -143,7 +171,7 @@
 			if (_state == EGOOPullRefreshPulling) {
 				[CATransaction begin];
 				[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
-				_arrowImage.transform = CATransform3DIdentity;
+				//_arrowImage.transform = CATransform3DIdentity;
 				[CATransaction commit];
 			}
 			
@@ -151,8 +179,8 @@
 			[_activityView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
-			_arrowImage.hidden = NO;
-			_arrowImage.transform = CATransform3DIdentity;
+			//_arrowImage.hidden = NO;
+			//_arrowImage.transform = CATransform3DIdentity;
 			[CATransaction commit];
 			
 			[self refreshLastUpdatedDate];
@@ -164,7 +192,7 @@
 			[_activityView startAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
-			_arrowImage.hidden = YES;
+			//_arrowImage.hidden = YES;
 			[CATransaction commit];
 			
 			break;
@@ -251,7 +279,7 @@
 	_delegate=nil;
 	_activityView = nil;
 	_statusLabel = nil;
-	_arrowImage = nil;
+	//_arrowImage = nil;
 	_lastUpdatedLabel = nil;
     [super dealloc];
 }
