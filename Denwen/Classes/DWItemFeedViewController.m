@@ -367,6 +367,7 @@
 		
 		//update the class members
 		[cell updateClassMemberHasAttachment:[item hasAttachment] andItemID:item.databaseID];
+		
 
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		[cell.placeName setTitle:[NSString stringWithFormat:@"at %@", item.place.name] forState:UIControlStateNormal];
@@ -386,6 +387,7 @@
 			else
 				[cell.attachmentImage setBackgroundImage:[UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME] forState:UIControlStateNormal];	
 		}
+		
 		if (item.place.smallPreviewImage)
 			[cell setSmallPreviewPlaceImage:item.place.smallPreviewImage];
 		else
@@ -543,7 +545,7 @@
 //
 - (void)didTapAttachmentImage:(id)sender event:(id)event {
 	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag atRow:ITEMS_INDEX];
-	[_delegate attachmentSelected:item.attachment.fileUrl];
+	[_delegate attachmentSelected:item.attachment.fileUrl withIsImageType:[item.attachment isImage]];
 }
 
 

@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 	
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 
@@ -134,6 +134,10 @@ NSString * const MODALVIEW_BACKGROUND_IMAGE = @"modalview_bg.png";
 
 NSString * const NEW_POST_TEXTVIEW_PLACEHOLDER_TEXT = @"What's going on here?";
 
+/* Video attributes */
+NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME = @"place_placeholder.png";
+int const VIDEO_MAX_DURATION = 45;
+
 /* App UI Attributes */
 
 int const STATUS_BAR_STYLE = UIStatusBarStyleBlackOpaque;
@@ -153,6 +157,7 @@ int const FOLLOW_USER_CELL_HEIGHT = 90;
 int const LOADING_CELL_HEIGHT = 74;
 int const LOADING_CELL_COUNT = 5;
 int const SPINNER_HEIGHT = 20;
+int const VIDEO_VIEW_SPINNER_SIDE = 25;
 int const SPINNER_CELL_INDEX = 2;
 int const MESSAGE_CELL_INDEX = 2;
 int const PAGINATION_CELL_HEIGHT = 60;
@@ -354,7 +359,10 @@ NSString * const FIRST_TAKE_PHOTO_MSG = @"Take Photo";
 NSString * const FIRST_CHOOSE_PHOTO_MSG = @"Choose Existing";
 NSString * const BETTER_TAKE_PHOTO_MSG = @"Take Better Photo";
 NSString * const BETTER_CHOOSE_PHOTO_MSG = @"Choose Better Photo";
+NSString * const TAKE_MEDIA_MSG = @"Use Camera";
+NSString * const CHOOSE_MEDIA_MSG = @"Choose Existing";
 NSString * const CANCEL_PHOTO_MSG = @"Cancel";
+NSString * const CANCEL_MEDIA_MSG = @"Cancel";
 
 //Integers signifying different use cases of table views
 NSInteger const TABLE_VIEW_AS_DATA = 0;

@@ -1,17 +1,16 @@
 drao
--video view for attachment
 
 ------ 
 
 
 sbat
--cache followed places of user for faster posting
--video
+-video rotation leads to rotated thumbnails
 -research pull to refresh
--image view can occupy the area behind the status bar
 
 -----
 -analytics
+-image view can occupy the area behind the status bar
+-posted item doesn't block UI
 -remove unused fields from JSON
 -handle text basd alert when app is open
 -forgot password 

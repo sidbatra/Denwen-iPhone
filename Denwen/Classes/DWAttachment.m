@@ -54,14 +54,23 @@
 //
 - (void)startPreviewDownload {
 	if(!_isDownloading && !self.previewImage) {
-		 _isDownloading = YES;
 		
-		DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self];
-		self.connection = tempConnection;
-		[tempConnection release];
-		
-		[self.connection fetchData:self.previewUrl withKey:[self uniquePreviewKey] withCache:YES];
+		if(_isProcessed || [self isImage]) {
+			 _isDownloading = YES;
+			
+			DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self];
+			self.connection = tempConnection;
+			[tempConnection release];
+			
+			[self.connection fetchData:self.previewUrl withKey:[self uniquePreviewKey] withCache:YES];
+		}
+		else {
+			self.previewImage = [UIImage imageNamed:VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME];
+			[[NSNotificationCenter defaultCenter] postNotificationName:N_ATTACHMENT_PREVIEW_DONE object:self];	
+		}
+
 	}
+
 }
 
 
@@ -133,12 +142,19 @@
 }
 
 
-// Returns whether the upload needs a text preview
-//
-- (BOOL)hasVideoPreview {
+// Tests if the attachment is a video
+//																  
+- (BOOL)isVideo {
 	return _fileType == VIDEO;
 }
-
+						
+																  
+// Tests if the attachment is an image
+//																  
+- (BOOL)isImage {
+  return _fileType == IMAGE;
+}
+												
 
 
 #pragma mark -

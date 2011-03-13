@@ -178,6 +178,8 @@
 		BB40522012F23A9500916688 /* DWNearbyItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB40521E12F23A9500916688 /* DWNearbyItemsViewController.xib */; };
 		BB40522C12F23BB900916688 /* DWFollowedItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */; };
 		BB40522D12F23BB900916688 /* DWFollowedItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB40522B12F23BB800916688 /* DWFollowedItemsViewController.xib */; };
+		BB537BD5132C55E50018B942 /* DWVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB537BD4132C55E50018B942 /* DWVideoViewController.m */; };
+		BB537BDA132C560E0018B942 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB537BD9132C560E0018B942 /* MediaPlayer.framework */; };
 		BB67B77E130A538900378578 /* create_place_user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77A130A538900378578 /* create_place_user_profile.png */; };
 		BB67B77F130A538900378578 /* create_place_user_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77B130A538900378578 /* create_place_user_profile@2x.png */; };
 		BB67B780130A538900378578 /* create_post_user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77C130A538900378578 /* create_post_user_profile.png */; };
@@ -495,6 +497,9 @@
 		BB40522912F23BB800916688 /* DWFollowedItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFollowedItemsViewController.h; path = Classes/DWFollowedItemsViewController.h; sourceTree = "<group>"; };
 		BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowedItemsViewController.m; path = Classes/DWFollowedItemsViewController.m; sourceTree = "<group>"; };
 		BB40522B12F23BB800916688 /* DWFollowedItemsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWFollowedItemsViewController.xib; path = Classes/DWFollowedItemsViewController.xib; sourceTree = "<group>"; };
+		BB537BD3132C55E50018B942 /* DWVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWVideoViewController.h; path = Classes/DWVideoViewController.h; sourceTree = "<group>"; };
+		BB537BD4132C55E50018B942 /* DWVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWVideoViewController.m; path = Classes/DWVideoViewController.m; sourceTree = "<group>"; };
+		BB537BD9132C560E0018B942 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB67B77A130A538900378578 /* create_place_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_place_user_profile.png; path = resources/create_place_user_profile.png; sourceTree = "<group>"; };
 		BB67B77B130A538900378578 /* create_place_user_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "create_place_user_profile@2x.png"; path = "resources/create_place_user_profile@2x.png"; sourceTree = "<group>"; };
 		BB67B77C130A538900378578 /* create_post_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_post_user_profile.png; path = resources/create_post_user_profile.png; sourceTree = "<group>"; };
@@ -635,6 +640,7 @@
 				26B977C412F16511000F8F1F /* libicucore.A.dylib in Frameworks */,
 				BB6EBAA31311CCCC009D2DAF /* libOAuth.a in Frameworks */,
 				BB6EBAF91311CDD6009D2DAF /* libxml2.dylib in Frameworks */,
+				BB537BDA132C560E0018B942 /* MediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,6 +792,8 @@
 				BB33138812F26A1B00B713F9 /* DWImageViewController.m */,
 				26CF62D312F3E92200505A37 /* DWWebViewController.h */,
 				26CF62D412F3E92200505A37 /* DWWebViewController.m */,
+				BB537BD3132C55E50018B942 /* DWVideoViewController.h */,
+				BB537BD4132C55E50018B942 /* DWVideoViewController.m */,
 				BB6EBB851311D8A9009D2DAF /* DWShareViewController.h */,
 				BB6EBB861311D8A9009D2DAF /* DWShareViewController.m */,
 			);
@@ -915,6 +923,7 @@
 				BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */,
 				26B977C312F16511000F8F1F /* libicucore.A.dylib */,
 				BB6EBAF81311CDD6009D2DAF /* libxml2.dylib */,
+				BB537BD9132C560E0018B942 /* MediaPlayer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1575,6 +1584,7 @@
 				BB40089413123696000BDE4D /* FBRequest.m in Sources */,
 				BBE3107613148C160069E1AA /* DWNotificationHelper.m in Sources */,
 				BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */,
+				BB537BD5132C55E50018B942 /* DWVideoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

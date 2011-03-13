@@ -42,7 +42,9 @@
 
 //Preview deciding functions
 - (BOOL)hasRemoteImagePreview;
-- (BOOL)hasVideoPreview;
+- (BOOL)isVideo;
+- (BOOL)isImage;
+
 
 //Memory management
 - (void)freeMemory;

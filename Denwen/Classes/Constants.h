@@ -91,6 +91,9 @@ extern NSString * const SHARE_PLACE_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME;
 extern NSString * const ARROW_BUTTON_IMAGE_NAME;
 extern NSString * const MODALVIEW_BACKGROUND_IMAGE;
 
+extern NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME;
+extern int const VIDEO_MAX_DURATION;
+
 extern int const STATUS_BAR_STYLE;
 extern int const FEED_TABLE_HEIGHT;
 extern int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH;
@@ -106,6 +109,7 @@ extern int const FOLLOW_USER_CELL_HEIGHT;
 extern int const LOADING_CELL_HEIGHT;
 extern int const LOADING_CELL_COUNT;
 extern int const SPINNER_HEIGHT;
+extern int const VIDEO_VIEW_SPINNER_SIDE;
 extern int const SPINNER_CELL_INDEX;
 extern int const MESSAGE_CELL_INDEX;
 extern int const PAGINATION_CELL_HEIGHT;
@@ -239,7 +243,10 @@ extern NSString * const FIRST_TAKE_PHOTO_MSG;
 extern NSString * const FIRST_CHOOSE_PHOTO_MSG;
 extern NSString * const BETTER_TAKE_PHOTO_MSG;
 extern NSString * const BETTER_CHOOSE_PHOTO_MSG;
+extern NSString * const TAKE_MEDIA_MSG;
+extern NSString * const CHOOSE_MEDIA_MSG;
 extern NSString * const CANCEL_PHOTO_MSG;
+extern NSString * const CANCEL_MEDIA_MSG;
 extern NSString * const EMPTY_POST_MSG;
 extern NSString * const EMPTY_PLACENAME_MSG;
 extern NSString * const EMPTY_LOGIN_FIELDS_MSG;

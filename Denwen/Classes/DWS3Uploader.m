@@ -11,7 +11,9 @@
 
 @interface DWS3Uploader() 
 - (void)cancel;
+- (void)uploadMedia:(NSData*)data toFolder:(NSString*)folder withContentType:(NSString*)contentType andSuffix:(NSString*)suffix;
 @end
+
 
 
 @implementation DWS3Uploader
@@ -32,10 +34,9 @@
 }
 
 
-// Upload the given image to the given S3 folder
+// Generic method to upload media to the S3 server
 //
-- (void)uploadImage:(UIImage*)image toFolder:(NSString*)folder {
-	
+- (void)uploadMedia:(NSData*)data toFolder:(NSString*)folder withContentType:(NSString*)contentType andSuffix:(NSString*)suffix {
 	[self cancel];
 	
 	NSTimeInterval timestamp = [[NSDate date] timeIntervalSince1970];
@@ -48,11 +49,11 @@
 	for(int i=0;i<20;i++)
 		[self.filename appendFormat:@"%d",arc4random() % 10];
 	
-	[self.filename appendString:@"_photo.jpg"];
+	[self.filename appendString:suffix];
+
 	
 	
 	NSURL *url = [[NSURL alloc] initWithString:S3_SERVER];
-	
 	
 	ASIFormDataRequest *tempRequest = [[ASIFormDataRequest alloc] initWithURL:url];
 	self.asiRequest = tempRequest;
@@ -60,18 +61,30 @@
 	[tempRequest release];
 	
 	self.asiRequest.delegate = self;
-
 	
 	[self.asiRequest setPostValue:S3_UPLOAD_POLICY forKey:@"policy"];
 	[self.asiRequest setPostValue:S3_UPLOAD_SIGNATURE forKey:@"signature"];
 	[self.asiRequest setPostValue:S3_ACCESS_ID forKey:@"AWSAccessKeyId"];
 	[self.asiRequest setPostValue:S3_ACL forKey:@"acl"];
 	[self.asiRequest setPostValue:[[[NSString alloc] initWithFormat:@"%@/${filename}",folder] autorelease] forKey:@"key"];
-
-	[self.asiRequest setData:UIImageJPEGRepresentation(image,JPEG_COMPRESSION) withFileName:self.filename andContentType:@"image/jpeg" forKey:@"file"];
 	
+	[self.asiRequest setData:data withFileName:self.filename andContentType:contentType forKey:@"file"];
+	
+	[self.asiRequest startAsynchronous];	
+}
 
-	[self.asiRequest startAsynchronous];
+
+// Upload the given image to the given S3 folder
+//
+- (void)uploadImage:(UIImage*)image toFolder:(NSString*)folder {
+	[self uploadMedia:UIImageJPEGRepresentation(image,JPEG_COMPRESSION) toFolder:folder withContentType:@"image/jpeg" andSuffix:@"_photo.jpg"];
+}
+
+
+// Upload the given video bytes to the given S3 folder
+//
+- (void)uploadVideo:(NSData*)videoData toFolder:(NSString*)folder {
+	[self uploadMedia:videoData toFolder:folder withContentType:@"video/quicktime" andSuffix:@"_video.mov"];
 }
 
 

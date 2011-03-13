@@ -114,11 +114,20 @@
 
 // Fired when an attachment is clicked on in an item cell within a child of the ItemFeedViewController
 //
-- (void)attachmentSelected:(NSString *)url {
-	DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:url];
-	imageView.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:imageView animated:YES];
-	[imageView release];
+- (void)attachmentSelected:(NSString*)url withIsImageType:(BOOL)isImage {
+	
+	if(isImage) {
+		DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:url];
+		imageView.hidesBottomBarWhenPushed = YES;
+		[self.navigationController pushViewController:imageView animated:YES];
+		[imageView release];
+	}
+	else {
+		DWVideoViewController *videoView = [[DWVideoViewController alloc] initWithMediaURL:url];
+		[self.navigationController presentModalViewController:videoView animated:YES];
+		[videoView release];
+	}
+
 }
 
 

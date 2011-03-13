@@ -15,6 +15,7 @@
 #import "DWPlaceViewController.h"
 #import "DWImageViewController.h"
 #import "DWWebViewController.h"
+#import "DWVideoViewController.h"
 
 #import "DWURLHelper.h"
 
