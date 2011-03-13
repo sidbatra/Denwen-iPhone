@@ -17,6 +17,7 @@
 - (void) createUserImage;
 - (void) createTimeLabel;
 - (void) createAttachmentImage;
+- (void) createVideoPlayIcon; 
 - (void) createTransparentButton;
 - (void) createCellItems;
 
@@ -126,6 +127,18 @@
 }
 
 
+// Creates a play icon on top of the video image preview
+//
+- (void)createVideoPlayIcon {
+	videoPlayIcon = [[UIImageView alloc] init];
+	videoPlayIcon.image = [UIImage imageNamed:VIDEO_PLAY_BUTTON_IMAGE_NAME];
+	videoPlayIcon.hidden = YES;
+	
+	[self.contentView addSubview:videoPlayIcon];	
+	[videoPlayIcon release];
+}
+
+
 // Creates a button which is used to display the user image in the item feed cell
 //
 - (void) createUserImage {
@@ -187,6 +200,7 @@
 	[self createDataLabel];
 	[self createPlaceName];
 	[self createAttachmentImage];
+	[self createVideoPlayIcon];
 	[self createUserImage];
 	[self createUserName];
 	[self createTimeLabel];
@@ -204,7 +218,7 @@
 	attachmentImage.tag = _itemID;
 	transparentButton.tag = _itemID;
 	self.contentView.backgroundColor = [UIColor clearColor];
-
+	videoPlayIcon.hidden = YES;
 	
 	//resize the placename
 	CGSize maximumLabelSize = CGSizeMake(self.contentView.frame.size.width - 69, 100);
@@ -226,6 +240,8 @@
 		attachmentImage.frame = rect;
 		attachmentImage.hidden = NO;
 		attachmentHeight = ATTACHMENT_HEIGHT + ATTACHMENT_Y_PADDING;
+		
+		videoPlayIcon.frame =  CGRectMake(attachmentImage.frame.origin.x + 20, attachmentImage.frame.origin.y + 20, 20, 20);
 	}
 	else {
 		attachmentImage.hidden = YES;
@@ -271,6 +287,15 @@
 	self.contentView.backgroundColor = color;
 	[dataLabel changeButtonBackgroundColor:color];
 }
+
+
+// Displays the video play icon 
+//
+- (void)displayPlayIcon {
+	videoPlayIcon.hidden = NO;
+}
+
+
 
 #pragma mark -
 #pragma mark Disable Buttons

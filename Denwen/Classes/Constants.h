@@ -92,6 +92,7 @@ extern NSString * const ARROW_BUTTON_IMAGE_NAME;
 extern NSString * const MODALVIEW_BACKGROUND_IMAGE;
 
 extern NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME;
+extern NSString * const VIDEO_PLAY_BUTTON_IMAGE_NAME;
 extern int const VIDEO_MAX_DURATION;
 
 extern int const STATUS_BAR_STYLE;

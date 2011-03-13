@@ -23,6 +23,7 @@
 	InteractiveLabel *dataLabel;
 	UILabel *userName;
 	UIButton *attachmentImage;
+	UIImageView *videoPlayIcon;
 	UILabel *timeLabel;
 	UIButton *transparentButton;
 }
@@ -41,6 +42,7 @@
 - (void)disableUserButtons;
 
 - (void)displayNewCellState;
+- (void)displayPlayIcon;
 
 - (void)setSmallPreviewPlaceImage:(UIImage*)image;
 

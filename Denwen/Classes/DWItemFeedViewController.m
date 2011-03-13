@@ -381,11 +381,13 @@
 		
 		//Test if the preview images got pulled from the cache instantly
 		if ([item hasAttachment]) {
-			if (item.attachment.previewImage) {
+			if (item.attachment.previewImage)
 				[cell.attachmentImage setBackgroundImage:item.attachment.previewImage forState:UIControlStateNormal];	
-			}
 			else
 				[cell.attachmentImage setBackgroundImage:[UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME] forState:UIControlStateNormal];	
+			
+			if([item.attachment isVideo])
+				[cell displayPlayIcon];
 		}
 		
 		if (item.place.smallPreviewImage)

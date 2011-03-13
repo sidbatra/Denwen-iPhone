@@ -136,6 +136,7 @@ NSString * const NEW_POST_TEXTVIEW_PLACEHOLDER_TEXT = @"What's going on here?";
 
 /* Video attributes */
 NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME = @"place_placeholder.png";
+NSString * const VIDEO_PLAY_BUTTON_IMAGE_NAME = @"place_placeholder.png";
 int const VIDEO_MAX_DURATION = 45;
 
 /* App UI Attributes */
