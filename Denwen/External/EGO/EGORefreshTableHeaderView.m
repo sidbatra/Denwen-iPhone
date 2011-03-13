@@ -54,7 +54,7 @@
 		[self addSubview:_backgroundImageView];
 		[_backgroundImageView release];
 		
-		_transparentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height)];
+		_transparentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height+10)];
 		_transparentImageView.hidden = YES;
 		_transparentImageView.contentMode = UIViewContentModeScaleToFill;
 		_transparentImageView.image = [UIImage imageNamed:TRANSPARENT_PLACEHOLDER_IMAGE_NAME];
@@ -90,11 +90,11 @@
 		//layer.contentsGravity = kCAGravityResizeAspect;
 		//layer.contents = (id)[UIImage imageNamed:@"grayArrow.png"].CGImage;
 		
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
-		if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
+//		if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
 			//layer.contentsScale = [[UIScreen mainScreen] scale];
-		}
-#endif
+//		}
+//#endif
 		
 		//[[self layer] addSublayer:layer];
 		//_arrowImage=layer;
@@ -160,28 +160,28 @@
 		case EGOOPullRefreshPulling:
 			
 			_statusLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
-			[CATransaction begin];
-			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
+			//[CATransaction begin];
+			//[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 			//_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
-			[CATransaction commit];
+			//[CATransaction commit];
 			
 			break;
 		case EGOOPullRefreshNormal:
 			
 			if (_state == EGOOPullRefreshPulling) {
-				[CATransaction begin];
-				[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
+				//[CATransaction begin];
+				//[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 				//_arrowImage.transform = CATransform3DIdentity;
-				[CATransaction commit];
+				//[CATransaction commit];
 			}
 			
 			_statusLabel.text = NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
 			[_activityView stopAnimating];
-			[CATransaction begin];
-			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
+			//[CATransaction begin];
+			//[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			//_arrowImage.hidden = NO;
 			//_arrowImage.transform = CATransform3DIdentity;
-			[CATransaction commit];
+			//[CATransaction commit];
 			
 			[self refreshLastUpdatedDate];
 			
@@ -190,10 +190,10 @@
 			
 			_statusLabel.text = NSLocalizedString(@"Loading...", @"Loading Status");
 			[_activityView startAnimating];
-			[CATransaction begin];
-			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
+			//[CATransaction begin];
+			//[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			//_arrowImage.hidden = YES;
-			[CATransaction commit];
+			//[CATransaction commit];
 			
 			break;
 		default:
