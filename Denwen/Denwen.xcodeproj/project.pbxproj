@@ -217,6 +217,8 @@
 		BB9972B712F3989D00425678 /* DWSelectPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB9972B512F3989D00425678 /* DWSelectPlaceViewController.xib */; };
 		BB99755112F3DC4600425678 /* DWUserContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB99754F12F3DC4600425678 /* DWUserContainerViewController.m */; };
 		BB99755212F3DC4600425678 /* DWUserContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB99755012F3DC4600425678 /* DWUserContainerViewController.xib */; };
+		BBA03B6D132DB56B0073105B /* refreshfade.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6B132DB56B0073105B /* refreshfade.png */; };
+		BBA03B6E132DB56B0073105B /* refreshfade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6C132DB56B0073105B /* refreshfade@2x.png */; };
 		BBB519F412F9FAC10024086F /* DWPoolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB519F312F9FAC10024086F /* DWPoolObject.m */; };
 		BBBE3595132DA01700CE79E2 /* changeplacepic.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE3593132DA01700CE79E2 /* changeplacepic.png */; };
 		BBBE3596132DA01700CE79E2 /* changeplacepic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE3594132DA01700CE79E2 /* changeplacepic@2x.png */; };
@@ -579,6 +581,8 @@
 		BB99754E12F3DC4600425678 /* DWUserContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWUserContainerViewController.h; path = Classes/DWUserContainerViewController.h; sourceTree = "<group>"; };
 		BB99754F12F3DC4600425678 /* DWUserContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWUserContainerViewController.m; path = Classes/DWUserContainerViewController.m; sourceTree = "<group>"; };
 		BB99755012F3DC4600425678 /* DWUserContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWUserContainerViewController.xib; path = Classes/DWUserContainerViewController.xib; sourceTree = "<group>"; };
+		BBA03B6B132DB56B0073105B /* refreshfade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refreshfade.png; path = resources/refreshfade.png; sourceTree = "<group>"; };
+		BBA03B6C132DB56B0073105B /* refreshfade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refreshfade@2x.png"; path = "resources/refreshfade@2x.png"; sourceTree = "<group>"; };
 		BBB519F212F9FAC10024086F /* DWPoolObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPoolObject.h; path = Classes/DWPoolObject.h; sourceTree = "<group>"; };
 		BBB519F312F9FAC10024086F /* DWPoolObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPoolObject.m; path = Classes/DWPoolObject.m; sourceTree = "<group>"; };
 		BBBE3593132DA01700CE79E2 /* changeplacepic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = changeplacepic.png; path = resources/changeplacepic.png; sourceTree = "<group>"; };
@@ -686,6 +690,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBA03B6B132DB56B0073105B /* refreshfade.png */,
+				BBA03B6C132DB56B0073105B /* refreshfade@2x.png */,
 				BBBE35C8132DA2F500CE79E2 /* arrow_place_button.png */,
 				BBBE35C9132DA2F500CE79E2 /* arrow_place_button@2x.png */,
 				BBBE3593132DA01700CE79E2 /* changeplacepic.png */,
@@ -1493,6 +1499,8 @@
 				BBBE3596132DA01700CE79E2 /* changeplacepic@2x.png in Resources */,
 				BBBE35CA132DA2F500CE79E2 /* arrow_place_button.png in Resources */,
 				BBBE35CB132DA2F500CE79E2 /* arrow_place_button@2x.png in Resources */,
+				BBA03B6D132DB56B0073105B /* refreshfade.png in Resources */,
+				BBA03B6E132DB56B0073105B /* refreshfade@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -57,7 +57,7 @@
 	CGRect rect = CGRectMake(0,0,self.contentView.frame.size.width,FOLLOW_PLACE_CELL_HEIGHT); 
 	placeBackgroundImage = [[UIImageView alloc] initWithFrame:rect];
 	placeBackgroundImage.contentMode = UIViewContentModeScaleAspectFill;
-	//placeBackgroundImage.clipsToBounds = YES;
+	placeBackgroundImage.clipsToBounds = YES;
 	[self.contentView addSubview:placeBackgroundImage];
 	[placeBackgroundImage release];
 }
@@ -234,7 +234,7 @@
 // Create a customized wireframe of the place info cell.
 //
 - (void) drawCellItems {
-	self.clipsToBounds = YES;
+	//self.clipsToBounds = YES;
 	[self createPlaceBackgroundImage];
 	[self createPlaceBackgroundImageFilter];
 	[self createPlaceName];

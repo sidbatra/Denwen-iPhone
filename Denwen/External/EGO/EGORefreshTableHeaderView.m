@@ -54,10 +54,10 @@
 		[self addSubview:_backgroundImageView];
 		[_backgroundImageView release];
 		
-		_transparentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height+10)];
+		_transparentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,frame.size.height-60-10,frame.size.width,60+10+1)];
 		_transparentImageView.hidden = YES;
 		_transparentImageView.contentMode = UIViewContentModeScaleToFill;
-		_transparentImageView.image = [UIImage imageNamed:TRANSPARENT_PLACEHOLDER_IMAGE_NAME];
+		_transparentImageView.image = [UIImage imageNamed:TRANSPARENT_GRADIENT_PLACEHOLDER_IMAGE_NAME];
 		[self addSubview:_transparentImageView];
 		[_transparentImageView release];
 

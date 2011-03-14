@@ -119,6 +119,7 @@ NSString * const USER_PROFILE_CREATE_PLACE_IMAGE_NAME = @"create_place_user_prof
 NSString * const USER_PROFILE_CREATE_PLACE_HIGHLIGHTED_IMAGE_NAME = @"create_place_user_profile_on.png";
 
 NSString * const USER_PROFILE_BG_TEXTURE = @"user_profile_bg.png";
+NSString * const TRANSPARENT_GRADIENT_PLACEHOLDER_IMAGE_NAME = @"refreshfade.png";
 NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME = @"trans55.png";
 NSString * const TRANSPARENT_BUTTON_BG_IMAGE_NAME = @"trans27.png";
 NSString * const FOLLOW_BUTTON_BG_IMAGE_NAME = @"button_bg.png";
