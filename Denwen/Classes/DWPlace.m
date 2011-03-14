@@ -164,6 +164,13 @@
 }
 
 
+// Update the follower count by the given amount
+//
+- (void)updateFollowerCount:(NSInteger)delta {
+	_followersCount += delta;
+}
+
+
 //Start the small file download
 //
 - (void)startSmallPreviewDownload {

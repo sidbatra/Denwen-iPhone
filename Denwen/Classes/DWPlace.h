@@ -58,7 +58,7 @@
 //Update 
 - (void)updatePreviewURLs:(NSDictionary*)place;
 - (void)updatePreviewImages:(UIImage*)image;
-
+- (void)updateFollowerCount:(NSInteger)delta;
 
 //Functions for handling server interactions 
 - (void)startSmallPreviewDownload;

@@ -4,6 +4,7 @@ drao
 
 
 sbat
+-test video thumbnail update speed
 
 -----
 -analytics

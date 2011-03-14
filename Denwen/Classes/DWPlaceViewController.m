@@ -18,6 +18,7 @@
 - (void)hideCreateButton;
 
 - (void)displayProfilePicture;
+- (void)updateTitle;
 
 - (void)createFollowing:(NSDictionary*)followJSON;
 
@@ -164,6 +165,12 @@
 	}
 }
 
+
+// Update the title using the followers of the place
+//
+- (void)updateTitle {
+	self.title = [_place titleText];
+}
 
 // Init and populate the following memeber variable
 //
@@ -316,7 +323,7 @@
 			if(![followJSON isKindOfClass:[NSNull class]] && [followJSON count])
 				[self createFollowing:followJSON];
 
-			self.title = [_place titleText];
+			[self updateTitle];
 			
 			
 			_tableViewUsage = TABLE_VIEW_AS_DATA;			
@@ -351,11 +358,15 @@
 			if(self.following) { // If already following place, unfollow it
 				self.following = nil;
 				[placeCell displayUnfollowingState];
+				[_place updateFollowerCount:-1];
 			}
 			else { 
 				[self createFollowing:body];
 				[placeCell displayFollowingState];
+				[_place updateFollowerCount:1];
 			}
+			
+			[self updateTitle];
 			
 			//Mark changes to global variables, indicating a refresh is needed on followed content
 			currentUserFollowedItemsRefresh = YES;
