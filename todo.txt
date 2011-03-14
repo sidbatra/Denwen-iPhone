@@ -4,18 +4,15 @@ drao
 
 
 sbat
--video rotation leads to rotated thumbnails
 
 -----
 -analytics
 -image view can occupy the area behind the status bar
--posted item doesn't block UI
 -remove unused fields from JSON
 -handle text basd alert when app is open
 -forgot password 
 -optimize json being sent especially for user and place show. 
 -auto start apnd daemon on processing server -- handle restarts
--auto refresh views if selected after a long time
 
 common
 -app freezes on coming from background

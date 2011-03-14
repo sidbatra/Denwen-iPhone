@@ -241,10 +241,10 @@
 		attachmentImage.hidden = NO;
 		attachmentHeight = ATTACHMENT_HEIGHT + ATTACHMENT_Y_PADDING;
 		
-		videoPlayIcon.frame =  CGRectMake(attachmentImage.frame.origin.x + ATTACHMENT_HEIGHT / 2 - 73 / 2,\
-										  attachmentImage.frame.origin.y + ATTACHMENT_HEIGHT / 2 - 73 / 2, 
-										  73, 
-										  73);
+		videoPlayIcon.frame =  CGRectMake(attachmentImage.frame.origin.x + ATTACHMENT_HEIGHT / 2 - 36,\
+										  attachmentImage.frame.origin.y + ATTACHMENT_HEIGHT / 2 - 36, 
+										  72, 
+										  72);
 	}
 	else {
 		attachmentImage.hidden = YES;
