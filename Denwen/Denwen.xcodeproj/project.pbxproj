@@ -221,6 +221,8 @@
 		BBA03B6E132DB56B0073105B /* refreshfade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6C132DB56B0073105B /* refreshfade@2x.png */; };
 		BBA03C18132DBD970073105B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA03C17132DBD970073105B /* AVFoundation.framework */; };
 		BBA03C54132DC5EE0073105B /* DWVideoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA03C53132DC5EE0073105B /* DWVideoHelper.m */; };
+		BBA03C95132DD6990073105B /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03C93132DD6990073105B /* play.png */; };
+		BBA03C96132DD6990073105B /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03C94132DD6990073105B /* play@2x.png */; };
 		BBB519F412F9FAC10024086F /* DWPoolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB519F312F9FAC10024086F /* DWPoolObject.m */; };
 		BBBE3595132DA01700CE79E2 /* changeplacepic.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE3593132DA01700CE79E2 /* changeplacepic.png */; };
 		BBBE3596132DA01700CE79E2 /* changeplacepic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE3594132DA01700CE79E2 /* changeplacepic@2x.png */; };
@@ -588,6 +590,8 @@
 		BBA03C17132DBD970073105B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		BBA03C52132DC5EE0073105B /* DWVideoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWVideoHelper.h; path = Classes/DWVideoHelper.h; sourceTree = "<group>"; };
 		BBA03C53132DC5EE0073105B /* DWVideoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWVideoHelper.m; path = Classes/DWVideoHelper.m; sourceTree = "<group>"; };
+		BBA03C93132DD6990073105B /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = resources/play.png; sourceTree = "<group>"; };
+		BBA03C94132DD6990073105B /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play@2x.png"; path = "resources/play@2x.png"; sourceTree = "<group>"; };
 		BBB519F212F9FAC10024086F /* DWPoolObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPoolObject.h; path = Classes/DWPoolObject.h; sourceTree = "<group>"; };
 		BBB519F312F9FAC10024086F /* DWPoolObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPoolObject.m; path = Classes/DWPoolObject.m; sourceTree = "<group>"; };
 		BBBE3593132DA01700CE79E2 /* changeplacepic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = changeplacepic.png; path = resources/changeplacepic.png; sourceTree = "<group>"; };
@@ -696,6 +700,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBA03C93132DD6990073105B /* play.png */,
+				BBA03C94132DD6990073105B /* play@2x.png */,
 				BBA03B6B132DB56B0073105B /* refreshfade.png */,
 				BBA03B6C132DB56B0073105B /* refreshfade@2x.png */,
 				BBBE35C8132DA2F500CE79E2 /* arrow_place_button.png */,
@@ -1510,6 +1516,8 @@
 				BBBE35CB132DA2F500CE79E2 /* arrow_place_button@2x.png in Resources */,
 				BBA03B6D132DB56B0073105B /* refreshfade.png in Resources */,
 				BBA03B6E132DB56B0073105B /* refreshfade@2x.png in Resources */,
+				BBA03C95132DD6990073105B /* play.png in Resources */,
+				BBA03C96132DD6990073105B /* play@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
