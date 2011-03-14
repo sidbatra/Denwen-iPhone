@@ -198,9 +198,6 @@
 //
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	
-
-
-	
 	UIImage *previewImage = nil;
 	NSURL *mediaURL = (NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
 	BOOL isImageFile = mediaURL == nil;
@@ -219,12 +216,12 @@
 			UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 	}
 	else {
-	
+		NSString *orientation = [DWVideoHelper extractOrientationOfVideo:mediaURL];
 		NSData *videoData = [[NSData alloc] initWithContentsOfURL:mediaURL];
 		
 		previewImage = [UIImage imageNamed:VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME];
 		
-		[_s3Uploader uploadVideo:videoData toFolder:S3_ITEMS_FOLDER];
+		[_s3Uploader uploadVideo:videoData atOrientation:orientation toFolder:S3_ITEMS_FOLDER];
 		
 		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
 			UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
@@ -270,7 +267,7 @@
 // Called when the video is saved to the disk
 //
 - (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-	NSLog(@"video saved %@",[error localizedDescription]);
+	//NSLog(@"video saved %@",[error localizedDescription]);
 	// TODO: Record errors
 }
 

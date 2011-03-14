@@ -16,6 +16,7 @@
 #import "DWURLHelper.h"
 #import "DWMemoryPool.h"
 #import "DWImageHelper.h"
+#import "DWVideoHelper.h"
 #import "KTTextView.h"
 
 @protocol DWNewItemViewControllerDelegate;

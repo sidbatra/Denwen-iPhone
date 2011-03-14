@@ -83,8 +83,12 @@
 
 // Upload the given video bytes to the given S3 folder
 //
-- (void)uploadVideo:(NSData*)videoData toFolder:(NSString*)folder {
-	[self uploadMedia:videoData toFolder:folder withContentType:@"video/quicktime" andSuffix:@"_video.mov"];
+- (void)uploadVideo:(NSData*)videoData atOrientation:(NSString*)orientation toFolder:(NSString*)folder {
+	[self uploadMedia:videoData 
+			 toFolder:folder 
+	  withContentType:@"video/quicktime" 
+			andSuffix:[NSString stringWithFormat:@"_video_o_%@.mov",orientation]
+	 ];
 }
 
 

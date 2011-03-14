@@ -77,7 +77,7 @@
 // Creates label which is used to display the place name in the place info cell.
 //
 - (void) createPlaceName {
-	CGRect rect = CGRectMake(50, 25, self.contentView.frame.size.width - 112, 75);
+	CGRect rect = CGRectMake(50, 25, self.contentView.frame.size.width - 100, 75);
 	placeName = [[UILabel alloc] initWithFrame:rect];
 	
 	placeName.lineBreakMode = UILineBreakModeWordWrap;

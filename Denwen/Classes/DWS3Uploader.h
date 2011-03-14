@@ -22,7 +22,7 @@
 }
 
 - (void)uploadImage:(UIImage*)image toFolder:(NSString*)folder;
-- (void)uploadVideo:(NSData*)videoData toFolder:(NSString*)folder;
+- (void)uploadVideo:(NSData*)videoData atOrientation:(NSString*)orientation toFolder:(NSString*)folder;
 
 
 @property (retain) NSMutableString *filename;
