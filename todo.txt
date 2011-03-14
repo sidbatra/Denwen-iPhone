@@ -4,7 +4,8 @@ drao
 
 
 sbat
--test video thumbnail update speed
+-video thumbnail explicit update
+-rotate share place
 
 -----
 -analytics
