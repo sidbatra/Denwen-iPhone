@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 	
-//#define PRODUCTION 1 
+#define PRODUCTION 1 
 
 
 
@@ -128,6 +128,8 @@ NSString * const FOLLOWING_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME = @"following_place_
 NSString * const SHARE_PLACE_BUTTON_BG_IMAGE_NAME = @"share_place_profile.png";
 NSString * const SHARE_PLACE_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME = @"share_place_profile_on.png";
 NSString * const CHANGE_PIC_IMAGE_NAME = @"changepic.png";
+NSString * const CHANGE_PLACE_PIC_IMAGE_NAME = @"changeplacepic.png";
+NSString * const ARROW_BUTTON_PLACE_IMAGE_NAME = @"arrow_place_button.png";
 NSString * const ARROW_BUTTON_IMAGE_NAME = @"arrow_button.png";
 
 NSString * const MODALVIEW_BACKGROUND_IMAGE = @"modalview_bg.png";

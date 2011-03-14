@@ -218,6 +218,10 @@
 		BB99755112F3DC4600425678 /* DWUserContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB99754F12F3DC4600425678 /* DWUserContainerViewController.m */; };
 		BB99755212F3DC4600425678 /* DWUserContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB99755012F3DC4600425678 /* DWUserContainerViewController.xib */; };
 		BBB519F412F9FAC10024086F /* DWPoolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB519F312F9FAC10024086F /* DWPoolObject.m */; };
+		BBBE3595132DA01700CE79E2 /* changeplacepic.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE3593132DA01700CE79E2 /* changeplacepic.png */; };
+		BBBE3596132DA01700CE79E2 /* changeplacepic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE3594132DA01700CE79E2 /* changeplacepic@2x.png */; };
+		BBBE35CA132DA2F500CE79E2 /* arrow_place_button.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE35C8132DA2F500CE79E2 /* arrow_place_button.png */; };
+		BBBE35CB132DA2F500CE79E2 /* arrow_place_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE35C9132DA2F500CE79E2 /* arrow_place_button@2x.png */; };
 		BBC0C6E012F4C56000291C33 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC0C6D812F4C56000291C33 /* blackArrow.png */; };
 		BBC0C6E112F4C56000291C33 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC0C6D912F4C56000291C33 /* blackArrow@2x.png */; };
 		BBC0C6E212F4C56000291C33 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC0C6DA12F4C56000291C33 /* blueArrow.png */; };
@@ -577,6 +581,10 @@
 		BB99755012F3DC4600425678 /* DWUserContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWUserContainerViewController.xib; path = Classes/DWUserContainerViewController.xib; sourceTree = "<group>"; };
 		BBB519F212F9FAC10024086F /* DWPoolObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPoolObject.h; path = Classes/DWPoolObject.h; sourceTree = "<group>"; };
 		BBB519F312F9FAC10024086F /* DWPoolObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPoolObject.m; path = Classes/DWPoolObject.m; sourceTree = "<group>"; };
+		BBBE3593132DA01700CE79E2 /* changeplacepic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = changeplacepic.png; path = resources/changeplacepic.png; sourceTree = "<group>"; };
+		BBBE3594132DA01700CE79E2 /* changeplacepic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "changeplacepic@2x.png"; path = "resources/changeplacepic@2x.png"; sourceTree = "<group>"; };
+		BBBE35C8132DA2F500CE79E2 /* arrow_place_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_place_button.png; path = resources/arrow_place_button.png; sourceTree = "<group>"; };
+		BBBE35C9132DA2F500CE79E2 /* arrow_place_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow_place_button@2x.png"; path = "resources/arrow_place_button@2x.png"; sourceTree = "<group>"; };
 		BBC0C6D812F4C56000291C33 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
 		BBC0C6D912F4C56000291C33 /* blackArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blackArrow@2x.png"; sourceTree = "<group>"; };
 		BBC0C6DA12F4C56000291C33 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
@@ -678,6 +686,10 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBBE35C8132DA2F500CE79E2 /* arrow_place_button.png */,
+				BBBE35C9132DA2F500CE79E2 /* arrow_place_button@2x.png */,
+				BBBE3593132DA01700CE79E2 /* changeplacepic.png */,
+				BBBE3594132DA01700CE79E2 /* changeplacepic@2x.png */,
 				BBCE3A85131CC6AF008BDA82 /* iTunesArtwork */,
 				BBCE3A63131CC38D008BDA82 /* Default.png */,
 				BBCE3A64131CC38D008BDA82 /* Default@2x.png */,
@@ -1477,6 +1489,10 @@
 				BBCE3A66131CC38D008BDA82 /* Default@2x.png in Resources */,
 				BBCE3A86131CC6AF008BDA82 /* iTunesArtwork in Resources */,
 				BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */,
+				BBBE3595132DA01700CE79E2 /* changeplacepic.png in Resources */,
+				BBBE3596132DA01700CE79E2 /* changeplacepic@2x.png in Resources */,
+				BBBE35CA132DA2F500CE79E2 /* arrow_place_button.png in Resources */,
+				BBBE35CB132DA2F500CE79E2 /* arrow_place_button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

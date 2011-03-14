@@ -507,7 +507,7 @@
 		else
 			[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 	}
-	else if(!self.searchDisplayController.isActive && indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section]) {
+	else if(_tableViewUsage == TABLE_VIEW_AS_DATA && !self.searchDisplayController.isActive && indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section]) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
 		DWPaginationCell *cell = (DWPaginationCell*)[self.tableView cellForRowAtIndexPath:indexPath];

@@ -16,11 +16,11 @@
 	NSInteger _rowInTable;	
 	
 	UILabel *placeName;
-	UIButton *placeImage;
+	UIButton *editPlaceImage;
 	UIButton *followButton;
 	UIButton *unfollowButton;
 	UIButton *shareButton;
-	UIImageView *changePlaceImage;
+	//UIImageView *changePlaceImage;
 	UIImageView *placeBackgroundImage;
 	UIImageView *placeBackgroundImageFilter;
 	UIImageView *arrowImage;
