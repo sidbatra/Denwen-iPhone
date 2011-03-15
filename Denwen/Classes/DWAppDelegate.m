@@ -25,6 +25,9 @@
 @synthesize window,signupToolbar;
 
 
+
+
+
 #pragma mark -
 #pragma mark Application lifecycle
 
@@ -54,6 +57,7 @@
 	
 	launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
 	
+	[DWFollowedPlacesCache sharedDWFollowedPlacesCache];
 
     return YES;
 }

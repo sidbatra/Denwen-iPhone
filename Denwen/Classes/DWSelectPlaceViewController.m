@@ -15,6 +15,7 @@
 //
 @interface DWSelectPlaceViewController () 
 - (BOOL)isSpecialMessageSection:(NSInteger)row;
+- (void)populatePlaces:(NSArray*)places;
 @end
 
 
@@ -87,17 +88,36 @@
 //
 - (void)loadPlaces {
 	[super loadPlaces];
-
 	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&ff=mobile",
-						   FOLLOWED_PLACES_URI,
-						   currentUser.email,
-						   currentUser.encryptedPassword
-						   ];
-	[_followedRequestManager sendGetRequest:urlString];
-	[urlString release];
+	NSArray *cachedPlaces = [DWFollowedPlacesCache sharedDWFollowedPlacesCache].places;
+	
+	if(cachedPlaces && !_reloading) {
+		[self populatePlaces:cachedPlaces];
+	}
+	else {
+		NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&ff=mobile",
+							   FOLLOWED_PLACES_URI,
+							   currentUser.email,
+							   currentUser.encryptedPassword
+							   ];
+		[_followedRequestManager sendGetRequest:urlString];
+		[urlString release];
+	}
 }
 
+
+// Populate places based on the given JSON array
+//
+- (void)populatePlaces:(NSArray*)places {
+	[_placeManager populatePlaces:places atIndex:0];
+	
+	_isLoadedOnce = YES;
+	_tableViewUsage = TABLE_VIEW_AS_DATA;
+	
+	[self markEndOfPagination];
+	[self.tableView reloadData];
+	[self finishedLoadingPlaces];
+}
 
 
 #pragma mark -
@@ -111,14 +131,8 @@
 		
 	if([status isEqualToString:SUCCESS_STATUS]) {
 		NSArray *places = [body objectForKey:PLACES_JSON_KEY];
-		[_placeManager populatePlaces:places atIndex:instanceID];
-				
-		_isLoadedOnce = YES;
-		_tableViewUsage = TABLE_VIEW_AS_DATA;
-		
-		[self markEndOfPagination];
-		[self.tableView reloadData];
-		[self finishedLoadingPlaces];
+		[self populatePlaces:places];
+		[DWFollowedPlacesCache sharedDWFollowedPlacesCache].places = places;
 	}
 	else {
 			

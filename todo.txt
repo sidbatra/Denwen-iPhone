@@ -4,7 +4,7 @@ drao
 
 
 sbat
--cache followed places for current user
+-maintain followed places cache
 
 -----
 -analytics

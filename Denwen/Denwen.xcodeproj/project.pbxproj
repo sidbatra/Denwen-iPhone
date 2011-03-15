@@ -224,6 +224,7 @@
 		BBA03C95132DD6990073105B /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03C93132DD6990073105B /* play.png */; };
 		BBA03C96132DD6990073105B /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03C94132DD6990073105B /* play@2x.png */; };
 		BBB519F412F9FAC10024086F /* DWPoolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB519F312F9FAC10024086F /* DWPoolObject.m */; };
+		BBB8ADEC132F36FF00AC0566 /* DWFollowedPlacesCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB8ADEB132F36FF00AC0566 /* DWFollowedPlacesCache.m */; };
 		BBBE3595132DA01700CE79E2 /* changeplacepic.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE3593132DA01700CE79E2 /* changeplacepic.png */; };
 		BBBE3596132DA01700CE79E2 /* changeplacepic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE3594132DA01700CE79E2 /* changeplacepic@2x.png */; };
 		BBBE35CA132DA2F500CE79E2 /* arrow_place_button.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBE35C8132DA2F500CE79E2 /* arrow_place_button.png */; };
@@ -594,6 +595,9 @@
 		BBA03C94132DD6990073105B /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play@2x.png"; path = "resources/play@2x.png"; sourceTree = "<group>"; };
 		BBB519F212F9FAC10024086F /* DWPoolObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPoolObject.h; path = Classes/DWPoolObject.h; sourceTree = "<group>"; };
 		BBB519F312F9FAC10024086F /* DWPoolObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPoolObject.m; path = Classes/DWPoolObject.m; sourceTree = "<group>"; };
+		BBB8ADE9132F337A00AC0566 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = External/SynthesizeSingleton.h; sourceTree = "<group>"; };
+		BBB8ADEA132F36FF00AC0566 /* DWFollowedPlacesCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFollowedPlacesCache.h; path = Classes/DWFollowedPlacesCache.h; sourceTree = "<group>"; };
+		BBB8ADEB132F36FF00AC0566 /* DWFollowedPlacesCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowedPlacesCache.m; path = Classes/DWFollowedPlacesCache.m; sourceTree = "<group>"; };
 		BBBE3593132DA01700CE79E2 /* changeplacepic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = changeplacepic.png; path = resources/changeplacepic.png; sourceTree = "<group>"; };
 		BBBE3594132DA01700CE79E2 /* changeplacepic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "changeplacepic@2x.png"; path = "resources/changeplacepic@2x.png"; sourceTree = "<group>"; };
 		BBBE35C8132DA2F500CE79E2 /* arrow_place_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_place_button.png; path = resources/arrow_place_button.png; sourceTree = "<group>"; };
@@ -1025,6 +1029,7 @@
 		BB40518412F2373E00916688 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				BBB8ADE9132F337A00AC0566 /* SynthesizeSingleton.h */,
 				BB40088513123696000BDE4D /* Facebook */,
 				BB6EBA651311CCCC009D2DAF /* Twitter+OAuth */,
 				26000216130DFB0100366CE3 /* KTTEXTVIEW */,
@@ -1315,6 +1320,8 @@
 				26CAF7AD12F21E110058C01E /* DWPlaceListViewController.m */,
 				26CAF7A912F21E110058C01E /* DWNearbyPlacesViewController.h */,
 				26CAF7AA12F21E110058C01E /* DWNearbyPlacesViewController.m */,
+				BBB8ADEA132F36FF00AC0566 /* DWFollowedPlacesCache.h */,
+				BBB8ADEB132F36FF00AC0566 /* DWFollowedPlacesCache.m */,
 				26CAF7A312F21E110058C01E /* DWFollowedPlacesViewController.h */,
 				26CAF7A412F21E110058C01E /* DWFollowedPlacesViewController.m */,
 				BB4051D712F237AD00916688 /* DWPopularPlacesViewController.h */,
@@ -1627,6 +1634,7 @@
 				BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */,
 				BB537BD5132C55E50018B942 /* DWVideoViewController.m in Sources */,
 				BBA03C54132DC5EE0073105B /* DWVideoHelper.m in Sources */,
+				BBB8ADEC132F36FF00AC0566 /* DWFollowedPlacesCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

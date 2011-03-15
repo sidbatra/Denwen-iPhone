@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "DWPlaceListViewController.h"
+#import "DWFollowedPlacesCache.h"
 #import "DWSessionManager.h"
 #import "DWUserLocation.h"
 

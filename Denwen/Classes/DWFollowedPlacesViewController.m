@@ -107,7 +107,7 @@
 
 
 #pragma mark -
-#pragma mark RequestManager Delegate methods
+#pragma mark RequestManager
 
 
 // Fired when request manager has successfully parsed a request
