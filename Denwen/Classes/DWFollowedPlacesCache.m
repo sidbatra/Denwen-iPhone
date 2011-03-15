@@ -38,6 +38,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
 												 selector:@selector(userLogsIn:) 
 													 name:N_USER_LOGS_IN
 												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(placeFollowed:) 
+													 name:N_PLACE_FOLLOWED
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(placeUnfollowed:) 
+													 name:N_PLACE_UNFOLLOWED
+												   object:nil];
 	}
 	
 	return self;  
@@ -83,6 +93,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
 - (void)userLogsIn:(NSNotification*)notification {
 	[self loadPlaces];
 }	
+
+
+// Maintain places array when a place is followed
+//
+- (void)placeFollowed:(NSNotification*)notification {
+	//NSDictionary *placeJSON = (NSDictionary*)[notification object];
+}
+
+
+// Maintain places array when a place is unfollowed
+//
+- (void)placeUnfollowed:(NSNotification*)notification {
+	//NSDictionary *placeJSON = (NSDictionary*)[notification object];
+	
+}
 
 
 

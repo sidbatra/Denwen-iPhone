@@ -80,7 +80,7 @@
 	
 	
 	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
-	segmentedControl.frame = CGRectMake(5,7,SEGMENTED_PLACES_CONTROL_WIDTH,SEGMENTED_PLACES_CONTROL_HEIGHT);
+	segmentedControl.frame = CGRectMake(0,0,SEGMENTED_PLACES_CONTROL_WIDTH,SEGMENTED_PLACES_CONTROL_HEIGHT);
 	segmentedControl.backgroundColor = [UIColor	clearColor];
 	segmentedControl.selectedSegmentIndex = _currentSelectedSegmentIndex;
 

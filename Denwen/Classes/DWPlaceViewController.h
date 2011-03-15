@@ -29,16 +29,18 @@
 	DWS3Uploader *_s3Uploader;
 
 	MBProgressHUD *mbProgressIndicator;
-
+	
 	BOOL _newItemPrompt;
 	BOOL _isViewLoaded;
 	BOOL _isReadyForCreateItem;
 	
 	NSString *_placeHashedID;
+	NSDictionary *_placeJSON;
 }
 
 @property (copy) NSString *placeHashedID;
 @property (retain) DWFollowing *following;
+@property (retain) NSDictionary *placeJSON;
 
 
 - (id)initWithPlaceID:(NSString*)placeHashedID withNewItemPrompt:(BOOL)newItemPrompt andDelegate:(id)delegate;

@@ -32,7 +32,7 @@
 @implementation DWPlaceViewController
 
 
-@synthesize placeHashedID=_placeHashedID,following=_following;
+@synthesize placeHashedID=_placeHashedID,placeJSON=_placeJSON,following=_following;
 
 
 
@@ -50,6 +50,7 @@
 		_newItemPrompt = newItemPrompt;
 		_isViewLoaded = NO;
 		_isReadyForCreateItem = NO;
+		_placeJSON = nil;
 		
 		_followRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:1];
 		_updatePlaceRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:2];
@@ -314,6 +315,7 @@
 			
 			/* Create or fetch the place from the memory pool*/
 			NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
+			self.placeJSON = placeJSON;
 			_place = (DWPlace*)[DWMemoryPool getOrSetObject:placeJSON atRow:PLACES_INDEX];
 			
 			
@@ -359,11 +361,13 @@
 				self.following = nil;
 				[placeCell displayUnfollowingState];
 				[_place updateFollowerCount:-1];
+				[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_UNFOLLOWED object:self.placeJSON];
 			}
 			else { 
 				[self createFollowing:body];
 				[placeCell displayFollowingState];
 				[_place updateFollowerCount:1];
+				[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_FOLLOWED object:self.placeJSON];
 			}
 			
 			[self updateTitle];
@@ -383,6 +387,7 @@
 		if([status isEqualToString:SUCCESS_STATUS]) {
 			NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
 			[_place updatePreviewURLs:placeJSON];
+			self.placeJSON = placeJSON;
 		}
 		else {
 				
@@ -668,7 +673,7 @@
 	if(actionSheet.tag == 0 && buttonIndex != 2) {
 		[DWMemoryPool freeMemory];
 		
-		UIImagePickerController *imagePickerController = imagePickerController = [[UIImagePickerController alloc] init];
+		UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
 		imagePickerController.delegate = self;
 		imagePickerController.allowsEditing = YES;		
 		imagePickerController.sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
@@ -795,6 +800,7 @@
 	}
 	
 	self.placeHashedID = nil;
+	self.placeJSON = nil;
 	self.following = nil;
 	
 	[_followRequestManager release];

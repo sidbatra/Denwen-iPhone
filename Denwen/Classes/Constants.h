@@ -271,6 +271,8 @@ extern NSString * const N_LOCATION_CHANGED;
 extern NSString * const N_TAB_BAR_SELECTION_CHANGED;
 extern NSString * const N_FOLLOWED_ITEMS_READ;
 extern NSString * const N_FOLLOWED_ITEMS_LOADED;
+extern NSString * const N_PLACE_FOLLOWED;
+extern NSString * const N_PLACE_UNFOLLOWED;
 extern NSString * const N_NEW_APPLICATION_BADGE_NUMBER;
 extern NSString * const N_FACEBOOK_URL_OPENED;
 extern NSString * const N_DENWEN_URL_OPENED;
