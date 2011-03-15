@@ -53,7 +53,7 @@
 // Creates label which is used to display the user name in the user info cell.
 //
 - (void) createUserName {
-	CGRect rect = CGRectMake(89, 7, self.contentView.frame.size.width - 97, 75);
+	CGRect rect = CGRectMake(125,7,self.contentView.frame.size.width - 149, 112);
 	userName = [[UILabel alloc] initWithFrame:rect];
 	
 	userName.lineBreakMode = UILineBreakModeWordWrap;
@@ -70,8 +70,10 @@
 // Creates a button which is used to display the user image in the user info cell
 //
 - (void) createUserImage {
-	CGRect rect = CGRectMake(7, 7, 75, 75); 
+	CGRect rect = CGRectMake(7, 7, 112, 112); 
 	userImage = [[UIButton alloc] initWithFrame:rect];
+	[[userImage layer] setCornerRadius:2.5f];
+	[[userImage layer] setMasksToBounds:YES];
 	userImage.enabled = NO;
 	userImage.tag = _rowInTable;
 	
@@ -86,10 +88,9 @@
 // Creates an Imageview which is used to display the user Background Image Filter
 //
 - (void) createUserBackgroundImageFilter {
- 	CGRect rect = CGRectMake(0, 0, self.contentView.frame.size.width, FOLLOW_USER_CELL_HEIGHT);
+ 	CGRect rect = CGRectMake(0, 0, self.contentView.frame.size.width, FOLLOW_CURRENT_USER_CELL_HEIGHT);
 	userBackgroundImageFilter = [[UIImageView alloc] initWithFrame:rect];
-	userBackgroundImageFilter.contentMode = UIViewContentModeTop;
-	userBackgroundImageFilter.clipsToBounds = YES;
+	userBackgroundImageFilter.contentMode = UIViewContentModeScaleToFill;
 	[self.contentView addSubview:userBackgroundImageFilter];
 	userBackgroundImageFilter.image = [UIImage imageNamed:USER_PROFILE_BG_TEXTURE];
 	[userBackgroundImageFilter release];
@@ -100,7 +101,7 @@
 // The imageview is hidden by default.
 //
 - (void) createChangeUserImage {
-	CGRect rect = CGRectMake(54, 56, 33, 33); 
+	CGRect rect = CGRectMake(94, 93, 28, 29); 
 	changeUserImage = [[UIImageView alloc] initWithFrame:rect];
 	changeUserImage.hidden = YES;
 	
@@ -112,7 +113,7 @@
 // Creates a new place button
 //
 - (void) createNewPlaceButton {
-	CGRect rect = CGRectMake(7, 89, 150, 44); //self.contentView.frame.size.width 14
+	CGRect rect = CGRectMake(7, 126, 150, 44); //self.contentView.frame.size.width 14
 	placeButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	placeButton.frame = rect;
 	placeButton.hidden = YES;
@@ -121,7 +122,7 @@
 	[placeButton setBackgroundImage:[UIImage imageNamed:USER_PROFILE_CREATE_PLACE_HIGHLIGHTED_IMAGE_NAME] forState:UIControlStateHighlighted];
 	
 	// rounded corners and border customization
-	[[placeButton layer] setCornerRadius:5.0f];
+	[[placeButton layer] setCornerRadius:2.5f];
 	[[placeButton layer] setMasksToBounds:YES];
 	
 	placeButton.tag = _rowInTable;
@@ -146,7 +147,7 @@
 // Creates a new post button
 //
 - (void) createNewPostButton {
-	CGRect rect = CGRectMake(163, 89, 150, 44); //self.contentView.frame.size.width - 14
+	CGRect rect = CGRectMake(163, 126, 150, 44); //self.contentView.frame.size.width - 14
 	postButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	postButton.frame = rect;
 	postButton.hidden = YES;
@@ -155,7 +156,7 @@
 	[postButton setBackgroundImage:[UIImage imageNamed:USER_PROFILE_CREATE_POST_HIGHLIGHTED_IMAGE_NAME] forState:UIControlStateHighlighted];
 	
 	// rounded corners and border customization
-	[[postButton layer] setCornerRadius:5.0f];
+	[[postButton layer] setCornerRadius:2.5f];
 	[[postButton layer] setMasksToBounds:YES];
 	
 	postButton.tag = _rowInTable;
@@ -180,10 +181,10 @@
 // Creates an arrow button for displaying the place location on the map in the next view
 //
 - (void) createArrowImage {
-	CGRect rect = CGRectMake(304,38,9,15); 
+	CGRect rect = CGRectMake(270,25,50,75); 
 	arrowImage = [[UIImageView alloc] initWithFrame:rect];
 	arrowImage.tag = _rowInTable;
-	arrowImage.image = [UIImage imageNamed:ARROW_BUTTON_IMAGE_NAME];
+	arrowImage.image = [UIImage imageNamed:ARROW_BUTTON_USER_IMAGE_NAME];
 	
 	[self.contentView addSubview:arrowImage];	
 	[arrowImage release];
@@ -194,6 +195,7 @@
 // Create a customized wireframe of the user info cell.
 //
 - (void) drawCellItems {
+	self.clipsToBounds = YES;
 	self.contentView.backgroundColor = [UIColor colorWithRed:0.878 green:0.878 blue:0.878 alpha:1.0];
 	[self createUserBackgroundImageFilter];
 	[self createUserName];
@@ -217,12 +219,12 @@
 //
 - (void)displaySignedInState:(BOOL)hasPhoto {
 	if(hasPhoto) {
-		changeUserImage.image = [UIImage imageNamed:CHANGE_PIC_IMAGE_NAME];
+		changeUserImage.image = [UIImage imageNamed:CHANGE_USER_PIC_IMAGE_NAME];
 		changeUserImage.hidden = NO;	
 	}
 	
-	CGRect rect = CGRectMake(0, 0,self.contentView.frame.size.width,FOLLOW_CURRENT_USER_CELL_HEIGHT);
-	userBackgroundImageFilter.frame = rect;
+	//CGRect rect = CGRectMake(0, 0,self.contentView.frame.size.width,FOLLOW_CURRENT_USER_CELL_HEIGHT);
+	//userBackgroundImageFilter.frame = rect;
 	
 	placeButton.hidden = NO;
 	postButton.hidden = NO;
@@ -235,8 +237,8 @@
 - (void)displaySignedOutState {
 	changeUserImage.hidden = YES;
 	
-	CGRect rect = CGRectMake(0, 0,self.contentView.frame.size.width,FOLLOW_USER_CELL_HEIGHT);
-	userBackgroundImageFilter.frame = rect;
+	//CGRect rect = CGRectMake(0, 0,self.contentView.frame.size.width,FOLLOW_USER_CELL_HEIGHT);
+	//userBackgroundImageFilter.frame = rect;
 	
 	placeButton.hidden = YES;
 	postButton.hidden = YES;
