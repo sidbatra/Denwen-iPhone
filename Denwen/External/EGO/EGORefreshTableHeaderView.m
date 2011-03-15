@@ -131,6 +131,13 @@
 }
 
 
+// Apply a background color
+//
+- (void)applyBackgroundColor:(UIColor*)color {
+	self.backgroundColor = color;
+	_statusLabel.textColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1.0];
+}
+
 - (void)refreshLastUpdatedDate {
 	
 	if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceLastUpdated:)]) {

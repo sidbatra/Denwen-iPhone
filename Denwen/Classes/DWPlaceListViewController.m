@@ -59,7 +59,7 @@
 	return self;
 }
 
-
+	
 // Setup UI elements after the view is done loading
 //
 - (void)viewDidLoad {
@@ -69,7 +69,9 @@
 	frame.origin.y = 0; 
 	self.view.frame = frame;
 	
-	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+	//self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+	[self.tableView setSeparatorColor:[UIColor colorWithRed:0.921 green:0.921 blue:0.921 alpha:1.0]];
+
 	
 	self.searchDisplayController.searchBar.placeholder = @"Search All Places";
 	[self.tableView setContentOffset:CGPointMake(0,44) animated:NO]; //Tuck the search bar above the table view

@@ -79,6 +79,7 @@
 																											 self.view.frame.size.width,
 																											 self.tableView.bounds.size.height)];
 	self.refreshHeaderView = tempRefreshView;
+	[self.refreshHeaderView applyBackgroundColor:[UIColor whiteColor]];
 	[tempRefreshView release];
 	
 	self.refreshHeaderView.delegate = self;

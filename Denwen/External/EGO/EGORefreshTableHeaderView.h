@@ -60,6 +60,7 @@ typedef enum{
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
 
 - (void)applyBackgroundImage:(UIImage*)image;
+- (void)applyBackgroundColor:(UIColor*)color;
 
 @end
 @protocol EGORefreshTableHeaderDelegate
