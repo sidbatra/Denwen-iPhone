@@ -124,8 +124,8 @@
 	}
 	else {
 		DWVideoViewController *videoView = [[DWVideoViewController alloc] initWithMediaURL:url];
-		videoView.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-		[self.navigationController presentModalViewController:videoView animated:YES];
+		videoView.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+		[self presentMoviePlayerViewControllerAnimated:videoView];
 		[videoView release];
 	}
 
