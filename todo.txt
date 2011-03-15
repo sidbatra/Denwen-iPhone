@@ -5,7 +5,6 @@ drao
 
 sbat
 -cache followed places for current user
--place logo at denwen and facebook
 
 -----
 -analytics
