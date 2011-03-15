@@ -50,6 +50,21 @@
 }
 
 
+// Override the update method to check for changes to is_processed 
+//
+- (void)update:(NSDictionary*)objectJSON {
+	
+	if(!_isProcessed) {
+		_isProcessed = [[objectJSON objectForKey:@"is_processed"] boolValue];
+		
+		if(_isProcessed) {
+			self.previewUrl = [objectJSON objectForKey:@"large_url"];
+			self.previewImage = nil;
+		}
+	}
+}
+
+
 //Start the attachment preview download
 //
 - (void)startPreviewDownload {

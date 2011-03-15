@@ -34,6 +34,7 @@
 
 //Functions for handling server interactions 
 - (void)populate:(NSDictionary*)result;
+- (void)update:(NSDictionary*)objectJSON;
 - (void)startPreviewDownload;
 
 //Caching helper functions

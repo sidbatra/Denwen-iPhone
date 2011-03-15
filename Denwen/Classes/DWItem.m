@@ -130,6 +130,10 @@
 	if(interval > POOL_OBJECT_UPDATE_INTERVAL) {
 		[_place update:[objectJSON objectForKey:PLACE_JSON_KEY]];
 		[_user update:[objectJSON objectForKey:USER_JSON_KEY]];
+				
+		if([self hasAttachment])
+			[_attachment update:[objectJSON objectForKey:ATTACHMENT_JSON_KEY]];
+		
 		[self refreshUpdatedAt];
 	}
 		 

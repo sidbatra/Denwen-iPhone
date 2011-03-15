@@ -4,8 +4,8 @@ drao
 
 
 sbat
--video thumbnail explicit update
 -rotate share place
+-place logo at denwen and facebook
 
 -----
 -analytics
