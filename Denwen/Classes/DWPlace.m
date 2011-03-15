@@ -105,6 +105,9 @@
 		
 		if(![self.hashedId isEqualToString:newHashedId])
 			self.hashedId = newHashedId;
+		
+		_followersCount = [[objectJSON objectForKey:@"followings_count"] integerValue];
+		
 		 
 		 _hasPhoto = [[objectJSON objectForKey:@"has_photo"] boolValue];
 		 
