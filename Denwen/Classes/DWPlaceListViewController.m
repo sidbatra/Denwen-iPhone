@@ -69,6 +69,8 @@
 	frame.origin.y = 0; 
 	self.view.frame = frame;
 	
+	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+	
 	self.searchDisplayController.searchBar.placeholder = @"Search All Places";
 	[self.tableView setContentOffset:CGPointMake(0,44) animated:NO]; //Tuck the search bar above the table view
 	

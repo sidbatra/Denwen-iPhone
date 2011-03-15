@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 	
-//#define PRODUCTION 1 
+#define PRODUCTION 1 
 
 
 
@@ -154,7 +154,7 @@ int const ATTACHMENT_HEIGHT = 196;
 int const ATTACHMENT_Y_PADDING = 10;
 int const USER_LABEL_PADDING = 5;
 int const USER_NAME_PADDING = 5;
-int const PLACE_FEED_CELL_HEIGHT = 56;
+int const PLACE_FEED_CELL_HEIGHT = 55;
 int const FOLLOW_PLACE_CELL_HEIGHT = 177;//141;
 int const FOLLOW_CURRENT_USER_CELL_HEIGHT = 141;//192;
 int const FOLLOW_USER_CELL_HEIGHT = 90;

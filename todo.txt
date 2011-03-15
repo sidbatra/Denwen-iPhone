@@ -4,7 +4,7 @@ drao
 
 
 sbat
--rotate share place
+-cache followed places for current user
 -place logo at denwen and facebook
 
 -----

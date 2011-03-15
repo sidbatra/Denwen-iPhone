@@ -71,7 +71,7 @@
 	
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	//[self.tableView setSeparatorColor:[UIColor colorWithRed:0.878 green:0.878 blue:0.878 alpha:1.0]];
-	[self.tableView setSeparatorColor:[UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0]];
+	//[self.tableView setSeparatorColor:[UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0]];
 	
 	
 	EGORefreshTableHeaderView *tempRefreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 

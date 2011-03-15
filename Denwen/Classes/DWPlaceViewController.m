@@ -612,6 +612,7 @@
 - (void)didTapShareButton:(id)sender event:(id)event {
 	if([DWSessionManager isSessionActive]) {
 		DWShareViewController *shareView = [[DWShareViewController alloc] initWithDelegate:self andPlace:_place];
+		shareView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 		[self.navigationController presentModalViewController:shareView animated:YES];
 		[shareView release];
 	}
