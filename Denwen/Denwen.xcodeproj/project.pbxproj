@@ -213,6 +213,7 @@
 		BB7A68C4131CB7260000157E /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB7A68BD131CB7260000157E /* Icon-Small@2x.png */; };
 		BB7A68C5131CB7260000157E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB7A68BE131CB7260000157E /* Icon.png */; };
 		BB7A68C6131CB7260000157E /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB7A68BF131CB7260000157E /* Icon@2x.png */; };
+		BB89EB24133163FC001F6611 /* trans40.png in Resources */ = {isa = PBXBuildFile; fileRef = BB89EB23133163FC001F6611 /* trans40.png */; };
 		BB9972B612F3989D00425678 /* DWSelectPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9972B412F3989D00425678 /* DWSelectPlaceViewController.m */; };
 		BB9972B712F3989D00425678 /* DWSelectPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB9972B512F3989D00425678 /* DWSelectPlaceViewController.xib */; };
 		BB99755112F3DC4600425678 /* DWUserContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB99754F12F3DC4600425678 /* DWUserContainerViewController.m */; };
@@ -584,6 +585,7 @@
 		BB7A68BD131CB7260000157E /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "resources/Icon-Small@2x.png"; sourceTree = "<group>"; };
 		BB7A68BE131CB7260000157E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = resources/Icon.png; sourceTree = "<group>"; };
 		BB7A68BF131CB7260000157E /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "resources/Icon@2x.png"; sourceTree = "<group>"; };
+		BB89EB23133163FC001F6611 /* trans40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trans40.png; path = resources/trans40.png; sourceTree = "<group>"; };
 		BB9972B312F3989D00425678 /* DWSelectPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSelectPlaceViewController.h; path = Classes/DWSelectPlaceViewController.h; sourceTree = "<group>"; };
 		BB9972B412F3989D00425678 /* DWSelectPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSelectPlaceViewController.m; path = Classes/DWSelectPlaceViewController.m; sourceTree = "<group>"; };
 		BB9972B512F3989D00425678 /* DWSelectPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWSelectPlaceViewController.xib; path = Classes/DWSelectPlaceViewController.xib; sourceTree = "<group>"; };
@@ -712,6 +714,7 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BB89EB23133163FC001F6611 /* trans40.png */,
 				BBE3A9001330ABB100AE585A /* userprofilefade.png */,
 				BBE3A9011330ABB100AE585A /* userprofilefade@2x.png */,
 				BBB8AF3B132F4F2100AC0566 /* changeuserpic.png */,
@@ -1541,6 +1544,7 @@
 				BBB8AF3E132F4F2100AC0566 /* changeuserpic@2x.png in Resources */,
 				BBE3A9021330ABB100AE585A /* userprofilefade.png in Resources */,
 				BBE3A9031330ABB100AE585A /* userprofilefade@2x.png in Resources */,
+				BB89EB24133163FC001F6611 /* trans40.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

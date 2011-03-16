@@ -48,6 +48,7 @@
 	DWRequestManager *_updateFacebookTokenRequestManager;
 	DWRequestManager *_visitRequestManager;
 	DWRequestManager *_updateUnreadRequestManager;
+	DWRequestManager *_shareRequestManager;
 }
 
 
@@ -61,6 +62,7 @@
 - (void)updateUnreadCount:(NSInteger)subtrahend;
 
 - (void)createVisit;
+- (void)createShare:(NSString*)data sentTo:(NSInteger)sentTo forPlace:(NSInteger)placeID;
 
 //Functions for handling server interactions 
 - (void)startSmallPreviewDownload;
@@ -106,6 +108,7 @@
 @property (retain) DWRequestManager *updateFacebookTokenRequestManager;
 @property (retain) DWRequestManager *visitRequestManager;
 @property (retain) DWRequestManager *updateUnreadRequestManager;
+@property (retain) DWRequestManager *shareRequestManager;
 
 
 @property (readonly) BOOL hasPhoto;

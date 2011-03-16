@@ -68,5 +68,6 @@
 
 
 @protocol DWShareViewControllerDelegate
-- (void)shareViewFinished;
+- (void)shareViewFinished:(NSString*)data sentTo:(NSInteger)sentTo;
+- (void)shareViewCancelled;
 @end

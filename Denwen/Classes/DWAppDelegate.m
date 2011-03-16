@@ -207,6 +207,8 @@
 	
 	if(![DWSessionManager isSessionActive]) 
 		[self displaySignedOutState];
+	else
+		[self displaySignedInState];
 }
 
 

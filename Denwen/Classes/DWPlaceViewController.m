@@ -693,9 +693,14 @@
 #pragma mark -
 #pragma mark ShareViewControllerDelegate
 
-// User finishes or dismisss the shareViewController
--(void)shareViewFinished {
+// User cancels the shareViewController
+-(void)shareViewCancelled {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)shareViewFinished:(NSString*)data sentTo:(NSInteger)sentTo {
+	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[currentUser createShare:data sentTo:sentTo forPlace:_place.databaseID];
 }
 
 

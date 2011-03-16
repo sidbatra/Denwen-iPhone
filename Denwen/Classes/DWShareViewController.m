@@ -119,8 +119,10 @@
 // Tests whether the delegate for finishing sharing should be fired
 //
 - (void)testEndOfSharing {
-	if( (!twitterSwitch.on || _twitterRequestDone) && (!facebookSwitch.on || _facebookRequestDone) )
-	   [_delegate shareViewFinished];
+	if( (!twitterSwitch.on || _twitterRequestDone) && (!facebookSwitch.on || _facebookRequestDone) ) {
+		NSInteger sentTo = twitterSwitch.on * pow(2,0) + facebookSwitch.on * pow(2,1);
+		[_delegate shareViewFinished:[NSString stringWithString:textView.text] sentTo:sentTo];
+	}
 }
 	   
 
@@ -194,7 +196,7 @@
 // User clicks the cancel button
 //
 - (void)cancelButtonClicked:(id)sender {
-	[_delegate shareViewFinished];
+	[_delegate shareViewCancelled];
 }
 
 

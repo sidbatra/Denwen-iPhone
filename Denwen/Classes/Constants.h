@@ -198,6 +198,7 @@ extern NSString * const USER_SHOW_URI;
 extern NSString * const ITEMS_URI;
 extern NSString * const PLACES_URI;
 extern NSString * const VISITS_URI;
+extern NSString * const SHARES_URI;
 
 extern NSString * const POST_STRING;
 extern NSString * const GET_STRING;

@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 	
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 
@@ -121,7 +121,7 @@ NSString * const USER_PROFILE_CREATE_PLACE_HIGHLIGHTED_IMAGE_NAME = @"create_pla
 NSString * const USER_PROFILE_BG_TEXTURE = @"user_profile_bg.png";
 NSString * const PLACE_VIEW_FADE_IMAGE_NAME = @"refreshfade.png";
 NSString * const USER_VIEW_FADE_IMAGE_NAME = @"userprofilefade.png";
-NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME = @"trans55.png";
+NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME = @"trans40.png";
 NSString * const TRANSPARENT_BUTTON_BG_IMAGE_NAME = @"trans27.png";
 NSString * const FOLLOW_BUTTON_BG_IMAGE_NAME = @"button_bg.png";
 NSString * const FOLLOW_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME = @"button_bg_on.png";
@@ -256,6 +256,7 @@ NSString * const USER_SHOW_URI = @"http://denwen.com/users/";
 NSString * const ITEMS_URI = @"http://denwen.com/items.json";
 NSString * const PLACES_URI = @"http://denwen.com/places.json";
 NSString * const VISITS_URI = @"http://denwen.com/visits.json";
+NSString * const SHARES_URI = @"http://denwen.com/shares.json";
 
 #else
 
@@ -277,6 +278,7 @@ NSString * const USER_SHOW_URI = @"http://sbat.denwen.com/users/";
 NSString * const ITEMS_URI = @"http://sbat.denwen.com/items.json";
 NSString * const PLACES_URI = @"http://sbat.denwen.com/places.json";
 NSString * const VISITS_URI = @"http://sbat.denwen.com/visits.json";
+NSString * const SHARES_URI = @"http://sbat.denwen.com/shares.json";
 
 #endif
 
