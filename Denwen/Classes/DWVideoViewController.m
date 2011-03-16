@@ -10,7 +10,7 @@
 
 
 @interface DWVideoViewController() 
-	//- (void)displaySpinner:(BOOL)withInit forOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
+	- (void)displaySpinner:(BOOL)withInit forOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
 @end
 
 
@@ -33,7 +33,7 @@
 	if (self) {
 		[self.view setBackgroundColor:[UIColor blackColor]];
 		
-		//[self displaySpinner:YES forOrientation:[DWGUIManager getCurrentOrientation]];
+		[self displaySpinner:YES forOrientation:[DWGUIManager getCurrentOrientation]];
 		
 		//Listen for movie player notifications
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:) 
@@ -64,13 +64,13 @@
 // Refits the image when the device is about to be rotated
 //
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-	//[self displaySpinner:NO forOrientation:toInterfaceOrientation];
+	[self displaySpinner:NO forOrientation:toInterfaceOrientation];
 }
 
 
 // Display the spinner in the middle of the screen 
 //
-/*- (void)displaySpinner:(BOOL)withInit forOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+- (void)displaySpinner:(BOOL)withInit forOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	UIActivityIndicatorView *spinner = nil;
 	CGSize screenSize = [DWGUIManager currentScreenSize:toInterfaceOrientation];
 	
@@ -93,7 +93,7 @@
 	}
 	
 }
-*/
+
 
 
 #pragma mark -
@@ -104,8 +104,8 @@
 //
 - (void)moviePlayBackDidFinish:(NSNotification*)notification {
 	if ([[self moviePlayer] loadState] == 1) {
-		//UIActivityIndicatorView *spinner = (UIActivityIndicatorView*)[self.view viewWithTag:3];
-		//[spinner stopAnimating];
+		UIActivityIndicatorView *spinner = (UIActivityIndicatorView*)[self.view viewWithTag:3];
+		[spinner stopAnimating];
 	}
 }
 
