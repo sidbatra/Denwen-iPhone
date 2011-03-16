@@ -89,10 +89,10 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	NSArray *cachedPlaces = [DWFollowedPlacesCache sharedDWFollowedPlacesCache].places;
+	DWFollowedPlacesCache *cache = [DWFollowedPlacesCache sharedDWFollowedPlacesCache];
 	
-	if(cachedPlaces && !_reloading) {
-		[self populatePlaces:cachedPlaces];
+	if(cache.places && !_reloading) {
+		[self populatePlaces:[cache generateImmutablePlaces]];
 	}
 	else {
 		NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&ff=mobile",
@@ -132,7 +132,7 @@
 	if([status isEqualToString:SUCCESS_STATUS]) {
 		NSArray *places = [body objectForKey:PLACES_JSON_KEY];
 		[self populatePlaces:places];
-		[DWFollowedPlacesCache sharedDWFollowedPlacesCache].places = places;
+		[[DWFollowedPlacesCache sharedDWFollowedPlacesCache] populatePlaces:places];
 	}
 	else {
 			

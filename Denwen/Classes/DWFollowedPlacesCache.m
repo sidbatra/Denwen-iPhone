@@ -11,7 +11,7 @@
 
 @implementation DWFollowedPlacesCache
 
-@synthesize places=_places;
+@synthesize places=_places,requestManager=_requestManager;
 
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
@@ -58,21 +58,40 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
 // Fetch followed places for the current user to start the cache
 //
 - (void)loadPlaces {
-	[_requestManager release];
-	_requestManager = nil;
-	_requestManager = [[DWRequestManager alloc] initWithDelegate:self];
+	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self];
+	self.requestManager = tempRequestManager;
+	[tempRequestManager release];
 	
 	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&ff=mobile",
 						   FOLLOWED_PLACES_URI,
 						   currentUser.email,
 						   currentUser.encryptedPassword
 						   ];
-	[_requestManager sendGetRequest:urlString];
+	[self.requestManager sendGetRequest:urlString];
 	
 	[urlString release];
 }
 
 
+// Populate the mutable places array from the given 
+// immutable array
+//
+- (void)populatePlaces:(NSArray*)newPlaces {
+	if(!_places)
+		_places = [[NSMutableArray alloc] init];
+	
+	[_places removeAllObjects];
+	
+	for(NSDictionary *place in newPlaces)
+		[_places addObject:place];
+}
+
+
+// Generates an immutable places array 
+//
+- (NSArray*)generateImmutablePlaces {
+	return [NSArray arrayWithArray:_places];
+}
 
 
 
@@ -98,15 +117,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
 // Maintain places array when a place is followed
 //
 - (void)placeFollowed:(NSNotification*)notification {
-	//NSDictionary *placeJSON = (NSDictionary*)[notification object];
+	NSDictionary *placeJSON = (NSDictionary*)[notification object];
+	[_places insertObject:placeJSON atIndex:0];
 }
 
 
 // Maintain places array when a place is unfollowed
 //
 - (void)placeUnfollowed:(NSNotification*)notification {
-	//NSDictionary *placeJSON = (NSDictionary*)[notification object];
+	NSDictionary *placeJSON = (NSDictionary*)[notification object];
+	NSInteger newPlaceID = [[placeJSON objectForKey:@"id"] integerValue];
 	
+	for(int i=0; i<[_places count];i++) {
+		if([[[_places objectAtIndex:i] objectForKey:@"id"] integerValue] == newPlaceID) {
+			[_places removeObjectAtIndex:i];
+			break;
+		}
+	}
 }
 
 
@@ -120,7 +147,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
 			withMessage:(NSString*)message withInstanceID:(int)instanceID {
 	
 	if([status isEqualToString:SUCCESS_STATUS]) {
-		self.places = [body objectForKey:PLACES_JSON_KEY];
+		[self populatePlaces:[body objectForKey:PLACES_JSON_KEY]];
 		_retries = 0;
 	}
 	else {
@@ -144,7 +171,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
 // The usual dealloc
 //
 - (void)dealloc {
-	[_requestManager release];
+	self.requestManager = nil;
+	[_places release];
     [super dealloc];
 }
 

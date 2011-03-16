@@ -14,17 +14,22 @@
 #import "SynthesizeSingleton.h"
 
 @interface DWFollowedPlacesCache : NSObject {
-	NSArray *_places;
+	NSMutableArray *_places;
 	NSInteger _retries;
 	
 	DWRequestManager *_requestManager;
 }
 
-@property (retain) NSArray *places;
-
-
 + (DWFollowedPlacesCache *)sharedDWFollowedPlacesCache;
 
+@property (readonly) NSMutableArray *places;
+@property (retain) DWRequestManager *requestManager;
+
+
 - (void)loadPlaces;
+- (void)populatePlaces:(NSArray*)newPlaces;
+- (NSArray*)generateImmutablePlaces;
+
+
 
 @end
