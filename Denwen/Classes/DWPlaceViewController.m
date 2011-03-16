@@ -445,7 +445,10 @@
 		
 		DWPlaceCell *cell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
 		cell.placeBackgroundImage.image = placeWithImage.largePreviewImage;
-		[self.refreshHeaderView applyBackgroundImage:placeWithImage.largePreviewImage];
+		[self.refreshHeaderView applyBackgroundImage:placeWithImage.largePreviewImage 
+								withFadeImage:[UIImage imageNamed:PLACE_VIEW_FADE_IMAGE_NAME]
+								 withBackgroundColor:[UIColor blackColor]
+		 ];
 	}	
 }
 

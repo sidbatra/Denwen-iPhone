@@ -85,6 +85,11 @@
 	[uiShell.navigationController.view addSubview:mbProgressIndicator];
 	[mbProgressIndicator release];
 	
+	[self.refreshHeaderView applyBackgroundImage:nil 
+								   withFadeImage:[UIImage imageNamed:USER_VIEW_FADE_IMAGE_NAME]
+							 withBackgroundColor:[UIColor colorWithRed:0.6156 green:0.6666 blue:0.7372 alpha:1.0]
+	 ];
+	
 	if(!_isLoadedOnce)
 		[self loadItems];
 }

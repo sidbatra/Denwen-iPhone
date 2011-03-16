@@ -59,7 +59,7 @@ typedef enum{
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
 
-- (void)applyBackgroundImage:(UIImage*)image;
+- (void)applyBackgroundImage:(UIImage*)backgroundImage withFadeImage:(UIImage*)fadeImage withBackgroundColor:(UIColor*)backColor;
 - (void)applyBackgroundColor:(UIColor*)color;
 
 @end

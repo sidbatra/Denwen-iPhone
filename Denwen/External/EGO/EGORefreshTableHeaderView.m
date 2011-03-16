@@ -57,7 +57,6 @@
 		_transparentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,frame.size.height-60-10,frame.size.width,60+10+1)];
 		_transparentImageView.hidden = YES;
 		_transparentImageView.contentMode = UIViewContentModeScaleToFill;
-		_transparentImageView.image = [UIImage imageNamed:TRANSPARENT_GRADIENT_PLACEHOLDER_IMAGE_NAME];
 		[self addSubview:_transparentImageView];
 		[_transparentImageView release];
 
@@ -120,13 +119,18 @@
 
 // Apply a background image to the refresh view
 //
-- (void)applyBackgroundImage:(UIImage*)image {
-	_backgroundImageView.image = image;
+- (void)applyBackgroundImage:(UIImage*)backgroundImage withFadeImage:(UIImage*)fadeImage withBackgroundColor:(UIColor*)backColor {
+	_backgroundImageView.image = backgroundImage;
+	
 	_transparentImageView.hidden = NO;
-	self.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+	_transparentImageView.image = fadeImage;
+	
+	self.backgroundColor = backColor;
+	
 	_statusLabel.textColor = [UIColor whiteColor];
 	_statusLabel.shadowColor = [UIColor blackColor];
 	_statusLabel.shadowOffset = CGSizeMake(0.0f, -0.5f);
+	
 	_activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 }
 

@@ -253,6 +253,8 @@
 		BBE326F012EE83B000657024 /* DWNewItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */; };
 		BBE327EB12EEAD8300657024 /* DWNewPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */; };
 		BBE327EC12EEAD8300657024 /* DWNewPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE327EA12EEAD8300657024 /* DWNewPlaceViewController.xib */; };
+		BBE3A9021330ABB100AE585A /* userprofilefade.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE3A9001330ABB100AE585A /* userprofilefade.png */; };
+		BBE3A9031330ABB100AE585A /* userprofilefade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE3A9011330ABB100AE585A /* userprofilefade@2x.png */; };
 		BBE52F9712F4008400A4F935 /* DWPopularItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE52F9512F4008400A4F935 /* DWPopularItemsViewController.m */; };
 		BBE52F9812F4008400A4F935 /* DWPopularItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE52F9612F4008400A4F935 /* DWPopularItemsViewController.xib */; };
 		BBE52FE712F4078600A4F935 /* DWFollowing.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE52FE612F4078600A4F935 /* DWFollowing.m */; };
@@ -634,6 +636,8 @@
 		BBE327E812EEAD8300657024 /* DWNewPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewPlaceViewController.h; path = Classes/DWNewPlaceViewController.h; sourceTree = "<group>"; };
 		BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewPlaceViewController.m; path = Classes/DWNewPlaceViewController.m; sourceTree = "<group>"; };
 		BBE327EA12EEAD8300657024 /* DWNewPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWNewPlaceViewController.xib; path = Classes/DWNewPlaceViewController.xib; sourceTree = "<group>"; };
+		BBE3A9001330ABB100AE585A /* userprofilefade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = userprofilefade.png; path = resources/userprofilefade.png; sourceTree = "<group>"; };
+		BBE3A9011330ABB100AE585A /* userprofilefade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "userprofilefade@2x.png"; path = "resources/userprofilefade@2x.png"; sourceTree = "<group>"; };
 		BBE52F9412F4008400A4F935 /* DWPopularItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPopularItemsViewController.h; path = Classes/DWPopularItemsViewController.h; sourceTree = "<group>"; };
 		BBE52F9512F4008400A4F935 /* DWPopularItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPopularItemsViewController.m; path = Classes/DWPopularItemsViewController.m; sourceTree = "<group>"; };
 		BBE52F9612F4008400A4F935 /* DWPopularItemsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWPopularItemsViewController.xib; path = Classes/DWPopularItemsViewController.xib; sourceTree = "<group>"; };
@@ -708,6 +712,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBE3A9001330ABB100AE585A /* userprofilefade.png */,
+				BBE3A9011330ABB100AE585A /* userprofilefade@2x.png */,
 				BBB8AF3B132F4F2100AC0566 /* changeuserpic.png */,
 				BBB8AF3C132F4F2100AC0566 /* changeuserpic@2x.png */,
 				BBA03C93132DD6990073105B /* play.png */,
@@ -1533,6 +1539,8 @@
 				BBA03C96132DD6990073105B /* play@2x.png in Resources */,
 				BBB8AF3D132F4F2100AC0566 /* changeuserpic.png in Resources */,
 				BBB8AF3E132F4F2100AC0566 /* changeuserpic@2x.png in Resources */,
+				BBE3A9021330ABB100AE585A /* userprofilefade.png in Resources */,
+				BBE3A9031330ABB100AE585A /* userprofilefade@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
