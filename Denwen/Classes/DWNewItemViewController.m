@@ -219,7 +219,7 @@
 		NSString *orientation = [DWVideoHelper extractOrientationOfVideo:mediaURL];
 		NSData *videoData = [[NSData alloc] initWithContentsOfURL:mediaURL];
 		
-		previewImage = [UIImage imageNamed:VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME];
+		previewImage = [UIImage imageNamed:VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME];
 		
 		[_s3Uploader uploadVideo:videoData atOrientation:orientation toFolder:S3_ITEMS_FOLDER];
 		

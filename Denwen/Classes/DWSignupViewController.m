@@ -57,15 +57,16 @@
 	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:MODALVIEW_BACKGROUND_IMAGE]];
 	
 	//rounded corners and border customization
-	[[signupFieldsContainerView layer] setCornerRadius:5.0f];
-	[[signupFieldsContainerView layer] setBorderWidth:1.0f];
+	[[signupFieldsContainerView layer] setCornerRadius:2.5f];
+	//[[signupFieldsContainerView layer] setBorderWidth:1.0f];
 	[[signupFieldsContainerView layer] setMasksToBounds:YES];
-	[[signupFieldsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
+	//[[signupFieldsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
+	[[signupFieldsContainerView layer] setBorderColor:[[UIColor whiteColor] CGColor]];
 	
-	[[imagePickerButton layer] setCornerRadius:5.0f];
-	[[imagePickerButton layer] setBorderWidth:1.0f];
+	[[imagePickerButton layer] setCornerRadius:2.5f];
+	//[[imagePickerButton layer] setBorderWidth:1.0f];
 	[[imagePickerButton layer] setMasksToBounds:YES];
-	[[imagePickerButton layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
+	//[[imagePickerButton layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
 	
 	[fullNameTextField becomeFirstResponder];
 	

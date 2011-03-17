@@ -276,7 +276,7 @@
 	//if(hasPhoto)
 	//	changePlaceImage.hidden = NO;
 	
-	editPlaceImage.enabled = YES;
+	editPlaceImage.hidden = NO;
 }
 
 
@@ -285,7 +285,7 @@
 - (void)displaySignedOutState {
 	//changePlaceImage.hidden = YES;
 	
-	editPlaceImage.enabled = NO;
+	editPlaceImage.hidden = YES;
 	
 }
 
