@@ -14,8 +14,6 @@
 - (void)addRightBarButtonItem;
 - (void)removeRightBarButtonItem;
 
-- (BOOL)isSelectedTab;
-
 - (void)loadSelectedView:(UISegmentedControl*)segmentedControl;
 - (void)hidePreviouslySelectedView:(UISegmentedControl*)segmentedControl;
 
@@ -82,7 +80,7 @@
 	
 	
 	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
-	segmentedControl.frame = CGRectMake(5,8,SEGMENTED_PLACES_CONTROL_WIDTH,SEGMENTED_PLACES_CONTROL_HEIGHT);
+	segmentedControl.frame = CGRectMake(0,0,SEGMENTED_PLACES_CONTROL_WIDTH,SEGMENTED_PLACES_CONTROL_HEIGHT);
 	segmentedControl.backgroundColor = [UIColor	clearColor];
 	segmentedControl.selectedSegmentIndex = _currentSelectedSegmentIndex;
 
@@ -146,13 +144,6 @@
 }
 
 
-// Tests if its the currently selected tab
-//
-- (BOOL)isSelectedTab {
-	return self.navigationController.tabBarController.selectedViewController == self.navigationController;
-}
-
-
 // Hides the view previously selected by the segmentControl
 //
 - (void)hidePreviouslySelectedView:(UISegmentedControl*)segmentedControl {
@@ -204,7 +195,6 @@
 	DWNewPlaceViewController *newPlaceView = [[DWNewPlaceViewController alloc] initWithDelegate:self];
 	[self.navigationController presentModalViewController:newPlaceView animated:YES];
 	[newPlaceView release];
-	 
 }
 
 
@@ -228,50 +218,6 @@
 
 
 #pragma mark -
-#pragma mark ItemFeedViewControllerDelegate
-
-
-// Fired when a place is selected in an item cell within a child of the ItemFeedViewController
-//
-- (void)placeSelected:(int)placeID {
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeID withNewItemPrompt:NO andDelegate:self];
-	[self.navigationController pushViewController:placeView animated:YES];
-	[placeView release];
-}
-
-
-// Fired when a user is selected in an item cell within a child of the ItemFeedViewController
-//
-- (void)userSelected:(int)userID {
-	DWUserViewController *userView = [[DWUserViewController alloc] initWithUserID:userID andDelegate:self];
-	[self.navigationController pushViewController:userView animated:YES];
-	[userView release];
-}
-
-
-// Fired when an attachment is clicked on in an item cell within a child of the ItemFeedViewController
-//
-- (void)attachmentSelected:(NSString *)url {
-	DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:url];
-	imageView.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:imageView animated:YES];
-	[imageView release];
-}
-
-
-// Fired when a url is clicked on in an item cell within a child of the ItemFeedViewController
-//
-- (void)urlSelected:(NSString *)url {
-	DWWebViewController *webViewController = [[DWWebViewController alloc] 
-											  initWithResourceURL:url]; 
-	webViewController.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:webViewController animated:YES];
-	[webViewController release];
-}
-
-
-
-#pragma mark -
 #pragma mark NewPlaceViewControllerDelegate
 
 // User cancels the new place creation process
@@ -283,16 +229,18 @@
 
 // User just finished creating a new place
 //
-- (void)newPlaceCreated:(NSInteger)placeID {
+- (void)newPlaceCreated:(NSString*)placeHashedID {
 	
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeID
+	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeHashedID
 																	withNewItemPrompt:YES 
 																		  andDelegate:self];
 	[self.navigationController pushViewController:placeView animated:NO];
 	[placeView release];
+	 
 	
 	[self.navigationController dismissModalViewControllerAnimated:YES];
 }
+
 
 
 
@@ -302,14 +250,6 @@
 
 - (void)viewDidUnload {	
 	NSLog(@"unload called on places container");
-}
-
-
-// The usual memory warning
-//
-- (void)didReceiveMemoryWarning {
-	if(self.navigationController.tabBarController.selectedViewController != self.navigationController)
-		[super didReceiveMemoryWarning];   
 }
 
 

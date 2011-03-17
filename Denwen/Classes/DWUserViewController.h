@@ -28,6 +28,7 @@
 	DWRequestManager *_updateUserRequestManager;
 	DWS3Uploader *_s3Uploader;
 	
+	UIViewController *uiShell;
 	MBProgressHUD *mbProgressIndicator;
 	
 	int _userID;

@@ -119,7 +119,9 @@ NSString * const USER_PROFILE_CREATE_PLACE_IMAGE_NAME = @"create_place_user_prof
 NSString * const USER_PROFILE_CREATE_PLACE_HIGHLIGHTED_IMAGE_NAME = @"create_place_user_profile_on.png";
 
 NSString * const USER_PROFILE_BG_TEXTURE = @"user_profile_bg.png";
-NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME = @"trans55.png";
+NSString * const PLACE_VIEW_FADE_IMAGE_NAME = @"refreshfade.png";
+NSString * const USER_VIEW_FADE_IMAGE_NAME = @"userprofilefade.png";
+NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME = @"trans40.png";
 NSString * const TRANSPARENT_BUTTON_BG_IMAGE_NAME = @"trans27.png";
 NSString * const FOLLOW_BUTTON_BG_IMAGE_NAME = @"button_bg.png";
 NSString * const FOLLOW_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME = @"button_bg_on.png";
@@ -127,45 +129,58 @@ NSString * const FOLLOWING_BUTTON_BG_IMAGE_NAME = @"following_place_profile.png"
 NSString * const FOLLOWING_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME = @"following_place_profile_on.png";
 NSString * const SHARE_PLACE_BUTTON_BG_IMAGE_NAME = @"share_place_profile.png";
 NSString * const SHARE_PLACE_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME = @"share_place_profile_on.png";
-NSString * const CHANGE_PIC_IMAGE_NAME = @"changepic.png";
+NSString * const CHANGE_USER_PIC_IMAGE_NAME = @"changeuserpic.png";
+NSString * const CHANGE_PLACE_PIC_IMAGE_NAME = @"changeplacepic.png";
+NSString * const ARROW_BUTTON_USER_IMAGE_NAME = @"arrow_place_button.png";
+NSString * const ARROW_BUTTON_PLACE_IMAGE_NAME = @"arrow_place_button.png";
 NSString * const ARROW_BUTTON_IMAGE_NAME = @"arrow_button.png";
 
 NSString * const MODALVIEW_BACKGROUND_IMAGE = @"modalview_bg.png";
 
 NSString * const NEW_POST_TEXTVIEW_PLACEHOLDER_TEXT = @"What's going on here?";
 
+/* Video attributes */
+NSString * const VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME = @"video_attach.png";
+NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME = @"video_placeholder.png";
+NSString * const VIDEO_PLAY_BUTTON_IMAGE_NAME = @"play.png";
+int const VIDEO_MAX_DURATION = 45;
+
 /* App UI Attributes */
+
+int const STATUS_BAR_STYLE = UIStatusBarStyleBlackOpaque;
 
 // Feed table and cell related
 int const FEED_TABLE_HEIGHT = 416;
 int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH = 304;
 int const MAX_DYNAMIC_CELL_HEIGHT = 2000;
-int const ATTACHMENT_HEIGHT = 100;
+int const ATTACHMENT_HEIGHT = 196;
 int const ATTACHMENT_Y_PADDING = 10;
 int const USER_LABEL_PADDING = 5;
 int const USER_NAME_PADDING = 5;
 int const PLACE_FEED_CELL_HEIGHT = 56;
-int const FOLLOW_PLACE_CELL_HEIGHT = 141;
-int const FOLLOW_CURRENT_USER_CELL_HEIGHT = 141;//192;
-int const FOLLOW_USER_CELL_HEIGHT = 90;
+int const FOLLOW_PLACE_CELL_HEIGHT = 177;//141;
+int const FOLLOW_CURRENT_USER_CELL_HEIGHT = 177;//141;//192;
+int const FOLLOW_USER_CELL_HEIGHT = 126;
 int const LOADING_CELL_HEIGHT = 74;
 int const LOADING_CELL_COUNT = 5;
 int const SPINNER_HEIGHT = 20;
+int const VIDEO_VIEW_SPINNER_SIDE = 25;
 int const SPINNER_CELL_INDEX = 2;
+int const SPINNER_CELL_PLACE_INDEX = 1;
 int const MESSAGE_CELL_INDEX = 2;
 int const PAGINATION_CELL_HEIGHT = 60;
 
 
 // Image sizes
-int const SIZE_PLACE_SMALL_IMAGE = 48;
-int const SIZE_PLACE_MEDIUM_IMAGE = 75;
+int const SIZE_PLACE_SMALL_IMAGE = 75;
+int const SIZE_PLACE_MEDIUM_IMAGE = 100;
 int const SIZE_PLACE_LARGE_IMAGE = 320;
-int const SIZE_PLACE_PRE_UPLOAD_IMAGE = 50;
-int const SIZE_USER_SMALL_IMAGE = 20;
-int const SIZE_USER_MEDIUM_IMAGE = 75;
-int const SIZE_USER_PRE_UPLOAD_IMAGE = 50;
-int const SIZE_ATTACHMENT_IMAGE = 100;
-int const SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE = 50;
+int const SIZE_PLACE_PRE_UPLOAD_IMAGE = 75;
+int const SIZE_USER_SMALL_IMAGE = 30;
+int const SIZE_USER_MEDIUM_IMAGE = 100;
+int const SIZE_USER_PRE_UPLOAD_IMAGE = 75;
+int const SIZE_ATTACHMENT_IMAGE = 250;
+int const SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE = 75;
 
 
 NSString * const DEFAULT_CELL_IDENTIFIER = @"Cell";
@@ -206,8 +221,8 @@ NSString * const POPULAR_TITLE = @"Popular";
 int const SEGMENTED_VIEW_WIDTH = 320;
 int const SEGMENTED_VIEW_HEIGHT = 44;
 NSString * const SEGMENTED_VIEW_BACKGROUND_IMAGE_NAME = @"segmented_view_bg.png";
-int const SEGMENTED_PLACES_CONTROL_WIDTH = 310;
-int const SEGMENTED_PLACES_CONTROL_HEIGHT = 30;
+int const SEGMENTED_PLACES_CONTROL_WIDTH = 320;
+int const SEGMENTED_PLACES_CONTROL_HEIGHT = 44;
 int const SEGMENTED_ITEMS_CONTROL_WIDTH = 207;
 int const SEGMENTED_ITEMS_CONTROL_HEIGHT = 30;
 NSString * const SEGMENTED_CONTROL_POPULAR_ON_IMAGE_NAME = @"popular_on.png";
@@ -219,6 +234,8 @@ NSString * const SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME = @"nearby_off.png";
 int const INITIAL_PAGE_FOR_REQUESTS = 0;
 
 
+NSString * const DENWEN_URL_PREFIX = @"denwen://p/";
+NSString * const FACEBOOK_URL_PREFIX = @"fb";
 
 
 #ifdef PRODUCTION
@@ -235,11 +252,13 @@ NSString * const LOGIN_URI = @"http://denwen.com/session.json";
 NSString * const SIGNUP_URI = @"http://denwen.com/users.json";
 NSString * const FOLLOWINGS_DELETE_URI = @"http://denwen.com/followings/";
 NSString * const FOLLOWINGS_URI = @"http://denwen.com/followings.json";
+NSString * const PLACE_HASHED_SHOW_URI = @"http://denwen.com/p/";
 NSString * const PLACE_SHOW_URI = @"http://denwen.com/places/";
 NSString * const USER_SHOW_URI = @"http://denwen.com/users/";
 NSString * const ITEMS_URI = @"http://denwen.com/items.json";
 NSString * const PLACES_URI = @"http://denwen.com/places.json";
 NSString * const VISITS_URI = @"http://denwen.com/visits.json";
+NSString * const SHARES_URI = @"http://denwen.com/shares.json";
 
 #else
 
@@ -255,11 +274,13 @@ NSString * const LOGIN_URI = @"http://sbat.denwen.com/session.json";
 NSString * const SIGNUP_URI = @"http://sbat.denwen.com/users.json";
 NSString * const FOLLOWINGS_DELETE_URI = @"http://sbat.denwen.com/followings/";
 NSString * const FOLLOWINGS_URI = @"http://sbat.denwen.com/followings.json";
+NSString * const PLACE_HASHED_SHOW_URI = @"http://sbat.denwen.com/p/";
 NSString * const PLACE_SHOW_URI = @"http://sbat.denwen.com/places/";
 NSString * const USER_SHOW_URI = @"http://sbat.denwen.com/users/";
 NSString * const ITEMS_URI = @"http://sbat.denwen.com/items.json";
 NSString * const PLACES_URI = @"http://sbat.denwen.com/places.json";
 NSString * const VISITS_URI = @"http://sbat.denwen.com/visits.json";
+NSString * const SHARES_URI = @"http://sbat.denwen.com/shares.json";
 
 #endif
 
@@ -333,7 +354,7 @@ NSString * const FOLLOW_LOGGEDOUT_MSG = @"Sign up to start following places";
 NSString * const SHARE_LOGGEDOUT_MSG = @"Sign up to start sharing places";
 NSString * const FOLLOW_NO_PLACES_SELF_MSG = @"You aren't following any places yet";
 NSString * const FOLLOW_NO_PLACES_MSG = @"This user isn't following any places yet";
-NSString * const USER_SIGNED_IN_NO_ITEMS_MSG = @"Everything you post will show up here";
+NSString * const USER_SIGNED_IN_NO_ITEMS_MSG = @"Everything you post shows up here";
 NSString * const MAP_TOOLTIP_MSG = @"Hold and drag to move pin";
 NSString * const LOADING_CELL_MSG = @"Loading...";
 NSString * const PAGINATION_CELL_MSG = @"Load more...";
@@ -348,7 +369,10 @@ NSString * const FIRST_TAKE_PHOTO_MSG = @"Take Photo";
 NSString * const FIRST_CHOOSE_PHOTO_MSG = @"Choose Existing";
 NSString * const BETTER_TAKE_PHOTO_MSG = @"Take Better Photo";
 NSString * const BETTER_CHOOSE_PHOTO_MSG = @"Choose Better Photo";
+NSString * const TAKE_MEDIA_MSG = @"Take Photo or Video";
+NSString * const CHOOSE_MEDIA_MSG = @"Choose Existing";
 NSString * const CANCEL_PHOTO_MSG = @"Cancel";
+NSString * const CANCEL_MEDIA_MSG = @"Cancel";
 
 //Integers signifying different use cases of table views
 NSInteger const TABLE_VIEW_AS_DATA = 0;
@@ -366,8 +390,11 @@ NSString * const N_LOCATION_CHANGED = @"LocationChanged";
 NSString * const N_TAB_BAR_SELECTION_CHANGED = @"TabBarSelectionChanged";
 NSString * const N_FOLLOWED_ITEMS_READ = @"FollowedItemsRead";
 NSString * const N_FOLLOWED_ITEMS_LOADED = @"FollowedItemsLoaded";
+NSString * const N_PLACE_FOLLOWED = @"PlaceFollowed";
+NSString * const N_PLACE_UNFOLLOWED = @"PlaceUnfollowed";
 NSString * const N_NEW_APPLICATION_BADGE_NUMBER = @"NewApplicationBadgeNumber";
 NSString * const N_FACEBOOK_URL_OPENED = @"FacebookURLOpened";
+NSString * const N_DENWEN_URL_OPENED = @"DenwenURLOpened";
 NSString * const N_ATTACHMENT_PREVIEW_DONE = @"AttachmentPreviewDone";
 NSString * const N_USER_LOGS_IN = @"UserLogsIn";
 NSString * const N_USER_LOGS_OUT = @"UserLogsOut";

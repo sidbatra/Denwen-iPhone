@@ -32,6 +32,15 @@
 												 name:N_NEW_PLACE_CREATED 
 											   object:nil];
 		
+		if (&UIApplicationWillEnterForegroundNotification != NULL) {
+			[[NSNotificationCenter defaultCenter] addObserver:self 
+													 selector:@selector(applicationEnteringForeground:) 
+														 name:UIApplicationWillEnterForegroundNotification
+													   object:nil];
+		}
+		
+		
+		
 	}
 	return self;
 }
@@ -69,6 +78,13 @@
 }
 
 
+// Fired when the app is about to enter the foreground
+//
+- (void)applicationEnteringForeground:(NSNotification*)notification {
+	if(_isLoadedOnce)
+		[self hardRefresh];
+}
+
 
 
 #pragma mark -
@@ -80,11 +96,24 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile",
+
+	NSString *urlString = nil;
+	
+	if([DWSessionManager isSessionActive])
+		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile&email=%@&password=%@",
 						   NEARBY_PLACES_URI,
 						   currentUserLocation.coordinate.latitude,
-						   currentUserLocation.coordinate.longitude
-						   ];
+						   currentUserLocation.coordinate.longitude,
+						   currentUser.email,
+						   currentUser.encryptedPassword							
+					   ];
+	else
+		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile",
+						 NEARBY_PLACES_URI,
+						 currentUserLocation.coordinate.latitude,
+						 currentUserLocation.coordinate.longitude
+					 ];
+	
 	[_requestManager sendGetRequest:urlString];
 	[urlString release];
 }
@@ -111,6 +140,8 @@
 			self.messageCellText = NO_PLACES_NEARBY_MSG;
 			_tableViewUsage = TABLE_VIEW_AS_MESSAGE;
 		}
+		
+		_isLoadedOnce = YES;
 
 		[self markEndOfPagination];
 		[self.tableView reloadData];

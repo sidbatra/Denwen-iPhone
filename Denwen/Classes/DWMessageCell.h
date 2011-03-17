@@ -10,7 +10,10 @@
 
 
 @interface DWMessageCell : UITableViewCell {
-
+	UILabel *customTextLabel;
 }
+
+@property (nonatomic, retain) UILabel *customTextLabel;
+
 
 @end

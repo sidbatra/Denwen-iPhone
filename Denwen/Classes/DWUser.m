@@ -19,7 +19,7 @@
 			hasPhoto=_hasPhoto,updateRequestManager=_updateRequestManager,twitterOAuthData=_twitterOAuthData,
 			facebookAccessToken=_facebookAccessToken,updateTwitterDataRequestManager=_updateTwitterDataRequestManager,
 			updateFacebookTokenRequestManager=_updateFacebookTokenRequestManager,visitRequestManager=_visitRequestManager,
-			updateUnreadRequestManager=_updateUnreadRequestManager;
+updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shareRequestManager;
 
 
 
@@ -233,7 +233,6 @@
 
 
 
-
 // Creates a visit on the server for the current user at the current location
 //
 - (void)createVisit {
@@ -273,6 +272,26 @@
 	[urlString release];
 }
 
+
+
+// Creates a share on the server when the user shares a place
+//
+- (void)createShare:(NSString*)data sentTo:(NSInteger)sentTo forPlace:(NSInteger)placeID   {
+	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:5];
+	self.shareRequestManager = tempRequestManager;
+	[tempRequestManager release];
+	
+	NSString *params = [[NSString alloc] initWithFormat:@"data=%@&sent_to=%d&place_id=%d&email=%@&password=%@&ff=mobile",
+						data,
+						sentTo,
+						placeID,
+						currentUser.email,
+						currentUser.encryptedPassword
+						];
+	
+	[self.shareRequestManager sendPostRequest:SHARES_URI withParams:params];
+	[params release];
+}
 
 
 
@@ -510,6 +529,8 @@
 		self.visitRequestManager = nil;
 	else if(instanceID==4)
 		self.updateUnreadRequestManager = nil;
+	else if(instanceID==5)
+		self.shareRequestManager = nil;
 	
 }
 
@@ -529,6 +550,8 @@
 		self.visitRequestManager = nil;
 	else if(instanceID==4)
 		self.updateUnreadRequestManager = nil;
+	else if(instanceID==5)
+		self.shareRequestManager = nil;
 }
 
 
@@ -587,6 +610,7 @@
 	self.updateFacebookTokenRequestManager = nil;
 	self.visitRequestManager = nil;
 	self.updateUnreadRequestManager = nil;
+	self.shareRequestManager = nil;
 	
 		
 	[super dealloc];

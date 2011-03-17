@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSURL *launchURL;
 
 @interface DWURLHelper : NSObject {
 

@@ -59,7 +59,7 @@
 	return self;
 }
 
-
+	
 // Setup UI elements after the view is done loading
 //
 - (void)viewDidLoad {
@@ -68,6 +68,10 @@
 	CGRect frame = self.view.frame;
 	frame.origin.y = 0; 
 	self.view.frame = frame;
+	
+	//self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+	[self.tableView setSeparatorColor:[UIColor colorWithRed:0.921 green:0.921 blue:0.921 alpha:1.0]];
+
 	
 	self.searchDisplayController.searchBar.placeholder = @"Search All Places";
 	[self.tableView setContentOffset:CGPointMake(0,44) animated:NO]; //Tuck the search bar above the table view
@@ -382,7 +386,7 @@
 		return cell;
 	}
 	
-	else if(_tableViewUsage == TABLE_VIEW_AS_SPINNER && indexPath.row == SPINNER_CELL_INDEX) {
+	else if(_tableViewUsage == TABLE_VIEW_AS_SPINNER && indexPath.row == SPINNER_CELL_PLACE_INDEX) {
 		DWLoadingCell *cell = (DWLoadingCell*)[tableView dequeueReusableCellWithIdentifier:LOADING_CELL_IDENTIFIER];
 		
 		if (!cell) 
@@ -498,7 +502,7 @@
 						[_placeManager getFilteredPlace:indexPath.row] :
 						[_placeManager getPlaceAtRow:indexPath.section andColumn:indexPath.row];
 		
-		[_delegate placeSelected:place.databaseID];
+		[_delegate placeSelected:place.hashedId];
 		
 		//Deselect the currently selected row 
 		if(self.searchDisplayController.isActive)
@@ -507,7 +511,7 @@
 		else
 			[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 	}
-	else if(!self.searchDisplayController.isActive && indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section]) {
+	else if(_tableViewUsage == TABLE_VIEW_AS_DATA && !self.searchDisplayController.isActive && indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section]) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
 		DWPaginationCell *cell = (DWPaginationCell*)[self.tableView cellForRowAtIndexPath:indexPath];

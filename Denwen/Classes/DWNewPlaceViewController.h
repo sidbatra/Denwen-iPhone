@@ -70,5 +70,5 @@
 
 @protocol DWNewPlaceViewControllerDelegate
 - (void)newPlaceCancelled;
-- (void)newPlaceCreated:(NSInteger)placeID;
+- (void)newPlaceCreated:(NSString*)placeHashedID;
 @end

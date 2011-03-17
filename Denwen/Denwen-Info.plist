@@ -41,6 +41,8 @@
 			<array>
 				<string>fb176869555684965</string>
 				<string>fb127979053940843</string>
+				<string>denwen</string>
+				<string>sbat.denwen</string>
 			</array>
 		</dict>
 	</array>
@@ -55,5 +57,7 @@
 		<string>Icon-Small.png</string>
 		<string>Icon-Small@2x.png</string>
 	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackOpaque</string>
 </dict>
 </plist>

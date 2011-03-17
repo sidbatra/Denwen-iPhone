@@ -47,10 +47,10 @@
 	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:MODALVIEW_BACKGROUND_IMAGE]];
 	
 	//rounded corners and border customization
-	[[loginFieldsContainerView layer] setCornerRadius:5.0f];
-	[[loginFieldsContainerView layer] setBorderWidth:1.0f];
+	[[loginFieldsContainerView layer] setCornerRadius:2.5f];
+	//[[loginFieldsContainerView layer] setBorderWidth:1.0f];
 	[[loginFieldsContainerView layer] setMasksToBounds:YES];
-	[[loginFieldsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
+	//[[loginFieldsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
 	
 	[emailTextField becomeFirstResponder];
 	

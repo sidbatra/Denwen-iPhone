@@ -18,6 +18,7 @@
 - (void)hideCreateButton;
 
 - (void)displayProfilePicture;
+- (void)updateTitle;
 
 - (void)createFollowing:(NSDictionary*)followJSON;
 
@@ -31,7 +32,7 @@
 @implementation DWPlaceViewController
 
 
-@synthesize following=_following;
+@synthesize placeHashedID=_placeHashedID,placeJSON=_placeJSON,following=_following;
 
 
 
@@ -41,14 +42,15 @@
 
 // Init the view along with its member variables 
 //
-- (id)initWithPlaceID:(int)placeID withNewItemPrompt:(bool)newItemPrompt andDelegate:(id)delegate {
+- (id)initWithPlaceID:(NSString*)placeHashedID withNewItemPrompt:(BOOL)newItemPrompt andDelegate:(id)delegate {
 	self = [super initWithDelegate:delegate];
 	
 	if (self) {
-		_placeID = placeID;
+		self.placeHashedID = placeHashedID;
 		_newItemPrompt = newItemPrompt;
 		_isViewLoaded = NO;
 		_isReadyForCreateItem = NO;
+		_placeJSON = nil;
 		
 		_followRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:1];
 		_updatePlaceRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:2];
@@ -165,6 +167,12 @@
 }
 
 
+// Update the title using the followers of the place
+//
+- (void)updateTitle {
+	self.title = [_place titleText];
+}
+
 // Init and populate the following memeber variable
 //
 - (void)createFollowing:(NSDictionary*)followJSON {
@@ -210,17 +218,17 @@
 	NSString *urlString = nil;
 	
 	if([DWSessionManager isSessionActive])
-		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?email=%@&password=%@&page=%d&ff=mobile",
-					 PLACE_SHOW_URI,
-					 _placeID,
+		urlString = [[NSString alloc] initWithFormat:@"%@%@.json?email=%@&password=%@&page=%d&ff=mobile",
+					 PLACE_HASHED_SHOW_URI,
+					 self.placeHashedID,
 					 currentUser.email,
 					 currentUser.encryptedPassword,
 					 _currentPage
 					 ];
 	else
-		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&ff=mobile",
-					 PLACE_SHOW_URI,
-					 _placeID,
+		urlString = [[NSString alloc] initWithFormat:@"%@%@.json?page=%d&ff=mobile",
+					 PLACE_HASHED_SHOW_URI,
+					 self.placeHashedID,
 					 _currentPage
 					 ];
 	
@@ -307,6 +315,7 @@
 			
 			/* Create or fetch the place from the memory pool*/
 			NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
+			self.placeJSON = placeJSON;
 			_place = (DWPlace*)[DWMemoryPool getOrSetObject:placeJSON atRow:PLACES_INDEX];
 			
 			
@@ -316,7 +325,7 @@
 			if(![followJSON isKindOfClass:[NSNull class]] && [followJSON count])
 				[self createFollowing:followJSON];
 
-			self.title = _place.name;
+			[self updateTitle];
 			
 			
 			_tableViewUsage = TABLE_VIEW_AS_DATA;			
@@ -351,11 +360,17 @@
 			if(self.following) { // If already following place, unfollow it
 				self.following = nil;
 				[placeCell displayUnfollowingState];
+				[_place updateFollowerCount:-1];
+				[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_UNFOLLOWED object:self.placeJSON];
 			}
 			else { 
 				[self createFollowing:body];
 				[placeCell displayFollowingState];
+				[_place updateFollowerCount:1];
+				[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_FOLLOWED object:self.placeJSON];
 			}
+			
+			[self updateTitle];
 			
 			//Mark changes to global variables, indicating a refresh is needed on followed content
 			currentUserFollowedItemsRefresh = YES;
@@ -372,6 +387,7 @@
 		if([status isEqualToString:SUCCESS_STATUS]) {
 			NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
 			[_place updatePreviewURLs:placeJSON];
+			self.placeJSON = placeJSON;
 		}
 		else {
 				
@@ -429,6 +445,10 @@
 		
 		DWPlaceCell *cell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
 		cell.placeBackgroundImage.image = placeWithImage.largePreviewImage;
+		[self.refreshHeaderView applyBackgroundImage:placeWithImage.largePreviewImage 
+								withFadeImage:[UIImage imageNamed:PLACE_VIEW_FADE_IMAGE_NAME]
+								 withBackgroundColor:[UIColor blackColor]
+		 ];
 	}	
 }
 
@@ -600,6 +620,7 @@
 - (void)didTapShareButton:(id)sender event:(id)event {
 	if([DWSessionManager isSessionActive]) {
 		DWShareViewController *shareView = [[DWShareViewController alloc] initWithDelegate:self andPlace:_place];
+		shareView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 		[self.navigationController presentModalViewController:shareView animated:YES];
 		[shareView release];
 	}
@@ -655,7 +676,7 @@
 	if(actionSheet.tag == 0 && buttonIndex != 2) {
 		[DWMemoryPool freeMemory];
 		
-		UIImagePickerController *imagePickerController = imagePickerController = [[UIImagePickerController alloc] init];
+		UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
 		imagePickerController.delegate = self;
 		imagePickerController.allowsEditing = YES;		
 		imagePickerController.sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
@@ -672,9 +693,14 @@
 #pragma mark -
 #pragma mark ShareViewControllerDelegate
 
-// User finishes or dismisss the shareViewController
--(void)shareViewFinished {
+// User cancels the shareViewController
+-(void)shareViewCancelled {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)shareViewFinished:(NSString*)data sentTo:(NSInteger)sentTo {
+	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[currentUser createShare:data sentTo:sentTo forPlace:_place.databaseID];
 }
 
 
@@ -781,6 +807,8 @@
 		[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
 	}
 	
+	self.placeHashedID = nil;
+	self.placeJSON = nil;
 	self.following = nil;
 	
 	[_followRequestManager release];

@@ -83,11 +83,23 @@
 //
 - (void)loadPlaces {
 	[super loadPlaces];
+	
+	
+	NSString *urlString = nil;	
+	
+	if([DWSessionManager isSessionActive])
+		urlString = [[NSString alloc] initWithFormat:@"%@%d/places.json?ff=mobile&email=%@&password=%@",
+							USER_SHOW_URI,
+							_userID,
+							currentUser.email,
+							currentUser.encryptedPassword							
+					 ];
+	else
+		urlString = [[NSString alloc] initWithFormat:@"%@%d/places.json?ff=mobile",
+					 USER_SHOW_URI,
+					 _userID
+					 ];
 		
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d/places.json?ff=mobile",
-						   USER_SHOW_URI,
-						   _userID
-						   ];
 	[_requestManager sendGetRequest:urlString];
 	[urlString release];
 }
@@ -95,7 +107,7 @@
 
 
 #pragma mark -
-#pragma mark RequestManager Delegate methods
+#pragma mark RequestManager
 
 
 // Fired when request manager has successfully parsed a request

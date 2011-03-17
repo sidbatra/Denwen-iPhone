@@ -59,6 +59,7 @@
 	
 	self.name = [place objectForKey:@"name"];
 	self.hashedId = [place objectForKey:@"hashed_id"];
+	_followersCount = [[place objectForKey:@"followings_count"] integerValue];
 	
 	CLLocation *tempLocation = [[CLLocation alloc] initWithLatitude:[[place objectForKey:@"latitude"] floatValue] 
 							   longitude:[[place objectForKey:@"longitude"] floatValue]];
@@ -104,6 +105,9 @@
 		
 		if(![self.hashedId isEqualToString:newHashedId])
 			self.hashedId = newHashedId;
+		
+		_followersCount = [[objectJSON objectForKey:@"followings_count"] integerValue];
+		
 		 
 		 _hasPhoto = [[objectJSON objectForKey:@"has_photo"] boolValue];
 		 
@@ -160,6 +164,13 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_PLACE_PREVIEW_DONE object:self];
 	[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_PLACE_PREVIEW_DONE object:self];
 	[[NSNotificationCenter defaultCenter] postNotificationName:N_LARGE_PLACE_PREVIEW_DONE object:self];
+}
+
+
+// Update the follower count by the given amount
+//
+- (void)updateFollowerCount:(NSInteger)delta {
+	_followersCount += delta;
 }
 
 
@@ -264,6 +275,24 @@
 	
 	return result;
 }
+
+
+// Title text used on place view pages
+//
+- (NSString*)titleText {
+	NSString *text = nil;
+	
+	if(_followersCount == 0)
+		text = [NSString stringWithFormat:@"%@",_name];
+	else if(_followersCount == 1)
+		text = [NSString stringWithFormat:@"%d is following",_followersCount];
+	else
+		text = [NSString stringWithFormat:@"%d are following",_followersCount];
+	
+	return text;
+}
+
+
 
 #pragma mark -
 #pragma mark DWURLConnectionDelegate

@@ -69,7 +69,9 @@
 	frame.origin.y = 0; 
 	self.view.frame = frame;
 	
-	[self.tableView setSeparatorColor:[UIColor colorWithRed:0.878 green:0.878 blue:0.878 alpha:1.0]];
+	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+	//[self.tableView setSeparatorColor:[UIColor colorWithRed:0.878 green:0.878 blue:0.878 alpha:1.0]];
+	//[self.tableView setSeparatorColor:[UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0]];
 	
 	
 	EGORefreshTableHeaderView *tempRefreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 
@@ -82,6 +84,7 @@
 	self.refreshHeaderView.delegate = self;
 	[self.tableView addSubview:self.refreshHeaderView];	
 }
+
 
 
 // Add a new item to the table view
@@ -367,6 +370,7 @@
 		
 		//update the class members
 		[cell updateClassMemberHasAttachment:[item hasAttachment] andItemID:item.databaseID];
+		
 
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		[cell.placeName setTitle:[NSString stringWithFormat:@"at %@", item.place.name] forState:UIControlStateNormal];
@@ -380,12 +384,15 @@
 		
 		//Test if the preview images got pulled from the cache instantly
 		if ([item hasAttachment]) {
-			if (item.attachment.previewImage) {
+			if (item.attachment.previewImage)
 				[cell.attachmentImage setBackgroundImage:item.attachment.previewImage forState:UIControlStateNormal];	
-			}
 			else
 				[cell.attachmentImage setBackgroundImage:[UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME] forState:UIControlStateNormal];	
+			
+			if([item.attachment isVideo])
+				[cell displayPlayIcon];
 		}
+		
 		if (item.place.smallPreviewImage)
 			[cell setSmallPreviewPlaceImage:item.place.smallPreviewImage];
 		else
@@ -519,7 +526,7 @@
 //
 - (void)didTapPlaceName:(id)sender event:(id)event {
 	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag atRow:ITEMS_INDEX];
-	[_delegate placeSelected:item.place.databaseID];
+	[_delegate placeSelected:item.place.hashedId];
 }
 
 
@@ -527,7 +534,7 @@
 //
 - (void)didTapPlaceImage:(id)sender event:(id)event {
 	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag atRow:ITEMS_INDEX];
-	[_delegate placeSelected:item.place.databaseID];
+	[_delegate placeSelected:item.place.hashedId];
 }
 
 
@@ -543,7 +550,7 @@
 //
 - (void)didTapAttachmentImage:(id)sender event:(id)event {
 	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag atRow:ITEMS_INDEX];
-	[_delegate attachmentSelected:item.attachment.fileUrl];
+	[_delegate attachmentSelected:item.attachment.fileUrl withIsImageType:[item.attachment isImage]];
 }
 
 

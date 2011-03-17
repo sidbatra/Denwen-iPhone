@@ -15,8 +15,6 @@
 - (BOOL)loadItems;
 - (void)checkCurrentUser;
 - (void)displayProfilePicture;
-- (void)displayComposeButton;
-- (void)showNewPostFlow;
 - (void)sendUpdateUserRequest:(NSString*)userPhotoFilename;
 @end
 
@@ -72,20 +70,25 @@
 //
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+	
+	uiShell = _isCurrenUserProfile ? (UIViewController*)_delegate : self;
 
 	UIBarButtonItem *backButton =  [[UIBarButtonItem alloc] initWithTitle:_isCurrenUserProfile ? BACK_BUTTON_SELF_TITLE : BACK_BUTTON_TITLE
 										 style:UIBarButtonItemStyleBordered
 										target:nil
 										action:nil];
-	self.navigationItem.backBarButtonItem = backButton;
+	uiShell.navigationItem.backBarButtonItem = backButton;
 	[backButton release];
 	
-	self.navigationItem.hidesBackButton = _isCurrenUserProfile;
 	
-	mbProgressIndicator = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.navigationController.view addSubview:mbProgressIndicator];
+	mbProgressIndicator = [[MBProgressHUD alloc] initWithView:uiShell.navigationController.view];
+	[uiShell.navigationController.view addSubview:mbProgressIndicator];
 	[mbProgressIndicator release];
+	
+	[self.refreshHeaderView applyBackgroundImage:nil 
+								   withFadeImage:[UIImage imageNamed:USER_VIEW_FADE_IMAGE_NAME]
+							 withBackgroundColor:[UIColor colorWithRed:0.6156 green:0.6666 blue:0.7372 alpha:1.0]
+	 ];
 	
 	if(!_isLoadedOnce)
 		[self loadItems];
@@ -105,46 +108,10 @@
 	if(_user.hasPhoto) {
 		DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:_user.largeURL];
 		imageView.hidesBottomBarWhenPushed = YES;
-		[self.navigationController pushViewController:imageView animated:YES];
+		[uiShell.navigationController pushViewController:imageView animated:YES];
 		[imageView release];	
 	}
 }
-
-
-// Displays the compose item button on the top right
-//
-- (void)displayComposeButton {
-	/*
-	if(_isCurrentUser) {
-		UIBarButtonItem *composeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose 
-																					   target:self 
-																					   action:@selector(didPressCreateNewItem:event:) ];
-		self.navigationItem.rightBarButtonItem = composeButton;
-		[composeButton release];
-	}
-	 */
-}
-
-
-// Displays the post creation flow
-//
-- (void)showNewPostFlow {
-	DWSelectPlaceViewController *selectPlaceView = [[DWSelectPlaceViewController alloc] initWithDelegate:self];																																							
-	
-	UINavigationController *selectPlaceNav = [[UINavigationController alloc] initWithRootViewController:selectPlaceView];
-	[selectPlaceView release];
-	
-	[self.navigationController presentModalViewController:selectPlaceNav animated:YES];
-	[selectPlaceNav release];	
-}
-
-
-// User presses the compose icon
-//
-- (void)didPressCreateNewItem:(id)sender event:(id)event {
-	[self showNewPostFlow];
-}
-
 
 
 
@@ -155,20 +122,20 @@
 // User cancels the select place view
 //
 - (void)selectPlaceCancelled {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 
 // User selects a place to post to
 //
 - (void)selectPlaceFinished:(NSString*)placeName andPlaceID:(NSInteger)placeID {
-	[self.navigationController dismissModalViewControllerAnimated:NO];
+	[uiShell.navigationController dismissModalViewControllerAnimated:NO];
 	
 	DWNewItemViewController *newItemView = [[DWNewItemViewController alloc] initWithDelegate:self 
 																			   withPlaceName:placeName
 																				 withPlaceID:placeID
 																			   withForcePost:NO];
-	[self.navigationController presentModalViewController:newItemView animated:NO];
+	[uiShell.navigationController presentModalViewController:newItemView animated:NO];
 	[newItemView release];
 }
 
@@ -181,14 +148,39 @@
 // Fired when user cancels the new item creation
 //
 - (void)newItemCancelled {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 
 // Fired when the new has successfully created a new item for this place
 //
 - (void)newItemCreationFinished {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+
+
+#pragma mark -
+#pragma mark NewPlaceViewControllerDelegate
+
+// User cancels the new place creation process
+//
+- (void)newPlaceCancelled {
+	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+
+// User just finished creating a new place
+//
+- (void)newPlaceCreated:(NSString*)placeHashedID {
+	
+	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeHashedID
+																	withNewItemPrompt:YES 
+																		  andDelegate:self];
+	[uiShell.navigationController pushViewController:placeView animated:NO];
+	[placeView release];
+	
+	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 
@@ -203,11 +195,23 @@
 	[super loadItems];
 	
 
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&ff=mobile",
-						   USER_SHOW_URI,
-						   _userID,
-						   _currentPage
-						   ];
+	NSString *urlString = nil;
+	
+	if([DWSessionManager isSessionActive])
+		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&email=%@&password=%@&ff=mobile",
+							   USER_SHOW_URI,
+							   _userID,
+							   _currentPage,
+							   currentUser.email,
+							   currentUser.encryptedPassword
+							   ];
+	else
+		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&ff=mobile",
+							   USER_SHOW_URI,
+							   _userID,
+							   _currentPage
+							   ];
+	
 	[_requestManager sendGetRequest:urlString];
 	[urlString release];
 	
@@ -259,15 +263,11 @@
 			_user = (DWUser*)[DWMemoryPool getOrSetObject:userJSON atRow:USERS_INDEX];			
 			
 			if(!_isCurrenUserProfile)
-				self.title = [_user fullName];
+				uiShell.title = [_user fullName];
 			else
-				self.title = [_user firstName];
+				uiShell.title = [_user firstName];
 
-			
-			if(!_isLoadedOnce) {
-				[self displayComposeButton];
-				_isLoadedOnce = YES;
-			}
+			_isLoadedOnce = YES;
 						
 			if([_itemManager totalItems]==1 && [DWSessionManager isSessionActive] && currentUser.databaseID == _user.databaseID) {
 				self.messageCellText = USER_SIGNED_IN_NO_ITEMS_MSG;
@@ -336,7 +336,7 @@
 //
 - (void)newItemCreated:(NSNotification*)notification {
 	DWItem *item = (DWItem*)[notification object];
-	
+		
 	if(_isLoadedOnce && _user == item.user)
 		[self addNewItem:item atIndex:1];
 }
@@ -352,7 +352,6 @@
 	
 	[self checkCurrentUser];
 	
-	[self displayComposeButton];
 	
 	if(_isCurrentUser)
 		[self.tableView reloadData];
@@ -416,6 +415,13 @@
 	else {
 		cell = [super tableView:(tableView) cellForRowAtIndexPath:indexPath];
 		
+		//Override position of the message cell
+		if(_tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE && indexPath.row == MESSAGE_CELL_INDEX) {
+			((DWMessageCell*)cell).textLabel.text = @"";
+			((DWMessageCell*)cell).customTextLabel.hidden = NO;
+			((DWMessageCell*)cell).customTextLabel.text = self.messageCellText;
+		}
+		
 		if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row < [_itemManager totalItems])
 			[(DWItemFeedCell*)cell disableUserButtons];
 	}
@@ -438,8 +444,7 @@
 																								   withUserName:_user.firstName
 																									  andUserID:_userID
 														];
-		//followedView.hidesBottomBarWhenPushed = YES;
-		[self.navigationController pushViewController:followedView animated:YES];
+		[uiShell.navigationController pushViewController:followedView animated:YES];
 		[followedView release];
 	}
 	else {
@@ -472,7 +477,7 @@
 		
 		
 		
-		[actionSheet showInView:self.tabBarController.view];
+		[actionSheet showInView:uiShell.tabBarController.view];
 		[actionSheet release];
 	}
 
@@ -482,7 +487,13 @@
 // User clicks on the new post button within the cell
 //
 - (void)didTapNewPostButton:(id)sender event:(id)event {
-	[self showNewPostFlow];
+	DWSelectPlaceViewController *selectPlaceView = [[DWSelectPlaceViewController alloc] initWithDelegate:self];																																							
+	
+	UINavigationController *selectPlaceNav = [[UINavigationController alloc] initWithRootViewController:selectPlaceView];
+	[selectPlaceView release];
+	
+	[uiShell.navigationController presentModalViewController:selectPlaceNav animated:YES];
+	[selectPlaceNav release];	
 }
 
 
@@ -490,38 +501,9 @@
 ///
 - (void)didTapNewPlaceButton:(id)sender event:(id)event {
 	DWNewPlaceViewController *newPlaceView = [[DWNewPlaceViewController alloc] initWithDelegate:self];
-	[self.navigationController presentModalViewController:newPlaceView animated:YES];
+	[uiShell.navigationController presentModalViewController:newPlaceView animated:YES];
 	[newPlaceView release];
 }
-
-
-
-
-
-#pragma mark -
-#pragma mark NewPlaceViewControllerDelegate
-
-// User cancels the new place creation process
-//
-- (void)newPlaceCancelled {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
-
-// User just finished creating a new place
-//
-- (void)newPlaceCreated:(NSInteger)placeID {
-	
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeID
-																	withNewItemPrompt:YES 
-																		  andDelegate:self];
-	[self.navigationController pushViewController:placeView animated:NO];
-	[placeView release];
-	
-	[self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
-
 
 
 
@@ -539,7 +521,7 @@
 		imagePickerController.delegate = self;
 		imagePickerController.allowsEditing = YES;		
 		imagePickerController.sourceType =  buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-		[self presentModalViewController:imagePickerController animated:YES];
+		[uiShell presentModalViewController:imagePickerController animated:YES];
 		[imagePickerController release];
 	}
 }	
@@ -564,7 +546,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
 	
-	[self dismissModalViewControllerAnimated:YES];
+	[uiShell dismissModalViewControllerAnimated:YES];
 	
 	mbProgressIndicator.labelText = @"Loading";
 	[mbProgressIndicator showUsingAnimation:YES];
@@ -577,7 +559,7 @@
 // Called when user cancels the photo selection / creation process
 //
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[self dismissModalViewControllerAnimated:YES];
+	[uiShell dismissModalViewControllerAnimated:YES];
 }
 
 
@@ -612,22 +594,19 @@
 
 
 
-
 #pragma mark -
 #pragma mark Memory management
 
+//
+//
 - (void)viewDidUnload {
 	[super viewDidUnload];
-	
-	NSLog(@"unload called on user view");
-
 }
 
 // The usual memory warning
 //
 - (void)didReceiveMemoryWarning {
-	if(!_isCurrenUserProfile || self.navigationController.tabBarController.selectedViewController != self.navigationController)
-		[super didReceiveMemoryWarning];  
+	[super didReceiveMemoryWarning];  
 }
 
 

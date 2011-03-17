@@ -34,6 +34,7 @@
 
 //Functions for handling server interactions 
 - (void)populate:(NSDictionary*)result;
+- (void)update:(NSDictionary*)objectJSON;
 - (void)startPreviewDownload;
 
 //Caching helper functions
@@ -42,7 +43,9 @@
 
 //Preview deciding functions
 - (BOOL)hasRemoteImagePreview;
-- (BOOL)hasVideoPreview;
+- (BOOL)isVideo;
+- (BOOL)isImage;
+
 
 //Memory management
 - (void)freeMemory;

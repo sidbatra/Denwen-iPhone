@@ -71,7 +71,7 @@
 	
 	//rounded corners and border customization
 	[[sharingOptionsContainerView layer] setCornerRadius:5.0f];
-	[[sharingOptionsContainerView layer] setBorderWidth:1.0f];
+	[[sharingOptionsContainerView layer] setBorderWidth:0.0f];
 	[[sharingOptionsContainerView layer] setMasksToBounds:YES];
 	[[sharingOptionsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
 	
@@ -119,8 +119,10 @@
 // Tests whether the delegate for finishing sharing should be fired
 //
 - (void)testEndOfSharing {
-	if( (!twitterSwitch.on || _twitterRequestDone) && (!facebookSwitch.on || _facebookRequestDone) )
-	   [_delegate shareViewFinished];
+	if( (!twitterSwitch.on || _twitterRequestDone) && (!facebookSwitch.on || _facebookRequestDone) ) {
+		NSInteger sentTo = twitterSwitch.on * pow(2,0) + facebookSwitch.on * pow(2,1);
+		[_delegate shareViewFinished:[NSString stringWithString:textView.text] sentTo:sentTo];
+	}
 }
 	   
 
@@ -194,7 +196,7 @@
 // User clicks the cancel button
 //
 - (void)cancelButtonClicked:(id)sender {
-	[_delegate shareViewFinished];
+	[_delegate shareViewCancelled];
 }
 
 

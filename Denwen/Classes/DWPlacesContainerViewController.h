@@ -11,18 +11,15 @@
 
 #import "DWNearbyPlacesViewController.h"
 #import "DWPopularPlacesViewController.h"
-#import "DWPlaceViewController.h"
 #import "DWNewPlaceViewController.h"
-#import "DWNewItemViewController.h"
-#import "DWUserViewController.h"
-#import "DWImageViewController.h"
-#import "DWWebViewController.h"
+#import "DWContainerViewController.h"
+
 
 #import "DWSessionManager.h"
 #import "Constants.h"
 
 
-@interface DWPlacesContainerViewController : UIViewController <DWItemFeedViewControllerDelegate,DWPlaceListViewControllerDelegate> {
+@interface DWPlacesContainerViewController : DWContainerViewController {
 	
 	DWPopularPlacesViewController *popularViewController;
 	DWNearbyPlacesViewController *nearbyViewController;

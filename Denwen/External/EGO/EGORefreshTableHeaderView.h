@@ -25,7 +25,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
+//#import <QuartzCore/QuartzCore.h>
+
+#import "Constants.h"
 
 typedef enum{
 	EGOOPullRefreshPulling = 0,
@@ -38,10 +40,12 @@ typedef enum{
 	
 	id _delegate;
 	EGOPullRefreshState _state;
-
+	
+	UIImageView *_backgroundImageView;
+	UIImageView *_transparentImageView;
 	UILabel *_lastUpdatedLabel;
 	UILabel *_statusLabel;
-	CALayer *_arrowImage;
+	//CALayer *_arrowImage;
 	UIActivityIndicatorView *_activityView;
 	
 
@@ -49,10 +53,14 @@ typedef enum{
 
 @property(nonatomic,assign) id <EGORefreshTableHeaderDelegate> delegate;
 
+
 - (void)refreshLastUpdatedDate;
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
+
+- (void)applyBackgroundImage:(UIImage*)backgroundImage withFadeImage:(UIImage*)fadeImage withBackgroundColor:(UIColor*)backColor;
+- (void)applyBackgroundColor:(UIColor*)color;
 
 @end
 @protocol EGORefreshTableHeaderDelegate

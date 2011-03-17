@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "DWPlaceListViewController.h"
+#import "DWFollowedPlacesCache.h"
 #import "DWSessionManager.h"
 #import "DWUserLocation.h"
 
@@ -20,9 +21,7 @@
 @interface DWSelectPlaceViewController : DWPlaceListViewController {
 	IBOutlet UITableView *tableView;
 	
-	DWRequestManager *_nearbyRequestManager;
 	DWRequestManager *_followedRequestManager;
-	DWRequestManager *_popularRequestManager;
 	
 	id<DWSelectPlaceViewControllerDelegate> _selectPlaceDelegate;
 }

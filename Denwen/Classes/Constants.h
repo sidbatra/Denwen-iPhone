@@ -71,7 +71,8 @@ extern NSString * const USER_SMALL_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const USER_MEDIUM_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const USER_SIGNED_IN_MEDIUM_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const USER_LARGE_PLACEHOLDER_IMAGE_NAME;
-extern NSString * const CHANGE_PIC_IMAGE_NAME;
+extern NSString * const CHANGE_USER_PIC_IMAGE_NAME;
+extern NSString * const CHANGE_PLACE_PIC_IMAGE_NAME;
 extern NSString * const USER_PROFILE_CREATE_POST_IMAGE_NAME;
 extern NSString * const USER_PROFILE_CREATE_POST_HIGHLIGHTED_IMAGE_NAME;
 extern NSString * const USER_PROFILE_CREATE_PLACE_IMAGE_NAME;
@@ -80,6 +81,8 @@ extern NSString * const USER_PROFILE_CREATE_PLACE_HIGHLIGHTED_IMAGE_NAME;
 extern NSString * const NEW_POST_TEXTVIEW_PLACEHOLDER_TEXT;
 
 extern NSString * const USER_PROFILE_BG_TEXTURE;
+extern NSString * const PLACE_VIEW_FADE_IMAGE_NAME;
+extern NSString * const USER_VIEW_FADE_IMAGE_NAME;
 extern NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const TRANSPARENT_BUTTON_BG_IMAGE_NAME;
 extern NSString * const FOLLOW_BUTTON_BG_IMAGE_NAME;
@@ -88,9 +91,18 @@ extern NSString * const FOLLOWING_BUTTON_BG_IMAGE_NAME;
 extern NSString * const FOLLOWING_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME;
 extern NSString * const SHARE_PLACE_BUTTON_BG_IMAGE_NAME;
 extern NSString * const SHARE_PLACE_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME;
+extern NSString * const ARROW_BUTTON_USER_IMAGE_NAME;
+extern NSString * const ARROW_BUTTON_PLACE_IMAGE_NAME;
 extern NSString * const ARROW_BUTTON_IMAGE_NAME;
+
 extern NSString * const MODALVIEW_BACKGROUND_IMAGE;
 
+extern NSString * const VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME;
+extern NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME;
+extern NSString * const VIDEO_PLAY_BUTTON_IMAGE_NAME;
+extern int const VIDEO_MAX_DURATION;
+
+extern int const STATUS_BAR_STYLE;
 extern int const FEED_TABLE_HEIGHT;
 extern int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH;
 extern int const MAX_DYNAMIC_CELL_HEIGHT;
@@ -105,7 +117,9 @@ extern int const FOLLOW_USER_CELL_HEIGHT;
 extern int const LOADING_CELL_HEIGHT;
 extern int const LOADING_CELL_COUNT;
 extern int const SPINNER_HEIGHT;
+extern int const VIDEO_VIEW_SPINNER_SIDE;
 extern int const SPINNER_CELL_INDEX;
+extern int const SPINNER_CELL_PLACE_INDEX;
 extern int const MESSAGE_CELL_INDEX;
 extern int const PAGINATION_CELL_HEIGHT;
 
@@ -166,6 +180,9 @@ extern NSString * const SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME;
 
 extern int const INITIAL_PAGE_FOR_REQUESTS;
 
+extern NSString * const DENWEN_URL_PREFIX;
+extern NSString * const FACEBOOK_URL_PREFIX;
+
 extern NSString * const NEARBY_ITEMS_URI;
 extern NSString * const FOLLOWED_ITEMS_URI;
 extern NSString * const POPULAR_ITEMS_URI;
@@ -177,11 +194,13 @@ extern NSString * const LOGIN_URI;
 extern NSString * const SIGNUP_URI;
 extern NSString * const FOLLOWINGS_DELETE_URI;
 extern NSString * const FOLLOWINGS_URI;
+extern NSString * const PLACE_HASHED_SHOW_URI;
 extern NSString * const PLACE_SHOW_URI;
 extern NSString * const USER_SHOW_URI;
 extern NSString * const ITEMS_URI;
 extern NSString * const PLACES_URI;
 extern NSString * const VISITS_URI;
+extern NSString * const SHARES_URI;
 
 extern NSString * const POST_STRING;
 extern NSString * const GET_STRING;
@@ -234,7 +253,10 @@ extern NSString * const FIRST_TAKE_PHOTO_MSG;
 extern NSString * const FIRST_CHOOSE_PHOTO_MSG;
 extern NSString * const BETTER_TAKE_PHOTO_MSG;
 extern NSString * const BETTER_CHOOSE_PHOTO_MSG;
+extern NSString * const TAKE_MEDIA_MSG;
+extern NSString * const CHOOSE_MEDIA_MSG;
 extern NSString * const CANCEL_PHOTO_MSG;
+extern NSString * const CANCEL_MEDIA_MSG;
 extern NSString * const EMPTY_POST_MSG;
 extern NSString * const EMPTY_PLACENAME_MSG;
 extern NSString * const EMPTY_LOGIN_FIELDS_MSG;
@@ -253,8 +275,11 @@ extern NSString * const N_LOCATION_CHANGED;
 extern NSString * const N_TAB_BAR_SELECTION_CHANGED;
 extern NSString * const N_FOLLOWED_ITEMS_READ;
 extern NSString * const N_FOLLOWED_ITEMS_LOADED;
+extern NSString * const N_PLACE_FOLLOWED;
+extern NSString * const N_PLACE_UNFOLLOWED;
 extern NSString * const N_NEW_APPLICATION_BADGE_NUMBER;
 extern NSString * const N_FACEBOOK_URL_OPENED;
+extern NSString * const N_DENWEN_URL_OPENED;
 extern NSString * const N_ATTACHMENT_PREVIEW_DONE;
 extern NSString * const N_USER_LOGS_IN;
 extern NSString * const N_USER_LOGS_OUT;

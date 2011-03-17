@@ -161,8 +161,8 @@
 //
 - (void)selectPhotoButtonClicked:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self 
-													cancelButtonTitle:CANCEL_PHOTO_MSG	destructiveButtonTitle:nil
-													otherButtonTitles:FIRST_TAKE_PHOTO_MSG,FIRST_CHOOSE_PHOTO_MSG,nil];
+													cancelButtonTitle:CANCEL_MEDIA_MSG	destructiveButtonTitle:nil
+													otherButtonTitles:TAKE_MEDIA_MSG,CHOOSE_MEDIA_MSG,nil];
 	[actionSheet showInView:self.view];	
 	[actionSheet release];	
 }
@@ -180,6 +180,9 @@
 		imagePickerController.delegate = self;
 		imagePickerController.allowsEditing = YES;		
 		imagePickerController.sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
+		imagePickerController.mediaTypes = [UIImagePickerController  availableMediaTypesForSourceType:imagePickerController.sourceType];   
+		imagePickerController.videoMaximumDuration = VIDEO_MAX_DURATION;
+		imagePickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
 		[self presentModalViewController:imagePickerController animated:YES];
 		[imagePickerController release];
 	}
@@ -195,22 +198,42 @@
 //
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	
-	UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
-	UIImage *originalImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+	UIImage *previewImage = nil;
+	NSURL *mediaURL = (NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
+	BOOL isImageFile = mediaURL == nil;
 	
-	UIImage *resizedImage = [DWImageHelper resizeImage:image 
-										  scaledToSize:CGSizeMake(SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE,SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE)];
+	
+	if(isImageFile) {
+		UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
+		UIImage *originalImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+		
+		previewImage = [DWImageHelper resizeImage:image 
+											  scaledToSize:CGSizeMake(SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE,SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE)];
+		
+		[_s3Uploader uploadImage:image toFolder:S3_ITEMS_FOLDER];
+		
+		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
+			UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+	}
+	else {
+		NSString *orientation = [DWVideoHelper extractOrientationOfVideo:mediaURL];
+		NSData *videoData = [[NSData alloc] initWithContentsOfURL:mediaURL];
+		
+		previewImage = [UIImage imageNamed:VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME];
+		
+		[_s3Uploader uploadVideo:videoData atOrientation:orientation toFolder:S3_ITEMS_FOLDER];
+		
+		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
+			UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+		
+		[videoData release];
+	}
 	
 	imagePlaceholder.hidden = NO;
-	imagePreview.image = resizedImage;
-	
+	imagePreview.image = previewImage;
+
 	[self dismissModalViewControllerAnimated:YES];
-	
 	_isUploading = YES;
-	[_s3Uploader uploadImage:image toFolder:S3_ITEMS_FOLDER];
-	
-	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
-		UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
 
 
@@ -238,6 +261,14 @@
 	 [alert show];
 	 [alert release]; 
 	 */
+}
+
+
+// Called when the video is saved to the disk
+//
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+	//NSLog(@"video saved %@",[error localizedDescription]);
+	// TODO: Record errors
 }
 
 

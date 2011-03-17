@@ -19,6 +19,7 @@
 @interface DWPlace : DWPoolObject <DWURLConnectionDelegate> {
 	NSString *_name;
 	NSString *_hashedId;
+	NSInteger _followersCount;
 	
 	NSString *_town;
 	NSString *_state;
@@ -57,7 +58,7 @@
 //Update 
 - (void)updatePreviewURLs:(NSDictionary*)place;
 - (void)updatePreviewImages:(UIImage*)image;
-
+- (void)updateFollowerCount:(NSInteger)delta;
 
 //Functions for handling server interactions 
 - (void)startSmallPreviewDownload;
@@ -71,6 +72,7 @@
 - (NSString*)largeUniqueKey;
 
 - (NSString*)displayAddress;
+- (NSString*)titleText;
 
 @property (copy) NSString *name;
 @property (copy) NSString *hashedId;

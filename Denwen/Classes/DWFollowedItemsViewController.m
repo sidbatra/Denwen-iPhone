@@ -55,6 +55,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+	[self.refreshHeaderView applyBackgroundColor:[UIColor whiteColor]];	
 	self.view.hidden = YES;
 }
 

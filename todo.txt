@@ -1,21 +1,20 @@
 drao
--video view for attachment
 
 ------ 
 
 
 sbat
--url scheme for denwen.com and sbat.denwen.com
 
 -----
+-analytics
+-image view can occupy the area behind the status bar
 -remove unused fields from JSON
 -handle text basd alert when app is open
--cleaner way of inserting new followed items on top
 -forgot password 
 -optimize json being sent especially for user and place show. 
 -auto start apnd daemon on processing server -- handle restarts
--auto refresh views if selected after a long time
 
 common
--unit testing 
 -app freezes on coming from background
+
+MERGED till 401

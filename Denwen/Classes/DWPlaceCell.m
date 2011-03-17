@@ -13,8 +13,7 @@
 - (void) createPlaceBackgroundImage;
 - (void) createPlaceBackgroundImageFilter;
 - (void) createPlaceName;
-- (void) createPlaceImage;
-- (void) createChangePlaceImage;
+- (void) createEditPlaceImage;
 - (void) createFollowButton;
 - (void) createUnfollowButton;
 - (void) createShareButton;
@@ -55,7 +54,7 @@
 // Creates an Imageview which is used to display the place Background Image
 //
 - (void) createPlaceBackgroundImage; {
-	CGRect rect = CGRectMake(0, 0,self.contentView.frame.size.width,FOLLOW_PLACE_CELL_HEIGHT); 
+	CGRect rect = CGRectMake(0,0,self.contentView.frame.size.width,FOLLOW_PLACE_CELL_HEIGHT); 
 	placeBackgroundImage = [[UIImageView alloc] initWithFrame:rect];
 	placeBackgroundImage.contentMode = UIViewContentModeScaleAspectFill;
 	placeBackgroundImage.clipsToBounds = YES;
@@ -78,13 +77,14 @@
 // Creates label which is used to display the place name in the place info cell.
 //
 - (void) createPlaceName {
-	CGRect rect = CGRectMake(89, 7, self.contentView.frame.size.width - 112, 75);
+	CGRect rect = CGRectMake(50, 25, self.contentView.frame.size.width - 100, 75);
 	placeName = [[UILabel alloc] initWithFrame:rect];
 	
 	placeName.lineBreakMode = UILineBreakModeWordWrap;
 	placeName.numberOfLines = 2;
 	placeName.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];	
 	placeName.textColor = [UIColor whiteColor];
+	placeName.textAlignment = UITextAlignmentCenter;
 	placeName.backgroundColor = [UIColor clearColor];
 	placeName.shadowColor = [UIColor blackColor];
 	[self.contentView addSubview:placeName];
@@ -92,38 +92,39 @@
 }
 
 
-// Creates a button which is used to display the place image in the place info cell
+// Creates a button which is used to edit the place photo
 //
-- (void) createPlaceImage {
-	CGRect rect = CGRectMake(7, 7, 75, 75); 
-	placeImage = [[UIButton alloc] initWithFrame:rect];
-	placeImage.tag = _rowInTable;
+- (void) createEditPlaceImage {
+	CGRect rect = CGRectMake(0, 25, 50, 75); 
+	editPlaceImage = [[UIButton alloc] initWithFrame:rect];
+	[editPlaceImage setBackgroundImage:[UIImage imageNamed:CHANGE_PLACE_PIC_IMAGE_NAME] forState:UIControlStateNormal];
+	editPlaceImage.tag = _rowInTable;
 	
-	[placeImage addTarget:_eventTarget action:@selector(didTapPlaceMediumImage:event:) 
+	[editPlaceImage addTarget:_eventTarget action:@selector(didTapPlaceMediumImage:event:) 
 		 forControlEvents:UIControlEventTouchUpInside];
 	
-	[self.contentView addSubview:placeImage];	
-	[placeImage release];
+	[self.contentView addSubview:editPlaceImage];	
+	[editPlaceImage release];
 }
 
 
 // Creates an imageview which is used to display the change place image in the place info cell
 //
-- (void) createChangePlaceImage {
+/*- (void) createChangePlaceImage {
 	CGRect rect = CGRectMake(54, 56, 33, 33); 
 	changePlaceImage = [[UIImageView alloc] initWithFrame:rect];
 	changePlaceImage.image = [UIImage imageNamed:CHANGE_PIC_IMAGE_NAME];
 	changePlaceImage.hidden = YES;
 	
-	[self.contentView addSubview:changePlaceImage];	
+	//[self.contentView addSubview:changePlaceImage];	
 	[changePlaceImage release];
 }
-
+*/
 
 // Creates a follow button for the place info cell
 //
 - (void) createFollowButton {
-	CGRect rect = CGRectMake(7, 89, 150, 44); //CGRectMake(7, 89, self.contentView.frame.size.width - 14, 44); 
+	CGRect rect = CGRectMake(7, 126, 150, 44); //CGRectMake(7, 89, self.contentView.frame.size.width - 14, 44); 
 	followButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	followButton.frame = rect;
 	
@@ -131,7 +132,7 @@
 	[followButton setBackgroundImage:[UIImage imageNamed:FOLLOW_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME] forState:UIControlStateHighlighted];
 	
 	// rounded corners and border customization
-	[[followButton layer] setCornerRadius:5.0f];
+	[[followButton layer] setCornerRadius:2.5f];
 	[[followButton layer] setMasksToBounds:YES];
 	
 	followButton.tag = _rowInTable;
@@ -155,7 +156,7 @@
 // Creates a unfollow button for the place info cell
 //
 - (void) createUnfollowButton {
-	CGRect rect = CGRectMake(7, 89, 150, 44); //self.contentView.frame.size.width - 14
+	CGRect rect = CGRectMake(7, 126, 150, 44); //self.contentView.frame.size.width - 14
 	unfollowButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	unfollowButton.frame = rect;
 	
@@ -163,7 +164,7 @@
 	[unfollowButton setBackgroundImage:[UIImage imageNamed:FOLLOWING_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME] forState:UIControlStateHighlighted];
 	
 	// rounded corners and border customization
-	[[unfollowButton layer] setCornerRadius:5.0f];
+	[[unfollowButton layer] setCornerRadius:2.5f];
 	[[unfollowButton layer] setMasksToBounds:YES];
 	
 	unfollowButton.tag = _rowInTable;
@@ -188,7 +189,7 @@
 // Creates a share button for the place
 //
 - (void)createShareButton {
-	CGRect rect = CGRectMake(163, 89, 150, 44); //self.contentView.frame.size.width - 14
+	CGRect rect = CGRectMake(163, 126, 150, 44); //self.contentView.frame.size.width - 14
 	shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	shareButton.frame = rect;
 	
@@ -196,7 +197,7 @@
 	[shareButton setBackgroundImage:[UIImage imageNamed:SHARE_PLACE_BUTTON_BG_HIGHLIGHTED_IMAGE_NAME] forState:UIControlStateHighlighted];
 	
 	// rounded corners and border customization
-	[[shareButton layer] setCornerRadius:5.0f];
+	[[shareButton layer] setCornerRadius:2.5f];
 	[[shareButton layer] setMasksToBounds:YES];
 	
 	shareButton.tag = _rowInTable;
@@ -220,10 +221,10 @@
 // Creates an arrow button for displaying the place location on the map in the next view
 //
 - (void) createArrowImage{
-	CGRect rect = CGRectMake(304,38,9,15); 
+	CGRect rect = CGRectMake(270,25,50,75); 
 	arrowImage = [[UIImageView alloc] initWithFrame:rect];
 	arrowImage.tag = _rowInTable;
-	arrowImage.image = [UIImage imageNamed:ARROW_BUTTON_IMAGE_NAME];
+	arrowImage.image = [UIImage imageNamed:ARROW_BUTTON_PLACE_IMAGE_NAME];
 	
 	[self.contentView addSubview:arrowImage];	
 	[arrowImage release];
@@ -233,11 +234,11 @@
 // Create a customized wireframe of the place info cell.
 //
 - (void) drawCellItems {
+	//self.clipsToBounds = YES;
 	[self createPlaceBackgroundImage];
 	[self createPlaceBackgroundImageFilter];
 	[self createPlaceName];
-	[self createPlaceImage];
-	[self createChangePlaceImage];
+	[self createEditPlaceImage];
 	[self createUnfollowButton];
 	[self createFollowButton];
 	[self createShareButton];
@@ -248,8 +249,8 @@
 // Set place Image background from cache or after lazy loading
 //
 - (void)setMediumPreviewPlaceImage:(UIImage*)image {
-	[placeImage setBackgroundImage:image forState:UIControlStateNormal];
-	[placeImage setBackgroundImage:image forState:UIControlStateDisabled];	
+	//[placeImage setBackgroundImage:image forState:UIControlStateNormal];
+	//[placeImage setBackgroundImage:image forState:UIControlStateDisabled];	
 }
 
 
@@ -272,19 +273,19 @@
 // Displays the signed in state of the cell
 //
 - (void)displaySignedInState:(BOOL)hasPhoto {
-	if(hasPhoto)
-		changePlaceImage.hidden = NO;
+	//if(hasPhoto)
+	//	changePlaceImage.hidden = NO;
 	
-	placeImage.enabled = YES;
+	editPlaceImage.hidden = NO;
 }
 
 
 // Displays the signed out state of the cell
 //
 - (void)displaySignedOutState {
-	changePlaceImage.hidden = YES;
+	//changePlaceImage.hidden = YES;
 	
-	placeImage.enabled = NO;
+	editPlaceImage.hidden = YES;
 	
 }
 

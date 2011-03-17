@@ -17,6 +17,7 @@
 - (void) createUserImage;
 - (void) createTimeLabel;
 - (void) createAttachmentImage;
+- (void) createVideoPlayIcon; 
 - (void) createTransparentButton;
 - (void) createCellItems;
 
@@ -86,6 +87,8 @@
 - (void) createPlaceImage {
 	CGRect rect = CGRectMake(7, 10, 48, 48); 
 	placeImage = [[UIButton alloc] initWithFrame:rect];
+	//placeImage.layer.cornerRadius = 1.0;
+	//placeImage.layer.masksToBounds = YES;
 	
 	[placeImage addTarget:_eventTarget action:@selector(didTapPlaceImage:event:) 
 		 forControlEvents:UIControlEventTouchUpInside];
@@ -113,12 +116,26 @@
 //
 - (void) createAttachmentImage {
 	attachmentImage = [[UIButton alloc] init];
+	attachmentImage.layer.cornerRadius = 2.5;
+	attachmentImage.layer.masksToBounds = YES;
 	
 	[attachmentImage addTarget:_eventTarget action:@selector(didTapAttachmentImage:event:) 
 			  forControlEvents:UIControlEventTouchUpInside];
 	
 	[self.contentView addSubview:attachmentImage];	
 	[attachmentImage release];
+}
+
+
+// Creates a play icon on top of the video image preview
+//
+- (void)createVideoPlayIcon {
+	videoPlayIcon = [[UIImageView alloc] init];
+	videoPlayIcon.image = [UIImage imageNamed:VIDEO_PLAY_BUTTON_IMAGE_NAME];
+	videoPlayIcon.hidden = YES;
+	
+	[self.contentView addSubview:videoPlayIcon];	
+	[videoPlayIcon release];
 }
 
 
@@ -183,6 +200,7 @@
 	[self createDataLabel];
 	[self createPlaceName];
 	[self createAttachmentImage];
+	[self createVideoPlayIcon];
 	[self createUserImage];
 	[self createUserName];
 	[self createTimeLabel];
@@ -200,7 +218,7 @@
 	attachmentImage.tag = _itemID;
 	transparentButton.tag = _itemID;
 	self.contentView.backgroundColor = [UIColor clearColor];
-
+	videoPlayIcon.hidden = YES;
 	
 	//resize the placename
 	CGSize maximumLabelSize = CGSizeMake(self.contentView.frame.size.width - 69, 100);
@@ -222,6 +240,11 @@
 		attachmentImage.frame = rect;
 		attachmentImage.hidden = NO;
 		attachmentHeight = ATTACHMENT_HEIGHT + ATTACHMENT_Y_PADDING;
+		
+		videoPlayIcon.frame =  CGRectMake(attachmentImage.frame.origin.x + ATTACHMENT_HEIGHT / 2 - 36,\
+										  attachmentImage.frame.origin.y + ATTACHMENT_HEIGHT / 2 - 36, 
+										  72, 
+										  72);
 	}
 	else {
 		attachmentImage.hidden = YES;
@@ -267,6 +290,15 @@
 	self.contentView.backgroundColor = color;
 	[dataLabel changeButtonBackgroundColor:color];
 }
+
+
+// Displays the video play icon 
+//
+- (void)displayPlayIcon {
+	videoPlayIcon.hidden = NO;
+}
+
+
 
 #pragma mark -
 #pragma mark Disable Buttons
