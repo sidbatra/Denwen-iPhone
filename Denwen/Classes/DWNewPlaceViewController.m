@@ -47,14 +47,14 @@
 	[super viewDidLoad];
 	
 	self.placeLocation = currentUserLocation;
-	
+		
 	// rounded corners and border customization
-	[[textFieldsContainerView layer] setCornerRadius:5.0f];
+	[[textFieldsContainerView layer] setCornerRadius:2.5f];
 	[[textFieldsContainerView layer] setBorderWidth:1.0f];
 	[[textFieldsContainerView layer] setMasksToBounds:YES];
 	[[textFieldsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
 	
-	[[imagePickerButton layer] setCornerRadius:5.0f];
+	[[imagePickerButton layer] setCornerRadius:2.5f];
 	[[imagePickerButton layer] setBorderWidth:1.0f];
 	[[imagePickerButton layer] setMasksToBounds:YES];
 	[[imagePickerButton layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
