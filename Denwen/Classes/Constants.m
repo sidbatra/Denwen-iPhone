@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 	
-//#define PRODUCTION 1 
+#define PRODUCTION 1 
 
 
 
@@ -166,6 +166,7 @@ int const LOADING_CELL_COUNT = 5;
 int const SPINNER_HEIGHT = 20;
 int const VIDEO_VIEW_SPINNER_SIDE = 25;
 int const SPINNER_CELL_INDEX = 2;
+int const SPINNER_CELL_PLACE_INDEX = 1;
 int const MESSAGE_CELL_INDEX = 2;
 int const PAGINATION_CELL_HEIGHT = 60;
 

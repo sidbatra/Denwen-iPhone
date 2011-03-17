@@ -386,7 +386,7 @@
 		return cell;
 	}
 	
-	else if(_tableViewUsage == TABLE_VIEW_AS_SPINNER && indexPath.row == SPINNER_CELL_INDEX) {
+	else if(_tableViewUsage == TABLE_VIEW_AS_SPINNER && indexPath.row == SPINNER_CELL_PLACE_INDEX) {
 		DWLoadingCell *cell = (DWLoadingCell*)[tableView dequeueReusableCellWithIdentifier:LOADING_CELL_IDENTIFIER];
 		
 		if (!cell) 
