@@ -97,7 +97,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">profile_button.png</string>
+							<string key="NSResourceName">profile_button_tiny.png</string>
 						</object>
 					</object>
 					<object class="IBUIView" id="618139774">
@@ -895,6 +895,13 @@
 					<string key="className">UIViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">MediaPlayer.framework/Headers/MPMoviePlayerViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">UIKit.framework/Headers/UINavigationController.h</string>
 					</object>
 				</object>
@@ -943,7 +950,7 @@
 		<string key="IBDocument.LastKnownRelativeProjectPath">../Denwen.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">profile_button.png</string>
+			<string key="NS.key.0">profile_button_tiny.png</string>
 			<string key="NS.object.0">{75, 75}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">132</string>
