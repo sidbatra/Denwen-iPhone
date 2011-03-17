@@ -415,6 +415,13 @@
 	else {
 		cell = [super tableView:(tableView) cellForRowAtIndexPath:indexPath];
 		
+		//Override position of the message cell
+		if(_tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE && indexPath.row == MESSAGE_CELL_INDEX) {
+			((DWMessageCell*)cell).textLabel.text = @"";
+			((DWMessageCell*)cell).customTextLabel.hidden = NO;
+			((DWMessageCell*)cell).customTextLabel.text = self.messageCellText;
+		}
+		
 		if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row < [_itemManager totalItems])
 			[(DWItemFeedCell*)cell disableUserButtons];
 	}
