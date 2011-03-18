@@ -121,6 +121,7 @@ extern int const VIDEO_VIEW_SPINNER_SIDE;
 extern int const SPINNER_CELL_INDEX;
 extern int const SPINNER_CELL_PLACE_INDEX;
 extern int const MESSAGE_CELL_INDEX;
+extern int const MESSAGE_CELL_PLACE_INDEX;
 extern int const PAGINATION_CELL_HEIGHT;
 
 
