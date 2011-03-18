@@ -139,7 +139,7 @@
 	followButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
 	
 	[followButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[followButton setTitleShadowColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateHighlighted];
+	[followButton setTitleShadowColor:[UIColor colorWithRed:0.00784 green:0.4196 blue:0.9215 alpha:1.0] forState:UIControlStateHighlighted];
 	[followButton.titleLabel setShadowOffset:CGSizeMake(0.0f, 1.0f)];
 	
 	[followButton setTitleColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateNormal];
@@ -171,7 +171,7 @@
 	unfollowButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
 	
 	[unfollowButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[unfollowButton setTitleShadowColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateHighlighted];
+	[unfollowButton setTitleShadowColor:[UIColor colorWithRed:0.00784 green:0.4196 blue:0.9215 alpha:1.0] forState:UIControlStateHighlighted];
 	[unfollowButton.titleLabel setShadowOffset:CGSizeMake(0.0f, 1.0f)];
 	
 	[unfollowButton setTitleColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateNormal];
@@ -204,7 +204,7 @@
 	shareButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
 	
 	[shareButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[shareButton setTitleShadowColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateHighlighted];
+	[shareButton setTitleShadowColor:[UIColor colorWithRed:0.00784 green:0.4196 blue:0.9215 alpha:1.0] forState:UIControlStateHighlighted];
 	[shareButton.titleLabel setShadowOffset:CGSizeMake(0.0f, 1.0f)];
 	
 	[shareButton setTitleColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateNormal];
