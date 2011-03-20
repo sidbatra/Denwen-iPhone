@@ -15,6 +15,8 @@
 - (BOOL)loadItems;
 - (void)checkCurrentUser;
 - (void)displayProfilePicture;
+- (void)displayCreatePostFlow;
+- (void)addRightBarButtonItem;
 - (void)sendUpdateUserRequest:(NSString*)userPhotoFilename;
 @end
 
@@ -114,6 +116,36 @@
 }
 
 
+// Displays the create place flow
+//
+- (void)displayCreatePostFlow {
+	DWSelectPlaceViewController *selectPlaceView = [[DWSelectPlaceViewController alloc] initWithDelegate:self];																																							
+	
+	UINavigationController *selectPlaceNav = [[UINavigationController alloc] initWithRootViewController:selectPlaceView];
+	[selectPlaceView release];
+	
+	[uiShell.navigationController presentModalViewController:selectPlaceNav animated:YES];
+	[selectPlaceNav release];		
+}
+
+
+// Adds a compose button to the right bar button item
+//
+- (void)addRightBarButtonItem {
+	UIBarButtonItem *newItemButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose 
+																				   target:self 
+																				   action:@selector(didPressCreateNewItem:event:) ];
+	uiShell.navigationItem.rightBarButtonItem = newItemButton;
+	[newItemButton release];
+}
+
+
+// Users clicks on the create the compose right bar button
+//
+- (void)didPressCreateNewItem:(id)sender event:(id)event {
+	[self displayCreatePostFlow];
+}
+	
 
 #pragma mark -
 #pragma mark SelectPlaceViewControllerDelegate 
@@ -268,6 +300,9 @@
 				uiShell.title = [_user firstName];
 
 			_isLoadedOnce = YES;
+			
+			if(_isCurrentUser)
+				[self addRightBarButtonItem];
 						
 			if([_itemManager totalItems]==1 && [DWSessionManager isSessionActive] && currentUser.databaseID == _user.databaseID) {
 				self.messageCellText = USER_SIGNED_IN_NO_ITEMS_MSG;
@@ -353,8 +388,10 @@
 	[self checkCurrentUser];
 	
 	
-	if(_isCurrentUser)
+	if(_isCurrentUser) {
+		[self addRightBarButtonItem];
 		[self.tableView reloadData];
+	}
 }
 
 
@@ -487,13 +524,7 @@
 // User clicks on the new post button within the cell
 //
 - (void)didTapNewPostButton:(id)sender event:(id)event {
-	DWSelectPlaceViewController *selectPlaceView = [[DWSelectPlaceViewController alloc] initWithDelegate:self];																																							
-	
-	UINavigationController *selectPlaceNav = [[UINavigationController alloc] initWithRootViewController:selectPlaceView];
-	[selectPlaceView release];
-	
-	[uiShell.navigationController presentModalViewController:selectPlaceNav animated:YES];
-	[selectPlaceNav release];	
+	[self displayCreatePostFlow];
 }
 
 

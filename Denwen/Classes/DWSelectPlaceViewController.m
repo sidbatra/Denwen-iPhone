@@ -50,7 +50,7 @@
 	
 	_followedRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:0];
 
-	self.title = @"Places";
+	self.title = @"Your Places";
 	self.searchDisplayController.searchBar.placeholder = @"Search Your Places";
 	self.navigationItem.prompt = @"Choose a place to post at";
 	
@@ -173,8 +173,8 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	NSString *title = @"";
 	
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && !self.searchDisplayController.isActive)
-		title = FOLLOWED_TITLE;
+	//if(_tableViewUsage == TABLE_VIEW_AS_DATA && !self.searchDisplayController.isActive)
+	//	title = FOLLOWED_TITLE;
 	
 	return title;
 }

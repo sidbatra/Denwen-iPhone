@@ -397,7 +397,7 @@
 		
 		return cell;
 	}
-	else if(_tableViewUsage == TABLE_VIEW_AS_MESSAGE && indexPath.row == MESSAGE_CELL_INDEX) {
+	else if(_tableViewUsage == TABLE_VIEW_AS_MESSAGE && indexPath.row == MESSAGE_CELL_PLACE_INDEX) {
 		DWMessageCell *cell = (DWMessageCell*)[tableView dequeueReusableCellWithIdentifier:MESSAGE_CELL_IDENTIFIER];
 		
 		if (!cell) 

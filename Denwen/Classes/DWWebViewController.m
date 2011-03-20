@@ -55,6 +55,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 	[DWGUIManager hideSpinnnerInNav:self];
 	
+	/*
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
 													message:@"There was an error in opening the url, please try again later"
 												   delegate:nil 
@@ -62,6 +63,7 @@
 										  otherButtonTitles: nil];
 	[alert show];
 	[alert release];	
+	*/ 
 }
 
 

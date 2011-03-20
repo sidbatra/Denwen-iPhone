@@ -6,6 +6,7 @@ drao
 sbat
 
 -----
+-white band on phone call
 -analytics
 -image view can occupy the area behind the status bar
 -remove unused fields from JSON

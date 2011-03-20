@@ -129,7 +129,7 @@
 	placeButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
 	
 	[placeButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[placeButton setTitleShadowColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateHighlighted];
+	[placeButton setTitleShadowColor:[UIColor colorWithRed:0.00784 green:0.4196 blue:0.9215 alpha:1.0] forState:UIControlStateHighlighted];
 	[placeButton.titleLabel setShadowOffset:CGSizeMake(0.0f, 1.0f)];
 	
 	[placeButton setTitleColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateNormal];
@@ -163,7 +163,7 @@
 	postButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
 	
 	[postButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[postButton setTitleShadowColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateHighlighted];
+	[postButton setTitleShadowColor:[UIColor colorWithRed:0.00784 green:0.4196 blue:0.9215 alpha:1.0] forState:UIControlStateHighlighted];
 	[postButton.titleLabel setShadowOffset:CGSizeMake(0.0f, 1.0f)];
 	
 	[postButton setTitleColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0] forState:UIControlStateNormal];
