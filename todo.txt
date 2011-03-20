@@ -5,6 +5,7 @@ drao
 
 sbat
 
+
 -----
 -white band on phone call
 -analytics
@@ -16,4 +17,9 @@ sbat
 -auto start apnd daemon on processing server -- handle restarts
 
 common
+-translation layer
+-admin pages
+-optimize json
+-iphone restructuring
+-node.js for iphone? - you love it
 -app freezes on coming from background
