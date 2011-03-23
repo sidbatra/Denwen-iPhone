@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "DWUser.h";
+#import "DWUser.h"
 #import "DWRequestManager.h"
 #import "DWSessionManager.h"
 #import "DWCrypto.h"

@@ -308,8 +308,8 @@
 			
 			NSArray *items = [body objectForKey:ITEMS_JSON_KEY];
 			[_itemManager populateItems:items withBuffer:(_currentPage==INITIAL_PAGE_FOR_REQUESTS) withClear:_reloading];
-	
-
+			
+			
 			if(_place)
 				[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
 			
@@ -351,7 +351,7 @@
 	else if(instanceID == 1) { //Follow,Unfollow responses
 		
 		if([status isEqualToString:SUCCESS_STATUS]) {
-			
+						
 			// Pull the placeCell for refreshing it
 			//
 			NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
