@@ -123,7 +123,7 @@
 		if(!_isUploading) {
 			_postInitiated = NO;
 			NSString *postString = [[NSString alloc] initWithFormat:@"item[data]=%@&item[place_id]=%d&email=%@&password=%@&attachment[filename]=%@&ff=mobile",
-									[DWURLHelper encodeString:textView.text],
+									[textView.text stringByEncodingHTMLCharacters],
 									_placeID,
 									currentUser.email,
 									currentUser.encryptedPassword,

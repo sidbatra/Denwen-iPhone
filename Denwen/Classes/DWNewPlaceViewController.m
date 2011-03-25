@@ -281,7 +281,7 @@ replacementString:(NSString *)string {
 			_createInitiated = NO;
 			
 			NSString *postString = [[NSString alloc] initWithFormat:@"place[name]=%@&place[lat]=%f&place[lon]=%f&email=%@&password=%@&place[photo_filename]=%@&ff=mobile",
-									[DWURLHelper encodeString:placeNameTextField.text],
+									[placeNameTextField.text stringByEncodingHTMLCharacters],
 									self.placeLocation.coordinate.latitude,
 									self.placeLocation.coordinate.longitude,
 									currentUser.email,

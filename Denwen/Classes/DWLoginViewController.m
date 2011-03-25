@@ -138,7 +138,7 @@
 		[self freezeUI];
 		
 		self.password = [passwordTextField.text isEqualToString:@""] ? passwordTextField.text : 
-						[DWURLHelper encodeString:[DWCrypto encryptString:passwordTextField.text]];
+						[[DWCrypto encryptString:passwordTextField.text] stringByEncodingHTMLCharacters];
 		
 
 		NSString *postString = [[NSString alloc] initWithFormat:@"email=%@&password=%@&ff=mobile",

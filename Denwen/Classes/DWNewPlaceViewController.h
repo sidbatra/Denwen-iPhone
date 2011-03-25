@@ -20,7 +20,7 @@
 #import "DWCrypto.h"
 #import "MBProgressHUD.h"
 #import "DWSessionManager.h"
-#import "DWURLHelper.h"
+#import "NSString+Helpers.h"
 #import "DWMemoryPool.h"
 #import "DWImageHelper.h"
 #import "DWUserLocation.h"

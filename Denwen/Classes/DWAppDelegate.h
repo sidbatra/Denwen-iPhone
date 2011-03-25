@@ -20,7 +20,7 @@
 #import "DWMemoryPool.h"
 #import "DWUserLocation.h"
 #import "DWNotificationHelper.h"
-#import "DWURLHelper.h"
+#import "NSString+Helpers.h"
 
 
 

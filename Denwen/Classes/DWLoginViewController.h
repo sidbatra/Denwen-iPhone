@@ -13,7 +13,7 @@
 #import "DWRequestManager.h"
 #import "DWSessionManager.h"
 #import "DWCrypto.h"
-#import "DWURLHelper.h"
+#import "NSString+Helpers.h"
 #import "MBProgressHUD.h"
 
 @protocol DWLoginViewControllerDelegate;

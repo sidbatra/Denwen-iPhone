@@ -181,7 +181,7 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?iphone_device_id=%@&email=%@&password=%@&ff=mobile",
 						   USER_SHOW_URI,
 						   self.databaseID,
-						   [DWURLHelper encodeString:deviceID],
+						   [deviceID stringByEncodingHTMLCharacters],
 						   currentUser.email,
 						   currentUser.encryptedPassword
 						   ];
@@ -202,7 +202,7 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?twitter_data=%@&email=%@&password=%@&ff=mobile",
 						   USER_SHOW_URI,
 						   self.databaseID,
-						   [DWURLHelper encodeString:self.twitterOAuthData],
+						   [self.twitterOAuthData stringByEncodingHTMLCharacters],
 						   currentUser.email,
 						   currentUser.encryptedPassword
 						   ];
@@ -222,7 +222,7 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?facebook_data=%@&email=%@&password=%@&ff=mobile",
 						   USER_SHOW_URI,
 						   self.databaseID,
-						   [DWURLHelper encodeString:self.facebookAccessToken],
+						   [self.facebookAccessToken stringByEncodingHTMLCharacters],
 						   currentUser.email,
 						   currentUser.encryptedPassword
 						   ];

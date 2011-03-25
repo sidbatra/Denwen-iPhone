@@ -45,10 +45,10 @@
 // Test if a launchURL exists on viewDidLoad logic
 //
 - (void)viewDidLoad {
-	if(launchURL) {
-		[self processLaunchURL:[launchURL absoluteString]];
-		launchURL = nil;
-	}
+	//if(launchURL) {
+	//	[self processLaunchURL:[launchURL absoluteString]];
+	//	launchURL = nil;
+	//}
 }
 
 

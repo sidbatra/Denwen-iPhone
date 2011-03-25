@@ -13,7 +13,7 @@
 #import "DWRequestManager.h"
 #import "DWS3Uploader.h"
 #import "DWCrypto.h"
-#import "DWURLHelper.h"
+#import "NSString+Helpers.h"
 #import "DWSessionManager.h"
 #import "DWMemoryPool.h"
 #import "DWImageHelper.h"

@@ -17,7 +17,7 @@
 #import "DWWebViewController.h"
 #import "DWVideoViewController.h"
 
-#import "DWURLHelper.h"
+#import "NSString+Helpers.h"
 
 @interface DWContainerViewController : UIViewController <DWItemFeedViewControllerDelegate,DWPlaceListViewControllerDelegate> {
 	

@@ -56,7 +56,7 @@
 												 name:N_FOLLOWED_ITEMS_READ
 											   object:nil];
 	
-	launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
+	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
 	
 	[DWFollowedPlacesCache sharedDWFollowedPlacesCache];
 

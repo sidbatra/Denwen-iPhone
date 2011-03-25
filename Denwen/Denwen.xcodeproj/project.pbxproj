@@ -278,7 +278,6 @@
 		BBE52FE712F4078600A4F935 /* DWFollowing.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE52FE612F4078600A4F935 /* DWFollowing.m */; };
 		BBE5AFCC12FEB71A0042BD2A /* DWImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE5AFCB12FEB71A0042BD2A /* DWImageHelper.m */; };
 		BBEB947C133AEA9C005AEA64 /* DWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEB947B133AEA9C005AEA64 /* DWRequest.m */; };
-		BBEEC5A812F4F9D100EB2AE6 /* DWURLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEEC5A712F4F9D100EB2AE6 /* DWURLHelper.m */; };
 		BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */; };
 		BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
@@ -696,8 +695,6 @@
 		BBE5AFCB12FEB71A0042BD2A /* DWImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWImageHelper.m; path = Classes/DWImageHelper.m; sourceTree = "<group>"; };
 		BBEB947A133AEA9C005AEA64 /* DWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWRequest.h; path = Classes/DWRequest.h; sourceTree = "<group>"; };
 		BBEB947B133AEA9C005AEA64 /* DWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequest.m; path = Classes/DWRequest.m; sourceTree = "<group>"; };
-		BBEEC5A612F4F9D100EB2AE6 /* DWURLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWURLHelper.h; path = Classes/DWURLHelper.h; sourceTree = "<group>"; };
-		BBEEC5A712F4F9D100EB2AE6 /* DWURLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWURLHelper.m; path = Classes/DWURLHelper.m; sourceTree = "<group>"; };
 		BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceViewController.h; path = Classes/DWPlaceViewController.h; sourceTree = "<group>"; };
 		BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlaceViewController.m; path = Classes/DWPlaceViewController.m; sourceTree = "<group>"; };
 		BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWPlaceViewController.xib; path = Classes/DWPlaceViewController.xib; sourceTree = "<group>"; };
@@ -1130,8 +1127,6 @@
 				BB17BAA812EA34FA00DD42FC /* DWSessionManager.m */,
 				BB37A12212EE52200071CE08 /* DWCrypto.h */,
 				BB37A12312EE52200071CE08 /* DWCrypto.m */,
-				BBEEC5A612F4F9D100EB2AE6 /* DWURLHelper.h */,
-				BBEEC5A712F4F9D100EB2AE6 /* DWURLHelper.m */,
 				BBE5AFCA12FEB71A0042BD2A /* DWImageHelper.h */,
 				BBE5AFCB12FEB71A0042BD2A /* DWImageHelper.m */,
 				BB3CCBC312F936E200ADFCD7 /* DWMemoryPool.h */,
@@ -1728,7 +1723,6 @@
 				BBE52F9712F4008400A4F935 /* DWPopularItemsViewController.m in Sources */,
 				BBE52FE712F4078600A4F935 /* DWFollowing.m in Sources */,
 				BBC0C6EB12F4C57800291C33 /* EGORefreshTableHeaderView.m in Sources */,
-				BBEEC5A812F4F9D100EB2AE6 /* DWURLHelper.m in Sources */,
 				BB3CCBC512F936E200ADFCD7 /* DWMemoryPool.m in Sources */,
 				BBB519F412F9FAC10024086F /* DWPoolObject.m in Sources */,
 				261C905312FBA43600D16F72 /* DWLoadingCell.m in Sources */,

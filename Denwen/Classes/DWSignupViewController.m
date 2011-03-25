@@ -205,10 +205,10 @@
 				
 			
 			self.password = [passwordTextField.text isEqualToString:@""] ? passwordTextField.text : 
-							[DWURLHelper encodeString:[DWCrypto encryptString:passwordTextField.text]];
+							[[DWCrypto encryptString:passwordTextField.text] stringByEncodingHTMLCharacters];
 			
 			NSString *postString  = [[NSString alloc] initWithFormat:@"user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile",
-											   [DWURLHelper encodeString:fullNameTextField.text],
+											   [fullNameTextField.text stringByEncodingHTMLCharacters],
 											   emailTextField.text,
 											   self.password,
 											   self.photoFilename
