@@ -1,0 +1,46 @@
+//
+//  DWRequestsManager.h
+//  Copyright 2011 Denwen. All rights reserved.
+//	
+
+#import <Foundation/Foundation.h>
+
+// Requests
+#import "DWDenwenRequest.h"
+
+#import "NSString+Helpers.h"
+#import "SynthesizeSingleton.h"
+#import "DWSessionManager.h"
+#import "DWUserLocation.h"
+#import "Constants.h"
+
+
+/**
+ * DWRequestsManager enables absracted access to all network operations
+ * via a simple interface
+ */
+@interface DWRequestsManager : NSObject {
+
+}
+
+/**
+ * Shared sole instance of the class
+ */
++ (DWRequestsManager *)sharedDWRequestsManager;
+
+/**
+ * Request the given page of the currently popular places
+ */
+- (void)requestPopularPlaces:(NSInteger)page;
+
+/**
+ * Request a search query on the places table
+ */
+- (void)requestSearchPlaces:(NSString*)query;
+
+/**
+ * Send a request to create a new visit
+ */
+- (void)requestNewVisit;
+
+@end

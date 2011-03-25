@@ -58,6 +58,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
 // Fetch followed places for the current user to start the cache
 //
 - (void)loadPlaces {
+	return;
+	
 	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self];
 	self.requestManager = tempRequestManager;
 	[tempRequestManager release];

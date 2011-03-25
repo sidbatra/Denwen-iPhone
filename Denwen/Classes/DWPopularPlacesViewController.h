@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "DWPlaceListViewController.h"
+#import "DWRequestsManager.h"
 
 
 @interface DWPopularPlacesViewController : DWPlaceListViewController {

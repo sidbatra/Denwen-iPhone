@@ -1,12 +1,34 @@
 //
 //  Constants.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 9/30/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
-//
+//  Copyright 2011 Denwen. All rights reserved.
+//	
 
 #import <Foundation/Foundation.h>
+
+
+extern NSString* const kDenwenServer;
+
+/**
+ * Keys used for objects in JSON and custom dictionaties
+ */
+extern NSString* const kKeyStatus;
+extern NSString* const kKeyMessage;
+extern NSString* const kKeyBody;
+extern NSString* const kKeyError;
+
+/**
+ * Notification names used throughout the app
+ */
+extern NSString* const kNPopularPlacesLoaded;
+extern NSString* const kNPopularPlacesError;
+extern NSString* const kNSearchPlacesLoaded;
+extern NSString* const kNSearchPlacesError;
+
+
+
+
+
+
 
 extern int const IMAGE;
 extern int const VIDEO;

@@ -1,16 +1,35 @@
 //
 //  Constants.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 9/30/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
-//
-	
+//  Copyright 2011 Denwen. All rights reserved.
+//	
+
 #define PRODUCTION 1 
 
 
-
 #import "Constants.h"
+
+
+#ifdef PRODUCTION
+	NSString* const kDenwenServer = @"denwen.com";
+#else
+	NSString* const kDenwenServer = @"sbat.denwen.com";
+#endif
+
+//----------------------------------------------------------------------------------------------------
+NSString* const kKeyStatus		= @"status";
+NSString* const kKeyMessage		= @"message";
+NSString* const kKeyBody		= @"body";
+NSString* const kKeyError		= @"error";
+
+//----------------------------------------------------------------------------------------------------
+NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
+NSString* const kNPopularPlacesError		= @"NPopularPlacesError";
+NSString* const kNSearchPlacesLoaded		= @"NSearchPlacesLoaded";
+NSString* const kNSearchPlacesError			= @"NSearchPlacesError";
+
+
+
+
 
 /* File Types */
 int const IMAGE = 0;

@@ -236,6 +236,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 // Creates a visit on the server for the current user at the current location
 //
 - (void)createVisit {
+	return ;
+	
 	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:3];
 	self.visitRequestManager = tempRequestManager;
 	[tempRequestManager release];
