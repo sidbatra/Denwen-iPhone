@@ -15,6 +15,9 @@ extern NSString* const kKeyStatus;
 extern NSString* const kKeyMessage;
 extern NSString* const kKeyBody;
 extern NSString* const kKeyError;
+extern NSString* const kKeyImage;
+extern NSString* const kKeyOwnerID;
+extern NSString* const kKeyImageType;
 
 /**
  * Notification names used throughout the app
@@ -23,9 +26,21 @@ extern NSString* const kNPopularPlacesLoaded;
 extern NSString* const kNPopularPlacesError;
 extern NSString* const kNSearchPlacesLoaded;
 extern NSString* const kNSearchPlacesError;
+extern NSString* const kNImageLoaded;
+extern NSString* const kNImageError;
 
-
-
+/**
+ * Image types 
+ */
+extern NSInteger const kImgSmallUser;
+extern NSInteger const kImgMediumUser;
+extern NSInteger const kImgLargeUser;
+extern NSInteger const kImgSmallPlace;
+extern NSInteger const kImgMediumPlace;
+extern NSInteger const kImgLargePlace;
+extern NSInteger const kImgMediumAttachment;
+extern NSInteger const kImgLargeAttachment;
+extern NSInteger const kImgActualAttachment;
 
 
 

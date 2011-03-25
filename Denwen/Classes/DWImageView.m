@@ -46,11 +46,11 @@
 //Creates an image from the raw imageData, puts it into an imageView and 
 //and makes the imageView a subview of itself
 //
-- (void)setupImageView:(NSMutableData*)imageData {
+- (void)setupImageView:(UIImage*)image {
 	
-	UIImage *image = [[UIImage alloc] initWithData:imageData];
+	//UIImage *image = [[UIImage alloc] initWithData:imageData];
 	imageView = [[UIImageView alloc] initWithImage:image];
-	[image release];
+	//[image release];
 
 	[self addSubview:imageView];
 	[self fitImage:[DWGUIManager getCurrentOrientation]];

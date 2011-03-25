@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 
 #import "ASIFormDataRequest.h"
+#import "ASIDownloadCache.h"
 #import "JSON.h"
 #import "Constants.h"
 
@@ -22,13 +23,13 @@
  * Name of the notification to be fired when the request finished 
  * successfully
  */
-@property (nonatomic, copy) NSString *successNotification;
+@property (nonatomic,copy) NSString *successNotification;
 
 /**
  * Name of the notification to be fired when the request fails
  * with an error
  */
-@property (nonatomic, copy) NSString *errorNotification;
+@property (nonatomic,copy) NSString *errorNotification;
 
 
 /**

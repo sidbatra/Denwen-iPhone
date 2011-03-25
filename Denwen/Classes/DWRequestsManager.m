@@ -39,8 +39,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 				kDenwenServer,
 				localRequestURL,
 				[currentUser.email stringByEncodingHTMLCharacters],
-				currentUser.encryptedPassword
-			];
+				currentUser.encryptedPassword];
 }
 
 
@@ -54,14 +53,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	
 	NSString *localRequestURL = [NSString stringWithFormat:@"%@?page=%d",
 									kPopularPlacesURI,
-									page
-								 ];
+									page];
+	
 	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
 	
 	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
 												  successNotification:kNPopularPlacesLoaded
-													errorNotification:kNPopularPlacesError
-								];
+													errorNotification:kNPopularPlacesError];
 	[request setDelegate:self];
 	[request setRequestMethod:kGet];
 	[request startAsynchronous];
@@ -73,12 +71,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 								 kSearchPlacesURI,
 								 [query stringByEncodingHTMLCharacters]
 								 ];
+	
 	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
 	
 	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
 												  successNotification:kNSearchPlacesLoaded
-													errorNotification:kNSearchPlacesError
-								];
+													errorNotification:kNSearchPlacesError];
 	[request setDelegate:self];
 	[request setRequestMethod:kGet];
 	[request startAsynchronous];	
@@ -90,16 +88,28 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	NSString *localRequestURL = [NSString stringWithFormat:@"%@?lat=%f&lon=%f",
 									kVisitsURI,
 									currentUserLocation.coordinate.latitude,
-									currentUserLocation.coordinate.longitude
-								 ];
+									currentUserLocation.coordinate.longitude];
+	
 	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
 	
 	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
 												  successNotification:nil
-													errorNotification:nil
-								];
+													errorNotification:nil];
 	[request setDelegate:self];
 	[request setRequestMethod:kPost];
+	[request startAsynchronous];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)requestImageAt:(NSString*)url 
+				ofType:(NSInteger)imageType 
+			   ownedBy:(NSInteger)ownerID {
+	
+	DWImageRequest *request = [DWImageRequest requestWithRequestURL:url 
+															ownerID:ownerID
+														  imageType:imageType];
+	[request setDelegate:self];
+	[request setRequestMethod:kGet];
 	[request startAsynchronous];
 }
 

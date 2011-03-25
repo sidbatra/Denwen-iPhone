@@ -5,6 +5,9 @@
 
 #import "DWRequest.h"
 
+static NSInteger const kPersistenceTimeout = 120;
+
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -27,6 +30,8 @@
 	if(self != nil) {
 		self.successNotification	= theSuccessNotification;
 		self.errorNotification		= theErrorNotification;
+		
+		[self setPersistentConnectionTimeoutSeconds:kPersistenceTimeout];
 	}
 	
 	return self;
@@ -36,6 +41,7 @@
 - (void)dealloc {	
 	self.successNotification	= nil;
 	self.errorNotification		= nil;
+	
 	[super dealloc];
 }
 
@@ -64,8 +70,7 @@
 	
 	return [[[self alloc] initWithRequestURL:requestURL
 						 successNotification:theSuccessNotification
-						   errorNotification:theErrorNotification
-			 ] 
+						   errorNotification:theErrorNotification] 
 			autorelease];
 }
 

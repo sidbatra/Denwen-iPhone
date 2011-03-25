@@ -22,13 +22,11 @@
 									[[responseString JSONValue] objectForKey:kKeyStatus]	,kKeyStatus,
 									[[responseString JSONValue] objectForKey:kKeyBody]		,kKeyBody,
 									[[responseString JSONValue] objectForKey:kKeyMessage]	,kKeyMessage,
-									nil
-						  ];
+									nil];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:self.successNotification 
 														object:nil
-													  userInfo:info
-	 ];
+													  userInfo:info];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -38,8 +36,7 @@
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:self.errorNotification
 														object:nil
-													  userInfo:info
-	 ];
+													  userInfo:info];
 }
 
 

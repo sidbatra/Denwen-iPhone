@@ -39,6 +39,7 @@
 	
 	//Clear cache for testing
 	//[DWCache clearCache];[DWCache initCache];
+	//[[ASIDownloadCache sharedCache] clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
 	
 	[DWMemoryPool initPool];
 	

@@ -20,7 +20,7 @@
 
 @property (readonly) UIImageView* imageView;
 
--(void)setupImageView:(NSMutableData*)imageData;
+-(void)setupImageView:(UIImage*)image;
 -(void)fitImage:(UIInterfaceOrientation)toInterfaceOrientation;
 
 @end

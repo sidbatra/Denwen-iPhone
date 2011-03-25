@@ -20,13 +20,28 @@ NSString* const kKeyStatus		= @"status";
 NSString* const kKeyMessage		= @"message";
 NSString* const kKeyBody		= @"body";
 NSString* const kKeyError		= @"error";
+NSString* const kKeyImage		= @"image";
+NSString* const kKeyOwnerID		= @"ownerID";
+NSString* const kKeyImageType	= @"imageType";
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
 NSString* const kNPopularPlacesError		= @"NPopularPlacesError";
 NSString* const kNSearchPlacesLoaded		= @"NSearchPlacesLoaded";
 NSString* const kNSearchPlacesError			= @"NSearchPlacesError";
+NSString* const kNImageLoaded				= @"NImageLoaded";
+NSString* const kNImageError				= @"NImageError";
 
+//----------------------------------------------------------------------------------------------------
+NSInteger const kImgSmallUser			= 0;
+NSInteger const kImgMediumUser			= 1;
+NSInteger const kImgLargeUser			= 2;
+NSInteger const kImgSmallPlace			= 3;
+NSInteger const kImgMediumPlace			= 4;
+NSInteger const kImgLargePlace			= 5;
+NSInteger const kImgMediumAttachment	= 6;
+NSInteger const kImgLargeAttachment		= 7;
+NSInteger const kImgActualAttachment	= 8;
 
 
 

@@ -9,6 +9,10 @@
 
 #import "DWImageViewController.h"
 
+static NSInteger const kMaxOwnerID = 999999999;
+
+
+
 
 @implementation DWImageViewController
 
@@ -26,9 +30,17 @@
     
 	if (self) {
 		url	 = [[NSString alloc] initWithString:theURL];
+		key = arc4random() % kMaxOwnerID;
 		
-		NSArray *listItems = [url componentsSeparatedByString:@"/"];
-		key = [[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]];
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageLoaded:) 
+													 name:kNImageLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageError:) 
+													 name:kNImageError
+												   object:nil];
 	}
     
 	return self;
@@ -39,9 +51,9 @@
 //
 - (void)viewDidLoad {
 	[DWGUIManager showSpinnerInNav:self];
-		
-	connection = [[DWURLConnection alloc] initWithDelegate:self];
-	[connection fetchData:url withKey:key withCache:YES withActivitySpinner:YES];
+	[[DWRequestsManager sharedDWRequestsManager] requestImageAt:url 
+														 ofType:kImgActualAttachment 
+														ownedBy:key];
 }
 
 
@@ -83,41 +95,28 @@
 
 
 
-#pragma mark -
-#pragma mark GURLConnection messages
-
-
-// Display the image when it is successfully downloaded
-//
--(void)finishedLoadingData:(NSMutableData *)data forInstanceID:(NSInteger)instanceID {
-	[(DWImageView*)self.view setupImageView:data];
+- (void)imageLoaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	NSInteger imageType	= [[info objectForKey:kKeyImageType] integerValue];
+	NSInteger ownerID	= [[info objectForKey:kKeyOwnerID] integerValue];
 		
-	[DWGUIManager hideSpinnnerInNav:self];
-	
-	[connection release];
-    connection=nil;
+	if(imageType == kImgActualAttachment && ownerID == key) {
+		[(DWImageView*)self.view setupImageView:(UIImage*)[info objectForKey:kKeyImage]];
+		[DWGUIManager hideSpinnnerInNav:self];
+	}
 }
 
-
-// Display an alert when the image can't be downloaded from
-// the filesystem
-//
--(void)errorLoadingData:(NSError *)error forInstanceID:(NSInteger)instanceID {
-	[DWGUIManager hideSpinnnerInNav:self];
+- (void)imageError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
 	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"There was an error downloading this image, please try again later"
-												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
-										  otherButtonTitles: nil];
-	[alert show];
-	[alert release];
-	
-	[connection release];
-    connection=nil;
+	NSInteger imageType	= [[info objectForKey:kKeyImageType] integerValue];
+	NSInteger ownerID	= [[info objectForKey:kKeyOwnerID] integerValue];
+		
+	if(imageType == kImgActualAttachment && ownerID == key) {
+		[DWGUIManager hideSpinnnerInNav:self];
+	}
 }
-
-
 
 #pragma mark -
 #pragma mark Memory management
@@ -133,13 +132,7 @@
 // The usual cleanup
 //
 - (void)dealloc {
-	if (connection != nil) {
-		[connection cancel];
-		[connection release];
-	}
-	
 	[url release];
-	[key release];
     [super dealloc];
 }
 

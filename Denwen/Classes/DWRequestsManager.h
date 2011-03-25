@@ -7,6 +7,7 @@
 
 // Requests
 #import "DWDenwenRequest.h"
+#import "DWImageRequest.h"
 
 #import "NSString+Helpers.h"
 #import "SynthesizeSingleton.h"
@@ -42,5 +43,12 @@
  * Send a request to create a new visit
  */
 - (void)requestNewVisit;
+
+/**
+ * Download the image from the given URL
+ */
+- (void)requestImageAt:(NSString*)url 
+				ofType:(NSInteger)imageType 
+			   ownedBy:(NSInteger)ownerID;
 
 @end

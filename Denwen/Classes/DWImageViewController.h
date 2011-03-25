@@ -11,16 +11,15 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DWURLConnection.h"
+#import "DWRequestsManager.h"
 #import "DWImageView.h"
 #import "DWCache.h"
 #import "DWGUIManager.h"
 #import "Constants.h"
 
-@interface DWImageViewController : UIViewController<DWURLConnectionDelegate,UIScrollViewDelegate> {
-	DWURLConnection *connection;
+@interface DWImageViewController : UIViewController<UIScrollViewDelegate> {
 	NSString *url;
-	NSString *key;
+	NSInteger key;
 }
 
 - (id)initWithImageURL:(NSString*)theURL;
