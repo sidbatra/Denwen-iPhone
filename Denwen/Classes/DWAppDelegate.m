@@ -57,7 +57,7 @@
 											   object:nil];
 	
 	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
-	
+		
 	[DWFollowedPlacesCache sharedDWFollowedPlacesCache];
 
     return YES;

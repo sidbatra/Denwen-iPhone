@@ -1,28 +1,10 @@
 //
-//  DWCrypto.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/24/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  NSData+Crypto.m
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
-#import "DWCrypto.h"
-#import "Constants.h"
+#import "NSData+Crypto.h"
 
-@implementation DWCrypto
-
-
-// Encrypts the given string using a pre-decided key and AES128
-//
-+(NSString*) encryptString:(NSString*)plaintext {
-	
-	NSData *plain = [plaintext dataUsingEncoding: NSUTF8StringEncoding];
-	NSData *key = [NSData dataWithBytes: [[ENCRYPTION_PHRASE sha256] bytes] length: kCCKeySizeAES128];
-	NSData *cipher = [plain aesEncryptedDataWithKey: key];
-	return [[[NSString alloc] initWithString:[cipher base64Encoding]] autorelease];
-}
-
-@end
 
 
 @implementation NSData(Crypto)
@@ -130,22 +112,6 @@
     free( encoded );
 	
     return result;
-}
-
-@end
-
-
-
-@implementation NSString( Crypto )
-
-- (NSData *) sha256 {
-    unsigned char *buffer;
-	
-    if ( ! ( buffer = (unsigned char *) malloc( CC_SHA256_DIGEST_LENGTH ) ) ) return nil;
-	
-    CC_SHA256( [self UTF8String], [self lengthOfBytesUsingEncoding: NSUTF8StringEncoding], buffer );
-	
-    return [NSData dataWithBytesNoCopy: buffer length: CC_SHA256_DIGEST_LENGTH];
 }
 
 @end

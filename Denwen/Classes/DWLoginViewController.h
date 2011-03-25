@@ -12,7 +12,6 @@
 #import "DWUser.h"
 #import "DWRequestManager.h"
 #import "DWSessionManager.h"
-#import "DWCrypto.h"
 #import "NSString+Helpers.h"
 #import "MBProgressHUD.h"
 

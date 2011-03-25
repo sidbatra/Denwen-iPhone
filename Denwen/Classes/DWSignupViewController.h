@@ -12,7 +12,6 @@
 #import "DWUser.h";
 #import "DWRequestManager.h"
 #import "DWS3Uploader.h"
-#import "DWCrypto.h"
 #import "NSString+Helpers.h"
 #import "DWSessionManager.h"
 #import "DWMemoryPool.h"

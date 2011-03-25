@@ -205,7 +205,7 @@
 				
 			
 			self.password = [passwordTextField.text isEqualToString:@""] ? passwordTextField.text : 
-							[[DWCrypto encryptString:passwordTextField.text] stringByEncodingHTMLCharacters];
+							[[passwordTextField.text encrypt] stringByEncodingHTMLCharacters];
 			
 			NSString *postString  = [[NSString alloc] initWithFormat:@"user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile",
 											   [fullNameTextField.text stringByEncodingHTMLCharacters],

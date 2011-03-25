@@ -138,7 +138,6 @@
 		BB379DF112ED51310071CE08 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB379DF012ED51310071CE08 /* SystemConfiguration.framework */; };
 		BB379DF712ED513B0071CE08 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB379DF612ED513B0071CE08 /* MobileCoreServices.framework */; };
 		BB379E0412ED51B50071CE08 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB379E0312ED51B50071CE08 /* libz.1.2.3.dylib */; };
-		BB37A12412EE52200071CE08 /* DWCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = BB37A12312EE52200071CE08 /* DWCrypto.m */; };
 		BB3BE0B5133A9D940055FED0 /* DWRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3BE0B4133A9D940055FED0 /* DWRequestsManager.m */; };
 		BB3BE173133AB49A0055FED0 /* DWDenwenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3BE172133AB49A0055FED0 /* DWDenwenRequest.m */; };
 		BB3BE1CE133AB65F0055FED0 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3BE180133AB65F0055FED0 /* ASIAuthenticationDialog.m */; };
@@ -261,6 +260,7 @@
 		BBCE3A86131CC6AF008BDA82 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = BBCE3A85131CC6AF008BDA82 /* iTunesArtwork */; };
 		BBD0CC97133C0AA1003E5E7D /* NSString+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0CC96133C0AA1003E5E7D /* NSString+Helpers.m */; };
 		BBD0CD27133C225D003E5E7D /* DWImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0CD26133C225D003E5E7D /* DWImageRequest.m */; };
+		BBD0CEAC133C5EA1003E5E7D /* NSData+Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0CEAB133C5EA1003E5E7D /* NSData+Crypto.m */; };
 		BBD1E77812EB9688003C1BC7 /* DWRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD1E77712EB9688003C1BC7 /* DWRequestManager.m */; };
 		BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */; };
 		BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */; };
@@ -453,8 +453,6 @@
 		BB379DF012ED51310071CE08 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BB379DF612ED513B0071CE08 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		BB379E0312ED51B50071CE08 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
-		BB37A12212EE52200071CE08 /* DWCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCrypto.h; path = Classes/DWCrypto.h; sourceTree = "<group>"; };
-		BB37A12312EE52200071CE08 /* DWCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCrypto.m; path = Classes/DWCrypto.m; sourceTree = "<group>"; };
 		BB3BE0B3133A9D940055FED0 /* DWRequestsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWRequestsManager.h; path = Classes/DWRequestsManager.h; sourceTree = "<group>"; };
 		BB3BE0B4133A9D940055FED0 /* DWRequestsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequestsManager.m; path = Classes/DWRequestsManager.m; sourceTree = "<group>"; };
 		BB3BE171133AB49A0055FED0 /* DWDenwenRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWDenwenRequest.h; path = Classes/DWDenwenRequest.h; sourceTree = "<group>"; };
@@ -669,6 +667,8 @@
 		BBD0CC96133C0AA1003E5E7D /* NSString+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helpers.m"; path = "Classes/NSString+Helpers.m"; sourceTree = "<group>"; };
 		BBD0CD25133C225D003E5E7D /* DWImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWImageRequest.h; path = Classes/DWImageRequest.h; sourceTree = "<group>"; };
 		BBD0CD26133C225D003E5E7D /* DWImageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWImageRequest.m; path = Classes/DWImageRequest.m; sourceTree = "<group>"; };
+		BBD0CEAA133C5EA1003E5E7D /* NSData+Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Crypto.h"; path = "Classes/NSData+Crypto.h"; sourceTree = "<group>"; };
+		BBD0CEAB133C5EA1003E5E7D /* NSData+Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Crypto.m"; path = "Classes/NSData+Crypto.m"; sourceTree = "<group>"; };
 		BBD1E77612EB9688003C1BC7 /* DWRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWRequestManager.h; path = Classes/DWRequestManager.h; sourceTree = "<group>"; };
 		BBD1E77712EB9688003C1BC7 /* DWRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequestManager.m; path = Classes/DWRequestManager.m; sourceTree = "<group>"; };
 		BBD1EAD212EC1218003C1BC7 /* DWSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSignupViewController.h; path = Classes/DWSignupViewController.h; sourceTree = "<group>"; };
@@ -1125,8 +1125,6 @@
 				26EF048B12E7AC5400E7BA76 /* DWCache.m */,
 				BB17BAA712EA34FA00DD42FC /* DWSessionManager.h */,
 				BB17BAA812EA34FA00DD42FC /* DWSessionManager.m */,
-				BB37A12212EE52200071CE08 /* DWCrypto.h */,
-				BB37A12312EE52200071CE08 /* DWCrypto.m */,
 				BBE5AFCA12FEB71A0042BD2A /* DWImageHelper.h */,
 				BBE5AFCB12FEB71A0042BD2A /* DWImageHelper.m */,
 				BB3CCBC312F936E200ADFCD7 /* DWMemoryPool.h */,
@@ -1456,6 +1454,8 @@
 			children = (
 				BBD0CC95133C0AA1003E5E7D /* NSString+Helpers.h */,
 				BBD0CC96133C0AA1003E5E7D /* NSString+Helpers.m */,
+				BBD0CEAA133C5EA1003E5E7D /* NSData+Crypto.h */,
+				BBD0CEAB133C5EA1003E5E7D /* NSData+Crypto.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1686,7 +1686,6 @@
 				BBD1E77812EB9688003C1BC7 /* DWRequestManager.m in Sources */,
 				BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */,
 				BB379C7812ED33AD0071CE08 /* DWS3Uploader.m in Sources */,
-				BB37A12412EE52200071CE08 /* DWCrypto.m in Sources */,
 				BBE326EF12EE83B000657024 /* DWNewItemViewController.m in Sources */,
 				BBE327EB12EEAD8300657024 /* DWNewPlaceViewController.m in Sources */,
 				26B973CC12F0BED9000F8F1F /* DWItemFeedCell.m in Sources */,
@@ -1779,6 +1778,7 @@
 				BBEB947C133AEA9C005AEA64 /* DWRequest.m in Sources */,
 				BBD0CC97133C0AA1003E5E7D /* NSString+Helpers.m in Sources */,
 				BBD0CD27133C225D003E5E7D /* DWImageRequest.m in Sources */,
+				BBD0CEAC133C5EA1003E5E7D /* NSData+Crypto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

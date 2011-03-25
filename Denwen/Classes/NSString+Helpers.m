@@ -5,7 +5,7 @@
 
 #import "NSString+Helpers.h"
 
-
+static NSString* const kEncryptionPhrase = @"9u124hgd35677";
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -36,6 +36,26 @@
 	[escaped replaceOccurrencesOfString:@"\n" withString:@"%0A" options:NSCaseInsensitiveSearch range:NSMakeRange(0, length)];
 	
 	return [NSString stringWithString:escaped];
+}
+
+//----------------------------------------------------------------------------------------------------
+-(NSString*) encrypt {
+	NSData *key			= [NSData dataWithBytes:[[kEncryptionPhrase sha256] bytes] 
+										 length:kCCKeySizeAES128];
+	NSData *cipher		= [[self dataUsingEncoding:NSUTF8StringEncoding] aesEncryptedDataWithKey:key];
+	
+	return [NSString stringWithString:[cipher base64Encoding]];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSData*)sha256 {
+    unsigned char *buffer;
+	
+    if ( ! ( buffer = (unsigned char *) malloc( CC_SHA256_DIGEST_LENGTH ) ) ) return nil;
+	
+    CC_SHA256( [self UTF8String], [self lengthOfBytesUsingEncoding: NSUTF8StringEncoding], buffer );
+	
+    return [NSData dataWithBytesNoCopy: buffer length: CC_SHA256_DIGEST_LENGTH];
 }
 
 @end
