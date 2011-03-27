@@ -5,15 +5,14 @@
 
 #import "DWSession.h"
 
-BOOL currentUserFollowedItemsRefresh = NO;
-
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 @implementation DWSession
 
-@synthesize currentUser = _currentUser;
+@synthesize currentUser				= _currentUser;
+@synthesize refreshFollowedItems	= _refreshFollowedItems;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 

@@ -373,7 +373,7 @@
 			[self updateTitle];
 			
 			//Mark changes to global variables, indicating a refresh is needed on followed content
-			currentUserFollowedItemsRefresh = YES;
+			[DWSession sharedDWSession].refreshFollowedItems = YES;
 		}
 		else{
 		}

@@ -9,14 +9,14 @@
 #import "DWUser.h"
 #import "SynthesizeSingleton.h"
 
-extern BOOL currentUserFollowedItemsRefresh;
 
 
 /**
  * Manages the current user's session
  */
 @interface DWSession : NSObject {
-	DWUser *_currentUser;
+	DWUser	*_currentUser;
+	BOOL	_refreshFollowedItems;
 }
 
 /**
@@ -28,6 +28,11 @@ extern BOOL currentUserFollowedItemsRefresh;
  * User object representing the current user
  */
 @property (nonatomic,retain) DWUser* currentUser;
+
+/**
+ * Refresh flag for a user's followed items
+ */
+@property (nonatomic,assign) BOOL refreshFollowedItems;
 
 
 /**

@@ -68,11 +68,11 @@
 		
 
 	//TODO: or if a lot of time has expired
-	if(!_isLoadedOnce || currentUserFollowedItemsRefresh) {
+	if(!_isLoadedOnce || [DWSession sharedDWSession].refreshFollowedItems) {
 		
 		if([self loadItems]) {
 			
-			_reloading = currentUserFollowedItemsRefresh;
+			_reloading = [DWSession sharedDWSession].refreshFollowedItems;
 			
 			// Remove any old messages in the UITableView
 			_tableViewUsage = TABLE_VIEW_AS_SPINNER;
@@ -129,7 +129,7 @@
 		
 	if([[DWSession sharedDWSession] isActive]) {
 		
-		if(currentUserFollowedItemsRefresh)
+		if([DWSession sharedDWSession].refreshFollowedItems)
 			[self resetPagination];
 				
 		NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&page=%d&ff=mobile",
@@ -221,7 +221,7 @@
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_FOLLOWED_ITEMS_LOADED
 															object:nil];
 		
-		currentUserFollowedItemsRefresh = NO;
+		[DWSession sharedDWSession].refreshFollowedItems = NO;
 	}
 	else {
 		

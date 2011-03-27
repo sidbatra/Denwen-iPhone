@@ -156,7 +156,7 @@
 // Refresh the followed items view based on pre defined criteria
 //
 - (void)conditionallyRefreshFollowedItems {
-	if([self isSelectedTab] && currentUserFollowedItemsRefresh)
+	if([self isSelectedTab] && [DWSession sharedDWSession].refreshFollowedItems)
 		[followedViewController viewIsSelected];
 }
 
