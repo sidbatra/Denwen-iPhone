@@ -100,7 +100,7 @@
 // Tests whether the current user (if logged in) is the same as _user
 //
 - (void)checkCurrentUser {
-	_isCurrentUser = [DWSessionManager isSessionActive] && _userID == currentUser.databaseID;
+	_isCurrentUser = [[DWSession sharedDWSession] isActive] && _userID == [DWSession sharedDWSession].currentUser.databaseID;
 }
 
 
@@ -229,13 +229,13 @@
 
 	NSString *urlString = nil;
 	
-	if([DWSessionManager isSessionActive])
+	if([[DWSession sharedDWSession] isActive])
 		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&email=%@&password=%@&ff=mobile",
 							   USER_SHOW_URI,
 							   _userID,
 							   _currentPage,
-							   currentUser.email,
-							   currentUser.encryptedPassword
+							   [DWSession sharedDWSession].currentUser.email,
+							   [DWSession sharedDWSession].currentUser.encryptedPassword
 							   ];
 	else
 		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&ff=mobile",
@@ -260,8 +260,8 @@
 						   USER_SHOW_URI,
 						   _user.databaseID,
 						   userPhotoFilename,
-						   currentUser.email,
-						   currentUser.encryptedPassword];
+						   [DWSession sharedDWSession].currentUser.email,
+						   [DWSession sharedDWSession].currentUser.encryptedPassword];
 	
 	[_updateUserRequestManager sendPutRequest:urlString withParams:@""];
 	
@@ -304,7 +304,7 @@
 			if(_isCurrentUser)
 				[self addRightBarButtonItem];
 						
-			if([_itemManager totalItems]==1 && [DWSessionManager isSessionActive] && currentUser.databaseID == _user.databaseID) {
+			if([_itemManager totalItems]==1 && [[DWSession sharedDWSession] isActive] && [DWSession sharedDWSession].currentUser.databaseID == _user.databaseID) {
 				self.messageCellText = USER_SIGNED_IN_NO_ITEMS_MSG;
 				_tableViewUsage = TABLE_VIEW_AS_PROFILE_MESSAGE;
 			}
@@ -383,7 +383,7 @@
 - (void)userLogsIn:(NSNotification*)notification {
 	
 	if(!_userID)
-		_userID = currentUser.databaseID;
+		_userID = [DWSession sharedDWSession].currentUser.databaseID;
 	
 	[self checkCurrentUser];
 	

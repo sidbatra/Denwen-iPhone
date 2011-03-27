@@ -99,13 +99,13 @@
 
 	NSString *urlString = nil;
 	
-	if([DWSessionManager isSessionActive])
+	if([[DWSession sharedDWSession] isActive])
 		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile&email=%@&password=%@",
 						   NEARBY_PLACES_URI,
 						   currentUserLocation.coordinate.latitude,
 						   currentUserLocation.coordinate.longitude,
-						   currentUser.email,
-						   currentUser.encryptedPassword							
+						   [DWSession sharedDWSession].currentUser.email,
+						   [DWSession sharedDWSession].currentUser.encryptedPassword							
 					   ];
 	else
 		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile",

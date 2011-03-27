@@ -12,7 +12,7 @@
 #import "DWS3Uploader.h"
 #import "MBProgressHUD.h"
 #import "DWItem.h"
-#import "DWSessionManager.h"
+#import "DWSession.h"
 #import "NSString+Helpers.h"
 #import "DWMemoryPool.h"
 #import "DWImageHelper.h"

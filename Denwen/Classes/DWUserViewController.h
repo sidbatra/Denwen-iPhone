@@ -19,7 +19,7 @@
 #import "DWRequestManager.h"
 #import "DWS3Uploader.h"
 #import "MBProgressHUD.h"
-#import "DWSessionManager.h"
+#import "DWSession.h"
 #import "DWUserCell.h"
 
 

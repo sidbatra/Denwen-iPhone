@@ -29,7 +29,7 @@
 	
 	if (self) {		
 		_userID = userID;
-		_isCurrentUser = [DWSessionManager isSessionActive] && currentUser.databaseID == _userID;
+		_isCurrentUser = [[DWSession sharedDWSession] isActive] && [DWSession sharedDWSession].currentUser.databaseID == _userID;
 		_titleText = _isCurrentUser  ?
 						[[NSString alloc] initWithString:@"Your Places"] :
 						[[NSString alloc] initWithFormat:@"%@'s Places",userName];
@@ -87,12 +87,12 @@
 	
 	NSString *urlString = nil;	
 	
-	if([DWSessionManager isSessionActive])
+	if([[DWSession sharedDWSession] isActive])
 		urlString = [[NSString alloc] initWithFormat:@"%@%d/places.json?ff=mobile&email=%@&password=%@",
 							USER_SHOW_URI,
 							_userID,
-							currentUser.email,
-							currentUser.encryptedPassword							
+							[DWSession sharedDWSession].currentUser.email,
+							[DWSession sharedDWSession].currentUser.encryptedPassword							
 					 ];
 	else
 		urlString = [[NSString alloc] initWithFormat:@"%@%d/places.json?ff=mobile",

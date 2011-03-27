@@ -167,7 +167,7 @@
 		DWUser *user = [[DWUser alloc] init];
 		[user populate:[body objectForKey:USER_JSON_KEY]];
 		user.encryptedPassword = self.password;
-		[DWSessionManager createSessionWithUser:user];
+		[[DWSession sharedDWSession] create:user];
 
 		[_delegate loginSuccessful];
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_USER_LOGS_IN object:user];

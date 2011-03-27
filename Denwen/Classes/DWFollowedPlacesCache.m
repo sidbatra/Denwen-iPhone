@@ -66,8 +66,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
 	
 	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&ff=mobile",
 						   FOLLOWED_PLACES_URI,
-						   currentUser.email,
-						   currentUser.encryptedPassword
+						   [DWSession sharedDWSession].currentUser.email,
+						   [DWSession sharedDWSession].currentUser.encryptedPassword
 						   ];
 	[self.requestManager sendGetRequest:urlString];
 	
@@ -104,7 +104,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWFollowedPlacesCache);
 // Fired when the app is about to enter the foreground
 //
 - (void)applicationBecomesActive:(NSNotification*)notification {
-	if([DWSessionManager isSessionActive])
+	if([[DWSession sharedDWSession] isActive])
 		[self loadPlaces];
 }
 

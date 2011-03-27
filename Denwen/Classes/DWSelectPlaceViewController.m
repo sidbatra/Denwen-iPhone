@@ -97,8 +97,8 @@
 	else {
 		NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&ff=mobile",
 							   FOLLOWED_PLACES_URI,
-							   currentUser.email,
-							   currentUser.encryptedPassword
+							   [DWSession sharedDWSession].currentUser.email,
+							   [DWSession sharedDWSession].currentUser.encryptedPassword
 							   ];
 		[_followedRequestManager sendGetRequest:urlString];
 		[urlString release];

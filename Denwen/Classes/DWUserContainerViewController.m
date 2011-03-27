@@ -38,7 +38,7 @@
 	//Add subviews
 	//
 	if(!userViewController)
-		userViewController = [[DWUserViewController alloc] initWithUserID:currentUser.databaseID 
+		userViewController = [[DWUserViewController alloc] initWithUserID:[DWSession sharedDWSession].currentUser.databaseID 
 																 hideBackButton:YES 
 																	andDelegate:self];
 	[self.view addSubview:userViewController.view];

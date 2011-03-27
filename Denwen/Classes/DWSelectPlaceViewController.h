@@ -11,7 +11,7 @@
 
 #import "DWPlaceListViewController.h"
 #import "DWFollowedPlacesCache.h"
-#import "DWSessionManager.h"
+#import "DWSession.h"
 #import "DWUserLocation.h"
 
 

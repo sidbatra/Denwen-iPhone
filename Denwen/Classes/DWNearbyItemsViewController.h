@@ -11,6 +11,7 @@
 
 #import "DWItemFeedViewController.h"
 #import "DWRequestManager.h"
+#import "DWSession.h"
 #import "DWUserLocation.h"
 
 

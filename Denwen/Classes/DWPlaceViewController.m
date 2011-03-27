@@ -119,7 +119,7 @@
 //
 - (void)showCreateButton {
 	
-	if([DWSessionManager isSessionActive]) {
+	if([[DWSession sharedDWSession] isActive]) {
 		UIBarButtonItem *composeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose 
 																						target:self 
 																						action:@selector(didPressCreateNewItem:event:) ];
@@ -217,12 +217,12 @@
 	
 	NSString *urlString = nil;
 	
-	if([DWSessionManager isSessionActive])
+	if([[DWSession sharedDWSession] isActive])
 		urlString = [[NSString alloc] initWithFormat:@"%@%@.json?email=%@&password=%@&page=%d&ff=mobile",
 					 PLACE_HASHED_SHOW_URI,
 					 self.placeHashedID,
-					 currentUser.email,
-					 currentUser.encryptedPassword,
+					 [DWSession sharedDWSession].currentUser.email,
+					 [DWSession sharedDWSession].currentUser.encryptedPassword,
 					 _currentPage
 					 ];
 	else
@@ -247,8 +247,8 @@
 	
 	NSString *paramString = [[NSString alloc] initWithFormat:@"place_id=%d&email=%@&password=%@&ff=mobile",
 							_place.databaseID,
-							 currentUser.email,
-							 currentUser.encryptedPassword
+							 [DWSession sharedDWSession].currentUser.email,
+							 [DWSession sharedDWSession].currentUser.encryptedPassword
 							 ];
 	
 	[_followRequestManager sendPostRequest:FOLLOWINGS_URI withParams:paramString];
@@ -266,8 +266,8 @@
 	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?email=%@&password=%@&ff=mobile",
 							FOLLOWINGS_DELETE_URI,
 							self.following.databaseID,
-							currentUser.email,
-							currentUser.encryptedPassword
+							[DWSession sharedDWSession].currentUser.email,
+							[DWSession sharedDWSession].currentUser.encryptedPassword
 							];
 	
 	[_followRequestManager sendDeleteRequest:urlString withParams:@""];
@@ -283,8 +283,8 @@
 							PLACE_SHOW_URI,
 							_place.databaseID,
 							placePhotoFilename,
-							currentUser.email,
-							currentUser.encryptedPassword
+							[DWSession sharedDWSession].currentUser.email,
+							[DWSession sharedDWSession].currentUser.encryptedPassword
 							];
 	
 	[_updatePlaceRequestManager sendPutRequest:urlString withParams:@""];
@@ -374,8 +374,6 @@
 			
 			//Mark changes to global variables, indicating a refresh is needed on followed content
 			currentUserFollowedItemsRefresh = YES;
-			currentUserFollowedPlacesRefresh = YES;
-
 		}
 		else{
 		}
@@ -511,7 +509,7 @@
 			[cell displayUnfollowingState];
 		
 		
-		if([DWSessionManager isSessionActive]) 
+		if([[DWSession sharedDWSession] isActive]) 
 			[cell displaySignedInState:_place.hasPhoto];
 		else
 			[cell displaySignedOutState];
@@ -590,7 +588,7 @@
 // User clicks the follow place button
 //
 - (void)didTapFollowButton:(id)sender event:(id)event {
-	if([DWSessionManager isSessionActive])
+	if([[DWSession sharedDWSession] isActive])
 	   [self sendFollowRequest];
 	else {
 		UIAlertView *alert;
@@ -618,7 +616,7 @@
 // User clicks the share place button
 //
 - (void)didTapShareButton:(id)sender event:(id)event {
-	if([DWSessionManager isSessionActive]) {
+	if([[DWSession sharedDWSession] isActive]) {
 		DWShareViewController *shareView = [[DWShareViewController alloc] initWithDelegate:self andPlace:_place];
 		shareView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 		[self.navigationController presentModalViewController:shareView animated:YES];
@@ -641,7 +639,7 @@
 //
 - (void)didTapPlaceMediumImage:(id)sender event:(id)event {
 	
-	if([DWSessionManager isSessionActive]) {
+	if([[DWSession sharedDWSession] isActive]) {
 		UIActionSheet *actionSheet = nil;
 		
 		if(_place.hasPhoto) {
@@ -700,7 +698,7 @@
 
 - (void)shareViewFinished:(NSString*)data sentTo:(NSInteger)sentTo {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
-	[currentUser createShare:data sentTo:sentTo forPlace:_place.databaseID];
+	[[DWSession sharedDWSession].currentUser createShare:data sentTo:sentTo forPlace:_place.databaseID];
 }
 
 

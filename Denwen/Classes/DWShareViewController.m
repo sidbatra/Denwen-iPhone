@@ -91,14 +91,14 @@
 	
 	[textView becomeFirstResponder];
 	
-	if(currentUser.twitterOAuthData) {
+	if([DWSession sharedDWSession].currentUser.twitterOAuthData) {
 		twitterSwitch.on = YES;
 		[self twitterSwitchedOn];
 	}
 	
-	if(currentUser.facebookAccessToken) {
+	if([DWSession sharedDWSession].currentUser.facebookAccessToken) {
 		facebookSwitch.on = YES;
-		_facebook.accessToken = currentUser.facebookAccessToken;
+		_facebook.accessToken = [DWSession sharedDWSession].currentUser.facebookAccessToken;
 		_facebook.expirationDate = [NSDate distantFuture];
 		[self facebookSwitchedOn];
 	}
@@ -208,11 +208,11 @@
 	NSString *photoURL = [_place hasPhoto] ? _place.largeURL : @"";
 	NSString *placeTitle = [[NSString alloc] initWithFormat:@"This is %@",_place.name];
 	
-	if(twitterSwitch.on && currentUser.twitterOAuthData)
+	if(twitterSwitch.on && [DWSession sharedDWSession].currentUser.twitterOAuthData)
 		[_twitterEngine sendUpdate:fullText];
 	
 	
-	if(facebookSwitch.on && currentUser.facebookAccessToken) {
+	if(facebookSwitch.on && [DWSession sharedDWSession].currentUser.facebookAccessToken) {
 		NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 									   fullText,@"message",
 									   placeTitle,@"name",
@@ -249,7 +249,7 @@
 //
 - (void)facebookSwitchValueChanged:(id)sender {
 	if(facebookSwitch.on) {
-		if(!currentUser.facebookAccessToken) {
+		if(![DWSession sharedDWSession].currentUser.facebookAccessToken) {
 			[self.textView resignFirstResponder];
 			[_facebook authorize:[NSArray arrayWithObjects:@"offline_access", @"publish_stream",nil] delegate:self];
 		}
@@ -295,7 +295,7 @@
 //
 - (void)fbDidLogin {
 	[self.textView becomeFirstResponder];
-	[currentUser storeFacebookToken:_facebook.accessToken];
+	[[DWSession sharedDWSession].currentUser storeFacebookToken:_facebook.accessToken];
 }
 
 
@@ -368,14 +368,14 @@
 // Store the Twitter OAuth data as a member variable and on disk
 //
 - (void)storeCachedTwitterOAuthData:(NSString *) data forUsername:(NSString *)username {
-	[currentUser storeTwitterData:data];
+	[[DWSession sharedDWSession].currentUser storeTwitterData:data];
 }
 
 
 // Return the twitterOAuthData member variable
 //
 - (NSString *)cachedTwitterOAuthDataForUsername:(NSString *) username {
-	return currentUser.twitterOAuthData;
+	return [DWSession sharedDWSession].currentUser.twitterOAuthData;
 }
 
 

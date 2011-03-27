@@ -110,7 +110,7 @@
 // Override scrollViewDidEndDragging if the user isn't signed in
 //
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-	if([DWSessionManager isSessionActive])
+	if([[DWSession sharedDWSession] isActive])
 		[super scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
 }
 
@@ -127,15 +127,15 @@
 	
 	BOOL status = NO;
 		
-	if([DWSessionManager isSessionActive]) {
+	if([[DWSession sharedDWSession] isActive]) {
 		
 		if(currentUserFollowedItemsRefresh)
 			[self resetPagination];
 				
 		NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&page=%d&ff=mobile",
 							   FOLLOWED_ITEMS_URI,
-							   currentUser.email,
-							   currentUser.encryptedPassword,
+							   [DWSession sharedDWSession].currentUser.email,
+							   [DWSession sharedDWSession].currentUser.encryptedPassword,
 							   _currentPage
 							   ];
 		[_requestManager sendGetRequest:urlString];

@@ -7,7 +7,7 @@
 //
 
 #import "DWUser.h"
-#import "DWSessionManager.h"
+#import "DWSession.h"
 
 
 @implementation DWUser
@@ -161,7 +161,7 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 		[self.mediumConnection fetchData:_mediumURL withKey:[self mediumUniqueKey] withCache:YES];
 	}
 	else if(!_hasPhoto){ 
-		if([DWSessionManager isSessionActive] && currentUser.databaseID == self.databaseID)
+		if([[DWSession sharedDWSession] isActive] && [DWSession sharedDWSession].currentUser.databaseID == self.databaseID)
 			self.mediumPreviewImage = [UIImage imageNamed:USER_SIGNED_IN_MEDIUM_PLACEHOLDER_IMAGE_NAME];
 		else	
 			self.mediumPreviewImage = [UIImage imageNamed:USER_MEDIUM_PLACEHOLDER_IMAGE_NAME];
@@ -182,8 +182,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 						   USER_SHOW_URI,
 						   self.databaseID,
 						   [deviceID stringByEncodingHTMLCharacters],
-						   currentUser.email,
-						   currentUser.encryptedPassword
+						   [DWSession sharedDWSession].currentUser.email,
+						   [DWSession sharedDWSession].currentUser.encryptedPassword
 						   ];
 	
 	[self.updateRequestManager sendPutRequest:urlString withParams:@""];
@@ -203,8 +203,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 						   USER_SHOW_URI,
 						   self.databaseID,
 						   [self.twitterOAuthData stringByEncodingHTMLCharacters],
-						   currentUser.email,
-						   currentUser.encryptedPassword
+						   [DWSession sharedDWSession].currentUser.email,
+						   [DWSession sharedDWSession].currentUser.encryptedPassword
 						   ];
 	
 	[self.updateTwitterDataRequestManager sendPutRequest:urlString withParams:@""];
@@ -223,8 +223,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 						   USER_SHOW_URI,
 						   self.databaseID,
 						   [self.facebookAccessToken stringByEncodingHTMLCharacters],
-						   currentUser.email,
-						   currentUser.encryptedPassword
+						   [DWSession sharedDWSession].currentUser.email,
+						   [DWSession sharedDWSession].currentUser.encryptedPassword
 						   ];
 	
 	[self.updateFacebookTokenRequestManager sendPutRequest:urlString withParams:@""];
@@ -245,8 +245,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	NSString *params = [[NSString alloc] initWithFormat:@"lat=%f&lon=%f&email=%@&password=%@&ff=mobile",
 						   currentUserLocation.coordinate.latitude,
 						   currentUserLocation.coordinate.longitude,
-						   currentUser.email,
-						   currentUser.encryptedPassword
+						   [DWSession sharedDWSession].currentUser.email,
+						   [DWSession sharedDWSession].currentUser.encryptedPassword
 						   ];
 	
 	[self.visitRequestManager sendPostRequest:VISITS_URI withParams:params];
@@ -266,8 +266,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 						   USER_SHOW_URI,
 						   self.databaseID,
 						   subtrahend,
-						   currentUser.email,
-						   currentUser.encryptedPassword
+						   [DWSession sharedDWSession].currentUser.email,
+						   [DWSession sharedDWSession].currentUser.encryptedPassword
 						   ];
 	
 	[self.updateUnreadRequestManager sendPutRequest:urlString withParams:@""];
@@ -287,8 +287,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 						data,
 						sentTo,
 						placeID,
-						currentUser.email,
-						currentUser.encryptedPassword
+						[DWSession sharedDWSession].currentUser.email,
+						[DWSession sharedDWSession].currentUser.encryptedPassword
 						];
 	
 	[self.shareRequestManager sendPostRequest:SHARES_URI withParams:params];

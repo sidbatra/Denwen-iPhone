@@ -43,8 +43,8 @@
 	
 	[DWMemoryPool initPool];
 	
-	[DWSessionManager checkDiskForSession];
-	
+	[[DWSession sharedDWSession] read];
+
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(userLogsIn:) 
@@ -59,6 +59,7 @@
 	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
 		
 	[DWFollowedPlacesCache sharedDWFollowedPlacesCache];
+	
 
     return YES;
 }
@@ -206,7 +207,7 @@
 	_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 	_locationManager.distanceFilter = LOCATION_REFRESH_DISTANCE;	
 	
-	if(![DWSessionManager isSessionActive]) 
+	if(![[DWSession sharedDWSession] isActive]) 
 		[self displaySignedOutState];
 	else
 		[self displaySignedInState];
@@ -233,8 +234,8 @@
 // Creates a visit for the current user
 //
 - (void)createVisit {
-	if([DWSessionManager isSessionActive])
-		[currentUser createVisit];
+	if([[DWSession sharedDWSession] isActive])
+		[[DWSession sharedDWSession].currentUser createVisit];
 }
 
 
@@ -268,7 +269,7 @@
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 	
 	NSInteger unreadCount = [(NSString*)[notification object] integerValue];
-	[currentUser updateUnreadCount:unreadCount];
+	[[DWSession sharedDWSession].currentUser updateUnreadCount:unreadCount];
 }
 
 
@@ -282,7 +283,7 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 	
 	NSString *deviceTokenString = [[NSString alloc] initWithFormat:@"%@",deviceToken];
-	[currentUser updateDeviceID:deviceTokenString];
+	[[DWSession sharedDWSession].currentUser updateDeviceID:deviceTokenString];
 	[deviceTokenString release];
 }
 

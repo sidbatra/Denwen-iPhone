@@ -269,7 +269,7 @@
 		[user populate:userJSON];
 		user.encryptedPassword = self.password;
 		
-		[DWSessionManager createSessionWithUser:user];
+		[[DWSession sharedDWSession] create:user];
 		[_delegate signupSuccessful];		
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_USER_LOGS_IN object:user];
 	}

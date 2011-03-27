@@ -38,8 +38,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 				kDenwenProtocol,
 				kDenwenServer,
 				localRequestURL,
-				[currentUser.email stringByEncodingHTMLCharacters],
-				currentUser.encryptedPassword];
+				[[DWSession sharedDWSession].currentUser.email stringByEncodingHTMLCharacters],
+				[DWSession sharedDWSession].currentUser.encryptedPassword];
 }
 
 

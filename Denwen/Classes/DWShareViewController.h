@@ -15,7 +15,7 @@
 #import "FBConnect.h"
 #import "MBProgressHUD.h"
 
-#import "DWSessionManager.h"
+#import "DWSession.h"
 
 
 @protocol DWShareViewControllerDelegate;

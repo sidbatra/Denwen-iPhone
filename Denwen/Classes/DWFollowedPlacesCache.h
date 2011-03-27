@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "DWRequestManager.h"
-#import "DWSessionManager.h"
+#import "DWSession.h"
 
 #import "SynthesizeSingleton.h"
 

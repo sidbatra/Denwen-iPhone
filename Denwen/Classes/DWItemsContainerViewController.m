@@ -83,7 +83,7 @@
 	[super viewDidLoad];
 	
 	
-	if([DWSessionManager isSessionActive])
+	if([[DWSession sharedDWSession] isActive])
 		[self addRightBarButtonItem];
 	
 	

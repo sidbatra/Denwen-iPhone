@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "DWPlaceListViewController.h"
-#import "DWSessionManager.h"
+#import "DWSession.h"
 
 @interface DWFollowedPlacesViewController : DWPlaceListViewController {
 	NSInteger _userID;

@@ -15,7 +15,7 @@
 #import "DWContainerViewController.h"
 
 
-#import "DWSessionManager.h"
+#import "DWSession.h"
 #import "Constants.h"
 
 

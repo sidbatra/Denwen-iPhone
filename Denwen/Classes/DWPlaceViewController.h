@@ -19,6 +19,7 @@
 #import "MBProgressHUD.h"
 #import "DWPlaceDetailsViewController.h"
 #import "DWShareViewController.h"
+#import "DWSession.h"
 
 
 @interface DWPlaceViewController : DWItemFeedViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,DWS3UploaderDelegate> {

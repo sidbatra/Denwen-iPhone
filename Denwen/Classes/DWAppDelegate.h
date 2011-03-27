@@ -16,7 +16,7 @@
 #import "DWLoginViewController.h"
 #import "DWSignupViewController.h"
 #import "DWCache.h"
-#import "DWSessionManager.h"
+#import "DWSession.h"
 #import "DWMemoryPool.h"
 #import "DWUserLocation.h"
 #import "DWNotificationHelper.h"

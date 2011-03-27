@@ -14,7 +14,7 @@
 #import "DWContainerViewController.h"
 #import "DWNotificationHelper.h"
 
-#import "DWSessionManager.h"
+#import "DWSession.h"
 #import "Constants.h"
 
 

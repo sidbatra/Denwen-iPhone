@@ -284,8 +284,8 @@ replacementString:(NSString *)string {
 									[placeNameTextField.text stringByEncodingHTMLCharacters],
 									self.placeLocation.coordinate.latitude,
 									self.placeLocation.coordinate.longitude,
-									currentUser.email,
-									currentUser.encryptedPassword,
+									[DWSession sharedDWSession].currentUser.email,
+									[DWSession sharedDWSession].currentUser.encryptedPassword,
 									self.photoFilename
 									];
 			

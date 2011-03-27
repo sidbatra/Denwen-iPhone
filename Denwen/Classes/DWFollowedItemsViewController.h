@@ -12,7 +12,7 @@
 #import "DWItemFeedViewController.h"
 #import "DWNotificationHelper.h"
 
-#import "DWSessionManager.h"
+#import "DWSession.h"
 #import "DWRequestManager.h"
 
 
