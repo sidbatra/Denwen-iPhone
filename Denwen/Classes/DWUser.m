@@ -243,8 +243,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	[tempRequestManager release];
 	
 	NSString *params = [[NSString alloc] initWithFormat:@"lat=%f&lon=%f&email=%@&password=%@&ff=mobile",
-						   currentUserLocation.coordinate.latitude,
-						   currentUserLocation.coordinate.longitude,
+						   [DWSession sharedDWSession].location.coordinate.latitude,
+						   [DWSession sharedDWSession].location.coordinate.longitude,
 						   [DWSession sharedDWSession].currentUser.email,
 						   [DWSession sharedDWSession].currentUser.encryptedPassword
 						   ];

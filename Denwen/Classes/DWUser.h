@@ -13,7 +13,6 @@
 #import "DWRequestManager.h"
 #import "DWURLConnection.h"
 #import "DWImageHelper.h"
-#import "DWUserLocation.h"
 
 #import "NSString+Helpers.h"
 #import "Constants.h"

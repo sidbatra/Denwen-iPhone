@@ -5,6 +5,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 #import "DWUser.h"
 #import "SynthesizeSingleton.h"
@@ -15,8 +16,9 @@
  * Manages the current user's session
  */
 @interface DWSession : NSObject {
-	DWUser	*_currentUser;
-	BOOL	_refreshFollowedItems;
+	DWUser			*_currentUser;
+	CLLocation		*_location;
+	BOOL			_refreshFollowedItems;
 }
 
 /**
@@ -28,6 +30,11 @@
  * User object representing the current user
  */
 @property (nonatomic,retain) DWUser* currentUser;
+
+/**
+ * Current location of the user
+ */
+@property (nonatomic,retain) CLLocation *location;
 
 /**
  * Refresh flag for a user's followed items

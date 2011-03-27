@@ -12,7 +12,6 @@
 #import "NSString+Helpers.h"
 #import "SynthesizeSingleton.h"
 #import "DWSession.h"
-#import "DWUserLocation.h"
 #import "Constants.h"
 
 

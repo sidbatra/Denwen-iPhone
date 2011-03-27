@@ -87,8 +87,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	
 	NSString *localRequestURL = [NSString stringWithFormat:@"%@?lat=%f&lon=%f",
 									kVisitsURI,
-									currentUserLocation.coordinate.latitude,
-									currentUserLocation.coordinate.longitude];
+									[DWSession sharedDWSession].location.coordinate.latitude,
+									[DWSession sharedDWSession].location.coordinate.longitude];
 	
 	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
 	

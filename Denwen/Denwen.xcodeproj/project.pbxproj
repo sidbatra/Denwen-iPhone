@@ -156,7 +156,6 @@
 		BB3BE1E3133AB65F0055FED0 /* ASIS3ServiceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3BE1B1133AB65F0055FED0 /* ASIS3ServiceRequest.m */; };
 		BB3BE20E133AB6E30055FED0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3BE20D133AB6E30055FED0 /* Reachability.m */; };
 		BB3CCBC512F936E200ADFCD7 /* DWMemoryPool.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3CCBC412F936E200ADFCD7 /* DWMemoryPool.m */; };
-		BB3F97C912FD2C16002FF481 /* DWUserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3F97C812FD2C16002FF481 /* DWUserLocation.m */; };
 		BB40089013123696000BDE4D /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40088713123696000BDE4D /* Facebook.m */; };
 		BB40089113123696000BDE4D /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB40088913123696000BDE4D /* FBDialog.bundle */; };
 		BB40089213123696000BDE4D /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40088B13123696000BDE4D /* FBDialog.m */; };
@@ -494,8 +493,6 @@
 		BB3BE20D133AB6E30055FED0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = External/Reachability/Reachability.m; sourceTree = "<group>"; };
 		BB3CCBC312F936E200ADFCD7 /* DWMemoryPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWMemoryPool.h; path = Classes/DWMemoryPool.h; sourceTree = "<group>"; };
 		BB3CCBC412F936E200ADFCD7 /* DWMemoryPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWMemoryPool.m; path = Classes/DWMemoryPool.m; sourceTree = "<group>"; };
-		BB3F97C712FD2C16002FF481 /* DWUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWUserLocation.h; path = Classes/DWUserLocation.h; sourceTree = "<group>"; };
-		BB3F97C812FD2C16002FF481 /* DWUserLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWUserLocation.m; path = Classes/DWUserLocation.m; sourceTree = "<group>"; };
 		BB40088613123696000BDE4D /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		BB40088713123696000BDE4D /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Facebook.m; sourceTree = "<group>"; };
 		BB40088813123696000BDE4D /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
@@ -1129,8 +1126,6 @@
 				BBE5AFCB12FEB71A0042BD2A /* DWImageHelper.m */,
 				BB3CCBC312F936E200ADFCD7 /* DWMemoryPool.h */,
 				BB3CCBC412F936E200ADFCD7 /* DWMemoryPool.m */,
-				BB3F97C712FD2C16002FF481 /* DWUserLocation.h */,
-				BB3F97C812FD2C16002FF481 /* DWUserLocation.m */,
 				BBE3107413148C160069E1AA /* DWNotificationHelper.h */,
 				BBE3107513148C160069E1AA /* DWNotificationHelper.m */,
 				BBA03C52132DC5EE0073105B /* DWVideoHelper.h */,
@@ -1725,7 +1720,6 @@
 				BBB519F412F9FAC10024086F /* DWPoolObject.m in Sources */,
 				261C905312FBA43600D16F72 /* DWLoadingCell.m in Sources */,
 				261C90CC12FBB7BC00D16F72 /* DWMessageCell.m in Sources */,
-				BB3F97C912FD2C16002FF481 /* DWUserLocation.m in Sources */,
 				BBE5AFCC12FEB71A0042BD2A /* DWImageHelper.m in Sources */,
 				BB0CFCFC1302261400F38552 /* DWPaginationCell.m in Sources */,
 				26DC2E62130A877A00FC1F3A /* DWPlaceDetailsViewController.m in Sources */,

@@ -22,7 +22,6 @@
 #import "NSString+Helpers.h"
 #import "DWMemoryPool.h"
 #import "DWImageHelper.h"
-#import "DWUserLocation.h"
 
 
 @protocol DWNewPlaceViewControllerDelegate;

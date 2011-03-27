@@ -12,7 +12,9 @@
 @implementation DWSession
 
 @synthesize currentUser				= _currentUser;
+@synthesize location				= _location;
 @synthesize refreshFollowedItems	= _refreshFollowedItems;
+
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 

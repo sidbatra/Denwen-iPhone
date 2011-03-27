@@ -82,8 +82,8 @@
 	
 	NSString *urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&page=%d&ff=mobile",
 						   NEARBY_ITEMS_URI,
-						   currentUserLocation.coordinate.latitude,
-						   currentUserLocation.coordinate.longitude,
+						   [DWSession sharedDWSession].location.coordinate.latitude,
+						   [DWSession sharedDWSession].location.coordinate.longitude,
 						   _currentPage
 						   ];
 	
@@ -143,7 +143,7 @@
 - (void)newItemCreated:(NSNotification*)notification {
 	DWItem *item = (DWItem*)[notification object];
 	
-	if(_isLoadedOnce &&  [currentUserLocation distanceFromLocation:item.place.location] <= LOCATION_NEARBY_RADIUS)
+	if(_isLoadedOnce &&  [[DWSession sharedDWSession].location distanceFromLocation:item.place.location] <= LOCATION_NEARBY_RADIUS)
 		[self addNewItem:item atIndex:0];
 }
 

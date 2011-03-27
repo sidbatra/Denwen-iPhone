@@ -369,13 +369,8 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
 	
-	if(currentUserLocation)
-		[currentUserLocation release];
 	
-	currentUserLocation = [[CLLocation alloc] initWithLatitude:newLocation.coordinate.latitude 
-													 longitude:newLocation.coordinate.longitude
-						   ];
-	
+	[DWSession sharedDWSession].location = newLocation;
 	
 	if(!_isVisitRecorded) {
 		_isVisitRecorded = YES;

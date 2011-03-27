@@ -73,7 +73,7 @@
 - (void)newPlaceCreated:(NSNotification*)notification {
 	DWPlace *place = (DWPlace*)[notification object];
 	
-	if(_isLoadedOnce && [currentUserLocation distanceFromLocation:place.location] <= LOCATION_NEARBY_RADIUS)	
+	if(_isLoadedOnce && [[DWSession sharedDWSession].location distanceFromLocation:place.location] <= LOCATION_NEARBY_RADIUS)	
 		[self addNewPlace:place];
 }
 
@@ -102,16 +102,16 @@
 	if([[DWSession sharedDWSession] isActive])
 		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile&email=%@&password=%@",
 						   NEARBY_PLACES_URI,
-						   currentUserLocation.coordinate.latitude,
-						   currentUserLocation.coordinate.longitude,
+						   [DWSession sharedDWSession].location.coordinate.latitude,
+						   [DWSession sharedDWSession].location.coordinate.longitude,
 						   [DWSession sharedDWSession].currentUser.email,
 						   [DWSession sharedDWSession].currentUser.encryptedPassword							
 					   ];
 	else
 		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile",
 						 NEARBY_PLACES_URI,
-						 currentUserLocation.coordinate.latitude,
-						 currentUserLocation.coordinate.longitude
+						 [DWSession sharedDWSession].location.coordinate.latitude,
+						 [DWSession sharedDWSession].location.coordinate.longitude
 					 ];
 	
 	[_requestManager sendGetRequest:urlString];

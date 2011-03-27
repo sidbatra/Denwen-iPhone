@@ -46,7 +46,7 @@
 	
 	[super viewDidLoad];
 	
-	self.placeLocation = currentUserLocation;
+	self.placeLocation = [DWSession sharedDWSession].location;
 		
 	// rounded corners and border customization
 	[[textFieldsContainerView layer] setCornerRadius:2.5f];

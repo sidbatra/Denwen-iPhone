@@ -12,7 +12,6 @@
 #import "DWPlaceListViewController.h"
 #import "DWFollowedPlacesCache.h"
 #import "DWSession.h"
-#import "DWUserLocation.h"
 
 
 @protocol DWSelectPlaceViewControllerDelegate;

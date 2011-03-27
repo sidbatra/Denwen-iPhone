@@ -18,7 +18,6 @@
 #import "DWCache.h"
 #import "DWSession.h"
 #import "DWMemoryPool.h"
-#import "DWUserLocation.h"
 #import "DWNotificationHelper.h"
 #import "NSString+Helpers.h"
 
