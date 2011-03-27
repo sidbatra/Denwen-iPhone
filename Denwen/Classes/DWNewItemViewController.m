@@ -207,8 +207,7 @@
 		UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
 		UIImage *originalImage = [info valueForKey:UIImagePickerControllerOriginalImage];
 		
-		previewImage = [DWImageHelper resizeImage:image 
-											  scaledToSize:CGSizeMake(SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE,SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE)];
+		previewImage = [image resizeTo:CGSizeMake(SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE,SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE)];
 		
 		[_s3Uploader uploadImage:image toFolder:S3_ITEMS_FOLDER];
 		

@@ -157,9 +157,9 @@
 // Resize and update preview images from the given image
 //
 - (void)updatePreviewImages:(UIImage*)image {
-	self.smallPreviewImage = [DWImageHelper resizeImage:image scaledToSize:CGSizeMake(SIZE_PLACE_SMALL_IMAGE, SIZE_PLACE_SMALL_IMAGE)];
-	self.mediumPreviewImage = [DWImageHelper resizeImage:image scaledToSize:CGSizeMake(SIZE_PLACE_MEDIUM_IMAGE, SIZE_PLACE_MEDIUM_IMAGE)];
-	self.largePreviewImage = [DWImageHelper resizeImage:image scaledToSize:CGSizeMake(SIZE_PLACE_LARGE_IMAGE, SIZE_PLACE_LARGE_IMAGE)];
+	self.smallPreviewImage = [image resizeTo:CGSizeMake(SIZE_PLACE_SMALL_IMAGE, SIZE_PLACE_SMALL_IMAGE)];
+	self.mediumPreviewImage = [image resizeTo:CGSizeMake(SIZE_PLACE_MEDIUM_IMAGE, SIZE_PLACE_MEDIUM_IMAGE)];
+	self.largePreviewImage = [image resizeTo:CGSizeMake(SIZE_PLACE_LARGE_IMAGE, SIZE_PLACE_LARGE_IMAGE)];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_PLACE_PREVIEW_DONE object:self];
 	[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_PLACE_PREVIEW_DONE object:self];
@@ -332,8 +332,7 @@
 	if(instanceID==0) {
 		self.smallConnection = nil;
 		
-		self.smallPreviewImage = _isProcessed ? image : [DWImageHelper resizeImage:image 
-																 scaledToSize:CGSizeMake(SIZE_PLACE_SMALL_IMAGE,SIZE_PLACE_SMALL_IMAGE)];
+		self.smallPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_PLACE_SMALL_IMAGE,SIZE_PLACE_SMALL_IMAGE)];
 		
 		_isSmallDownloading = NO;
 		_forceSmallDownloading = NO;
@@ -342,8 +341,7 @@
 	else if(instanceID==1) {
 		self.mediumConnection = nil;
 	
-		self.mediumPreviewImage = _isProcessed ? image : [DWImageHelper resizeImage:image 
-																	  scaledToSize:CGSizeMake(SIZE_PLACE_MEDIUM_IMAGE,SIZE_PLACE_MEDIUM_IMAGE)];
+		self.mediumPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_PLACE_MEDIUM_IMAGE,SIZE_PLACE_MEDIUM_IMAGE)];
 		
 		_isMediumDownloading = NO;
 		_forceMediumDownloading = NO;
@@ -352,8 +350,7 @@
 	else if(instanceID==2) {
 		self.largeConnection = nil;
 		
-		self.largePreviewImage = _isProcessed ? image : [DWImageHelper resizeImage:image 
-																	   scaledToSize:CGSizeMake(SIZE_PLACE_LARGE_IMAGE,SIZE_PLACE_LARGE_IMAGE)];
+		self.largePreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_PLACE_LARGE_IMAGE,SIZE_PLACE_LARGE_IMAGE)];
 		
 		_isLargeDownloading = NO;
 		_forceLargeDownloading = NO;

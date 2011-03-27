@@ -120,8 +120,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 // Resize and update preview images from the given image
 //
 - (void)updatePreviewImages:(UIImage*)image {
-	self.smallPreviewImage = [DWImageHelper resizeImage:image scaledToSize:CGSizeMake(SIZE_USER_SMALL_IMAGE, SIZE_USER_SMALL_IMAGE)];
-	self.mediumPreviewImage = [DWImageHelper resizeImage:image scaledToSize:CGSizeMake(SIZE_USER_MEDIUM_IMAGE, SIZE_USER_MEDIUM_IMAGE)];
+	self.smallPreviewImage = [image resizeTo:CGSizeMake(SIZE_USER_SMALL_IMAGE, SIZE_USER_SMALL_IMAGE)];
+	self.mediumPreviewImage = [image resizeTo:CGSizeMake(SIZE_USER_MEDIUM_IMAGE, SIZE_USER_MEDIUM_IMAGE)];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_USER_PREVIEW_DONE object:self];
 	[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_USER_PREVIEW_DONE object:self];
@@ -481,8 +481,7 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	if(instanceID==0) {
 		self.smallConnection = nil;
 		
-		self.smallPreviewImage = _isProcessed ? image : [DWImageHelper resizeImage:image 
-																	  scaledToSize:CGSizeMake(SIZE_USER_SMALL_IMAGE, SIZE_USER_SMALL_IMAGE)];
+		self.smallPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_USER_SMALL_IMAGE, SIZE_USER_SMALL_IMAGE)];
 		
 		_isSmallDownloading = NO;
 		_forceSmallDownloading = NO;
@@ -491,8 +490,7 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	else {
 		self.mediumConnection = nil;
 		
-		self.mediumPreviewImage = _isProcessed ? image : [DWImageHelper resizeImage:image 
-																	   scaledToSize:CGSizeMake(SIZE_USER_MEDIUM_IMAGE, SIZE_USER_MEDIUM_IMAGE)];		
+		self.mediumPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_USER_MEDIUM_IMAGE, SIZE_USER_MEDIUM_IMAGE)];		
 		_isMediumDownloading = NO;
 		_forceMediumDownloading = NO;
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_USER_PREVIEW_DONE object:self];

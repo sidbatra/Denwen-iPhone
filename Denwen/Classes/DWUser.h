@@ -12,7 +12,7 @@
 #import "DWPoolObject.h"
 #import "DWRequestManager.h"
 #import "DWURLConnection.h"
-#import "DWImageHelper.h"
+#import "UIImage+ImageProcessing.h"
 
 #import "NSString+Helpers.h"
 #import "Constants.h"

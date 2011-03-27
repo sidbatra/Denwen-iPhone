@@ -233,8 +233,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	
 	UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
-	UIImage *resizedImage = [DWImageHelper resizeImage:image 
-										  scaledToSize:CGSizeMake(SIZE_USER_PRE_UPLOAD_IMAGE,SIZE_USER_PRE_UPLOAD_IMAGE)];
+	UIImage *resizedImage = [image resizeTo:CGSizeMake(SIZE_USER_PRE_UPLOAD_IMAGE,SIZE_USER_PRE_UPLOAD_IMAGE)];
 	
 	[imagePickerButton setBackgroundImage:resizedImage forState:UIControlStateNormal];
 	

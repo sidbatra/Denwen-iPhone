@@ -111,8 +111,7 @@
 	
 	UIImage *image = [[UIImage alloc] initWithData:data];
 
-	self.previewImage = _isProcessed ? image : [DWImageHelper resizeImage:image 
-																 scaledToSize:CGSizeMake(SIZE_ATTACHMENT_IMAGE, SIZE_ATTACHMENT_IMAGE)];
+	self.previewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_ATTACHMENT_IMAGE, SIZE_ATTACHMENT_IMAGE)];
 
 	[image release];
 	

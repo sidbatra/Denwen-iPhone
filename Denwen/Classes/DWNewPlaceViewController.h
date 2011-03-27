@@ -21,7 +21,7 @@
 #import "DWSession.h"
 #import "NSString+Helpers.h"
 #import "DWMemoryPool.h"
-#import "DWImageHelper.h"
+#import "UIImage+ImageProcessing.h"
 
 
 @protocol DWNewPlaceViewControllerDelegate;

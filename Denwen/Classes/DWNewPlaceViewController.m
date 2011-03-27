@@ -310,8 +310,7 @@ replacementString:(NSString *)string {
 	UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
 	UIImage *originalImage = [info valueForKey:UIImagePickerControllerOriginalImage];
 	
-	UIImage *resizedImage = [DWImageHelper resizeImage:image 
-										  scaledToSize:CGSizeMake(SIZE_PLACE_PRE_UPLOAD_IMAGE,SIZE_PLACE_PRE_UPLOAD_IMAGE)];
+	UIImage *resizedImage = [image resizeTo:CGSizeMake(SIZE_PLACE_PRE_UPLOAD_IMAGE,SIZE_PLACE_PRE_UPLOAD_IMAGE)];
 	
 	[imagePickerButton setBackgroundImage:resizedImage forState:UIControlStateNormal];
 	

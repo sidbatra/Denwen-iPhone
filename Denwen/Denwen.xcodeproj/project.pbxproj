@@ -260,6 +260,7 @@
 		BBD0CD27133C225D003E5E7D /* DWImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0CD26133C225D003E5E7D /* DWImageRequest.m */; };
 		BBD0CEAC133C5EA1003E5E7D /* NSData+Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0CEAB133C5EA1003E5E7D /* NSData+Crypto.m */; };
 		BBD0CF0D133C7481003E5E7D /* DWSession.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0CF0C133C7481003E5E7D /* DWSession.m */; };
+		BBD0D0641340026C003E5E7D /* UIImage+ImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D0631340026C003E5E7D /* UIImage+ImageProcessing.m */; };
 		BBD1E77812EB9688003C1BC7 /* DWRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD1E77712EB9688003C1BC7 /* DWRequestManager.m */; };
 		BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */; };
 		BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */; };
@@ -275,7 +276,6 @@
 		BBE52F9712F4008400A4F935 /* DWPopularItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE52F9512F4008400A4F935 /* DWPopularItemsViewController.m */; };
 		BBE52F9812F4008400A4F935 /* DWPopularItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE52F9612F4008400A4F935 /* DWPopularItemsViewController.xib */; };
 		BBE52FE712F4078600A4F935 /* DWFollowing.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE52FE612F4078600A4F935 /* DWFollowing.m */; };
-		BBE5AFCC12FEB71A0042BD2A /* DWImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE5AFCB12FEB71A0042BD2A /* DWImageHelper.m */; };
 		BBEB947C133AEA9C005AEA64 /* DWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEB947B133AEA9C005AEA64 /* DWRequest.m */; };
 		BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */; };
 		BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */; };
@@ -666,6 +666,8 @@
 		BBD0CEAB133C5EA1003E5E7D /* NSData+Crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Crypto.m"; path = "Classes/NSData+Crypto.m"; sourceTree = "<group>"; };
 		BBD0CF0B133C7481003E5E7D /* DWSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSession.h; path = Classes/DWSession.h; sourceTree = "<group>"; };
 		BBD0CF0C133C7481003E5E7D /* DWSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSession.m; path = Classes/DWSession.m; sourceTree = "<group>"; };
+		BBD0D0621340026C003E5E7D /* UIImage+ImageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ImageProcessing.h"; path = "Classes/UIImage+ImageProcessing.h"; sourceTree = "<group>"; };
+		BBD0D0631340026C003E5E7D /* UIImage+ImageProcessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ImageProcessing.m"; path = "Classes/UIImage+ImageProcessing.m"; sourceTree = "<group>"; };
 		BBD1E77612EB9688003C1BC7 /* DWRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWRequestManager.h; path = Classes/DWRequestManager.h; sourceTree = "<group>"; };
 		BBD1E77712EB9688003C1BC7 /* DWRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequestManager.m; path = Classes/DWRequestManager.m; sourceTree = "<group>"; };
 		BBD1EAD212EC1218003C1BC7 /* DWSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSignupViewController.h; path = Classes/DWSignupViewController.h; sourceTree = "<group>"; };
@@ -688,8 +690,6 @@
 		BBE52F9612F4008400A4F935 /* DWPopularItemsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWPopularItemsViewController.xib; path = Classes/DWPopularItemsViewController.xib; sourceTree = "<group>"; };
 		BBE52FE512F4078600A4F935 /* DWFollowing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFollowing.h; path = Classes/DWFollowing.h; sourceTree = "<group>"; };
 		BBE52FE612F4078600A4F935 /* DWFollowing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowing.m; path = Classes/DWFollowing.m; sourceTree = "<group>"; };
-		BBE5AFCA12FEB71A0042BD2A /* DWImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWImageHelper.h; path = Classes/DWImageHelper.h; sourceTree = "<group>"; };
-		BBE5AFCB12FEB71A0042BD2A /* DWImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWImageHelper.m; path = Classes/DWImageHelper.m; sourceTree = "<group>"; };
 		BBEB947A133AEA9C005AEA64 /* DWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWRequest.h; path = Classes/DWRequest.h; sourceTree = "<group>"; };
 		BBEB947B133AEA9C005AEA64 /* DWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequest.m; path = Classes/DWRequest.m; sourceTree = "<group>"; };
 		BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceViewController.h; path = Classes/DWPlaceViewController.h; sourceTree = "<group>"; };
@@ -1122,8 +1122,6 @@
 				BBD0CF0C133C7481003E5E7D /* DWSession.m */,
 				26EF048A12E7AC5400E7BA76 /* DWCache.h */,
 				26EF048B12E7AC5400E7BA76 /* DWCache.m */,
-				BBE5AFCA12FEB71A0042BD2A /* DWImageHelper.h */,
-				BBE5AFCB12FEB71A0042BD2A /* DWImageHelper.m */,
 				BB3CCBC312F936E200ADFCD7 /* DWMemoryPool.h */,
 				BB3CCBC412F936E200ADFCD7 /* DWMemoryPool.m */,
 				BBE3107413148C160069E1AA /* DWNotificationHelper.h */,
@@ -1451,6 +1449,8 @@
 				BBD0CC96133C0AA1003E5E7D /* NSString+Helpers.m */,
 				BBD0CEAA133C5EA1003E5E7D /* NSData+Crypto.h */,
 				BBD0CEAB133C5EA1003E5E7D /* NSData+Crypto.m */,
+				BBD0D0621340026C003E5E7D /* UIImage+ImageProcessing.h */,
+				BBD0D0631340026C003E5E7D /* UIImage+ImageProcessing.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1720,7 +1720,6 @@
 				BBB519F412F9FAC10024086F /* DWPoolObject.m in Sources */,
 				261C905312FBA43600D16F72 /* DWLoadingCell.m in Sources */,
 				261C90CC12FBB7BC00D16F72 /* DWMessageCell.m in Sources */,
-				BBE5AFCC12FEB71A0042BD2A /* DWImageHelper.m in Sources */,
 				BB0CFCFC1302261400F38552 /* DWPaginationCell.m in Sources */,
 				26DC2E62130A877A00FC1F3A /* DWPlaceDetailsViewController.m in Sources */,
 				26000219130DFB0100366CE3 /* KTTextView.m in Sources */,
@@ -1773,6 +1772,7 @@
 				BBD0CD27133C225D003E5E7D /* DWImageRequest.m in Sources */,
 				BBD0CEAC133C5EA1003E5E7D /* NSData+Crypto.m in Sources */,
 				BBD0CF0D133C7481003E5E7D /* DWSession.m in Sources */,
+				BBD0D0641340026C003E5E7D /* UIImage+ImageProcessing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

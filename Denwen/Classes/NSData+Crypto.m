@@ -6,9 +6,12 @@
 #import "NSData+Crypto.h"
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation NSData(Crypto)
 
+//----------------------------------------------------------------------------------------------------
 - (NSData *) aesEncryptedDataWithKey:(NSData *) key {
     unsigned char               *buffer = nil;
     size_t                      bufferSize;
@@ -62,7 +65,7 @@
     return [NSData dataWithBytesNoCopy: buffer length: bufferSize + kCCBlockSizeAES128];
 }
 
-
+//----------------------------------------------------------------------------------------------------
 - (NSString *) base64Encoding {
     char                    *encoded, *r;
     const char              eTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
