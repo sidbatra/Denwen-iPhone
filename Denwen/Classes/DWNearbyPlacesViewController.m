@@ -39,7 +39,16 @@
 													   object:nil];
 		}
 		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(nearbyPlacesLoaded:) 
+													 name:kNNearbyPlacesLoaded
+												   object:nil];
 		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(nearbyPlacesError:) 
+													 name:kNNearbyPlacesError
+												   object:nil];		
+
 		
 	}
 	return self;
@@ -96,26 +105,7 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-
-	NSString *urlString = nil;
-	
-	if([[DWSession sharedDWSession] isActive])
-		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile&email=%@&password=%@",
-						   NEARBY_PLACES_URI,
-						   [DWSession sharedDWSession].location.coordinate.latitude,
-						   [DWSession sharedDWSession].location.coordinate.longitude,
-						   [DWSession sharedDWSession].currentUser.email,
-						   [DWSession sharedDWSession].currentUser.encryptedPassword							
-					   ];
-	else
-		urlString = [[NSString alloc] initWithFormat:@"%@?lat=%f&lon=%f&ff=mobile",
-						 NEARBY_PLACES_URI,
-						 [DWSession sharedDWSession].location.coordinate.latitude,
-						 [DWSession sharedDWSession].location.coordinate.longitude
-					 ];
-	
-	[_requestManager sendGetRequest:urlString];
-	[urlString release];
+	[[DWRequestsManager sharedDWRequestsManager] requestNearbyPlaces];
 }
 
 
@@ -124,13 +114,13 @@
 #pragma mark RequestManager Delegate methods
 
 
-// Fired when request manager has successfully parsed a request
-//
--(void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			withMessage:(NSString*)message withInstanceID:(int)instanceID {
+- (void)nearbyPlacesLoaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
-	if([status isEqualToString:SUCCESS_STATUS]) {
-		NSArray *places = [body objectForKey:PLACES_JSON_KEY];
+		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
 		[_placeManager populatePlaces:places atIndex:0];
 		
 		
@@ -142,38 +132,18 @@
 		}
 		
 		_isLoadedOnce = YES;
-
+		
 		[self markEndOfPagination];
 		[self.tableView reloadData];
-	}
-	else {
-		
-	}
+	}	
 	
 	[self finishedLoadingPlaces];
 }
 
 
-// Fired when an error happens during the request
-//
--(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
+- (void)nearbyPlacesError:(NSNotification*)notification {
 	[self finishedLoadingPlaces];
 }
-
-
-
-
-#pragma mark -
-#pragma mark Table view data source
-
-
-
-
-#pragma mark -
-#pragma mark Table view delegate
-
-
-
 
 
 

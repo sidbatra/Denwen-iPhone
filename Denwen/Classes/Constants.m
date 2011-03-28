@@ -29,6 +29,8 @@ NSString* const kKeyPlaces		= @"places";
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
 NSString* const kNPopularPlacesError		= @"NPopularPlacesError";
+NSString* const kNNearbyPlacesLoaded		= @"NNearbyPlacesLoaded";
+NSString* const kNNearbyPlacesError			= @"NNearbyPlacesError";
 NSString* const kNSearchPlacesLoaded		= @"NSearchPlacesLoaded";
 NSString* const kNSearchPlacesError			= @"NSearchPlacesError";
 NSString* const kNImageLoaded				= @"NImageLoaded";

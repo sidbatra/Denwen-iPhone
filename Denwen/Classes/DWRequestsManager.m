@@ -8,6 +8,7 @@
 static NSString* const kDenwenProtocol		= @"http://";
 
 static NSString* const kPopularPlacesURI	= @"/popular/places.json";
+static NSString* const kNearbyPlacesURI		= @"/nearby/places.json";
 static NSString* const kSearchPlacesURI		= @"/search/places.json";
 static NSString* const kVisitsURI			= @"/visits.json";
 
@@ -60,6 +61,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
 												  successNotification:kNPopularPlacesLoaded
 													errorNotification:kNPopularPlacesError];
+	[request setDelegate:self];
+	[request setRequestMethod:kGet];
+	[request startAsynchronous];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)requestNearbyPlaces {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:@"%@?lat=%f&lon=%f",
+									 kNearbyPlacesURI,
+									 [DWSession sharedDWSession].location.coordinate.latitude,
+									 [DWSession sharedDWSession].location.coordinate.longitude];
+	
+	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
+	
+	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
+												  successNotification:kNNearbyPlacesLoaded
+													errorNotification:kNNearbyPlacesError];
 	[request setDelegate:self];
 	[request setRequestMethod:kGet];
 	[request startAsynchronous];

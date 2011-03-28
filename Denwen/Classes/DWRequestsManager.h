@@ -34,6 +34,11 @@
 - (void)requestPopularPlaces:(NSInteger)page;
 
 /**
+ * Request nearby places based on the user's current location
+ */
+- (void)requestNearbyPlaces;
+
+/**
  * Request a search query on the places table
  */
 - (void)requestSearchPlaces:(NSString*)query;

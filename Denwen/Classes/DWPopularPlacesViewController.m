@@ -115,7 +115,6 @@ static NSInteger const kPlacesIndex				= 0;
 //----------------------------------------------------------------------------------------------------
 - (void)popularPlacesError:(NSNotification*)notification {
 	[self finishedLoadingPlaces];
-	//NSLog(@"ERROR - %@",[[notification userInfo] objectForKey:kKeyError]);	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -133,7 +132,6 @@ static NSInteger const kPlacesIndex				= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)searchPlacesError:(NSNotification*)notification {
-	//NSLog(@"ERROR - %@",[[notification userInfo] objectForKey:kKeyError]);	
 }
 
 

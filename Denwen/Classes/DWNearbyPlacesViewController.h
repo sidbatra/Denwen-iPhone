@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "DWPlaceListViewController.h"
+#import "DWRequestsManager.h"
 
 @interface DWNearbyPlacesViewController : DWPlaceListViewController {
 }
