@@ -39,6 +39,11 @@
 - (void)requestNearbyPlaces;
 
 /**
+ * Request places followed by a specific user
+ */
+- (void)requestUserPlaces:(NSInteger)userID;
+
+/**
  * Request a search query on the places table
  */
 - (void)requestSearchPlaces:(NSString*)query;

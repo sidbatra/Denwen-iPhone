@@ -33,7 +33,16 @@
 		_titleText = _isCurrentUser  ?
 						[[NSString alloc] initWithString:@"Your Places"] :
 						[[NSString alloc] initWithFormat:@"%@'s Places",userName];
-						
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userPlacesLoaded:) 
+													 name:kNUserPlacesLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userPlacesError:) 
+													 name:kNUserPlacesError
+												   object:nil];
 	}
 	
 		
@@ -84,24 +93,7 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	
-	NSString *urlString = nil;	
-	
-	if([[DWSession sharedDWSession] isActive])
-		urlString = [[NSString alloc] initWithFormat:@"%@%d/places.json?ff=mobile&email=%@&password=%@",
-							USER_SHOW_URI,
-							_userID,
-							[DWSession sharedDWSession].currentUser.email,
-							[DWSession sharedDWSession].currentUser.encryptedPassword							
-					 ];
-	else
-		urlString = [[NSString alloc] initWithFormat:@"%@%d/places.json?ff=mobile",
-					 USER_SHOW_URI,
-					 _userID
-					 ];
-		
-	[_requestManager sendGetRequest:urlString];
-	[urlString release];
+	[[DWRequestsManager sharedDWRequestsManager] requestUserPlaces:_userID];	
 }
 
 
@@ -109,16 +101,14 @@
 #pragma mark -
 #pragma mark RequestManager
 
+- (void)userPlacesLoaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
 
-// Fired when request manager has successfully parsed a request
-//
--(void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			withMessage:(NSString*)message withInstanceID:(int)instanceID {
-	
-	if([status isEqualToString:SUCCESS_STATUS]) {
-		NSArray *places = [body objectForKey:PLACES_JSON_KEY];
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
+		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
 		[_placeManager populatePlaces:places atIndex:0];
-
+		
 		
 		if([_placeManager totalPlacesAtRow:0]) {
 			_tableViewUsage = TABLE_VIEW_AS_DATA;	
@@ -132,36 +122,18 @@
 			
 			_tableViewUsage = TABLE_VIEW_AS_MESSAGE;
 		}
-				
+		
 		[self markEndOfPagination];
 		[self.tableView reloadData];
-	}
-	else {
 		
 	}
 	
 	[self finishedLoadingPlaces];
 }
 
-
-// Fired when an error happens during the request
-//
--(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
+- (void)userPlacesError:(NSNotification*)notification {
 	[self finishedLoadingPlaces];
 }
-
-
-
-
-#pragma mark -
-#pragma mark Table view data source
-
-
-
-
-#pragma mark -
-#pragma mark Table view delegate
-
 
 
 

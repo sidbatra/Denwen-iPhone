@@ -28,6 +28,8 @@ extern NSString* const kNPopularPlacesLoaded;
 extern NSString* const kNPopularPlacesError;
 extern NSString* const kNNearbyPlacesLoaded;
 extern NSString* const kNNearbyPlacesError;
+extern NSString* const kNUserPlacesLoaded;
+extern NSString* const kNUserPlacesError;
 extern NSString* const kNSearchPlacesLoaded;
 extern NSString* const kNSearchPlacesError;
 extern NSString* const kNImageLoaded;
