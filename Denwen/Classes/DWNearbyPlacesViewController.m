@@ -117,7 +117,6 @@
 - (void)nearbyPlacesLoaded:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
 	
-	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
 		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];

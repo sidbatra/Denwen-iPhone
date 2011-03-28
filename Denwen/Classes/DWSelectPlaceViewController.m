@@ -37,6 +37,16 @@
 	if(self) {
 		_selectPlaceDelegate = delegate;
 		self.view.hidden = NO;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userPlacesLoaded:) 
+													 name:kNUserPlacesLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userPlacesError:) 
+													 name:kNUserPlacesError
+												   object:nil];
 	}
 	
 	return self;
@@ -89,7 +99,10 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	DWFollowedPlacesCache *cache = [DWFollowedPlacesCache sharedDWFollowedPlacesCache];
+	[[DWRequestsManager sharedDWRequestsManager] requestUserPlaces:[DWSession sharedDWSession].currentUser.databaseID];	
+
+	
+	/*DWFollowedPlacesCache *cache = [DWFollowedPlacesCache sharedDWFollowedPlacesCache];
 	
 	if(cache.places && !_reloading) {
 		[self populatePlaces:[cache generateImmutablePlaces]];
@@ -103,6 +116,7 @@
 		[_followedRequestManager sendGetRequest:urlString];
 		[urlString release];
 	}
+	 */
 }
 
 
@@ -124,26 +138,27 @@
 #pragma mark RequestManager Delegate methods
 
 
-// Fired when request manager has successfully parsed a request
-//
--(void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			withMessage:(NSString*)message withInstanceID:(int)instanceID {
+- (void)userPlacesLoaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != [DWSession sharedDWSession].currentUser.databaseID)
+		return;
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
-	if([status isEqualToString:SUCCESS_STATUS]) {
-		NSArray *places = [body objectForKey:PLACES_JSON_KEY];
+		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
 		[self populatePlaces:places];
-		[[DWFollowedPlacesCache sharedDWFollowedPlacesCache] populatePlaces:places];
-	}
-	else {
-			
 	}
 	
-}
+	//[[DWFollowedPlacesCache sharedDWFollowedPlacesCache] populatePlaces:places];
+}	
 
-
-// Fired when an error happens during the request
-//
--(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
+- (void)userPlacesError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != [DWSession sharedDWSession].currentUser.databaseID)
+		return;
+	
 	[self finishedLoadingPlaces];
 }
 
