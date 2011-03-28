@@ -11,14 +11,8 @@
  * Handles image download requests
  */
 @interface DWImageRequest : DWRequest {
-	NSInteger _ownerID;
 	NSInteger _imageType;
 }
-
-/**
- * Unique identifier for the object that owns the image
- */
-@property (nonatomic,assign) NSInteger ownerID;
 
 /**
  * Classification of the image type
@@ -31,7 +25,7 @@
  * and set the given imageType and ownerID via properties
  */
 + (id)requestWithRequestURL:(NSString*)requestURL 
-					ownerID:(NSInteger)theOwnerID
+				 resourceID:(NSInteger)theResourceID
 				  imageType:(NSInteger)theImageType;
 
 @end

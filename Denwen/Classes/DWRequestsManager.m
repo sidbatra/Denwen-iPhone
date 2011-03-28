@@ -95,7 +95,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	
 	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
 												  successNotification:kNUserPlacesLoaded
-													errorNotification:kNUserPlacesError];
+													errorNotification:kNUserPlacesError
+														   resourceID:userID];
 	[request setDelegate:self];
 	[request setRequestMethod:kGet];
 	[request startAsynchronous];
@@ -139,10 +140,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 //----------------------------------------------------------------------------------------------------
 - (void)requestImageAt:(NSString*)url 
 				ofType:(NSInteger)imageType 
-			   ownedBy:(NSInteger)ownerID {
+		withResourceID:(NSInteger)resourceID {
 	
 	DWImageRequest *request = [DWImageRequest requestWithRequestURL:url 
-															ownerID:ownerID
+														 resourceID:resourceID
 														  imageType:imageType];
 	[request setDelegate:self];
 	[request setRequestMethod:kGet];

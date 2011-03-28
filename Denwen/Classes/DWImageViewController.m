@@ -53,7 +53,7 @@ static NSInteger const kMaxOwnerID = 999999999;
 	[DWGUIManager showSpinnerInNav:self];
 	[[DWRequestsManager sharedDWRequestsManager] requestImageAt:url 
 														 ofType:kImgActualAttachment 
-														ownedBy:key];
+												 withResourceID:key];
 }
 
 
@@ -98,10 +98,10 @@ static NSInteger const kMaxOwnerID = 999999999;
 - (void)imageLoaded:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
 	
-	NSInteger imageType	= [[info objectForKey:kKeyImageType] integerValue];
-	NSInteger ownerID	= [[info objectForKey:kKeyOwnerID] integerValue];
+	NSInteger imageType		= [[info objectForKey:kKeyImageType] integerValue];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 		
-	if(imageType == kImgActualAttachment && ownerID == key) {
+	if(imageType == kImgActualAttachment && resourceID == key) {
 		[(DWImageView*)self.view setupImageView:(UIImage*)[info objectForKey:kKeyImage]];
 		[DWGUIManager hideSpinnnerInNav:self];
 	}
@@ -110,10 +110,10 @@ static NSInteger const kMaxOwnerID = 999999999;
 - (void)imageError:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
 	
-	NSInteger imageType	= [[info objectForKey:kKeyImageType] integerValue];
-	NSInteger ownerID	= [[info objectForKey:kKeyOwnerID] integerValue];
+	NSInteger imageType		= [[info objectForKey:kKeyImageType] integerValue];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 		
-	if(imageType == kImgActualAttachment && ownerID == key) {
+	if(imageType == kImgActualAttachment && resourceID == key) {
 		[DWGUIManager hideSpinnnerInNav:self];
 	}
 }

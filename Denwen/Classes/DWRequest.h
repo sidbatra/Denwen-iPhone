@@ -14,10 +14,16 @@
  * Provides a base class for all requests
  */
 @interface DWRequest : ASIFormDataRequest {
+	NSInteger		_resourceID;
 	NSString		*_successNotification;
 	NSString		*_errorNotification;
 }
 
+
+/**
+ * Optinal unique identifier for the resource being requested (default -1)
+ */
+@property (nonatomic,assign) NSInteger resourceID;
 
 /**
  * Name of the notification to be fired when the request finished 
@@ -47,6 +53,15 @@
 + (id)requestWithRequestURL:(NSString*)requestURL
 		successNotification:(NSString*)theSuccessNotification
 		  errorNotification:(NSString*)theErrorNotification;
+
+/**
+ * Static method to return an autoreleased object
+ * created using requestWthRequestURL with additional resource ID
+ */
++ (id)requestWithRequestURL:(NSString*)requestURL
+		successNotification:(NSString*)theSuccessNotification
+		  errorNotification:(NSString*)theErrorNotification
+				 resourceID:(NSInteger)theResourceID;
 
 /*
  * Stub method overriden by each child class to process the response

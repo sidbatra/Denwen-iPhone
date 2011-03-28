@@ -58,6 +58,6 @@
  */
 - (void)requestImageAt:(NSString*)url 
 				ofType:(NSInteger)imageType 
-			   ownedBy:(NSInteger)ownerID;
+		withResourceID:(NSInteger)resourceID;
 
 @end

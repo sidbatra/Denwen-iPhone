@@ -103,6 +103,9 @@
 
 - (void)userPlacesLoaded:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _userID)
+		return;
 
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
@@ -132,6 +135,11 @@
 }
 
 - (void)userPlacesError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+
+	if([[info objectForKey:kKeyResourceID] integerValue] != _userID)
+		return;
+	
 	[self finishedLoadingPlaces];
 }
 

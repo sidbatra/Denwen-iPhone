@@ -17,7 +17,7 @@ extern NSString* const kKeyBody;
 extern NSString* const kKeySuccess;
 extern NSString* const kKeyError;
 extern NSString* const kKeyImage;
-extern NSString* const kKeyOwnerID;
+extern NSString* const kKeyResourceID;
 extern NSString* const kKeyImageType;
 extern NSString* const kKeyPlaces;
 

@@ -19,6 +19,7 @@
 	 * Parse fixed fields in the Denwen response and package them into a notification object
 	 */
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
+									[NSNumber numberWithInt:self.resourceID]				,kKeyResourceID,
 									[[responseString JSONValue] objectForKey:kKeyStatus]	,kKeyStatus,
 									[[responseString JSONValue] objectForKey:kKeyBody]		,kKeyBody,
 									[[responseString JSONValue] objectForKey:kKeyMessage]	,kKeyMessage,
@@ -32,7 +33,10 @@
 //----------------------------------------------------------------------------------------------------
 - (void)processError:(NSError*)theError {
 	
-	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:theError,kKeyError,nil];
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
+								[NSNumber numberWithInt:self.resourceID]	,kKeyResourceID,
+								theError									,kKeyError,
+								nil];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:self.errorNotification
 														object:nil

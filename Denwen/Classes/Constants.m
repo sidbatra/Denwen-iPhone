@@ -22,7 +22,7 @@ NSString* const kKeyBody		= @"body";
 NSString* const kKeySuccess		= @"success";
 NSString* const kKeyError		= @"error";
 NSString* const kKeyImage		= @"image";
-NSString* const kKeyOwnerID		= @"ownerID";
+NSString* const kKeyResourceID	= @"resourceID";
 NSString* const kKeyImageType	= @"imageType";
 NSString* const kKeyPlaces		= @"places";
 

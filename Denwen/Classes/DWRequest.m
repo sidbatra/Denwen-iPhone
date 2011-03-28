@@ -5,8 +5,8 @@
 
 #import "DWRequest.h"
 
-static NSInteger const kPersistenceTimeout = 120;
-
+static NSInteger const kPersistenceTimeout	= 120;
+static NSInteger const kDefaultResourceID	= -1;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -14,6 +14,7 @@ static NSInteger const kPersistenceTimeout = 120;
 //----------------------------------------------------------------------------------------------------
 @implementation DWRequest
 
+@synthesize resourceID				= _resourceID;
 @synthesize successNotification		= _successNotification;
 @synthesize errorNotification		= _errorNotification;
 
@@ -28,6 +29,7 @@ static NSInteger const kPersistenceTimeout = 120;
 	self = [super initWithURL:tempURL];
 	
 	if(self != nil) {
+		self.resourceID				= kDefaultResourceID;
 		self.successNotification	= theSuccessNotification;
 		self.errorNotification		= theErrorNotification;
 		
@@ -74,5 +76,18 @@ static NSInteger const kPersistenceTimeout = 120;
 			autorelease];
 }
 
+//----------------------------------------------------------------------------------------------------
++ (id)requestWithRequestURL:(NSString*)requestURL
+		successNotification:(NSString*)theSuccessNotification
+		  errorNotification:(NSString*)theErrorNotification
+				 resourceID:(NSInteger)theResourceID {
+	
+	DWRequest *request	= [self requestWithRequestURL:requestURL 
+								successNotification:theSuccessNotification 
+								  errorNotification:theErrorNotification];
+	request.resourceID	= theResourceID;
+	
+	return request;
+}
 
 @end

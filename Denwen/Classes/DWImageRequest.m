@@ -15,7 +15,6 @@ static NSInteger const kCacheTimeout = 15 * 24 * 60 * 60;
 @implementation DWImageRequest
 
 @synthesize imageType	= _imageType;
-@synthesize ownerID		= _ownerID;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -24,7 +23,7 @@ static NSInteger const kCacheTimeout = 15 * 24 * 60 * 60;
 	 * Package the received image along with its type and owner info
 	 */
 	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
-							  [NSNumber numberWithInt:self.ownerID]		,kKeyOwnerID,
+							  [NSNumber numberWithInt:self.resourceID]	,kKeyResourceID,
 							  [NSNumber numberWithInt:self.imageType]	,kKeyImageType,
 							  [UIImage imageWithData:responseData]		,kKeyImage,
 							  nil];
@@ -40,7 +39,7 @@ static NSInteger const kCacheTimeout = 15 * 24 * 60 * 60;
 - (void)processError:(NSError*)theError {
 	
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
-						  [NSNumber numberWithInt:self.ownerID]			,kKeyOwnerID,
+						  [NSNumber numberWithInt:self.resourceID]		,kKeyResourceID,
 						  [NSNumber numberWithInt:self.imageType]		,kKeyImageType,
 						  theError										,kKeyError,
 						  nil];
@@ -58,14 +57,14 @@ static NSInteger const kCacheTimeout = 15 * 24 * 60 * 60;
 
 //----------------------------------------------------------------------------------------------------
 + (id)requestWithRequestURL:(NSString*)requestURL 
-					ownerID:(NSInteger)theOwnerID
+				 resourceID:(NSInteger)theResourceID
 				  imageType:(NSInteger)theImageType {
 	
 	DWImageRequest *imageRequest	= [super requestWithRequestURL:requestURL
 											   successNotification:kNImageLoaded
-												 errorNotification:kNImageError];
+												 errorNotification:kNImageError
+														resourceID:theResourceID];
 	imageRequest.imageType			= theImageType;
-	imageRequest.ownerID			= theOwnerID;
 	
 	[imageRequest setDownloadCache:[ASIDownloadCache sharedCache]];
 	[imageRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
