@@ -14,10 +14,12 @@ extern NSString* const kDenwenServer;
 extern NSString* const kKeyStatus;
 extern NSString* const kKeyMessage;
 extern NSString* const kKeyBody;
+extern NSString* const kKeySuccess;
 extern NSString* const kKeyError;
 extern NSString* const kKeyImage;
 extern NSString* const kKeyOwnerID;
 extern NSString* const kKeyImageType;
+extern NSString* const kKeyPlaces;
 
 /**
  * Notification names used throughout the app
@@ -41,6 +43,22 @@ extern NSInteger const kImgLargePlace;
 extern NSInteger const kImgMediumAttachment;
 extern NSInteger const kImgLargeAttachment;
 extern NSInteger const kImgActualAttachment;
+
+/**
+ * Different use cases for UITableVIiew
+ */
+extern NSInteger const kTableViewAsData;
+extern NSInteger const kTableViewAsSpinner;
+extern NSInteger const kTableViewAsMessage;
+extern NSInteger const kTableViewAsProfileMessage ;
+
+/**
+ * Segmented Control related constants
+ */
+extern NSInteger const kSegmentedPlacesViewWidth;
+extern NSInteger const kSegmentedPlacesViewHeight;
+
+
 
 
 
@@ -204,11 +222,9 @@ extern NSString * const POPULAR_TITLE;
 
 extern int const SEGMENTED_VIEW_WIDTH;
 extern int const SEGMENTED_VIEW_HEIGHT;
-extern NSString * const SEGMENTED_VIEW_BACKGROUND_IMAGE_NAME;
 extern int const SEGMENTED_PLACES_CONTROL_WIDTH;
 extern int const SEGMENTED_PLACES_CONTROL_HEIGHT;
-extern int const SEGMENTED_ITEMS_CONTROL_WIDTH;
-extern int const SEGMENTED_ITEMS_CONTROL_HEIGHT;
+extern NSString * const SEGMENTED_VIEW_BACKGROUND_IMAGE_NAME;
 extern NSString * const SEGMENTED_CONTROL_POPULAR_ON_IMAGE_NAME;
 extern NSString * const SEGMENTED_CONTROL_POPULAR_OFF_IMAGE_NAME;
 extern NSString * const SEGMENTED_CONTROL_NEARBY_ON_IMAGE_NAME;

@@ -1,22 +1,29 @@
 //
 //  DWPopularPlacesViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWPopularPlacesViewController.h"
 
+static NSString* const kSearchBarText			= @"Search All Places";
+static NSInteger const kMinimumQueryLength		= 1;
+static NSInteger const kCapacity				= 1;
+static NSInteger const kPlacesIndex				= 0;
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWPopularPlacesViewController
 
 
-
-// Init the view along with its member variables 
-//
+//----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)delegate {
-	self = [super initWithNibName:@"DWPlaceListViewController" bundle:nil searchType:NO withCapacity:1 andDelegate:delegate];
+	self = [super initWithNibName:@"DWPlaceListViewController" 
+						   bundle:nil 
+					   searchType:NO 
+					 withCapacity:kCapacity 
+					  andDelegate:delegate];
 	
 	if (self) {
 	}
@@ -24,19 +31,17 @@
 	return self;
 }
 
-
-// Setup UI elements after the view is done loading
-//
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	CGRect frame = self.view.frame;
-	frame.origin.y = SEGMENTED_VIEW_HEIGHT; 
-	frame.size.height = frame.size.height - SEGMENTED_VIEW_HEIGHT;
-	self.view.frame = frame;
+	CGRect frame		= self.view.frame;
+	frame.origin.y		= kSegmentedPlacesViewHeight; 
+	frame.size.height	= frame.size.height - kSegmentedPlacesViewHeight;
+	self.view.frame		= frame;
 	
 		
-	self.searchDisplayController.searchBar.placeholder = @"Search All Places";
+	self.searchDisplayController.searchBar.placeholder = kSearchBarText;
 	
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -60,81 +65,75 @@
 											   object:nil];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+	[super didReceiveMemoryWarning];  
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+    [super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadPlaces {
+	[super loadPlaces];
+	[[DWRequestsManager sharedDWRequestsManager] requestPopularPlaces:_currentPage];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)searchPlaces:(NSString*)query {
+	if(query.length >= kMinimumQueryLength)
+		[[DWRequestsManager sharedDWRequestsManager] requestSearchPlaces:query];
+}
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
 
-
+//----------------------------------------------------------------------------------------------------
 - (void)popularPlacesLoaded:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
 	
-	if([[info objectForKey:kKeyStatus] isEqualToString:SUCCESS_STATUS]) {
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
-		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:PLACES_JSON_KEY];
-		[_placeManager populatePlaces:places atIndex:0 withClear:_reloading];						
+		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
 		
-		_tableViewUsage = TABLE_VIEW_AS_DATA;
+		[_placeManager populatePlaces:places 
+							  atIndex:kPlacesIndex 
+							withClear:_reloading];						
+		
+		_tableViewUsage = kTableViewAsData;
 	}
-
 	
 	[self finishedLoadingPlaces];
 	[self.tableView reloadData];
 }
 
+//----------------------------------------------------------------------------------------------------
 - (void)popularPlacesError:(NSNotification*)notification {
 	[self finishedLoadingPlaces];
-	NSLog(@"ERROR - %@",[[notification userInfo] objectForKey:kKeyError]);	
+	//NSLog(@"ERROR - %@",[[notification userInfo] objectForKey:kKeyError]);	
 }
 
+//----------------------------------------------------------------------------------------------------
 - (void)searchPlacesLoaded:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
 
-	if([[info objectForKey:kKeyStatus] isEqualToString:SUCCESS_STATUS]) {
-		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:PLACES_JSON_KEY];
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
+		
 		[_placeManager populateFilteredPlaces:places];
 		
 		[self refreshFilteredPlacesUI];
 	}
 }
 
+//----------------------------------------------------------------------------------------------------
 - (void)searchPlacesError:(NSNotification*)notification {
-	[self finishedLoadingPlaces];
-	NSLog(@"ERROR - %@",[[notification userInfo] objectForKey:kKeyError]);	
-}
-
-#pragma mark -
-#pragma mark Methods to obtain places from the server
-
-
-// Send a request to load popoular places
-//
-- (void)loadPlaces {
-	[super loadPlaces];
-	[[DWRequestsManager sharedDWRequestsManager] requestPopularPlaces:_currentPage];
-}
-
-
-// Send a request to search places based on the given query
-//
-- (void)searchPlaces:(NSString*)query {
-	if(query.length >= 1)
-		[[DWRequestsManager sharedDWRequestsManager] requestSearchPlaces:query];
-}
-
-
-
-// The usual memory warning
-//
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];  
-}
-
-
-// The usual memory cleanup
-//
-- (void)dealloc {
-    [super dealloc];
+	//NSLog(@"ERROR - %@",[[notification userInfo] objectForKey:kKeyError]);	
 }
 
 

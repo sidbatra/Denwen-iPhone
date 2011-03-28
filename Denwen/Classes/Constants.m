@@ -19,10 +19,12 @@
 NSString* const kKeyStatus		= @"status";
 NSString* const kKeyMessage		= @"message";
 NSString* const kKeyBody		= @"body";
+NSString* const kKeySuccess		= @"success";
 NSString* const kKeyError		= @"error";
 NSString* const kKeyImage		= @"image";
 NSString* const kKeyOwnerID		= @"ownerID";
 NSString* const kKeyImageType	= @"imageType";
+NSString* const kKeyPlaces		= @"places";
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
@@ -42,6 +44,17 @@ NSInteger const kImgLargePlace			= 5;
 NSInteger const kImgMediumAttachment	= 6;
 NSInteger const kImgLargeAttachment		= 7;
 NSInteger const kImgActualAttachment	= 8;
+
+//----------------------------------------------------------------------------------------------------
+NSInteger const kTableViewAsData			= 0;
+NSInteger const kTableViewAsSpinner			= 1;
+NSInteger const kTableViewAsMessage			= 2;
+NSInteger const kTableViewAsProfileMessage	= 3;
+
+//----------------------------------------------------------------------------------------------------
+NSInteger const kSegmentedPlacesViewWidth	= 320;
+NSInteger const kSegmentedPlacesViewHeight	= 44;
+
 
 
 
@@ -255,11 +268,9 @@ NSString * const POPULAR_TITLE = @"Popular";
 // Segment controller title view
 int const SEGMENTED_VIEW_WIDTH = 320;
 int const SEGMENTED_VIEW_HEIGHT = 44;
-NSString * const SEGMENTED_VIEW_BACKGROUND_IMAGE_NAME = @"segmented_view_bg.png";
 int const SEGMENTED_PLACES_CONTROL_WIDTH = 320;
 int const SEGMENTED_PLACES_CONTROL_HEIGHT = 44;
-int const SEGMENTED_ITEMS_CONTROL_WIDTH = 207;
-int const SEGMENTED_ITEMS_CONTROL_HEIGHT = 30;
+NSString * const SEGMENTED_VIEW_BACKGROUND_IMAGE_NAME = @"segmented_view_bg.png";
 NSString * const SEGMENTED_CONTROL_POPULAR_ON_IMAGE_NAME = @"popular_on.png";
 NSString * const SEGMENTED_CONTROL_POPULAR_OFF_IMAGE_NAME = @"popular_off.png";
 NSString * const SEGMENTED_CONTROL_NEARBY_ON_IMAGE_NAME = @"nearby_on.png";

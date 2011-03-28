@@ -1,10 +1,8 @@
 //
 //  DWPopularPlacesViewController.h
-//  Denwen
+//  Copyright 2011 Denwen. All rights reserved.
 //
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
+
 
 #import <UIKit/UIKit.h>
 
@@ -12,9 +10,15 @@
 #import "DWRequestsManager.h"
 
 
+/**
+ * Controller for the popular places view
+ */
 @interface DWPopularPlacesViewController : DWPlaceListViewController {
 }
 
+/**
+ * Init with delegate to receive events about place selection
+ */
 - (id)initWithDelegate:(id)delegate;
 
 
