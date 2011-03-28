@@ -6,7 +6,6 @@
 #import "DWRequest.h"
 
 static NSInteger const kPersistenceTimeout	= 120;
-static NSInteger const kDefaultResourceID	= -1;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -29,7 +28,6 @@ static NSInteger const kDefaultResourceID	= -1;
 	self = [super initWithURL:tempURL];
 	
 	if(self != nil) {
-		self.resourceID				= kDefaultResourceID;
 		self.successNotification	= theSuccessNotification;
 		self.errorNotification		= theErrorNotification;
 		

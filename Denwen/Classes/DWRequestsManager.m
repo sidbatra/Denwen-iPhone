@@ -18,6 +18,8 @@ static NSString* const kPost				= @"POST";
 static NSString* const kPut					= @"PUT";
 static NSString* const kDelete				= @"DELETE";
 
+static NSInteger const kDefaultResourceID	= -1;
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -36,6 +38,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 //----------------------------------------------------------------------------------------------------
 - (NSString*)createDenwenRequestURL:(NSString*)localRequestURL {
 	
+	/**
+	 * Based on the server configuration convert the given local request url
+	 * to an absolute one
+	 */
 	return	[NSString stringWithFormat:@"%@%@%@&email=%@&password=%@&ff=mobile",
 				kDenwenProtocol,
 				kDenwenServer,
@@ -44,6 +50,43 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 				[DWSession sharedDWSession].currentUser.encryptedPassword];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)createDenwenRequest:(NSString*)localRequestURL 
+		successNotification:(NSString*)successNotification
+		  errorNotification:(NSString*)errorNotification
+			  requestMethod:(NSString*)requestMethod
+				 resourceID:(NSInteger)resourceID {
+	
+	/**
+	 * Create and launch a Denwen request
+	 */
+	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
+	
+	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
+												  successNotification:successNotification
+													errorNotification:errorNotification
+														   resourceID:resourceID];
+	[request setDelegate:self];
+	[request setRequestMethod:requestMethod];
+	[request startAsynchronous];	
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)createDenwenRequest:(NSString*)localRequestURL 
+		successNotification:(NSString*)successNotification
+		  errorNotification:(NSString*)errorNotification
+			  requestMethod:(NSString*)requestMethod {
+	
+	/**
+	 * Overloaded version of createDenwenRequest with default resource ID
+	 */
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:successNotification 
+			errorNotification:errorNotification 
+				requestMethod:requestMethod
+				   resourceID:kDefaultResourceID];
+}
+			
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -57,14 +100,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 									kPopularPlacesURI,
 									page];
 	
-	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
-	
-	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
-												  successNotification:kNPopularPlacesLoaded
-													errorNotification:kNPopularPlacesError];
-	[request setDelegate:self];
-	[request setRequestMethod:kGet];
-	[request startAsynchronous];
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNPopularPlacesLoaded 
+			errorNotification:kNPopularPlacesError 
+				requestMethod:kGet];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -75,31 +114,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 									 [DWSession sharedDWSession].location.coordinate.latitude,
 									 [DWSession sharedDWSession].location.coordinate.longitude];
 	
-	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
-	
-	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
-												  successNotification:kNNearbyPlacesLoaded
-													errorNotification:kNNearbyPlacesError];
-	[request setDelegate:self];
-	[request setRequestMethod:kGet];
-	[request startAsynchronous];
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNNearbyPlacesLoaded 
+			errorNotification:kNNearbyPlacesError 
+				requestMethod:kGet];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)requestUserPlaces:(NSInteger)userID {
+	
 	NSString *localRequestURL = [NSString stringWithFormat:kUserPlacesURI,
 									userID
 								];
 	
-	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
-	
-	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
-												  successNotification:kNUserPlacesLoaded
-													errorNotification:kNUserPlacesError
-														   resourceID:userID];
-	[request setDelegate:self];
-	[request setRequestMethod:kGet];
-	[request startAsynchronous];
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNUserPlacesLoaded 
+			errorNotification:kNUserPlacesError 
+				requestMethod:kGet
+				   resourceID:userID];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -109,14 +141,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 								 [query stringByEncodingHTMLCharacters]
 								 ];
 	
-	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
-	
-	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
-												  successNotification:kNSearchPlacesLoaded
-													errorNotification:kNSearchPlacesError];
-	[request setDelegate:self];
-	[request setRequestMethod:kGet];
-	[request startAsynchronous];	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNSearchPlacesLoaded 
+			errorNotification:kNSearchPlacesError 
+				requestMethod:kGet];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -127,14 +155,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 									[DWSession sharedDWSession].location.coordinate.latitude,
 									[DWSession sharedDWSession].location.coordinate.longitude];
 	
-	NSString *requestURL = [self createDenwenRequestURL:localRequestURL];
-	
-	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
-												  successNotification:nil
-													errorNotification:nil];
-	[request setDelegate:self];
-	[request setRequestMethod:kPost];
-	[request startAsynchronous];
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:nil
+			errorNotification:nil
+				requestMethod:kPost];
 }
 
 //----------------------------------------------------------------------------------------------------
