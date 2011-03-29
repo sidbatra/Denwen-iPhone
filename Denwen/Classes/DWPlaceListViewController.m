@@ -39,8 +39,6 @@
 	if (self) {
 		
 		_placeManager = [[DWPlaceManager alloc] initWithCapacity:capacity];
-		_requestManager = [[DWRequestManager alloc] initWithDelegate:self];
-		_searchRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:SEARCH_INSTANCE_ID];
 		
 		_delegate = delegate;
 		_isLocalSearch = isLocalSearch;
@@ -611,8 +609,6 @@
 	self.refreshHeaderView = nil;
 	
 	[_placeManager release];
-	[_requestManager release];
-	[_searchRequestManager release];
 	
 	[super dealloc];
 }

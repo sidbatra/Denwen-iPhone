@@ -27,8 +27,6 @@
 
 @interface DWPlaceListViewController : UITableViewController<DWRequestManagerDelegate,UISearchDisplayDelegate,UISearchBarDelegate,EGORefreshTableHeaderDelegate> {
 	DWPlaceManager *_placeManager;
-	DWRequestManager *_requestManager;
-	DWRequestManager *_searchRequestManager;
 	
 	EGORefreshTableHeaderView *_refreshHeaderView;
 	
