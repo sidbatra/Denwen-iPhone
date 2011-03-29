@@ -8,6 +8,7 @@
 // Requests
 #import "DWDenwenRequest.h"
 #import "DWImageRequest.h"
+#import "DWS3Request.h"
 
 #import "NSString+Helpers.h"
 #import "SynthesizeSingleton.h"
@@ -54,10 +55,25 @@
 - (void)requestNewVisit;
 
 /**
+ * Send a request to create a new place
+ */
+- (void)requestNewPlaceNamed:(NSString*)name
+				  atLocation:(CLLocationCoordinate2D)location
+				   withPhoto:(NSString*)photoFilename;
+
+
+/**
  * Download the image from the given URL
  */
 - (void)requestImageAt:(NSString*)url 
 				ofType:(NSInteger)imageType 
 		withResourceID:(NSInteger)resourceID;
+
+/**
+ * Request to upload an image to a S3 folder. Method returns
+ * the resource ID to uniquely identify the image upload
+ */
+- (NSInteger)requestNewImageWithData:(UIImage*)image
+							toFolder:(NSString*)folder;
 
 @end

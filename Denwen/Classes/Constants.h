@@ -9,6 +9,15 @@
 extern NSString* const kDenwenServer;
 
 /**
+ * Configuration for uploading to Amazon S3
+ */
+extern NSString* const kS3Policy;
+extern NSString* const kS3Signature;
+extern NSString* const kS3AccessID;
+extern NSString* const kS3ACL;
+extern NSString* const kS3Server;
+
+/**
  * Keys used for objects in JSON and custom dictionaties
  */
 extern NSString* const kKeyStatus;
@@ -16,10 +25,14 @@ extern NSString* const kKeyMessage;
 extern NSString* const kKeyBody;
 extern NSString* const kKeySuccess;
 extern NSString* const kKeyError;
+extern NSString* const kKeyErrorMessage;
+extern NSString* const kKeyErrorMessages;
 extern NSString* const kKeyImage;
 extern NSString* const kKeyResourceID;
 extern NSString* const kKeyImageType;
 extern NSString* const kKeyPlaces;
+extern NSString* const kKeyPlace;
+extern NSString* const kKeyFilename;
 
 /**
  * Notification names used throughout the app
@@ -32,8 +45,12 @@ extern NSString* const kNUserPlacesLoaded;
 extern NSString* const kNUserPlacesError;
 extern NSString* const kNSearchPlacesLoaded;
 extern NSString* const kNSearchPlacesError;
+extern NSString* const kNNewPlaceCreated;
+extern NSString* const kNNewPlaceError;
 extern NSString* const kNImageLoaded;
 extern NSString* const kNImageError;
+extern NSString* const kNS3UploadDone;
+extern NSString* const kNS3UploadError;
 
 /**
  * Image types 

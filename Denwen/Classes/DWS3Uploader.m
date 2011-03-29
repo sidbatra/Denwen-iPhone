@@ -61,8 +61,10 @@
 	[tempRequest release];
 	
 	self.asiRequest.delegate = self;
-	[ASIHTTPRequest setShouldThrottleBandwidthForWWAN:YES];
+	//[ASIHTTPRequest setShouldThrottleBandwidthForWWAN:YES];
 	
+	[self.asiRequest setShouldStreamPostDataFromDisk:YES];
+
 	[self.asiRequest setPostValue:S3_UPLOAD_POLICY forKey:@"policy"];
 	[self.asiRequest setPostValue:S3_UPLOAD_SIGNATURE forKey:@"signature"];
 	[self.asiRequest setPostValue:S3_ACCESS_ID forKey:@"AWSAccessKeyId"];

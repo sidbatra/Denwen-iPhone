@@ -10,21 +10,39 @@
 
 
 #ifdef PRODUCTION
-	NSString* const kDenwenServer = @"denwen.com";
+	NSString* const kDenwenServer	= @"denwen.com";
+
+	//----------------------------------------------------------------------------------------------------
+	NSString* const kS3Policy		= @"eydleHBpcmF0aW9uJzogJzIwMTctMDItMDlUMDU6MDI6MzcuMDAwWicsCiAgICAgICAgJ2NvbmRpdGlvbnMnOiBbCiAgICAgICAgICB7J2J1Y2tldCc6ICdkZW53ZW4nfSwKICAgICAgICAgIHsnYWNsJzogJ3B1YmxpYy1yZWFkJ30sCiAgICAgICAgICBbJ2NvbnRlbnQtbGVuZ3RoLXJhbmdlJywgMCwgNTI0Mjg4MDBdLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcka2V5JywgJyddLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcnLCAnJ10KICAgICAgICBdCiAgICAgIH0=";
+	NSString* const kS3Signature	= @"PG1k3sSsZe6FsxfcnqPobBWHKwc=";
+	NSString* const kS3AccessID		= @"AKIAJWYCAWDPAAKLNKSQ";
+	NSString* const kS3ACL			= @"public-read";
+	NSString* const kS3Server		= @"http://denwen.s3.amazonaws.com/";
 #else
-	NSString* const kDenwenServer = @"sbat.denwen.com";
+	NSString* const kDenwenServer	= @"sbat.denwen.com";
+	
+	//----------------------------------------------------------------------------------------------------
+	NSString* const kS3Policy		= @"eydleHBpcmF0aW9uJzogJzIwMTctMDEtMjRUMDQ6MjA6MjguMDAwWicsCiAgICAgICAgJ2NvbmRpdGlvbnMnOiBbCiAgICAgICAgICB7J2J1Y2tldCc6ICd0ZW53ZW4nfSwKICAgICAgICAgIHsnYWNsJzogJ3B1YmxpYy1yZWFkJ30sCiAgICAgICAgICBbJ2NvbnRlbnQtbGVuZ3RoLXJhbmdlJywgMCwgNTI0Mjg4MDBdLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcka2V5JywgJyddLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcnLCAnJ10KICAgICAgICBdCiAgICAgIH0=";
+	NSString* const kS3Signature	= @"a5XAsCN6H/t4cv5MZ9/vuUOnc5s=";
+	NSString* const kS3AccessID		= @"AKIAJWYCAWDPAAKLNKSQ";
+	NSString* const kS3ACL			= @"public-read";
+	NSString* const kS3Server		= @"http://tenwen.s3.amazonaws.com/";
 #endif
 
 //----------------------------------------------------------------------------------------------------
-NSString* const kKeyStatus		= @"status";
-NSString* const kKeyMessage		= @"message";
-NSString* const kKeyBody		= @"body";
-NSString* const kKeySuccess		= @"success";
-NSString* const kKeyError		= @"error";
-NSString* const kKeyImage		= @"image";
-NSString* const kKeyResourceID	= @"resourceID";
-NSString* const kKeyImageType	= @"imageType";
-NSString* const kKeyPlaces		= @"places";
+NSString* const kKeyStatus			= @"status";
+NSString* const kKeyMessage			= @"message";
+NSString* const kKeyBody			= @"body";
+NSString* const kKeySuccess			= @"success";
+NSString* const kKeyError			= @"error";
+NSString* const kKeyErrorMessage	= @"errorMessage";
+NSString* const kKeyErrorMessages	= @"error_messages";
+NSString* const kKeyImage			= @"image";
+NSString* const kKeyResourceID		= @"resourceID";
+NSString* const kKeyImageType		= @"imageType";
+NSString* const kKeyPlaces			= @"places";
+NSString* const kKeyPlace			= @"place";
+NSString* const kKeyFilename		= @"filename";
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
@@ -35,8 +53,12 @@ NSString* const kNUserPlacesLoaded			= @"NUserPlacesLoaded";
 NSString* const kNUserPlacesError			= @"NUserPlacesError";
 NSString* const kNSearchPlacesLoaded		= @"NSearchPlacesLoaded";
 NSString* const kNSearchPlacesError			= @"NSearchPlacesError";
+NSString* const kNNewPlaceCreated			= @"NNewPlaceCreated";
+NSString* const kNNewPlaceError				= @"NNewPlaceError";
 NSString* const kNImageLoaded				= @"NImageLoaded";
 NSString* const kNImageError				= @"NImageError";
+NSString* const kNS3UploadDone				= @"NS3UploadDone";
+NSString* const kNS3UploadError				= @"NS3UploadError";
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kImgSmallUser			= 0;

@@ -11,6 +11,7 @@ static NSString* const kPopularPlacesURI	= @"/popular/places.json";
 static NSString* const kNearbyPlacesURI		= @"/nearby/places.json";
 static NSString* const kUserPlacesURI		= @"/users/%d/places.json?ignore=1";
 static NSString* const kSearchPlacesURI		= @"/search/places.json";
+static NSString* const kNewPlaceURI			= @"/places.json";
 static NSString* const kVisitsURI			= @"/visits.json";
 
 static NSString* const kGet					= @"GET";
@@ -162,6 +163,26 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)requestNewPlaceNamed:(NSString*)name
+					   atLocation:(CLLocationCoordinate2D)location
+						withPhoto:(NSString*)photoFilename {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:@"%@?place[name]=%@&place[lat]=%f&place[lon]=%f&place[photo_filename]=%@",
+									kNewPlaceURI,
+									[name stringByEncodingHTMLCharacters],
+									location.latitude,
+									location.longitude,
+									photoFilename];	
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNNewPlaceCreated
+			errorNotification:kNNewPlaceError
+				requestMethod:kPost];
+}
+
+
+
+//----------------------------------------------------------------------------------------------------
 - (void)requestImageAt:(NSString*)url 
 				ofType:(NSInteger)imageType 
 		withResourceID:(NSInteger)resourceID {
@@ -172,6 +193,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	[request setDelegate:self];
 	[request setRequestMethod:kGet];
 	[request startAsynchronous];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)requestNewImageWithData:(UIImage*)image
+					   toFolder:(NSString*)folder {
+	
+	DWS3Request *request = [DWS3Request requestNewImage:image
+											   toFolder:folder];
+	[request setDelegate:self];
+	[request startAsynchronous];
+	
+	return request.resourceID;
 }
 
 

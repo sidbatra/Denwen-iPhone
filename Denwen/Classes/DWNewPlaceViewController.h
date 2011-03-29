@@ -16,7 +16,7 @@
 
 #import "DWPlace.h"
 #import "DWRequestManager.h"
-#import "DWS3Uploader.h"
+#import "DWRequestsManager.h"
 #import "MBProgressHUD.h"
 #import "DWSession.h"
 #import "NSString+Helpers.h"
@@ -26,7 +26,7 @@
 
 @protocol DWNewPlaceViewControllerDelegate;
 
-@interface DWNewPlaceViewController : UIViewController<UITextFieldDelegate,DWRequestManagerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,DWS3UploaderDelegate,MKMapViewDelegate> {
+@interface DWNewPlaceViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,MKMapViewDelegate> {
 	
 	UIView *textFieldsContainerView;
 	UITextField *placeNameTextField;
@@ -41,8 +41,8 @@
 	BOOL _isUploading;
 	BOOL _createInitiated;
 	
-	DWS3Uploader *_s3Uploader;
-	DWRequestManager *_requestManager;
+	
+	NSInteger _uploadID;
 	
 	id <DWNewPlaceViewControllerDelegate> _delegate;
 }

@@ -25,7 +25,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	
 	if([user readFromDisk]) {
 		self.currentUser = user;
-		[self.currentUser print];
+		//[self.currentUser print];
 	}
 	else {
 		[user release];

@@ -9,9 +9,6 @@
 
 #import "DWImageViewController.h"
 
-static NSInteger const kMaxOwnerID = 999999999;
-
-
 
 
 @implementation DWImageViewController
@@ -30,7 +27,8 @@ static NSInteger const kMaxOwnerID = 999999999;
     
 	if (self) {
 		url	 = [[NSString alloc] initWithString:theURL];
-		key = arc4random() % kMaxOwnerID;
+		key	= [[NSDate date] timeIntervalSince1970];
+
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(imageLoaded:) 

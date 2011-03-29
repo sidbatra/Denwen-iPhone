@@ -30,11 +30,29 @@
 		
 		self.photoFilename = [NSString stringWithFormat:@""];
 		
-		_requestManager = [[DWRequestManager alloc] initWithDelegate:self];
-		_s3Uploader = [[DWS3Uploader alloc] initWithDelegate:self];
 				
 		_createInitiated = NO;
 		_isUploading = NO;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadDone:) 
+													 name:kNS3UploadDone
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadError:) 
+													 name:kNS3UploadError
+												   object:nil];		
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(newPlaceCreated:) 
+													 name:kNNewPlaceCreated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(newPlaceError:) 
+													 name:kNNewPlaceError
+												   object:nil];
 	}
 	return self;
 }
@@ -263,7 +281,7 @@ replacementString:(NSString *)string {
 //
 - (void)createNewPlace {
 	
-	if (placeNameTextField.text.length == 0 ) {
+	if (placeNameTextField.text.length == 0) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Fields" 
 														message:EMPTY_PLACENAME_MSG
 													   delegate:nil 
@@ -280,7 +298,11 @@ replacementString:(NSString *)string {
 			
 			_createInitiated = NO;
 			
-			NSString *postString = [[NSString alloc] initWithFormat:@"place[name]=%@&place[lat]=%f&place[lon]=%f&email=%@&password=%@&place[photo_filename]=%@&ff=mobile",
+			[[DWRequestsManager sharedDWRequestsManager] requestNewPlaceNamed:placeNameTextField.text 
+																   atLocation:self.placeLocation.coordinate 
+																	withPhoto:self.photoFilename];
+			
+			/*NSString *postString = [[NSString alloc] initWithFormat:@"place[name]=%@&place[lat]=%f&place[lon]=%f&email=%@&password=%@&place[photo_filename]=%@&ff=mobile",
 									[placeNameTextField.text stringByEncodingHTMLCharacters],
 									self.placeLocation.coordinate.latitude,
 									self.placeLocation.coordinate.longitude,
@@ -290,7 +312,9 @@ replacementString:(NSString *)string {
 									];
 			
 			[_requestManager sendPostRequest:PLACES_URI withParams:postString];
-			[postString release];
+			[postString release];*/
+			
+			
 		}
 		else
 			_createInitiated = YES;
@@ -317,7 +341,7 @@ replacementString:(NSString *)string {
 	[self dismissModalViewControllerAnimated:YES];
 	
 	_isUploading = YES;
-	[_s3Uploader uploadImage:image toFolder:S3_PLACES_FOLDER];
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] requestNewImageWithData:image toFolder:S3_PLACES_FOLDER];
 	
 	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
 		UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
@@ -355,15 +379,13 @@ replacementString:(NSString *)string {
 #pragma mark -
 #pragma mark RequestManager Delegate methods
 
-
-// Fired when request manager has successfully parsed a request
-//
-- (void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			 withMessage:(NSString*)message withInstanceID:(int)instanceID {
+- (void)newPlaceCreated:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
 	
-	if([status isEqualToString:SUCCESS_STATUS]) {
-		DWPlace *place = [[DWPlace alloc] init];
-		[place populate:[body objectForKey:PLACE_JSON_KEY]];
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
+		DWPlace *place = [[DWPlace alloc] init];	
+		[place populate:[[info objectForKey:kKeyBody] objectForKey:kKeyPlace]];
 		[DWMemoryPool setObject:place atRow:PLACES_INDEX];
 		place.pointerCount--;
 		[place release];
@@ -372,8 +394,8 @@ replacementString:(NSString *)string {
 		[_delegate newPlaceCreated:place.hashedId];
 	}
 	else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-														message:[[body objectForKey:PLACE_JSON_KEY] objectForKey:ERROR_MESSAGES_JSON_KEY]
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+														message:[[[info objectForKey:kKeyBody] objectForKey:kKeyPlace] objectForKey:kKeyErrorMessages]
 													   delegate:nil 
 											  cancelButtonTitle:@"OK" 
 											  otherButtonTitles: nil];
@@ -382,14 +404,9 @@ replacementString:(NSString *)string {
 		
 		[self unfreezeUI];
 	}
-	
 }
 
-
-// Fired when an error happens during the request
-//
-- (void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
-	
+- (void)newPlaceError:(NSNotification*)notification {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
 													message:@"Problem connecting to the server, please try again"
 												   delegate:nil 
@@ -398,10 +415,8 @@ replacementString:(NSString *)string {
 	[alert show];
 	[alert release];
 	
-	[self unfreezeUI];
+	[self unfreezeUI];	
 }
-
-
 
 
 
@@ -409,34 +424,43 @@ replacementString:(NSString *)string {
 #pragma mark S3 Uploader Delegate methods
 
 
-// Media has been successfully uploaded to S3
-//
-- (void)finishedUploadingMedia:(NSString*)filename {
-	_isUploading = NO;
+- (void)imageUploadDone:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
 	
-	self.photoFilename = filename;
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
 	
-	if(_createInitiated)
-		[self createNewPlace];
+	if(_uploadID == resourceID) {
+		_isUploading = NO;
+		
+		self.photoFilename = [info objectForKey:kKeyFilename];
+		
+		if(_createInitiated)
+			[self createNewPlace];		
+	}
+}
+
+- (void)imageUploadError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		_isUploading = NO;
+		_createInitiated = NO;
+		
+		[self unfreezeUI];
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
+														message:@"There was an error uploading your image. Please try again."
+													   delegate:nil 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	}
 }
 
 
-// An error happened while uploading media to S3
-//
-- (void)errorUploadingMedia:(NSError*)error {
-	_isUploading = NO;
-	_createInitiated = NO;
-	
-	[self unfreezeUI];
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"There was an error uploading your image. Please try again."
-												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
-										  otherButtonTitles: nil];
-	[alert show];
-	[alert release];
-}
 
 
 
@@ -459,10 +483,7 @@ replacementString:(NSString *)string {
 	
 	self.photoFilename = nil;
 	self.placeLocation = nil;
-	
-	[_s3Uploader release];
-	[_requestManager release];
-	
+		
 	[textFieldsContainerView release];
 	[placeNameTextField release];
 	[imagePickerButton release];
