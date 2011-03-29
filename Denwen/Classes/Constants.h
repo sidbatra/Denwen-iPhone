@@ -35,7 +35,7 @@ extern NSString* const kKeyPlace;
 extern NSString* const kKeyFilename;
 
 /**
- * Notification names used throughout the app
+ * Notification names
  */
 extern NSString* const kNPopularPlacesLoaded;
 extern NSString* const kNPopularPlacesError;
@@ -45,8 +45,16 @@ extern NSString* const kNUserPlacesLoaded;
 extern NSString* const kNUserPlacesError;
 extern NSString* const kNSearchPlacesLoaded;
 extern NSString* const kNSearchPlacesError;
+extern NSString* const kNPlaceLoaded;
+extern NSString* const kNPlaceError;
+extern NSString* const kNPlaceUpdated;
+extern NSString* const kNPlaceUpdateError;
 extern NSString* const kNNewPlaceCreated;
 extern NSString* const kNNewPlaceError;
+extern NSString* const kNNewFollowingCreated;
+extern NSString* const kNNewFollowingError;
+extern NSString* const kNFollowingDestroyed;
+extern NSString* const kNFollowingDestroyError;
 extern NSString* const kNImageLoaded;
 extern NSString* const kNImageError;
 extern NSString* const kNS3UploadDone;

@@ -32,7 +32,7 @@
 @implementation DWPlaceViewController
 
 
-@synthesize placeHashedID=_placeHashedID,placeJSON=_placeJSON,following=_following;
+@synthesize placeJSON=_placeJSON,following=_following;
 
 
 
@@ -42,20 +42,16 @@
 
 // Init the view along with its member variables 
 //
-- (id)initWithPlaceID:(NSString*)placeHashedID withNewItemPrompt:(BOOL)newItemPrompt andDelegate:(id)delegate {
+-(id)initWithPlace:(DWPlace*)place withNewItemPrompt:(BOOL)newItemPrompt andDelegate:(id)delegate {
 	self = [super initWithDelegate:delegate];
 	
 	if (self) {
-		self.placeHashedID = placeHashedID;
 		_newItemPrompt = newItemPrompt;
 		_isViewLoaded = NO;
 		_isReadyForCreateItem = NO;
 		_placeJSON = nil;
-		
-		_followRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:1];
-		_updatePlaceRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:2];
-		_s3Uploader = [[DWS3Uploader alloc] initWithDelegate:self];
-		
+		_origPlace = place;		
+				
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(mediumPlacePreviewDone:) 
 													 name:N_MEDIUM_PLACE_PREVIEW_DONE
@@ -74,6 +70,58 @@
 												 selector:@selector(newItemCreated:) 
 													 name:N_NEW_ITEM_CREATED 
 												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(placeLoaded:) 
+													 name:kNPlaceLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(placeError:) 
+													 name:kNPlaceError
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(placeUpdated:) 
+													 name:kNPlaceUpdated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(placeUpdateError:) 
+													 name:kNPlaceUpdateError
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingModified:) 
+													 name:kNNewFollowingCreated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingError:)
+													 name:kNNewFollowingError
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingModified:) 
+													 name:kNFollowingDestroyed
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingError:)
+													 name:kNFollowingDestroyError
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadDone:) 
+													 name:kNS3UploadDone
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadError:) 
+													 name:kNS3UploadError
+												   object:nil];		
+		
+		
 	}
 	return self;
 }
@@ -214,27 +262,9 @@
 - (BOOL)loadItems {
 	[super loadItems];
 	
-	
-	NSString *urlString = nil;
-	
-	if([[DWSession sharedDWSession] isActive])
-		urlString = [[NSString alloc] initWithFormat:@"%@%@.json?email=%@&password=%@&page=%d&ff=mobile",
-					 PLACE_HASHED_SHOW_URI,
-					 self.placeHashedID,
-					 [DWSession sharedDWSession].currentUser.email,
-					 [DWSession sharedDWSession].currentUser.encryptedPassword,
-					 _currentPage
-					 ];
-	else
-		urlString = [[NSString alloc] initWithFormat:@"%@%@.json?page=%d&ff=mobile",
-					 PLACE_HASHED_SHOW_URI,
-					 self.placeHashedID,
-					 _currentPage
-					 ];
-	
-	[_requestManager sendGetRequest:urlString];
-	[urlString release];
-	
+	[[DWRequestsManager sharedDWRequestsManager] requestPlaceWithHashedID:_origPlace.hashedId
+														   withDatabaseID:_place.databaseID
+																   atPage:_currentPage];
 	return YES;
 }
 
@@ -245,14 +275,7 @@
 	mbProgressIndicator.labelText = @"Following";
 	[mbProgressIndicator showUsingAnimation:YES];
 	
-	NSString *paramString = [[NSString alloc] initWithFormat:@"place_id=%d&email=%@&password=%@&ff=mobile",
-							_place.databaseID,
-							 [DWSession sharedDWSession].currentUser.email,
-							 [DWSession sharedDWSession].currentUser.encryptedPassword
-							 ];
-	
-	[_followRequestManager sendPostRequest:FOLLOWINGS_URI withParams:paramString];
-	[paramString release];
+	[[DWRequestsManager sharedDWRequestsManager] requestNewFollowing:_place.databaseID];
 }
 
 
@@ -263,15 +286,8 @@
 	mbProgressIndicator.labelText = @"Unfollowing";
 	[mbProgressIndicator showUsingAnimation:YES];
 	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?email=%@&password=%@&ff=mobile",
-							FOLLOWINGS_DELETE_URI,
-							self.following.databaseID,
-							[DWSession sharedDWSession].currentUser.email,
-							[DWSession sharedDWSession].currentUser.encryptedPassword
-							];
-	
-	[_followRequestManager sendDeleteRequest:urlString withParams:@""];
-	[urlString release];
+	[[DWRequestsManager sharedDWRequestsManager] requestDestroyFollowing:self.following.databaseID
+														   ofPlaceWithID:_place.databaseID];
 }
 
 
@@ -279,7 +295,9 @@
 //
 - (void)sendUpdatePlaceRequest:(NSString*)placePhotoFilename {
 	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?photo_filename=%@&email=%@&password=%@&ff=mobile",
+	[[DWRequestsManager sharedDWRequestsManager] updatePhotoForPlaceWithID:_place.databaseID 
+														   toPhotoFilename:placePhotoFilename];
+	/*NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?photo_filename=%@&email=%@&password=%@&ff=mobile",
 							PLACE_SHOW_URI,
 							_place.databaseID,
 							placePhotoFilename,
@@ -289,6 +307,7 @@
 	
 	[_updatePlaceRequestManager sendPutRequest:urlString withParams:@""];
 	[urlString release];
+	 */
 }
 
 
@@ -296,115 +315,176 @@
 #pragma mark -
 #pragma mark RequestManager Delegate methods
 
-
-// Fired when request manager has successfully parsed a request
-//
-- (void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			withMessage:(NSString*)message withInstanceID:(int)instanceID {
+- (void)placeLoaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
 	
-	if(instanceID == 0) { //Place show response
+	if([[info objectForKey:kKeyResourceID] integerValue] != _place.databaseID)
+		return;
+	
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
-		if([status isEqualToString:SUCCESS_STATUS]) {
-			
-			NSArray *items = [body objectForKey:ITEMS_JSON_KEY];
-			[_itemManager populateItems:items withBuffer:(_currentPage==INITIAL_PAGE_FOR_REQUESTS) withClear:_reloading];
-			
-			
-			if(_place)
-				[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
-			
-			/* Create or fetch the place from the memory pool*/
-			NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
-			self.placeJSON = placeJSON;
-			_place = (DWPlace*)[DWMemoryPool getOrSetObject:placeJSON atRow:PLACES_INDEX];
-			
-			
-			NSDictionary *followJSON = [body objectForKey:FOLLOWING_JSON_KEY];
-			self.following = nil;
-			
-			if(![followJSON isKindOfClass:[NSNull class]] && [followJSON count])
-				[self createFollowing:followJSON];
-
-			[self updateTitle];
-			
-			
-			_tableViewUsage = TABLE_VIEW_AS_DATA;			
-			
-			if(!_isLoadedOnce) {
-				[self showCreateButton];
-				_isLoadedOnce = YES;
-			}
-			
-					
-			if(_newItemPrompt && _isViewLoaded)
-				[self showCreateNewItem];
-			else
-				_isReadyForCreateItem = YES;
-		}
-		else {
-			
+		NSDictionary *body = [info objectForKey:kKeyBody];
+		
+		NSArray *items = [body objectForKey:ITEMS_JSON_KEY];
+		[_itemManager populateItems:items withBuffer:(_currentPage==INITIAL_PAGE_FOR_REQUESTS) withClear:_reloading];
+		
+		
+		if(_place)
+			[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
+		
+		/* Create or fetch the place from the memory pool*/
+		NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
+		self.placeJSON = placeJSON;
+		_place = (DWPlace*)[DWMemoryPool getOrSetObject:placeJSON atRow:PLACES_INDEX];
+		
+		
+		NSDictionary *followJSON = [body objectForKey:FOLLOWING_JSON_KEY];
+		self.following = nil;
+		
+		if(![followJSON isKindOfClass:[NSNull class]] && [followJSON count])
+			[self createFollowing:followJSON];
+		
+		[self updateTitle];
+		
+		
+		_tableViewUsage = TABLE_VIEW_AS_DATA;			
+		
+		if(!_isLoadedOnce) {
+			[self showCreateButton];
+			_isLoadedOnce = YES;
 		}
 		
-		[self finishedLoadingItems];
-		[self.tableView reloadData];
-	}
-	else if(instanceID == 1) { //Follow,Unfollow responses
 		
-		if([status isEqualToString:SUCCESS_STATUS]) {
-						
-			// Pull the placeCell for refreshing it
-			//
-			NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-			DWPlaceCell *placeCell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
-			
-			if(self.following) { // If already following place, unfollow it
-				self.following = nil;
-				[placeCell displayUnfollowingState];
-				[_place updateFollowerCount:-1];
-				[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_UNFOLLOWED object:self.placeJSON];
-			}
-			else { 
-				[self createFollowing:body];
-				[placeCell displayFollowingState];
-				[_place updateFollowerCount:1];
-				[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_FOLLOWED object:self.placeJSON];
-			}
-			
-			[self updateTitle];
-			
-			//Mark changes to global variables, indicating a refresh is needed on followed content
-			[DWSession sharedDWSession].refreshFollowedItems = YES;
-		}
-		else{
-		}
-		
-		[mbProgressIndicator hideUsingAnimation:YES];
-	}
-	else if(instanceID == 2) { // Update place response
-		
-		if([status isEqualToString:SUCCESS_STATUS]) {
-			NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
-			[_place updatePreviewURLs:placeJSON];
-			self.placeJSON = placeJSON;
-		}
-		else {
-				
-		}
-		
-		[mbProgressIndicator hideUsingAnimation:YES];
+		if(_newItemPrompt && _isViewLoaded)
+			[self showCreateNewItem];
+		else
+			_isReadyForCreateItem = YES;
 	}
 	
+	[self finishedLoadingItems];
+	[self.tableView reloadData];
 }
 
-
-// Fired when an error happens during the request
-//
--(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
+- (void)placeError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _place.databaseID)
+		return;
+	
 	if(!_reloading)
 		[mbProgressIndicator hideUsingAnimation:YES];
 	
 	[self finishedLoadingItems];
 }
+
+- (void)placeUpdated:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _place.databaseID)
+		return;	
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
+		NSDictionary *body = [info objectForKey:kKeyBody];
+		NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
+		[_place updatePreviewURLs:placeJSON];
+		self.placeJSON = placeJSON;		
+	}
+	
+	[mbProgressIndicator hideUsingAnimation:YES];
+}
+
+- (void)placeUpdateError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _place.databaseID)
+		return;
+	
+	[mbProgressIndicator hideUsingAnimation:YES];
+}
+
+
+- (void)followingModified:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _place.databaseID)
+		return;
+	
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
+		NSDictionary *body = [info objectForKey:kKeyBody];
+		
+		// Pull the placeCell for refreshing it
+		//
+		NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+		DWPlaceCell *placeCell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
+		
+		if(self.following) { // If already following place, unfollow it
+			self.following = nil;
+			[placeCell displayUnfollowingState];
+			[_place updateFollowerCount:-1];
+			[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_UNFOLLOWED object:self.placeJSON];
+		}
+		else { 
+			[self createFollowing:body];
+			[placeCell displayFollowingState];
+			[_place updateFollowerCount:1];
+			[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_FOLLOWED object:self.placeJSON];
+		}
+		
+		[self updateTitle];
+		
+		//Mark changes to global variables, indicating a refresh is needed on followed content
+		[DWSession sharedDWSession].refreshFollowedItems = YES;
+		
+	}
+	
+	[mbProgressIndicator hideUsingAnimation:YES];
+}
+
+- (void)followingError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _place.databaseID)
+		return;
+	
+	if(!_reloading)
+		[mbProgressIndicator hideUsingAnimation:YES];
+}
+
+- (void)imageUploadDone:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		//Use the updated photo filename to update the database entry for the place
+		//
+		[self sendUpdatePlaceRequest:[info objectForKey:kKeyFilename]];
+	}
+}
+
+- (void)imageUploadError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		[mbProgressIndicator hideUsingAnimation:NO];
+		
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
+														message:@"There was an error uploading your image. Please try again."
+													   delegate:nil 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	}
+}
+
 
 
 
@@ -666,10 +746,6 @@
 //
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
 
-	//if(buttonIndex == 0) {
-	//	if(_place.hasPhoto) 
-	//		[self displayProfilePicture];
-	//}
 	//Tag 0 is for change picture while tag 1 is for unfollow
 	if(actionSheet.tag == 0 && buttonIndex != 2) {
 		[DWMemoryPool freeMemory];
@@ -718,7 +794,10 @@
 	mbProgressIndicator.labelText = @"Loading";
 	[mbProgressIndicator showUsingAnimation:YES];
 	
-	[_s3Uploader uploadImage:image toFolder:S3_PLACES_FOLDER];
+	
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] requestNewImageWithData:image 
+																			toFolder:S3_PLACES_FOLDER];
+	
 	[_place updatePreviewImages:image];
 	
 	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
@@ -754,35 +833,6 @@
 
 
 
-#pragma mark -
-#pragma mark S3 Uploader Delegate methods
-
-
-// Media has been successfully uploaded to S3
-//
-- (void)finishedUploadingMedia:(NSString*)filename {
-	//Use the updated photo filename to update the database entry for the place
-	//
-	[self sendUpdatePlaceRequest:filename];
-}
-
-
-// An error happened while uploading media to S3
-//
-- (void)errorUploadingMedia:(NSError*)error {
-	
-	[mbProgressIndicator hideUsingAnimation:NO];
-
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"There was an error uploading your image. Please try again."
-												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
-										  otherButtonTitles: nil];
-	[alert show];
-	[alert release];
-}
-
 
 
 #pragma mark -
@@ -805,14 +855,9 @@
 		[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
 	}
 	
-	self.placeHashedID = nil;
 	self.placeJSON = nil;
 	self.following = nil;
-	
-	[_followRequestManager release];
-	[_updatePlaceRequestManager release];
-	[_s3Uploader release];
-		
+			
     [super dealloc];
 }
 

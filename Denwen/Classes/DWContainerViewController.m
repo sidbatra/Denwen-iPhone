@@ -10,7 +10,7 @@
 
 
 @interface DWContainerViewController() 
-- (void)displaySelectedPlace:(NSString*)placeHashedID;
+- (void)displaySelectedPlace:(DWPlace*)place;
 - (void)processLaunchURL:(NSString*)url;
 @end
 
@@ -61,8 +61,8 @@
 
 // Push a placeViewController onto the nav stack 
 //
--(void)displaySelectedPlace:(NSString*)placeHashedID {
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeHashedID withNewItemPrompt:NO andDelegate:self];
+-(void)displaySelectedPlace:(DWPlace*)place {
+	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlace:place withNewItemPrompt:NO andDelegate:self];
 	[self.navigationController pushViewController:placeView animated:YES];
 	[placeView release];
 }
@@ -71,8 +71,8 @@
 // Dispatch logic when a URL is opened by the application
 //
 - (void)processLaunchURL:(NSString*)url {
-	if([url hasPrefix:DENWEN_URL_PREFIX])
-		[self displaySelectedPlace:[url substringFromIndex:[DENWEN_URL_PREFIX length]]];
+	//if([url hasPrefix:DENWEN_URL_PREFIX])
+	//	[self displaySelectedPlace:[url substringFromIndex:[DENWEN_URL_PREFIX length]]];
 }
 
 
@@ -98,8 +98,8 @@
 
 // Fired when a place is selected in an item cell within a child of the ItemFeedViewController
 //
-- (void)placeSelected:(NSString*)placeHashedID {
-	[self displaySelectedPlace:placeHashedID];
+- (void)placeSelected:(DWPlace*)place {
+	[self displaySelectedPlace:place];
 }
 
 

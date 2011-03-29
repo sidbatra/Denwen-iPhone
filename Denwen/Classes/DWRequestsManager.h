@@ -30,36 +30,60 @@
 + (DWRequestsManager *)sharedDWRequestsManager;
 
 /**
- * Request the given page of the currently popular places
+ * Given page of the currently popular places
  */
 - (void)requestPopularPlaces:(NSInteger)page;
 
 /**
- * Request nearby places based on the user's current location
+ * Nearby places based on the user's current location
  */
 - (void)requestNearbyPlaces;
 
 /**
- * Request places followed by a specific user
+ * Places followed by a specific user
  */
 - (void)requestUserPlaces:(NSInteger)userID;
 
 /**
- * Request a search query on the places table
+ * Search query on the places table
  */
 - (void)requestSearchPlaces:(NSString*)query;
 
 /**
- * Send a request to create a new visit
+ * Place view with page representing items pagination
+ */
+- (void)requestPlaceWithHashedID:(NSString*)hashedID 
+				  withDatabaseID:(NSInteger)placeID
+						  atPage:(NSInteger)page;
+
+/**
+ * Update the background photo for a place
+ */
+- (void)updatePhotoForPlaceWithID:(NSInteger)placeID
+				  toPhotoFilename:(NSString*)photoFilename;
+
+/**
+ * Create a new visit
  */
 - (void)requestNewVisit;
 
 /**
- * Send a request to create a new place
+ * Create a new place
  */
 - (void)requestNewPlaceNamed:(NSString*)name
 				  atLocation:(CLLocationCoordinate2D)location
 				   withPhoto:(NSString*)photoFilename;
+
+/**
+ * Create a new following for a place
+ */
+- (void)requestNewFollowing:(NSInteger)placeID;
+
+/**
+ * Destroy an existing following for a place
+ */
+- (void)requestDestroyFollowing:(NSInteger)followingID 
+				  ofPlaceWithID:(NSInteger)placeID;
 
 
 /**
@@ -70,7 +94,7 @@
 		withResourceID:(NSInteger)resourceID;
 
 /**
- * Request to upload an image to a S3 folder. Method returns
+ * Upload an image to a S3 folder. Method returns
  * the resource ID to uniquely identify the image upload
  */
 - (NSInteger)requestNewImageWithData:(UIImage*)image

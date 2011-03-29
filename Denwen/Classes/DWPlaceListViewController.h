@@ -73,6 +73,6 @@
 @end
 
 @protocol DWPlaceListViewControllerDelegate
-- (void)placeSelected:(NSString*)placeHashedID;
+- (void)placeSelected:(DWPlace*)place;
 @end
 

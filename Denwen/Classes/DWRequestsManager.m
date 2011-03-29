@@ -5,19 +5,24 @@
 
 #import "DWRequestsManager.h"
 
-static NSString* const kDenwenProtocol		= @"http://";
+static NSString* const kDenwenProtocol			= @"http://";
 
-static NSString* const kPopularPlacesURI	= @"/popular/places.json";
-static NSString* const kNearbyPlacesURI		= @"/nearby/places.json";
-static NSString* const kUserPlacesURI		= @"/users/%d/places.json?ignore=1";
-static NSString* const kSearchPlacesURI		= @"/search/places.json";
-static NSString* const kNewPlaceURI			= @"/places.json";
-static NSString* const kVisitsURI			= @"/visits.json";
+static NSString* const kPopularPlacesURI		= @"/popular/places.json?page=%d";
+static NSString* const kNearbyPlacesURI			= @"/nearby/places.json";
+static NSString* const kUserPlacesURI			= @"/users/%d/places.json?ignore=1";
+static NSString* const kSearchPlacesURI			= @"/search/places.json";
+static NSString* const kPlaceURI				= @"/p/%@.json?page=%d";
+static NSString* const kPlaceUpdatePhotoURI		= @"/places/%d.json?photo_filename=%@";
+static NSString* const kNewPlaceURI				= @"/places.json";
+static NSString* const kVisitsURI				= @"/visits.json";
+static NSString* const kFollowingsURI			= @"/followings.json";
+static NSString* const kFollowingsDestroyURI	= @"/followings/%d.json?ignore=1";
 
-static NSString* const kGet					= @"GET";
-static NSString* const kPost				= @"POST";
-static NSString* const kPut					= @"PUT";
-static NSString* const kDelete				= @"DELETE";
+
+static NSString* const kGet						= @"GET";
+static NSString* const kPost					= @"POST";
+static NSString* const kPut						= @"PUT";
+static NSString* const kDelete					= @"DELETE";
 
 static NSInteger const kDefaultResourceID	= -1;
 
@@ -97,8 +102,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 //----------------------------------------------------------------------------------------------------
 - (void)requestPopularPlaces:(NSInteger)page {
 	
-	NSString *localRequestURL = [NSString stringWithFormat:@"%@?page=%d",
-									kPopularPlacesURI,
+	NSString *localRequestURL = [NSString stringWithFormat:kPopularPlacesURI,
 									page];
 	
 	[self createDenwenRequest:localRequestURL 
@@ -149,6 +153,37 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)requestPlaceWithHashedID:(NSString*)hashedID 
+				  withDatabaseID:(NSInteger)placeID
+						  atPage:(NSInteger)page {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kPlaceURI,
+									 hashedID,
+									 page];
+		
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNPlaceLoaded 
+			errorNotification:kNPlaceError
+				requestMethod:kGet
+				   resourceID:placeID];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)updatePhotoForPlaceWithID:(NSInteger)placeID
+				  toPhotoFilename:(NSString*)photoFilename {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kPlaceUpdatePhotoURI,
+									 placeID,
+									 photoFilename];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNPlaceUpdated
+			errorNotification:kNPlaceUpdateError
+				requestMethod:kPut
+				   resourceID:placeID];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)requestNewVisit {
 	
 	NSString *localRequestURL = [NSString stringWithFormat:@"%@?lat=%f&lon=%f",
@@ -178,6 +213,32 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 		  successNotification:kNNewPlaceCreated
 			errorNotification:kNNewPlaceError
 				requestMethod:kPost];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)requestNewFollowing:(NSInteger)placeID {
+	NSString *localRequestURL = [NSString stringWithFormat:@"%@?place_id=%d",
+									kFollowingsURI,
+									placeID];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNNewFollowingCreated
+			errorNotification:kNNewFollowingError
+				requestMethod:kPost
+				   resourceID:placeID];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)requestDestroyFollowing:(NSInteger)followingID 
+				  ofPlaceWithID:(NSInteger)placeID {
+	NSString *localRequestURL = [NSString stringWithFormat:kFollowingsDestroyURI,
+									followingID];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNFollowingDestroyed
+			errorNotification:kNFollowingDestroyError
+				requestMethod:kDelete
+				   resourceID:placeID];
 }
 
 

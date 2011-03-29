@@ -231,12 +231,12 @@
 //
 - (void)newPlaceCreated:(NSString*)placeHashedID {
 	
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeHashedID
+	/*DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlaceID:placeHashedID
 																	withNewItemPrompt:YES 
 																		  andDelegate:self];
 	[self.navigationController pushViewController:placeView animated:NO];
 	[placeView release];
-	 
+	*/
 	
 	[self.navigationController dismissModalViewControllerAnimated:YES];
 }
