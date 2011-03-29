@@ -49,9 +49,9 @@
 //
 - (void)viewDidLoad {
 	[DWGUIManager showSpinnerInNav:self];
-	[[DWRequestsManager sharedDWRequestsManager] requestImageAt:url 
-														 ofType:kImgActualAttachment 
-												 withResourceID:key];
+	[[DWRequestsManager sharedDWRequestsManager] getImageAt:url 
+													 ofType:kImgActualAttachment 
+											 withResourceID:key];
 }
 
 

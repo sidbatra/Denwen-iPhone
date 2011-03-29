@@ -99,7 +99,7 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	[[DWRequestsManager sharedDWRequestsManager] requestUserPlaces:[DWSession sharedDWSession].currentUser.databaseID];	
+	[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:[DWSession sharedDWSession].currentUser.databaseID];	
 
 	
 	/*DWFollowedPlacesCache *cache = [DWFollowedPlacesCache sharedDWFollowedPlacesCache];

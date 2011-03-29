@@ -78,13 +78,13 @@ static NSInteger const kPlacesIndex				= 0;
 //----------------------------------------------------------------------------------------------------
 - (void)loadPlaces {
 	[super loadPlaces];
-	[[DWRequestsManager sharedDWRequestsManager] requestPopularPlaces:_currentPage];
+	[[DWRequestsManager sharedDWRequestsManager] getPopularPlaces:_currentPage];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)searchPlaces:(NSString*)query {
 	if(query.length >= kMinimumQueryLength)
-		[[DWRequestsManager sharedDWRequestsManager] requestSearchPlaces:query];
+		[[DWRequestsManager sharedDWRequestsManager] getSearchPlaces:query];
 }
 
 

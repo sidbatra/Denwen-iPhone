@@ -298,9 +298,9 @@ replacementString:(NSString *)string {
 			
 			_createInitiated = NO;
 			
-			[[DWRequestsManager sharedDWRequestsManager] requestNewPlaceNamed:placeNameTextField.text 
-																   atLocation:self.placeLocation.coordinate 
-																	withPhoto:self.photoFilename];
+			[[DWRequestsManager sharedDWRequestsManager] createPlaceNamed:placeNameTextField.text 
+															   atLocation:self.placeLocation.coordinate 
+																withPhoto:self.photoFilename];
 			
 			/*NSString *postString = [[NSString alloc] initWithFormat:@"place[name]=%@&place[lat]=%f&place[lon]=%f&email=%@&password=%@&place[photo_filename]=%@&ff=mobile",
 									[placeNameTextField.text stringByEncodingHTMLCharacters],
@@ -341,7 +341,8 @@ replacementString:(NSString *)string {
 	[self dismissModalViewControllerAnimated:YES];
 	
 	_isUploading = YES;
-	_uploadID = [[DWRequestsManager sharedDWRequestsManager] requestNewImageWithData:image toFolder:S3_PLACES_FOLDER];
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
+																		toFolder:S3_PLACES_FOLDER];
 	
 	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
 		UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
@@ -391,7 +392,7 @@ replacementString:(NSString *)string {
 		[place release];
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_NEW_PLACE_CREATED object:place];
-		[_delegate newPlaceCreated:place.hashedId];
+		[_delegate newPlaceCreated:place];
 	}
 	else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"

@@ -105,7 +105,7 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	[[DWRequestsManager sharedDWRequestsManager] requestNearbyPlaces];
+	[[DWRequestsManager sharedDWRequestsManager] getNearbyPlaces];
 }
 
 

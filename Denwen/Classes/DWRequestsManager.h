@@ -32,29 +32,29 @@
 /**
  * Given page of the currently popular places
  */
-- (void)requestPopularPlaces:(NSInteger)page;
+- (void)getPopularPlaces:(NSInteger)page;
 
 /**
  * Nearby places based on the user's current location
  */
-- (void)requestNearbyPlaces;
+- (void)getNearbyPlaces;
 
 /**
  * Places followed by a specific user
  */
-- (void)requestUserPlaces:(NSInteger)userID;
+- (void)getUserPlaces:(NSInteger)userID;
 
 /**
  * Search query on the places table
  */
-- (void)requestSearchPlaces:(NSString*)query;
+- (void)getSearchPlaces:(NSString*)query;
 
 /**
  * Place view with page representing items pagination
  */
-- (void)requestPlaceWithHashedID:(NSString*)hashedID 
-				  withDatabaseID:(NSInteger)placeID
-						  atPage:(NSInteger)page;
+- (void)getPlaceWithHashedID:(NSString*)hashedID 
+			  withDatabaseID:(NSInteger)placeID
+					  atPage:(NSInteger)page;
 
 /**
  * Update the background photo for a place
@@ -65,39 +65,39 @@
 /**
  * Create a new visit
  */
-- (void)requestNewVisit;
+- (void)createVisit;
 
 /**
  * Create a new place
  */
-- (void)requestNewPlaceNamed:(NSString*)name
-				  atLocation:(CLLocationCoordinate2D)location
-				   withPhoto:(NSString*)photoFilename;
+- (void)createPlaceNamed:(NSString*)name
+				 atLocation:(CLLocationCoordinate2D)location
+				  withPhoto:(NSString*)photoFilename;
 
 /**
  * Create a new following for a place
  */
-- (void)requestNewFollowing:(NSInteger)placeID;
+- (void)createFollowing:(NSInteger)placeID;
 
 /**
  * Destroy an existing following for a place
  */
-- (void)requestDestroyFollowing:(NSInteger)followingID 
-				  ofPlaceWithID:(NSInteger)placeID;
+- (void)destroyFollowing:(NSInteger)followingID 
+		   ofPlaceWithID:(NSInteger)placeID;
 
 
 /**
  * Download the image from the given URL
  */
-- (void)requestImageAt:(NSString*)url 
-				ofType:(NSInteger)imageType 
-		withResourceID:(NSInteger)resourceID;
+- (void)getImageAt:(NSString*)url 
+			ofType:(NSInteger)imageType 
+	withResourceID:(NSInteger)resourceID;
 
 /**
  * Upload an image to a S3 folder. Method returns
  * the resource ID to uniquely identify the image upload
  */
-- (NSInteger)requestNewImageWithData:(UIImage*)image
-							toFolder:(NSString*)folder;
+- (NSInteger)createImageWithData:(UIImage*)image
+						toFolder:(NSString*)folder;
 
 @end

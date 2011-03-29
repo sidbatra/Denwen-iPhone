@@ -93,7 +93,7 @@
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	[[DWRequestsManager sharedDWRequestsManager] requestUserPlaces:_userID];	
+	[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:_userID];	
 }
 
 

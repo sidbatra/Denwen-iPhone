@@ -262,9 +262,9 @@
 - (BOOL)loadItems {
 	[super loadItems];
 	
-	[[DWRequestsManager sharedDWRequestsManager] requestPlaceWithHashedID:_origPlace.hashedId
-														   withDatabaseID:_place.databaseID
-																   atPage:_currentPage];
+	[[DWRequestsManager sharedDWRequestsManager] getPlaceWithHashedID:_origPlace.hashedId
+													   withDatabaseID:_place.databaseID
+															   atPage:_currentPage];
 	return YES;
 }
 
@@ -275,7 +275,7 @@
 	mbProgressIndicator.labelText = @"Following";
 	[mbProgressIndicator showUsingAnimation:YES];
 	
-	[[DWRequestsManager sharedDWRequestsManager] requestNewFollowing:_place.databaseID];
+	[[DWRequestsManager sharedDWRequestsManager] createFollowing:_place.databaseID];
 }
 
 
@@ -286,8 +286,8 @@
 	mbProgressIndicator.labelText = @"Unfollowing";
 	[mbProgressIndicator showUsingAnimation:YES];
 	
-	[[DWRequestsManager sharedDWRequestsManager] requestDestroyFollowing:self.following.databaseID
-														   ofPlaceWithID:_place.databaseID];
+	[[DWRequestsManager sharedDWRequestsManager] destroyFollowing:self.following.databaseID
+													ofPlaceWithID:_place.databaseID];
 }
 
 
@@ -795,8 +795,8 @@
 	[mbProgressIndicator showUsingAnimation:YES];
 	
 	
-	_uploadID = [[DWRequestsManager sharedDWRequestsManager] requestNewImageWithData:image 
-																			toFolder:S3_PLACES_FOLDER];
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
+																		toFolder:S3_PLACES_FOLDER];
 	
 	[_place updatePreviewImages:image];
 	
