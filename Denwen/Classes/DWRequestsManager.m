@@ -20,7 +20,7 @@ static NSString* const kFollowingsURI			= @"/followings.json?place_id=%d";
 static NSString* const kFollowingsDestroyURI	= @"/followings/%d.json?ignore=1";
 static NSString* const kUserURI					= @"/users/%d.json?page=%d";
 static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
-
+static NSString* const kFollowedItemsURI		= @"/followed/items.json?page=%d";
 
 static NSString* const kGet						= @"GET";
 static NSString* const kPost					= @"POST";
@@ -271,6 +271,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 				   resourceID:userID];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)getFollowedItemsAtPage:(NSInteger)page {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kFollowedItemsURI,
+										page];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNFollowedItemsLoaded
+			errorNotification:kNFollowedItemsError
+				requestMethod:kGet];
+}
+
+
 
 //----------------------------------------------------------------------------------------------------
 - (void)getImageAt:(NSString*)url 
@@ -296,6 +309,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	
 	return request.resourceID;
 }
+
 
 
 //----------------------------------------------------------------------------------------------------

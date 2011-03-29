@@ -45,6 +45,15 @@
 													 name:N_FOLLOWED_ITEMS_READ
 												   object:nil];
 		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(itemsLoaded:) 
+													 name:kNFollowedItemsLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(itemsError:) 
+													 name:kNFollowedItemsError
+												   object:nil];
 	}
 	return self;
 }
@@ -131,16 +140,9 @@
 		
 		if([DWSession sharedDWSession].refreshFollowedItems)
 			[self resetPagination];
-				
-		NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&page=%d&ff=mobile",
-							   FOLLOWED_ITEMS_URI,
-							   [DWSession sharedDWSession].currentUser.email,
-							   [DWSession sharedDWSession].currentUser.encryptedPassword,
-							   _currentPage
-							   ];
-		[_requestManager sendGetRequest:urlString];
-		[urlString release];
 		
+		[[DWRequestsManager sharedDWRequestsManager] getFollowedItemsAtPage:_currentPage];
+				
 		status = YES;
 	}
 	else {
@@ -197,17 +199,13 @@
 }
 
 
-
-#pragma mark -
-#pragma mark RequestManager Delegate methods
-
-
-// Fired when request manager has successfully parsed a request
-//
--(void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			withMessage:(NSString*)message withInstanceID:(int)instanceID {
+- (void)itemsLoaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
 	
-	if([status isEqualToString:SUCCESS_STATUS]) {
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
+		NSDictionary* body = [info objectForKey:kKeyBody];
+		
 		NSArray *items = [body objectForKey:ITEMS_JSON_KEY];
 		[_itemManager populateItems:items withBuffer:NO withClear:_reloading];
 		
@@ -223,20 +221,16 @@
 		
 		[DWSession sharedDWSession].refreshFollowedItems = NO;
 	}
-	else {
-		
-	}
 	
 	[self finishedLoadingItems];
 	[self.tableView reloadData];
-}
+}		
 
-
-// Fired when an error happens during the request
-//
--(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
+- (void)itemsError:(NSNotification*)notification {
 	[self finishedLoadingItems];
 }
+
+
 
 
 

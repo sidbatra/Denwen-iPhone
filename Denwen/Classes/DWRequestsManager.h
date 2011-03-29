@@ -97,6 +97,12 @@
 - (void)updatePhotoForUserWithID:(NSInteger)userID
 			   withPhotoFilename:(NSString*)photoFilename;
 
+/**
+ * Recent items from the places followed by the current user
+ * page provides pagination
+ */
+- (void)getFollowedItemsAtPage:(NSInteger)page;
+
 
 /**
  * Download the image from the given URL

@@ -59,6 +59,8 @@ extern NSString* const kNUserLoaded;
 extern NSString* const kNUserError;
 extern NSString* const kNUserUpdated;
 extern NSString* const kNUserUpdateError;
+extern NSString* const kNFollowedItemsLoaded;
+extern NSString* const kNFollowedItemsError;
 extern NSString* const kNImageLoaded;
 extern NSString* const kNImageError;
 extern NSString* const kNS3UploadDone;

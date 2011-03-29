@@ -13,7 +13,7 @@
 #import "DWNotificationHelper.h"
 
 #import "DWSession.h"
-#import "DWRequestManager.h"
+#import "DWRequestsManager.h"
 
 
 @interface DWFollowedItemsViewController : DWItemFeedViewController {
