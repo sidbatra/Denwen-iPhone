@@ -16,17 +16,14 @@
 #import "DWPlaceViewController.h"
 #import "DWFollowedPlacesViewController.h"
 #import "DWUser.h"
-#import "DWRequestManager.h"
-#import "DWS3Uploader.h"
+#import "DWRequestsManager.h"
 #import "MBProgressHUD.h"
 #import "DWSession.h"
 #import "DWUserCell.h"
 
 
-@interface DWUserViewController : DWItemFeedViewController<DWS3UploaderDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
+@interface DWUserViewController : DWItemFeedViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
 	DWUser *_user;
-	DWRequestManager *_updateUserRequestManager;
-	DWS3Uploader *_s3Uploader;
 	
 	UIViewController *uiShell;
 	MBProgressHUD *mbProgressIndicator;
@@ -34,6 +31,7 @@
 	int _userID;
 	BOOL _isCurrenUserProfile;
 	BOOL _isCurrentUser;
+	NSInteger _uploadID;
 }
 
 - (id)initWithUserID:(int)userID andDelegate:(id)delegate;

@@ -18,7 +18,8 @@ static NSString* const kNewPlaceURI				= @"/places.json?place[name]=%@&place[lat
 static NSString* const kVisitsURI				= @"/visits.json?lat=%f&lon=%f";
 static NSString* const kFollowingsURI			= @"/followings.json?place_id=%d";
 static NSString* const kFollowingsDestroyURI	= @"/followings/%d.json?ignore=1";
-
+static NSString* const kUserURI					= @"/users/%d.json?page=%d";
+static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
 
 
 static NSString* const kGet						= @"GET";
@@ -215,6 +216,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 
 //----------------------------------------------------------------------------------------------------
 - (void)createFollowing:(NSInteger)placeID {
+	
 	NSString *localRequestURL = [NSString stringWithFormat:kFollowingsURI,
 									placeID];
 	
@@ -228,6 +230,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 //----------------------------------------------------------------------------------------------------
 - (void)destroyFollowing:(NSInteger)followingID 
 				  ofPlaceWithID:(NSInteger)placeID {
+	
 	NSString *localRequestURL = [NSString stringWithFormat:kFollowingsDestroyURI,
 									followingID];
 	
@@ -238,6 +241,35 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 				   resourceID:placeID];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)getUserWithID:(NSInteger)userID
+			   atPage:(NSInteger)page {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kUserURI,
+									userID,
+									page];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNUserLoaded
+			errorNotification:kNUserError
+				requestMethod:kGet
+				   resourceID:userID];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)updatePhotoForUserWithID:(NSInteger)userID
+			   withPhotoFilename:(NSString*)photoFilename {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kUserUpdatePhotoURI,
+									 userID,
+									 photoFilename];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNUserUpdated
+			errorNotification:kNUserUpdateError
+				requestMethod:kPut
+				   resourceID:userID];
+}
 
 
 //----------------------------------------------------------------------------------------------------

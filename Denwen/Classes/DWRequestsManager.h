@@ -85,6 +85,18 @@
 - (void)destroyFollowing:(NSInteger)followingID 
 		   ofPlaceWithID:(NSInteger)placeID;
 
+/**
+ * User profile with page representing items pagination
+ */
+- (void)getUserWithID:(NSInteger)userID
+			   atPage:(NSInteger)page;
+
+/**
+ * Update the display picture for a user
+ */
+- (void)updatePhotoForUserWithID:(NSInteger)userID
+			   withPhotoFilename:(NSString*)photoFilename;
+
 
 /**
  * Download the image from the given URL

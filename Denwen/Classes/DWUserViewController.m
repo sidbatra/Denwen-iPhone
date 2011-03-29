@@ -44,8 +44,6 @@
 	
 	if (self) {
 		_userID = userID;
-		_updateUserRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:1];
-		_s3Uploader = [[DWS3Uploader alloc] initWithDelegate:self];
 		_isCurrenUserProfile = hideBackButton;
 		
 
@@ -63,6 +61,36 @@
 												 selector:@selector(userLogsIn:) 
 													 name:N_USER_LOGS_IN
 												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userLoaded:) 
+													 name:kNUserLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userError:) 
+													 name:kNUserError
+												   object:nil];		
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userUpdated:) 
+													 name:kNUserUpdated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userUpdateError:) 
+													 name:kNUserUpdateError
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadDone:) 
+													 name:kNS3UploadDone
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadError:) 
+													 name:kNS3UploadError
+												   object:nil];	
 	}
 	return self;
 }
@@ -226,27 +254,8 @@
 - (BOOL)loadItems {
 	[super loadItems];
 	
-
-	NSString *urlString = nil;
-	
-	if([[DWSession sharedDWSession] isActive])
-		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&email=%@&password=%@&ff=mobile",
-							   USER_SHOW_URI,
-							   _userID,
-							   _currentPage,
-							   [DWSession sharedDWSession].currentUser.email,
-							   [DWSession sharedDWSession].currentUser.encryptedPassword
-							   ];
-	else
-		urlString = [[NSString alloc] initWithFormat:@"%@%d.json?page=%d&ff=mobile",
-							   USER_SHOW_URI,
-							   _userID,
-							   _currentPage
-							   ];
-	
-	[_requestManager sendGetRequest:urlString];
-	[urlString release];
-	
+	[[DWRequestsManager sharedDWRequestsManager] getUserWithID:_userID 
+														atPage:_currentPage];
 	return YES;
 }
 
@@ -255,93 +264,12 @@
 // Sends a PUT request to update the picture of the user
 //
 - (void)sendUpdateUserRequest:(NSString*)userPhotoFilename {
-
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?photo_filename=%@&email=%@&password=%@&ff=mobile",
-						   USER_SHOW_URI,
-						   _user.databaseID,
-						   userPhotoFilename,
-						   [DWSession sharedDWSession].currentUser.email,
-						   [DWSession sharedDWSession].currentUser.encryptedPassword];
-	
-	[_updateUserRequestManager sendPutRequest:urlString withParams:@""];
-	
-	[urlString release];
+	[[DWRequestsManager sharedDWRequestsManager] updatePhotoForUserWithID:_userID
+														withPhotoFilename:userPhotoFilename];
 }
 
 
 
-#pragma mark -
-#pragma mark DWRequestManagerDelegate
-
-
-// Fired when request manager has successfully parsed a request
-//
--(void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			withMessage:(NSString*)message withInstanceID:(int)instanceID {
-	
-	if(instanceID == 0 ) { // user show response
-		
-		if([status isEqualToString:SUCCESS_STATUS]) {
-			
-			NSArray *items = [body objectForKey:ITEMS_JSON_KEY];
-			[_itemManager populateItems:items withBuffer:(_currentPage==INITIAL_PAGE_FOR_REQUESTS) withClear:_reloading];
-
-			
-			if(_user)
-				[DWMemoryPool removeObject:_user atRow:USERS_INDEX];
-			
-			/* Create or fetch the user from the memory pool*/
-			NSDictionary *userJSON = [body objectForKey:USER_JSON_KEY];
-			_user = (DWUser*)[DWMemoryPool getOrSetObject:userJSON atRow:USERS_INDEX];			
-			
-			if(!_isCurrenUserProfile)
-				uiShell.title = [_user fullName];
-			else
-				uiShell.title = [_user firstName];
-
-			_isLoadedOnce = YES;
-			
-			if(_isCurrentUser)
-				[self addRightBarButtonItem];
-						
-			if([_itemManager totalItems]==1 && [[DWSession sharedDWSession] isActive] && [DWSession sharedDWSession].currentUser.databaseID == _user.databaseID) {
-				self.messageCellText = USER_SIGNED_IN_NO_ITEMS_MSG;
-				_tableViewUsage = TABLE_VIEW_AS_PROFILE_MESSAGE;
-			}
-			else
-			   _tableViewUsage = TABLE_VIEW_AS_DATA;			
-		}
-		else {
-			
-		}
-		
-		[self finishedLoadingItems];	
-		[self.tableView reloadData];  
-	}
-	else if(instanceID == 1) { // user update response
-		
-		if([status isEqualToString:SUCCESS_STATUS]) {
-			NSDictionary *userJSON = [body objectForKey:USER_JSON_KEY];
-			[_user updatePreviewURLs:userJSON];
-			[mbProgressIndicator hideUsingAnimation:YES];
-		}
-		else {
-			
-		}
-
-	}
-			
-}
-
-
-// Fired when an error happens during the request
-//
--(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
-	if(!_reloading)
-		[mbProgressIndicator hideUsingAnimation:YES];
-	
-	[self finishedLoadingItems];
-}
 
 
 
@@ -394,6 +322,118 @@
 	}
 }
 
+- (void)userLoaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _userID)
+		return;
+	
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
+		NSDictionary *body = [info objectForKey:kKeyBody];
+		NSArray *items = [body objectForKey:ITEMS_JSON_KEY];
+		[_itemManager populateItems:items withBuffer:(_currentPage==INITIAL_PAGE_FOR_REQUESTS) withClear:_reloading];
+		
+		
+		if(_user)
+			[DWMemoryPool removeObject:_user atRow:USERS_INDEX];
+		
+		/* Create or fetch the user from the memory pool*/
+		NSDictionary *userJSON = [body objectForKey:USER_JSON_KEY];
+		_user = (DWUser*)[DWMemoryPool getOrSetObject:userJSON atRow:USERS_INDEX];			
+		
+		if(!_isCurrenUserProfile)
+			uiShell.title = [_user fullName];
+		else
+			uiShell.title = [_user firstName];
+		
+		_isLoadedOnce = YES;
+		
+		if(_isCurrentUser)
+			[self addRightBarButtonItem];
+		
+		if([_itemManager totalItems]==1 && [[DWSession sharedDWSession] isActive] && [DWSession sharedDWSession].currentUser.databaseID == _user.databaseID) {
+			self.messageCellText = USER_SIGNED_IN_NO_ITEMS_MSG;
+			_tableViewUsage = TABLE_VIEW_AS_PROFILE_MESSAGE;
+		}
+		else
+			_tableViewUsage = TABLE_VIEW_AS_DATA;			
+	}
+	
+	[self finishedLoadingItems];	
+	[self.tableView reloadData]; 
+}
+
+
+- (void)userError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _userID)
+		return;
+	
+	if(!_reloading)
+		[mbProgressIndicator hideUsingAnimation:YES];
+	
+	[self finishedLoadingItems];
+}	
+
+
+- (void)userUpdated:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _userID)
+		return;
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
+		NSDictionary *body = [info objectForKey:kKeyBody];
+		NSDictionary *userJSON = [body objectForKey:USER_JSON_KEY];
+		[_user updatePreviewURLs:userJSON];
+		[mbProgressIndicator hideUsingAnimation:YES];
+	}
+}
+
+- (void)userUpdateError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _userID)
+		return;
+	
+	[mbProgressIndicator hideUsingAnimation:YES];
+}
+
+
+- (void)imageUploadDone:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		[self sendUpdateUserRequest:[info objectForKey:kKeyFilename]];
+	}
+}
+
+
+- (void)imageUploadError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		[mbProgressIndicator hideUsingAnimation:YES];
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
+														message:@"There was an error uploading your image. Please try again."
+													   delegate:nil 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	}
+}
 
 
 #pragma mark -
@@ -582,7 +622,9 @@
 	mbProgressIndicator.labelText = @"Loading";
 	[mbProgressIndicator showUsingAnimation:YES];
 	
-	[_s3Uploader uploadImage:image toFolder:S3_USERS_FOLDER];
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
+																		toFolder:S3_USERS_FOLDER];
+
 	[_user updatePreviewImages:image];
 }
 
@@ -593,34 +635,6 @@
 	[uiShell dismissModalViewControllerAnimated:YES];
 }
 
-
-
-#pragma mark -
-#pragma mark S3 Uploader Delegate methods
-
-
-// Media has been successfully uploaded to S3
-//
-- (void)finishedUploadingMedia:(NSString*)filename {
-	//Use the updated photo filename to update the database entry for the user
-	//
-	[self sendUpdateUserRequest:filename];
-}
-
-
-// An error happened while uploading media to S3
-//
-- (void)errorUploadingMedia:(NSError*)error {
-	[mbProgressIndicator hideUsingAnimation:YES];
-
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"There was an error uploading your image. Please try again."
-												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
-										  otherButtonTitles: nil];
-	[alert show];
-	[alert release];
-}
 
 
 
@@ -650,8 +664,6 @@
 		[DWMemoryPool removeObject:_user atRow:USERS_INDEX];
 	}
 	
-	[_updateUserRequestManager release];
-	[_s3Uploader release];
 		
     [super dealloc];
 }
