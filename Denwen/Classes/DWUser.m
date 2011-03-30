@@ -17,9 +17,8 @@
 			smallURL=_smallURL,mediumURL=_mediumURL,largeURL=_largeURL,smallPreviewImage=_smallPreviewImage,
 			mediumPreviewImage=_mediumPreviewImage,smallConnection=_smallConnection,mediumConnection=_mediumConnection,
 			hasPhoto=_hasPhoto,updateRequestManager=_updateRequestManager,twitterOAuthData=_twitterOAuthData,
-			facebookAccessToken=_facebookAccessToken,updateTwitterDataRequestManager=_updateTwitterDataRequestManager,
-			updateFacebookTokenRequestManager=_updateFacebookTokenRequestManager,visitRequestManager=_visitRequestManager,
-updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shareRequestManager;
+			facebookAccessToken=_facebookAccessToken,visitRequestManager=_visitRequestManager,
+updateUnreadRequestManager=_updateUnreadRequestManager;
 
 
 
@@ -192,47 +191,6 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 
 
 
-// Sends the twitter oauth to the server
-//
-- (void)updateTwitterData {
-	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:1];
-	self.updateTwitterDataRequestManager = tempRequestManager;
-	[tempRequestManager release];
-	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?twitter_data=%@&email=%@&password=%@&ff=mobile",
-						   USER_SHOW_URI,
-						   self.databaseID,
-						   [self.twitterOAuthData stringByEncodingHTMLCharacters],
-						   [DWSession sharedDWSession].currentUser.email,
-						   [DWSession sharedDWSession].currentUser.encryptedPassword
-						   ];
-	
-	[self.updateTwitterDataRequestManager sendPutRequest:urlString withParams:@""];
-	[urlString release];
-}
-
-
-// Sends the facebook access token to the server
-//
-- (void)updateFacebookToken {
-	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:2];
-	self.updateFacebookTokenRequestManager = tempRequestManager;
-	[tempRequestManager release];
-	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?facebook_data=%@&email=%@&password=%@&ff=mobile",
-						   USER_SHOW_URI,
-						   self.databaseID,
-						   [self.facebookAccessToken stringByEncodingHTMLCharacters],
-						   [DWSession sharedDWSession].currentUser.email,
-						   [DWSession sharedDWSession].currentUser.encryptedPassword
-						   ];
-	
-	[self.updateFacebookTokenRequestManager sendPutRequest:urlString withParams:@""];
-	[urlString release];
-}
-
-
-
 // Creates a visit on the server for the current user at the current location
 //
 - (void)createVisit {
@@ -276,26 +234,6 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 
 
 
-// Creates a share on the server when the user shares a place
-//
-- (void)createShare:(NSString*)data sentTo:(NSInteger)sentTo forPlace:(NSInteger)placeID   {
-	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:5];
-	self.shareRequestManager = tempRequestManager;
-	[tempRequestManager release];
-	
-	NSString *params = [[NSString alloc] initWithFormat:@"data=%@&sent_to=%d&place_id=%d&email=%@&password=%@&ff=mobile",
-						data,
-						sentTo,
-						placeID,
-						[DWSession sharedDWSession].currentUser.email,
-						[DWSession sharedDWSession].currentUser.encryptedPassword
-						];
-	
-	[self.shareRequestManager sendPostRequest:SHARES_URI withParams:params];
-	[params release];
-}
-
-
 
 //=============================================================================================================================
 #pragma mark -
@@ -307,9 +245,6 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 - (void)storeTwitterData:(NSString *)data {
 	
 	self.twitterOAuthData = data;
-	
-	[self updateTwitterData];
-	
 	
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	
@@ -325,8 +260,6 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 - (void)storeFacebookToken:(NSString *)token {
 	
 	self.facebookAccessToken = token;
-	
-	[self updateFacebookToken];
 	
 	
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -521,16 +454,11 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	//Free request manager object
 	if(instanceID==0)
 		self.updateRequestManager = nil;
-	else if(instanceID==1)
-		self.updateTwitterDataRequestManager = nil;
-	else if(instanceID==2)
-		self.updateFacebookTokenRequestManager = nil;
 	else if(instanceID==3)
 		self.visitRequestManager = nil;
 	else if(instanceID==4)
 		self.updateUnreadRequestManager = nil;
-	else if(instanceID==5)
-		self.shareRequestManager = nil;
+
 	
 }
 
@@ -542,16 +470,11 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	//Free request manager object
 	if(instanceID==0)
 		self.updateRequestManager = nil;
-	else if(instanceID==1)
-		self.updateTwitterDataRequestManager = nil;
-	else if(instanceID==2)
-		self.updateFacebookTokenRequestManager = nil;
 	else if(instanceID==3)
 		self.visitRequestManager = nil;
 	else if(instanceID==4)
 		self.updateUnreadRequestManager = nil;
-	else if(instanceID==5)
-		self.shareRequestManager = nil;
+
 }
 
 
@@ -606,11 +529,8 @@ updateUnreadRequestManager=_updateUnreadRequestManager,shareRequestManager=_shar
 	}
 	
 	self.updateRequestManager= nil;
-	self.updateTwitterDataRequestManager = nil;
-	self.updateFacebookTokenRequestManager = nil;
 	self.visitRequestManager = nil;
 	self.updateUnreadRequestManager = nil;
-	self.shareRequestManager = nil;
 	
 		
 	[super dealloc];

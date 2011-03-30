@@ -774,7 +774,10 @@
 
 - (void)shareViewFinished:(NSString*)data sentTo:(NSInteger)sentTo {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
-	[[DWSession sharedDWSession].currentUser createShare:data sentTo:sentTo forPlace:_place.databaseID];
+
+	[[DWRequestsManager sharedDWRequestsManager] createShareForPlaceWithID:_place.databaseID 
+																  withData:data 
+																	sentTo:sentTo];
 }
 
 

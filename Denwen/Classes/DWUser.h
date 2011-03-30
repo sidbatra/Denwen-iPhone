@@ -44,11 +44,8 @@
 	DWURLConnection *_mediumConnection;
 	
 	DWRequestManager *_updateRequestManager;
-	DWRequestManager *_updateTwitterDataRequestManager;
-	DWRequestManager *_updateFacebookTokenRequestManager;
 	DWRequestManager *_visitRequestManager;
 	DWRequestManager *_updateUnreadRequestManager;
-	DWRequestManager *_shareRequestManager;
 }
 
 
@@ -58,11 +55,9 @@
 - (void)updatePreviewURLs:(NSDictionary*)place;
 - (void)updatePreviewImages:(UIImage*)image;
 - (void)updateDeviceID:(NSString*)deviceID;
-- (void)updateTwitterData;
 - (void)updateUnreadCount:(NSInteger)subtrahend;
 
 - (void)createVisit;
-- (void)createShare:(NSString*)data sentTo:(NSInteger)sentTo forPlace:(NSInteger)placeID;
 
 //Functions for handling server interactions 
 - (void)startSmallPreviewDownload;
@@ -104,11 +99,8 @@
 @property (retain) DWURLConnection *mediumConnection;
 
 @property (retain) DWRequestManager *updateRequestManager;
-@property (retain) DWRequestManager *updateTwitterDataRequestManager;
-@property (retain) DWRequestManager *updateFacebookTokenRequestManager;
 @property (retain) DWRequestManager *visitRequestManager;
 @property (retain) DWRequestManager *updateUnreadRequestManager;
-@property (retain) DWRequestManager *shareRequestManager;
 
 
 @property (readonly) BOOL hasPhoto;

@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "DWPlace.h"
+#import "DWRequestsManager.h"
 #import "SA_OAuthTwitterEngine.h"
 #import "SA_OAuthTwitterController.h"
 #import "FBConnect.h"

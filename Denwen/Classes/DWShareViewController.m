@@ -296,6 +296,7 @@
 - (void)fbDidLogin {
 	[self.textView becomeFirstResponder];
 	[[DWSession sharedDWSession].currentUser storeFacebookToken:_facebook.accessToken];
+	[[DWRequestsManager sharedDWRequestsManager] updateFacebookTokenForCurrentUser:_facebook.accessToken];
 }
 
 
@@ -369,6 +370,7 @@
 //
 - (void)storeCachedTwitterOAuthData:(NSString *) data forUsername:(NSString *)username {
 	[[DWSession sharedDWSession].currentUser storeTwitterData:data];
+	[[DWRequestsManager sharedDWRequestsManager] updateTwitterDataForCurrentUser:data];
 }
 
 

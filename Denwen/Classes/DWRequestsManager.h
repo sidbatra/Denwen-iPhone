@@ -98,6 +98,17 @@
 			   withPhotoFilename:(NSString*)photoFilename;
 
 /**
+ * Update twitter access token for the logged in user
+ */
+- (void)updateTwitterDataForCurrentUser:(NSString*)twitterData;
+
+/**
+ * Update facebook token for the logged in user
+ */
+- (void)updateFacebookTokenForCurrentUser:(NSString*)facebookToken;
+
+
+/**
  * Recent items from the places followed by the current user
  * page provides pagination
  */
@@ -123,6 +134,13 @@
  */
 - (void)createSessionWithEmail:(NSString*)email
 				  withPassword:(NSString*)password;
+
+/** 
+ * Createa a new share
+ */
+- (void)createShareForPlaceWithID:(NSInteger)placeID
+						 withData:(NSString*)data
+						   sentTo:(NSInteger)sentTo;
 
 /**
  * Download the image from the given URL

@@ -20,10 +20,13 @@ static NSString* const kFollowingsURI			= @"/followings.json?place_id=%d";
 static NSString* const kFollowingsDestroyURI	= @"/followings/%d.json?ignore=1";
 static NSString* const kUserURI					= @"/users/%d.json?page=%d";
 static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
+static NSString* const kUserUpdateTwitterURI	= @"/users/%d.json?twitter_data=%@";
+static NSString* const kUserUpdateFacebookURI	= @"/users/%d.json?facebook_data=%@";
 static NSString* const kFollowedItemsURI		= @"/followed/items.json?page=%d";
 static NSString* const kNewItemURI				= @"/items.json?item[data]=%@&item[place_id]=%d&attachment[filename]=%@";
 static NSString* const kNewUserURI				= @"%@%@/users.json?user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile";
 static NSString* const kNewSessionURI			= @"%@%@/session.json?email=%@&password=%@&ff=mobile";
+static NSString* const kNewShareURI				= @"/shares.json?data=%@&sent_to=%d&place_id=%d";
 
 static NSString* const kGet						= @"GET";
 static NSString* const kPost					= @"POST";
@@ -275,6 +278,32 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)updateTwitterDataForCurrentUser:(NSString*)twitterData {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kUserUpdateTwitterURI,
+									[DWSession sharedDWSession].currentUser.databaseID,
+									[twitterData stringByEncodingHTMLCharacters]];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:nil
+			errorNotification:nil
+				requestMethod:kPut];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)updateFacebookTokenForCurrentUser:(NSString*)facebookToken {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kUserUpdateFacebookURI,
+								 [DWSession sharedDWSession].currentUser.databaseID,
+								 [facebookToken stringByEncodingHTMLCharacters]];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:nil
+			errorNotification:nil
+				requestMethod:kPut];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)getFollowedItemsAtPage:(NSInteger)page {
 	
 	NSString *localRequestURL = [NSString stringWithFormat:kFollowedItemsURI,
@@ -340,6 +369,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	[request setDelegate:self];
 	[request setRequestMethod:kPost];
 	[request startAsynchronous];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)createShareForPlaceWithID:(NSInteger)placeID
+						 withData:(NSString*)data
+						   sentTo:(NSInteger)sentTo { 
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kNewShareURI,
+									[data stringByEncodingHTMLCharacters],
+									sentTo,
+									placeID];
+		
+	[self createDenwenRequest:localRequestURL
+		  successNotification:nil
+			errorNotification:nil
+				requestMethod:kPost];
 }
 
 //----------------------------------------------------------------------------------------------------
