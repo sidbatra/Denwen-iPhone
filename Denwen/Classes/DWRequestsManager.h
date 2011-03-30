@@ -119,6 +119,12 @@
 		 withPhotoFilename:(NSString*)photoFilename;
 
 /**
+ * Create a new session
+ */
+- (void)createSessionWithEmail:(NSString*)email
+				  withPassword:(NSString*)password;
+
+/**
  * Download the image from the given URL
  */
 - (void)getImageAt:(NSString*)url 

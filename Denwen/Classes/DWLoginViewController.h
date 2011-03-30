@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "DWUser.h"
-#import "DWRequestManager.h"
+#import "DWRequestsManager.h"
 #import "DWSession.h"
 #import "NSString+Helpers.h"
 #import "MBProgressHUD.h"
@@ -18,13 +18,12 @@
 @protocol DWLoginViewControllerDelegate;
 
 
-@interface DWLoginViewController : UIViewController<UITextFieldDelegate,DWRequestManagerDelegate> {
+@interface DWLoginViewController : UIViewController<UITextFieldDelegate> {
 	UIView *loginFieldsContainerView;
 	UITextField *emailTextField;
 	UITextField *passwordTextField;
 	UIBarButtonItem *doneButton;
 	
-	DWRequestManager *_requestManager;
 	NSString *_password;
 	
 	MBProgressHUD *mbProgressIndicator;

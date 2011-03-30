@@ -23,6 +23,7 @@ static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@
 static NSString* const kFollowedItemsURI		= @"/followed/items.json?page=%d";
 static NSString* const kNewItemURI				= @"/items.json?item[data]=%@&item[place_id]=%d&attachment[filename]=%@";
 static NSString* const kNewUserURI				= @"%@%@/users.json?user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile";
+static NSString* const kNewSessionURI			= @"%@%@/session.json?email=%@&password=%@&ff=mobile";
 
 static NSString* const kGet						= @"GET";
 static NSString* const kPost					= @"POST";
@@ -323,6 +324,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	[request startAsynchronous];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)createSessionWithEmail:(NSString*)email
+				  withPassword:(NSString*)password {
+	
+	NSString *requestURL = [NSString stringWithFormat:kNewSessionURI,
+								kDenwenProtocol,
+								kDenwenServer,
+								[email stringByEncodingHTMLCharacters],
+								password];
+	
+	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
+												  successNotification:kNNewSessionCreated
+													errorNotification:kNNewSessionError];
+	[request setDelegate:self];
+	[request setRequestMethod:kPost];
+	[request startAsynchronous];
+}
 
 //----------------------------------------------------------------------------------------------------
 - (void)getImageAt:(NSString*)url 

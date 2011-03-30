@@ -33,7 +33,16 @@
 	
 	if(self != nil) {
 		_delegate = delegate;
-		_requestManager = [[DWRequestManager alloc] initWithDelegate:self];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(sessionCreated:) 
+													 name:kNNewSessionCreated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(sessionError:) 
+													 name:kNNewSessionError
+												   object:nil];	
 	}
 	return self;
 }
@@ -140,35 +149,27 @@
 		self.password = [passwordTextField.text isEqualToString:@""] ? passwordTextField.text : 
 						[[passwordTextField.text encrypt] stringByEncodingHTMLCharacters];
 		
-
-		NSString *postString = [[NSString alloc] initWithFormat:@"email=%@&password=%@&ff=mobile",
-							   emailTextField.text,
-								self.password
-								];
-		[_requestManager sendPostRequest:LOGIN_URI withParams:postString];
-
-		[postString release];
+		[[DWRequestsManager sharedDWRequestsManager] createSessionWithEmail:emailTextField.text 
+															   withPassword:self.password];
 	}
 }
 
 
 
 #pragma mark -
-#pragma mark RequestManager Delegate methods
+#pragma mark Notifications
 
-
-// Fired when request manager has successfully parsed a request
-//
-- (void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			 withMessage:(NSString*)message withInstanceID:(int)instanceID {
+- (void)sessionCreated:(NSNotification*)notification {
 	
-	if([status isEqualToString:SUCCESS_STATUS]) {
-		
+	NSDictionary *info = [notification userInfo];
+	NSDictionary *body = [info objectForKey:kKeyBody];
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		DWUser *user = [[DWUser alloc] init];
 		[user populate:[body objectForKey:USER_JSON_KEY]];
 		user.encryptedPassword = self.password;
 		[[DWSession sharedDWSession] create:user];
-
+		
 		[_delegate loginSuccessful];
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_USER_LOGS_IN object:user];
 	}
@@ -184,12 +185,11 @@
 		[self unfreezeUI];
 	}
 	
+	
 }
 
 
-// Fired when an error happens during the request
-//
-- (void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
+- (void)sessionError:(NSNotification*)notification {
 	
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
 													message:@"Problem connecting to the server, please try again"
@@ -221,9 +221,7 @@
 	_delegate = nil;
 	
 	self.password = nil;
-	
-	[_requestManager release];
-	
+		
 	[emailTextField release];
 	[passwordTextField release];
 	[doneButton release];
