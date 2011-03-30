@@ -12,7 +12,6 @@
 #import "DWItemsContainerViewController.h"
 #import "DWUserContainerViewController.h"
 #import "DWPlacesContainerViewController.h"
-#import "DWFollowedPlacesCache.h"
 #import "DWLoginViewController.h"
 #import "DWSignupViewController.h"
 #import "DWCache.h"

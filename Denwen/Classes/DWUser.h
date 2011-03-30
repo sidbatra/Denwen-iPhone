@@ -34,8 +34,6 @@
 	
 	BOOL _isSmallDownloading;
 	BOOL _isMediumDownloading;
-	BOOL _forceSmallDownloading;
-	BOOL _forceMediumDownloading;
 	BOOL _hasPhoto;
 	BOOL _isProcessed;
 	

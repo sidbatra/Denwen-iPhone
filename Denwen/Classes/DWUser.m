@@ -32,10 +32,7 @@
 	
 	if(self != nil) {
 		_isSmallDownloading = NO;
-		_isMediumDownloading = NO;
-		_forceSmallDownloading = NO;
-		_forceMediumDownloading = NO;
-		
+		_isMediumDownloading = NO;		
 	}
 	
 	return self;  
@@ -129,7 +126,7 @@
 //Start the small file download
 //
 - (void)startSmallPreviewDownload {
-	if(_hasPhoto && !_isSmallDownloading && (!self.smallPreviewImage || _forceSmallDownloading)) {
+	if(_hasPhoto && !_isSmallDownloading && !self.smallPreviewImage) {
 		_isSmallDownloading = true;
 		
 		DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self withInstanceID:0];
@@ -149,7 +146,7 @@
 // Start the medium file download
 //
 - (void)startMediumPreviewDownload {
-	if(_hasPhoto && !_isMediumDownloading && (!self.mediumPreviewImage || _forceSmallDownloading)) {
+	if(_hasPhoto && !_isMediumDownloading && !self.mediumPreviewImage) {
 		_isMediumDownloading = true;
 		
 		DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self withInstanceID:1];
@@ -330,12 +327,10 @@
 	if(instanceID == 0) {
 		self.smallConnection = nil;
 		_isSmallDownloading = NO;
-		_forceSmallDownloading = NO;
 	}
 	else {
 		self.mediumConnection = nil;
 		_isMediumDownloading = NO;
-		_forceMediumDownloading = NO;
 	}
 }
 
@@ -353,7 +348,6 @@
 		self.smallPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_USER_SMALL_IMAGE, SIZE_USER_SMALL_IMAGE)];
 		
 		_isSmallDownloading = NO;
-		_forceSmallDownloading = NO;
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_USER_PREVIEW_DONE object:self];
 	}
 	else {
@@ -361,7 +355,6 @@
 		
 		self.mediumPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_USER_MEDIUM_IMAGE, SIZE_USER_MEDIUM_IMAGE)];		
 		_isMediumDownloading = NO;
-		_forceMediumDownloading = NO;
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_USER_PREVIEW_DONE object:self];
 	}
 	

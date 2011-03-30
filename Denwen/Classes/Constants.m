@@ -330,51 +330,6 @@ NSString * const DENWEN_URL_PREFIX = @"denwen://p/";
 NSString * const FACEBOOK_URL_PREFIX = @"fb";
 
 
-#ifdef PRODUCTION
-
-// URI constants
-NSString * const NEARBY_ITEMS_URI = @"http://denwen.com/nearby/items.json";
-NSString * const FOLLOWED_ITEMS_URI = @"http://denwen.com/followed/items.json";
-NSString * const POPULAR_ITEMS_URI = @"http://denwen.com/popular/items.json";
-NSString * const NEARBY_PLACES_URI = @"http://denwen.com/nearby/places.json";
-NSString * const FOLLOWED_PLACES_URI = @"http://denwen.com/followed/places.json";
-NSString * const POPULAR_PLACES_URI = @"http://denwen.com/popular/places.json";
-NSString * const SEARCH_PLACES_URI = @"http://denwen.com/search/places.json";
-NSString * const LOGIN_URI = @"http://denwen.com/session.json";
-NSString * const SIGNUP_URI = @"http://denwen.com/users.json";
-NSString * const FOLLOWINGS_DELETE_URI = @"http://denwen.com/followings/";
-NSString * const FOLLOWINGS_URI = @"http://denwen.com/followings.json";
-NSString * const PLACE_HASHED_SHOW_URI = @"http://denwen.com/p/";
-NSString * const PLACE_SHOW_URI = @"http://denwen.com/places/";
-NSString * const USER_SHOW_URI = @"http://denwen.com/users/";
-NSString * const ITEMS_URI = @"http://denwen.com/items.json";
-NSString * const PLACES_URI = @"http://denwen.com/places.json";
-NSString * const VISITS_URI = @"http://denwen.com/visits.json";
-NSString * const SHARES_URI = @"http://denwen.com/shares.json";
-
-#else
-
-// URI constants
-NSString * const NEARBY_ITEMS_URI = @"http://sbat.denwen.com/nearby/items.json";
-NSString * const FOLLOWED_ITEMS_URI = @"http://sbat.denwen.com/followed/items.json";
-NSString * const POPULAR_ITEMS_URI = @"http://sbat.denwen.com/popular/items.json";
-NSString * const NEARBY_PLACES_URI = @"http://sbat.denwen.com/nearby/places.json";
-NSString * const FOLLOWED_PLACES_URI = @"http://sbat.denwen.com/followed/places.json";
-NSString * const POPULAR_PLACES_URI = @"http://sbat.denwen.com/popular/places.json";
-NSString * const SEARCH_PLACES_URI = @"http://sbat.denwen.com/search/places.json";
-NSString * const LOGIN_URI = @"http://sbat.denwen.com/session.json";
-NSString * const SIGNUP_URI = @"http://sbat.denwen.com/users.json";
-NSString * const FOLLOWINGS_DELETE_URI = @"http://sbat.denwen.com/followings/";
-NSString * const FOLLOWINGS_URI = @"http://sbat.denwen.com/followings.json";
-NSString * const PLACE_HASHED_SHOW_URI = @"http://sbat.denwen.com/p/";
-NSString * const PLACE_SHOW_URI = @"http://sbat.denwen.com/places/";
-NSString * const USER_SHOW_URI = @"http://sbat.denwen.com/users/";
-NSString * const ITEMS_URI = @"http://sbat.denwen.com/items.json";
-NSString * const PLACES_URI = @"http://sbat.denwen.com/places.json";
-NSString * const VISITS_URI = @"http://sbat.denwen.com/visits.json";
-NSString * const SHARES_URI = @"http://sbat.denwen.com/shares.json";
-
-#endif
 
 
 

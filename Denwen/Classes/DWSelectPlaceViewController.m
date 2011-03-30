@@ -100,23 +100,6 @@
 	[super loadPlaces];
 	
 	[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:[DWSession sharedDWSession].currentUser.databaseID];	
-
-	
-	/*DWFollowedPlacesCache *cache = [DWFollowedPlacesCache sharedDWFollowedPlacesCache];
-	
-	if(cache.places && !_reloading) {
-		[self populatePlaces:[cache generateImmutablePlaces]];
-	}
-	else {
-		NSString *urlString = [[NSString alloc] initWithFormat:@"%@?email=%@&password=%@&ff=mobile",
-							   FOLLOWED_PLACES_URI,
-							   [DWSession sharedDWSession].currentUser.email,
-							   [DWSession sharedDWSession].currentUser.encryptedPassword
-							   ];
-		[_followedRequestManager sendGetRequest:urlString];
-		[urlString release];
-	}
-	 */
 }
 
 
@@ -149,8 +132,6 @@
 		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
 		[self populatePlaces:places];
 	}
-	
-	//[[DWFollowedPlacesCache sharedDWFollowedPlacesCache] populatePlaces:places];
 }	
 
 - (void)userPlacesError:(NSNotification*)notification {

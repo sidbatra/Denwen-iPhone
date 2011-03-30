@@ -278,24 +278,6 @@ extern int const INITIAL_PAGE_FOR_REQUESTS;
 extern NSString * const DENWEN_URL_PREFIX;
 extern NSString * const FACEBOOK_URL_PREFIX;
 
-extern NSString * const NEARBY_ITEMS_URI;
-extern NSString * const FOLLOWED_ITEMS_URI;
-extern NSString * const POPULAR_ITEMS_URI;
-extern NSString * const NEARBY_PLACES_URI;
-extern NSString * const FOLLOWED_PLACES_URI;
-extern NSString * const POPULAR_PLACES_URI;
-extern NSString * const SEARCH_PLACES_URI;
-extern NSString * const LOGIN_URI;
-extern NSString * const SIGNUP_URI;
-extern NSString * const FOLLOWINGS_DELETE_URI;
-extern NSString * const FOLLOWINGS_URI;
-extern NSString * const PLACE_HASHED_SHOW_URI;
-extern NSString * const PLACE_SHOW_URI;
-extern NSString * const USER_SHOW_URI;
-extern NSString * const ITEMS_URI;
-extern NSString * const PLACES_URI;
-extern NSString * const VISITS_URI;
-extern NSString * const SHARES_URI;
 
 extern NSString * const POST_STRING;
 extern NSString * const GET_STRING;
