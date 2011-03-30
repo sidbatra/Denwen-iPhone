@@ -43,7 +43,6 @@
 	DWURLConnection *_smallConnection;
 	DWURLConnection *_mediumConnection;
 	
-	DWRequestManager *_updateRequestManager;
 	DWRequestManager *_updateUnreadRequestManager;
 }
 
@@ -53,7 +52,6 @@
 //Update 
 - (void)updatePreviewURLs:(NSDictionary*)place;
 - (void)updatePreviewImages:(UIImage*)image;
-- (void)updateDeviceID:(NSString*)deviceID;
 - (void)updateUnreadCount:(NSInteger)subtrahend;
 
 
@@ -96,7 +94,6 @@
 @property (retain) DWURLConnection *smallConnection;
 @property (retain) DWURLConnection *mediumConnection;
 
-@property (retain) DWRequestManager *updateRequestManager;
 @property (retain) DWRequestManager *updateUnreadRequestManager;
 
 

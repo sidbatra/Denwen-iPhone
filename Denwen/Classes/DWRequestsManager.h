@@ -107,6 +107,10 @@
  */
 - (void)updateFacebookTokenForCurrentUser:(NSString*)facebookToken;
 
+/** 
+ * Update iphone device id for the logged in user
+ */
+- (void)updateDeviceIDForCurrentUser:(NSString*)deviceID;
 
 /**
  * Recent items from the places followed by the current user

@@ -281,10 +281,7 @@
 // User approves push notifications
 //
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	
-	NSString *deviceTokenString = [[NSString alloc] initWithFormat:@"%@",deviceToken];
-	[[DWSession sharedDWSession].currentUser updateDeviceID:deviceTokenString];
-	[deviceTokenString release];
+	[[DWRequestsManager sharedDWRequestsManager] updateDeviceIDForCurrentUser:[NSString stringWithFormat:@"%@",deviceToken]];
 }
 
 

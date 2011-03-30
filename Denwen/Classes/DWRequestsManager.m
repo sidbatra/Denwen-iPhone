@@ -22,6 +22,7 @@ static NSString* const kUserURI					= @"/users/%d.json?page=%d";
 static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
 static NSString* const kUserUpdateTwitterURI	= @"/users/%d.json?twitter_data=%@";
 static NSString* const kUserUpdateFacebookURI	= @"/users/%d.json?facebook_data=%@";
+static NSString* const kUserUpdateDeviceURI		= @"/users/%d.json?iphone_device_id=%@";
 static NSString* const kFollowedItemsURI		= @"/followed/items.json?page=%d";
 static NSString* const kNewItemURI				= @"/items.json?item[data]=%@&item[place_id]=%d&attachment[filename]=%@";
 static NSString* const kNewUserURI				= @"%@%@/users.json?user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile";
@@ -190,6 +191,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 				   resourceID:placeID];
 }
 
+
 //----------------------------------------------------------------------------------------------------
 - (void)createVisit {
 	
@@ -296,6 +298,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	NSString *localRequestURL = [NSString stringWithFormat:kUserUpdateFacebookURI,
 								 [DWSession sharedDWSession].currentUser.databaseID,
 								 [facebookToken stringByEncodingHTMLCharacters]];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:nil
+			errorNotification:nil
+				requestMethod:kPut];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)updateDeviceIDForCurrentUser:(NSString*)deviceID {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kUserUpdateDeviceURI,
+									[DWSession sharedDWSession].currentUser.databaseID,
+									[deviceID stringByEncodingHTMLCharacters]];
 	
 	[self createDenwenRequest:localRequestURL 
 		  successNotification:nil

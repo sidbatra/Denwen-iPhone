@@ -16,7 +16,7 @@
 @synthesize firstName=_firstName,lastName=_lastName,email=_email,encryptedPassword=_encryptedPassword,
 			smallURL=_smallURL,mediumURL=_mediumURL,largeURL=_largeURL,smallPreviewImage=_smallPreviewImage,
 			mediumPreviewImage=_mediumPreviewImage,smallConnection=_smallConnection,mediumConnection=_mediumConnection,
-			hasPhoto=_hasPhoto,updateRequestManager=_updateRequestManager,twitterOAuthData=_twitterOAuthData,
+			hasPhoto=_hasPhoto,twitterOAuthData=_twitterOAuthData,
 			facebookAccessToken=_facebookAccessToken,updateUnreadRequestManager=_updateUnreadRequestManager;
 
 
@@ -166,26 +166,6 @@
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_USER_PREVIEW_DONE object:self];
 	}
-}
-
-
-// Sends the iphone device id to the server for enabling push notifications
-//
-- (void)updateDeviceID:(NSString*)deviceID {
-	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:0];
-	self.updateRequestManager = tempRequestManager;
-	[tempRequestManager release];
-	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?iphone_device_id=%@&email=%@&password=%@&ff=mobile",
-						   USER_SHOW_URI,
-						   self.databaseID,
-						   [deviceID stringByEncodingHTMLCharacters],
-						   [DWSession sharedDWSession].currentUser.email,
-						   [DWSession sharedDWSession].currentUser.encryptedPassword
-						   ];
-	
-	[self.updateRequestManager sendPutRequest:urlString withParams:@""];
-	[urlString release];
 }
 
 
@@ -428,10 +408,7 @@
 		
 	}
 	
-	//Free request manager object
-	if(instanceID==0)
-		self.updateRequestManager = nil;
-	else if(instanceID==4)
+	if(instanceID==4)
 		self.updateUnreadRequestManager = nil;
 
 	
@@ -442,10 +419,7 @@
 //
 -(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
 	
-	//Free request manager object
-	if(instanceID==0)
-		self.updateRequestManager = nil;
-	else if(instanceID==4)
+	if(instanceID==4)
 		self.updateUnreadRequestManager = nil;
 
 }
@@ -501,7 +475,6 @@
 		self.mediumPreviewImage = nil;
 	}
 	
-	self.updateRequestManager= nil;
 	self.updateUnreadRequestManager = nil;
 	
 		
