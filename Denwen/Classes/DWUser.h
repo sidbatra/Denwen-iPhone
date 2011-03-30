@@ -10,7 +10,6 @@
 
 
 #import "DWPoolObject.h"
-#import "DWRequestManager.h"
 #import "DWURLConnection.h"
 #import "UIImage+ImageProcessing.h"
 
@@ -19,7 +18,7 @@
 
 
 
-@interface DWUser : DWPoolObject <DWURLConnectionDelegate,DWRequestManagerDelegate> {
+@interface DWUser : DWPoolObject <DWURLConnectionDelegate> {
 	NSString *_firstName;
 	NSString *_lastName;
 	NSString *_email;
@@ -42,8 +41,6 @@
 	
 	DWURLConnection *_smallConnection;
 	DWURLConnection *_mediumConnection;
-	
-	DWRequestManager *_updateUnreadRequestManager;
 }
 
 
@@ -52,8 +49,6 @@
 //Update 
 - (void)updatePreviewURLs:(NSDictionary*)place;
 - (void)updatePreviewImages:(UIImage*)image;
-- (void)updateUnreadCount:(NSInteger)subtrahend;
-
 
 //Functions for handling server interactions 
 - (void)startSmallPreviewDownload;
@@ -93,8 +88,6 @@
 
 @property (retain) DWURLConnection *smallConnection;
 @property (retain) DWURLConnection *mediumConnection;
-
-@property (retain) DWRequestManager *updateUnreadRequestManager;
 
 
 @property (readonly) BOOL hasPhoto;

@@ -269,7 +269,7 @@
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 	
 	NSInteger unreadCount = [(NSString*)[notification object] integerValue];
-	[[DWSession sharedDWSession].currentUser updateUnreadCount:unreadCount];
+	[[DWRequestsManager sharedDWRequestsManager] updateUnreadCountForCurrentUserBy:unreadCount];
 }
 
 

@@ -112,6 +112,12 @@
  */
 - (void)updateDeviceIDForCurrentUser:(NSString*)deviceID;
 
+/** 
+ * Update the unread count for the logged in user by reducing it
+ * by the given amount
+ */
+- (void)updateUnreadCountForCurrentUserBy:(NSInteger)subtrahend;
+
 /**
  * Recent items from the places followed by the current user
  * page provides pagination

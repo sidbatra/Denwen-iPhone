@@ -17,7 +17,7 @@
 			smallURL=_smallURL,mediumURL=_mediumURL,largeURL=_largeURL,smallPreviewImage=_smallPreviewImage,
 			mediumPreviewImage=_mediumPreviewImage,smallConnection=_smallConnection,mediumConnection=_mediumConnection,
 			hasPhoto=_hasPhoto,twitterOAuthData=_twitterOAuthData,
-			facebookAccessToken=_facebookAccessToken,updateUnreadRequestManager=_updateUnreadRequestManager;
+			facebookAccessToken=_facebookAccessToken;
 
 
 
@@ -166,27 +166,6 @@
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_USER_PREVIEW_DONE object:self];
 	}
-}
-
-
-
-// Sends the unread subtrahend to the server to reduce the unread_followings_count
-//
-- (void)updateUnreadCount:(NSInteger)subtrahend {
-	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:4];
-	self.updateUnreadRequestManager = tempRequestManager;
-	[tempRequestManager release];
-	
-	NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?unread_subtrahend=%d&email=%@&password=%@&ff=mobile",
-						   USER_SHOW_URI,
-						   self.databaseID,
-						   subtrahend,
-						   [DWSession sharedDWSession].currentUser.email,
-						   [DWSession sharedDWSession].currentUser.encryptedPassword
-						   ];
-	
-	[self.updateUnreadRequestManager sendPutRequest:urlString withParams:@""];
-	[urlString release];
 }
 
 
@@ -393,41 +372,6 @@
 
 //=============================================================================================================================
 #pragma mark -
-#pragma mark DWRequestManagerDelegate
-
-
-// Fired when request manager has successfully parsed a request
-//
--(void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			withMessage:(NSString*)message withInstanceID:(int)instanceID {
-		
-	if([status isEqualToString:SUCCESS_STATUS]) {
-	
-	}
-	else {
-		
-	}
-	
-	if(instanceID==4)
-		self.updateUnreadRequestManager = nil;
-
-	
-}
-
-
-// Fired when an error happens during the request
-//
--(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
-	
-	if(instanceID==4)
-		self.updateUnreadRequestManager = nil;
-
-}
-
-
-
-//=============================================================================================================================
-#pragma mark -
 #pragma mark Memory Management
 
 
@@ -474,9 +418,7 @@
 		self.smallPreviewImage = nil;
 		self.mediumPreviewImage = nil;
 	}
-	
-	self.updateUnreadRequestManager = nil;
-	
+		
 		
 	[super dealloc];
 }
