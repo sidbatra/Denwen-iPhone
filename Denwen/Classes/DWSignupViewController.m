@@ -37,13 +37,32 @@
 	if(self != nil) {
 		_delegate = delegate;
 		
-		_requestManager = [[DWRequestManager alloc] initWithDelegate:self];
-		_s3Uploader = [[DWS3Uploader alloc] initWithDelegate:self];
 		
 		self.photoFilename = [NSString stringWithFormat:@""];
 		
 		_signupInitiated = NO;
 		_isUploading = NO;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userCreated:) 
+													 name:kNNewUserCreated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userError:) 
+													 name:kNNewUserError
+												   object:nil];		
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadDone:) 
+													 name:kNS3UploadDone
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadError:) 
+													 name:kNS3UploadError
+												   object:nil];		
+			
 	}
 	return self;
 }
@@ -203,19 +222,13 @@
 			
 			_signupInitiated = NO;
 				
-			
 			self.password = [passwordTextField.text isEqualToString:@""] ? passwordTextField.text : 
 							[[passwordTextField.text encrypt] stringByEncodingHTMLCharacters];
 			
-			NSString *postString  = [[NSString alloc] initWithFormat:@"user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile",
-											   [fullNameTextField.text stringByEncodingHTMLCharacters],
-											   emailTextField.text,
-											   self.password,
-											   self.photoFilename
-											   ];
-
-			[_requestManager sendPostRequest:SIGNUP_URI withParams:postString];
-			[postString release];
+			[[DWRequestsManager sharedDWRequestsManager] createUserWithName:fullNameTextField.text 
+																  withEmail:emailTextField.text
+															   withPassword:self.password
+														  withPhotoFilename:self.photoFilename];
 		}
 		else
 			_signupInitiated = YES;
@@ -240,7 +253,9 @@
 	[self dismissModalViewControllerAnimated:YES];
 	
 	_isUploading = YES;
-	[_s3Uploader uploadImage:image toFolder:S3_USERS_FOLDER];
+
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
+																		toFolder:S3_USERS_FOLDER];
 }
 
 
@@ -253,15 +268,14 @@
 
 
 #pragma mark -
-#pragma mark RequestManager Delegate methods
+#pragma mark Notifications
 
-
-// Fired when request manager has successfully parsed a request
-//
-- (void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			 withMessage:(NSString*)message withInstanceID:(int)instanceID {
+- (void)userCreated:(NSNotification*)notification {
 	
-	if([status isEqualToString:SUCCESS_STATUS]) {
+	NSDictionary *info = [notification userInfo];
+	NSDictionary *body = [info objectForKey:kKeyBody];
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		NSDictionary *userJSON = [body objectForKey:USER_JSON_KEY];
 		
 		DWUser *user = [[DWUser alloc] init];
@@ -286,11 +300,7 @@
 	
 }
 
-
-// Fired when an error happens during the request
-//
-- (void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
-	
+- (void)userError:(NSNotification*)notification {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
 													message:@"Problem connecting to the server, please try again"
 												   delegate:nil 
@@ -299,44 +309,47 @@
 	[alert show];
 	[alert release];
 	
-	[self unfreezeUI];
+	[self unfreezeUI];	
+}
+
+- (void)imageUploadDone:(NSNotification*)notification {
+	
+	NSDictionary *info = [notification userInfo];
+	
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		_isUploading = NO;
+		
+		self.photoFilename = [info objectForKey:kKeyFilename];
+		
+		if(_signupInitiated)
+			[self createNewUser];		
+	}
 }
 
 
-
-#pragma mark -
-#pragma mark S3 Uploader Delegate methods
-
-
-// Media has been successfully uploaded to S3
-//
-- (void)finishedUploadingMedia:(NSString*)filename {
-	_isUploading = NO;
+- (void)imageUploadError:(NSNotification*)notification {
 	
-	self.photoFilename = filename;
+	NSDictionary *info = [notification userInfo];
 	
-	if(_signupInitiated)
-		[self createNewUser];
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		_isUploading = NO;
+		_signupInitiated = NO;
+		
+		[self unfreezeUI];
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
+														message:@"There was an error uploading your image. Please try again."
+													   delegate:nil 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles: nil];
+		[alert show];
+		[alert release];		
+	}
 }
-
-
-// An error happened while uploading media to S3
-//
-- (void)errorUploadingMedia:(NSError*)error {
-	_isUploading = NO;
-	_signupInitiated = NO;
-	
-	[self unfreezeUI];
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"There was an error uploading your image. Please try again."
-												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
-										  otherButtonTitles: nil];
-	[alert show];
-	[alert release];
-}
-
 
 
 #pragma mark -
@@ -359,10 +372,7 @@
 	
 	self.password = nil;
 	self.photoFilename = nil;
-	
-	[_requestManager release];
-	[_s3Uploader release];
-	
+		
 	[fullNameTextField release];
 	[emailTextField release];
 	[passwordTextField release];

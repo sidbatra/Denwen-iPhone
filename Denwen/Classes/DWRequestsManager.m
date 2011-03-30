@@ -22,6 +22,7 @@ static NSString* const kUserURI					= @"/users/%d.json?page=%d";
 static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
 static NSString* const kFollowedItemsURI		= @"/followed/items.json?page=%d";
 static NSString* const kNewItemURI				= @"/items.json?item[data]=%@&item[place_id]=%d&attachment[filename]=%@";
+static NSString* const kNewUserURI				= @"%@%@/users.json?user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile";
 
 static NSString* const kGet						= @"GET";
 static NSString* const kPost					= @"POST";
@@ -298,6 +299,28 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 		  successNotification:kNNewItemCreated
 			errorNotification:kNNewItemError
 				requestMethod:kPost];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)createUserWithName:(NSString*)name
+				 withEmail:(NSString*)email
+			  withPassword:(NSString*)password
+		 withPhotoFilename:(NSString*)photoFilename {
+	
+	NSString *requestURL  = [NSString stringWithFormat:kNewUserURI,
+								 kDenwenProtocol,
+								 kDenwenServer,
+								 [name stringByEncodingHTMLCharacters],
+								 [email stringByEncodingHTMLCharacters],
+								 password,
+								 photoFilename];
+	
+	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:requestURL
+												  successNotification:kNNewUserCreated
+													errorNotification:kNNewUserError];
+	[request setDelegate:self];
+	[request setRequestMethod:kPost];
+	[request startAsynchronous];
 }
 
 

@@ -110,6 +110,13 @@
 	withAttachmentFilename:(NSString*)filename
 			 atPlaceWithID:(NSInteger)placeID;
 
+/**
+ * Create a new user
+ */
+- (void)createUserWithName:(NSString*)name
+				 withEmail:(NSString*)email
+			  withPassword:(NSString*)password
+		 withPhotoFilename:(NSString*)photoFilename;
 
 /**
  * Download the image from the given URL

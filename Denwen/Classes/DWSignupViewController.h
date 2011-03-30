@@ -10,8 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "DWUser.h";
-#import "DWRequestManager.h"
-#import "DWS3Uploader.h"
+#import "DWRequestsManager.h"
 #import "NSString+Helpers.h"
 #import "DWSession.h"
 #import "DWMemoryPool.h"
@@ -21,7 +20,7 @@
 
 @protocol DWSignupViewControllerDelegate;
 
-@interface DWSignupViewController : UIViewController<UITextFieldDelegate,DWRequestManagerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,DWS3UploaderDelegate> {
+@interface DWSignupViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
 	
 	UIView *signupFieldsContainerView;
 	UITextField *fullNameTextField;
@@ -37,9 +36,8 @@
 	
 	BOOL _isUploading;
 	BOOL _signupInitiated;
+	NSInteger _uploadID;
 	
-	DWS3Uploader *_s3Uploader;
-	DWRequestManager *_requestManager;
 	
 	id <DWSignupViewControllerDelegate> _delegate;
 }
