@@ -103,6 +103,13 @@
  */
 - (void)getFollowedItemsAtPage:(NSInteger)page;
 
+/**
+ * Create a new item
+ */
+- (void)createItemWithData:(NSString*)data 
+	withAttachmentFilename:(NSString*)filename
+			 atPlaceWithID:(NSInteger)placeID;
+
 
 /**
  * Download the image from the given URL
@@ -115,7 +122,15 @@
  * Upload an image to a S3 folder. Method returns
  * the resource ID to uniquely identify the image upload
  */
-- (NSInteger)createImageWithData:(UIImage*)image
+- (NSInteger)createImageWithData:(UIImage*)image 
+						toFolder:(NSString*)folder;
+
+/**
+ * Upload video located at the URL to the S3 folder. Method returns
+ * the resource ID to unique identify the video upload
+ */
+- (NSInteger)createVideoUsingURL:(NSURL*)theURL
+				   atOrientation:(NSString*)orientation 
 						toFolder:(NSString*)folder;
 
 @end

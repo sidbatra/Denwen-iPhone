@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DWRequestManager.h"
-#import "DWS3Uploader.h"
+#import "DWRequestsManager.h"
 #import "MBProgressHUD.h"
 #import "DWItem.h"
 #import "DWSession.h"
@@ -21,7 +20,7 @@
 
 @protocol DWNewItemViewControllerDelegate;
 
-@interface DWNewItemViewController : UIViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,DWS3UploaderDelegate,DWRequestManagerDelegate> {
+@interface DWNewItemViewController : UIViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
 	
 	KTTextView *textView;
 	UILabel *placeLabel;
@@ -41,9 +40,8 @@
 	BOOL _postInitiated;
 	BOOL _forcePost;
 	BOOL _isLoadedOnce;
+	NSInteger _uploadID;
 	
-	DWS3Uploader *_s3Uploader;
-	DWRequestManager *_requestManager;
 	
 	id <DWNewItemViewControllerDelegate> _delegate;
 }

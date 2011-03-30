@@ -34,8 +34,7 @@
  * and setup custom properties for uploading a video
  */
 + (id)requestNewVideo:(NSURL*)theURL
+		atOrientation:(NSString*)orientation
 			 toFolder:(NSString*)folder;
-
-
 
 @end

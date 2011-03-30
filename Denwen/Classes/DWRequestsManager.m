@@ -21,6 +21,7 @@ static NSString* const kFollowingsDestroyURI	= @"/followings/%d.json?ignore=1";
 static NSString* const kUserURI					= @"/users/%d.json?page=%d";
 static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
 static NSString* const kFollowedItemsURI		= @"/followed/items.json?page=%d";
+static NSString* const kNewItemURI				= @"/items.json?item[data]=%@&item[place_id]=%d&attachment[filename]=%@";
 
 static NSString* const kGet						= @"GET";
 static NSString* const kPost					= @"POST";
@@ -283,6 +284,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 				requestMethod:kGet];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)createItemWithData:(NSString*)data 
+	withAttachmentFilename:(NSString*)filename
+			 atPlaceWithID:(NSInteger)placeID {
+	
+	NSString *localRequestURL = [NSString stringWithFormat:kNewItemURI,
+										[data stringByEncodingHTMLCharacters],
+										placeID,
+										filename];
+	
+	[self createDenwenRequest:localRequestURL
+		  successNotification:kNNewItemCreated
+			errorNotification:kNNewItemError
+				requestMethod:kPost];
+}
 
 
 //----------------------------------------------------------------------------------------------------
@@ -310,6 +326,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	return request.resourceID;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)createVideoUsingURL:(NSURL*)theURL
+				   atOrientation:(NSString*)orientation 
+						toFolder:(NSString*)folder {
+	
+	DWS3Request *request = [DWS3Request requestNewVideo:theURL 
+										  atOrientation:orientation
+											   toFolder:folder];
+	
+	[request setDelegate:self];
+	[request startAsynchronous];
+	
+	return request.resourceID;
+}
 
 
 //----------------------------------------------------------------------------------------------------

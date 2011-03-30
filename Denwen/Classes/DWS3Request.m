@@ -71,7 +71,7 @@ static NSString* const kS3SuccessResponse	= @"";
 
 
 //----------------------------------------------------------------------------------------------------
-- (void)processResponse:(NSString*)responseString andResponseData:(NSData*)responseData {
+- (void)processResponse:(NSString*)responseString andResponseData:(NSData*)responseData {	
 	/**
 	 * Test response from S3 server and launch success or error request accordingly
 	 */
@@ -103,7 +103,7 @@ static NSString* const kS3SuccessResponse	= @"";
 
 //----------------------------------------------------------------------------------------------------
 - (void)processError:(NSError*)theError {
-	
+		
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
 						  [NSNumber numberWithInt:self.resourceID]		,kKeyResourceID,
 						  theError										,kKeyError,
@@ -137,8 +137,18 @@ static NSString* const kS3SuccessResponse	= @"";
 
 //----------------------------------------------------------------------------------------------------
 + (id)requestNewVideo:(NSURL*)theURL
+		atOrientation:(NSString*)orientation
 			 toFolder:(NSString*)folder {
-	return nil;
+
+	DWS3Request *s3Request = [self createRequestWithSuffix:[NSString stringWithFormat:kVideoSuffixFormat,orientation]
+												  toFolder:folder];
+
+	[s3Request setFile:[theURL relativePath]
+		  withFileName:s3Request.filename 
+		andContentType:kVideoContentType 
+				forKey:kS3KeyFile];
+	
+	return s3Request;
 }
 
 
