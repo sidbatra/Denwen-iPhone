@@ -44,7 +44,6 @@
 	DWURLConnection *_mediumConnection;
 	
 	DWRequestManager *_updateRequestManager;
-	DWRequestManager *_visitRequestManager;
 	DWRequestManager *_updateUnreadRequestManager;
 }
 
@@ -57,7 +56,6 @@
 - (void)updateDeviceID:(NSString*)deviceID;
 - (void)updateUnreadCount:(NSInteger)subtrahend;
 
-- (void)createVisit;
 
 //Functions for handling server interactions 
 - (void)startSmallPreviewDownload;
@@ -99,7 +97,6 @@
 @property (retain) DWURLConnection *mediumConnection;
 
 @property (retain) DWRequestManager *updateRequestManager;
-@property (retain) DWRequestManager *visitRequestManager;
 @property (retain) DWRequestManager *updateUnreadRequestManager;
 
 

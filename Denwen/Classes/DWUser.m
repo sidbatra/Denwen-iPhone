@@ -17,8 +17,7 @@
 			smallURL=_smallURL,mediumURL=_mediumURL,largeURL=_largeURL,smallPreviewImage=_smallPreviewImage,
 			mediumPreviewImage=_mediumPreviewImage,smallConnection=_smallConnection,mediumConnection=_mediumConnection,
 			hasPhoto=_hasPhoto,updateRequestManager=_updateRequestManager,twitterOAuthData=_twitterOAuthData,
-			facebookAccessToken=_facebookAccessToken,visitRequestManager=_visitRequestManager,
-updateUnreadRequestManager=_updateUnreadRequestManager;
+			facebookAccessToken=_facebookAccessToken,updateUnreadRequestManager=_updateUnreadRequestManager;
 
 
 
@@ -187,28 +186,6 @@ updateUnreadRequestManager=_updateUnreadRequestManager;
 	
 	[self.updateRequestManager sendPutRequest:urlString withParams:@""];
 	[urlString release];
-}
-
-
-
-// Creates a visit on the server for the current user at the current location
-//
-- (void)createVisit {
-	return ;
-	
-	DWRequestManager *tempRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:3];
-	self.visitRequestManager = tempRequestManager;
-	[tempRequestManager release];
-	
-	NSString *params = [[NSString alloc] initWithFormat:@"lat=%f&lon=%f&email=%@&password=%@&ff=mobile",
-						   [DWSession sharedDWSession].location.coordinate.latitude,
-						   [DWSession sharedDWSession].location.coordinate.longitude,
-						   [DWSession sharedDWSession].currentUser.email,
-						   [DWSession sharedDWSession].currentUser.encryptedPassword
-						   ];
-	
-	[self.visitRequestManager sendPostRequest:VISITS_URI withParams:params];
-	[params release];
 }
 
 
@@ -454,8 +431,6 @@ updateUnreadRequestManager=_updateUnreadRequestManager;
 	//Free request manager object
 	if(instanceID==0)
 		self.updateRequestManager = nil;
-	else if(instanceID==3)
-		self.visitRequestManager = nil;
 	else if(instanceID==4)
 		self.updateUnreadRequestManager = nil;
 
@@ -470,8 +445,6 @@ updateUnreadRequestManager=_updateUnreadRequestManager;
 	//Free request manager object
 	if(instanceID==0)
 		self.updateRequestManager = nil;
-	else if(instanceID==3)
-		self.visitRequestManager = nil;
 	else if(instanceID==4)
 		self.updateUnreadRequestManager = nil;
 
@@ -529,7 +502,6 @@ updateUnreadRequestManager=_updateUnreadRequestManager;
 	}
 	
 	self.updateRequestManager= nil;
-	self.visitRequestManager = nil;
 	self.updateUnreadRequestManager = nil;
 	
 		

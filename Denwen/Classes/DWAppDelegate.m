@@ -235,7 +235,7 @@
 //
 - (void)createVisit {
 	if([[DWSession sharedDWSession] isActive])
-		[[DWSession sharedDWSession].currentUser createVisit];
+		[[DWRequestsManager sharedDWRequestsManager] createVisit];
 }
 
 
