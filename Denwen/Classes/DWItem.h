@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "DWURLConnection.h"
 #import "DWMemoryPool.h"
 #import "DWPoolObject.h"
 #import "DWAttachment.h"

@@ -10,7 +10,6 @@
 
 #import "DWMemoryPool.h"
 #import "DWPlace.h"
-#import "DWURLConnection.h"
 
 @protocol DWPlaceManagerDelegate;
 

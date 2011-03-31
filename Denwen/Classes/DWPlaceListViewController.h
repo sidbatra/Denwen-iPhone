@@ -10,7 +10,6 @@
 
 #import "DWPlaceViewController.h"
 #import "DWPlaceManager.h"
-#import "DWRequestManager.h"
 #import "MBProgressHUD.h"
 #import "DWPlaceFeedCell.h"
 #import "DWLoadingCell.h"
@@ -25,7 +24,7 @@
 
 
 
-@interface DWPlaceListViewController : UITableViewController<DWRequestManagerDelegate,UISearchDisplayDelegate,UISearchBarDelegate,EGORefreshTableHeaderDelegate> {
+@interface DWPlaceListViewController : UITableViewController<UISearchDisplayDelegate,UISearchBarDelegate,EGORefreshTableHeaderDelegate> {
 	DWPlaceManager *_placeManager;
 	
 	EGORefreshTableHeaderView *_refreshHeaderView;

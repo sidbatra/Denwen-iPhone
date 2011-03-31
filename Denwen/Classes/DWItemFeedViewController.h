@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "DWItemManager.h"
-#import "DWRequestManager.h"
 
 #import "DWItemFeedCell.h"
 #import "DWLoadingCell.h"
@@ -24,10 +23,9 @@
 
 @protocol DWItemFeedViewControllerDelegate;
 
-@interface DWItemFeedViewController : UITableViewController<EGORefreshTableHeaderDelegate,DWRequestManagerDelegate> {
+@interface DWItemFeedViewController : UITableViewController<EGORefreshTableHeaderDelegate> {
 	
 	DWItemManager *_itemManager;
-	DWRequestManager *_requestManager;
 
 	NSInteger _currentPage;
 	NSInteger _tableViewUsage;

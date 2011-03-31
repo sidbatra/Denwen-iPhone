@@ -19,7 +19,6 @@
 @interface DWSelectPlaceViewController : DWPlaceListViewController {
 	IBOutlet UITableView *tableView;
 	
-	DWRequestManager *_followedRequestManager;
 	
 	id<DWSelectPlaceViewControllerDelegate> _selectPlaceDelegate;
 }

@@ -37,7 +37,6 @@
 	
 	if (self) {
 		_itemManager = [[DWItemManager alloc] init];
-		_requestManager = [[DWRequestManager alloc] initWithDelegate:self];
 		
 		[self resetPagination];
 		
@@ -216,23 +215,6 @@
 	}	
 }
 
-
-
-#pragma mark -
-#pragma mark DWRequestManagerDelegate
-
-
-// Fired when request manager has successfully parsed a request
-//
--(void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			withMessage:(NSString*)message withInstanceID:(int)instanceID {	
-}
-
-
-// Fired when an error happens during the request
-//
--(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
-}
 
 
 
@@ -614,7 +596,6 @@
 	self.refreshHeaderView = nil;
 	
 	[_itemManager release];
-	[_requestManager release];
     
 	[super dealloc];
 }

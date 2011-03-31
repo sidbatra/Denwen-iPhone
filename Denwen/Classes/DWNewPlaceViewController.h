@@ -15,7 +15,6 @@
 #import "DDAnnotation.h"
 
 #import "DWPlace.h"
-#import "DWRequestManager.h"
 #import "DWRequestsManager.h"
 #import "MBProgressHUD.h"
 #import "DWSession.h"

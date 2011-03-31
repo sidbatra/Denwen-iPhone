@@ -207,26 +207,6 @@
 
 
 
-#pragma mark -
-#pragma mark RequestManager Delegate methods
-
-
-// Fired when request manager has successfully parsed a request
-//
--(void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			withMessage:(NSString*)message withInstanceID:(int)instanceID {	
-}
-
-
-// Fired when an error happens during the request
-//
--(void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
-}
-
-
-
-
-
 
 #pragma mark -
 #pragma mark Notification handlers

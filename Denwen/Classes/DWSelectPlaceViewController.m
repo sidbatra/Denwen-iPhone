@@ -58,7 +58,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	_followedRequestManager = [[DWRequestManager alloc] initWithDelegate:self andInstanceID:0];
 
 	self.title = @"Your Places";
 	self.searchDisplayController.searchBar.placeholder = @"Search Your Places";
@@ -238,7 +237,7 @@
 //
 - (void)dealloc {
 	
-	[_followedRequestManager release];
+	//[_followedRequestManager release];
 	
 	_selectPlaceDelegate = nil;
 	
