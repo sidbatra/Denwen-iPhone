@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import "DWURLConnection.h"
 #import "UIImage+ImageProcessing.h"
 #import "Constants.h"
 
 
 
-@interface DWAttachment : NSObject <DWURLConnectionDelegate> {
+@interface DWAttachment : NSObject {
 	NSString *_previewUrl;
 	NSString *_fileUrl;
 	
@@ -25,8 +24,6 @@
 	BOOL _isDownloading;
 	
 	UIImage *_previewImage;
-	
-	DWURLConnection *_connection;
 }
 
 
@@ -36,10 +33,6 @@
 - (void)populate:(NSDictionary*)result;
 - (void)update:(NSDictionary*)objectJSON;
 - (void)startPreviewDownload;
-
-//Caching helper functions
-- (NSString*)uniqueKey;
-- (NSString*)uniquePreviewKey;
 
 //Preview deciding functions
 - (BOOL)hasRemoteImagePreview;
@@ -52,8 +45,8 @@
 
 
 //Properties
+@property (nonatomic,readonly) NSInteger databaseID;
 @property (retain) UIImage *previewImage;
-@property (retain) DWURLConnection *connection;
 @property (copy) NSString *fileUrl;
 @property (copy) NSString *previewUrl;
 

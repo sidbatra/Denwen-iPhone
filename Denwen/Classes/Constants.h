@@ -360,7 +360,6 @@ extern NSString * const N_PLACE_UNFOLLOWED;
 extern NSString * const N_NEW_APPLICATION_BADGE_NUMBER;
 extern NSString * const N_FACEBOOK_URL_OPENED;
 extern NSString * const N_DENWEN_URL_OPENED;
-extern NSString * const N_ATTACHMENT_PREVIEW_DONE;
 extern NSString * const N_USER_LOGS_IN;
 extern NSString * const N_USER_LOGS_OUT;
 extern NSString * const N_NEW_ITEM_CREATED;

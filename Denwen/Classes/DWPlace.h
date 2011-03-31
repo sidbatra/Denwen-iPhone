@@ -11,7 +11,6 @@
 
 
 #import "DWPoolObject.h"
-#import "DWRequestsManager.h"
 #import "UIImage+ImageProcessing.h"
 #import "Constants.h"
 

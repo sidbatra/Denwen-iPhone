@@ -49,9 +49,9 @@
 		
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(attachmentPreviewDone:) 
-													 name:N_ATTACHMENT_PREVIEW_DONE
-												   object:nil];	
+												 selector:@selector(imageLoaded:) 
+													 name:kNImgMediumAttachmentLoaded
+												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(smallUserImageLoaded:) 
@@ -175,6 +175,24 @@
 }
 
 
+- (void)imageLoaded:(NSNotification*)notification {
+	if(_tableViewUsage != TABLE_VIEW_AS_DATA || ![_itemManager totalItems])
+		return;
+	
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+	
+	for (NSIndexPath *indexPath in visiblePaths) {            
+		DWItem *item = [_itemManager getItem:indexPath.row];
+		
+		if(item.attachment.databaseID == resourceID) {
+			DWItemFeedCell *cell = (DWItemFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+			[cell.attachmentImage setBackgroundImage:[info objectForKey:kKeyImage] forState:UIControlStateNormal];	
+		}
+	}	
+}
 
 
 // Fired when an attachment preview is downloaded

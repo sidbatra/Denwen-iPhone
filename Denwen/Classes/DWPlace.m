@@ -7,6 +7,8 @@
 //
 
 #import "DWPlace.h"
+#import "DWRequestsManager.h"
+
 
 
 @implementation DWPlace

@@ -457,7 +457,6 @@ NSString * const N_PLACE_UNFOLLOWED = @"PlaceUnfollowed";
 NSString * const N_NEW_APPLICATION_BADGE_NUMBER = @"NewApplicationBadgeNumber";
 NSString * const N_FACEBOOK_URL_OPENED = @"FacebookURLOpened";
 NSString * const N_DENWEN_URL_OPENED = @"DenwenURLOpened";
-NSString * const N_ATTACHMENT_PREVIEW_DONE = @"AttachmentPreviewDone";
 NSString * const N_USER_LOGS_IN = @"UserLogsIn";
 NSString * const N_USER_LOGS_OUT = @"UserLogsOut";
 NSString * const N_NEW_ITEM_CREATED = @"NewItemCreated";

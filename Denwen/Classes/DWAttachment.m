@@ -7,11 +7,12 @@
 //
 
 #import "DWAttachment.h"
+#import "DWRequestsManager.h"
 
 
 @implementation DWAttachment
 
-@synthesize previewImage=_previewImage,connection=_connection,fileUrl=_fileUrl,previewUrl=_previewUrl;
+@synthesize previewImage=_previewImage,fileUrl=_fileUrl,previewUrl=_previewUrl,databaseID=_databaseID;
 
 
 
@@ -26,9 +27,19 @@
 	
 	if(self != nil) {		
 		_isDownloading = NO;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageLoaded:) 
+													 name:kNImgMediumAttachmentLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageError:) 
+													 name:kNImgMediumAttachmentError
+													object:nil];
 	}
 	
-	return self;  
+	return self; 
 }
 
 
@@ -64,6 +75,18 @@
 	}
 }
 
+- (void)appplyNewPreviewImage:(UIImage*)image {
+	
+	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+						   image										,kKeyImage,
+						   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgMediumAttachmentLoaded
+														object:nil
+													  userInfo:info];
+}
+
 
 //Start the attachment preview download
 //
@@ -73,15 +96,14 @@
 		if(_isProcessed || [self isImage]) {
 			 _isDownloading = YES;
 			
-			DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self];
-			self.connection = tempConnection;
-			[tempConnection release];
+			[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.previewUrl
+													 withResourceID:self.databaseID
+												successNotification:kNImgMediumAttachmentLoaded
+												  errorNotification:kNImgMediumAttachmentError];
 			
-			[self.connection fetchData:self.previewUrl withKey:[self uniquePreviewKey] withCache:YES];
 		}
 		else {
-			self.previewImage = [UIImage imageNamed:VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME];
-			[[NSNotificationCenter defaultCenter] postNotificationName:N_ATTACHMENT_PREVIEW_DONE object:self];	
+			[self appplyNewPreviewImage:[UIImage imageNamed:VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME]];
 		}
 
 	}
@@ -89,58 +111,28 @@
 }
 
 
-
-#pragma mark -
-#pragma mark URLConnection delegate
-
-
-// Error while downloading data from the server. This also fires a delegate 
-// error method which is handled by DWItem. 
-//
-- (void)errorLoadingData:(NSError *)error forInstanceID:(NSInteger)instanceID {
-	self.connection = nil;
+- (void)imageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	self.previewImage = [info objectForKey:kKeyImage];		
 	_isDownloading = NO;
-	//Handle or log error	
 }
 
 
-// If the data is successfully downloaded from the server. This also fires a 
-// delegate success method which is handled by DWItem.
-//
-- (void)finishedLoadingData:(NSMutableData *)data forInstanceID:(NSInteger)instanceID {	
+- (void)imageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 	
-	UIImage *image = [[UIImage alloc] initWithData:data];
-
-	self.previewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_ATTACHMENT_IMAGE, SIZE_ATTACHMENT_IMAGE)];
-
-	[image release];
+	if(resourceID != self.databaseID)
+		return;
 	
 	_isDownloading = NO;
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:N_ATTACHMENT_PREVIEW_DONE object:self];	
-	self.connection = nil;
 }
 
-
-
-#pragma mark -
-#pragma mark Caching helper functions
-
-
-// Create and return a unique key for the primary file
-//
-- (NSString*)uniqueKey {
-	NSArray *listItems = [self.fileUrl componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
-}
-
-
-// Create and return a unique key for the preview of the file
-//
-- (NSString*)uniquePreviewKey {
-	NSArray *listItems = [self.previewUrl componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
-}
 
 
 
@@ -185,12 +177,8 @@
 // Usual Memory Cleanup
 // 
 -(void)dealloc{
-	
-	if(self.connection) {
-		[self.connection cancel];
-		self.connection = nil;
-	}
-		
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
 	self.fileUrl = nil;
 	self.previewUrl = nil;
 	self.previewImage = nil;
