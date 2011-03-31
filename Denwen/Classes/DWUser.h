@@ -10,7 +10,6 @@
 
 
 #import "DWPoolObject.h"
-#import "DWURLConnection.h"
 #import "UIImage+ImageProcessing.h"
 
 #import "NSString+Helpers.h"
@@ -18,7 +17,7 @@
 
 
 
-@interface DWUser : DWPoolObject <DWURLConnectionDelegate> {
+@interface DWUser : DWPoolObject {
 	NSString *_firstName;
 	NSString *_lastName;
 	NSString *_email;
@@ -36,9 +35,6 @@
 	BOOL _isMediumDownloading;
 	BOOL _hasPhoto;
 	BOOL _isProcessed;
-	
-	DWURLConnection *_smallConnection;
-	DWURLConnection *_mediumConnection;
 }
 
 
@@ -62,10 +58,8 @@
 - (void)removeFromDisk;
 - (void)print;
 
-//Caching helper functions
-- (NSString*)smallUniqueKey;
-- (NSString*)mediumUniqueKey;
-- (NSString*)largeUniqueKey;
+- (BOOL)isCurrentUser;
+
 
 //View helper functions
 - (NSString*)fullName;
@@ -83,9 +77,6 @@
 
 @property (retain) UIImage *smallPreviewImage;
 @property (retain) UIImage *mediumPreviewImage;
-
-@property (retain) DWURLConnection *smallConnection;
-@property (retain) DWURLConnection *mediumConnection;
 
 
 @property (readonly) BOOL hasPhoto;

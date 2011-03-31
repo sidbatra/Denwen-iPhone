@@ -14,8 +14,6 @@ static NSInteger const kCacheTimeout = 15 * 24 * 60 * 60;
 //----------------------------------------------------------------------------------------------------
 @implementation DWImageRequest
 
-@synthesize imageType	= _imageType;
-
 
 //----------------------------------------------------------------------------------------------------
 - (void)processResponse:(NSString*)responseString andResponseData:(NSData*)responseData {
@@ -24,7 +22,6 @@ static NSInteger const kCacheTimeout = 15 * 24 * 60 * 60;
 	 */
 	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
 							  [NSNumber numberWithInt:self.resourceID]	,kKeyResourceID,
-							  [NSNumber numberWithInt:self.imageType]	,kKeyImageType,
 							  [UIImage imageWithData:responseData]		,kKeyImage,
 							  nil];
 		
@@ -40,7 +37,6 @@ static NSInteger const kCacheTimeout = 15 * 24 * 60 * 60;
 	
 	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
 						  [NSNumber numberWithInt:self.resourceID]		,kKeyResourceID,
-						  [NSNumber numberWithInt:self.imageType]		,kKeyImageType,
 						  theError										,kKeyError,
 						  nil];
 	
@@ -55,16 +51,17 @@ static NSInteger const kCacheTimeout = 15 * 24 * 60 * 60;
 #pragma mark -
 #pragma mark Static
 
+
 //----------------------------------------------------------------------------------------------------
 + (id)requestWithRequestURL:(NSString*)requestURL 
 				 resourceID:(NSInteger)theResourceID
-				  imageType:(NSInteger)theImageType {
+		successNotification:(NSString*)theSuccessNotification
+		  errorNotification:(NSString*)theErrorNotification {
 	
-	DWImageRequest *imageRequest	= [super requestWithRequestURL:requestURL
-											   successNotification:kNImageLoaded
-												 errorNotification:kNImageError
-														resourceID:theResourceID];
-	imageRequest.imageType			= theImageType;
+	DWImageRequest *imageRequest = [super requestWithRequestURL:requestURL
+											successNotification:theSuccessNotification
+											  errorNotification:theErrorNotification
+													 resourceID:theResourceID];
 	
 	[imageRequest setDownloadCache:[ASIDownloadCache sharedCache]];
 	[imageRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];

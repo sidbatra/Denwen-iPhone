@@ -11,21 +11,14 @@
  * Handles image download requests
  */
 @interface DWImageRequest : DWRequest {
-	NSInteger _imageType;
 }
 
 /**
- * Classification of the image type
- */
-@property (nonatomic,assign) NSInteger imageType;
-
-
-/**
- * Use the requestWithRequestURL method in the parent class
- * and set the given imageType and ownerID via properties
+ * Use the requestWithRequestURL in the parent and customize cache settings
  */
 + (id)requestWithRequestURL:(NSString*)requestURL 
 				 resourceID:(NSInteger)theResourceID
-				  imageType:(NSInteger)theImageType;
+		successNotification:(NSString*)theSuccessNotification
+		  errorNotification:(NSString*)theErrorNotification;
 
 @end

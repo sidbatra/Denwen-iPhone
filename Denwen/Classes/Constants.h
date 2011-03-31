@@ -29,7 +29,6 @@ extern NSString* const kKeyErrorMessage;
 extern NSString* const kKeyErrorMessages;
 extern NSString* const kKeyImage;
 extern NSString* const kKeyResourceID;
-extern NSString* const kKeyImageType;
 extern NSString* const kKeyPlaces;
 extern NSString* const kKeyPlace;
 extern NSString* const kKeyFilename;
@@ -67,23 +66,27 @@ extern NSString* const kNNewUserCreated;
 extern NSString* const kNNewUserError;
 extern NSString* const kNNewSessionCreated;
 extern NSString* const kNNewSessionError;
-extern NSString* const kNImageLoaded;
-extern NSString* const kNImageError;
 extern NSString* const kNS3UploadDone;
 extern NSString* const kNS3UploadError;
+extern NSString* const kNImgSmallUserLoaded;
+extern NSString* const kNImgSmallUserError;
+extern NSString* const kNImgMediumUserLoaded;
+extern NSString* const kNImgMediumUserError;
+extern NSString* const kNImgLargeUserLoaded;
+extern NSString* const kNImgLargeUserError;
+extern NSString* const kNImgSmallPlaceLoaded;
+extern NSString* const kNImgSmallPlaceError;
+extern NSString* const kNImgMediumPlaceLoaded;
+extern NSString* const kNImgMediumPlaceError;
+extern NSString* const kNImgLargePlaceLoaded;
+extern NSString* const kNImgLargePlaceError;
+extern NSString* const kNImgMediumAttachmentLoaded;
+extern NSString* const kNImgMediumAttachmentError;
+extern NSString* const kNImgLargeAttachmentLoaded;
+extern NSString* const kNImgLargeAttachmentError;
+extern NSString* const kNImgActualAttachmentLoaded;
+extern NSString* const kNImgActualAttachmentError;
 
-/**
- * Image types 
- */
-extern NSInteger const kImgSmallUser;
-extern NSInteger const kImgMediumUser;
-extern NSInteger const kImgLargeUser;
-extern NSInteger const kImgSmallPlace;
-extern NSInteger const kImgMediumPlace;
-extern NSInteger const kImgLargePlace;
-extern NSInteger const kImgMediumAttachment;
-extern NSInteger const kImgLargeAttachment;
-extern NSInteger const kImgActualAttachment;
 
 /**
  * Different use cases for UITableVIiew
@@ -365,8 +368,6 @@ extern NSString * const N_NEW_PLACE_CREATED;
 extern NSString * const N_SMALL_PLACE_PREVIEW_DONE;
 extern NSString * const N_MEDIUM_PLACE_PREVIEW_DONE;
 extern NSString * const N_LARGE_PLACE_PREVIEW_DONE;
-extern NSString * const N_SMALL_USER_PREVIEW_DONE;
-extern NSString * const N_MEDIUM_USER_PREVIEW_DONE;
 
 
 @interface Constants : NSObject {

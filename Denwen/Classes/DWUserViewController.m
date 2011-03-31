@@ -49,10 +49,7 @@
 
 		[self checkCurrentUser];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(mediumUserPreviewDone:) 
-													 name:N_MEDIUM_USER_PREVIEW_DONE
-												   object:nil];
+	
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newItemCreated:) 
 													 name:N_NEW_ITEM_CREATED 
@@ -91,6 +88,11 @@
 												 selector:@selector(imageUploadError:) 
 													 name:kNS3UploadError
 												   object:nil];	
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(mediumUserImageLoaded:) 
+													 name:kNImgMediumUserLoaded
+												   object:nil];
 	}
 	return self;
 }
@@ -271,28 +273,32 @@
 
 
 
-
-
 #pragma mark -
 #pragma mark Notification handlers
 
-// Fired when a place has downloaded a medium preview image
-//
-- (void)mediumUserPreviewDone:(NSNotification*)notification {
+- (void)mediumUserImageLoaded:(NSNotification*)notification {
 	
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA && _tableViewUsage != TABLE_VIEW_AS_PROFILE_MESSAGE)
-		return;
-	
-	DWUser *userWithImage = (DWUser*)[notification object];
-	
-	if(_user == userWithImage) {
-		NSIndexPath *userIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+	if(_tableViewUsage != TABLE_VIEW_AS_DATA && 
+	   _tableViewUsage != TABLE_VIEW_AS_PROFILE_MESSAGE) {
 		
-		DWUserCell *cell = (DWUserCell*)[self.tableView cellForRowAtIndexPath:userIndexPath];
-		[cell setMediumPreviewUserImage:userWithImage.mediumPreviewImage];
-	}	
+		return;
+	}
 	
+	NSDictionary *info	= [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != _user.databaseID) {
+		
+		return;
+	}
+	
+	
+	NSIndexPath *userIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+	
+	DWUserCell *cell = (DWUserCell*)[self.tableView cellForRowAtIndexPath:userIndexPath];
+	[cell setMediumPreviewUserImage:[info objectForKey:kKeyImage]];
 }
+
+
 
 
 // New item created

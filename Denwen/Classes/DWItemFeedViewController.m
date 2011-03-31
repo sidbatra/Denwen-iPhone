@@ -7,6 +7,8 @@
 //
 
 #import "DWItemFeedViewController.h"
+#import "DWRequestsManager.h"
+
 
 //Declarations for private methods
 //
@@ -49,14 +51,16 @@
 												 selector:@selector(smallPlacePreviewDone:) 
 													 name:N_SMALL_PLACE_PREVIEW_DONE
 												   object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(smallUserPreviewDone:) 
-													 name:N_SMALL_USER_PREVIEW_DONE
-												   object:nil];	
+		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(attachmentPreviewDone:) 
 													 name:N_ATTACHMENT_PREVIEW_DONE
-												   object:nil];			
+												   object:nil];	
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(smallUserImageLoaded:) 
+													 name:kNImgSmallUserLoaded
+												   object:nil];
 	}
 	return self;
 }
@@ -150,24 +154,22 @@
 }
 
 
-
-// Fired when a small user preview image has downloaded
-//
-- (void)smallUserPreviewDone:(NSNotification*)notification {
+- (void)smallUserImageLoaded:(NSNotification*)notification {
 	
 	if(_tableViewUsage != TABLE_VIEW_AS_DATA || ![_itemManager totalItems])
 		return;
 	
-	DWUser *user = (DWUser*)[notification object];
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 	
 	NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
 	
 	for (NSIndexPath *indexPath in visiblePaths) {            
 		DWItem *item = [_itemManager getItem:indexPath.row];
 		
-		if(item.user == user) {
+		if(item.user.databaseID == resourceID) {
 			DWItemFeedCell *cell = (DWItemFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-			cell.userImage.image = user.smallPreviewImage;
+			cell.userImage.image = [info objectForKey:kKeyImage];
 		}
 	}	
 }

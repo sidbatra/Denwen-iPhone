@@ -8,6 +8,8 @@
 
 #import "DWUser.h"
 #import "DWSession.h"
+#import "DWRequestsManager.h"
+
 
 
 @implementation DWUser
@@ -15,7 +17,7 @@
 
 @synthesize firstName=_firstName,lastName=_lastName,email=_email,encryptedPassword=_encryptedPassword,
 			smallURL=_smallURL,mediumURL=_mediumURL,largeURL=_largeURL,smallPreviewImage=_smallPreviewImage,
-			mediumPreviewImage=_mediumPreviewImage,smallConnection=_smallConnection,mediumConnection=_mediumConnection,
+			mediumPreviewImage=_mediumPreviewImage,
 			hasPhoto=_hasPhoto,twitterOAuthData=_twitterOAuthData,
 			facebookAccessToken=_facebookAccessToken;
 
@@ -33,6 +35,27 @@
 	if(self != nil) {
 		_isSmallDownloading = NO;
 		_isMediumDownloading = NO;		
+		
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(smallImageLoaded:) 
+													 name:kNImgSmallUserLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(smallImageError:) 
+													 name:kNImgSmallUserError
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(mediumImageLoaded:) 
+													 name:kNImgMediumUserLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(mediumImageError:) 
+													 name:kNImgMediumUserError
+												   object:nil];
 	}
 	
 	return self;  
@@ -41,6 +64,35 @@
 
 #pragma mark -
 #pragma mark Server interaction methods
+
+- (BOOL)isCurrentUser {
+	return [[DWSession sharedDWSession] isActive] && 
+				[DWSession sharedDWSession].currentUser.databaseID == self.databaseID;
+}
+
+- (void)applyNewSmallImage:(UIImage*)image {
+	
+	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+						   image										,kKeyImage,
+						   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgSmallUserLoaded
+														object:nil
+													  userInfo:info];
+}
+
+- (void)applyNewMediumImage:(UIImage*)image {
+	
+	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+						   image										,kKeyImage,
+						   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgMediumUserLoaded
+														object:nil
+													  userInfo:info];
+}
 
 
 // Populate user attributes from JSON object
@@ -115,11 +167,8 @@
 // Resize and update preview images from the given image
 //
 - (void)updatePreviewImages:(UIImage*)image {
-	self.smallPreviewImage = [image resizeTo:CGSizeMake(SIZE_USER_SMALL_IMAGE, SIZE_USER_SMALL_IMAGE)];
-	self.mediumPreviewImage = [image resizeTo:CGSizeMake(SIZE_USER_MEDIUM_IMAGE, SIZE_USER_MEDIUM_IMAGE)];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_USER_PREVIEW_DONE object:self];
-	[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_USER_PREVIEW_DONE object:self];
+	[self applyNewSmallImage:image];
+	[self applyNewMediumImage:image];
 }
 
 
@@ -127,18 +176,15 @@
 //
 - (void)startSmallPreviewDownload {
 	if(_hasPhoto && !_isSmallDownloading && !self.smallPreviewImage) {
-		_isSmallDownloading = true;
+		_isSmallDownloading = YES;
 		
-		DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self withInstanceID:0];
-		self.smallConnection = tempConnection;
-		[tempConnection release];
-		
-		[self.smallConnection fetchData:_smallURL withKey:[self smallUniqueKey] withCache:YES];
+		[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.smallURL
+												 withResourceID:self.databaseID
+											successNotification:kNImgSmallUserLoaded
+											  errorNotification:kNImgSmallUserError];
 	}
 	else if(!_hasPhoto){ 
-		self.smallPreviewImage = [UIImage imageNamed:USER_SMALL_PLACEHOLDER_IMAGE_NAME];
-		
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_USER_PREVIEW_DONE object:self];
+		[self applyNewSmallImage:[UIImage imageNamed:USER_SMALL_PLACEHOLDER_IMAGE_NAME]];
 	}
 }
 
@@ -147,21 +193,20 @@
 //
 - (void)startMediumPreviewDownload {
 	if(_hasPhoto && !_isMediumDownloading && !self.mediumPreviewImage) {
-		_isMediumDownloading = true;
+		_isMediumDownloading = YES;
 		
-		DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self withInstanceID:1];
-		self.mediumConnection = tempConnection;
-		[tempConnection release];
-		
-		[self.mediumConnection fetchData:_mediumURL withKey:[self mediumUniqueKey] withCache:YES];
+		[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.mediumURL 
+												 withResourceID:self.databaseID
+		 									successNotification:kNImgMediumUserLoaded
+											  errorNotification:kNImgMediumUserError];
 	}
 	else if(!_hasPhoto){ 
-		if([[DWSession sharedDWSession] isActive] && [DWSession sharedDWSession].currentUser.databaseID == self.databaseID)
-			self.mediumPreviewImage = [UIImage imageNamed:USER_SIGNED_IN_MEDIUM_PLACEHOLDER_IMAGE_NAME];
-		else	
-			self.mediumPreviewImage = [UIImage imageNamed:USER_MEDIUM_PLACEHOLDER_IMAGE_NAME];
-		
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_USER_PREVIEW_DONE object:self];
+		if([self isCurrentUser]) {
+			[self applyNewMediumImage:[UIImage imageNamed:USER_SIGNED_IN_MEDIUM_PLACEHOLDER_IMAGE_NAME]];
+		}
+		else {
+			[self applyNewMediumImage:[UIImage imageNamed:USER_MEDIUM_PLACEHOLDER_IMAGE_NAME]];
+		}
 	}
 }
 
@@ -274,35 +319,6 @@
 
 
 #pragma mark -
-#pragma mark Caching helper functions
-
-
-// Create and return a unique key for the small file
-//
-- (NSString*)smallUniqueKey {
-	NSArray *listItems = [self.smallURL componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
-}
-
-
-// Create and return a unique key for the medium file
-//
-- (NSString*)mediumUniqueKey {
-	NSArray *listItems = [self.mediumURL componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
-}
-
-
-// Create and return a unique key for the large file
-//
-- (NSString*)largeUniqueKey {
-	NSArray *listItems = [self.largeURL componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
-}
-
-
-
-#pragma mark -
 #pragma mark View helper functions
 
 
@@ -315,51 +331,50 @@
 
 
 #pragma mark -
-#pragma mark URLConnection delegate
+#pragma mark Notifications
 
+- (void)mediumImageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
 
-// Error while downloading data from the server. This also fires a delegate 
-// error method which is handled by DWItem. 
-//
-- (void)errorLoadingData:(NSError *)error forInstanceID:(NSInteger)instanceID {
-
-	//TODO: Handle or log image downloading error
-	if(instanceID == 0) {
-		self.smallConnection = nil;
-		_isSmallDownloading = NO;
-	}
-	else {
-		self.mediumConnection = nil;
-		_isMediumDownloading = NO;
-	}
+	self.mediumPreviewImage = [info objectForKey:kKeyImage];		
+	_isMediumDownloading = NO;
 }
 
-
-// If the data is successfully downloaded from the server. This also fires a 
-// delegate success method which is handled by DWItem.
-//
-- (void)finishedLoadingData:(NSMutableData *)data forInstanceID:(NSInteger)instanceID {	
-
-	UIImage *image = [[UIImage alloc] initWithData:data];
+- (void)mediumImageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 	
-	if(instanceID==0) {
-		self.smallConnection = nil;
-		
-		self.smallPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_USER_SMALL_IMAGE, SIZE_USER_SMALL_IMAGE)];
-		
-		_isSmallDownloading = NO;
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_USER_PREVIEW_DONE object:self];
-	}
-	else {
-		self.mediumConnection = nil;
-		
-		self.mediumPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_USER_MEDIUM_IMAGE, SIZE_USER_MEDIUM_IMAGE)];		
-		_isMediumDownloading = NO;
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_USER_PREVIEW_DONE object:self];
-	}
+	if(resourceID != self.databaseID)
+		return;
 	
-	[image release];
+	_isMediumDownloading = NO;
 }
+
+- (void)smallImageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	self.smallPreviewImage = [info objectForKey:kKeyImage];		
+	_isSmallDownloading = NO;
+}
+
+- (void)smallImageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	_isSmallDownloading = NO;
+}
+
 
 
 
@@ -375,26 +390,16 @@
 		self.smallPreviewImage = nil;
 		self.mediumPreviewImage = nil;
 	}
-	
 }
 
 
 // Usual Memory Cleanup
 // 
 -(void)dealloc{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	//NSLog(@"user released %d",_databaseID);
-	
-	if(self.smallConnection) {
-		[self.smallConnection cancel];
-		self.smallConnection = nil;
-	}
-	
-	if(self.mediumConnection) {
-		[self.mediumConnection cancel];
-		self.mediumConnection = nil;
-	}
-	
+
 	
 	self.firstName = nil;
 	self.lastName = nil;

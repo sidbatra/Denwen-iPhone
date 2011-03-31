@@ -32,12 +32,12 @@
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(imageLoaded:) 
-													 name:kNImageLoaded
+													 name:kNImgActualAttachmentLoaded
 												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(imageError:) 
-													 name:kNImageError
+													 name:kNImgActualAttachmentError
 												   object:nil];
 	}
     
@@ -50,8 +50,10 @@
 - (void)viewDidLoad {
 	[DWGUIManager showSpinnerInNav:self];
 	[[DWRequestsManager sharedDWRequestsManager] getImageAt:url 
-													 ofType:kImgActualAttachment 
-											 withResourceID:key];
+											 withResourceID:key
+										successNotification:kNImgActualAttachmentLoaded
+										  errorNotification:kNImgActualAttachmentError];
+	 
 }
 
 
@@ -92,26 +94,21 @@
 }
 
 
-
 - (void)imageLoaded:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	NSInteger imageType		= [[info objectForKey:kKeyImageType] integerValue];
+	NSDictionary *info		= [notification userInfo];
 	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 		
-	if(imageType == kImgActualAttachment && resourceID == key) {
+	if(resourceID == key) {
 		[(DWImageView*)self.view setupImageView:(UIImage*)[info objectForKey:kKeyImage]];
 		[DWGUIManager hideSpinnnerInNav:self];
 	}
 }
 
 - (void)imageError:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	NSInteger imageType		= [[info objectForKey:kKeyImageType] integerValue];
+	NSDictionary *info		= [notification userInfo];
 	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 		
-	if(imageType == kImgActualAttachment && resourceID == key) {
+	if(resourceID == key) {
 		[DWGUIManager hideSpinnnerInNav:self];
 	}
 }

@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-//#define PRODUCTION 1 
+#define PRODUCTION 1 
 
 
 #import "Constants.h"
@@ -39,7 +39,6 @@ NSString* const kKeyErrorMessage	= @"errorMessage";
 NSString* const kKeyErrorMessages	= @"error_messages";
 NSString* const kKeyImage			= @"image";
 NSString* const kKeyResourceID		= @"resourceID";
-NSString* const kKeyImageType		= @"imageType";
 NSString* const kKeyPlaces			= @"places";
 NSString* const kKeyPlace			= @"place";
 NSString* const kKeyFilename		= @"filename";
@@ -75,10 +74,26 @@ NSString* const kNNewUserCreated			= @"NNewUserCreated";
 NSString* const kNNewUserError				= @"NNewUserError";	
 NSString* const kNNewSessionCreated			= @"NNewSessionCreated";
 NSString* const kNNewSessionError			= @"NNewSessionError";
-NSString* const kNImageLoaded				= @"NImageLoaded";
-NSString* const kNImageError				= @"NImageError";
 NSString* const kNS3UploadDone				= @"NS3UploadDone";
 NSString* const kNS3UploadError				= @"NS3UploadError";
+NSString* const kNImgSmallUserLoaded		= @"NImgSmallUserLoaded";
+NSString* const kNImgSmallUserError			= @"NImgSmallUserError";
+NSString* const kNImgMediumUserLoaded		= @"NImgMediumUserLoaded";
+NSString* const kNImgMediumUserError		= @"NImgMediumUserError";
+NSString* const kNImgLargeUserLoaded		= @"NImgLargeUserLoaded";
+NSString* const kNImgLargeUserError			= @"NImgLargeUserError";
+NSString* const kNImgSmallPlaceLoaded		= @"NImgSmallPlaceLoaded";
+NSString* const kNImgSmallPlaceError		= @"NImgSmallPlaceError";
+NSString* const kNImgMediumPlaceLoaded		= @"NImgMediumPlaceLoaded";
+NSString* const kNImgMediumPlaceError		= @"NImgMediumPlaceError";
+NSString* const kNImgLargePlaceLoaded		= @"NImgLargePlaceLoaded";
+NSString* const kNImgLargePlaceError		= @"NImgLargePlaceError";
+NSString* const kNImgMediumAttachmentLoaded	= @"NImgMediumAttachmentLoaded";
+NSString* const kNImgMediumAttachmentError	= @"NImgMediumAttachmentError";
+NSString* const kNImgLargeAttachmentLoaded	= @"NImgLargeAttachmentLoaded";
+NSString* const kNImgLargeAttachmentError	= @"NImgLargeAttachmentError";
+NSString* const kNImgActualAttachmentLoaded	= @"NImgActualAttachmentLoaded";
+NSString* const kNImgActualAttachmentError	= @"NImgActualAttachmentError";
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kImgSmallUser			= 0;
@@ -450,8 +465,6 @@ NSString * const N_NEW_PLACE_CREATED = @"NewPlaceCreated";
 NSString * const N_SMALL_PLACE_PREVIEW_DONE = @"SmallPlacePreviewDone";
 NSString * const N_MEDIUM_PLACE_PREVIEW_DONE = @"MediumPlacePreviewDone";
 NSString * const N_LARGE_PLACE_PREVIEW_DONE = @"LargePlacePreviewDone";
-NSString * const N_SMALL_USER_PREVIEW_DONE = @"SmallUserPreviewDone";
-NSString * const N_MEDIUM_USER_PREVIEW_DONE = @"MediumUserPreviewDone";
 
 
 @implementation Constants

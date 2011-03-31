@@ -153,11 +153,13 @@
 						   sentTo:(NSInteger)sentTo;
 
 /**
- * Download the image from the given URL
+ * Download the image from the given URL and fire the given
+ * notifications
  */
 - (void)getImageAt:(NSString*)url 
-			ofType:(NSInteger)imageType 
-	withResourceID:(NSInteger)resourceID;
+	withResourceID:(NSInteger)resourceID
+successNotification:(NSString*)theSuccessNotification
+ errorNotification:(NSString*)theErrorNotification;
 
 /**
  * Upload an image to a S3 folder. Method returns

@@ -418,12 +418,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 
 //----------------------------------------------------------------------------------------------------
 - (void)getImageAt:(NSString*)url 
-			ofType:(NSInteger)imageType 
-	withResourceID:(NSInteger)resourceID {
+	withResourceID:(NSInteger)resourceID
+successNotification:(NSString*)theSuccessNotification
+ errorNotification:(NSString*)theErrorNotification {
 	
 	DWImageRequest *request = [DWImageRequest requestWithRequestURL:url 
 														 resourceID:resourceID
-														  imageType:imageType];
+												successNotification:theSuccessNotification
+												  errorNotification:theErrorNotification];
 	[request setDelegate:self];
 	[request setRequestMethod:kGet];
 	[request startAsynchronous];
