@@ -13,7 +13,7 @@
 #import "DWAttachment.h"
 #import "DWPlace.h"
 #import "DWUser.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 
 @protocol DWItemDelegate;

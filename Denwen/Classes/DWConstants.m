@@ -6,7 +6,7 @@
 #define PRODUCTION 1 
 
 
-#import "Constants.h"
+#import "DWConstants.h"
 
 
 #ifdef PRODUCTION
@@ -116,6 +116,8 @@ NSInteger const kTableViewAsProfileMessage	= 3;
 NSInteger const kSegmentedPlacesViewWidth	= 320;
 NSInteger const kSegmentedPlacesViewHeight	= 44;
 
+//----------------------------------------------------------------------------------------------------
+NSString* const kPlaceListViewControllerNib = @"DWPlaceListViewController";
 
 
 
@@ -345,43 +347,10 @@ NSString * const DENWEN_URL_PREFIX = @"denwen://p/";
 NSString * const FACEBOOK_URL_PREFIX = @"fb";
 
 
-
-
-
-
-// Request types
-NSString * const POST_STRING = @"POST";
-NSString * const GET_STRING = @"GET";
-NSString * const PUT_STRING = @"PUT";
-NSString * const DELETE_STRING = @"DELETE";
-
 // Folders on S3
 NSString * const S3_ITEMS_FOLDER = @"items";
 NSString * const S3_USERS_FOLDER = @"user_photos";
 NSString * const S3_PLACES_FOLDER = @"place_photos";
-
-
-
-
-#ifdef PRODUCTION
-
-// Constants needed in the POST request sent to AWS 
-NSString * const S3_UPLOAD_POLICY = @"eydleHBpcmF0aW9uJzogJzIwMTctMDItMDlUMDU6MDI6MzcuMDAwWicsCiAgICAgICAgJ2NvbmRpdGlvbnMnOiBbCiAgICAgICAgICB7J2J1Y2tldCc6ICdkZW53ZW4nfSwKICAgICAgICAgIHsnYWNsJzogJ3B1YmxpYy1yZWFkJ30sCiAgICAgICAgICBbJ2NvbnRlbnQtbGVuZ3RoLXJhbmdlJywgMCwgNTI0Mjg4MDBdLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcka2V5JywgJyddLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcnLCAnJ10KICAgICAgICBdCiAgICAgIH0=";
-NSString * const S3_UPLOAD_SIGNATURE = @"PG1k3sSsZe6FsxfcnqPobBWHKwc=";
-NSString * const S3_ACCESS_ID = @"AKIAJWYCAWDPAAKLNKSQ";
-NSString * const S3_ACL = @"public-read";
-NSString * const S3_SERVER = @"http://denwen.s3.amazonaws.com/";
-
-#else
-
-// Constants needed in the POST request sent to AWS 
-NSString * const S3_UPLOAD_POLICY = @"eydleHBpcmF0aW9uJzogJzIwMTctMDEtMjRUMDQ6MjA6MjguMDAwWicsCiAgICAgICAgJ2NvbmRpdGlvbnMnOiBbCiAgICAgICAgICB7J2J1Y2tldCc6ICd0ZW53ZW4nfSwKICAgICAgICAgIHsnYWNsJzogJ3B1YmxpYy1yZWFkJ30sCiAgICAgICAgICBbJ2NvbnRlbnQtbGVuZ3RoLXJhbmdlJywgMCwgNTI0Mjg4MDBdLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcka2V5JywgJyddLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcnLCAnJ10KICAgICAgICBdCiAgICAgIH0=";
-NSString * const S3_UPLOAD_SIGNATURE = @"a5XAsCN6H/t4cv5MZ9/vuUOnc5s=";
-NSString * const S3_ACCESS_ID = @"AKIAJWYCAWDPAAKLNKSQ";
-NSString * const S3_ACL = @"public-read";
-NSString * const S3_SERVER = @"http://tenwen.s3.amazonaws.com/";
-
-#endif
 
 
 
@@ -464,6 +433,6 @@ NSString * const N_NEW_PLACE_CREATED = @"NewPlaceCreated";
 
 
 
-@implementation Constants
+@implementation DWConstants
 
 @end

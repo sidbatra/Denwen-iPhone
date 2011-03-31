@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Constants.h"
+#import "DWConstants.h"
 
 
 extern NSInteger followedItemsUnreadCount;

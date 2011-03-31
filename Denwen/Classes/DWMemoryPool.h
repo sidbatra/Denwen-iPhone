@@ -12,7 +12,7 @@
 #import "DWPlace.h"
 #import "DWUser.h"
 #import "DWPoolObject.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 extern NSMutableArray *memoryPool;
 

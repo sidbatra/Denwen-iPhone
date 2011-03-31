@@ -12,7 +12,7 @@
 
 #import "DWPoolObject.h"
 #import "UIImage+ImageProcessing.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 
 @interface DWPlace : DWPoolObject {

@@ -4,17 +4,7 @@
 //	
 
 #import <Foundation/Foundation.h>
-
-// Requests
-#import "DWDenwenRequest.h"
-#import "DWImageRequest.h"
-#import "DWS3Request.h"
-
-#import "NSString+Helpers.h"
-#import "SynthesizeSingleton.h"
-#import "DWSession.h"
-#import "Constants.h"
-
+#import <CoreLocation/CoreLocation.h>
 
 /**
  * DWRequestsManager enables absracted access to all network operations

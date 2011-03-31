@@ -6,9 +6,6 @@
 #import <Foundation/Foundation.h>
 
 #import "ASIFormDataRequest.h"
-#import "ASIDownloadCache.h"
-#import "JSON.h"
-#import "Constants.h"
 
 /**
  * Provides a base class for all requests

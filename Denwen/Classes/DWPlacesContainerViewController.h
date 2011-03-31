@@ -16,7 +16,7 @@
 
 
 #import "DWSession.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 
 @interface DWPlacesContainerViewController : DWContainerViewController {

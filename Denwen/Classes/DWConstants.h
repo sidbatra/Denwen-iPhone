@@ -1,5 +1,5 @@
 //
-//  Constants.h
+//  DWConstants.h
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
@@ -102,7 +102,10 @@ extern NSInteger const kTableViewAsProfileMessage ;
 extern NSInteger const kSegmentedPlacesViewWidth;
 extern NSInteger const kSegmentedPlacesViewHeight;
 
-
+/**
+ *
+ */
+extern NSString* const kPlaceListViewControllerNib;
 
 
 
@@ -282,16 +285,7 @@ extern NSString * const DENWEN_URL_PREFIX;
 extern NSString * const FACEBOOK_URL_PREFIX;
 
 
-extern NSString * const POST_STRING;
-extern NSString * const GET_STRING;
-extern NSString * const PUT_STRING;
-extern NSString * const DELETE_STRING;
 
-extern NSString * const S3_UPLOAD_POLICY;
-extern NSString * const S3_UPLOAD_SIGNATURE;
-extern NSString * const S3_ACCESS_ID;
-extern NSString * const S3_ACL;
-extern NSString * const S3_SERVER;
 
 extern NSString * const S3_ITEMS_FOLDER;
 extern NSString * const S3_USERS_FOLDER;
@@ -367,7 +361,7 @@ extern NSString * const N_NEW_PLACE_CREATED;
 
 
 
-@interface Constants : NSObject {
+@interface DWConstants : NSObject {
 
 }
 

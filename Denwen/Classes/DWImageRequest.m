@@ -5,6 +5,9 @@
 
 #import "DWImageRequest.h"
 
+#import "ASIDownloadCache.h"
+#import "DWConstants.h"
+
 static NSInteger const kCacheTimeout = 15 * 24 * 60 * 60;
 
 

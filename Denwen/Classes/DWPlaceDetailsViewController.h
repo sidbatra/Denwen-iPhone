@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "Constants.h"
+#import "DWConstants.h"
 #import "DDAnnotation.h"
 
 @interface DWPlaceDetailsViewController : UIViewController<MKMapViewDelegate> {

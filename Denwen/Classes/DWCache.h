@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Constants.h"
+#import "DWConstants.h"
 
 @interface DWCache : NSObject {
 }

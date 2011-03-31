@@ -4,11 +4,14 @@
 //
 
 #import "DWPopularPlacesViewController.h"
+#import "DWRequestsManager.h"
+#import "DWConstants.h"
 
 static NSString* const kSearchBarText			= @"Search All Places";
 static NSInteger const kMinimumQueryLength		= 1;
 static NSInteger const kCapacity				= 1;
 static NSInteger const kPlacesIndex				= 0;
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -19,7 +22,7 @@ static NSInteger const kPlacesIndex				= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)delegate {
-	self = [super initWithNibName:@"DWPlaceListViewController" 
+	self = [super initWithNibName:kPlaceListViewControllerNib
 						   bundle:nil 
 					   searchType:NO 
 					 withCapacity:kCapacity 

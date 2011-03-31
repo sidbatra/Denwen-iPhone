@@ -15,7 +15,7 @@
 #import "DWImageView.h"
 #import "DWCache.h"
 #import "DWGUIManager.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 @interface DWImageViewController : UIViewController<UIScrollViewDelegate> {
 	NSString *url;

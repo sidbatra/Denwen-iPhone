@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DWGUIManager.h"
 #import "InteractiveLabel.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 
 @interface DWItemFeedCell : UITableViewCell {

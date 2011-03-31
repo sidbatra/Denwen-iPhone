@@ -3,12 +3,9 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //
 
-
 #import <UIKit/UIKit.h>
 
 #import "DWPlaceListViewController.h"
-#import "DWRequestsManager.h"
-
 
 /**
  * Controller for the popular places view

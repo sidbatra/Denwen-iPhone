@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Constants.h"
+#import "DWConstants.h"
 
 @interface DWLoadingCell : UITableViewCell {
 	UIActivityIndicatorView *spinner;

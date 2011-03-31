@@ -6,7 +6,6 @@
 #import <Foundation/Foundation.h>
 
 #import "DWRequest.h"
-#import "Constants.h"
 
 /**
  * Handles streaming uploads to the S3 server

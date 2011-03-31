@@ -5,7 +5,11 @@
 
 #import "DWRequest.h"
 
+#import "JSON.h"
+#import "DWConstants.h"
+
 static NSInteger const kPersistenceTimeout	= 120;
+
 
 
 //----------------------------------------------------------------------------------------------------

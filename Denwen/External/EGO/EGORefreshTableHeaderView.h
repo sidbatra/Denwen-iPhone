@@ -27,7 +27,7 @@
 #import <UIKit/UIKit.h>
 //#import <QuartzCore/QuartzCore.h>
 
-#import "Constants.h"
+#import "DWConstants.h"
 
 typedef enum{
 	EGOOPullRefreshPulling = 0,

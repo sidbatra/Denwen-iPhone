@@ -5,6 +5,16 @@
 
 #import "DWRequestsManager.h"
 
+// Requests
+#import "DWDenwenRequest.h"
+#import "DWImageRequest.h"
+#import "DWS3Request.h"
+
+#import "NSString+Helpers.h"
+#import "SynthesizeSingleton.h"
+#import "DWSession.h"
+#import "DWConstants.h"
+
 static NSString* const kDenwenProtocol			= @"http://";
 static NSString* const kDenwenRequestURI		= @"%@%@%@&email=%@&password=%@&ff=mobile";
 

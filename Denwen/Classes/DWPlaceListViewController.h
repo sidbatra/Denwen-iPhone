@@ -14,7 +14,7 @@
 #import "DWPlaceFeedCell.h"
 #import "DWLoadingCell.h"
 #import "DWMessageCell.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 #import "EGORefreshTableHeaderView.h"
 

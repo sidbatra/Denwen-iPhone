@@ -5,6 +5,8 @@
 
 #import "DWS3Request.h"
 
+#import "DWConstants.h"
+
 static NSInteger const kRandomStringLength	= 20;
 static NSInteger const kRandomStringBase	= 10;
 

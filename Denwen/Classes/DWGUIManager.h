@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-#import "Constants.h"
+#import "DWConstants.h"
 
 @interface DWGUIManager : NSObject {
 	

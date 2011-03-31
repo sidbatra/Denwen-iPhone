@@ -12,7 +12,7 @@
 
 
 #import "DWSession.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 
 @interface DWUserContainerViewController : DWContainerViewController {
