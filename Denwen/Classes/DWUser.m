@@ -94,7 +94,6 @@
 													  userInfo:info];
 }
 
-
 // Populate user attributes from JSON object
 // parsed into a NSDictionary object
 //

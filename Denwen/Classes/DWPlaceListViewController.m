@@ -49,9 +49,10 @@
 		[self resetPagination];
 		_tableViewUsage = TABLE_VIEW_AS_SPINNER;
 				
+		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(smallPlacePreviewDone:) 
-													 name:N_SMALL_PLACE_PREVIEW_DONE
+												 selector:@selector(smallPlaceImageLoaded:) 
+													 name:kNImgSmallPlaceLoaded
 												   object:nil];
 	}
 	return self;
@@ -229,6 +230,41 @@
 
 #pragma mark -
 #pragma mark Notification handlers
+
+
+- (void)smallPlaceImageLoaded:(NSNotification*)notification {
+	
+	if(_tableViewUsage != TABLE_VIEW_AS_DATA || !_isLoadedOnce)
+		return;
+	
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+
+	NSArray *visiblePaths = self.searchDisplayController.isActive ? 
+	[self.searchDisplayController.searchResultsTableView indexPathsForVisibleRows] :
+	[self.tableView indexPathsForVisibleRows];
+	
+	for (NSIndexPath *indexPath in visiblePaths) {            
+		DWPlace *place = self.searchDisplayController.isActive ? 
+		[_placeManager getFilteredPlace:indexPath.row] :
+		[_placeManager getPlaceAtRow:indexPath.section andColumn:indexPath.row];
+		
+		if(place.databaseID == resourceID) {
+			DWPlaceFeedCell *cell = nil;
+			
+			if(self.searchDisplayController.isActive)
+				cell = (DWPlaceFeedCell*)[self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+			else	
+				cell = (DWPlaceFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+			
+			cell.placeImage.image = [info objectForKey:kKeyImage];
+		}
+	}	
+	
+}
+
+
 
 // Fired when a place has downloaded a small preview image
 //

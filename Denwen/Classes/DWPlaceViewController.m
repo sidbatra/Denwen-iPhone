@@ -51,17 +51,13 @@
 		_isReadyForCreateItem = NO;
 		_placeJSON = nil;
 		_origPlace = place;		
-				
+			
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(mediumPlacePreviewDone:) 
-													 name:N_MEDIUM_PLACE_PREVIEW_DONE
+												 selector:@selector(largePlaceImageLoaded:) 
+													 name:kNImgLargePlaceLoaded
 												   object:nil];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(largePlacePreviewDone:) 
-													 name:N_LARGE_PLACE_PREVIEW_DONE
-												   object:nil];
-		
+	
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(userLogsIn:) 
 													 name:N_USER_LOGS_IN
@@ -297,17 +293,6 @@
 	
 	[[DWRequestsManager sharedDWRequestsManager] updatePhotoForPlaceWithID:_place.databaseID 
 														   toPhotoFilename:placePhotoFilename];
-	/*NSString *urlString = [[NSString alloc] initWithFormat:@"%@%d.json?photo_filename=%@&email=%@&password=%@&ff=mobile",
-							PLACE_SHOW_URI,
-							_place.databaseID,
-							placePhotoFilename,
-							[DWSession sharedDWSession].currentUser.email,
-							[DWSession sharedDWSession].currentUser.encryptedPassword
-							];
-	
-	[_updatePlaceRequestManager sendPutRequest:urlString withParams:@""];
-	[urlString release];
-	 */
 }
 
 
@@ -491,44 +476,30 @@
 #pragma mark -
 #pragma mark Notification handlers
 
-// Fired when a place has downloaded a medium preview image
-//
-- (void)mediumPlacePreviewDone:(NSNotification*)notification {
+- (void)largePlaceImageLoaded:(NSNotification*)notification {
 	
 	if(_tableViewUsage != TABLE_VIEW_AS_DATA)
 		return;
 	
-	DWPlace *placeWithImage =  (DWPlace*)[notification object];
+	NSDictionary *info	= [notification userInfo];
 	
-	if(_place == placeWithImage) {
-		NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-		
-		DWPlaceCell *cell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
-		[cell setMediumPreviewPlaceImage:placeWithImage.mediumPreviewImage];
-	}	
-}
-
-
-// Fired when a place has downloaded a large preview image
-//
-- (void)largePlacePreviewDone:(NSNotification*)notification {
-	
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA)
+	if([[info objectForKey:kKeyResourceID] integerValue] != _place.databaseID) {
 		return;
+	}
 	
-	DWPlace *placeWithImage =  (DWPlace*)[notification object];
+	UIImage *image = [info objectForKey:kKeyImage];
 	
-	if(_place == placeWithImage) {
-		NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-		
-		DWPlaceCell *cell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
-		cell.placeBackgroundImage.image = placeWithImage.largePreviewImage;
-		[self.refreshHeaderView applyBackgroundImage:placeWithImage.largePreviewImage 
-								withFadeImage:[UIImage imageNamed:PLACE_VIEW_FADE_IMAGE_NAME]
-								 withBackgroundColor:[UIColor blackColor]
-		 ];
-	}	
+	NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+	
+	DWPlaceCell *cell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
+	cell.placeBackgroundImage.image = image;
+	[self.refreshHeaderView applyBackgroundImage:image 
+								   withFadeImage:[UIImage imageNamed:PLACE_VIEW_FADE_IMAGE_NAME]
+							 withBackgroundColor:[UIColor blackColor]
+	 ];
+	
 }
+
 
 
 // New item created
@@ -600,14 +571,7 @@
 		
 		[cell placeName].text = _place.name;
 		
-		[_place startMediumPreviewDownload];
 		[_place startLargePreviewDownload];
-		
-		//Test if the place preview got pulled from the cache instantly
-		if (_place.mediumPreviewImage)
-			[cell setMediumPreviewPlaceImage:_place.mediumPreviewImage];
-		else
-			[cell setMediumPreviewPlaceImage:[UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME]];
 		
 		if(_place.largePreviewImage)
 			cell.placeBackgroundImage.image = _place.largePreviewImage;
@@ -853,7 +817,6 @@
 - (void)dealloc {
 	
 	if(_place) {
-		_place.mediumPreviewImage = nil;
 		_place.largePreviewImage = nil;
 		[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
 	}

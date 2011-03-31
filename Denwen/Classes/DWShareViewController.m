@@ -52,8 +52,8 @@
 												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(largePlacePreviewDone:) 
-													 name:N_LARGE_PLACE_PREVIEW_DONE
+												 selector:@selector(largeImageLoaded:) 
+													 name:kNImgLargePlaceLoaded
 												   object:nil];
 		
 	}
@@ -273,15 +273,14 @@
 	[_facebook handleOpenURL:(NSURL*)[notification object]];
 }
 
-
-// Fired when a place has downloaded a large preview image
-//
-- (void)largePlacePreviewDone:(NSNotification*)notification {
+- (void)largeImageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 	
-	DWPlace *placeWithImage =  (DWPlace*)[notification object];
+	if(resourceID != _place.databaseID)
+		return;
 	
-	if(_place == placeWithImage)
-		backgroundImageView.image = placeWithImage.largePreviewImage;
+	backgroundImageView.image = [info objectForKey:kKeyImage];
 }
 
 

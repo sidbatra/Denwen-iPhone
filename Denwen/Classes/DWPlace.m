@@ -11,9 +11,9 @@
 
 @implementation DWPlace
 
-@synthesize name=_name,hashedId=_hashedId,smallURL=_smallURL,mediumURL=_mediumURL,largeURL=_largeURL,location=_location,
-		smallPreviewImage=_smallPreviewImage,mediumPreviewImage=_mediumPreviewImage,largePreviewImage=_largePreviewImage,
-		smallConnection=_smallConnection,mediumConnection=_mediumConnection,largeConnection=_largeConnection,hasPhoto=_hasPhoto,
+@synthesize name=_name,hashedId=_hashedId,smallURL=_smallURL,largeURL=_largeURL,location=_location,
+		smallPreviewImage=_smallPreviewImage,largePreviewImage=_largePreviewImage,
+		hasPhoto=_hasPhoto,
 		town=_town,state=_state,country=_country;
 
 
@@ -29,14 +29,29 @@
 	
 	if(self != nil) {
 		_isSmallDownloading = NO;
-		_isMediumDownloading = NO;
 		_isLargeDownloading = NO;
+		_hasAddress			= NO;
 		
-		_forceSmallDownloading = NO;
-		_forceMediumDownloading = NO;
-		_forceLargeDownloading = NO;
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(smallImageLoaded:) 
+													 name:kNImgSmallPlaceLoaded
+												   object:nil];
 		
-		_hasAddress = NO;
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(smallImageError:) 
+													 name:kNImgSmallPlaceError
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(largeImageLoaded:) 
+													 name:kNImgLargePlaceLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(largeImageError:) 
+													 name:kNImgLargePlaceError
+												   object:nil];
+		
 	}
 	
 	return self;  
@@ -70,7 +85,6 @@
 	if(_hasPhoto) {
 		NSDictionary *photo = [place objectForKey:@"photo"];
 		self.smallURL = [photo objectForKey:@"small_url"]; 
-		self.mediumURL = [photo objectForKey:@"medium_url"];
 		self.largeURL = [photo objectForKey:@"large_url"];
 		_isProcessed = [[photo objectForKey:@"is_processed"] boolValue];
 	}
@@ -117,11 +131,9 @@
 			 
 			 if(![self.smallURL isEqualToString:newSmallURL]) {
 				 self.smallURL = newSmallURL;
-				 self.mediumURL = [photo objectForKey:@"medium_url"];
 				 self.largeURL = [photo objectForKey:@"large_url"];
 				 _isProcessed = [[photo objectForKey:@"is_processed"] boolValue];
 				 self.smallPreviewImage = nil;
-				 self.mediumPreviewImage = nil;
 				 self.largePreviewImage = nil;
 			 }
 		 }
@@ -140,6 +152,30 @@
 	
 }
 
+- (void)applyNewSmallImage:(UIImage*)image {
+	
+	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+						   image										,kKeyImage,
+						   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgSmallPlaceLoaded
+														object:nil
+													  userInfo:info];
+}
+
+- (void)applyNewLargeImage:(UIImage*)image {
+	
+	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+						   image										,kKeyImage,
+						   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgLargePlaceLoaded
+														object:nil
+													  userInfo:info];
+}
+
 
 // Update the place's preview urls using a place JSON object
 //
@@ -149,7 +185,6 @@
 	NSDictionary *photo = [place objectForKey:@"photo"];
 	
 	self.smallURL = [photo objectForKey:@"small_url"];
-	self.mediumURL = [photo objectForKey:@"medium_url"];
 	self.largeURL = [photo objectForKey:@"large_url"];
 }
 
@@ -157,13 +192,8 @@
 // Resize and update preview images from the given image
 //
 - (void)updatePreviewImages:(UIImage*)image {
-	self.smallPreviewImage = [image resizeTo:CGSizeMake(SIZE_PLACE_SMALL_IMAGE, SIZE_PLACE_SMALL_IMAGE)];
-	self.mediumPreviewImage = [image resizeTo:CGSizeMake(SIZE_PLACE_MEDIUM_IMAGE, SIZE_PLACE_MEDIUM_IMAGE)];
-	self.largePreviewImage = [image resizeTo:CGSizeMake(SIZE_PLACE_LARGE_IMAGE, SIZE_PLACE_LARGE_IMAGE)];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_PLACE_PREVIEW_DONE object:self];
-	[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_PLACE_PREVIEW_DONE object:self];
-	[[NSNotificationCenter defaultCenter] postNotificationName:N_LARGE_PLACE_PREVIEW_DONE object:self];
+	[self applyNewSmallImage:image];
+	[self applyNewLargeImage:image];
 }
 
 
@@ -177,39 +207,16 @@
 //Start the small file download
 //
 - (void)startSmallPreviewDownload {
-	if(_hasPhoto && !_isSmallDownloading && (!self.smallPreviewImage || _forceSmallDownloading)) {
-		_isSmallDownloading = true;
+	if(_hasPhoto && !_isSmallDownloading && !self.smallPreviewImage) {
+		_isSmallDownloading = YES;
 		
-		DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self withInstanceID:0];
-		self.smallConnection = tempConnection;
-		[tempConnection release];
-		
-		[self.smallConnection fetchData:_smallURL withKey:[self smallUniqueKey] withCache:YES];
+		[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.smallURL
+												 withResourceID:self.databaseID
+											successNotification:kNImgSmallPlaceLoaded
+											  errorNotification:kNImgSmallPlaceError];
 	}
 	else if(!_hasPhoto){ 
-		self.smallPreviewImage = [UIImage imageNamed:PLACE_SMALL_PLACEHOLDER_IMAGE_NAME];
-	
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_PLACE_PREVIEW_DONE object:self];
-	}
-}
-
-
-//Start the medium file download
-//
-- (void)startMediumPreviewDownload {
-	if(_hasPhoto && !_isMediumDownloading && (!self.mediumPreviewImage || _forceMediumDownloading)) {
-		_isMediumDownloading = true;
-		
-		DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self withInstanceID:1];
-		self.mediumConnection = tempConnection;
-		[tempConnection release];
-		
-		[self.mediumConnection fetchData:_mediumURL withKey:[self mediumUniqueKey] withCache:YES];
-	}
-	else if(!_hasPhoto) {
-		self.mediumPreviewImage = [UIImage imageNamed:PLACE_MEDIUM_PLACEHOLDER_IMAGE_NAME];
-
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_PLACE_PREVIEW_DONE object:self];
+		[self applyNewSmallImage:[UIImage imageNamed:PLACE_SMALL_PLACEHOLDER_IMAGE_NAME]];
 	}
 }
 
@@ -217,50 +224,60 @@
 //Start the large file download
 //
 - (void)startLargePreviewDownload {
-	if(_hasPhoto && !_isLargeDownloading && (!self.largePreviewImage || _forceLargeDownloading)) {
-		_isLargeDownloading = true;
+	if(_hasPhoto && !_isLargeDownloading && !self.largePreviewImage) {
+		_isLargeDownloading = YES;
 		
-		DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self withInstanceID:2];
-		self.largeConnection = tempConnection;
-		[tempConnection release];
-		
-		[self.largeConnection fetchData:_largeURL withKey:[self largeUniqueKey] withCache:YES];
+		[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.largeURL 
+												 withResourceID:self.databaseID
+		 									successNotification:kNImgLargePlaceLoaded
+											  errorNotification:kNImgLargePlaceError];
 	}
-	/*else if(!_hasPhoto) {
-		self.largePreviewImage = [UIImage imageNamed:PLACE_LARGE_PLACEHOLDER_IMAGE_NAME];
-		
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_LARGE_PLACE_PREVIEW_DONE object:self];
-	}*/
 }
 
 
+- (void)smallImageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	self.smallPreviewImage = [info objectForKey:kKeyImage];		
+	_isSmallDownloading = NO;
+}
 
-#pragma mark -
-#pragma mark Caching helper functions
-
-
-// Create and return a unique key for the small file
-//
-- (NSString*)smallUniqueKey {
-	NSArray *listItems = [self.smallURL componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
+- (void)smallImageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	_isSmallDownloading = NO;
 }
 
 
-// Create and return a unique key for the medium file
-//
-- (NSString*)mediumUniqueKey {
-	NSArray *listItems = [self.mediumURL componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
+- (void)largeImageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	self.largePreviewImage = [info objectForKey:kKeyImage];		
+	_isLargeDownloading = NO;
 }
 
-
-// Create and return a unique key for the large file
-//
-- (NSString*)largeUniqueKey {
-	NSArray *listItems = [self.largeURL componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
+- (void)largeImageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	_isLargeDownloading = NO;
 }
+
 
 
 // Generates an autoreleased display address for the place
@@ -294,72 +311,6 @@
 
 
 
-#pragma mark -
-#pragma mark DWURLConnectionDelegate
-
-
-// Error while downloading data from the server. This also fires a delegate 
-// error method which is handled by DWItem. 
-//
-- (void)errorLoadingData:(NSError *)error forInstanceID:(NSInteger)instanceID {
-	
-	//TODO: handle or log image download error
-	if(instanceID == 0) {
-		self.smallConnection = nil;
-		_isSmallDownloading = NO;
-		_forceSmallDownloading = NO;
-	}
-	else if(instanceID == 1) {
-		self.mediumConnection = nil;
-		_isMediumDownloading = NO;
-		_forceMediumDownloading = NO;
-	}
-	else if(instanceID == 2) {
-		self.largeConnection = nil;
-		_isLargeDownloading = NO;
-		_forceLargeDownloading = NO;
-	}
-}
-
-
-// If the data is successfully downloaded from the server. This also fires a 
-// delegate success method which is handled by DWItem.
-//
-- (void)finishedLoadingData:(NSMutableData *)data forInstanceID:(NSInteger)instanceID {	
-	
-	UIImage *image =  [[UIImage alloc] initWithData:data];
-	
-	if(instanceID==0) {
-		self.smallConnection = nil;
-		
-		self.smallPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_PLACE_SMALL_IMAGE,SIZE_PLACE_SMALL_IMAGE)];
-		
-		_isSmallDownloading = NO;
-		_forceSmallDownloading = NO;
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_SMALL_PLACE_PREVIEW_DONE object:self];
-	}
-	else if(instanceID==1) {
-		self.mediumConnection = nil;
-	
-		self.mediumPreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_PLACE_MEDIUM_IMAGE,SIZE_PLACE_MEDIUM_IMAGE)];
-		
-		_isMediumDownloading = NO;
-		_forceMediumDownloading = NO;
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_MEDIUM_PLACE_PREVIEW_DONE object:self];
-	}
-	else if(instanceID==2) {
-		self.largeConnection = nil;
-		
-		self.largePreviewImage = _isProcessed ? image : [image resizeTo:CGSizeMake(SIZE_PLACE_LARGE_IMAGE,SIZE_PLACE_LARGE_IMAGE)];
-		
-		_isLargeDownloading = NO;
-		_forceLargeDownloading = NO;
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_LARGE_PLACE_PREVIEW_DONE object:self];
-	}
-
-	[image release];
-}
-
 
 
 #pragma mark -
@@ -371,7 +322,6 @@
 - (void)freeMemory {
 	if(_hasPhoto) {
 		self.smallPreviewImage = nil;
-		self.mediumPreviewImage = nil;
 		self.largePreviewImage = nil;
 	}
 }
@@ -380,23 +330,9 @@
 // Usual Memory Cleanup
 // 
 -(void)dealloc{
-	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
 	//NSLog(@"place released %d",_databaseID);
-		
-	if(self.smallConnection) {
-		[self.smallConnection cancel];
-		self.smallConnection = nil;
-	}
-	
-	if(self.mediumConnection) {
-		[self.mediumConnection cancel];
-		self.mediumConnection = nil;
-	}
-	
-	if(self.largeConnection) {
-		[self.largeConnection cancel];
-		self.largeConnection = nil;
-	}
 	
 	self.name = nil;
 	self.hashedId = nil;
@@ -407,11 +343,9 @@
 	
 	if(_hasPhoto) {
 		self.smallURL = nil;
-		self.mediumURL = nil;
 		self.largeURL = nil;
 		
 		self.smallPreviewImage = nil;
-		self.mediumPreviewImage = nil;
 		self.largePreviewImage = nil;
 	}
 	

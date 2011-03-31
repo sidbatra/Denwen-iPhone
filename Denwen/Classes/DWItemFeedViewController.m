@@ -47,10 +47,6 @@
 		_delegate = delegate;
 		_tableViewUsage = TABLE_VIEW_AS_SPINNER;
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(smallPlacePreviewDone:) 
-													 name:N_SMALL_PLACE_PREVIEW_DONE
-												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(attachmentPreviewDone:) 
@@ -60,6 +56,11 @@
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(smallUserImageLoaded:) 
 													 name:kNImgSmallUserLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(smallPlaceImageLoaded:) 
+													 name:kNImgSmallPlaceLoaded
 												   object:nil];
 	}
 	return self;
@@ -131,27 +132,26 @@
 #pragma mark -
 #pragma mark Notification handlers
 
-// Fired when a place has downloaded a small preview image
-//
-- (void)smallPlacePreviewDone:(NSNotification*)notification {
+
+- (void)smallPlaceImageLoaded:(NSNotification*)notification {
 	
 	if(_tableViewUsage != TABLE_VIEW_AS_DATA || ![_itemManager totalItems])
 		return;
-
-	DWPlace *place =  (DWPlace*)[notification object];
+	
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 	
 	NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
-
+	
 	for (NSIndexPath *indexPath in visiblePaths) {            
 		DWItem *item = [_itemManager getItem:indexPath.row];
 		
-		if(item.place == place) {
+		if(item.place.databaseID == resourceID) {
 			DWItemFeedCell *cell = (DWItemFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-			[cell setSmallPreviewPlaceImage:place.smallPreviewImage];
+			[cell setSmallPreviewPlaceImage:[info objectForKey:kKeyImage]];
 		}
 	}	
-	
-}
+}	
 
 
 - (void)smallUserImageLoaded:(NSNotification*)notification {
@@ -173,6 +173,8 @@
 		}
 	}	
 }
+
+
 
 
 // Fired when an attachment preview is downloaded

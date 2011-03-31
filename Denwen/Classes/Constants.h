@@ -365,9 +365,7 @@ extern NSString * const N_USER_LOGS_IN;
 extern NSString * const N_USER_LOGS_OUT;
 extern NSString * const N_NEW_ITEM_CREATED;
 extern NSString * const N_NEW_PLACE_CREATED;
-extern NSString * const N_SMALL_PLACE_PREVIEW_DONE;
-extern NSString * const N_MEDIUM_PLACE_PREVIEW_DONE;
-extern NSString * const N_LARGE_PLACE_PREVIEW_DONE;
+
 
 
 @interface Constants : NSObject {
