@@ -1,23 +1,30 @@
 //
 //  DWFollowedPlacesViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/26/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 #import "DWPlaceListViewController.h"
-#import "DWRequestsManager.h"
-#import "DWSession.h"
+#import "DWUser.h"
 
+/**
+ * Display places followed by a user
+ */
 @interface DWFollowedPlacesViewController : DWPlaceListViewController {
-	NSInteger _userID;
-	BOOL _isCurrentUser;
-	NSString *_titleText;
+	DWUser *_user;
 }
 
-- (id)initWithDelegate:(id)delegate withUserName:(NSString*)userName andUserID:(NSInteger)userID;
+/**
+ * User whose places are being displayed
+ */
+@property (nonatomic,retain) DWUser* user;
+
+/**
+ * Init with delegate to receive events when a place is selected and the
+ * user whose places are being displayed
+ */
+- (id)initWithDelegate:(id)delegate 
+			  withUser:(DWUser*)user;
 	
 @end

@@ -8,7 +8,7 @@
 #import "DWPlaceListViewController.h"
 
 /**
- * Controller for the popular places view
+ * Display popular places 
  */
 @interface DWPopularPlacesViewController : DWPlaceListViewController {
 }

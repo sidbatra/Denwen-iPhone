@@ -117,14 +117,15 @@ extern NSInteger const kLocNearbyRadius;
  * Messages
  */
 extern NSString* const kMsgNoPlacesNearby;
-
+extern NSString* const kMsgNoFollowPlacesCurrentUser;
+extern NSString* const kMsgNoFollowPlacesNormalUser;
 
 
 /**
  *
  */
 extern NSString* const kPlaceListViewControllerNib;
-
+extern NSString* const kGenericBackButtonTitle;
 
 
 
@@ -329,11 +330,8 @@ extern NSString * const ENCRYPTION_PHRASE;
 
 extern NSString * const FOLLOW_PLACES_MSG;
 extern NSString * const UNFOLLOW_PLACES_MSG;
-extern NSString * const NO_ITEMS_NEARBY_MSG;
 extern NSString * const FOLLOW_LOGGEDOUT_MSG;
 extern NSString * const SHARE_LOGGEDOUT_MSG;
-extern NSString * const FOLLOW_NO_PLACES_SELF_MSG;
-extern NSString * const FOLLOW_NO_PLACES_MSG;
 extern NSString * const USER_SIGNED_IN_NO_ITEMS_MSG;
 extern NSString * const MAP_TOOLTIP_MSG;
 extern NSString * const LOADING_CELL_MSG;

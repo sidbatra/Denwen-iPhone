@@ -523,10 +523,9 @@
 //
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if((_tableViewUsage == TABLE_VIEW_AS_DATA || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0) {
+		
 		DWFollowedPlacesViewController *followedView = [[DWFollowedPlacesViewController alloc] initWithDelegate:_delegate 
-																								   withUserName:_user.firstName
-																									  andUserID:_userID
-														];
+																								   withUser:_user];
 		[uiShell.navigationController pushViewController:followedView animated:YES];
 		[followedView release];
 	}

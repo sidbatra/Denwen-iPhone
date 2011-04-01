@@ -8,9 +8,6 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "DWUser.h"
-#import "SynthesizeSingleton.h"
-
-
 
 /**
  * Manages the current user's session
@@ -62,5 +59,9 @@
  */
 - (BOOL)isActive;
 
+/**
+ * Tests the given userID with the current user' ID
+ */
+- (BOOL)doesCurrentUserHaveID:(NSInteger)userID;
 
 @end

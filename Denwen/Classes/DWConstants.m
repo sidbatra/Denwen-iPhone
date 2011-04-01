@@ -126,14 +126,15 @@ NSInteger const kLocFailSafeDuration		= 6;
 NSInteger const kLocNearbyRadius			= 1200;
 
 //----------------------------------------------------------------------------------------------------
-NSString* const kMsgNoPlacesNearby			= @"No places nearby";
-
+NSString* const kMsgNoPlacesNearby				= @"No places nearby";
+NSString* const kMsgNoFollowPlacesCurrentUser	= @"You aren't following any places yet";
+NSString* const kMsgNoFollowPlacesNormalUser	= @"This user isn't following any places yet";
 
 
 
 //----------------------------------------------------------------------------------------------------
-NSString* const kPlaceListViewControllerNib = @"DWPlaceListViewController";
-
+NSString* const kPlaceListViewControllerNib		= @"DWPlaceListViewController";
+NSString* const kGenericBackButtonTitle			= @"Back";
 
 
 
@@ -393,11 +394,8 @@ NSString * const ENCRYPTION_PHRASE = @"9u124hgd35677";
 //Messages used across the apps
 NSString * const FOLLOW_PLACES_MSG = @"Follow Place";
 NSString * const UNFOLLOW_PLACES_MSG = @"Following";
-NSString * const NO_ITEMS_NEARBY_MSG = @"No items nearby";
 NSString * const FOLLOW_LOGGEDOUT_MSG = @"Sign up to start following places";
 NSString * const SHARE_LOGGEDOUT_MSG = @"Sign up to start sharing places";
-NSString * const FOLLOW_NO_PLACES_SELF_MSG = @"You aren't following any places yet";
-NSString * const FOLLOW_NO_PLACES_MSG = @"This user isn't following any places yet";
 NSString * const USER_SIGNED_IN_NO_ITEMS_MSG = @"Everything you post shows up here";
 NSString * const MAP_TOOLTIP_MSG = @"Hold and drag to move pin";
 NSString * const LOADING_CELL_MSG = @"Loading...";

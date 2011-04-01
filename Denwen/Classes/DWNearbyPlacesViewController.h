@@ -9,7 +9,7 @@
 #import "DWPlaceListViewController.h"
 
 /**
- * View controller for displaying places near the user's location
+ * Display places near the user's location
  */
 @interface DWNearbyPlacesViewController : DWPlaceListViewController {
 }

@@ -19,7 +19,6 @@ static NSInteger const kPlacesIndex				= 0;
 //----------------------------------------------------------------------------------------------------
 @implementation DWPopularPlacesViewController
 
-
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)delegate {
 	self = [super initWithNibName:kPlaceListViewControllerNib
@@ -75,6 +74,8 @@ static NSInteger const kPlacesIndex				= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
     [super dealloc];
 }
 

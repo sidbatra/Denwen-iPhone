@@ -4,6 +4,8 @@
 //
 
 #import "DWSession.h"
+#import "SynthesizeSingleton.h"
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -15,9 +17,7 @@
 @synthesize location				= _location;
 @synthesize refreshFollowedItems	= _refreshFollowedItems;
 
-
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
-
 
 //----------------------------------------------------------------------------------------------------
 - (void)read {
@@ -50,6 +50,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	return self.currentUser != nil;
 }
 
-
+//----------------------------------------------------------------------------------------------------
+- (BOOL)doesCurrentUserHaveID:(NSInteger)userID {
+	return [self isActive] && self.currentUser.databaseID == userID;
+}
 
 @end

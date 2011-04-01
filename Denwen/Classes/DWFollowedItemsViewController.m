@@ -211,7 +211,7 @@
 		
 		if(![_itemManager totalItems]){
 			_tableViewUsage = TABLE_VIEW_AS_MESSAGE;
-			self.messageCellText = FOLLOW_NO_PLACES_SELF_MSG;
+			self.messageCellText = kMsgNoFollowPlacesCurrentUser;
 		}
 		else
 			_tableViewUsage = TABLE_VIEW_AS_DATA;

@@ -188,7 +188,7 @@
 	   
 	   cell.selectionStyle = UITableViewCellSelectionStyleNone;	
 		
-	   cell.textLabel.text = FOLLOW_NO_PLACES_SELF_MSG;
+	   cell.textLabel.text = kMsgNoFollowPlacesCurrentUser;
 	   
 	   return cell;
 	}

@@ -82,6 +82,8 @@ static NSString* const kSearchBarText		= @"Search All Places";
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
     [super dealloc];
 }
 

@@ -1,38 +1,38 @@
 //
 //  DWFollowedPlacesViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWFollowedPlacesViewController.h"
+#import "DWRequestsManager.h"
 
-//Declarations for private methods
-//
-@interface DWFollowedPlacesViewController () 
-@end
+static NSString* const kCurrentUserTitle			= @"Your Places";
+static NSString* const kNormalUserTitle				= @"%@'s Places";
+static NSString* const kSearchString				= @"Search %@";
+static NSInteger const kCapacity					= 1;
 
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWFollowedPlacesViewController
 
+@synthesize user = _user;
 
-
-#pragma mark -
-#pragma mark View lifecycle
-
-
-// Init the view along with its member variables 
-//
-- (id)initWithDelegate:(id)delegate withUserName:(NSString*)userName andUserID:(NSInteger)userID {
-	self = [super initWithNibName:@"DWPlaceListViewController" bundle:nil searchType:YES withCapacity:1 andDelegate:delegate];
+//----------------------------------------------------------------------------------------------------
+- (id)initWithDelegate:(id)delegate 
+			  withUser:(DWUser*)user {
 	
-	if (self) {		
-		_userID = userID;
-		_isCurrentUser = [[DWSession sharedDWSession] isActive] && [DWSession sharedDWSession].currentUser.databaseID == _userID;
-		_titleText = _isCurrentUser  ?
-						[[NSString alloc] initWithString:@"Your Places"] :
-						[[NSString alloc] initWithFormat:@"%@'s Places",userName];
+	self = [super initWithNibName:kPlaceListViewControllerNib 
+						   bundle:nil
+					   searchType:YES
+					 withCapacity:kCapacity
+					  andDelegate:delegate];
+	
+	if (self) {
+		
+		self.user = user;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(userPlacesLoaded:) 
@@ -49,120 +49,100 @@
 	return self;
 }
 
-
-// Setup UI elements after the view is done loading
-//
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.view.hidden = NO;
-	self.title = _titleText;
 	
-	NSString *searchString = [[NSString alloc] initWithFormat:@"Search %@",_titleText];
-	self.searchDisplayController.searchBar.placeholder = searchString;
-	[searchString release];
+	self.view.hidden	= NO;
+	self.title			=  (NSString*)([[DWSession sharedDWSession] doesCurrentUserHaveID:self.user.databaseID] ? 
+										kCurrentUserTitle :
+										[NSString stringWithFormat:kNormalUserTitle,self.user.firstName]);
 	
-	UIBarButtonItem *backButton =  [[UIBarButtonItem alloc] initWithTitle:BACK_BUTTON_TITLE
-																	style:UIBarButtonItemStyleBordered
-																   target:nil
-																   action:nil];
+	self.searchDisplayController.searchBar.placeholder = [NSString stringWithFormat:kSearchString,
+														  self.title];
+	
+	UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:kGenericBackButtonTitle
+																   style:UIBarButtonItemStyleBordered
+																  target:nil
+																  action:nil];
 	self.navigationItem.backBarButtonItem = backButton;
 	[backButton release];
 	
-	[self viewIsSelected];
-}
-
-
-// Called when the controller becomes selected in the container
-//
-- (void)viewIsSelected {
-	_tableViewUsage = TABLE_VIEW_AS_SPINNER;
+	_tableViewUsage = kTableViewAsSpinner;
 	[self.tableView reloadData];
 	
-	[self loadPlaces];
+	[self loadPlaces];	
 }
 
 
-
-
-#pragma mark -
-#pragma mark Methods to obtain places from the server
-
-
-// Send a request to load popoular places
-//
+//----------------------------------------------------------------------------------------------------
 - (void)loadPlaces {
 	[super loadPlaces];
 	
-	[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:_userID];	
+	[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:self.user.databaseID];	
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];  
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	self.user = nil;
+	
+    [super dealloc];
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark RequestManager
+#pragma mark Notifications
 
+//----------------------------------------------------------------------------------------------------
 - (void)userPlacesLoaded:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
 	
-	if([[info objectForKey:kKeyResourceID] integerValue] != _userID)
+	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
 		return;
 
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
 		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
-		[_placeManager populatePlaces:places atIndex:0];
+		[_placeManager populatePlaces:places atIndex:kCapacity-1];
 		
 		
-		if([_placeManager totalPlacesAtRow:0]) {
-			_tableViewUsage = TABLE_VIEW_AS_DATA;	
+		if([_placeManager totalPlacesAtRow:kCapacity-1]) {
+			_tableViewUsage = kTableViewAsData;	
 			_isLoadedOnce = YES;
 		}
 		else {
-			if(_isCurrentUser)
-				self.messageCellText = FOLLOW_NO_PLACES_SELF_MSG;
-			else
-				self.messageCellText = FOLLOW_NO_PLACES_MSG;
 			
-			_tableViewUsage = TABLE_VIEW_AS_MESSAGE;
+			self.messageCellText = (NSString*)([[DWSession sharedDWSession] doesCurrentUserHaveID:self.user.databaseID] ?
+												kMsgNoFollowPlacesCurrentUser :
+												kMsgNoFollowPlacesNormalUser);
+			
+			_tableViewUsage = kTableViewAsMessage;
 		}
 		
 		[self markEndOfPagination];
 		[self.tableView reloadData];
-		
 	}
 	
 	[self finishedLoadingPlaces];
 }
 
+//----------------------------------------------------------------------------------------------------
 - (void)userPlacesError:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
 
-	if([[info objectForKey:kKeyResourceID] integerValue] != _userID)
+	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
 		return;
 	
 	[self finishedLoadingPlaces];
-}
-
-
-
-
-
-#pragma mark -
-#pragma mark Memory management
-
-// The usual memory warning
-//
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];  
-}
-
-
-// The usual memory cleanup
-//
-- (void)dealloc {
-	[_titleText release];
-	
-    [super dealloc];
 }
 
 
