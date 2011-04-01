@@ -81,10 +81,10 @@
 		
 		if([self loadItems]) {
 			
-			_reloading = [DWSession sharedDWSession].refreshFollowedItems;
+			_isReloading = [DWSession sharedDWSession].refreshFollowedItems;
 			
 			// Remove any old messages in the UITableView
-			_tableViewUsage = TABLE_VIEW_AS_SPINNER;
+			_tableViewUsage = kTableViewAsSpinner;
 			[self.tableView reloadData];
 			
 			_isLoadedOnce = YES;
@@ -146,7 +146,7 @@
 		status = YES;
 	}
 	else {
-		_tableViewUsage = TABLE_VIEW_AS_MESSAGE;
+		_tableViewUsage = kTableViewAsMessage;
 		self.messageCellText = FOLLOW_LOGGEDOUT_MSG;
 		[self.tableView reloadData];
 		
@@ -181,12 +181,12 @@
 	if(_isLoadedOnce && followedItemsUnreadCount) {
 		
 		if([(NSString*)[notification object] isEqualToString:BADGE_NOTIFICATION_BACKGROUND]) {
-			_tableViewUsage = TABLE_VIEW_AS_SPINNER;
+			_tableViewUsage = kTableViewAsSpinner;
 			[self.tableView reloadData];
 		}
 		
 		[self resetPagination];
-		_reloading = YES;
+		_isReloading = YES;
 		[self loadItems];
 	}
 }
@@ -207,14 +207,14 @@
 		NSDictionary* body = [info objectForKey:kKeyBody];
 		
 		NSArray *items = [body objectForKey:ITEMS_JSON_KEY];
-		[_itemManager populateItems:items withBuffer:NO withClear:_reloading];
+		[_itemManager populateItems:items withBuffer:NO withClear:_isReloading];
 		
 		if(![_itemManager totalItems]){
-			_tableViewUsage = TABLE_VIEW_AS_MESSAGE;
+			_tableViewUsage = kTableViewAsMessage;
 			self.messageCellText = kMsgNoFollowPlacesCurrentUser;
 		}
 		else
-			_tableViewUsage = TABLE_VIEW_AS_DATA;
+			_tableViewUsage = kTableViewAsData;
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:N_FOLLOWED_ITEMS_LOADED
 															object:nil];

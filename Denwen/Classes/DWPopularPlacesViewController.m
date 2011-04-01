@@ -107,7 +107,7 @@ static NSInteger const kPlacesIndex				= 0;
 		
 		[_placeManager populatePlaces:places 
 							  atIndex:kPlacesIndex 
-							withClear:_reloading];						
+							withClear:_isReloading];						
 		
 		_tableViewUsage = kTableViewAsData;
 	}

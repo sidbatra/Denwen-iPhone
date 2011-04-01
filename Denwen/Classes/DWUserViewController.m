@@ -278,7 +278,7 @@
 
 - (void)mediumUserImageLoaded:(NSNotification*)notification {
 	
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA && 
+	if(_tableViewUsage != kTableViewAsData && 
 	   _tableViewUsage != TABLE_VIEW_AS_PROFILE_MESSAGE) {
 		
 		return;
@@ -340,7 +340,7 @@
 		
 		NSDictionary *body = [info objectForKey:kKeyBody];
 		NSArray *items = [body objectForKey:ITEMS_JSON_KEY];
-		[_itemManager populateItems:items withBuffer:(_currentPage==INITIAL_PAGE_FOR_REQUESTS) withClear:_reloading];
+		[_itemManager populateItems:items withBuffer:(_currentPage==kPagInitialPage) withClear:_isReloading];
 		
 		
 		if(_user)
@@ -365,7 +365,7 @@
 			_tableViewUsage = TABLE_VIEW_AS_PROFILE_MESSAGE;
 		}
 		else
-			_tableViewUsage = TABLE_VIEW_AS_DATA;			
+			_tableViewUsage = kTableViewAsData;			
 	}
 	
 	[self finishedLoadingItems];	
@@ -379,7 +379,7 @@
 	if([[info objectForKey:kKeyResourceID] integerValue] != _userID)
 		return;
 	
-	if(!_reloading)
+	if(!_isReloading)
 		[mbProgressIndicator hideUsingAnimation:YES];
 	
 	[self finishedLoadingItems];
@@ -450,7 +450,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat height = 0;
 	
-	if((_tableViewUsage == TABLE_VIEW_AS_DATA || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0)
+	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0)
 		height = _isCurrentUser ? FOLLOW_CURRENT_USER_CELL_HEIGHT : FOLLOW_USER_CELL_HEIGHT;
 	else
 		height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
@@ -467,7 +467,7 @@
 	UITableViewCell *cell = nil;
 	
 	
-	if((_tableViewUsage == TABLE_VIEW_AS_DATA || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0) {
+	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0) {
 		DWUserCell *cell = (DWUserCell*)[tableView dequeueReusableCellWithIdentifier:USER_CELL_IDENTIFIER];
 		
 		if (!cell) {
@@ -491,7 +491,7 @@
 		if (_user.mediumPreviewImage)
 			[cell setMediumPreviewUserImage:_user.mediumPreviewImage];
 		else
-			[cell setMediumPreviewUserImage:[UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME]];
+			[cell setMediumPreviewUserImage:[UIImage imageNamed:kImgGenericPlaceHolder]];
 		
 		return cell;
 	}
@@ -505,7 +505,7 @@
 			((DWMessageCell*)cell).customTextLabel.text = self.messageCellText;
 		}
 		
-		if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row < [_itemManager totalItems])
+		if(_tableViewUsage == kTableViewAsData && indexPath.row < [_itemManager totalItems])
 			[(DWItemFeedCell*)cell disableUserButtons];
 	}
 	
@@ -522,7 +522,7 @@
 // Handles click event on the table view cell
 //
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if((_tableViewUsage == TABLE_VIEW_AS_DATA || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0) {
+	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0) {
 		
 		DWFollowedPlacesViewController *followedView = [[DWFollowedPlacesViewController alloc] initWithDelegate:_delegate 
 																								   withUser:_user];

@@ -1,75 +1,170 @@
 //
 //  DWPlaceListViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 #import "DWPlaceViewController.h"
 #import "DWPlaceManager.h"
-#import "MBProgressHUD.h"
-#import "DWPlaceFeedCell.h"
-#import "DWLoadingCell.h"
-#import "DWMessageCell.h"
-#import "DWConstants.h"
 
 #import "EGORefreshTableHeaderView.h"
 
 
-
 @protocol DWPlaceListViewControllerDelegate;
 
-
-
+/**
+ * Base class for displaying a list of places
+ */
 @interface DWPlaceListViewController : UITableViewController<UISearchDisplayDelegate,UISearchBarDelegate,EGORefreshTableHeaderDelegate> {
-	DWPlaceManager *_placeManager;
+	DWPlaceManager	*_placeManager;
 	
-	EGORefreshTableHeaderView *_refreshHeaderView;
+	NSString		*_messageCellText;
+	NSDate			*_lastRefreshDate;
 	
-	id <DWPlaceListViewControllerDelegate> _delegate;
+	NSInteger		_tableViewUsage;
+	NSInteger		_currentPage; 
+	NSInteger		_paginationCellStatus;
+	NSInteger		_prePaginationCellCount;
 	
-	NSDate *_lastDataRefresh;
-	NSString *_messageCellText;
-	
-	NSInteger _tableViewUsage;
-	NSInteger _currentPage; 
-	NSInteger _paginationCellStatus;
-	NSInteger _prePaginationCellCount;
-	
-	BOOL _reloading;
-	BOOL _isLocalSearch;
-	BOOL _isLoadedOnce;
+	BOOL			_isReloading;
+	BOOL			_isLocalSearch;
+	BOOL			_isLoadedOnce;
+
+	EGORefreshTableHeaderView				*_refreshHeaderView;
+	id <DWPlaceListViewControllerDelegate>	_delegate;
 }
 
+/**
+ * Manages retreival and creation of DWPlacem mobjects
+ */
+@property (nonatomic,retain) DWPlaceManager *placeManager;
 
-@property (copy) NSString *messageCellText;
-@property (copy) NSDate *lastDateRefresh;
+/**
+ * Text to be displayed when tableViewUsuage is message
+ */
+@property (nonatomic,copy) NSString *messageCellText;
 
+/**
+ * Date when the content of the view were last refreshed
+ */
+@property (nonatomic,retain) NSDate *lastRefreshDate;
+
+/**
+ * Determines type of usuage of table view - loading,message,data etc
+ */
+@property (nonatomic,assign) NSInteger tableViewUsage;
+
+/**
+ * Current page of data being displayed
+ */
+@property (nonatomic,assign) NSInteger currentPage;
+
+/**
+ * Controls whether the pagination is displayed or not
+ */
+@property (nonatomic,assign) NSInteger paginationCellStatus;
+
+/**
+ * Count of the number of places being displayed before the next page is loaded
+ */
+@property (nonatomic,assign) NSInteger prePaginationCellCount;
+
+/**
+ * Differentiates between a pull to refresh versus a pagination load
+ */
+@property (nonatomic,assign) BOOL isReloading;
+
+/**
+ * Search is to be performed on the server or in the locally loaded places
+ */
+@property (nonatomic,assign) BOOL isLocalSearch;
+
+/**
+ * Indicates is the data has been loaded once or not
+ */
+@property (nonatomic,assign) BOOL isLoadedOnce;
+
+/**
+ * Pull to refresh view added above the table view
+ */
 @property (retain) EGORefreshTableHeaderView *refreshHeaderView;
 
+/**
+ * Init with the normal nib and bundle name along with 
+ * search type (see isLocalSearch)
+ * capacity (different types of places needed by the view)
+ * delegate to receive events when a place is selected
+ */
+- (id)initWithNibName:(NSString*)nibNameOrNil 
+			   bundle:(NSBundle*)nibBundleOrNil 
+		   searchType:(BOOL)localSearchFlag
+		 withCapacity:(NSInteger)capacity
+		  andDelegate:(id)delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil searchType:(BOOL)isLocalSearch 
-		  withCapacity:(NSInteger)capacity andDelegate:(id)delegate;
-
+/**
+ * Reset pagination status - called when the view is fully refreshed
+ */
 - (void)resetPagination;
+
+/**
+ * End of pagination hides the pagination cell when there is no more data
+ * on the server
+ */
 - (void)markEndOfPagination;
 
+/**
+ * Force the view to be reloaded completely
+ */
 - (void)hardRefresh;
+
+/**
+ * Stub load places method which is overriden in the child classes
+ */
 - (void)loadPlaces;
+
+/**
+ * Load next page of data in the pagination framework
+ */
 - (void)loadNextPageOfPlaces;
-- (void)addNewPlace:(DWPlace *)place;
+
+/**
+ * Inserts a new place onto the top of the table view
+ */
+- (void)addNewPlace:(DWPlace*)place;
+
+/**
+ * Called from the child classes when the places have been loaded
+ */
 - (void)finishedLoadingPlaces;
 
+/**
+ * Fired when the view is selected in a segmented controller setup
+ */
 - (void)viewIsSelected;
+
+/**
+ * Fired when the view is deselected in a segmented controller setup
+ */
 - (void)viewIsDeselected;
+
+/**
+ * Refresh search places UI
+ */
 - (void)refreshFilteredPlacesUI;
 
 @end
 
+
+/**
+ * Delegate protocol to receive updates from all children of place list view
+ */
 @protocol DWPlaceListViewControllerDelegate
+
+/**
+ * Fired when a place cell is selected
+ */
 - (void)placeSelected:(DWPlace*)place;
+
 @end
 

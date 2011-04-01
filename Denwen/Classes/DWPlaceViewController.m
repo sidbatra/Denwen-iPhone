@@ -312,7 +312,7 @@
 		NSDictionary *body = [info objectForKey:kKeyBody];
 		
 		NSArray *items = [body objectForKey:ITEMS_JSON_KEY];
-		[_itemManager populateItems:items withBuffer:(_currentPage==INITIAL_PAGE_FOR_REQUESTS) withClear:_reloading];
+		[_itemManager populateItems:items withBuffer:(_currentPage==kPagInitialPage) withClear:_isReloading];
 		
 		
 		if(_place)
@@ -333,7 +333,7 @@
 		[self updateTitle];
 		
 		
-		_tableViewUsage = TABLE_VIEW_AS_DATA;			
+		_tableViewUsage = kTableViewAsData;			
 		
 		if(!_isLoadedOnce) {
 			[self showCreateButton];
@@ -357,7 +357,7 @@
 	if([[info objectForKey:kKeyResourceID] integerValue] != _place.databaseID)
 		return;
 	
-	if(!_reloading)
+	if(!_isReloading)
 		[mbProgressIndicator hideUsingAnimation:YES];
 	
 	[self finishedLoadingItems];
@@ -435,7 +435,7 @@
 	if([[info objectForKey:kKeyResourceID] integerValue] != _place.databaseID)
 		return;
 	
-	if(!_reloading)
+	if(!_isReloading)
 		[mbProgressIndicator hideUsingAnimation:YES];
 }
 
@@ -478,7 +478,7 @@
 
 - (void)largePlaceImageLoaded:(NSNotification*)notification {
 	
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA)
+	if(_tableViewUsage != kTableViewAsData)
 		return;
 	
 	NSDictionary *info	= [notification userInfo];
@@ -528,7 +528,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat height = 0;
 	
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row==0)
+	if(_tableViewUsage == kTableViewAsData && indexPath.row==0)
 		height = FOLLOW_PLACE_CELL_HEIGHT;
 	else
 		height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
@@ -543,7 +543,7 @@
 	
 	UITableViewCell *cell = nil;
 	
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row == 0) {
+	if(_tableViewUsage == kTableViewAsData && indexPath.row == 0) {
 		DWPlaceCell *cell = (DWPlaceCell*)[tableView dequeueReusableCellWithIdentifier:FOLLOW_PLACE_CELL_IDENTIFIER];
 		
 		if (!cell) {
@@ -576,14 +576,14 @@
 		if(_place.largePreviewImage)
 			cell.placeBackgroundImage.image = _place.largePreviewImage;
 		else
-			cell.placeBackgroundImage.image = [UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME];
+			cell.placeBackgroundImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];
 		
 		return cell;
 	}
 	else {
 		cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 		
-		if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row < [_itemManager totalItems])
+		if(_tableViewUsage == kTableViewAsData && indexPath.row < [_itemManager totalItems])
 			[(DWItemFeedCell*)cell disablePlaceButtons];
 	}
 	
@@ -600,7 +600,7 @@
 // Handles click event on the table view cell
 //
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row == 0) {
+	if(_tableViewUsage == kTableViewAsData && indexPath.row == 0) {
 		DWPlaceDetailsViewController *placeDetailsViewController = [[DWPlaceDetailsViewController alloc] 
 																	initWithPlaceName:_place.name placeAddress:[_place displayAddress] 
 																	andLocation:_place.location];

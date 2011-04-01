@@ -96,7 +96,19 @@ extern NSString* const kNImgActualAttachmentError;
 extern NSInteger const kTableViewAsData;
 extern NSInteger const kTableViewAsSpinner;
 extern NSInteger const kTableViewAsMessage;
-extern NSInteger const kTableViewAsProfileMessage ;
+extern NSInteger const kTableViewAsProfileMessage;
+
+/**
+ * Table view UI
+ */
+extern NSInteger const kTVLoadingCellCount;
+extern NSInteger const kTVLoadingCellHeight;
+extern NSString* const kTVPaginationCellIdentifier;
+extern NSString* const kTVMessageCellIdentifier;
+extern NSString* const kTVLoadingCellIdentifier;
+extern NSString* const kTVDefaultCellIdentifier;
+
+
 
 /**
  * Segmented Control 
@@ -114,11 +126,23 @@ extern NSInteger const kLocFailSafeDuration;
 extern NSInteger const kLocNearbyRadius;
 
 /**
+ * Pagination
+ */
+extern NSInteger const kPagInitialPage;
+extern NSInteger const kPagPlacesPerPage;
+
+
+/**
  * Messages
  */
 extern NSString* const kMsgNoPlacesNearby;
 extern NSString* const kMsgNoFollowPlacesCurrentUser;
 extern NSString* const kMsgNoFollowPlacesNormalUser;
+
+/**
+ * Images
+ */
+extern NSString* const kImgGenericPlaceHolder;
 
 
 /**
@@ -160,7 +184,6 @@ extern int const CACHE_INTERNAL;
 extern int const MAX_CACHE_ITEM_SIZE;
 
 extern int const ITEMS_PER_PAGE;
-extern int const PLACES_PER_PAGE;
 
 extern int const POOL_OBJECT_UPDATE_INTERVAL;
 
@@ -181,7 +204,6 @@ extern NSString * const POSTS_TAB_IMAGE_NAME;
 extern NSString * const PROFILE_TAB_IMAGE_NAME;
 extern NSString * const PLACES_TAB_IMAGE_NAME;
 
-extern NSString * const GENERIC_PLACEHOLDER_IMAGE_NAME;
 
 extern NSString * const PLACE_SMALL_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const PLACE_MEDIUM_PLACEHOLDER_IMAGE_NAME;
@@ -230,18 +252,13 @@ extern int const ATTACHMENT_HEIGHT;
 extern int const ATTACHMENT_Y_PADDING;
 extern int const USER_LABEL_PADDING;
 extern int const USER_NAME_PADDING;
-extern int const PLACE_FEED_CELL_HEIGHT;
 extern int const FOLLOW_PLACE_CELL_HEIGHT;
 extern int const FOLLOW_CURRENT_USER_CELL_HEIGHT;
 extern int const FOLLOW_USER_CELL_HEIGHT;
-extern int const LOADING_CELL_HEIGHT;
-extern int const LOADING_CELL_COUNT;
 extern int const SPINNER_HEIGHT;
 extern int const VIDEO_VIEW_SPINNER_SIDE;
 extern int const SPINNER_CELL_INDEX;
-extern int const SPINNER_CELL_PLACE_INDEX;
 extern int const MESSAGE_CELL_INDEX;
-extern int const MESSAGE_CELL_PLACE_INDEX;
 extern int const PAGINATION_CELL_HEIGHT;
 
 
@@ -257,16 +274,11 @@ extern int const SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE;
 
 
 
-extern NSString * const DEFAULT_CELL_IDENTIFIER;
 extern NSString * const ITEM_FEED_CELL_IDENTIFIER;
-extern NSString * const PLACE_FEED_CELL_IDENTIFIER;
 extern NSString * const FOLLOW_PLACE_CELL_IDENTIFIER;
-extern NSString * const LOADING_CELL_IDENTIFIER;
 extern NSString * const USER_CELL_IDENTIFIER;
-extern NSString * const MESSAGE_CELL_IDENTIFIER;
 extern NSString * const PIN_IDENTIFIER;
 extern NSString * const STATIC_PIN_IDENTIFIER;
-extern NSString * const PAGINATION_CELL_IDENTIFIER;
 
 
 extern int const TOTAL_POOL_CLASSES;
@@ -297,7 +309,7 @@ extern NSString * const SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME;
 
 
 
-extern int const INITIAL_PAGE_FOR_REQUESTS;
+extern int const kPagInitialPage;
 
 extern NSString * const DENWEN_URL_PREFIX;
 extern NSString * const FACEBOOK_URL_PREFIX;
@@ -350,10 +362,8 @@ extern NSString * const EMPTY_PLACENAME_MSG;
 extern NSString * const EMPTY_LOGIN_FIELDS_MSG;
 
 
-
-extern NSInteger const TABLE_VIEW_AS_DATA;
-extern NSInteger const TABLE_VIEW_AS_SPINNER;
-extern NSInteger const TABLE_VIEW_AS_MESSAGE;
+extern NSInteger const kTableViewAsSpinner;
+extern NSInteger const kTableViewAsMessage;
 extern NSInteger const TABLE_VIEW_AS_PROFILE_MESSAGE;
 
 extern NSString * const BADGE_NOTIFICATION_LIVE;

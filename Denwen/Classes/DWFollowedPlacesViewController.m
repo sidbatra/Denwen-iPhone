@@ -61,12 +61,10 @@ static NSInteger const kCapacity					= 1;
 	self.searchDisplayController.searchBar.placeholder = [NSString stringWithFormat:kSearchString,
 														  self.title];
 	
-	UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:kGenericBackButtonTitle
+	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:kGenericBackButtonTitle
 																   style:UIBarButtonItemStyleBordered
 																  target:nil
-																  action:nil];
-	self.navigationItem.backBarButtonItem = backButton;
-	[backButton release];
+																  action:nil] autorelease];
 	
 	_tableViewUsage = kTableViewAsSpinner;
 	[self.tableView reloadData];

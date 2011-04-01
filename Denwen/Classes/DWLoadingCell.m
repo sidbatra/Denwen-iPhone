@@ -44,7 +44,7 @@
 // Creates a button which is used to display the spinner in the loading cell
 //
 - (void) createSpinner {
-	CGRect rect = CGRectMake(111, (LOADING_CELL_HEIGHT-SPINNER_HEIGHT)/2, SPINNER_HEIGHT, SPINNER_HEIGHT); 
+	CGRect rect = CGRectMake(111, (kTVLoadingCellHeight-SPINNER_HEIGHT)/2, SPINNER_HEIGHT, SPINNER_HEIGHT); 
 	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 	spinner.frame = rect;
 	
@@ -56,7 +56,7 @@
 // Creates a message label for the loading text
 //
 - (void) createMessageLabel {
-	CGRect rect = CGRectMake(137, (LOADING_CELL_HEIGHT-SPINNER_HEIGHT)/2 - 1, 0, 17);
+	CGRect rect = CGRectMake(137, (kTVLoadingCellHeight-SPINNER_HEIGHT)/2 - 1, 0, 17);
 	messageLabel = [[UILabel alloc] initWithFrame:rect];	
 	messageLabel.font = [UIFont fontWithName:@"Helvetica" size:17];	
 	messageLabel.textColor = [UIColor colorWithRed:0.5294 green:0.5294 blue:0.5294 alpha:1.0];

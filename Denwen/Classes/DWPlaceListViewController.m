@@ -1,95 +1,130 @@
 //
 //  DWPlaceListViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWPlaceListViewController.h"
+#import "MBProgressHUD.h"
+#import "DWPlaceFeedCell.h"
+#import "DWLoadingCell.h"
+#import "DWMessageCell.h"
+#import "DWConstants.h"
 
-//Declarations for private methods
-//
-@interface DWPlaceListViewController () 
+static float	 const kSeparatorRedValue			= 0.921;
+static float	 const kSeparatorGreenValue			= 0.921;
+static float	 const kSeparatorBlueValue			= 0.921;
+static float	 const kSeparatorAlphaValue			= 1.0;
+static NSInteger const kSearchBarOffset				= 44;
+static NSInteger const kDefaultPlacesRow			= 0;
+static NSInteger const kDefaultSections				= 1;
+static NSInteger const kPlaceFeedCellHeight			= 56;
+static NSInteger const kSearchPlaceActiveCellHeight	= 3000;
+static NSString* const kPlaceFeedCellIdentifier		= @"PlaceFeedCell";
+static NSInteger const kMessageCellIndex			= 1;
+static NSInteger const kSpinnerCellIndex			= 1;
+static NSInteger const kSearchActiveAlpha			= 0.8;
+static NSInteger const kSearchInActiveAlpha			= 1.0;
 
-- (void)loadImagesForOnscreenRows;
-- (void)searchPlaces:(NSString*)query;
 
-@end
-
-
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWPlaceListViewController
 
-@synthesize messageCellText=_messageCellText,lastDateRefresh=_lastDataRefresh,refreshHeaderView=_refreshHeaderView;
+@synthesize placeManager			= _placeManager;
+@synthesize messageCellText			= _messageCellText;
+@synthesize lastRefreshDate			= _lastRefreshDate;
+@synthesize tableViewUsage			= _tableViewUsage;
+@synthesize currentPage				= _currentPage; 
+@synthesize paginationCellStatus	= _paginationCellStatus;
+@synthesize	prePaginationCellCount	= _prePaginationCellCount;
+@synthesize	isReloading				= _isReloading;
+@synthesize	isLocalSearch			= _isLocalSearch;
+@synthesize isLoadedOnce			= _isLoadedOnce;
+@synthesize refreshHeaderView		= _refreshHeaderView;
 
 
-
-#pragma mark -
-#pragma mark View lifecycle
-
-
-// Init the view along with its member variables 
-//
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil searchType:(BOOL)isLocalSearch 
-		 withCapacity:(NSInteger)capacity andDelegate:(id)delegate {
+//----------------------------------------------------------------------------------------------------
+- (id)initWithNibName:(NSString *)nibNameOrNil 
+			   bundle:(NSBundle *)nibBundleOrNil 
+		   searchType:(BOOL)localSearchFlag
+		 withCapacity:(NSInteger)capacity 
+		  andDelegate:(id)delegate {
 		
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	self = [super initWithNibName:nibNameOrNil 
+						   bundle:nibBundleOrNil];
 	
 	if (self) {
 		
-		_placeManager = [[DWPlaceManager alloc] initWithCapacity:capacity];
-		
 		_delegate = delegate;
-		_isLocalSearch = isLocalSearch;
 		
-		_reloading = NO;
-		_isLoadedOnce = NO;
+		self.placeManager		= [[[DWPlaceManager alloc] initWithCapacity:capacity] autorelease];
+		self.isLocalSearch		= localSearchFlag;
+		self.isReloading		= NO;
+		self.isLoadedOnce		= NO;
+		self.tableViewUsage		= kTableViewAsSpinner;
 		
 		[self resetPagination];
-		_tableViewUsage = TABLE_VIEW_AS_SPINNER;
 				
-		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(smallPlaceImageLoaded:) 
 													 name:kNImgSmallPlaceLoaded
 												   object:nil];
 	}
+	
 	return self;
 }
 
-	
-// Setup UI elements after the view is done loading
-//
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
-	self.view.hidden = YES;
+	self.view.hidden	= YES;
 
-	CGRect frame = self.view.frame;
-	frame.origin.y = 0; 
-	self.view.frame = frame;
+	CGRect frame		= self.view.frame;
+	frame.origin.y		= 0; 
+	self.view.frame		= frame;
 	
-	//self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-	[self.tableView setSeparatorColor:[UIColor colorWithRed:0.921 green:0.921 blue:0.921 alpha:1.0]];
+	
+	[self.tableView setSeparatorColor:[UIColor colorWithRed:kSeparatorRedValue 
+													  green:kSeparatorGreenValue
+													   blue:kSeparatorBlueValue
+													  alpha:kSeparatorAlphaValue]];
 
+	/**
+	 * Tuck the search bar above the table view
+	 */
+	[self.tableView setContentOffset:CGPointMake(0,kSearchBarOffset) animated:NO];
 	
-	self.searchDisplayController.searchBar.placeholder = @"Search All Places";
-	[self.tableView setContentOffset:CGPointMake(0,44) animated:NO]; //Tuck the search bar above the table view
 	
-	
-	EGORefreshTableHeaderView *tempRefreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 
-																						 0.0f - self.tableView.bounds.size.height,
-																						 self.view.frame.size.width,
-																						 self.tableView.bounds.size.height)];
-	self.refreshHeaderView = tempRefreshView;
-	[tempRefreshView release];
-	
+	self.refreshHeaderView = [[[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 
+																						  0.0f - self.tableView.bounds.size.height,
+																						  self.view.frame.size.width,
+																						  self.tableView.bounds.size.height)] autorelease];
 	self.refreshHeaderView.delegate = self;
 	[self.tableView addSubview:self.refreshHeaderView];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidUnload {
+	self.refreshHeaderView = nil;
+}
 
-// Called when the controller becomes selected in the container
-//
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];  
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	
+	self.placeManager		= nil;
+	self.messageCellText	= nil;
+	self.lastRefreshDate	= nil;
+	self.refreshHeaderView	= nil;
+	
+	[super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)viewIsSelected {
 	self.view.hidden = NO;
 
@@ -99,122 +134,137 @@
 	}
 }
 
-
-// Called when the controller is deselected from the container
-//
+//----------------------------------------------------------------------------------------------------
 - (void)viewIsDeselected {
 	[self.searchDisplayController.searchBar resignFirstResponder];
 	self.view.hidden = YES;
 }
 
-
-// Reset pagination before a full refresh. Current page is reset to initial value and
-// the pagination cell is reintroduced
-//
+//----------------------------------------------------------------------------------------------------
 - (void)resetPagination {
-	_currentPage = INITIAL_PAGE_FOR_REQUESTS;
+	_currentPage = kPagInitialPage;
 	_paginationCellStatus = 1;
 }
 
-
-// Mark end of pagination by setting the flag to remove the pagination cell
-//
+//----------------------------------------------------------------------------------------------------
 - (void)markEndOfPagination {
 	_paginationCellStatus = 0;
 }
 
-
-// Add a new place to the table view
-//
+//----------------------------------------------------------------------------------------------------
 - (void)addNewPlace:(DWPlace*)place {
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA) {
-		_tableViewUsage = TABLE_VIEW_AS_DATA;
+	
+	if(_tableViewUsage != kTableViewAsData) {
+		_tableViewUsage = kTableViewAsData;
 		[self.tableView reloadData];
 	}
 	
-	//Insert the place 
-	[_placeManager addPlace:place atRow:0 andColumn:0];
+	[_placeManager addPlace:place
+					  atRow:kDefaultPlacesRow
+				  andColumn:0];
 	
-	// Insert new row to display the freshly created place
-	NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-	NSArray *indexPaths = [[NSArray alloc] initWithObjects:placeIndexPath,nil];
+	NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:kDefaultPlacesRow
+													 inSection:0];
+	NSArray *indexPaths			= [NSArray arrayWithObjects:placeIndexPath,nil];
 	
-	[self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationRight];
-	[indexPaths release];
+	[self.tableView insertRowsAtIndexPaths:indexPaths
+						  withRowAnimation:UITableViewRowAnimationRight];
 }
 
-
-
-#pragma mark -
-#pragma mark Methods to obtain places from the server
-
-// Takes the UI into spinner mode and reloads everything
-//
+//----------------------------------------------------------------------------------------------------
 - (void)hardRefresh {
-	_reloading = YES;
+	_isReloading	= YES;
+	_tableViewUsage = kTableViewAsSpinner;
 	
-	_tableViewUsage = TABLE_VIEW_AS_SPINNER;
 	[self.tableView reloadData];
+	[self			loadPlaces];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadPlaces {
+	self.lastRefreshDate = [NSDate dateWithTimeIntervalSinceNow:0];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadNextPageOfPlaces {
+	_prePaginationCellCount = [_placeManager totalPlacesAtRow:kDefaultPlacesRow];
+	_currentPage++;
 	
 	[self loadPlaces];
 }
 
-
-// Update the lastDateRefresh variable
-//
-- (void)loadPlaces {
-
-	NSDate *tempDate = [[NSDate alloc] initWithTimeIntervalSinceNow:0];
-	self.lastDateRefresh = tempDate;
-	[tempDate release];
-}
-
-
-// Increment the pagination counter and load the next page of places
-//
-- (void)loadNextPageOfPlaces {
-	_prePaginationCellCount = [_placeManager totalPlacesAtRow:0];
-	_currentPage++;
-	[self loadPlaces];
-}
-
-
-
-
-// Lets autoRefreshView know that loading is done
-//
+//----------------------------------------------------------------------------------------------------
 - (void)finishedLoadingPlaces {
 	[self.refreshHeaderView refreshLastUpdatedDate];
 	
-	if([_placeManager totalPlacesAtRow:0] < PLACES_PER_PAGE || 
-	   ([_placeManager totalPlacesAtRow:0] - _prePaginationCellCount < PLACES_PER_PAGE && !_reloading)) { 
-		//Mark end of pagination is no new items were found
+	if([_placeManager totalPlacesAtRow:kDefaultPlacesRow] < kPagPlacesPerPage || 
+	   ([_placeManager totalPlacesAtRow:kDefaultPlacesRow] - _prePaginationCellCount < kPagPlacesPerPage &&
+			!_isReloading)) { 
+		
+		/**
+		 * Mark end of pagination is no new items are found
+		 */
 		_prePaginationCellCount = 0;
 		[self markEndOfPagination];
 	}
 
-	if(_reloading) {
+	if(_isReloading) {
 		[self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
-		_reloading = NO;
+		_isReloading = NO;
 	}
 }
 
 
-// Send a request to search places based on the given query
-//
+//----------------------------------------------------------------------------------------------------
 - (void)searchPlaces:(NSString*)query {
 }
 
 
-
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Notification handlers
+#pragma mark Private
 
+//----------------------------------------------------------------------------------------------------
+- (void)refreshFilteredPlacesUI {
+	[self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor whiteColor]];
+	[self.searchDisplayController.searchResultsTableView setRowHeight:kPlaceFeedCellHeight];
+	self.searchDisplayController.searchResultsTableView.alpha = kSearchInActiveAlpha;
+	self.searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+	
+	for (UIView *subview in self.searchDisplayController.searchResultsTableView.subviews) { 
+		[subview removeFromSuperview]; 
+	}
+	
+	if(!_isLocalSearch)
+		[self.searchDisplayController.searchResultsTableView reloadData];	
+}
+
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadImagesForOnscreenRows {
+	NSArray *visiblePaths = self.searchDisplayController.isActive ? 
+	[self.searchDisplayController.searchResultsTableView indexPathsForVisibleRows] :
+	[self.tableView indexPathsForVisibleRows];
+	
+	for (NSIndexPath *indexPath in visiblePaths) { 
+		DWPlace *place = self.searchDisplayController.isActive ? 
+		[_placeManager getFilteredPlace:indexPath.row] :
+		[_placeManager getPlaceAtRow:indexPath.section andColumn:indexPath.row];
+		
+		[place startSmallPreviewDownload];
+	}
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
 
 - (void)smallPlaceImageLoaded:(NSNotification*)notification {
 	
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA || !_isLoadedOnce)
+	if(_tableViewUsage != kTableViewAsData || !_isLoadedOnce)
 		return;
 	
 	NSDictionary *info		= [notification userInfo];
@@ -245,177 +295,155 @@
 }
 
 
-
-// Fired when a place has downloaded a small preview image
-//
-- (void)smallPlacePreviewDone:(NSNotification*)notification {
-
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA || !_isLoadedOnce)
-		return;
-		
-	
-	DWPlace *placeWithImage =  (DWPlace*)[notification object];
-	
-	NSArray *visiblePaths = self.searchDisplayController.isActive ? 
-							[self.searchDisplayController.searchResultsTableView indexPathsForVisibleRows] :
-							[self.tableView indexPathsForVisibleRows];
-	
-	for (NSIndexPath *indexPath in visiblePaths) {            
-		DWPlace *place = self.searchDisplayController.isActive ? 
-							[_placeManager getFilteredPlace:indexPath.row] :
-							[_placeManager getPlaceAtRow:indexPath.section andColumn:indexPath.row];
-		
-		if(place == placeWithImage) {
-			DWPlaceFeedCell *cell = nil;
-			
-			if(self.searchDisplayController.isActive)
-				cell = (DWPlaceFeedCell*)[self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
-			else	
-				cell = (DWPlaceFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-			
-			cell.placeImage.image = placeWithImage.smallPreviewImage;
-		}
-	}	
-	
-}
-
-
-
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark EGORefreshTableHeaderDelegate Methods
+#pragma mark EGORefreshTableHeaderDelegate 
 
-
-// Pull to refresh triggered
-//
+//----------------------------------------------------------------------------------------------------
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view {
 	if(!self.searchDisplayController.isActive) {
 		[self resetPagination];
 		
-		_reloading = YES;
+		_isReloading = YES;
 		[self loadPlaces];
 	}
 }
 
-
-// Returns the status of the data source loading
-//
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
-	return _reloading; 
+//----------------------------------------------------------------------------------------------------
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view {
+	return _isReloading; 
 }
 
-
-// Returns the last refresh date
-//
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
-	return self.lastDateRefresh;
+//----------------------------------------------------------------------------------------------------
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view {
+	return self.lastRefreshDate;
 }
 
 
 
 #pragma mark -
-#pragma mark Table view data source
+#pragma mark UITableViewDataSource
 
 
-// The nearby feed table has only 1 section.
-//
+//----------------------------------------------------------------------------------------------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return kDefaultSections;
 }
 
-
-// Number of rows in the table is same as the number of items downloaded
-// from the server for nearby places.
-//
+//----------------------------------------------------------------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	
+
 	NSInteger rows = 0;
 	
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA)
-		rows = self.searchDisplayController.isActive ? [_placeManager totalFilteredPlaces] : [_placeManager totalPlacesAtRow:section] + _paginationCellStatus;
+	if(_tableViewUsage == kTableViewAsData)
+		rows = self.searchDisplayController.isActive ? 
+					[_placeManager totalFilteredPlaces] : 
+					[_placeManager totalPlacesAtRow:section] + _paginationCellStatus;
 	else
-		rows = LOADING_CELL_COUNT;
-		
+		rows = kTVLoadingCellCount;
+			
 	return rows;
 }
 
 
-// Calculates the height of cells based on the data within them
-//
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//----------------------------------------------------------------------------------------------------
+- (CGFloat)tableView:(UITableView *)tableView 
+heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
 	CGFloat height = 0;
 	
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && 
-			(self.searchDisplayController.isActive || indexPath.row < [_placeManager totalPlacesAtRow:indexPath.section]) )
-		height = PLACE_FEED_CELL_HEIGHT;
-	else if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section])
-		height = PAGINATION_CELL_HEIGHT;
+	if(_tableViewUsage == kTableViewAsData && 
+			(self.searchDisplayController.isActive || 
+				indexPath.row < [_placeManager totalPlacesAtRow:indexPath.section]) )
+		
+		height = kPlaceFeedCellHeight;
+	
+	else if(_tableViewUsage == kTableViewAsData && 
+			indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section])
+		
+		height = kPlaceFeedCellHeight;
 	else
-		height = LOADING_CELL_HEIGHT;
+		height = kTVLoadingCellHeight;
 	
 	return height;
 }
 
-
-// Customize the appearance of table view cells.
-//
+//----------------------------------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	UITableViewCell *cell = nil;
 	
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && 
-			(self.searchDisplayController.isActive || indexPath.row < [_placeManager totalPlacesAtRow:indexPath.section]) ) {
-		DWPlace *place = self.searchDisplayController.isActive && tableView == self.searchDisplayController.searchResultsTableView ? 
-		[_placeManager getFilteredPlace:indexPath.row] :
-		[_placeManager getPlaceAtRow:indexPath.section andColumn:indexPath.row];
+	NSLog(@"IN CELL FOR %d",indexPath.row);
+	
+	if(_tableViewUsage == kTableViewAsData && 
+			(self.searchDisplayController.isActive || 
+				indexPath.row < [_placeManager totalPlacesAtRow:indexPath.section]) ) {
+				
+		DWPlace *place = self.searchDisplayController.isActive && 
+							tableView == self.searchDisplayController.searchResultsTableView ? 
+								[_placeManager getFilteredPlace:indexPath.row] :
+								[_placeManager getPlaceAtRow:indexPath.section
+												   andColumn:indexPath.row];
 		
 		
-		DWPlaceFeedCell *cell = (DWPlaceFeedCell*)[tableView dequeueReusableCellWithIdentifier:PLACE_FEED_CELL_IDENTIFIER];
+		DWPlaceFeedCell *cell = (DWPlaceFeedCell*)[tableView dequeueReusableCellWithIdentifier:kPlaceFeedCellIdentifier];
+				
 		if (!cell) 
-			cell = [[[DWPlaceFeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:PLACE_FEED_CELL_IDENTIFIER] autorelease];
+			cell = [[[DWPlaceFeedCell alloc] initWithStyle:UITableViewCellStyleDefault 
+										   reuseIdentifier:kPlaceFeedCellIdentifier] autorelease];
 		
 		
-		//Customize the cell.
-		cell.placeName.text = place.name;
-		cell.placeDetails.text = [place displayAddress];
+		cell.placeName.text		= place.name;
+		cell.placeDetails.text	= [place displayAddress];
 		
 		if (!tableView.dragging && !tableView.decelerating)
 			[place startSmallPreviewDownload];
 		
-		
 		if (place.smallPreviewImage)
 			cell.placeImage.image = place.smallPreviewImage;
 		else
-			cell.placeImage.image = [UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME];
+			cell.placeImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];
 		
 		return cell;
 	}
-	else if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section]) {
-		DWPaginationCell *cell = (DWPaginationCell*)[tableView dequeueReusableCellWithIdentifier:PAGINATION_CELL_IDENTIFIER];
+	else if(_tableViewUsage == kTableViewAsData && 
+			indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section]) {
+		
+		DWPaginationCell *cell = (DWPaginationCell*)[tableView dequeueReusableCellWithIdentifier:kTVPaginationCellIdentifier];
 		
 		if(!cell)
-			cell = [[DWPaginationCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:PAGINATION_CELL_IDENTIFIER];
+			cell = [[DWPaginationCell alloc] initWithStyle:UITableViewStylePlain 
+										   reuseIdentifier:kTVPaginationCellIdentifier];
 		
 		[cell displaySteadyState];
 		
 		return cell;
 	}
 	
-	else if(_tableViewUsage == TABLE_VIEW_AS_SPINNER && indexPath.row == SPINNER_CELL_PLACE_INDEX) {
-		DWLoadingCell *cell = (DWLoadingCell*)[tableView dequeueReusableCellWithIdentifier:LOADING_CELL_IDENTIFIER];
+	else if(_tableViewUsage == kTableViewAsSpinner && 
+			indexPath.row == kSpinnerCellIndex) {
+		
+		DWLoadingCell *cell = (DWLoadingCell*)[tableView dequeueReusableCellWithIdentifier:kTVLoadingCellIdentifier];
 		
 		if (!cell) 
-			cell = [[[DWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LOADING_CELL_IDENTIFIER] autorelease];
+			cell = [[[DWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault 
+										 reuseIdentifier:kTVLoadingCellIdentifier] autorelease];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;	
 		[cell.spinner startAnimating];
 		
 		return cell;
 	}
-	else if(_tableViewUsage == TABLE_VIEW_AS_MESSAGE && indexPath.row == MESSAGE_CELL_PLACE_INDEX) {
-		DWMessageCell *cell = (DWMessageCell*)[tableView dequeueReusableCellWithIdentifier:MESSAGE_CELL_IDENTIFIER];
+	else if(_tableViewUsage == kTableViewAsMessage && 
+			indexPath.row == kMessageCellIndex) {
+		
+		DWMessageCell *cell = (DWMessageCell*)[tableView dequeueReusableCellWithIdentifier:kTVMessageCellIdentifier];
 		
 		if (!cell) 
-			cell = [[[DWMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MESSAGE_CELL_IDENTIFIER] autorelease];
+			cell = [[[DWMessageCell alloc] initWithStyle:UITableViewCellStyleDefault 
+										 reuseIdentifier:kTVMessageCellIdentifier] autorelease];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;	
 		cell.textLabel.text = self.messageCellText;
@@ -423,10 +451,11 @@
 		return cell;
 	}
 	else {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DEFAULT_CELL_IDENTIFIER];
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTVDefaultCellIdentifier];
 		
 		if (!cell) 
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DEFAULT_CELL_IDENTIFIER] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+										   reuseIdentifier:kTVDefaultCellIdentifier] autorelease];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		
@@ -437,80 +466,43 @@
 }
 
 
-// Refresh the filtered places UI to display results
-//
-- (void)refreshFilteredPlacesUI {
-	[self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor whiteColor]];
-	[self.searchDisplayController.searchResultsTableView setRowHeight:45];
-	self.searchDisplayController.searchResultsTableView.alpha = 1.0;
-	self.searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-	
-	for (UIView *subview in self.searchDisplayController.searchResultsTableView.subviews) { [subview removeFromSuperview]; }
-	
-	if(!_isLocalSearch)
-		[self.searchDisplayController.searchResultsTableView reloadData];	
-}
-
-
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Deferred image loading (UIScrollViewDelegate)
+#pragma mark UIScrollViewDelegate
 
-
-
-// Alert refreshView about the table scrolling
-//
+//----------------------------------------------------------------------------------------------------
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{		
 	[self.refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
 }
 
-
-// Launch cell preview downloads if the scrollView is decelerating
-//
+//----------------------------------------------------------------------------------------------------
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
 	[self.refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 	
-    if (!decelerate && _tableViewUsage == TABLE_VIEW_AS_DATA)
+    if (!decelerate && _tableViewUsage == kTableViewAsData)
 		[self loadImagesForOnscreenRows];
 }
 
-
-// Launch cell preview downloads if the scrollView is about to stop
-// decelerating
-//
+//----------------------------------------------------------------------------------------------------
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA)
+	if(_tableViewUsage == kTableViewAsData)
 		[self loadImagesForOnscreenRows];
 }
 
 
-// Download preview images for visible cells
-//
-- (void)loadImagesForOnscreenRows {
-	NSArray *visiblePaths = self.searchDisplayController.isActive ? 
-	[self.searchDisplayController.searchResultsTableView indexPathsForVisibleRows] :
-	[self.tableView indexPathsForVisibleRows];
-	
-	for (NSIndexPath *indexPath in visiblePaths) { 
-		DWPlace *place = self.searchDisplayController.isActive ? 
-		[_placeManager getFilteredPlace:indexPath.row] :
-		[_placeManager getPlaceAtRow:indexPath.section andColumn:indexPath.row];
-		
-		[place startSmallPreviewDownload];
-	}
-}
-
-
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Table view delegate
+#pragma mark UITableViewDelegate
 
 
-// Handles click event on the table view 
-//
+//----------------------------------------------------------------------------------------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && 
-		(self.searchDisplayController.isActive || indexPath.row < [_placeManager totalPlacesAtRow:indexPath.section]) ) {
+	
+	if(_tableViewUsage == kTableViewAsData && 
+		(self.searchDisplayController.isActive || 
+			indexPath.row < [_placeManager totalPlacesAtRow:indexPath.section]) ) {
 		
 		DWPlace *place = self.searchDisplayController.isActive ? 
 						[_placeManager getFilteredPlace:indexPath.row] :
@@ -518,14 +510,19 @@
 		
 		[_delegate placeSelected:place];
 		
-		//Deselect the currently selected row 
+		/**
+		 *Deselect the currently selected row 
+		 */
 		if(self.searchDisplayController.isActive)
 			[self.searchDisplayController.searchResultsTableView 
 				deselectRowAtIndexPath:[self.searchDisplayController.searchResultsTableView indexPathForSelectedRow] animated:YES];
 		else
 			[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 	}
-	else if(_tableViewUsage == TABLE_VIEW_AS_DATA && !self.searchDisplayController.isActive && indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section]) {
+	else if(_tableViewUsage == kTableViewAsData && 
+			!self.searchDisplayController.isActive && 
+			indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section]) {
+		
 		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
 		DWPaginationCell *cell = (DWPaginationCell*)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -534,101 +531,53 @@
 			[cell displayProcessingState];
 			[self loadNextPageOfPlaces];
 		}
-		
 	}
-
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UISearchBar Delegate Methods
+#pragma mark UISearchBarDelegate
 
-
-// User clicks the big blue search button
-//
+//----------------------------------------------------------------------------------------------------
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {	
-	
-	//[self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor whiteColor]];
-    //[self.searchDisplayController.searchResultsTableView setRowHeight:45];
-	//self.searchDisplayController.searchResultsTableView.alpha = 1.0;
-    //self.searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-	
-	//for (UIView *subview in self.searchDisplayController.searchResultsTableView.subviews) { [subview removeFromSuperview]; }
-	
-	// Code for a local search
-	//[_placeManager filterPlacesForSearchText:self.searchDisplayController.searchBar.text];
-	//[self.searchDisplayController.searchResultsTableView reloadData];
 	
 	if(!_isLocalSearch)
 		[self searchPlaces:self.searchDisplayController.searchBar.text];
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UISearchDisplayControllerDelegate 
 
-
-// Fired when the search text is changed to test if the table should be reloaded
-//
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+//----------------------------------------------------------------------------------------------------
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller 
+shouldReloadTableForSearchString:(NSString *)searchString {
 	
 	if(_isLocalSearch)
 		[_placeManager filterPlacesForSearchText:searchString];
 	else {
 		[self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor blackColor]];
-		self.searchDisplayController.searchResultsTableView.alpha = 0.8;
-		[self.searchDisplayController.searchResultsTableView setRowHeight:3000];
-		self.searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+		[self.searchDisplayController.searchResultsTableView setRowHeight:kSearchPlaceActiveCellHeight];
 		
-		for (UIView *subview in self.searchDisplayController.searchResultsTableView.subviews) { [subview removeFromSuperview]; }
+		self.searchDisplayController.searchResultsTableView.alpha			= kSearchActiveAlpha;
+		self.searchDisplayController.searchResultsTableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
+		
+		for (UIView *subview in self.searchDisplayController.searchResultsTableView.subviews) { 
+			[subview removeFromSuperview]; 
+		}
 	}
-
 	
 	return _isLocalSearch;
 }
 
-
-// Clear previous copy of filtered places when search ends
-//
+//----------------------------------------------------------------------------------------------------
 - (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller {
 	[_placeManager clearFilteredPlaces:_isLocalSearch]; 
 }
-
-
-
-
-
-#pragma mark -
-#pragma mark Memory management
-
-// Handle the view did unload event
-//
-- (void)viewDidUnload {
-	self.refreshHeaderView = nil;
-}
-
-// The usual memory warning
-//
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];  
-}
-
-
-// The usual memory cleanup
-//
-- (void)dealloc {
-	
-	self.lastDateRefresh = nil;
-	self.messageCellText = nil;
-	self.refreshHeaderView = nil;
-	
-	[_placeManager release];
-	
-	[super dealloc];
-}
-
 
 @end
 

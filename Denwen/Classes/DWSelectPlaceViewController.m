@@ -84,7 +84,7 @@
 // the number of rows in a section are empty
 //
 - (BOOL)isSpecialMessageSection:(NSInteger)section {
-	return _tableViewUsage == TABLE_VIEW_AS_DATA && !self.searchDisplayController.isActive && ![_placeManager totalPlacesAtRow:section];
+	return _tableViewUsage == kTableViewAsData && !self.searchDisplayController.isActive && ![_placeManager totalPlacesAtRow:section];
 }
 
 
@@ -108,7 +108,7 @@
 	[_placeManager populatePlaces:places atIndex:0];
 	
 	_isLoadedOnce = YES;
-	_tableViewUsage = TABLE_VIEW_AS_DATA;
+	_tableViewUsage = kTableViewAsData;
 	
 	[self markEndOfPagination];
 	[self.tableView reloadData];
@@ -168,7 +168,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	NSString *title = @"";
 	
-	//if(_tableViewUsage == TABLE_VIEW_AS_DATA && !self.searchDisplayController.isActive)
+	//if(_tableViewUsage == kTableViewAsData && !self.searchDisplayController.isActive)
 	//	title = FOLLOWED_TITLE;
 	
 	return title;
@@ -181,10 +181,10 @@
 	UITableViewCell *cell = nil;
 	
 	if([self isSpecialMessageSection:indexPath.section]) {		
-	   DWMessageCell *cell = (DWMessageCell*)[theTableView dequeueReusableCellWithIdentifier:MESSAGE_CELL_IDENTIFIER];
+	   DWMessageCell *cell = (DWMessageCell*)[theTableView dequeueReusableCellWithIdentifier:kTVMessageCellIdentifier];
 	   
 	   if (!cell) 
-		   cell = [[[DWMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MESSAGE_CELL_IDENTIFIER] autorelease];
+		   cell = [[[DWMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTVMessageCellIdentifier] autorelease];
 	   
 	   cell.selectionStyle = UITableViewCellSelectionStyleNone;	
 		

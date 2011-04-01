@@ -115,6 +115,14 @@ NSInteger const kTableViewAsMessage			= 2;
 NSInteger const kTableViewAsProfileMessage	= 3;
 
 //----------------------------------------------------------------------------------------------------
+NSInteger const kTVLoadingCellCount			= 5;
+NSInteger const kTVLoadingCellHeight		= 74;
+NSString* const kTVPaginationCellIdentifier = @"PaginationCell";
+NSString* const kTVMessageCellIdentifier	= @"MessageCell";
+NSString* const kTVLoadingCellIdentifier	= @"LoadingCell";
+NSString* const kTVDefaultCellIdentifier	= @"Cell";
+
+//----------------------------------------------------------------------------------------------------
 NSInteger const kSegmentedPlacesViewWidth	= 320;
 NSInteger const kSegmentedPlacesViewHeight	= 44;
 
@@ -126,9 +134,16 @@ NSInteger const kLocFailSafeDuration		= 6;
 NSInteger const kLocNearbyRadius			= 1200;
 
 //----------------------------------------------------------------------------------------------------
+NSInteger const kPagInitialPage		= 0;
+NSInteger const kPagPlacesPerPage	= 20;
+
+//----------------------------------------------------------------------------------------------------
 NSString* const kMsgNoPlacesNearby				= @"No places nearby";
 NSString* const kMsgNoFollowPlacesCurrentUser	= @"You aren't following any places yet";
 NSString* const kMsgNoFollowPlacesNormalUser	= @"This user isn't following any places yet";
+
+//----------------------------------------------------------------------------------------------------
+NSString* const kImgGenericPlaceHolder = @"generic_placeholder.png";
 
 
 
@@ -202,7 +217,6 @@ int const MAX_CACHE_ITEM_SIZE = 838861;//1MB = 1048576 BYTES;
 
 /* Paging constants */
 int const ITEMS_PER_PAGE = 20;
-int const PLACES_PER_PAGE = 20;
 
 /* Minimum time elapsed for a pool object to update from its JSON */
 int const POOL_OBJECT_UPDATE_INTERVAL = 5;
@@ -229,7 +243,6 @@ NSString * const PROFILE_TAB_IMAGE_NAME = @"profile.png";
 NSString * const PLACES_TAB_IMAGE_NAME = @"places.png";
 
 /* placeholder images */
-NSString * const GENERIC_PLACEHOLDER_IMAGE_NAME = @"generic_placeholder.png";
 NSString * const PLACE_SMALL_PLACEHOLDER_IMAGE_NAME = @"place_small_placeholder.png";
 NSString * const PLACE_MEDIUM_PLACEHOLDER_IMAGE_NAME = @"camera_button.png";
 NSString * const PLACE_LARGE_PLACEHOLDER_IMAGE_NAME = @"place_placeholder.png";
@@ -282,18 +295,13 @@ int const ATTACHMENT_HEIGHT = 196;
 int const ATTACHMENT_Y_PADDING = 10;
 int const USER_LABEL_PADDING = 5;
 int const USER_NAME_PADDING = 5;
-int const PLACE_FEED_CELL_HEIGHT = 56;
 int const FOLLOW_PLACE_CELL_HEIGHT = 177;//141;
 int const FOLLOW_CURRENT_USER_CELL_HEIGHT = 177;//141;//192;
 int const FOLLOW_USER_CELL_HEIGHT = 126;
-int const LOADING_CELL_HEIGHT = 74;
-int const LOADING_CELL_COUNT = 5;
 int const SPINNER_HEIGHT = 20;
 int const VIDEO_VIEW_SPINNER_SIDE = 25;
 int const SPINNER_CELL_INDEX = 2;
-int const SPINNER_CELL_PLACE_INDEX = 1;
 int const MESSAGE_CELL_INDEX = 2;
-int const MESSAGE_CELL_PLACE_INDEX = 1;
 int const PAGINATION_CELL_HEIGHT = 60;
 
 
@@ -309,16 +317,11 @@ int const SIZE_ATTACHMENT_IMAGE = 250;
 int const SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE = 75;
 
 
-NSString * const DEFAULT_CELL_IDENTIFIER = @"Cell";
 NSString * const ITEM_FEED_CELL_IDENTIFIER = @"ItemFeedCell";
-NSString * const PLACE_FEED_CELL_IDENTIFIER = @"PlaceFeedCell";
 NSString * const FOLLOW_PLACE_CELL_IDENTIFIER = @"FollowPlaceCell";
-NSString * const LOADING_CELL_IDENTIFIER = @"LoadingCell";
 NSString * const USER_CELL_IDENTIFIER = @"UserCell";
-NSString * const MESSAGE_CELL_IDENTIFIER = @"MessageCell";
 NSString * const PIN_IDENTIFIER = @"PinIdentifier";
 NSString * const STATIC_PIN_IDENTIFIER = @"StaticPinIdentifier";
-NSString * const PAGINATION_CELL_IDENTIFIER = @"PaginationCell";
 
 
 // Indices used in the memory pool and other pool constants
@@ -353,9 +356,6 @@ NSString * const SEGMENTED_CONTROL_POPULAR_ON_IMAGE_NAME = @"popular_on.png";
 NSString * const SEGMENTED_CONTROL_POPULAR_OFF_IMAGE_NAME = @"popular_off.png";
 NSString * const SEGMENTED_CONTROL_NEARBY_ON_IMAGE_NAME = @"nearby_on.png";
 NSString * const SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME = @"nearby_off.png";
-
-// Init value of the page parameter in requests
-int const INITIAL_PAGE_FOR_REQUESTS = 0;
 
 
 NSString * const DENWEN_URL_PREFIX = @"denwen://p/";
@@ -417,9 +417,6 @@ NSString * const CANCEL_PHOTO_MSG = @"Cancel";
 NSString * const CANCEL_MEDIA_MSG = @"Cancel";
 
 //Integers signifying different use cases of table views
-NSInteger const TABLE_VIEW_AS_DATA = 0;
-NSInteger const TABLE_VIEW_AS_SPINNER = 1;
-NSInteger const TABLE_VIEW_AS_MESSAGE = 2;
 NSInteger const TABLE_VIEW_AS_PROFILE_MESSAGE = 3;
 
 //Different badge notifications types

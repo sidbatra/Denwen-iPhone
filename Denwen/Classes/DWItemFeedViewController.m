@@ -40,11 +40,11 @@
 		
 		[self resetPagination];
 		
-		_reloading = NO;
+		_isReloading = NO;
 		_isLoadedOnce = NO;
 		
 		_delegate = delegate;
-		_tableViewUsage = TABLE_VIEW_AS_SPINNER;
+		_tableViewUsage = kTableViewAsSpinner;
 		
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -95,8 +95,8 @@
 //
 - (void)addNewItem:(DWItem *)item atIndex:(NSInteger)index {
 	
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA) {
-		_tableViewUsage = TABLE_VIEW_AS_DATA;
+	if(_tableViewUsage != kTableViewAsData) {
+		_tableViewUsage = kTableViewAsData;
 		[self.tableView reloadData];
 	}
 	
@@ -116,7 +116,7 @@
 // the pagination cell is reintroduced
 //
 - (void)resetPagination {
-	_currentPage = INITIAL_PAGE_FOR_REQUESTS;
+	_currentPage = kPagInitialPage;
 	_paginationCellStatus = 1;
 }
 
@@ -134,7 +134,7 @@
 
 - (void)smallPlaceImageLoaded:(NSNotification*)notification {
 	
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA || ![_itemManager totalItems])
+	if(_tableViewUsage != kTableViewAsData || ![_itemManager totalItems])
 		return;
 	
 	NSDictionary *info		= [notification userInfo];
@@ -155,7 +155,7 @@
 
 - (void)smallUserImageLoaded:(NSNotification*)notification {
 	
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA || ![_itemManager totalItems])
+	if(_tableViewUsage != kTableViewAsData || ![_itemManager totalItems])
 		return;
 	
 	NSDictionary *info		= [notification userInfo];
@@ -175,7 +175,7 @@
 
 
 - (void)imageLoaded:(NSNotification*)notification {
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA || ![_itemManager totalItems])
+	if(_tableViewUsage != kTableViewAsData || ![_itemManager totalItems])
 		return;
 	
 	NSDictionary *info		= [notification userInfo];
@@ -198,7 +198,7 @@
 //
 - (void)attachmentPreviewDone:(NSNotification*)notification {
 	
-	if(_tableViewUsage != TABLE_VIEW_AS_DATA || ![_itemManager totalItems])
+	if(_tableViewUsage != kTableViewAsData || ![_itemManager totalItems])
 		return;
 	
 	DWAttachment *attachment = (DWAttachment*)[notification object];
@@ -225,9 +225,9 @@
 // Takes the UI into spinner mode and reloads everything
 //
 - (void)hardRefresh {
-	_reloading = YES;
+	_isReloading = YES;
 	
-	_tableViewUsage = TABLE_VIEW_AS_SPINNER;
+	_tableViewUsage = kTableViewAsSpinner;
 	[self.tableView reloadData];
 	
 	[self loadItems];
@@ -261,15 +261,15 @@
 	[self.refreshHeaderView refreshLastUpdatedDate];
 	
 	if([_itemManager totalItems] < ITEMS_PER_PAGE || 
-		([_itemManager totalItems] - _prePaginationCellCount < ITEMS_PER_PAGE && !_reloading)) { 
+		([_itemManager totalItems] - _prePaginationCellCount < ITEMS_PER_PAGE && !_isReloading)) { 
 		//Mark end of pagination is no new items were found
 		_prePaginationCellCount = 0;
 		[self markEndOfPagination];
 	}
 	
-	if(_reloading) {
+	if(_isReloading) {
 		[self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
-		_reloading = NO;
+		_isReloading = NO;
 	}
 
 }
@@ -284,7 +284,7 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view {
 	[self resetPagination];
 	
-	_reloading = YES;
+	_isReloading = YES;
 	[self loadItems];
 }
 
@@ -292,7 +292,7 @@
 // Returns the status of the data source loading
 //
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
-	return _reloading; 
+	return _isReloading; 
 }
 
 
@@ -321,10 +321,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	NSInteger totalItems = 0;
 	
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA)
+	if(_tableViewUsage == kTableViewAsData)
 		totalItems = [_itemManager totalItems] + _paginationCellStatus;
 	else
-		totalItems = LOADING_CELL_COUNT;
+		totalItems = kTVLoadingCellCount;
 
     return totalItems;
 }
@@ -335,7 +335,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat height = 0;
 		
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row < [_itemManager totalItems]) {
+	if(_tableViewUsage == kTableViewAsData && indexPath.row < [_itemManager totalItems]) {
 		
 		CGSize textSize = {self.view.frame.size.width - 69, MAX_DYNAMIC_CELL_HEIGHT };
 		CGSize size = [[_itemManager getItem:indexPath.row].data sizeWithFont:[UIFont fontWithName:@"Helvetica" size:15] 
@@ -347,10 +347,10 @@
 		
 		height =  size.height + 61 + attachmentHeight;
 	}
-	else if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row == [_itemManager totalItems])
+	else if(_tableViewUsage == kTableViewAsData && indexPath.row == [_itemManager totalItems])
 		height = PAGINATION_CELL_HEIGHT;
 	else 
-		height = LOADING_CELL_HEIGHT;
+		height = kTVLoadingCellHeight;
 	
 	return height;
 }
@@ -362,7 +362,7 @@
  
 	UITableViewCell *cell = nil;
 		
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row < [_itemManager totalItems]) {
+	if(_tableViewUsage == kTableViewAsData && indexPath.row < [_itemManager totalItems]) {
 		
 		DWItem *item = [_itemManager getItem:indexPath.row];
 		
@@ -391,7 +391,7 @@
 			if (item.attachment.previewImage)
 				[cell.attachmentImage setBackgroundImage:item.attachment.previewImage forState:UIControlStateNormal];	
 			else
-				[cell.attachmentImage setBackgroundImage:[UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME] forState:UIControlStateNormal];	
+				[cell.attachmentImage setBackgroundImage:[UIImage imageNamed:kImgGenericPlaceHolder] forState:UIControlStateNormal];	
 			
 			if([item.attachment isVideo])
 				[cell displayPlayIcon];
@@ -400,42 +400,42 @@
 		if (item.place.smallPreviewImage)
 			[cell setSmallPreviewPlaceImage:item.place.smallPreviewImage];
 		else
-			[cell setSmallPreviewPlaceImage:[UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME]];
+			[cell setSmallPreviewPlaceImage:[UIImage imageNamed:kImgGenericPlaceHolder]];
 		
 		if (item.user.smallPreviewImage)
 			cell.userImage.image = item.user.smallPreviewImage;
 		else
-			cell.userImage.image = [UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME];
+			cell.userImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];
 		
 		
 		return cell;
 	}
-	else if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row == [_itemManager totalItems]) {
-		DWPaginationCell *cell = (DWPaginationCell*)[tableView dequeueReusableCellWithIdentifier:PAGINATION_CELL_IDENTIFIER];
+	else if(_tableViewUsage == kTableViewAsData && indexPath.row == [_itemManager totalItems]) {
+		DWPaginationCell *cell = (DWPaginationCell*)[tableView dequeueReusableCellWithIdentifier:kTVPaginationCellIdentifier];
 		
 		if(!cell)
-			cell = [[DWPaginationCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:PAGINATION_CELL_IDENTIFIER];
+			cell = [[DWPaginationCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:kTVPaginationCellIdentifier];
 		
 		[cell displaySteadyState];
 		
 		return cell;
 	}
-	else if(_tableViewUsage == TABLE_VIEW_AS_SPINNER && indexPath.row == SPINNER_CELL_INDEX) {
-		DWLoadingCell *cell = (DWLoadingCell*)[tableView dequeueReusableCellWithIdentifier:LOADING_CELL_IDENTIFIER];
+	else if(_tableViewUsage == kTableViewAsSpinner && indexPath.row == SPINNER_CELL_INDEX) {
+		DWLoadingCell *cell = (DWLoadingCell*)[tableView dequeueReusableCellWithIdentifier:kTVLoadingCellIdentifier];
 		
 		if (!cell) 
-			cell = [[[DWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LOADING_CELL_IDENTIFIER] autorelease];
+			cell = [[[DWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTVLoadingCellIdentifier] autorelease];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		[cell.spinner startAnimating];
 		
 		return cell;
 	}
-	else if((_tableViewUsage == TABLE_VIEW_AS_MESSAGE || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == MESSAGE_CELL_INDEX) {
-		DWMessageCell *cell = (DWMessageCell*)[tableView dequeueReusableCellWithIdentifier:MESSAGE_CELL_IDENTIFIER];
+	else if((_tableViewUsage == kTableViewAsMessage || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == MESSAGE_CELL_INDEX) {
+		DWMessageCell *cell = (DWMessageCell*)[tableView dequeueReusableCellWithIdentifier:kTVMessageCellIdentifier];
 		
 		if (!cell) 
-			cell = [[[DWMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MESSAGE_CELL_IDENTIFIER] autorelease];
+			cell = [[[DWMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTVMessageCellIdentifier] autorelease];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.textLabel.text = self.messageCellText;
@@ -443,10 +443,10 @@
 		return cell;
 	}
 	else {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DEFAULT_CELL_IDENTIFIER];
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTVDefaultCellIdentifier];
 		
 		if (!cell) 
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DEFAULT_CELL_IDENTIFIER] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTVDefaultCellIdentifier] autorelease];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		
@@ -473,7 +473,7 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
 	[self.refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 
-    if (!decelerate && _tableViewUsage == TABLE_VIEW_AS_DATA)
+    if (!decelerate && _tableViewUsage == kTableViewAsData)
 		[self loadImagesForOnscreenRows];
 }
 
@@ -482,7 +482,7 @@
 // decelerating
 //
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA)
+	if(_tableViewUsage == kTableViewAsData)
 		[self loadImagesForOnscreenRows];
 }
 
@@ -508,7 +508,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	// Load more cell is clicked
-	if(_tableViewUsage == TABLE_VIEW_AS_DATA && indexPath.row == [_itemManager totalItems]) {
+	if(_tableViewUsage == kTableViewAsData && indexPath.row == [_itemManager totalItems]) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 		DWPaginationCell *cell = (DWPaginationCell*)[self.tableView cellForRowAtIndexPath:indexPath];

@@ -80,7 +80,7 @@
 	if(_place.largePreviewImage)
 		backgroundImageView.image = _place.largePreviewImage;
 	else
-		backgroundImageView.image = [UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME];
+		backgroundImageView.image = [UIImage imageNamed:kImgGenericPlaceHolder];
 	
 	mbProgressIndicator = [[MBProgressHUD alloc] initWithView:self.view];
 	[self.view addSubview:mbProgressIndicator];

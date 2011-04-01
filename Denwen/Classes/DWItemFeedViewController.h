@@ -32,7 +32,7 @@
 	NSInteger _paginationCellStatus;
 	NSInteger _prePaginationCellCount;
 	
-	BOOL _reloading;
+	BOOL _isReloading;
 	BOOL _isLoadedOnce;
 	
 	NSDate *_lastDataRefresh;
