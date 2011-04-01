@@ -58,6 +58,7 @@ NSString* const kNPlaceUpdated				= @"NPlaceUpdated";
 NSString* const kNPlaceUpdateError			= @"NPlaceUpdateError";
 NSString* const kNNewPlaceCreated			= @"NNewPlaceCreated";
 NSString* const kNNewPlaceError				= @"NNewPlaceError";
+NSString* const kNNewPlaceParsed			= @"NNewPlaceParsed";
 NSString* const kNNewFollowingCreated		= @"NNewFollowingCreated";
 NSString* const kNNewFollowingError			= @"NNewFollowingError";
 NSString* const kNFollowingDestroyed		= @"NFollowingDestroyed";
@@ -70,6 +71,7 @@ NSString* const kNFollowedItemsLoaded		= @"NFollowedItemsLoaded";
 NSString* const kNFollowedItemsError		= @"NFollowedItemsError";
 NSString* const kNNewItemCreated			= @"NNewItemCreated";
 NSString* const kNNewItemError				= @"NNewItemError";
+NSString* const kNNewItemParsed				= @"NNewItemParsed";
 NSString* const kNNewUserCreated			= @"NNewUserCreated";
 NSString* const kNNewUserError				= @"NNewUserError";	
 NSString* const kNNewSessionCreated			= @"NNewSessionCreated";
@@ -115,6 +117,19 @@ NSInteger const kTableViewAsProfileMessage	= 3;
 //----------------------------------------------------------------------------------------------------
 NSInteger const kSegmentedPlacesViewWidth	= 320;
 NSInteger const kSegmentedPlacesViewHeight	= 44;
+
+//----------------------------------------------------------------------------------------------------
+NSInteger const kLocFreshness				= 9;
+NSInteger const kLocAccuracy				= 1100;
+NSInteger const kLocRefreshDistance			= 750;
+NSInteger const kLocFailSafeDuration		= 6;
+NSInteger const kLocNearbyRadius			= 1200;
+
+//----------------------------------------------------------------------------------------------------
+NSString* const kMsgNoPlacesNearby			= @"No places nearby";
+
+
+
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kPlaceListViewControllerNib = @"DWPlaceListViewController";
@@ -166,7 +181,6 @@ int const LOCATION_FRESHNESS = 9;
 int const LOCATION_ACCURACY = 1100;
 int const LOCATION_REFRESH_DISTANCE = 750;
 int const LOCATION_FAILSAFE_DURATION = 6;
-int const LOCATION_NEARBY_RADIUS = 1200;
 
 /* instances ID for request managers and url connections*/
 int const SEARCH_INSTANCE_ID = 99;
@@ -380,7 +394,6 @@ NSString * const ENCRYPTION_PHRASE = @"9u124hgd35677";
 NSString * const FOLLOW_PLACES_MSG = @"Follow Place";
 NSString * const UNFOLLOW_PLACES_MSG = @"Following";
 NSString * const NO_ITEMS_NEARBY_MSG = @"No items nearby";
-NSString * const NO_PLACES_NEARBY_MSG = @"No places nearby";
 NSString * const FOLLOW_LOGGEDOUT_MSG = @"Sign up to start following places";
 NSString * const SHARE_LOGGEDOUT_MSG = @"Sign up to start sharing places";
 NSString * const FOLLOW_NO_PLACES_SELF_MSG = @"You aren't following any places yet";
@@ -429,7 +442,6 @@ NSString * const N_DENWEN_URL_OPENED = @"DenwenURLOpened";
 NSString * const N_USER_LOGS_IN = @"UserLogsIn";
 NSString * const N_USER_LOGS_OUT = @"UserLogsOut";
 NSString * const N_NEW_ITEM_CREATED = @"NewItemCreated";
-NSString * const N_NEW_PLACE_CREATED = @"NewPlaceCreated";
 
 
 

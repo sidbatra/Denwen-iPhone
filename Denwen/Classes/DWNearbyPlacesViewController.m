@@ -1,36 +1,32 @@
 //
 //  DWNearbyPlacesViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWNearbyPlacesViewController.h"
+#import "DWRequestsManager.h"
+#import "DWConstants.h"
 
-//Declarations for private methods
-//
-@interface DWNearbyPlacesViewController () 
-@end
+static NSInteger const kCapacity			= 1;
+static NSString* const kSearchBarText		= @"Search All Places";
 
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWNearbyPlacesViewController
 
-
-#pragma mark -
-#pragma mark View lifecycle
-
-
-// Init the view along with its member variables 
-//
+//----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)delegate {
-	self = [super initWithNibName:@"DWPlaceListViewController" bundle:nil searchType:YES withCapacity:1 andDelegate:delegate];
+	
+	self = [super initWithNibName:kPlaceListViewControllerNib 
+						   bundle:nil
+					   searchType:YES
+					 withCapacity:kCapacity
+					  andDelegate:delegate];
 	
 	if (self) {		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(newPlaceCreated:) 
-												 name:N_NEW_PLACE_CREATED 
-											   object:nil];
 		
 		if (&UIApplicationWillEnterForegroundNotification != NULL) {
 			[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -47,87 +43,84 @@
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(nearbyPlacesError:) 
 													 name:kNNearbyPlacesError
-												   object:nil];		
-
+												   object:nil];	
 		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(newPlaceParsed:) 
+													 name:kNNewPlaceParsed 
+												   object:nil];
 	}
+	
 	return self;
 }
 
-
-// Setup UI elements after the view is done loading
-//
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	CGRect frame = self.view.frame;
-	frame.origin.y = SEGMENTED_VIEW_HEIGHT; 
-	frame.size.height = frame.size.height - SEGMENTED_VIEW_HEIGHT;
-	self.view.frame = frame;
+	CGRect frame		= self.view.frame;
+	frame.origin.y		= kSegmentedPlacesViewHeight; 
+	frame.size.height	= frame.size.height - kSegmentedPlacesViewHeight;
+	self.view.frame		= frame;
 	
 	self.view.hidden = YES;
 	
-	self.searchDisplayController.searchBar.placeholder = @"Search Nearby Places";
+	self.searchDisplayController.searchBar.placeholder = kSearchBarText;
 }
 
-
-
-#pragma mark -
-#pragma mark Notification handlers
-
-
-
-// Fired when the user creates a new place
-//
-- (void)newPlaceCreated:(NSNotification*)notification {
-	DWPlace *place = (DWPlace*)[notification object];
-	
-	if(_isLoadedOnce && [[DWSession sharedDWSession].location distanceFromLocation:place.location] <= LOCATION_NEARBY_RADIUS)	
-		[self addNewPlace:place];
-}
-
-
-// Fired when the app is about to enter the foreground
-//
-- (void)applicationEnteringForeground:(NSNotification*)notification {
-	if(_isLoadedOnce)
-		[self hardRefresh];
-}
-
-
-
-#pragma mark -
-#pragma mark Methods to obtain places from the server
-
-
-// Send a request to load popoular places
-//
+//----------------------------------------------------------------------------------------------------
 - (void)loadPlaces {
 	[super loadPlaces];
 	
 	[[DWRequestsManager sharedDWRequestsManager] getNearbyPlaces];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];  
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+    [super dealloc];
+}
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark RequestManager Delegate methods
+#pragma mark Notifications
 
+//----------------------------------------------------------------------------------------------------
+- (void)applicationEnteringForeground:(NSNotification*)notification {
+	if(_isLoadedOnce)
+		[self hardRefresh];
+}
 
+//----------------------------------------------------------------------------------------------------
+- (void)newPlaceParsed:(NSNotification*)notification {
+	DWPlace *place = (DWPlace*)[(NSDictionary*)[notification userInfo] objectForKey:kKeyPlace];
+	
+	if(_isLoadedOnce && 
+		[[DWSession sharedDWSession].location distanceFromLocation:place.location] <= kLocNearbyRadius)	
+		[self addNewPlace:place];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)nearbyPlacesLoaded:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
 		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
-		[_placeManager populatePlaces:places atIndex:0];
+		[_placeManager populatePlaces:places atIndex:kCapacity-1];
 		
 		
-		if([_placeManager totalPlacesAtRow:0]) 
-			_tableViewUsage = TABLE_VIEW_AS_DATA;
+		if([_placeManager totalPlacesAtRow:kCapacity-1]) 
+			_tableViewUsage = kTableViewAsData;
 		else {
-			self.messageCellText = NO_PLACES_NEARBY_MSG;
-			_tableViewUsage = TABLE_VIEW_AS_MESSAGE;
+			self.messageCellText = kMsgNoPlacesNearby;
+			_tableViewUsage = kTableViewAsMessage;
 		}
 		
 		_isLoadedOnce = YES;
@@ -139,27 +132,9 @@
 	[self finishedLoadingPlaces];
 }
 
-
+//----------------------------------------------------------------------------------------------------
 - (void)nearbyPlacesError:(NSNotification*)notification {
 	[self finishedLoadingPlaces];
-}
-
-
-
-#pragma mark -
-#pragma mark Memory management
-
-// The usual memory warning
-//
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];  
-}
-
-
-// The usual memory cleanup
-//
-- (void)dealloc {
-    [super dealloc];
 }
 
 

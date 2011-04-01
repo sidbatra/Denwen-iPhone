@@ -391,7 +391,9 @@ replacementString:(NSString *)string {
 		place.pointerCount--;
 		[place release];
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_NEW_PLACE_CREATED object:place];
+		[[NSNotificationCenter defaultCenter] postNotificationName:kNNewPlaceParsed 
+															object:nil
+														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:place,kKeyPlace,nil]];
 		[_delegate newPlaceCreated:place];
 	}
 	else {

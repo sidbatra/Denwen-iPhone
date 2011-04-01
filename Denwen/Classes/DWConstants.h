@@ -50,6 +50,7 @@ extern NSString* const kNPlaceUpdated;
 extern NSString* const kNPlaceUpdateError;
 extern NSString* const kNNewPlaceCreated;
 extern NSString* const kNNewPlaceError;
+extern NSString* const kNNewPlaceParsed;
 extern NSString* const kNNewFollowingCreated;
 extern NSString* const kNNewFollowingError;
 extern NSString* const kNFollowingDestroyed;
@@ -62,6 +63,7 @@ extern NSString* const kNFollowedItemsLoaded;
 extern NSString* const kNFollowedItemsError;
 extern NSString* const kNNewItemCreated;
 extern NSString* const kNNewItemError;
+extern NSString* const kNNewItemParsed;
 extern NSString* const kNNewUserCreated;
 extern NSString* const kNNewUserError;
 extern NSString* const kNNewSessionCreated;
@@ -97,10 +99,26 @@ extern NSInteger const kTableViewAsMessage;
 extern NSInteger const kTableViewAsProfileMessage ;
 
 /**
- * Segmented Control related constants
+ * Segmented Control 
  */
 extern NSInteger const kSegmentedPlacesViewWidth;
 extern NSInteger const kSegmentedPlacesViewHeight;
+
+/**
+ * Location
+ */
+extern NSInteger const kLocFreshness;
+extern NSInteger const kLocAccuracy;
+extern NSInteger const kLocRefreshDistance;
+extern NSInteger const kLocFailSafeDuration;
+extern NSInteger const kLocNearbyRadius;
+
+/**
+ * Messages
+ */
+extern NSString* const kMsgNoPlacesNearby;
+
+
 
 /**
  *
@@ -127,7 +145,6 @@ extern int const LOCATION_FRESHNESS;
 extern int const LOCATION_ACCURACY;
 extern int const LOCATION_REFRESH_DISTANCE;
 extern int const LOCATION_FAILSAFE_DURATION;
-extern int const LOCATION_NEARBY_RADIUS;
 
 extern int const SEARCH_INSTANCE_ID;
 
@@ -313,7 +330,6 @@ extern NSString * const ENCRYPTION_PHRASE;
 extern NSString * const FOLLOW_PLACES_MSG;
 extern NSString * const UNFOLLOW_PLACES_MSG;
 extern NSString * const NO_ITEMS_NEARBY_MSG;
-extern NSString * const NO_PLACES_NEARBY_MSG;
 extern NSString * const FOLLOW_LOGGEDOUT_MSG;
 extern NSString * const SHARE_LOGGEDOUT_MSG;
 extern NSString * const FOLLOW_NO_PLACES_SELF_MSG;
@@ -357,7 +373,6 @@ extern NSString * const N_DENWEN_URL_OPENED;
 extern NSString * const N_USER_LOGS_IN;
 extern NSString * const N_USER_LOGS_OUT;
 extern NSString * const N_NEW_ITEM_CREATED;
-extern NSString * const N_NEW_PLACE_CREATED;
 
 
 
