@@ -101,7 +101,6 @@
 		26EF045412E7A48700E7BA76 /* DWPlaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF045312E7A48700E7BA76 /* DWPlaceManager.m */; };
 		26EF045712E7A4A000E7BA76 /* DWPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF045612E7A4A000E7BA76 /* DWPlace.m */; };
 		26EF048612E7AC1700E7BA76 /* DWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF048512E7AC1700E7BA76 /* DWUser.m */; };
-		26EF048C12E7AC5400E7BA76 /* DWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF048B12E7AC5400E7BA76 /* DWCache.m */; };
 		26F474921304ED3B00D4B81E /* media_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 26F474901304ED3B00D4B81E /* media_bar.png */; };
 		26F474931304ED3B00D4B81E /* media_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26F474911304ED3B00D4B81E /* media_bar@2x.png */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
@@ -249,6 +248,7 @@
 		BBCE3A66131CC38D008BDA82 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCE3A64131CC38D008BDA82 /* Default@2x.png */; };
 		BBCE3A86131CC6AF008BDA82 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = BBCE3A85131CC6AF008BDA82 /* iTunesArtwork */; };
 		BBD0BFDB1344487C00BCFB96 /* DWConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0BFDA1344487C00BCFB96 /* DWConstants.m */; };
+		BBD0C3721346E2D700BCFB96 /* DWNotificationsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0C3711346E2D700BCFB96 /* DWNotificationsHelper.m */; };
 		BBD0CC97133C0AA1003E5E7D /* NSString+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0CC96133C0AA1003E5E7D /* NSString+Helpers.m */; };
 		BBD0CD27133C225D003E5E7D /* DWImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0CD26133C225D003E5E7D /* DWImageRequest.m */; };
 		BBD0CEAC133C5EA1003E5E7D /* NSData+Crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0CEAB133C5EA1003E5E7D /* NSData+Crypto.m */; };
@@ -259,7 +259,6 @@
 		BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */; };
 		BBDB664512EF92D50051A45C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB664412EF92D50051A45C /* MapKit.framework */; };
 		BBDB66A312EF9A0F0051A45C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */; };
-		BBE3107613148C160069E1AA /* DWNotificationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE3107513148C160069E1AA /* DWNotificationHelper.m */; };
 		BBE326EF12EE83B000657024 /* DWNewItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE326ED12EE83B000657024 /* DWNewItemViewController.m */; };
 		BBE326F012EE83B000657024 /* DWNewItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */; };
 		BBE327EB12EEAD8300657024 /* DWNewPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */; };
@@ -390,8 +389,6 @@
 		26EF045612E7A4A000E7BA76 /* DWPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlace.m; path = Classes/DWPlace.m; sourceTree = "<group>"; };
 		26EF048412E7AC1700E7BA76 /* DWUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWUser.h; path = Classes/DWUser.h; sourceTree = "<group>"; };
 		26EF048512E7AC1700E7BA76 /* DWUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWUser.m; path = Classes/DWUser.m; sourceTree = "<group>"; };
-		26EF048A12E7AC5400E7BA76 /* DWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCache.h; path = Classes/DWCache.h; sourceTree = "<group>"; };
-		26EF048B12E7AC5400E7BA76 /* DWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCache.m; path = Classes/DWCache.m; sourceTree = "<group>"; };
 		26F474901304ED3B00D4B81E /* media_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = media_bar.png; path = resources/media_bar.png; sourceTree = "<group>"; };
 		26F474911304ED3B00D4B81E /* media_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "media_bar@2x.png"; path = "resources/media_bar@2x.png"; sourceTree = "<group>"; };
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
@@ -637,6 +634,8 @@
 		BBCE3A85131CC6AF008BDA82 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = resources/iTunesArtwork; sourceTree = "<group>"; };
 		BBD0BFD91344487C00BCFB96 /* DWConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWConstants.h; path = Classes/DWConstants.h; sourceTree = "<group>"; };
 		BBD0BFDA1344487C00BCFB96 /* DWConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWConstants.m; path = Classes/DWConstants.m; sourceTree = "<group>"; };
+		BBD0C3701346E2D700BCFB96 /* DWNotificationsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNotificationsHelper.h; path = Classes/DWNotificationsHelper.h; sourceTree = "<group>"; };
+		BBD0C3711346E2D700BCFB96 /* DWNotificationsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNotificationsHelper.m; path = Classes/DWNotificationsHelper.m; sourceTree = "<group>"; };
 		BBD0CC95133C0AA1003E5E7D /* NSString+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Helpers.h"; path = "Classes/NSString+Helpers.h"; sourceTree = "<group>"; };
 		BBD0CC96133C0AA1003E5E7D /* NSString+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Helpers.m"; path = "Classes/NSString+Helpers.m"; sourceTree = "<group>"; };
 		BBD0CD25133C225D003E5E7D /* DWImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWImageRequest.h; path = Classes/DWImageRequest.h; sourceTree = "<group>"; };
@@ -654,8 +653,6 @@
 		BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWSignupViewController.xib; path = Classes/DWSignupViewController.xib; sourceTree = "<group>"; };
 		BBDB664412EF92D50051A45C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		BBE3107413148C160069E1AA /* DWNotificationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNotificationHelper.h; path = Classes/DWNotificationHelper.h; sourceTree = "<group>"; };
-		BBE3107513148C160069E1AA /* DWNotificationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNotificationHelper.m; path = Classes/DWNotificationHelper.m; sourceTree = "<group>"; };
 		BBE326EC12EE83B000657024 /* DWNewItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewItemViewController.h; path = Classes/DWNewItemViewController.h; sourceTree = "<group>"; };
 		BBE326ED12EE83B000657024 /* DWNewItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewItemViewController.m; path = Classes/DWNewItemViewController.m; sourceTree = "<group>"; };
 		BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWNewItemViewController.xib; path = Classes/DWNewItemViewController.xib; sourceTree = "<group>"; };
@@ -910,6 +907,7 @@
 			children = (
 				080E96DDFE201D6D7F000001 /* Delegate */,
 				26EF03AD12E77BCB00E7BA76 /* View Controllers */,
+				BBD0C2E01346C3A000BCFB96 /* Deprecated */,
 				BBD0CC91133C0A3C003E5E7D /* Extensions */,
 				BB3CCBC212F9368F00ADFCD7 /* Singletons */,
 				26EF03B012E77CD600E7BA76 /* Models */,
@@ -999,8 +997,6 @@
 		BB3311F412F24A2600B713F9 /* Users */ = {
 			isa = PBXGroup;
 			children = (
-				BB99754E12F3DC4600425678 /* DWUserContainerViewController.h */,
-				BB99754F12F3DC4600425678 /* DWUserContainerViewController.m */,
 				BB3311F512F24A4100B713F9 /* DWUserViewController.h */,
 				BB3311F612F24A4100B713F9 /* DWUserViewController.m */,
 			);
@@ -1093,12 +1089,10 @@
 			children = (
 				BBD0CF0B133C7481003E5E7D /* DWSession.h */,
 				BBD0CF0C133C7481003E5E7D /* DWSession.m */,
+				BBD0C3701346E2D700BCFB96 /* DWNotificationsHelper.h */,
+				BBD0C3711346E2D700BCFB96 /* DWNotificationsHelper.m */,
 				BB3CCBC312F936E200ADFCD7 /* DWMemoryPool.h */,
 				BB3CCBC412F936E200ADFCD7 /* DWMemoryPool.m */,
-				26EF048A12E7AC5400E7BA76 /* DWCache.h */,
-				26EF048B12E7AC5400E7BA76 /* DWCache.m */,
-				BBE3107413148C160069E1AA /* DWNotificationHelper.h */,
-				BBE3107513148C160069E1AA /* DWNotificationHelper.m */,
 				BBA03C52132DC5EE0073105B /* DWVideoHelper.h */,
 				BBA03C53132DC5EE0073105B /* DWVideoHelper.m */,
 			);
@@ -1374,8 +1368,6 @@
 				BB17B8D812EA11AF00DD42FC /* DWItemFeedViewController.m */,
 				BB40522912F23BB800916688 /* DWFollowedItemsViewController.h */,
 				BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */,
-				BBE326EC12EE83B000657024 /* DWNewItemViewController.h */,
-				BBE326ED12EE83B000657024 /* DWNewItemViewController.m */,
 			);
 			name = Items;
 			sourceTree = "<group>";
@@ -1397,10 +1389,21 @@
 				BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */,
 				26DC2E5F130A877A00FC1F3A /* DWPlaceDetailsViewController.h */,
 				26DC2E60130A877A00FC1F3A /* DWPlaceDetailsViewController.m */,
+			);
+			name = Places;
+			sourceTree = "<group>";
+		};
+		BBD0C2E01346C3A000BCFB96 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				BB99754E12F3DC4600425678 /* DWUserContainerViewController.h */,
+				BB99754F12F3DC4600425678 /* DWUserContainerViewController.m */,
+				BBE326EC12EE83B000657024 /* DWNewItemViewController.h */,
+				BBE326ED12EE83B000657024 /* DWNewItemViewController.m */,
 				BBE327E812EEAD8300657024 /* DWNewPlaceViewController.h */,
 				BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */,
 			);
-			name = Places;
+			name = Deprecated;
 			sourceTree = "<group>";
 		};
 		BBD0CC91133C0A3C003E5E7D /* Extensions */ = {
@@ -1629,7 +1632,6 @@
 				26EF045412E7A48700E7BA76 /* DWPlaceManager.m in Sources */,
 				26EF045712E7A4A000E7BA76 /* DWPlace.m in Sources */,
 				26EF048612E7AC1700E7BA76 /* DWUser.m in Sources */,
-				26EF048C12E7AC5400E7BA76 /* DWCache.m in Sources */,
 				BB17B8DA12EA11AF00DD42FC /* DWItemFeedViewController.m in Sources */,
 				BB17BAE612EA3A3F00DD42FC /* DWLoginViewController.m in Sources */,
 				BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */,
@@ -1695,7 +1697,6 @@
 				BB40089213123696000BDE4D /* FBDialog.m in Sources */,
 				BB40089313123696000BDE4D /* FBLoginDialog.m in Sources */,
 				BB40089413123696000BDE4D /* FBRequest.m in Sources */,
-				BBE3107613148C160069E1AA /* DWNotificationHelper.m in Sources */,
 				BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */,
 				BB537BD5132C55E50018B942 /* DWVideoViewController.m in Sources */,
 				BBA03C54132DC5EE0073105B /* DWVideoHelper.m in Sources */,
@@ -1725,6 +1726,7 @@
 				BBD0D0641340026C003E5E7D /* UIImage+ImageProcessing.m in Sources */,
 				BBD0D2141340576A003E5E7D /* DWS3Request.m in Sources */,
 				BBD0BFDB1344487C00BCFB96 /* DWConstants.m in Sources */,
+				BBD0C3721346E2D700BCFB96 /* DWNotificationsHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1774,7 +1776,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1782,7 +1784,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EAB2D597-BAF8-4376-9960-21A2501FB508";
 				SDKROOT = iphoneos;
 			};
 			name = Distribution;
@@ -1812,14 +1814,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5A442413-DD23-4A6F-9A23-BA675DD3A76A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EAB2D597-BAF8-4376-9960-21A2501FB508";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1828,7 +1830,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1836,7 +1838,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EAB2D597-BAF8-4376-9960-21A2501FB508";
 				SDKROOT = iphoneos;
 			};
 			name = Release;

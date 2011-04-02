@@ -7,14 +7,21 @@
 //
 
 #import "DWAppDelegate.h"
+#import "DWItemsContainerViewController.h"
+#import "DWUserContainerViewController.h"
+#import "DWPlacesContainerViewController.h"
+#import "DWLoginViewController.h"
+#import "DWSignupViewController.h"
+#import "DWSession.h"
+#import "DWMemoryPool.h"
+#import "DWNotificationsHelper.h"
+#import "NSString+Helpers.h"
 
 
 @interface DWAppDelegate () 
 - (void)createTabBarController;
 - (void)displaySignedInState;
 - (void)displaySignedOutState;
-
-- (void)dispatchNewApplicationBadgeNumber:(NSString*)notificationType;
 
 - (void)createVisit;
 @end
@@ -26,19 +33,12 @@
 
 
 
-
-
 #pragma mark -
 #pragma mark Application lifecycle
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-	// Init cache
-	[DWCache initCache];
-	
-	//Clear cache for testing
-	//[DWCache clearCache];[DWCache initCache];
 	//[[ASIDownloadCache sharedCache] clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
 	
 	[DWMemoryPool initPool];
@@ -51,10 +51,6 @@
 												 name:N_USER_LOGS_IN
 											   object:nil];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(followedItemsRead:) 
-												 name:N_FOLLOWED_ITEMS_READ
-											   object:nil];
 	
 	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
 
@@ -83,29 +79,7 @@
 // Fired when a remote notification is received when the app is open
 //
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-	NSDictionary *aps = (NSDictionary*)[userInfo objectForKey:@"aps"];
-	NSString *badgeString = [aps objectForKey:@"badge"];
-	//NSString *alertString = [aps objectForKey:@"alert"];
-	
-	//NSLog(@"%@ %@ %@",alertString,badgeString,userInfo);
-	
-	if(badgeString) {
-		NSInteger newBadgeValue = [badgeString integerValue];
-		//NSLog(@"value - %d",newBadgeValue);
-		[[UIApplication sharedApplication] setApplicationIconBadgeNumber:newBadgeValue];
-		[self dispatchNewApplicationBadgeNumber:BADGE_NOTIFICATION_LIVE];
-	}
-	
-	/*if(alertString) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Denwen" 
-														message:alertString
-													   delegate:nil 
-											  cancelButtonTitle:@"OK" 
-											  otherButtonTitles: nil];
-		[alert show];
-		[alert release];
-	}
-	 */
+	[[DWNotificationsHelper sharedDWNotificationsHelper] handleLiveNotificationWithUserInfo:userInfo];
 }
 
 
@@ -135,8 +109,8 @@
 		[self createTabBarController];
 	
 	[_locationManager startUpdatingLocation];
-	
-	[self dispatchNewApplicationBadgeNumber:BADGE_NOTIFICATION_BACKGROUND];
+		
+	[[DWNotificationsHelper sharedDWNotificationsHelper] handleBackgroundNotification];
 }
 
 
@@ -236,18 +210,9 @@
 }
 
 
-// Dispatches a notification when the application badge number has changed
-//
-- (void)dispatchNewApplicationBadgeNumber:(NSString*)notificationType {
-	followedItemsUnreadCount = [[UIApplication sharedApplication] applicationIconBadgeNumber];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:N_NEW_APPLICATION_BADGE_NUMBER 
-														object:notificationType];
-}
-
 
 #pragma mark -
-#pragma mark Notification handlers
+#pragma mark Notifications
 
 // Refresh UI when user logs in
 //
@@ -258,17 +223,6 @@
 	
 	[self createVisit];
 }	
-
-
-// Fired when followed items have been read by the user
-//
-- (void)followedItemsRead:(NSNotification*)notification {
-	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-	
-	NSInteger unreadCount = [(NSString*)[notification object] integerValue];
-	[[DWRequestsManager sharedDWRequestsManager] updateUnreadCountForCurrentUserBy:unreadCount];
-}
-
 
 
 #pragma mark -
@@ -403,10 +357,11 @@
 // Fired when the selected item changes
 //
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-	[[NSNotificationCenter defaultCenter] postNotificationName:N_TAB_BAR_SELECTION_CHANGED
-														object:viewController];	
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNTabSelectionChanged
+														object:nil
+													  userInfo:nil];
 }
-
 
 // Fired when the user clicks on a tab bar item to change the tab
 //

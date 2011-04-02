@@ -30,18 +30,21 @@
 #endif
 
 //----------------------------------------------------------------------------------------------------
-NSString* const kKeyStatus			= @"status";
-NSString* const kKeyMessage			= @"message";
-NSString* const kKeyBody			= @"body";
-NSString* const kKeySuccess			= @"success";
-NSString* const kKeyError			= @"error";
-NSString* const kKeyErrorMessage	= @"errorMessage";
-NSString* const kKeyErrorMessages	= @"error_messages";
-NSString* const kKeyImage			= @"image";
-NSString* const kKeyResourceID		= @"resourceID";
-NSString* const kKeyPlaces			= @"places";
-NSString* const kKeyPlace			= @"place";
-NSString* const kKeyFilename		= @"filename";
+NSString* const kKeyStatus				= @"status";
+NSString* const kKeyMessage				= @"message";
+NSString* const kKeyBody				= @"body";
+NSString* const kKeySuccess				= @"success";
+NSString* const kKeyError				= @"error";
+NSString* const kKeyErrorMessage		= @"errorMessage";
+NSString* const kKeyErrorMessages		= @"error_messages";
+NSString* const kKeyImage				= @"image";
+NSString* const kKeyResourceID			= @"resourceID";
+NSString* const kKeyPlaces				= @"places";
+NSString* const kKeyPlace				= @"place";
+NSString* const kKeyItems				= @"items";
+NSString* const kKeyItem				= @"item";
+NSString* const kKeyFilename			= @"filename";
+NSString* const kKeyNotificationType	= @"notificationType";
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
@@ -96,6 +99,12 @@ NSString* const kNImgLargeAttachmentLoaded	= @"NImgLargeAttachmentLoaded";
 NSString* const kNImgLargeAttachmentError	= @"NImgLargeAttachmentError";
 NSString* const kNImgActualAttachmentLoaded	= @"NImgActualAttachmentLoaded";
 NSString* const kNImgActualAttachmentError	= @"NImgActualAttachmentError";
+NSString* const kNNewApplicationBadge		= @"NNewApplicationBadge"; 
+NSString* const kNTabSelectionChanged		= @"NTabSelectionChanged";
+
+//----------------------------------------------------------------------------------------------------
+NSInteger const kPNLive			= 0;
+NSInteger const kPNBackground	= 1;
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kImgSmallUser			= 0;
@@ -229,9 +238,7 @@ NSString * const BACK_BUTTON_TITLE = @"Back";
 NSString * const BACK_BUTTON_SELF_TITLE = @"Profile";
 
 /* Tagbar titles and image names */
-NSString * const POSTS_TAB_NAME = @"Feed";
 NSString * const PROFILE_TAB_NAME = @"Profile";
-NSString * const POSTS_TAB_IMAGE_NAME = @"posts.png";
 NSString * const PROFILE_TAB_IMAGE_NAME = @"profile.png";
 
 /* placeholder images */
@@ -383,12 +390,7 @@ NSString * const BADGE_NOTIFICATION_BACKGROUND = @"b_back";
 
 // Notification names
 NSString * const N_LOCATION_CHANGED = @"LocationChanged";
-NSString * const N_TAB_BAR_SELECTION_CHANGED = @"TabBarSelectionChanged";
 NSString * const N_FOLLOWED_ITEMS_READ = @"FollowedItemsRead";
-NSString * const N_FOLLOWED_ITEMS_LOADED = @"FollowedItemsLoaded";
-NSString * const N_PLACE_FOLLOWED = @"PlaceFollowed";
-NSString * const N_PLACE_UNFOLLOWED = @"PlaceUnfollowed";
-NSString * const N_NEW_APPLICATION_BADGE_NUMBER = @"NewApplicationBadgeNumber";
 NSString * const N_FACEBOOK_URL_OPENED = @"FacebookURLOpened";
 NSString * const N_DENWEN_URL_OPENED = @"DenwenURLOpened";
 NSString * const N_USER_LOGS_IN = @"UserLogsIn";

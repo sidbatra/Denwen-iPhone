@@ -13,7 +13,6 @@
 
 #import "DWRequestsManager.h"
 #import "DWImageView.h"
-#import "DWCache.h"
 #import "DWGUIManager.h"
 #import "DWConstants.h"
 

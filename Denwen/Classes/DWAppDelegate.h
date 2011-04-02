@@ -9,18 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "DWItemsContainerViewController.h"
-#import "DWUserContainerViewController.h"
-#import "DWPlacesContainerViewController.h"
-#import "DWLoginViewController.h"
-#import "DWSignupViewController.h"
-#import "DWCache.h"
-#import "DWSession.h"
-#import "DWMemoryPool.h"
-#import "DWNotificationHelper.h"
-#import "NSString+Helpers.h"
-
-
 
 @interface DWAppDelegate : NSObject <UIApplicationDelegate, UINavigationBarDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate> {
     UIWindow *window;

@@ -1,29 +1,32 @@
 //
 //  DWFollowedItemsViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-
 #import "DWItemFeedViewController.h"
-#import "DWNotificationHelper.h"
 
-#import "DWSession.h"
-#import "DWRequestsManager.h"
-
-
+/**
+ * Feed view
+ */
 @interface DWFollowedItemsViewController : DWItemFeedViewController {
 }
 
-
+/**
+ * Init with delegate to receive events when navigation
+ * elements are 
+ */
 - (id)initWithDelegate:(id)delegate;
-- (void)viewIsSelected;
-- (void)viewIsDeselected;
 
+/**
+ * Scroll the table view to the top
+ */
 - (void)scrollToTop;
+
+/**
+ * Refresh the UI when the new items have been read
+ */
+- (void)followedItemsRead;
 
 @end

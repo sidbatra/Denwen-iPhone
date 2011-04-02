@@ -31,7 +31,10 @@ extern NSString* const kKeyImage;
 extern NSString* const kKeyResourceID;
 extern NSString* const kKeyPlaces;
 extern NSString* const kKeyPlace;
+extern NSString* const kKeyItems;
+extern NSString* const kKeyItem;
 extern NSString* const kKeyFilename;
+extern NSString* const kKeyNotificationType;
 
 /**
  * Notification names
@@ -88,7 +91,14 @@ extern NSString* const kNImgLargeAttachmentLoaded;
 extern NSString* const kNImgLargeAttachmentError;
 extern NSString* const kNImgActualAttachmentLoaded;
 extern NSString* const kNImgActualAttachmentError;
+extern NSString* const kNNewApplicationBadge;
+extern NSString* const kNTabSelectionChanged;
 
+/**
+ * Push notifcation types
+ */
+extern NSInteger const kPNLive;
+extern NSInteger const kPNBackground;
 
 /**
  * Different use cases for UITableVIiew
@@ -195,9 +205,7 @@ extern float const SCREEN_ROTATED_HEIGHT;
 extern NSString * const BACK_BUTTON_SELF_TITLE;
 extern NSString * const BACK_BUTTON_TITLE;
 
-extern NSString * const POSTS_TAB_NAME;
 extern NSString * const PROFILE_TAB_NAME;
-extern NSString * const POSTS_TAB_IMAGE_NAME;
 extern NSString * const PROFILE_TAB_IMAGE_NAME;
 
 
@@ -332,12 +340,7 @@ extern NSString * const BADGE_NOTIFICATION_LIVE;
 extern NSString * const BADGE_NOTIFICATION_BACKGROUND;
 
 extern NSString * const N_LOCATION_CHANGED;
-extern NSString * const N_TAB_BAR_SELECTION_CHANGED;
 extern NSString * const N_FOLLOWED_ITEMS_READ;
-extern NSString * const N_FOLLOWED_ITEMS_LOADED;
-extern NSString * const N_PLACE_FOLLOWED;
-extern NSString * const N_PLACE_UNFOLLOWED;
-extern NSString * const N_NEW_APPLICATION_BADGE_NUMBER;
 extern NSString * const N_FACEBOOK_URL_OPENED;
 extern NSString * const N_DENWEN_URL_OPENED;
 extern NSString * const N_USER_LOGS_IN;

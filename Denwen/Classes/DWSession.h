@@ -3,7 +3,6 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //
 
-
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -15,7 +14,6 @@
 @interface DWSession : NSObject {
 	DWUser			*_currentUser;
 	CLLocation		*_location;
-	BOOL			_refreshFollowedItems;
 }
 
 /**
@@ -32,12 +30,6 @@
  * Current location of the user
  */
 @property (nonatomic,retain) CLLocation *location;
-
-/**
- * Refresh flag for a user's followed items
- */
-@property (nonatomic,assign) BOOL refreshFollowedItems;
-
 
 /**
  * Read the user session from disk using NSUserDefaults

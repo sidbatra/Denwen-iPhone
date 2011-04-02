@@ -410,20 +410,14 @@
 			self.following = nil;
 			[placeCell displayUnfollowingState];
 			[_place updateFollowerCount:-1];
-			[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_UNFOLLOWED object:self.placeJSON];
 		}
 		else { 
 			[self createFollowing:body];
 			[placeCell displayFollowingState];
 			[_place updateFollowerCount:1];
-			[[NSNotificationCenter defaultCenter] postNotificationName:N_PLACE_FOLLOWED object:self.placeJSON];
 		}
 		
 		[self updateTitle];
-		
-		//Mark changes to global variables, indicating a refresh is needed on followed content
-		[DWSession sharedDWSession].refreshFollowedItems = YES;
-		
 	}
 	
 	[mbProgressIndicator hideUsingAnimation:YES];
