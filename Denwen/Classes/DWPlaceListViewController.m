@@ -4,11 +4,16 @@
 //
 
 #import "DWPlaceListViewController.h"
-#import "MBProgressHUD.h"
+#import "DWConstants.h"
+
+//Cells
 #import "DWPlaceFeedCell.h"
+#import "DWPaginationCell.h"
 #import "DWLoadingCell.h"
 #import "DWMessageCell.h"
-#import "DWConstants.h"
+
+#import "MBProgressHUD.h"
+
 
 static float	 const kSeparatorRedValue			= 0.921;
 static float	 const kSeparatorGreenValue			= 0.921;
@@ -24,7 +29,7 @@ static NSInteger const kMessageCellIndex			= 1;
 static NSInteger const kSpinnerCellIndex			= 1;
 static NSInteger const kSearchActiveAlpha			= 0.8;
 static NSInteger const kSearchInActiveAlpha			= 1.0;
-
+static NSInteger const kPlacesPerPage				= 20;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -191,8 +196,8 @@ static NSInteger const kSearchInActiveAlpha			= 1.0;
 - (void)finishedLoadingPlaces {
 	[self.refreshHeaderView refreshLastUpdatedDate];
 	
-	if([_placeManager totalPlacesAtRow:kDefaultPlacesRow] < kPagPlacesPerPage || 
-	   ([_placeManager totalPlacesAtRow:kDefaultPlacesRow] - _prePaginationCellCount < kPagPlacesPerPage &&
+	if([_placeManager totalPlacesAtRow:kDefaultPlacesRow] < kPlacesPerPage || 
+	   ([_placeManager totalPlacesAtRow:kDefaultPlacesRow] - _prePaginationCellCount < kPlacesPerPage &&
 			!_isReloading)) { 
 		
 		/**

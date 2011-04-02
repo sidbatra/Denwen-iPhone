@@ -255,13 +255,12 @@
 
 // Fetches recent items from places being followed by the current user
 //
-- (BOOL)loadItems {
+- (void)loadItems {
 	[super loadItems];
 	
 	[[DWRequestsManager sharedDWRequestsManager] getPlaceWithHashedID:_origPlace.hashedId
 													   withDatabaseID:_place.databaseID
 															   atPage:_currentPage];
-	return YES;
 }
 
 
@@ -316,12 +315,12 @@
 		
 		
 		if(_place)
-			[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
+			[DWMemoryPool removeObject:_place atRow:kMPPlacesIndex];
 		
 		/* Create or fetch the place from the memory pool*/
 		NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
 		self.placeJSON = placeJSON;
-		_place = (DWPlace*)[DWMemoryPool getOrSetObject:placeJSON atRow:PLACES_INDEX];
+		_place = (DWPlace*)[DWMemoryPool getOrSetObject:placeJSON atRow:kMPPlacesIndex];
 		
 		
 		NSDictionary *followJSON = [body objectForKey:FOLLOWING_JSON_KEY];
@@ -811,7 +810,7 @@
 	
 	if(_place) {
 		_place.largePreviewImage = nil;
-		[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
+		[DWMemoryPool removeObject:_place atRow:kMPPlacesIndex];
 	}
 	
 	self.placeJSON = nil;

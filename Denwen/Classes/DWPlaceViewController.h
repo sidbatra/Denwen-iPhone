@@ -16,6 +16,7 @@
 #import "DWRequestsManager.h"
 #import "DWPlaceCell.h"
 #import "MBProgressHUD.h"
+#import "DWItemFeedCell.h"
 #import "DWPlaceDetailsViewController.h"
 #import "DWShareViewController.h"
 #import "DWSession.h"

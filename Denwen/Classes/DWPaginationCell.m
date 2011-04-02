@@ -46,7 +46,7 @@
 //
 - (void) createSpinner {
 	CGRect rect = CGRectMake((self.contentView.frame.size.width - SPINNER_HEIGHT)/2, 
-							 (PAGINATION_CELL_HEIGHT-SPINNER_HEIGHT)/2, SPINNER_HEIGHT, SPINNER_HEIGHT); 
+							 (kPaginationCellHeight-SPINNER_HEIGHT)/2, SPINNER_HEIGHT, SPINNER_HEIGHT); 
 	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 	spinner.frame = rect;
 	

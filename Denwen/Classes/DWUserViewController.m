@@ -8,6 +8,8 @@
 
 #import "DWUserViewController.h"
 
+static NSInteger const kMessageCellIndex			= 2;
+
 
 //Declarations for private methods
 //
@@ -310,11 +312,11 @@
 		
 		
 		if(_user)
-			[DWMemoryPool removeObject:_user atRow:USERS_INDEX];
+			[DWMemoryPool removeObject:_user atRow:kMPUsersIndex];
 		
 		/* Create or fetch the user from the memory pool*/
 		NSDictionary *userJSON = [body objectForKey:USER_JSON_KEY];
-		_user = (DWUser*)[DWMemoryPool getOrSetObject:userJSON atRow:USERS_INDEX];			
+		_user = (DWUser*)[DWMemoryPool getOrSetObject:userJSON atRow:kMPUsersIndex];			
 		
 		if(!_isCurrenUserProfile)
 			self.title = [_user fullName];
@@ -465,7 +467,7 @@
 		cell = [super tableView:(tableView) cellForRowAtIndexPath:indexPath];
 		
 		//Override position of the message cell
-		if(_tableViewUsage == kTableViewAsProfileMessage && indexPath.row == MESSAGE_CELL_INDEX) {
+		if(_tableViewUsage == kTableViewAsProfileMessage && indexPath.row == kMessageCellIndex) {
 			((DWMessageCell*)cell).textLabel.text = @"";
 			((DWMessageCell*)cell).customTextLabel.hidden = NO;
 			((DWMessageCell*)cell).customTextLabel.text = self.messageCellText;
@@ -632,7 +634,7 @@
 	
 	if(_user) {
 		_user.mediumPreviewImage = nil;
-		[DWMemoryPool removeObject:_user atRow:USERS_INDEX];
+		[DWMemoryPool removeObject:_user atRow:kMPUsersIndex];
 	}
 	
 		

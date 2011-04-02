@@ -19,6 +19,8 @@
 #import "MBProgressHUD.h"
 #import "DWSession.h"
 #import "DWUserCell.h"
+#import "DWItemFeedCell.h"
+#import "DWMessageCell.h"
 
 
 @interface DWUserViewController : DWItemFeedViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {

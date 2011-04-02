@@ -105,10 +105,10 @@
 
 // Fired when a user is selected in an item cell within a child of the ItemFeedViewController
 //
-- (void)userSelected:(int)userID {
-	DWUserViewController *userView = [[DWUserViewController alloc] initWithUserID:userID andDelegate:self];
-	[self.navigationController pushViewController:userView animated:YES];
-	[userView release];
+- (void)userSelected:(DWUser*)user {
+	//DWUserViewController *userView = [[DWUserViewController alloc] initWithUserID:userID andDelegate:self];
+	//[self.navigationController pushViewController:userView animated:YES];
+	//[userView release];
 }
 
 

@@ -298,7 +298,7 @@
 		[item populate:[body objectForKey:ITEM_JSON_KEY]];
 		item.fromFollowedPlace = [[body objectForKey:FOLLOWING_JSON_KEY] boolValue];
 		
-		[DWMemoryPool setObject:item atRow:ITEMS_INDEX];
+		[DWMemoryPool setObject:item atRow:kMPItemsIndex];
 		item.pointerCount--;
 		[item release];
 		

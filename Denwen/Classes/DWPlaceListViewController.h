@@ -22,34 +22,12 @@
 	NSString		*_messageCellText;
 	NSDate			*_lastRefreshDate;
 	
-	/**
-	 * Determines type of usuage of table view - loading,message,data etc
-	 */
 	NSInteger		_tableViewUsage;
-	
-	/**
-	 *  Current page of data being displayed
-	 */
 	NSInteger		_currentPage; 
-	
-	/**
-	 * Controls whether the pagination is displayed or not
-	 */
 	NSInteger		_paginationCellStatus;
-	
-	/**
-	 * Count of the number of places being displayed before the next page is loaded
-	 */
 	NSInteger		_prePaginationCellCount;
 	
-	/**
-	 * Differentiates between a pull to refresh versus a pagination load
-	 */
 	BOOL			_isReloading;
-	
-	/**
-	 * Search is to be performed on the server or in the locally loaded places
-	 */
 	BOOL			_isLocalSearch;
 	BOOL			_isLoadedOnce;
 

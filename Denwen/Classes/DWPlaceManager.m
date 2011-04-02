@@ -90,7 +90,7 @@
 	NSMutableArray *placesAtIndex = [_places objectAtIndex:index];
 	
 	for(NSDictionary *place in places) {
-		DWPlace *new_place = (DWPlace*)[DWMemoryPool getOrSetObject:place atRow:PLACES_INDEX];
+		DWPlace *new_place = (DWPlace*)[DWMemoryPool getOrSetObject:place atRow:kMPPlacesIndex];
 		[placesAtIndex addObject:new_place];
 	}
 }
@@ -102,7 +102,7 @@
 	[self clearFilteredPlaces:NO];
 
 	for(NSDictionary *place in places){
-		DWPlace *new_place = (DWPlace*)[DWMemoryPool getOrSetObject:place atRow:PLACES_INDEX];
+		DWPlace *new_place = (DWPlace*)[DWMemoryPool getOrSetObject:place atRow:kMPPlacesIndex];
 		[_filteredPlaces addObject:new_place];
 	}
 	
@@ -119,7 +119,7 @@
 			NSMutableArray *placesAtIndex = (NSMutableArray*)[_places objectAtIndex:i];
 			
 			for(DWPlace *place in placesAtIndex)
-				[DWMemoryPool removeObject:place atRow:PLACES_INDEX];
+				[DWMemoryPool removeObject:place atRow:kMPPlacesIndex];
 			
 			[placesAtIndex removeAllObjects];
 		}
@@ -135,7 +135,7 @@
 	//
 	if(!arePlacesLocal) {
 		for(DWPlace *place in _filteredPlaces)
-			[DWMemoryPool removeObject:place atRow:PLACES_INDEX];
+			[DWMemoryPool removeObject:place atRow:kMPPlacesIndex];
 	}
 	
 	[_filteredPlaces removeAllObjects];
@@ -189,7 +189,7 @@
 	for(NSMutableArray *placesAtIndex in _places) {
 		
 		for(DWPlace *place in placesAtIndex)
-			[DWMemoryPool removeObject:place atRow:PLACES_INDEX];
+			[DWMemoryPool removeObject:place atRow:kMPPlacesIndex];
 
 		[placesAtIndex release];
 	}

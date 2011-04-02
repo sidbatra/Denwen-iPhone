@@ -108,11 +108,11 @@
 	
 	/* Create or fetch the place from the memory pool*/
 	NSDictionary *placeJSON = [result objectForKey:PLACE_JSON_KEY];
-	_place = (DWPlace*)[DWMemoryPool getOrSetObject:placeJSON atRow:PLACES_INDEX];
+	_place = (DWPlace*)[DWMemoryPool getOrSetObject:placeJSON atRow:kMPPlacesIndex];
 	
 	/* Create or fetch the user from the memory pool*/
 	NSDictionary *userJSON = [result objectForKey:USER_JSON_KEY];
-	_user = (DWUser*)[DWMemoryPool getOrSetObject:userJSON atRow:USERS_INDEX];
+	_user = (DWUser*)[DWMemoryPool getOrSetObject:userJSON atRow:kMPUsersIndex];
 	
 		
 	NSArray *temp = [result objectForKey:URLS_JSON_KEY];
@@ -177,10 +177,10 @@
 	self.attachment = nil;
 	
 	if(_place)
-		[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
+		[DWMemoryPool removeObject:_place atRow:kMPPlacesIndex];
 	
 	if(_user)
-		[DWMemoryPool removeObject:_user atRow:USERS_INDEX];
+		[DWMemoryPool removeObject:_user atRow:kMPUsersIndex];
 	
 	[super dealloc];
 }

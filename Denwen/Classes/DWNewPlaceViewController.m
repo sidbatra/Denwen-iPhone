@@ -387,7 +387,7 @@ replacementString:(NSString *)string {
 		
 		DWPlace *place = [[DWPlace alloc] init];	
 		[place populate:[[info objectForKey:kKeyBody] objectForKey:kKeyPlace]];
-		[DWMemoryPool setObject:place atRow:PLACES_INDEX];
+		[DWMemoryPool setObject:place atRow:kMPPlacesIndex];
 		place.pointerCount--;
 		[place release];
 		

@@ -57,7 +57,7 @@
 //
 - (void)clearAllItems {
 	for(DWItem *item in _items)
-		[DWMemoryPool removeObject:item atRow:ITEMS_INDEX];
+		[DWMemoryPool removeObject:item atRow:kMPItemsIndex];
 	
 	[_items removeAllObjects];
 }
@@ -96,7 +96,7 @@
 // Push an item into _items array using the memory pool
 //
 -(void) populateItem:(NSDictionary*)item {
-	DWItem *new_item = (DWItem*)[DWMemoryPool getOrSetObject:item atRow:ITEMS_INDEX];
+	DWItem *new_item = (DWItem*)[DWMemoryPool getOrSetObject:item atRow:kMPItemsIndex];
 	[_items addObject:new_item];
 }
 
@@ -111,7 +111,7 @@
 - (void)dealloc {
 	
 	for(DWItem *item in _items)
-		[DWMemoryPool removeObject:item atRow:ITEMS_INDEX];
+		[DWMemoryPool removeObject:item atRow:kMPItemsIndex];
 		
     [_items release];
 	[super dealloc];

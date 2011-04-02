@@ -4,6 +4,7 @@
 //
 
 #import "DWFollowedItemsViewController.h"
+#import "DWItemFeedCell.h"
 #import "DWNotificationsHelper.h"
 #import "DWRequestsManager.h"
 #import "DWSession.h"
@@ -78,12 +79,9 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (BOOL)loadItems {
+- (void)loadItems {
 	[super loadItems];
-	
 	[[DWRequestsManager sharedDWRequestsManager] getFollowedItemsAtPage:_currentPage];
-		
-	return YES;	
 }
 
 //----------------------------------------------------------------------------------------------------

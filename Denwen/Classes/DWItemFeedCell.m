@@ -231,18 +231,18 @@
 	
 	//Customize the interactive Label
 	rect = CGRectMake(0, 0, self.contentView.frame.size.width - 69, 16);
-	[dataLabel customizeUIFromText:data andUpdateFrame:rect andSeed:_itemID * URL_TAG_MULTIPLIER];
+	[dataLabel customizeUIFromText:data andUpdateFrame:rect andSeed:_itemID * kURLTagMultipler];
 	[dataLabel changeButtonBackgroundColor:[UIColor whiteColor]];
 	
 	NSInteger attachmentHeight = 0;
 	if (_hasAttachment) {
-		rect = CGRectMake(62, 32 + dataLabel.frame.size.height, ATTACHMENT_HEIGHT, ATTACHMENT_HEIGHT); 
+		rect = CGRectMake(62, 32 + dataLabel.frame.size.height, kAttachmentHeight, kAttachmentHeight); 
 		attachmentImage.frame = rect;
 		attachmentImage.hidden = NO;
-		attachmentHeight = ATTACHMENT_HEIGHT + ATTACHMENT_Y_PADDING;
+		attachmentHeight = kAttachmentHeight + kAttachmentYPadding;
 		
-		videoPlayIcon.frame =  CGRectMake(attachmentImage.frame.origin.x + ATTACHMENT_HEIGHT / 2 - 36,\
-										  attachmentImage.frame.origin.y + ATTACHMENT_HEIGHT / 2 - 36, 
+		videoPlayIcon.frame =  CGRectMake(attachmentImage.frame.origin.x + kAttachmentHeight / 2 - 36,\
+										  attachmentImage.frame.origin.y + kAttachmentHeight / 2 - 36, 
 										  72, 
 										  72);
 	}

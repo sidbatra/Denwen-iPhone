@@ -139,8 +139,14 @@ extern NSInteger const kLocNearbyRadius;
  * Pagination
  */
 extern NSInteger const kPagInitialPage;
-extern NSInteger const kPagPlacesPerPage;
 
+/**
+ * Memory Pool
+ */
+extern NSInteger const kMPTotalClasses;
+extern NSInteger const kMPItemsIndex;
+extern NSInteger const kMPPlacesIndex;
+extern NSInteger const kMPUsersIndex;
 
 /**
  * Messages
@@ -161,6 +167,11 @@ extern NSString* const kImgGenericPlaceHolder;
 extern NSString* const kPlaceListViewControllerNib;
 extern NSString* const kGenericBackButtonTitle;
 extern NSInteger const kStatusBarStyle;
+extern NSInteger const kAttachmentHeight;
+extern NSInteger const kAttachmentYPadding;
+extern NSInteger const kURLTagMultipler;
+extern NSInteger const kPaginationCellHeight;
+
 
 
 
@@ -187,11 +198,6 @@ extern int const LOCATION_FAILSAFE_DURATION;
 extern int const MAX_PLACE_NAME_LENGTH;
 extern int const MAX_POST_DATA_LENGTH;
 extern int const MAX_SHARE_DATA_LENGTH;
-
-extern int const CACHE_INTERNAL;
-extern int const MAX_CACHE_ITEM_SIZE;
-
-extern int const ITEMS_PER_PAGE;
 
 extern int const POOL_OBJECT_UPDATE_INTERVAL;
 
@@ -250,9 +256,6 @@ extern int const VIDEO_MAX_DURATION;
 
 extern int const FEED_TABLE_HEIGHT;
 extern int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH;
-extern int const MAX_DYNAMIC_CELL_HEIGHT;
-extern int const ATTACHMENT_HEIGHT;
-extern int const ATTACHMENT_Y_PADDING;
 extern int const USER_LABEL_PADDING;
 extern int const USER_NAME_PADDING;
 extern int const FOLLOW_PLACE_CELL_HEIGHT;
@@ -260,9 +263,6 @@ extern int const FOLLOW_CURRENT_USER_CELL_HEIGHT;
 extern int const FOLLOW_USER_CELL_HEIGHT;
 extern int const SPINNER_HEIGHT;
 extern int const VIDEO_VIEW_SPINNER_SIDE;
-extern int const SPINNER_CELL_INDEX;
-extern int const MESSAGE_CELL_INDEX;
-extern int const PAGINATION_CELL_HEIGHT;
 
 
 extern int const SIZE_PLACE_SMALL_IMAGE;
@@ -276,18 +276,9 @@ extern int const SIZE_ATTACHMENT_IMAGE;
 extern int const SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE;
 
 
-
-extern NSString * const ITEM_FEED_CELL_IDENTIFIER;
 extern NSString * const FOLLOW_PLACE_CELL_IDENTIFIER;
 extern NSString * const USER_CELL_IDENTIFIER;
 extern NSString * const STATIC_PIN_IDENTIFIER;
-
-
-extern int const TOTAL_POOL_CLASSES;
-extern int const ITEMS_INDEX;
-extern int const PLACES_INDEX;
-extern int const USERS_INDEX;
-
 
 extern NSString * const DENWEN_URL_PREFIX;
 extern NSString * const FACEBOOK_URL_PREFIX;
@@ -313,7 +304,6 @@ extern NSString * const CREATED_AT_JSON_KEY;
 extern NSString * const DATABASE_ID_JSON_KEY;
 extern NSString * const URLS_JSON_KEY;
 
-extern int const URL_TAG_MULTIPLIER;
 
 extern NSString * const FOLLOW_PLACES_MSG;
 extern NSString * const UNFOLLOW_PLACES_MSG;

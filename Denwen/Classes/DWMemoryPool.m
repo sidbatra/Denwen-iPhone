@@ -16,11 +16,11 @@ NSMutableArray *memoryPool = nil;
 // Initialize the array used in the pool
 //
 + (void)initPool {
-	memoryPool = [[NSMutableArray alloc] initWithCapacity:TOTAL_POOL_CLASSES];
+	memoryPool = [[NSMutableArray alloc] initWithCapacity:kMPTotalClasses];
 	
 	// Add a NSMutableDictionary for each class whose objects utilize the memory pool
 	//
-	for(int i=0;i<TOTAL_POOL_CLASSES;i++) {
+	for(int i=0;i<kMPTotalClasses;i++) {
 		NSMutableDictionary *poolForClass = [[NSMutableDictionary alloc] init];
 		[memoryPool addObject:poolForClass];
 		[poolForClass release];
@@ -38,11 +38,11 @@ NSMutableArray *memoryPool = nil;
 	
 	if(!new_object) {
 		
-		if(row == ITEMS_INDEX)
+		if(row == kMPItemsIndex)
 			new_object = [[DWItem alloc] init];		
-		else if(row == PLACES_INDEX)
+		else if(row == kMPPlacesIndex)
 			new_object = [[DWPlace alloc] init];
-		else if(row == USERS_INDEX)
+		else if(row == kMPUsersIndex)
 			new_object = [[DWUser alloc] init];
 		
 		
@@ -110,7 +110,7 @@ NSMutableArray *memoryPool = nil;
 // Iterate through the memory pool calling the freeMemory method of DWPoolObject
 //
 + (void)freeMemory {
-	for(int i=0;i<TOTAL_POOL_CLASSES;i++) {
+	for(int i=0;i<kMPTotalClasses;i++) {
 		NSMutableDictionary *poolForClass = [memoryPool objectAtIndex:i];
 		
 		//Call free memory on all the objects of this row

@@ -144,7 +144,12 @@ NSInteger const kLocNearbyRadius			= 1200;
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kPagInitialPage		= 0;
-NSInteger const kPagPlacesPerPage	= 20;
+
+//----------------------------------------------------------------------------------------------------
+NSInteger const kMPTotalClasses		= 3;
+NSInteger const kMPItemsIndex		= 0;
+NSInteger const kMPPlacesIndex		= 1;
+NSInteger const kMPUsersIndex		= 2;
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kMsgNoPlacesNearby				= @"No places nearby";
@@ -160,6 +165,12 @@ NSString* const kImgGenericPlaceHolder = @"generic_placeholder.png";
 NSString* const kPlaceListViewControllerNib		= @"DWPlaceListViewController";
 NSString* const kGenericBackButtonTitle			= @"Back";
 NSInteger const kStatusBarStyle					= UIStatusBarStyleBlackOpaque;
+NSInteger const kAttachmentHeight				= 196;
+NSInteger const kAttachmentYPadding				= 10;
+NSInteger const kURLTagMultipler				= 100;
+NSInteger const kPaginationCellHeight			= 60;
+
+
 
 
 /* File Types */
@@ -214,12 +225,6 @@ int const MAX_POST_DATA_LENGTH = 180;
 int const MAX_SHARE_DATA_LENGTH = 140;
 
 
-/* Caching */
-int const CACHE_INTERNAL = 259200.0; //3 days in seconds ; 1DAY = 86400 seconds
-int const MAX_CACHE_ITEM_SIZE = 838861;//1MB = 1048576 BYTES; 
-
-/* Paging constants */
-int const ITEMS_PER_PAGE = 20;
 
 /* Minimum time elapsed for a pool object to update from its JSON */
 int const POOL_OBJECT_UPDATE_INTERVAL = 5;
@@ -288,9 +293,6 @@ int const VIDEO_MAX_DURATION = 45;
 // Feed table and cell related
 int const FEED_TABLE_HEIGHT = 416;
 int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH = 304;
-int const MAX_DYNAMIC_CELL_HEIGHT = 2000;
-int const ATTACHMENT_HEIGHT = 196;
-int const ATTACHMENT_Y_PADDING = 10;
 int const USER_LABEL_PADDING = 5;
 int const USER_NAME_PADDING = 5;
 int const FOLLOW_PLACE_CELL_HEIGHT = 177;//141;
@@ -298,9 +300,7 @@ int const FOLLOW_CURRENT_USER_CELL_HEIGHT = 177;//141;//192;
 int const FOLLOW_USER_CELL_HEIGHT = 126;
 int const SPINNER_HEIGHT = 20;
 int const VIDEO_VIEW_SPINNER_SIDE = 25;
-int const SPINNER_CELL_INDEX = 2;
-int const MESSAGE_CELL_INDEX = 2;
-int const PAGINATION_CELL_HEIGHT = 60;
+
 
 
 // Image sizes
@@ -315,18 +315,10 @@ int const SIZE_ATTACHMENT_IMAGE = 250;
 int const SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE = 75;
 
 
-NSString * const ITEM_FEED_CELL_IDENTIFIER = @"ItemFeedCell";
 NSString * const FOLLOW_PLACE_CELL_IDENTIFIER = @"FollowPlaceCell";
 NSString * const USER_CELL_IDENTIFIER = @"UserCell";
 NSString * const PIN_IDENTIFIER = @"PinIdentifier";
 
-
-
-// Indices used in the memory pool and other pool constants
-int const TOTAL_POOL_CLASSES = 3;
-int const ITEMS_INDEX = 0;
-int const PLACES_INDEX = 1;
-int const USERS_INDEX = 2;
 
 
 NSString * const DENWEN_URL_PREFIX = @"denwen://p/";
@@ -354,8 +346,7 @@ NSString * const CONDENSED_DATA_JSON_KEY = @"condensed_data";
 NSString * const CREATED_AT_JSON_KEY = @"created_at_timestamp";
 NSString * const DATABASE_ID_JSON_KEY = @"id";
 
-// Urls
-int const URL_TAG_MULTIPLIER = 100;
+
 
 
 //Messages used across the apps
