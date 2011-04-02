@@ -18,7 +18,8 @@
 @implementation DWNewItemViewController
 
 
-@synthesize textView,placeLabel,imagePickerButton,imagePlaceholder,navItem,imagePreview,placeName=_placeName,filename=_filename;
+@synthesize textView,placeLabel,imagePickerButton,imagePlaceholder,navItem,imagePreview,placeName=_placeName,filename=_filename,
+            imagePicker = _imagePicker;
 
 
 // Init the class and set the delegate member variable
@@ -39,7 +40,7 @@
 		_postInitiated = NO;
 		_isUploading = NO;
 		_isLoadedOnce = NO;
-		
+        
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(itemCreated:) 
@@ -189,98 +190,32 @@
 	if(buttonIndex != 2) {
 		[DWMemoryPool freeMemory];
 		
-		UIImagePickerController *imagePickerController = imagePickerController = [[UIImagePickerController alloc] init];
-		imagePickerController.delegate = self;
-		imagePickerController.allowsEditing = YES;		
-		imagePickerController.sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-		imagePickerController.mediaTypes = [UIImagePickerController  availableMediaTypesForSourceType:imagePickerController.sourceType];   
-		imagePickerController.videoMaximumDuration = VIDEO_MAX_DURATION;
-		imagePickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
-		[self presentModalViewController:imagePickerController animated:YES];
-		[imagePickerController release];
+        self.imagePicker = [[[DWImagePicker alloc] initWithDelegate:self] autorelease];
+        [self.imagePicker prepareForMedia:buttonIndex];
+		[self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
 	}
 }	
 
 
 
 #pragma mark -
-#pragma mark UIImagePickerControllerDelegate
+#pragma mark DWImagePicker Delegate
 
 
-// Called when a user chooses a picture from the library of the camera
-//
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	
-	UIImage *previewImage = nil;
-	NSURL *mediaURL = (NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
-	BOOL isImageFile = mediaURL == nil;
-	
-	
-	if(isImageFile) {
-		UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
-		UIImage *originalImage = [info valueForKey:UIImagePickerControllerOriginalImage];
-		
-		previewImage = [image resizeTo:CGSizeMake(SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE,SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE)];
-		
-		_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
-																			toFolder:S3_ITEMS_FOLDER];
-		
-		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
-			UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-	}
-	else {
-		NSString *orientation = [DWVideoHelper extractOrientationOfVideo:mediaURL];
-		
-		previewImage = [UIImage imageNamed:VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME];
-		
-		_uploadID = [[DWRequestsManager sharedDWRequestsManager] createVideoUsingURL:mediaURL 
-																	   atOrientation:orientation
-																			toFolder:S3_ITEMS_FOLDER];
-		
-		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
-			UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
-	}
-	
+- (void)mediaPickedAndProcessedWithID:(NSInteger)uploadID andPreview:(UIImage*)previewImage {
 	imagePlaceholder.hidden = NO;
 	imagePreview.image = previewImage;
+    _uploadID = uploadID;
+    _isUploading = YES;
 
 	[self dismissModalViewControllerAnimated:YES];
-	_isUploading = YES;
+    self.imagePicker = nil;
 }
 
 
-// Called when user cancels the photo selection / creation process
-//
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+- (void)mediaCancelled {
 	[self dismissModalViewControllerAnimated:YES];
-}
-
-
-// Called when the image is saved to the disk
-//
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-	/* TODO
-	 UIAlertView *alert;
-	 
-	 // Unable to save the image  
-	 if (error) {
-	 alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-	 message:@"Unable to save image to Photo Album." 
-	 delegate:self cancelButtonTitle:@"Ok" 
-	 otherButtonTitles:nil];
-	 else 
-	 
-	 [alert show];
-	 [alert release]; 
-	 */
-}
-
-
-// Called when the video is saved to the disk
-//
-- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-	//NSLog(@"video saved %@",[error localizedDescription]);
-	// TODO: Record errors
+    self.imagePicker = nil;
 }
 
 

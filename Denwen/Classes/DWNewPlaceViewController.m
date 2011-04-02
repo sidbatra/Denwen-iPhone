@@ -235,13 +235,10 @@ static NSString* const PIN_IDENTIFIER = @"PinIdenfiter";
 	//Ignore event for the cancel button
 	if(buttonIndex != 2) {
 		[DWMemoryPool freeMemory];
-		
-		UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-		imagePickerController.delegate = self;
-		imagePickerController.allowsEditing = YES;
-		imagePickerController.sourceType =  buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-		[self presentModalViewController:imagePickerController animated:YES];
-		[imagePickerController release];
+        
+        /*DWImagePicker *imagePicker = [[[DWImagePicker alloc] initWithDelegate:self] autorelease];
+        [imagePicker prepareForImage:buttonIndex];
+		[self presentModalViewController:imagePicker.imagePickerController animated:YES];*/
 	}
 }	
 
@@ -324,55 +321,20 @@ replacementString:(NSString *)string {
 
 
 #pragma mark -
-#pragma mark UIImagePickerControllerDelegate
+#pragma mark DWImagePicker Delegate
 
 
-// Called when a user chooses a picture from the library of the camera
-//
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	
-	UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
-	UIImage *originalImage = [info valueForKey:UIImagePickerControllerOriginalImage];
-	
-	UIImage *resizedImage = [image resizeTo:CGSizeMake(SIZE_PLACE_PRE_UPLOAD_IMAGE,SIZE_PLACE_PRE_UPLOAD_IMAGE)];
-	
-	[imagePickerButton setBackgroundImage:resizedImage forState:UIControlStateNormal];
-	
+- (void)mediaPickedAndProcessedWithID:(NSInteger)uploadID andPreview:(UIImage*)previewImage {
+	[imagePickerButton setBackgroundImage:previewImage forState:UIControlStateNormal];
+    _uploadID = uploadID;
 	[self dismissModalViewControllerAnimated:YES];
 	
 	_isUploading = YES;
-	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
-																		toFolder:S3_PLACES_FOLDER];
-	
-	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
-		UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
 
 
-// Called when user cancels the photo selection / creation process
-//
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-
-// Called when the image is saved to the disk
-//
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-	/* TODO
-	UIAlertView *alert;
-
-	// Unable to save the image  
-	if (error) {
-		alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-										   message:@"Unable to save image to Photo Album." 
-										  delegate:self cancelButtonTitle:@"Ok" 
-								 otherButtonTitles:nil];
-	else 
-		
-	[alert show];
-	[alert release]; 
-	*/
+- (void)mediaCancelled {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

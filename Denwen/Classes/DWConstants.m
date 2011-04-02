@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -101,6 +101,7 @@ NSString* const kNImgActualAttachmentLoaded	= @"NImgActualAttachmentLoaded";
 NSString* const kNImgActualAttachmentError	= @"NImgActualAttachmentError";
 NSString* const kNNewApplicationBadge		= @"NNewApplicationBadge"; 
 NSString* const kNTabSelectionChanged		= @"NTabSelectionChanged";
+
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kPNLive			= 0;

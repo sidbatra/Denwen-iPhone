@@ -21,11 +21,11 @@
 #import "NSString+Helpers.h"
 #import "DWMemoryPool.h"
 #import "UIImage+ImageProcessing.h"
-
+#import "DWImagePicker.h"
 
 @protocol DWNewPlaceViewControllerDelegate;
 
-@interface DWNewPlaceViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,MKMapViewDelegate> {
+@interface DWNewPlaceViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,MKMapViewDelegate,DWImagePickerDelegate> {
 	
 	UIView *textFieldsContainerView;
 	UITextField *placeNameTextField;
