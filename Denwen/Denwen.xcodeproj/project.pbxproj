@@ -1393,12 +1393,12 @@
 				26CAF7A412F21E110058C01E /* DWFollowedPlacesViewController.m */,
 				BB4051D712F237AD00916688 /* DWPopularPlacesViewController.h */,
 				BB4051D812F237AD00916688 /* DWPopularPlacesViewController.m */,
-				BBE327E812EEAD8300657024 /* DWNewPlaceViewController.h */,
-				BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */,
 				BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */,
 				BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */,
 				26DC2E5F130A877A00FC1F3A /* DWPlaceDetailsViewController.h */,
 				26DC2E60130A877A00FC1F3A /* DWPlaceDetailsViewController.m */,
+				BBE327E812EEAD8300657024 /* DWNewPlaceViewController.h */,
+				BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */,
 			);
 			name = Places;
 			sourceTree = "<group>";

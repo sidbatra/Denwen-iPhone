@@ -150,7 +150,7 @@ NSString* const kImgGenericPlaceHolder = @"generic_placeholder.png";
 //----------------------------------------------------------------------------------------------------
 NSString* const kPlaceListViewControllerNib		= @"DWPlaceListViewController";
 NSString* const kGenericBackButtonTitle			= @"Back";
-
+NSInteger const kStatusBarStyle					= UIStatusBarStyleBlackOpaque;
 
 
 /* File Types */
@@ -277,7 +277,6 @@ int const VIDEO_MAX_DURATION = 45;
 
 /* App UI Attributes */
 
-int const STATUS_BAR_STYLE = UIStatusBarStyleBlackOpaque;
 
 // Feed table and cell related
 int const FEED_TABLE_HEIGHT = 416;
@@ -313,7 +312,7 @@ NSString * const ITEM_FEED_CELL_IDENTIFIER = @"ItemFeedCell";
 NSString * const FOLLOW_PLACE_CELL_IDENTIFIER = @"FollowPlaceCell";
 NSString * const USER_CELL_IDENTIFIER = @"UserCell";
 NSString * const PIN_IDENTIFIER = @"PinIdentifier";
-NSString * const STATIC_PIN_IDENTIFIER = @"StaticPinIdentifier";
+
 
 
 // Indices used in the memory pool and other pool constants

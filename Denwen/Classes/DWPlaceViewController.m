@@ -602,8 +602,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(_tableViewUsage == kTableViewAsData && indexPath.row == 0) {
 		DWPlaceDetailsViewController *placeDetailsViewController = [[DWPlaceDetailsViewController alloc] 
-																	initWithPlaceName:_place.name placeAddress:[_place displayAddress] 
-																	andLocation:_place.location];
+																	initWithPlace:_place];
 		placeDetailsViewController.hidesBottomBarWhenPushed = YES;
 		[self.navigationController pushViewController:placeDetailsViewController animated:YES];
 		[placeDetailsViewController release];

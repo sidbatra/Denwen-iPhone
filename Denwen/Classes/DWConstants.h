@@ -146,10 +146,11 @@ extern NSString* const kImgGenericPlaceHolder;
 
 
 /**
- *
+ * Misc App UI
  */
 extern NSString* const kPlaceListViewControllerNib;
 extern NSString* const kGenericBackButtonTitle;
+extern NSInteger const kStatusBarStyle;
 
 
 
@@ -239,7 +240,6 @@ extern NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const VIDEO_PLAY_BUTTON_IMAGE_NAME;
 extern int const VIDEO_MAX_DURATION;
 
-extern int const STATUS_BAR_STYLE;
 extern int const FEED_TABLE_HEIGHT;
 extern int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH;
 extern int const MAX_DYNAMIC_CELL_HEIGHT;
@@ -272,7 +272,6 @@ extern int const SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE;
 extern NSString * const ITEM_FEED_CELL_IDENTIFIER;
 extern NSString * const FOLLOW_PLACE_CELL_IDENTIFIER;
 extern NSString * const USER_CELL_IDENTIFIER;
-extern NSString * const PIN_IDENTIFIER;
 extern NSString * const STATIC_PIN_IDENTIFIER;
 
 

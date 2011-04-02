@@ -12,7 +12,7 @@
 - (void)createNewPlace;
 @end
 
-
+static NSString* const PIN_IDENTIFIER = @"PinIdenfiter";
 
 @implementation DWNewPlaceViewController
 

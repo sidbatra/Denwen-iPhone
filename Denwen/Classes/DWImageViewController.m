@@ -68,7 +68,7 @@
 // Reset the navigation and status bar style changes
 //
 - (void)viewWillDisappear:(BOOL)animated {
-	[[UIApplication sharedApplication] setStatusBarStyle:STATUS_BAR_STYLE];
+	[[UIApplication sharedApplication] setStatusBarStyle:kStatusBarStyle];
 	self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 }
 
