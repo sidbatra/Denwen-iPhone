@@ -11,9 +11,6 @@
 //Declarations for private methods
 //
 @interface DWPlacesContainerViewController () 
-- (void)addRightBarButtonItem;
-- (void)removeRightBarButtonItem;
-
 - (void)loadSelectedView:(UISegmentedControl*)segmentedControl;
 - (void)hidePreviouslySelectedView:(UISegmentedControl*)segmentedControl;
 
@@ -92,23 +89,6 @@
 	[segmentedControl release];
 	
 	
-	
-	
-	if([[DWSession sharedDWSession] isActive])
-		[self addRightBarButtonItem];
-		
-	
-	/*
-	UIBarButtonItem *backButton =  [[UIBarButtonItem alloc] initWithTitle:BACK_BUTTON_TITLE
-																	style:UIBarButtonItemStyleBordered
-																   target:nil
-																   action:nil];
-	self.navigationItem.backBarButtonItem = backButton;
-	[backButton release];
-	*/
-	
-	
-	
 	// Add sub views
 	if(!popularViewController)
 		popularViewController = [[DWPopularPlacesViewController alloc] initWithDelegate:self];
@@ -124,24 +104,6 @@
 }
 
 
-
-
-// Adds a create place button to the right bar button item
-//
-- (void)addRightBarButtonItem {
-	UIBarButtonItem *newPlaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd 
-																					target:self 
-																					action:@selector(didPressCreateNewPlace:event:) ];
-	self.navigationItem.rightBarButtonItem = newPlaceButton;
-	[newPlaceButton release];
-}
-
-
-// Remove the compose button 
-//
-- (void)removeRightBarButtonItem {
-	self.navigationItem.rightBarButtonItem = nil;
-}
 
 
 // Hides the view previously selected by the segmentControl
@@ -205,7 +167,6 @@
 // Refresh UI when user logs in
 //
 - (void)userLogsIn:(NSNotification*)notification {
-	[self addRightBarButtonItem];
 }
 
 

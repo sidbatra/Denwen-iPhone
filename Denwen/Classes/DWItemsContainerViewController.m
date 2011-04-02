@@ -115,18 +115,19 @@
 // Adds a compose button to the right bar button item
 //
 - (void)addRightBarButtonItem {
-	UIBarButtonItem *newItemButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose 
+	/*UIBarButtonItem *newItemButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose 
 																				   target:self 
 																				   action:@selector(didPressCreateNewItem:event:) ];
 	self.navigationItem.rightBarButtonItem = newItemButton;
 	[newItemButton release];
+	 */
 }
 
 
 // Remove the compose button 
 //
 - (void)removeRightBarButtonItem {
-	self.navigationItem.rightBarButtonItem = nil;
+	//self.navigationItem.rightBarButtonItem = nil;
 }
 
 
@@ -143,13 +144,7 @@
 // Users clicks on the create a new item button
 //
 - (void)didPressCreateNewItem:(id)sender event:(id)event {
-	DWSelectPlaceViewController *selectPlaceView = [[DWSelectPlaceViewController alloc] initWithDelegate:self];																																							
-	
-	UINavigationController *selectPlaceNav = [[UINavigationController alloc] initWithRootViewController:selectPlaceView];
-	[selectPlaceView release];
-	
-	[self.navigationController presentModalViewController:selectPlaceNav animated:YES];
-	[selectPlaceNav release];
+
 }
 
 
@@ -218,31 +213,6 @@
 		[DWNotificationHelper followedItemsRead];
 }
 
-
-
-#pragma mark -
-#pragma mark SelectPlaceViewControllerDelegate 
-
-
-// User cancels the select place view
-//
-- (void)selectPlaceCancelled {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
-
-// User selects a place to post to
-//
-- (void)selectPlaceFinished:(NSString*)placeName andPlaceID:(NSInteger)placeID {
-	[self.navigationController dismissModalViewControllerAnimated:NO];
-	
-	DWNewItemViewController *newItemView = [[DWNewItemViewController alloc] initWithDelegate:self 
-																			   withPlaceName:placeName
-																				 withPlaceID:placeID
-																			   withForcePost:NO];
-	[self.navigationController presentModalViewController:newItemView animated:NO];
-	[newItemView release];
-}
 
 
 

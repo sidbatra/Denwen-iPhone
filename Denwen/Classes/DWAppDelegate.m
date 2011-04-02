@@ -161,11 +161,11 @@
 	
 	
 	
-	DWUserContainerViewController *userContainerViewController = [[DWUserContainerViewController alloc] init];
+	/*DWUserContainerViewController *userContainerViewController = [[DWUserContainerViewController alloc] init];
 	UINavigationController *userNavController = [[UINavigationController alloc] 
 												  initWithRootViewController:userContainerViewController];
 	[userContainerViewController release];
-																
+	*/															
 	
 	
 	
@@ -179,13 +179,13 @@
 	
 	NSMutableArray *localControllersArray = [[NSMutableArray alloc] initWithCapacity:3];
 	[localControllersArray addObject:placesNavController];
-	[localControllersArray addObject:userNavController];
+	//[localControllersArray addObject:userNavController];
 	[localControllersArray addObject:itemsNavController];
 	
 	
 	
 	[itemsNavController release];
-	[userNavController release];
+	//[userNavController release];
 	[placesNavController release];
 	
 	

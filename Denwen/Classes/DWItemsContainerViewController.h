@@ -10,7 +10,6 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "DWFollowedItemsViewController.h"
-#import "DWSelectPlaceViewController.h"
 #import "DWContainerViewController.h"
 #import "DWNotificationHelper.h"
 

@@ -10,7 +10,6 @@
 
 #import "DWItemFeedViewController.h"
 #import "DWImageViewController.h"
-#import "DWSelectPlaceViewController.h"
 #import "DWNewItemViewController.h"
 #import "DWNewPlaceViewController.h"
 #import "DWPlaceViewController.h"
@@ -25,7 +24,6 @@
 @interface DWUserViewController : DWItemFeedViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
 	DWUser *_user;
 	
-	UIViewController *uiShell;
 	MBProgressHUD *mbProgressIndicator;
 	
 	int _userID;

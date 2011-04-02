@@ -103,18 +103,16 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	uiShell = _isCurrenUserProfile ? (UIViewController*)_delegate : self;
-
 	UIBarButtonItem *backButton =  [[UIBarButtonItem alloc] initWithTitle:_isCurrenUserProfile ? BACK_BUTTON_SELF_TITLE : BACK_BUTTON_TITLE
 										 style:UIBarButtonItemStyleBordered
 										target:nil
 										action:nil];
-	uiShell.navigationItem.backBarButtonItem = backButton;
+	self.navigationItem.backBarButtonItem = backButton;
 	[backButton release];
 	
 	
-	mbProgressIndicator = [[MBProgressHUD alloc] initWithView:uiShell.navigationController.view];
-	[uiShell.navigationController.view addSubview:mbProgressIndicator];
+	mbProgressIndicator = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:mbProgressIndicator];
 	[mbProgressIndicator release];
 	
 	[self.refreshHeaderView applyBackgroundImage:nil 
@@ -140,7 +138,7 @@
 	if(_user.hasPhoto) {
 		DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:_user.largeURL];
 		imageView.hidesBottomBarWhenPushed = YES;
-		[uiShell.navigationController pushViewController:imageView animated:YES];
+		[self.navigationController pushViewController:imageView animated:YES];
 		[imageView release];	
 	}
 }
@@ -149,13 +147,6 @@
 // Displays the create place flow
 //
 - (void)displayCreatePostFlow {
-	DWSelectPlaceViewController *selectPlaceView = [[DWSelectPlaceViewController alloc] initWithDelegate:self];																																							
-	
-	UINavigationController *selectPlaceNav = [[UINavigationController alloc] initWithRootViewController:selectPlaceView];
-	[selectPlaceView release];
-	
-	[uiShell.navigationController presentModalViewController:selectPlaceNav animated:YES];
-	[selectPlaceNav release];		
 }
 
 
@@ -165,7 +156,7 @@
 	UIBarButtonItem *newItemButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose 
 																				   target:self 
 																				   action:@selector(didPressCreateNewItem:event:) ];
-	uiShell.navigationItem.rightBarButtonItem = newItemButton;
+	self.navigationItem.rightBarButtonItem = newItemButton;
 	[newItemButton release];
 }
 
@@ -177,31 +168,6 @@
 }
 	
 
-#pragma mark -
-#pragma mark SelectPlaceViewControllerDelegate 
-
-
-// User cancels the select place view
-//
-- (void)selectPlaceCancelled {
-	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
-}
-
-
-// User selects a place to post to
-//
-- (void)selectPlaceFinished:(NSString*)placeName andPlaceID:(NSInteger)placeID {
-	[uiShell.navigationController dismissModalViewControllerAnimated:NO];
-	
-	DWNewItemViewController *newItemView = [[DWNewItemViewController alloc] initWithDelegate:self 
-																			   withPlaceName:placeName
-																				 withPlaceID:placeID
-																			   withForcePost:NO];
-	[uiShell.navigationController presentModalViewController:newItemView animated:NO];
-	[newItemView release];
-}
-
-
 
 #pragma mark -
 #pragma mark NewItemViewControllerDelegate
@@ -210,14 +176,14 @@
 // Fired when user cancels the new item creation
 //
 - (void)newItemCancelled {
-	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 
 // Fired when the new has successfully created a new item for this place
 //
 - (void)newItemCreationFinished {
-	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 
@@ -228,7 +194,7 @@
 // User cancels the new place creation process
 //
 - (void)newPlaceCancelled {
-	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 
@@ -239,10 +205,10 @@
 	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlace:place
 																	withNewItemPrompt:YES 
 																		  andDelegate:self];
-	[uiShell.navigationController pushViewController:placeView animated:NO];
+	[self.navigationController pushViewController:placeView animated:NO];
 	[placeView release];
 	
-	[uiShell.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 
@@ -351,9 +317,9 @@
 		_user = (DWUser*)[DWMemoryPool getOrSetObject:userJSON atRow:USERS_INDEX];			
 		
 		if(!_isCurrenUserProfile)
-			uiShell.title = [_user fullName];
+			self.title = [_user fullName];
 		else
-			uiShell.title = [_user firstName];
+			self.title = [_user firstName];
 		
 		_isLoadedOnce = YES;
 		
@@ -526,7 +492,7 @@
 		
 		DWFollowedPlacesViewController *followedView = [[DWFollowedPlacesViewController alloc] initWithDelegate:_delegate 
 																								   withUser:_user];
-		[uiShell.navigationController pushViewController:followedView animated:YES];
+		[self.navigationController pushViewController:followedView animated:YES];
 		[followedView release];
 	}
 	else {
@@ -559,7 +525,7 @@
 		
 		
 		
-		[actionSheet showInView:uiShell.tabBarController.view];
+		[actionSheet showInView:self.tabBarController.view];
 		[actionSheet release];
 	}
 
@@ -577,7 +543,7 @@
 ///
 - (void)didTapNewPlaceButton:(id)sender event:(id)event {
 	DWNewPlaceViewController *newPlaceView = [[DWNewPlaceViewController alloc] initWithDelegate:self];
-	[uiShell.navigationController presentModalViewController:newPlaceView animated:YES];
+	[self.navigationController presentModalViewController:newPlaceView animated:YES];
 	[newPlaceView release];
 }
 
@@ -597,7 +563,7 @@
 		imagePickerController.delegate = self;
 		imagePickerController.allowsEditing = YES;		
 		imagePickerController.sourceType =  buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-		[uiShell presentModalViewController:imagePickerController animated:YES];
+		[self presentModalViewController:imagePickerController animated:YES];
 		[imagePickerController release];
 	}
 }	
@@ -622,7 +588,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
 	
-	[uiShell dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:YES];
 	
 	mbProgressIndicator.labelText = @"Loading";
 	[mbProgressIndicator showUsingAnimation:YES];
@@ -637,7 +603,7 @@
 // Called when user cancels the photo selection / creation process
 //
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[uiShell dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 
