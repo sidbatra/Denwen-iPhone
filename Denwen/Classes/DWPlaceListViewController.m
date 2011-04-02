@@ -35,13 +35,6 @@ static NSInteger const kSearchInActiveAlpha			= 1.0;
 @synthesize placeManager			= _placeManager;
 @synthesize messageCellText			= _messageCellText;
 @synthesize lastRefreshDate			= _lastRefreshDate;
-@synthesize tableViewUsage			= _tableViewUsage;
-@synthesize currentPage				= _currentPage; 
-@synthesize paginationCellStatus	= _paginationCellStatus;
-@synthesize	prePaginationCellCount	= _prePaginationCellCount;
-@synthesize	isReloading				= _isReloading;
-@synthesize	isLocalSearch			= _isLocalSearch;
-@synthesize isLoadedOnce			= _isLoadedOnce;
 @synthesize refreshHeaderView		= _refreshHeaderView;
 
 
@@ -60,10 +53,10 @@ static NSInteger const kSearchInActiveAlpha			= 1.0;
 		_delegate = delegate;
 		
 		self.placeManager		= [[[DWPlaceManager alloc] initWithCapacity:capacity] autorelease];
-		self.isLocalSearch		= localSearchFlag;
-		self.isReloading		= NO;
-		self.isLoadedOnce		= NO;
-		self.tableViewUsage		= kTableViewAsSpinner;
+		_tableViewUsage			= kTableViewAsSpinner;
+		_isLocalSearch			= localSearchFlag;
+		_isReloading			= NO;
+		_isLoadedOnce			= NO;
 		
 		[self resetPagination];
 				

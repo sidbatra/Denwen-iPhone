@@ -22,12 +22,34 @@
 	NSString		*_messageCellText;
 	NSDate			*_lastRefreshDate;
 	
+	/**
+	 * Determines type of usuage of table view - loading,message,data etc
+	 */
 	NSInteger		_tableViewUsage;
+	
+	/**
+	 *  Current page of data being displayed
+	 */
 	NSInteger		_currentPage; 
+	
+	/**
+	 * Controls whether the pagination is displayed or not
+	 */
 	NSInteger		_paginationCellStatus;
+	
+	/**
+	 * Count of the number of places being displayed before the next page is loaded
+	 */
 	NSInteger		_prePaginationCellCount;
 	
+	/**
+	 * Differentiates between a pull to refresh versus a pagination load
+	 */
 	BOOL			_isReloading;
+	
+	/**
+	 * Search is to be performed on the server or in the locally loaded places
+	 */
 	BOOL			_isLocalSearch;
 	BOOL			_isLoadedOnce;
 
@@ -49,41 +71,6 @@
  * Date when the content of the view were last refreshed
  */
 @property (nonatomic,retain) NSDate *lastRefreshDate;
-
-/**
- * Determines type of usuage of table view - loading,message,data etc
- */
-@property (nonatomic,assign) NSInteger tableViewUsage;
-
-/**
- * Current page of data being displayed
- */
-@property (nonatomic,assign) NSInteger currentPage;
-
-/**
- * Controls whether the pagination is displayed or not
- */
-@property (nonatomic,assign) NSInteger paginationCellStatus;
-
-/**
- * Count of the number of places being displayed before the next page is loaded
- */
-@property (nonatomic,assign) NSInteger prePaginationCellCount;
-
-/**
- * Differentiates between a pull to refresh versus a pagination load
- */
-@property (nonatomic,assign) BOOL isReloading;
-
-/**
- * Search is to be performed on the server or in the locally loaded places
- */
-@property (nonatomic,assign) BOOL isLocalSearch;
-
-/**
- * Indicates is the data has been loaded once or not
- */
-@property (nonatomic,assign) BOOL isLoadedOnce;
 
 /**
  * Pull to refresh view added above the table view
