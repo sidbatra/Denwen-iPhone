@@ -171,10 +171,7 @@ extern int const LOCATION_ACCURACY;
 extern int const LOCATION_REFRESH_DISTANCE;
 extern int const LOCATION_FAILSAFE_DURATION;
 
-extern int const SEARCH_INSTANCE_ID;
 
-extern int const SELECTED_ITEMS_INDEX;
-extern int const SELECTED_PLACES_INDEX;
 
 extern int const MAX_PLACE_NAME_LENGTH;
 extern int const MAX_POST_DATA_LENGTH;
@@ -199,10 +196,8 @@ extern NSString * const BACK_BUTTON_TITLE;
 
 extern NSString * const POSTS_TAB_NAME;
 extern NSString * const PROFILE_TAB_NAME;
-extern NSString * const PLACES_TAB_NAME;
 extern NSString * const POSTS_TAB_IMAGE_NAME;
 extern NSString * const PROFILE_TAB_IMAGE_NAME;
-extern NSString * const PLACES_TAB_IMAGE_NAME;
 
 
 extern NSString * const PLACE_SMALL_PLACEHOLDER_IMAGE_NAME;
@@ -286,34 +281,9 @@ extern int const ITEMS_INDEX;
 extern int const PLACES_INDEX;
 extern int const USERS_INDEX;
 
-extern int const NEARBY_INDEX;
-extern int const FOLLOWED_INDEX;
-extern int const POPULAR_INDEX;
-
-extern int const NEARBY_PLACES_INDEX;
-extern int const POPULAR_PLACES_INDEX;
-
-extern NSString * const NEARBY_TITLE;
-extern NSString * const FOLLOWED_TITLE;
-extern NSString * const POPULAR_TITLE;
-
-extern int const SEGMENTED_VIEW_WIDTH;
-extern int const SEGMENTED_VIEW_HEIGHT;
-extern int const SEGMENTED_PLACES_CONTROL_WIDTH;
-extern int const SEGMENTED_PLACES_CONTROL_HEIGHT;
-extern NSString * const SEGMENTED_VIEW_BACKGROUND_IMAGE_NAME;
-extern NSString * const SEGMENTED_CONTROL_POPULAR_ON_IMAGE_NAME;
-extern NSString * const SEGMENTED_CONTROL_POPULAR_OFF_IMAGE_NAME;
-extern NSString * const SEGMENTED_CONTROL_NEARBY_ON_IMAGE_NAME;
-extern NSString * const SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME;
-
-
-
-extern int const kPagInitialPage;
 
 extern NSString * const DENWEN_URL_PREFIX;
 extern NSString * const FACEBOOK_URL_PREFIX;
-
 
 
 
@@ -338,8 +308,6 @@ extern NSString * const URLS_JSON_KEY;
 
 extern int const URL_TAG_MULTIPLIER;
 
-extern NSString * const ENCRYPTION_PHRASE;
-
 extern NSString * const FOLLOW_PLACES_MSG;
 extern NSString * const UNFOLLOW_PLACES_MSG;
 extern NSString * const FOLLOW_LOGGEDOUT_MSG;
@@ -360,11 +328,6 @@ extern NSString * const CANCEL_MEDIA_MSG;
 extern NSString * const EMPTY_POST_MSG;
 extern NSString * const EMPTY_PLACENAME_MSG;
 extern NSString * const EMPTY_LOGIN_FIELDS_MSG;
-
-
-extern NSInteger const kTableViewAsSpinner;
-extern NSInteger const kTableViewAsMessage;
-extern NSInteger const TABLE_VIEW_AS_PROFILE_MESSAGE;
 
 extern NSString * const BADGE_NOTIFICATION_LIVE;
 extern NSString * const BADGE_NOTIFICATION_BACKGROUND;

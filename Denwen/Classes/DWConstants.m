@@ -198,12 +198,6 @@ int const LOCATION_ACCURACY = 1100;
 int const LOCATION_REFRESH_DISTANCE = 750;
 int const LOCATION_FAILSAFE_DURATION = 6;
 
-/* instances ID for request managers and url connections*/
-int const SEARCH_INSTANCE_ID = 99;
-
-/* selected segmented indices */
-int const SELECTED_ITEMS_INDEX = 1;
-int const SELECTED_PLACES_INDEX = 0;
 
 /* max lengths for texts */
 int const MAX_PLACE_NAME_LENGTH = 32;
@@ -237,10 +231,8 @@ NSString * const BACK_BUTTON_SELF_TITLE = @"Profile";
 /* Tagbar titles and image names */
 NSString * const POSTS_TAB_NAME = @"Feed";
 NSString * const PROFILE_TAB_NAME = @"Profile";
-NSString * const PLACES_TAB_NAME = @"Places";
 NSString * const POSTS_TAB_IMAGE_NAME = @"posts.png";
 NSString * const PROFILE_TAB_IMAGE_NAME = @"profile.png";
-NSString * const PLACES_TAB_IMAGE_NAME = @"places.png";
 
 /* placeholder images */
 NSString * const PLACE_SMALL_PLACEHOLDER_IMAGE_NAME = @"place_small_placeholder.png";
@@ -331,42 +323,13 @@ int const PLACES_INDEX = 1;
 int const USERS_INDEX = 2;
 
 
-// Names and indices for the segmented controller options
-
-int const NEARBY_INDEX = 0;
-int const FOLLOWED_INDEX = 1;
-int const POPULAR_INDEX = 1;
-
-
-int const POPULAR_PLACES_INDEX = 0;
-int const NEARBY_PLACES_INDEX = 1;
-
-
-NSString * const NEARBY_TITLE = @"Nearby";
-NSString * const FOLLOWED_TITLE = @"Followed";
-NSString * const POPULAR_TITLE = @"Popular";
-
-// Segment controller title view
-int const SEGMENTED_VIEW_WIDTH = 320;
-int const SEGMENTED_VIEW_HEIGHT = 44;
-int const SEGMENTED_PLACES_CONTROL_WIDTH = 320;
-int const SEGMENTED_PLACES_CONTROL_HEIGHT = 44;
-NSString * const SEGMENTED_VIEW_BACKGROUND_IMAGE_NAME = @"segmented_view_bg.png";
-NSString * const SEGMENTED_CONTROL_POPULAR_ON_IMAGE_NAME = @"popular_on.png";
-NSString * const SEGMENTED_CONTROL_POPULAR_OFF_IMAGE_NAME = @"popular_off.png";
-NSString * const SEGMENTED_CONTROL_NEARBY_ON_IMAGE_NAME = @"nearby_on.png";
-NSString * const SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME = @"nearby_off.png";
-
-
 NSString * const DENWEN_URL_PREFIX = @"denwen://p/";
 NSString * const FACEBOOK_URL_PREFIX = @"fb";
-
 
 // Folders on S3
 NSString * const S3_ITEMS_FOLDER = @"items";
 NSString * const S3_USERS_FOLDER = @"user_photos";
 NSString * const S3_PLACES_FOLDER = @"place_photos";
-
 
 
 // JSON keys for models 
@@ -388,8 +351,6 @@ NSString * const DATABASE_ID_JSON_KEY = @"id";
 // Urls
 int const URL_TAG_MULTIPLIER = 100;
 
-//Cryptography
-NSString * const ENCRYPTION_PHRASE = @"9u124hgd35677";
 
 //Messages used across the apps
 NSString * const FOLLOW_PLACES_MSG = @"Follow Place";
@@ -415,9 +376,6 @@ NSString * const TAKE_MEDIA_MSG = @"Take Photo or Video";
 NSString * const CHOOSE_MEDIA_MSG = @"Choose Existing";
 NSString * const CANCEL_PHOTO_MSG = @"Cancel";
 NSString * const CANCEL_MEDIA_MSG = @"Cancel";
-
-//Integers signifying different use cases of table views
-NSInteger const TABLE_VIEW_AS_PROFILE_MESSAGE = 3;
 
 //Different badge notifications types
 NSString * const BADGE_NOTIFICATION_LIVE = @"b_live";

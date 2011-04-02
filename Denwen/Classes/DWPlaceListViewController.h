@@ -88,7 +88,7 @@
 /**
  * Pull to refresh view added above the table view
  */
-@property (retain) EGORefreshTableHeaderView *refreshHeaderView;
+@property (nonatomic,retain) EGORefreshTableHeaderView *refreshHeaderView;
 
 /**
  * Init with the normal nib and bundle name along with 

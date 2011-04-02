@@ -1,24 +1,19 @@
 //
 //  DWPlacesContainerViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+#import "DWContainerViewController.h"
 #import "DWNearbyPlacesViewController.h"
 #import "DWPopularPlacesViewController.h"
-#import "DWNewPlaceViewController.h"
-#import "DWContainerViewController.h"
 
-
-#import "DWSession.h"
-#import "DWConstants.h"
-
-
+/**
+ * Primary view for the places tab and container for popular
+ * and nearby places views
+ */
 @interface DWPlacesContainerViewController : DWContainerViewController {
 	
 	DWPopularPlacesViewController *popularViewController;
@@ -27,4 +22,12 @@
 	int _currentSelectedSegmentIndex;
 }
 
+
+@end
+
+/**
+ * Declaration for select private methods
+ */
+@interface DWPlacesContainerViewController (Private)
+- (void)loadSelectedView:(UISegmentedControl*)segmentedControl;
 @end

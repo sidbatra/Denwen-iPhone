@@ -431,7 +431,7 @@
 		
 		return cell;
 	}
-	else if((_tableViewUsage == kTableViewAsMessage || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == MESSAGE_CELL_INDEX) {
+	else if((_tableViewUsage == kTableViewAsMessage || _tableViewUsage == kTableViewAsProfileMessage) && indexPath.row == MESSAGE_CELL_INDEX) {
 		DWMessageCell *cell = (DWMessageCell*)[tableView dequeueReusableCellWithIdentifier:kTVMessageCellIdentifier];
 		
 		if (!cell) 

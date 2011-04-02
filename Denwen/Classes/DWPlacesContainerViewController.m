@@ -1,95 +1,92 @@
 //
 //  DWPlacesContainerViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWPlacesContainerViewController.h"
+#import "DWNewPlaceViewController.h"
+#import "DWSession.h"
 
-//Declarations for private methods
-//
-@interface DWPlacesContainerViewController () 
-- (void)loadSelectedView:(UISegmentedControl*)segmentedControl;
-- (void)hidePreviouslySelectedView:(UISegmentedControl*)segmentedControl;
+static NSString* const kTabTitle					= @"Places";
+static NSString* const kImgTab						= @"places.png";
+static NSInteger const kSelectedIndex				= 0;
+static NSString* const kImgSegmentedViewBackground	= @"segmented_view_bg.png";
+static NSString* const kImgSegmentedViewPopularOn	= @"popular_on.png";
+static NSString* const kImgSegmentedViewPopularOff	= @"popular_off.png";
+static NSString* const kImgSegmentedViewNearbyOn	= @"nearby_on.png";
+static NSString* const kImgSegmentedViewNearbyOff	= @"nearby_off.png";
+static NSInteger const kPopularIndex				= 0;
+static NSInteger const kNearbyIndex					= 1;
+static NSString* const kMsgUnload					= @"Unload called on places container";
 
-@end
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWPlacesContainerViewController
 
-
-#pragma mark -
-#pragma mark View lifecycle
-
-
-// Init the view along with its member variables 
-//
+//----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
 	if (self) {
-		self.title = PLACES_TAB_NAME;
-		self.tabBarItem.image = [UIImage imageNamed:PLACES_TAB_IMAGE_NAME];
-		
-		_currentSelectedSegmentIndex = SELECTED_PLACES_INDEX;
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(userLogsIn:) 
-													 name:N_USER_LOGS_IN
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(tabBarSelectionChanged:) 
-													 name:N_TAB_BAR_SELECTION_CHANGED
-												   object:nil];
+		self.title						= kTabTitle;
+		self.tabBarItem.image			= [UIImage imageNamed:kImgTab];
+		_currentSelectedSegmentIndex	= kSelectedIndex;
 	}
     
 	return self;
 }
 
-
-// Setup UI elements after the view is done loading
-//
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
 			
-	CGRect segmentedViewFrame = CGRectMake(0, 0, SEGMENTED_VIEW_WIDTH, SEGMENTED_VIEW_HEIGHT);
-	UIView *segmentedView = [[UIView alloc] initWithFrame:segmentedViewFrame];
-	segmentedView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:SEGMENTED_VIEW_BACKGROUND_IMAGE_NAME]];	
+	CGRect segmentedViewFrame		= CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight);
+	UIView *segmentedView			= [[[UIView alloc] initWithFrame:segmentedViewFrame] autorelease];
+	segmentedView.backgroundColor	= [UIColor colorWithPatternImage:[UIImage imageNamed:kImgSegmentedViewBackground]];	
+	
 	[self.view addSubview:segmentedView];
-	[segmentedView release];
 	
 	
-	// Create a segmented control.
-	UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:nil];
+	/**
+	 * Create segmented control
+	 */
+	UISegmentedControl *segmentedControl = [[[UISegmentedControl alloc] initWithItems:nil] autorelease];
 	
-	if(_currentSelectedSegmentIndex == POPULAR_PLACES_INDEX) {
-		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:SEGMENTED_CONTROL_POPULAR_ON_IMAGE_NAME] atIndex:0 animated:NO];
-		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME] atIndex:1 animated:NO];
+	if(_currentSelectedSegmentIndex == kPopularIndex) {
+		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:kImgSegmentedViewPopularOn] 
+										 atIndex:kPopularIndex
+										animated:NO];
+		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:kImgSegmentedViewNearbyOff] 
+										 atIndex:kNearbyIndex
+										animated:NO];
 	}
 	else {
-		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:SEGMENTED_CONTROL_POPULAR_OFF_IMAGE_NAME] atIndex:0 animated:NO];
-		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:SEGMENTED_CONTROL_NEARBY_ON_IMAGE_NAME] atIndex:1 animated:NO];
+		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:kImgSegmentedViewPopularOff] 
+										 atIndex:kPopularIndex
+										animated:NO];
+		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:kImgSegmentedViewNearbyOn] 
+										 atIndex:kNearbyIndex
+										animated:NO];
 	}
 	
 	
-	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
-	segmentedControl.frame = CGRectMake(0,0,SEGMENTED_PLACES_CONTROL_WIDTH,SEGMENTED_PLACES_CONTROL_HEIGHT);
-	segmentedControl.backgroundColor = [UIColor	clearColor];
-	segmentedControl.selectedSegmentIndex = _currentSelectedSegmentIndex;
+	segmentedControl.segmentedControlStyle	= UISegmentedControlStyleBar;
+	segmentedControl.frame					= CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight);
+	segmentedControl.backgroundColor		= [UIColor	clearColor];
+	segmentedControl.selectedSegmentIndex	= _currentSelectedSegmentIndex;
 
-	[segmentedControl addTarget:self
-						 action:@selector(segmentedControllerSelectionChanged:)
-			   forControlEvents:UIControlEventValueChanged];
-	
-	[segmentedView addSubview:segmentedControl];
-	[segmentedControl release];
+	[segmentedControl	addTarget:self 
+						   action:@selector(segmentedControllerSelectionChanged:)
+				 forControlEvents:UIControlEventValueChanged];
+	[segmentedView		addSubview:segmentedControl];
 	
 	
-	// Add sub views
+	/**
+	 * Add sub views
+	 */
 	if(!popularViewController)
 		popularViewController = [[DWPopularPlacesViewController alloc] initWithDelegate:self];
 	[self.view addSubview:popularViewController.view];
@@ -105,44 +102,62 @@
 
 
 
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidUnload {	
+	NSLog(@"%@",kMsgUnload);
+}
 
-// Hides the view previously selected by the segmentControl
-//
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	[popularViewController	release];
+	[nearbyViewController	release];
+	
+    [super dealloc];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Private
+
+//----------------------------------------------------------------------------------------------------
 - (void)hidePreviouslySelectedView:(UISegmentedControl*)segmentedControl {
-	if(_currentSelectedSegmentIndex == POPULAR_PLACES_INDEX) {
+	if(_currentSelectedSegmentIndex == kPopularIndex) {
 		[popularViewController viewIsDeselected];
-		[segmentedControl setImage:[UIImage imageNamed:SEGMENTED_CONTROL_POPULAR_OFF_IMAGE_NAME] 
+		[segmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewPopularOff] 
 				 forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
-	else if(_currentSelectedSegmentIndex == NEARBY_PLACES_INDEX) {
+	else if(_currentSelectedSegmentIndex == kNearbyIndex) {
 		[nearbyViewController viewIsDeselected];
-		[segmentedControl setImage:[UIImage imageNamed:SEGMENTED_CONTROL_NEARBY_OFF_IMAGE_NAME] 
+		[segmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewNearbyOff] 
 				 forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
 }
 
-
-// Loads a subview based on the currently selected button in the
-// segmentedControl
-//
+//----------------------------------------------------------------------------------------------------
 - (void)loadSelectedView:(UISegmentedControl*)segmentedControl {	
-
-	if(_currentSelectedSegmentIndex == POPULAR_PLACES_INDEX) {
+	
+	if(_currentSelectedSegmentIndex == kPopularIndex) {
 		[popularViewController viewIsSelected];
-		[segmentedControl setImage:[UIImage imageNamed:SEGMENTED_CONTROL_POPULAR_ON_IMAGE_NAME] 
+		[segmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewPopularOn] 
 				 forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
-	else if(_currentSelectedSegmentIndex == NEARBY_PLACES_INDEX) {
+	else if(_currentSelectedSegmentIndex == kNearbyIndex) {
 		[nearbyViewController viewIsSelected];
-		[segmentedControl setImage:[UIImage imageNamed:SEGMENTED_CONTROL_NEARBY_ON_IMAGE_NAME] 
+		[segmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewNearbyOn] 
 				 forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
 }
 
 
-// Fired when the user switches selection on the segmentedController
-//
-- (void) segmentedControllerSelectionChanged:(id)sender {
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIControlEventValueChanged
+
+//----------------------------------------------------------------------------------------------------
+- (void)segmentedControllerSelectionChanged:(id)sender {
 	UISegmentedControl *segmentedController = (UISegmentedControl*)sender;
 
 	[self hidePreviouslySelectedView:segmentedController];
@@ -150,77 +165,6 @@
 	[self loadSelectedView:segmentedController];
 }
 
-
-// Users clicks on the create a new place button
-//
-- (void)didPressCreateNewPlace:(id)sender event:(id)event {
-	DWNewPlaceViewController *newPlaceView = [[DWNewPlaceViewController alloc] initWithDelegate:self];
-	[self.navigationController presentModalViewController:newPlaceView animated:YES];
-	[newPlaceView release];
-}
-
-
-
-#pragma mark -
-#pragma mark Notification handlers
-
-// Refresh UI when user logs in
-//
-- (void)userLogsIn:(NSNotification*)notification {
-}
-
-
-
-// Test is followed item view needs to be refreshed when the tab changes
-//
-- (void)tabBarSelectionChanged:(NSNotification*)notification {
-}
-
-
-
-#pragma mark -
-#pragma mark NewPlaceViewControllerDelegate
-
-// User cancels the new place creation process
-//
-- (void)newPlaceCancelled {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
-
-// User just finished creating a new place
-//
-- (void)newPlaceCreated:(DWPlace*)place {
-	
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlace:place
-																	withNewItemPrompt:YES 
-																		  andDelegate:self];
-	[self.navigationController pushViewController:placeView animated:NO];
-	[placeView release];
-	
-	
-	[self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
-
-
-
-#pragma mark -
-#pragma mark Memory management
-
-
-- (void)viewDidUnload {	
-	NSLog(@"unload called on places container");
-}
-
-
-// The usual memory cleanup
-// 
-- (void)dealloc {
-	[popularViewController release];
-	[nearbyViewController release];
-    [super dealloc];
-}
 
 
 @end

@@ -245,7 +245,7 @@
 - (void)mediumUserImageLoaded:(NSNotification*)notification {
 	
 	if(_tableViewUsage != kTableViewAsData && 
-	   _tableViewUsage != TABLE_VIEW_AS_PROFILE_MESSAGE) {
+	   _tableViewUsage != kTableViewAsProfileMessage) {
 		
 		return;
 	}
@@ -328,7 +328,7 @@
 		
 		if([_itemManager totalItems]==1 && [[DWSession sharedDWSession] isActive] && [DWSession sharedDWSession].currentUser.databaseID == _user.databaseID) {
 			self.messageCellText = USER_SIGNED_IN_NO_ITEMS_MSG;
-			_tableViewUsage = TABLE_VIEW_AS_PROFILE_MESSAGE;
+			_tableViewUsage = kTableViewAsProfileMessage;
 		}
 		else
 			_tableViewUsage = kTableViewAsData;			
@@ -416,7 +416,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat height = 0;
 	
-	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0)
+	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == kTableViewAsProfileMessage) && indexPath.row == 0)
 		height = _isCurrentUser ? FOLLOW_CURRENT_USER_CELL_HEIGHT : FOLLOW_USER_CELL_HEIGHT;
 	else
 		height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
@@ -433,7 +433,7 @@
 	UITableViewCell *cell = nil;
 	
 	
-	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0) {
+	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == kTableViewAsProfileMessage) && indexPath.row == 0) {
 		DWUserCell *cell = (DWUserCell*)[tableView dequeueReusableCellWithIdentifier:USER_CELL_IDENTIFIER];
 		
 		if (!cell) {
@@ -465,7 +465,7 @@
 		cell = [super tableView:(tableView) cellForRowAtIndexPath:indexPath];
 		
 		//Override position of the message cell
-		if(_tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE && indexPath.row == MESSAGE_CELL_INDEX) {
+		if(_tableViewUsage == kTableViewAsProfileMessage && indexPath.row == MESSAGE_CELL_INDEX) {
 			((DWMessageCell*)cell).textLabel.text = @"";
 			((DWMessageCell*)cell).customTextLabel.hidden = NO;
 			((DWMessageCell*)cell).customTextLabel.text = self.messageCellText;
@@ -488,7 +488,7 @@
 // Handles click event on the table view cell
 //
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == TABLE_VIEW_AS_PROFILE_MESSAGE) && indexPath.row == 0) {
+	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == kTableViewAsProfileMessage) && indexPath.row == 0) {
 		
 		DWFollowedPlacesViewController *followedView = [[DWFollowedPlacesViewController alloc] initWithDelegate:_delegate 
 																								   withUser:_user];

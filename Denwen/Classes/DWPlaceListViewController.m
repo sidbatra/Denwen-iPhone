@@ -26,6 +26,7 @@ static NSInteger const kSearchActiveAlpha			= 0.8;
 static NSInteger const kSearchInActiveAlpha			= 1.0;
 
 
+
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -374,9 +375,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	UITableViewCell *cell = nil;
-	
-	NSLog(@"IN CELL FOR %d",indexPath.row);
-	
+		
 	if(_tableViewUsage == kTableViewAsData && 
 			(self.searchDisplayController.isActive || 
 				indexPath.row < [_placeManager totalPlacesAtRow:indexPath.section]) ) {
