@@ -398,7 +398,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 		if (place.smallPreviewImage)
 			[cell setPlaceImage:place.smallPreviewImage];
 		else
-			[cell setPlaceImage:[UIImage imageNamed:kImgGenericPlaceHolder]];
+			[cell setPlaceImage:nil];
 		
 		return cell;
 	}

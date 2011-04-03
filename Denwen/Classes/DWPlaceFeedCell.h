@@ -6,6 +6,15 @@
 #import <UIKit/UIKit.h>
 
 /**
+ * Forms the background view of a selected place feed cell
+ */
+@interface DWPlaceFeedSelectedView : UIView {
+}
+
+@end
+
+
+/**
  * Primary view for DWPlaceFeedViewCell
  */
 @interface DWPlaceFeedView : UIView {
@@ -66,5 +75,10 @@
  * Set the place image
  */
 - (void)setPlaceImage:(UIImage*)placeImage;
+
+/**
+ * Sets the cell to be rerendered
+ */
+- (void)redisplay;
 
 @end
