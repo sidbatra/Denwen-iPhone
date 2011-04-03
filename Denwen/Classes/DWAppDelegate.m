@@ -43,8 +43,6 @@
 	//[[ASIDownloadCache sharedCache] clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
 	
 	[DWMemoryPool initPool];
-	
-	[[DWSession sharedDWSession] read];
 
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self 
