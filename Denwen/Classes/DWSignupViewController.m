@@ -7,7 +7,7 @@
 //
 
 #import "DWSignupViewController.h"
-
+#import "DWConstants.h"
 
 //Declarations for private methods
 //
@@ -164,7 +164,7 @@
 	
 	//Ignore event for the cancel button
 	if(buttonIndex != 2) {
-		[DWMemoryPool freeMemory];
+		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 		
 		UIImagePickerController *imagePickerController = imagePickerController = [[UIImagePickerController alloc] init];
 		imagePickerController.delegate = self;

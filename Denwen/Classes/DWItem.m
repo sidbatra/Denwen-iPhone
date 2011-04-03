@@ -47,12 +47,12 @@
 	self.attachment = nil;
 	
 	if(self.place) {
-		[DWMemoryPool removeObject:_place atRow:kMPPlacesIndex];
+		[[DWMemoryPool sharedDWMemoryPool]  removeObject:_place atRow:kMPPlacesIndex];
 		self.place = nil;
 	}
 	
 	if(self.user) {
-		[DWMemoryPool removeObject:_user atRow:kMPUsersIndex];
+		[[DWMemoryPool sharedDWMemoryPool]  removeObject:_user atRow:kMPUsersIndex];
 		self.user = nil;
 	}
 	
@@ -117,10 +117,10 @@
 		[self.attachment populate:[item objectForKey:kKeyAttachment]];
 	}
 	
-	self.place = (DWPlace*)[DWMemoryPool getOrSetObject:[item objectForKey:kKeyPlace] 
+	self.place = (DWPlace*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[item objectForKey:kKeyPlace] 
 												  atRow:kMPPlacesIndex];
 
-	self.user = (DWUser*)[DWMemoryPool getOrSetObject:[item objectForKey:kKeyUser]
+	self.user = (DWUser*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[item objectForKey:kKeyUser]
 												atRow:kMPUsersIndex];
 	
 	NSArray *urlsArray = [item objectForKey:kKeyURLs];

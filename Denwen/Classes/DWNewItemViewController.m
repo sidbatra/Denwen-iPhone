@@ -7,6 +7,7 @@
 //
 
 #import "DWNewItemViewController.h"
+#import "DWConstants.h"
 
 
 //Declarations for private methods
@@ -188,7 +189,7 @@
 	
 	//Ignore event for the cancel button
 	if(buttonIndex != 2) {
-		[DWMemoryPool freeMemory];
+		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 		
         self.imagePicker = [[[DWImagePicker alloc] initWithDelegate:self] autorelease];
         [self.imagePicker prepareForMedia:buttonIndex];
@@ -233,7 +234,7 @@
 		[item populate:[body objectForKey:ITEM_JSON_KEY]];
 		item.fromFollowedPlace = [[body objectForKey:FOLLOWING_JSON_KEY] boolValue];
 		
-		[DWMemoryPool setObject:item atRow:kMPItemsIndex];
+		[[DWMemoryPool sharedDWMemoryPool]  setObject:item atRow:kMPItemsIndex];
 		item.pointerCount--;
 		[item release];
 		

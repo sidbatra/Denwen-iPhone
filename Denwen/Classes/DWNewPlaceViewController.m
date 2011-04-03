@@ -7,6 +7,7 @@
 //
 
 #import "DWNewPlaceViewController.h"
+#import "DWConstants.h"
 
 @interface DWNewPlaceViewController()
 - (void)createNewPlace;
@@ -234,7 +235,7 @@ static NSString* const PIN_IDENTIFIER = @"PinIdenfiter";
 	
 	//Ignore event for the cancel button
 	if(buttonIndex != 2) {
-		[DWMemoryPool freeMemory];
+		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 		
 		UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
 		imagePickerController.delegate = self;
@@ -387,7 +388,7 @@ replacementString:(NSString *)string {
 		
 		DWPlace *place = [[DWPlace alloc] init];	
 		[place populate:[[info objectForKey:kKeyBody] objectForKey:kKeyPlace]];
-		[DWMemoryPool setObject:place atRow:kMPPlacesIndex];
+		[[DWMemoryPool sharedDWMemoryPool]  setObject:place atRow:kMPPlacesIndex];
 		place.pointerCount--;
 		[place release];
 		

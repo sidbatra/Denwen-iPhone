@@ -417,7 +417,7 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
 	
 	if(buttonIndex != 2) {
-		[DWMemoryPool freeMemory];
+		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 		
 		UIImagePickerController *imagePickerController	= [[UIImagePickerController alloc] init];
 		imagePickerController.delegate					= self;

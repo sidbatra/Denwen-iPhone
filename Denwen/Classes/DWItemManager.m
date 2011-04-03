@@ -7,6 +7,7 @@
 //
 
 #import "DWItemManager.h"
+#import "DWConstants.h"
 
 @interface DWItemManager ()
 	-(void) populateItem:(NSDictionary*)item ;
@@ -57,7 +58,7 @@
 //
 - (void)clearAllItems {
 	for(DWItem *item in _items)
-		[DWMemoryPool removeObject:item atRow:kMPItemsIndex];
+		[[DWMemoryPool sharedDWMemoryPool]  removeObject:item atRow:kMPItemsIndex];
 	
 	[_items removeAllObjects];
 }
@@ -96,7 +97,7 @@
 // Push an item into _items array using the memory pool
 //
 -(void) populateItem:(NSDictionary*)item {
-	DWItem *new_item = (DWItem*)[DWMemoryPool getOrSetObject:item atRow:kMPItemsIndex];
+	DWItem *new_item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:item atRow:kMPItemsIndex];
 	[_items addObject:new_item];
 }
 
@@ -111,7 +112,7 @@
 - (void)dealloc {
 	
 	for(DWItem *item in _items)
-		[DWMemoryPool removeObject:item atRow:kMPItemsIndex];
+		[[DWMemoryPool sharedDWMemoryPool]  removeObject:item atRow:kMPItemsIndex];
 		
     [_items release];
 	[super dealloc];

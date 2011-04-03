@@ -501,7 +501,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapPlaceName:(id)sender event:(id)event {
-	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag 
+	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:((UIButton*)sender).tag 
 											  atRow:kMPItemsIndex];
 	
 	[_delegate placeSelected:item.place];
@@ -509,7 +509,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapPlaceImage:(id)sender event:(id)event {
-	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag
+	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:((UIButton*)sender).tag
 											  atRow:kMPItemsIndex];
 	
 	[_delegate placeSelected:item.place];
@@ -517,7 +517,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapUserImage:(id)sender event:(id)event {
-	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag 
+	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:((UIButton*)sender).tag 
 											  atRow:kMPItemsIndex];
 	
 	[_delegate userSelected:item.user];
@@ -525,7 +525,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapAttachmentImage:(id)sender event:(id)event {
-	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag
+	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:((UIButton*)sender).tag
 											  atRow:kMPItemsIndex];
 	
 	[_delegate attachmentSelected:item.attachment.fileURL
@@ -535,7 +535,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 //----------------------------------------------------------------------------------------------------
 - (void)didTapUrl:(id)sender event:(id)event {
 	NSInteger tag	= ((UIButton*)sender).tag;
-	DWItem *item	= (DWItem*)[DWMemoryPool getObject:(tag/kURLTagMultipler) 
+	DWItem *item	= (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:(tag/kURLTagMultipler) 
 												 atRow:kMPItemsIndex];
 	
 	[_delegate urlSelected:[item.urls objectAtIndex:tag % kURLTagMultipler]];

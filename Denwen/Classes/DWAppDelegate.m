@@ -14,7 +14,6 @@
 #import "DWLoginViewController.h"
 #import "DWSignupViewController.h"
 #import "DWSession.h"
-#import "DWMemoryPool.h"
 #import "DWNotificationsHelper.h"
 #import "NSString+Helpers.h"
 
@@ -41,10 +40,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	//[[ASIDownloadCache sharedCache] clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
-	
-	[DWMemoryPool initPool];
-
-	
+		
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(userLogsIn:) 
 												 name:N_USER_LOGS_IN
@@ -64,7 +60,7 @@
 // Free non essential resources when the app enters the background
 //
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-	[DWMemoryPool freeMemory];
+	[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 }
 
 
@@ -377,7 +373,7 @@
 //
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
 	NSLog(@"memory warning received and images purged");
-	[DWMemoryPool freeMemory];
+	[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 }
 
 

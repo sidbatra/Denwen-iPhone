@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-@interface DWAppDelegate : NSObject <UIApplicationDelegate, UINavigationBarDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate> {
+@interface DWAppDelegate : NSObject <UIApplicationDelegate,UINavigationBarDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate> {
     UIWindow *window;
 	UIToolbar *signupToolbar;
 	
