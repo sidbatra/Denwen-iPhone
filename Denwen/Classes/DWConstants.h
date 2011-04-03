@@ -38,6 +38,15 @@ extern NSString* const kKeyUser;
 extern NSString* const kKeyID;
 extern NSString* const kKeyFilename;
 extern NSString* const kKeyNotificationType;
+extern NSString* const kKeyHasPhoto;
+extern NSString* const kKeyFirstName;
+extern NSString* const kKeyLastName;
+extern NSString* const kKeyEmail;
+extern NSString* const kKeyPhoto;
+extern NSString* const kKeySmallURL;
+extern NSString* const kKeyMediumURL;
+extern NSString* const kKeyLargeURL;
+extern NSString* const kKeyIsProcessed;
 
 /**
  * Notification names
@@ -150,6 +159,8 @@ extern NSInteger const kMPTotalClasses;
 extern NSInteger const kMPItemsIndex;
 extern NSInteger const kMPPlacesIndex;
 extern NSInteger const kMPUsersIndex;
+extern NSInteger const kMPObjectUpdateInterval;
+
 
 /**
  * Messages
@@ -190,10 +201,6 @@ extern NSInteger const kUserViewCellHeight;
 extern int const IMAGE;
 extern int const VIDEO;
 
-extern NSString * const SUCCESS_STATUS;
-extern NSString * const ERROR_STATUS;
-
-extern NSString * const CURRENT_USER_KEY;
 
 extern NSString * const TWITTER_OAUTH_CONSUMER_KEY;
 extern NSString * const TWITTER_OAUTH_CONSUMER_SECRET;
@@ -211,7 +218,6 @@ extern int const MAX_PLACE_NAME_LENGTH;
 extern int const MAX_POST_DATA_LENGTH;
 extern int const MAX_SHARE_DATA_LENGTH;
 
-extern int const POOL_OBJECT_UPDATE_INTERVAL;
 
 extern float const JPEG_COMPRESSION;
 
@@ -231,10 +237,7 @@ extern NSString * const PLACE_SMALL_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const PLACE_MEDIUM_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const PLACE_LARGE_PLACEHOLDER_IMAGE_NAME;
 
-extern NSString * const USER_SMALL_PLACEHOLDER_IMAGE_NAME;
-extern NSString * const USER_MEDIUM_PLACEHOLDER_IMAGE_NAME;
-extern NSString * const USER_SIGNED_IN_MEDIUM_PLACEHOLDER_IMAGE_NAME;
-extern NSString * const USER_LARGE_PLACEHOLDER_IMAGE_NAME;
+
 extern NSString * const CHANGE_USER_PIC_IMAGE_NAME;
 extern NSString * const CHANGE_PLACE_PIC_IMAGE_NAME;
 extern NSString * const USER_PROFILE_CREATE_POST_IMAGE_NAME;

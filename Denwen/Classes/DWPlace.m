@@ -110,7 +110,7 @@
 	
 	float interval = -[self.updatedAt timeIntervalSinceNow];
 	
-	if(interval > POOL_OBJECT_UPDATE_INTERVAL) {
+	if(interval > kMPObjectUpdateInterval) {
 		
 		NSString *newName = [objectJSON objectForKey:@"name"];
 		 

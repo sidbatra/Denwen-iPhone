@@ -127,7 +127,7 @@
 
 	float interval = -[self.updatedAt timeIntervalSinceNow];
 	
-	if(interval > POOL_OBJECT_UPDATE_INTERVAL) {
+	if(interval > kMPObjectUpdateInterval) {
 		[_place update:[objectJSON objectForKey:PLACE_JSON_KEY]];
 		[_user update:[objectJSON objectForKey:USER_JSON_KEY]];
 				

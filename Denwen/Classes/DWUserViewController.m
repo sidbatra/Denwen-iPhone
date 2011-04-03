@@ -101,7 +101,8 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 																 green:kPullToRefreshBackgroundGreenValue
 																  blue:kPullToRefreshBackgroundBlueValue
 																 alpha:kPullToRefreshBackgroundAlphaValue]];
-	
+	self.title = [self.user fullName];
+
 	if(!_isLoadedOnce)
 		[self loadItems];
 }
@@ -203,10 +204,9 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 		
 		[self.user update:[body objectForKey:kKeyUser]];
 		
-		self.title		= [self.user fullName];
-		_isLoadedOnce	= YES;
+		_isLoadedOnce = YES;
 		
-		if([self.itemManager totalItems]==1 && [[DWSession sharedDWSession] doesCurrentUserHaveID:self.user.databaseID]) {
+		if([self.itemManager totalItems]==1 && [self.user isCurrentUser]) {
 			self.messageCellText	= kMsgCurrentUserNoItems;
 			_tableViewUsage			= kTableViewAsProfileMessage;
 		}
@@ -326,7 +326,7 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 		cell.selectionStyle		= UITableViewCellSelectionStyleNone;
 		[cell userName].text	= [self.user fullName];
 		
-		if([[DWSession sharedDWSession] doesCurrentUserHaveID:self.user.databaseID]) 
+		if([self.user isCurrentUser]) 
 			[cell displaySignedInState:self.user.hasPhoto];
 			
 		[self.user startMediumPreviewDownload];
@@ -382,7 +382,7 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 	/**
 	 * Display editing options only if the user view belongs to the current users
 	 */
-	if([[DWSession sharedDWSession] doesCurrentUserHaveID:self.user.databaseID]) {
+	if([self.user isCurrentUser]) {
 		
 		UIActionSheet *actionSheet = nil;
 		

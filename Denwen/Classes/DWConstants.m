@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -48,6 +48,15 @@ NSString* const kKeyUser				= @"user";
 NSString* const kKeyID					= @"id";
 NSString* const kKeyFilename			= @"filename";
 NSString* const kKeyNotificationType	= @"notificationType";
+NSString* const kKeyHasPhoto			= @"has_photo";
+NSString* const kKeyFirstName			= @"first_name";
+NSString* const kKeyLastName			= @"last_name";
+NSString* const kKeyEmail				= @"email";
+NSString* const kKeyPhoto				= @"photo";
+NSString* const kKeySmallURL			= @"small_url";
+NSString* const kKeyMediumURL			= @"medium_url";
+NSString* const kKeyLargeURL			= @"large_url";
+NSString* const kKeyIsProcessed			= @"is_processed";
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
@@ -149,10 +158,11 @@ NSInteger const kLocNearbyRadius			= 1200;
 NSInteger const kPagInitialPage		= 0;
 
 //----------------------------------------------------------------------------------------------------
-NSInteger const kMPTotalClasses		= 3;
-NSInteger const kMPItemsIndex		= 0;
-NSInteger const kMPPlacesIndex		= 1;
-NSInteger const kMPUsersIndex		= 2;
+NSInteger const kMPTotalClasses			= 3;
+NSInteger const kMPItemsIndex			= 0;
+NSInteger const kMPPlacesIndex			= 1;
+NSInteger const kMPUsersIndex			= 2;
+NSInteger const kMPObjectUpdateInterval = 5;
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kMsgNoPlacesNearby				= @"No places nearby";
@@ -187,14 +197,6 @@ NSInteger const kUserViewCellHeight				= 126;
 /* File Types */
 int const IMAGE = 0;
 int const VIDEO = 1;
-
-/* Status messages received from the server */
-NSString * const SUCCESS_STATUS = @"success";
-NSString * const ERROR_STATUS = @"error";
-
-/* Key used in NSUSerDefaults to store the current user object*/
-NSString * const CURRENT_USER_KEY = @"signedin_user_";
-
 
 
 #ifdef PRODUCTION
@@ -236,10 +238,6 @@ int const MAX_POST_DATA_LENGTH = 180;
 int const MAX_SHARE_DATA_LENGTH = 140;
 
 
-
-/* Minimum time elapsed for a pool object to update from its JSON */
-int const POOL_OBJECT_UPDATE_INTERVAL = 5;
-
 /* JPEG compression */
 float const JPEG_COMPRESSION = 0.6;
 
@@ -262,10 +260,8 @@ NSString * const PLACE_SMALL_PLACEHOLDER_IMAGE_NAME = @"place_small_placeholder.
 NSString * const PLACE_MEDIUM_PLACEHOLDER_IMAGE_NAME = @"camera_button.png";
 NSString * const PLACE_LARGE_PLACEHOLDER_IMAGE_NAME = @"place_placeholder.png";
 
-NSString * const USER_SMALL_PLACEHOLDER_IMAGE_NAME = @"user_small_placeholder.png";
-NSString * const USER_MEDIUM_PLACEHOLDER_IMAGE_NAME = @"user_medium_placeholder.png";
-NSString * const USER_SIGNED_IN_MEDIUM_PLACEHOLDER_IMAGE_NAME = @"profile_button.png";
-NSString * const USER_LARGE_PLACEHOLDER_IMAGE_NAME = @"place_placeholder.png";
+
+
 NSString * const USER_PROFILE_CREATE_POST_IMAGE_NAME = @"create_post_user_profile.png";
 NSString * const USER_PROFILE_CREATE_POST_HIGHLIGHTED_IMAGE_NAME = @"create_post_user_profile_on.png";
 NSString * const USER_PROFILE_CREATE_PLACE_IMAGE_NAME = @"create_place_user_profile.png";

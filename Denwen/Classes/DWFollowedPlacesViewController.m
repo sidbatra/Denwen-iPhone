@@ -54,7 +54,7 @@ static NSInteger const kCapacity					= 1;
 	[super viewDidLoad];
 	
 	self.view.hidden	= NO;
-	self.title			=  (NSString*)([[DWSession sharedDWSession] doesCurrentUserHaveID:self.user.databaseID] ? 
+	self.title			=  (NSString*)([self.user isCurrentUser] ? 
 										kCurrentUserTitle :
 										[NSString stringWithFormat:kNormalUserTitle,self.user.firstName]);
 	
@@ -119,7 +119,7 @@ static NSInteger const kCapacity					= 1;
 		}
 		else {
 			
-			self.messageCellText = (NSString*)([[DWSession sharedDWSession] doesCurrentUserHaveID:self.user.databaseID] ?
+			self.messageCellText = (NSString*)([self.user isCurrentUser] ?
 												kMsgNoFollowPlacesCurrentUser :
 												kMsgNoFollowPlacesNormalUser);
 			

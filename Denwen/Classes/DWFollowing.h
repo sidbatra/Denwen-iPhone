@@ -7,7 +7,8 @@
 
 /**
  * Following model represents as an entity the
- * action of a user following a place
+ * action of a user following a place - as defined in 
+ * the database
  */
 @interface DWFollowing : NSObject {
 	NSInteger _databaseID;
