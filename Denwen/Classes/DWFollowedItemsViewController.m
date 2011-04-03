@@ -41,6 +41,16 @@
 												 selector:@selector(itemsError:) 
 													 name:kNFollowedItemsError
 												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingModified:) 
+													 name:kNNewFollowingCreated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingModified:) 
+													 name:kNFollowingDestroyed
+												   object:nil];
 	}
 	return self;
 }
@@ -50,9 +60,6 @@
 	[super viewDidLoad];
 	
 	[self.refreshHeaderView applyBackgroundColor:[UIColor whiteColor]];	
-	
-	_tableViewUsage = kTableViewAsSpinner;
-	//[self.tableView reloadData];
 	
 	[self loadItems];
 }
@@ -152,6 +159,11 @@
 //----------------------------------------------------------------------------------------------------
 - (void)itemsError:(NSNotification*)notification {
 	[self finishedLoadingItems];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)followingModified:(NSNotification*)notification {
+	[self hardRefresh];
 }
 
 

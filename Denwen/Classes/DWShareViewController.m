@@ -223,7 +223,7 @@
 									   photoURL, @"picture",
 									   nil];
 		
-		[_facebook requestWithGraphPath:@"/me/feed"   // or use page ID instead of 'me'
+		[_facebook requestWithGraphPath:@"/me/feed"   
 							  andParams:params
 						  andHttpMethod:@"POST"
 							andDelegate:self];
