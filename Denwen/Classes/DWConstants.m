@@ -45,6 +45,7 @@ NSString* const kKeyItems				= @"items";
 NSString* const kKeyItem				= @"item";
 NSString* const kKeyUsers				= @"users";
 NSString* const kKeyUser				= @"user";
+NSString* const kKeyID					= @"id";
 NSString* const kKeyFilename			= @"filename";
 NSString* const kKeyNotificationType	= @"notificationType";
 

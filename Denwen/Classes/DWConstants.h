@@ -35,6 +35,7 @@ extern NSString* const kKeyItems;
 extern NSString* const kKeyItem;
 extern NSString* const kKeyUsers;
 extern NSString* const kKeyUser;
+extern NSString* const kKeyID;
 extern NSString* const kKeyFilename;
 extern NSString* const kKeyNotificationType;
 
