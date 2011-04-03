@@ -1,32 +1,61 @@
 //
 //  DWPoolObject.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 2/2/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-
+/**
+ * PoolObject is a mandatory base class for all
+ * objects that are added to the memory pool
+ */
 @interface DWPoolObject : NSObject {
-	NSInteger _databaseID;
-	NSInteger _pointerCount;
+	NSInteger	_databaseID;
+	NSInteger	_pointerCount;
 	
-	NSDate *_updatedAt;
+	NSDate		*_updatedAt;
 }
 
-@property (readonly) NSInteger databaseID;
-@property (assign) NSInteger pointerCount;
+/**
+ * Primary key / unique id to uniquely identify the object
+ */
+@property (nonatomic,readonly) NSInteger databaseID;
 
-@property (retain) NSDate *updatedAt;
+/**
+ * Similar to retain count a count of the different places
+ * the object is being used. An object is freed is the 
+ * count drop below zero
+ */
+@property (nonatomic,assign) NSInteger pointerCount;
 
+/**
+ * Date when the object was last updated to avoid
+ * slow down from duplicate or too frequent updates
+ */
+@property (nonatomic,retain) NSDate *updatedAt;
 
-- (void)populate:(NSDictionary*)result;
+/**
+ * Stub method overriden by the children classes
+ * to populate their contents via a JSON dictionary
+ */
+- (void)populate:(NSDictionary*)objectJSON;
+
+/**
+ * Stub method overriden by the children classes
+ * to update their contens via a JSON dictionary
+ */
 - (void)update:(NSDictionary*)objectJSON;
 
+/**
+ * Called by the child classes to refresh the udpated
+ * timestamp after a successful update
+ */
 - (void)refreshUpdatedAt;
 
+/**
+ * Stub method overriden by the children classes to free
+ * any non critical memory
+ */
 - (void)freeMemory;
 
 @end

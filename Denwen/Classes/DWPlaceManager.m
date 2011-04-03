@@ -159,9 +159,12 @@
 
 	for(NSMutableArray *placesAtIndex in _places) {
 		for (DWPlace *place in placesAtIndex) {
-			NSComparisonResult result = [place.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+			NSComparisonResult result = [place.name compare:searchText 
+													options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) 
+													  range:NSMakeRange(0, [searchText length])];
 			
-			if(result == NSOrderedSame || [place.name rangeOfString:searchText options:NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch].length > 0) {
+			if(result == NSOrderedSame || [place.name rangeOfString:searchText
+															options:NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch].length > 0) {
 				NSString *key = [NSString stringWithFormat:@"%d",place.databaseID];
 				
 				if(![placesFound objectForKey:key]) {

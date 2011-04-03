@@ -33,6 +33,33 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)freeMemory {
+	[self.attachment freeMemory];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	
+	//NSLog(@"item being removed - %d",_databaseID);
+	
+	self.data		= nil;
+	self.urls		= nil;
+	self.attachment = nil;
+	
+	if(self.place) {
+		[DWMemoryPool removeObject:_place atRow:kMPPlacesIndex];
+		self.place = nil;
+	}
+	
+	if(self.user) {
+		[DWMemoryPool removeObject:_user atRow:kMPUsersIndex];
+		self.user = nil;
+	}
+	
+	[super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (BOOL)hasAttachment {
 	return self.attachment != nil;
 }
@@ -129,33 +156,6 @@
 	
 	if(self.user)
 		[self.user startSmallPreviewDownload];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)freeMemory {
-	[self.attachment freeMemory];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)dealloc {
-	
-	//NSLog(@"item being removed - %d",_databaseID);
-		
-	self.data		= nil;
-	self.urls		= nil;
-	self.attachment = nil;
-	
-	if(self.place) {
-		[DWMemoryPool removeObject:_place atRow:kMPPlacesIndex];
-		self.place = nil;
-	}
-	
-	if(self.user) {
-		[DWMemoryPool removeObject:_user atRow:kMPUsersIndex];
-		self.user = nil;
-	}
-	
-	[super dealloc];
 }
 
 @end
