@@ -42,8 +42,8 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 	
 	if (self) {
 		
-		self.user = theUser;
-		_isReloading;
+		self.user		= theUser;
+		_tableViewUsage = kTableViewAsData;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newItemParsed:) 
@@ -379,9 +379,9 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 //----------------------------------------------------------------------------------------------------
 - (void)didTapUserMediumImage:(id)sender event:(id)event {
 	
-	///
-	 // Display editing options only if the user view belongs to the current users
-	 ///
+	/**
+	 * Display editing options only if the user view belongs to the current users
+	 */
 	if([[DWSession sharedDWSession] doesCurrentUserHaveID:self.user.databaseID]) {
 		
 		UIActionSheet *actionSheet = nil;

@@ -7,6 +7,7 @@
 //
 
 #import "DWAppDelegate.h"
+#import "ASIDownloadCache.h"
 #import "DWItemsContainerViewController.h"
 #import "DWUserContainerViewController.h"
 #import "DWPlacesContainerViewController.h"
