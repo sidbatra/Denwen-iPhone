@@ -528,7 +528,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	DWItem *item = (DWItem*)[DWMemoryPool getObject:((UIButton*)sender).tag
 											  atRow:kMPItemsIndex];
 	
-	[_delegate attachmentSelected:item.attachment.fileUrl
+	[_delegate attachmentSelected:item.attachment.fileURL
 				  withIsImageType:[item.attachment isImage]];
 }
 

@@ -66,6 +66,8 @@ NSString* const kKeyAddress				= @"address";
 NSString* const kKeyShortTown			= @"short_town";
 NSString* const kKeyShortState			= @"short_state";
 NSString* const kKeyShortCountry		= @"short_country";
+NSString* const kKeyFileType			= @"filetype";
+NSString* const kKeyActualURL			= @"actual_url";
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";

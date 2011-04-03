@@ -56,7 +56,8 @@ extern NSString* const kKeyAddress;
 extern NSString* const kKeyShortTown;
 extern NSString* const kKeyShortState;
 extern NSString* const kKeyShortCountry;
-
+extern NSString* const kKeyFileType;
+extern NSString* const kKeyActualURL;
 
 /**
  * Notification names

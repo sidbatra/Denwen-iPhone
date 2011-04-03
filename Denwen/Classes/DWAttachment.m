@@ -1,27 +1,26 @@
 //
 //  DWAttachment.m
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWAttachment.h"
 #import "DWRequestsManager.h"
+#import "UIImage+ImageProcessing.h"
+#import "DWConstants.h"
 
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWAttachment
 
-@synthesize previewImage=_previewImage,fileUrl=_fileUrl,previewUrl=_previewUrl,databaseID=_databaseID;
+@synthesize databaseID		= _databaseID;
+@synthesize fileURL			= _fileURL;
+@synthesize previewURL		= _previewURL;
+@synthesize previewImage	= _previewImage;
 
-
-
-#pragma mark -
-#pragma mark Initialization logic
-
-
-// Init the class along with its member variables 
-//
+//----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
@@ -42,39 +41,57 @@
 	return self; 
 }
 
-
-
-#pragma mark -
-#pragma mark Server interaction methods
-
-
-// Populate attachment attributes from JSON object
-// parsed into a NSDictionary object
-//
-- (void)populate:(NSDictionary*)attachment {	
-	_fileType = [[attachment objectForKey:@"filetype"] integerValue];
-	_databaseID = [[attachment objectForKey:@"id"] integerValue];
-	_isProcessed = [[attachment objectForKey:@"is_processed"] boolValue];
-	
-	self.fileUrl = [attachment objectForKey:@"actual_url"];
-	self.previewUrl = [attachment objectForKey:@"large_url"];
+//----------------------------------------------------------------------------------------------------
+- (void)freeMemory {
+	self.previewImage = nil;
 }
 
+//----------------------------------------------------------------------------------------------------
+-(void)dealloc{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	self.fileURL		= nil;
+	self.previewURL		= nil;
+	self.previewImage	= nil;
+	
+	[super dealloc];
+}
 
-// Override the update method to check for changes to is_processed 
-//
-- (void)update:(NSDictionary*)objectJSON {
+//----------------------------------------------------------------------------------------------------
+- (void)populate:(NSDictionary*)attachment {	
+	_fileType			= [[attachment objectForKey:kKeyFileType] integerValue];
+	_databaseID			= [[attachment objectForKey:kKeyID] integerValue];
+	_isProcessed		= [[attachment objectForKey:kKeyIsProcessed] boolValue];
+	
+	self.fileURL		= [attachment objectForKey:kKeyActualURL];
+	self.previewURL		= [attachment objectForKey:kKeyLargeURL];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)update:(NSDictionary*)attachment {
 	
 	if(!_isProcessed) {
-		_isProcessed = [[objectJSON objectForKey:@"is_processed"] boolValue];
+		_isProcessed = [[attachment objectForKey:kKeyIsProcessed] boolValue];
 		
 		if(_isProcessed) {
-			self.previewUrl = [objectJSON objectForKey:@"large_url"];
-			self.previewImage = nil;
+			self.previewURL		= [attachment objectForKey:kKeyLargeURL];
+			self.previewImage	= nil;
 		}
 	}
 }
 
+//----------------------------------------------------------------------------------------------------							  
+- (BOOL)isVideo {
+	return _fileType == VIDEO;
+}
+
+
+//----------------------------------------------------------------------------------------------------							  
+- (BOOL)isImage {
+	return _fileType == IMAGE;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)appplyNewPreviewImage:(UIImage*)image {
 	
 	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
@@ -87,16 +104,14 @@
 													  userInfo:info];
 }
 
-
-//Start the attachment preview download
-//
+//----------------------------------------------------------------------------------------------------
 - (void)startPreviewDownload {
 	if(!_isDownloading && !self.previewImage) {
 		
 		if(_isProcessed || [self isImage]) {
 			 _isDownloading = YES;
 			
-			[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.previewUrl
+			[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.previewURL
 													 withResourceID:self.databaseID
 												successNotification:kNImgMediumAttachmentLoaded
 												  errorNotification:kNImgMediumAttachmentError];
@@ -111,6 +126,13 @@
 }
 
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
+//----------------------------------------------------------------------------------------------------
 - (void)imageLoaded:(NSNotification*)notification {
 	NSDictionary *info		= [notification userInfo];
 	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
@@ -122,7 +144,7 @@
 	_isDownloading = NO;
 }
 
-
+//----------------------------------------------------------------------------------------------------
 - (void)imageError:(NSNotification*)notification {
 	NSDictionary *info		= [notification userInfo];
 	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
@@ -131,59 +153,6 @@
 		return;
 	
 	_isDownloading = NO;
-}
-
-
-
-
-#pragma mark -
-#pragma mark Preview Deciding functions
-
-
-// Returns whether the upload requires an image preview from a
-// remote server
-//
-- (BOOL)hasRemoteImagePreview {
-	return _fileType == IMAGE || _fileType == VIDEO;
-}
-
-
-// Tests if the attachment is a video
-//																  
-- (BOOL)isVideo {
-	return _fileType == VIDEO;
-}
-						
-																  
-// Tests if the attachment is an image
-//																  
-- (BOOL)isImage {
-  return _fileType == IMAGE;
-}
-												
-
-
-#pragma mark -
-#pragma mark Memory Management
-
-
-// Release the preview image
-//
-- (void)freeMemory {
-	self.previewImage = nil;
-}
-
-
-// Usual Memory Cleanup
-// 
--(void)dealloc{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
-	self.fileUrl = nil;
-	self.previewUrl = nil;
-	self.previewImage = nil;
-	
-	[super dealloc];
 }
 
 @end
