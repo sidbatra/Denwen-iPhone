@@ -58,6 +58,10 @@ extern NSString* const kKeyShortState;
 extern NSString* const kKeyShortCountry;
 extern NSString* const kKeyFileType;
 extern NSString* const kKeyActualURL;
+extern NSString* const kKeyCreatedAt;
+extern NSString* const kKeyCondensedData;
+extern NSString* const kKeyAttachment;
+extern NSString* const kKeyURLs;
 
 /**
  * Notification names
@@ -311,17 +315,13 @@ extern NSString * const S3_PLACES_FOLDER;
 extern NSString * const PLACE_JSON_KEY;
 extern NSString * const USER_JSON_KEY;
 extern NSString * const ITEM_JSON_KEY;
-extern NSString * const ATTACHMENT_JSON_KEY;
 extern NSString * const ADDRESS_JSON_KEY;
 extern NSString * const FOLLOWING_JSON_KEY;
 extern NSString * const PHOTO_JSON_KEY;
 extern NSString * const ITEMS_JSON_KEY;
 extern NSString * const PLACES_JSON_KEY;
 extern NSString * const ERROR_MESSAGES_JSON_KEY;
-extern NSString * const CONDENSED_DATA_JSON_KEY;
-extern NSString * const CREATED_AT_JSON_KEY;
 extern NSString * const DATABASE_ID_JSON_KEY;
-extern NSString * const URLS_JSON_KEY;
 
 
 extern NSString * const FOLLOW_PLACES_MSG;

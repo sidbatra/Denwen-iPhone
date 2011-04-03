@@ -68,6 +68,11 @@ NSString* const kKeyShortState			= @"short_state";
 NSString* const kKeyShortCountry		= @"short_country";
 NSString* const kKeyFileType			= @"filetype";
 NSString* const kKeyActualURL			= @"actual_url";
+NSString* const kKeyCreatedAt			= @"created_at_timestamp";
+NSString* const kKeyCondensedData		= @"condensed_data";
+NSString* const kKeyAttachment			= @"attachment";
+NSString* const kKeyURLs				= @"urls";
+
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
@@ -347,16 +352,12 @@ NSString * const S3_PLACES_FOLDER = @"place_photos";
 NSString * const PLACE_JSON_KEY = @"place";
 NSString * const USER_JSON_KEY = @"user";
 NSString * const ITEM_JSON_KEY = @"item";
-NSString * const ATTACHMENT_JSON_KEY = @"attachment";
 NSString * const ADDRESS_JSON_KEY = @"address";
 NSString * const FOLLOWING_JSON_KEY = @"following";
 NSString * const PHOTO_JSON_KEY = @"photo";
 NSString * const ITEMS_JSON_KEY = @"items";
 NSString * const PLACES_JSON_KEY = @"places";
-NSString * const URLS_JSON_KEY = @"urls";
 NSString * const ERROR_MESSAGES_JSON_KEY = @"error_messages";
-NSString * const CONDENSED_DATA_JSON_KEY = @"condensed_data";
-NSString * const CREATED_AT_JSON_KEY = @"created_at_timestamp";
 NSString * const DATABASE_ID_JSON_KEY = @"id";
 
 

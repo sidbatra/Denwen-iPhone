@@ -1,56 +1,79 @@
 //
 //  DWItem.h
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-#import "DWMemoryPool.h"
 #import "DWPoolObject.h"
 #import "DWAttachment.h"
 #import "DWPlace.h"
 #import "DWUser.h"
-#import "DWConstants.h"
 
-
-@protocol DWItemDelegate;
-
-
-@interface DWItem : DWPoolObject {
-	NSTimeInterval _createdAtTimestamp;
+/**
+ * Item model represents the item entity as represented
+ * in the database. Each item needs a place, user and attachment
+ * model to be properly displayed
+ */
+@interface DWItem : DWPoolObject {	
+	NSString		*_data;
+	NSArray			*_urls;
 	
-	NSString *_data;
-	NSArray *_urls;
+	DWAttachment	*_attachment;
+	DWPlace			*_place;
+	DWUser			*_user;
 	
-	DWAttachment *_attachment;
-	DWPlace *_place;
-	DWUser *_user;
-	
-	BOOL _fromFollowedPlace; //Indicates whether the item belongs to a place that is 
-							 //followed by the current user. Used when a new item is posted.
+	BOOL			_fromFollowedPlace; 
+	NSTimeInterval	_createdAtTimestamp;
 }
 
+/**
+ * Data associated with the item in its condensed state
+ * where URLs have been shortened
+ */
+@property (nonatomic,copy) NSString *data;
 
+/**
+ * Array of urls in the item data
+ */
+@property (nonatomic,copy) NSArray *urls;
+
+/**
+ * Attachment associated with the item
+ */
+@property (nonatomic,retain) DWAttachment *attachment;
+
+/**
+ * Place where the item was posted
+ */
+@property (nonatomic,retain) DWPlace *place;
+
+/** 
+ * The user who created the item
+ */ 
+@property (nonatomic,retain) DWUser *user;
+
+/**
+ * Only used in a freshly created item to indiciate
+ * whether it is posted to a place followed by a user or not
+ */
+@property (nonatomic,assign) BOOL fromFollowedPlace;
+
+/**
+ * Does the item have a media attachment
+ */
 - (BOOL)hasAttachment;
+
+/**
+ * User friendly string for displaying the time when the
+ * item was created
+ */ 
 - (NSString *)createdTimeAgoInWords;
 
-
-//Functions for handling server interactions 
+/**
+ * Launch download of the images needed to display the item
+ */
 - (void)startRemoteImagesDownload;
-
-
-
-@property (copy) NSString *data;
-@property (copy) NSArray *urls;
-
-@property (retain) DWAttachment *attachment;
-@property (readonly) DWPlace *place;
-@property (readonly) DWUser *user;
-
-@property (assign) BOOL fromFollowedPlace;
 
 @end
 
