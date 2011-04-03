@@ -1,22 +1,70 @@
 //
 //  DWPlaceFeedCell.h
-//  Denwen
-//
-//  Created by Deepak Rao on 1/27/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-
-@interface DWPlaceFeedCell : UITableViewCell {
-	UILabel *placeName;
-	UIImageView *placeImage;
-	UILabel *placeDetails;
+/**
+ * Primary view for DWPlaceFeedViewCell
+ */
+@interface DWPlaceFeedView : UIView {
+	NSString	*_placeName;
+	NSString	*_placeDetails;
+	UIImage		*_placeImage;
+	
+	BOOL		_highlighted;
 }
 
-@property (nonatomic, retain) UILabel *placeName;
-@property (nonatomic, retain) UIImageView *placeImage;
-@property (nonatomic, retain) UILabel *placeDetails;
+/**
+ * Place name
+ */
+@property (nonatomic,copy) NSString* placeName;
+
+/**
+ * The address for the place
+ */
+@property (nonatomic,copy) NSString* placeDetails;
+
+/**
+ * Place Image
+ */
+@property (nonatomic,retain) UIImage* placeImage;
+
+/**
+ * Set the view to redraw when visible content has
+ * been modified
+ */
+- (void)redisplay;
+
+@end
+
+
+/**
+ * Cell used in place list view controller
+ */
+@interface DWPlaceFeedCell : UITableViewCell {
+	DWPlaceFeedView *_placeFeedView;
+}
+
+/**
+ * Primary view for drawing content
+ */
+@property (nonatomic,retain) DWPlaceFeedView *placeFeedView;
+
+/**
+ * Set the place name
+ */
+- (void)setPlaceName:(NSString*)placeName;
+
+/**
+ * Set the place details
+ */ 
+- (void)setPlaceDetails:(NSString*)placeDetails;
+
+/**
+ * Set the place image
+ */
+- (void)setPlaceImage:(UIImage*)placeImage;
 
 @end

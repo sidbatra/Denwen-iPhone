@@ -283,8 +283,8 @@ static NSInteger const kPlacesPerPage				= 20;
 				cell = (DWPlaceFeedCell*)[self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
 			else	
 				cell = (DWPlaceFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-			
-			cell.placeImage.image = [info objectForKey:kKeyImage];
+
+			[cell setPlaceImage:[info objectForKey:kKeyImage]];
 		}
 	}	
 	
@@ -389,16 +389,16 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 										   reuseIdentifier:kPlaceFeedCellIdentifier] autorelease];
 		
 		
-		cell.placeName.text		= place.name;
-		cell.placeDetails.text	= [place displayAddress];
+		[cell setPlaceName:place.name];
+		[cell setPlaceDetails:[place displayAddress]];
 		
 		if (!tableView.dragging && !tableView.decelerating)
 			[place startSmallPreviewDownload];
 		
 		if (place.smallPreviewImage)
-			cell.placeImage.image = place.smallPreviewImage;
+			[cell setPlaceImage:place.smallPreviewImage];
 		else
-			cell.placeImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];
+			[cell setPlaceImage:[UIImage imageNamed:kImgGenericPlaceHolder]];
 		
 		return cell;
 	}
