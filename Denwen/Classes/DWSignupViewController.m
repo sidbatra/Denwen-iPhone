@@ -151,8 +151,8 @@
 - (IBAction)selectPhotoButtonClicked:(id)sender {
 	
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self 
-														cancelButtonTitle:CANCEL_PHOTO_MSG	destructiveButtonTitle:nil
-														otherButtonTitles:FIRST_TAKE_PHOTO_MSG,FIRST_CHOOSE_PHOTO_MSG,nil];
+														cancelButtonTitle:kMsgCancelPhoto	destructiveButtonTitle:nil
+														otherButtonTitles:kMsgTakeFirstPhoto,kMsgChooseFirstPhoto,nil];
 	[actionSheet showInView:self.view];	
 	[actionSheet release];
 }

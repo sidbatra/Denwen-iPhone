@@ -23,8 +23,8 @@
 	if (self) {
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(newItemCreated:) 
-													 name:kNNewItemCreated 
+												 selector:@selector(newItemParsed::) 
+													 name:kNNewItemParsed 
 												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -52,7 +52,7 @@
 	[self.refreshHeaderView applyBackgroundColor:[UIColor whiteColor]];	
 	
 	_tableViewUsage = kTableViewAsSpinner;
-	[self.tableView reloadData];
+	//[self.tableView reloadData];
 	
 	[self loadItems];
 }
@@ -65,6 +65,8 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
     [super dealloc];
 }
 
@@ -96,8 +98,8 @@
 #pragma mark Notifications
 
 //----------------------------------------------------------------------------------------------------
-- (void)newItemCreated:(NSNotification*)notification {
-	DWItem *item = (DWItem*)[notification object];
+- (void)newItemParsed:(NSNotification*)notification {
+	DWItem *item = (DWItem*)[(NSDictionary*)[notification userInfo] objectForKey:kKeyItem];
 	
 	if(_isLoadedOnce && item.fromFollowedPlace)
 		[self addNewItem:item atIndex:0];

@@ -8,6 +8,9 @@
 
 #import "DWImagePicker.h"
 #import "UIImage+ImageProcessing.h"
+#import "DWConstants.h"
+#import "DWRequestsManager.h"
+#import "DWVideoHelper.h"
 
 
 //----------------------------------------------------------------------------------------------------

@@ -175,8 +175,8 @@
 //
 - (void)selectPhotoButtonClicked:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self 
-													cancelButtonTitle:CANCEL_MEDIA_MSG	destructiveButtonTitle:nil
-													otherButtonTitles:TAKE_MEDIA_MSG,CHOOSE_MEDIA_MSG,nil];
+													cancelButtonTitle:kMsgCancelMedia	destructiveButtonTitle:nil
+													otherButtonTitles:kMsgTakeMedia,kMsgChooseMedia,nil];
 	[actionSheet showInView:self.view];	
 	[actionSheet release];	
 }

@@ -77,6 +77,8 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
 	[followedViewController release];
     
 	[super dealloc];

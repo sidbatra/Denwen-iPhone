@@ -41,7 +41,6 @@
 //Initialization
 
 //Update 
-- (void)updatePreviewURLs:(NSDictionary*)place;
 - (void)updatePreviewImages:(UIImage*)image;
 
 //Functions for handling server interactions 

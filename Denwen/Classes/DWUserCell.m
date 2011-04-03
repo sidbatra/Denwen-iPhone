@@ -237,7 +237,7 @@
 - (void)displaySignedOutState {
 	changeUserImage.hidden = YES;
 	
-	//CGRect rect = CGRectMake(0, 0,self.contentView.frame.size.width,FOLLOW_USER_CELL_HEIGHT);
+	//CGRect rect = CGRectMake(0, 0,self.contentView.frame.size.width,kUserViewCellHeight);
 	//userBackgroundImageFilter.frame = rect;
 	
 	placeButton.hidden = YES;

@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-//#define PRODUCTION 1 
+#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -43,6 +43,8 @@ NSString* const kKeyPlaces				= @"places";
 NSString* const kKeyPlace				= @"place";
 NSString* const kKeyItems				= @"items";
 NSString* const kKeyItem				= @"item";
+NSString* const kKeyUsers				= @"users";
+NSString* const kKeyUser				= @"user";
 NSString* const kKeyFilename			= @"filename";
 NSString* const kKeyNotificationType	= @"notificationType";
 
@@ -102,7 +104,6 @@ NSString* const kNImgActualAttachmentError	= @"NImgActualAttachmentError";
 NSString* const kNNewApplicationBadge		= @"NNewApplicationBadge"; 
 NSString* const kNTabSelectionChanged		= @"NTabSelectionChanged";
 
-
 //----------------------------------------------------------------------------------------------------
 NSInteger const kPNLive			= 0;
 NSInteger const kPNBackground	= 1;
@@ -156,6 +157,14 @@ NSInteger const kMPUsersIndex		= 2;
 NSString* const kMsgNoPlacesNearby				= @"No places nearby";
 NSString* const kMsgNoFollowPlacesCurrentUser	= @"You aren't following any places yet";
 NSString* const kMsgNoFollowPlacesNormalUser	= @"This user isn't following any places yet";
+NSString* const kMsgTakeFirstPhoto				= @"Take Photo";
+NSString* const kMsgChooseFirstPhoto			= @"Choose Existing";
+NSString* const kMsgTakeBetterPhoto				= @"Take Better Photo";
+NSString* const kMsgChooseBetterPhoto			= @"Choose Better Photo";
+NSString* const kMsgTakeMedia					= @"Take Photo or Video";
+NSString* const kMsgChooseMedia					= @"Choose Existing";
+NSString* const kMsgCancelPhoto					= @"Cancel";
+NSString* const kMsgCancelMedia					= @"Cancel";
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kImgGenericPlaceHolder = @"generic_placeholder.png";
@@ -170,7 +179,7 @@ NSInteger const kAttachmentHeight				= 196;
 NSInteger const kAttachmentYPadding				= 10;
 NSInteger const kURLTagMultipler				= 100;
 NSInteger const kPaginationCellHeight			= 60;
-
+NSInteger const kUserViewCellHeight				= 126;
 
 
 
@@ -263,7 +272,6 @@ NSString * const USER_PROFILE_CREATE_PLACE_HIGHLIGHTED_IMAGE_NAME = @"create_pla
 
 NSString * const USER_PROFILE_BG_TEXTURE = @"user_profile_bg.png";
 NSString * const PLACE_VIEW_FADE_IMAGE_NAME = @"refreshfade.png";
-NSString * const USER_VIEW_FADE_IMAGE_NAME = @"userprofilefade.png";
 NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME = @"trans40.png";
 NSString * const TRANSPARENT_BUTTON_BG_IMAGE_NAME = @"trans27.png";
 NSString * const FOLLOW_BUTTON_BG_IMAGE_NAME = @"button_bg.png";
@@ -298,7 +306,6 @@ int const USER_LABEL_PADDING = 5;
 int const USER_NAME_PADDING = 5;
 int const FOLLOW_PLACE_CELL_HEIGHT = 177;//141;
 int const FOLLOW_CURRENT_USER_CELL_HEIGHT = 177;//141;//192;
-int const FOLLOW_USER_CELL_HEIGHT = 126;
 int const SPINNER_HEIGHT = 20;
 int const VIDEO_VIEW_SPINNER_SIDE = 25;
 
@@ -355,7 +362,6 @@ NSString * const FOLLOW_PLACES_MSG = @"Follow Place";
 NSString * const UNFOLLOW_PLACES_MSG = @"Following";
 NSString * const FOLLOW_LOGGEDOUT_MSG = @"Sign up to start following places";
 NSString * const SHARE_LOGGEDOUT_MSG = @"Sign up to start sharing places";
-NSString * const USER_SIGNED_IN_NO_ITEMS_MSG = @"Everything you post shows up here";
 NSString * const MAP_TOOLTIP_MSG = @"Hold and drag to move pin";
 NSString * const LOADING_CELL_MSG = @"Loading...";
 NSString * const PAGINATION_CELL_MSG = @"Load more...";
@@ -365,15 +371,6 @@ NSString * const EMPTY_PLACENAME_MSG = @"Place name can't be empty";
 NSString * const EMPTY_LOGIN_FIELDS_MSG = @"Please fill out all the required fields.";
 
 
-//Camera related action sheet messages 
-NSString * const FIRST_TAKE_PHOTO_MSG = @"Take Photo";
-NSString * const FIRST_CHOOSE_PHOTO_MSG = @"Choose Existing";
-NSString * const BETTER_TAKE_PHOTO_MSG = @"Take Better Photo";
-NSString * const BETTER_CHOOSE_PHOTO_MSG = @"Choose Better Photo";
-NSString * const TAKE_MEDIA_MSG = @"Take Photo or Video";
-NSString * const CHOOSE_MEDIA_MSG = @"Choose Existing";
-NSString * const CANCEL_PHOTO_MSG = @"Cancel";
-NSString * const CANCEL_MEDIA_MSG = @"Cancel";
 
 //Different badge notifications types
 NSString * const BADGE_NOTIFICATION_LIVE = @"b_live";

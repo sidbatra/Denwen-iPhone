@@ -1,40 +1,38 @@
 //
 //  DWUserViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 #import "DWItemFeedViewController.h"
-#import "DWImageViewController.h"
-#import "DWNewItemViewController.h"
-#import "DWNewPlaceViewController.h"
-#import "DWPlaceViewController.h"
-#import "DWFollowedPlacesViewController.h"
 #import "DWUser.h"
-#import "DWRequestsManager.h"
+
 #import "MBProgressHUD.h"
-#import "DWSession.h"
-#import "DWUserCell.h"
-#import "DWItemFeedCell.h"
-#import "DWMessageCell.h"
 
-
-@interface DWUserViewController : DWItemFeedViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
-	DWUser *_user;
-	
-	MBProgressHUD *mbProgressIndicator;
-	
-	int _userID;
-	BOOL _isCurrenUserProfile;
-	BOOL _isCurrentUser;
-	NSInteger _uploadID;
+/**
+ * Display details about a user and the items posted by them
+ */
+@interface DWUserViewController : DWItemFeedViewController <UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
+	DWUser			*_user;
+	NSInteger		_uploadID;
+	MBProgressHUD	*_mbProgressIndicator;
 }
 
-- (id)initWithUserID:(int)userID andDelegate:(id)delegate;
-- (id)initWithUserID:(int)userID hideBackButton:(BOOL)hideBackButton andDelegate:(id)delegate;
+/**
+ * User object whose view is being displayed
+ */
+@property (nonatomic,retain) DWUser *user;
+
+/**
+ * Progress indicator for displaying spinners 
+ */
+@property (nonatomic,retain) MBProgressHUD *mbProgressIndicator;
+
+/**
+ * Init with user whose view is being displayed and delegate
+ * to receive item feed view delegate events - see DWItemFeedViewController
+ */
+- (id)initWithUser:(DWUser*)theUser andDelegate:(id)delegate;
 
 @end

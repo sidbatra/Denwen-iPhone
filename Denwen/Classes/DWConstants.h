@@ -33,6 +33,8 @@ extern NSString* const kKeyPlaces;
 extern NSString* const kKeyPlace;
 extern NSString* const kKeyItems;
 extern NSString* const kKeyItem;
+extern NSString* const kKeyUsers;
+extern NSString* const kKeyUser;
 extern NSString* const kKeyFilename;
 extern NSString* const kKeyNotificationType;
 
@@ -154,6 +156,14 @@ extern NSInteger const kMPUsersIndex;
 extern NSString* const kMsgNoPlacesNearby;
 extern NSString* const kMsgNoFollowPlacesCurrentUser;
 extern NSString* const kMsgNoFollowPlacesNormalUser;
+extern NSString* const kMsgTakeFirstPhoto;
+extern NSString* const kMsgChooseFirstPhoto;
+extern NSString* const kMsgTakeBetterPhoto;
+extern NSString* const kMsgChooseBetterPhoto;
+extern NSString* const kMsgTakeMedia;
+extern NSString* const kMsgChooseMedia;
+extern NSString* const kMsgCancelPhoto;
+extern NSString* const kMsgCancelMedia;
 
 /**
  * Images
@@ -171,6 +181,7 @@ extern NSInteger const kAttachmentHeight;
 extern NSInteger const kAttachmentYPadding;
 extern NSInteger const kURLTagMultipler;
 extern NSInteger const kPaginationCellHeight;
+extern NSInteger const kUserViewCellHeight;
 
 
 
@@ -234,7 +245,6 @@ extern NSString * const NEW_POST_TEXTVIEW_PLACEHOLDER_TEXT;
 
 extern NSString * const USER_PROFILE_BG_TEXTURE;
 extern NSString * const PLACE_VIEW_FADE_IMAGE_NAME;
-extern NSString * const USER_VIEW_FADE_IMAGE_NAME;
 extern NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const TRANSPARENT_BUTTON_BG_IMAGE_NAME;
 extern NSString * const FOLLOW_BUTTON_BG_IMAGE_NAME;
@@ -260,7 +270,6 @@ extern int const USER_LABEL_PADDING;
 extern int const USER_NAME_PADDING;
 extern int const FOLLOW_PLACE_CELL_HEIGHT;
 extern int const FOLLOW_CURRENT_USER_CELL_HEIGHT;
-extern int const FOLLOW_USER_CELL_HEIGHT;
 extern int const SPINNER_HEIGHT;
 extern int const VIDEO_VIEW_SPINNER_SIDE;
 
@@ -309,22 +318,14 @@ extern NSString * const FOLLOW_PLACES_MSG;
 extern NSString * const UNFOLLOW_PLACES_MSG;
 extern NSString * const FOLLOW_LOGGEDOUT_MSG;
 extern NSString * const SHARE_LOGGEDOUT_MSG;
-extern NSString * const USER_SIGNED_IN_NO_ITEMS_MSG;
 extern NSString * const MAP_TOOLTIP_MSG;
 extern NSString * const LOADING_CELL_MSG;
 extern NSString * const PAGINATION_CELL_MSG;
 extern NSString * const FINDING_LOCALITY_MSG;
-extern NSString * const FIRST_TAKE_PHOTO_MSG;
-extern NSString * const FIRST_CHOOSE_PHOTO_MSG;
-extern NSString * const BETTER_TAKE_PHOTO_MSG;
-extern NSString * const BETTER_CHOOSE_PHOTO_MSG;
-extern NSString * const TAKE_MEDIA_MSG;
-extern NSString * const CHOOSE_MEDIA_MSG;
-extern NSString * const CANCEL_PHOTO_MSG;
-extern NSString * const CANCEL_MEDIA_MSG;
 extern NSString * const EMPTY_POST_MSG;
 extern NSString * const EMPTY_PLACENAME_MSG;
 extern NSString * const EMPTY_LOGIN_FIELDS_MSG;
+
 
 extern NSString * const BADGE_NOTIFICATION_LIVE;
 extern NSString * const BADGE_NOTIFICATION_BACKGROUND;

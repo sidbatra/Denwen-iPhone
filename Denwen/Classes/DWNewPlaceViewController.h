@@ -25,7 +25,7 @@
 
 @protocol DWNewPlaceViewControllerDelegate;
 
-@interface DWNewPlaceViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,MKMapViewDelegate,DWImagePickerDelegate> {
+@interface DWNewPlaceViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,MKMapViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
 	
 	UIView *textFieldsContainerView;
 	UITextField *placeNameTextField;

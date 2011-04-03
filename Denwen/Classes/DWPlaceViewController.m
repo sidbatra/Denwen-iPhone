@@ -680,13 +680,13 @@
 		
 		if(_place.hasPhoto) {
 			actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self 
-													cancelButtonTitle:CANCEL_PHOTO_MSG	destructiveButtonTitle:nil
-													otherButtonTitles:BETTER_TAKE_PHOTO_MSG,BETTER_CHOOSE_PHOTO_MSG,nil];
+													cancelButtonTitle:kMsgCancelPhoto	destructiveButtonTitle:nil
+													otherButtonTitles:kMsgTakeBetterPhoto,kMsgChooseBetterPhoto,nil];
 		}
 		else {
 			actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self 
-													cancelButtonTitle:CANCEL_PHOTO_MSG	destructiveButtonTitle:nil
-													otherButtonTitles:FIRST_TAKE_PHOTO_MSG,FIRST_CHOOSE_PHOTO_MSG,nil];
+													cancelButtonTitle:kMsgCancelPhoto	destructiveButtonTitle:nil
+													otherButtonTitles:kMsgTakeFirstPhoto,kMsgChooseFirstPhoto,nil];
 
 		}
 		

@@ -149,20 +149,6 @@
 }
 
 
-
-// Update the place's preview urls using a place JSON object
-//
-- (void)updatePreviewURLs:(NSDictionary*)place {
-	_hasPhoto = YES;
-	
-	NSDictionary *photo = [place objectForKey:@"photo"];
-	
-	self.smallURL = [photo objectForKey:@"small_url"];
-	self.mediumURL = [photo objectForKey:@"medium_url"];
-	self.largeURL = [photo objectForKey:@"large_url"];
-}
-
-
 // Resize and update preview images from the given image
 //
 - (void)updatePreviewImages:(UIImage*)image {
