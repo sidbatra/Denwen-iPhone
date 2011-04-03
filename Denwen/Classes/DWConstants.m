@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-//#define PRODUCTION 1 
+#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -57,6 +57,15 @@ NSString* const kKeySmallURL			= @"small_url";
 NSString* const kKeyMediumURL			= @"medium_url";
 NSString* const kKeyLargeURL			= @"large_url";
 NSString* const kKeyIsProcessed			= @"is_processed";
+NSString* const kKeyName				= @"name";
+NSString* const kKeyHashedID			= @"hashed_id";
+NSString* const kKeyFollowingsCount		= @"followings_count";
+NSString* const kKeyLatitude			= @"latitude";
+NSString* const kKeyLongitude			= @"longitude";
+NSString* const kKeyAddress				= @"address";
+NSString* const kKeyShortTown			= @"short_town";
+NSString* const kKeyShortState			= @"short_state";
+NSString* const kKeyShortCountry		= @"short_country";
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
@@ -255,10 +264,7 @@ NSString * const BACK_BUTTON_SELF_TITLE = @"Profile";
 NSString * const PROFILE_TAB_NAME = @"Profile";
 NSString * const PROFILE_TAB_IMAGE_NAME = @"profile.png";
 
-/* placeholder images */
-NSString * const PLACE_SMALL_PLACEHOLDER_IMAGE_NAME = @"place_small_placeholder.png";
-NSString * const PLACE_MEDIUM_PLACEHOLDER_IMAGE_NAME = @"camera_button.png";
-NSString * const PLACE_LARGE_PLACEHOLDER_IMAGE_NAME = @"place_placeholder.png";
+
 
 
 
@@ -362,7 +368,6 @@ NSString * const SHARE_LOGGEDOUT_MSG = @"Sign up to start sharing places";
 NSString * const MAP_TOOLTIP_MSG = @"Hold and drag to move pin";
 NSString * const LOADING_CELL_MSG = @"Loading...";
 NSString * const PAGINATION_CELL_MSG = @"Load more...";
-NSString * const FINDING_LOCALITY_MSG = @"Finding locality";
 NSString * const EMPTY_POST_MSG = @"Post can't be empty";
 NSString * const EMPTY_PLACENAME_MSG = @"Place name can't be empty";
 NSString * const EMPTY_LOGIN_FIELDS_MSG = @"Please fill out all the required fields.";

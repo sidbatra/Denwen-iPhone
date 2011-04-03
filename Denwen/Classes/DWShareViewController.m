@@ -7,6 +7,7 @@
 //
 
 #import "DWShareViewController.h"
+#import "DWConstants.h"
 
 @interface DWShareViewController()
 - (void)freezeUI;
@@ -87,7 +88,7 @@
 	[mbProgressIndicator release];
 	
 	textView.text = [NSString stringWithFormat:@"This is %@ ",_place.name];
-	hashedLink.text = [NSString stringWithFormat:@"http://denwen.com/p/%@",_place.hashedId];
+	hashedLink.text = [NSString stringWithFormat:@"http://denwen.com/p/%@",_place.hashedID];
 	
 	[textView becomeFirstResponder];
 	

@@ -1,77 +1,129 @@
 //
 //  DWPlace.h
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-
 #import "DWPoolObject.h"
-#import "UIImage+ImageProcessing.h"
-#import "DWConstants.h"
 
-
+/**
+ * Place model represents a place entity as defined
+ * in the database
+ */
 @interface DWPlace : DWPoolObject {
-	NSString *_name;
-	NSString *_hashedId;
-	NSInteger _followersCount;
+	NSString		*_name;
+	NSString		*_hashedID;
 	
-	NSString *_town;
-	NSString *_state;
-	NSString *_country;
+	NSString		*_town;
+	NSString		*_state;
+	NSString		*_country;
 	
-	NSString *_smallURL;
-	NSString *_largeURL;
+	NSString		*_smallURL;
+	NSString		*_largeURL;
 	
-	CLLocation *_location;
+	CLLocation		*_location;
 
-	UIImage *_smallPreviewImage;
-	UIImage *_largePreviewImage;
+	UIImage			*_smallPreviewImage;
+	UIImage			*_largePreviewImage;
 	
-	BOOL _isSmallDownloading;
-	BOOL _isLargeDownloading;
+	NSInteger		_followersCount;
 	
-	BOOL _hasPhoto;
-	BOOL _hasAddress;
-	BOOL _isProcessed;
+	BOOL			_isSmallDownloading;
+	BOOL			_isLargeDownloading;
+	
+	BOOL			_hasPhoto;
+	BOOL			_hasAddress;
+	BOOL			_isProcessed;
 }
 
-//Initialization
+/**
+ * Name of the place
+ */
+@property (nonatomic,copy) NSString *name;
 
-//Update 
-- (void)updatePreviewURLs:(NSDictionary*)place;
+/**
+ * Unique ID for the place used in obfuscated URLs
+ */
+@property (nonatomic,copy) NSString *hashedID;
+
+/**
+ * Town in which the place is located
+ */
+@property (nonatomic,copy) NSString *town;
+
+/**
+ * State in which the place is located
+ */
+@property (nonatomic,copy) NSString *state;
+
+/**
+ * Country in which the place is located
+ */
+@property (nonatomic,copy) NSString *country;
+
+/**
+ * URL for the small place preview image
+ */
+@property (nonatomic,copy) NSString *smallURL;
+
+/**
+ * URL for the large place preview image
+ */
+@property (nonatomic,copy) NSString *largeURL;
+
+/**
+ * Geo location of the place
+ */
+@property (nonatomic,copy) CLLocation *location;
+
+/**
+ * Image corresponding to the smallURL
+ */
+@property (nonatomic,retain) UIImage *smallPreviewImage;
+
+/**
+ * Image corresponding to the large URL
+ */
+@property (nonatomic,retain) UIImage *largePreviewImage;
+
+/**
+ * Flag for whether a photo has been added to the place profile
+ */
+@property (nonatomic,readonly) BOOL hasPhoto;
+
+/**
+ * Update the small and large preview images
+ */
 - (void)updatePreviewImages:(UIImage*)image;
-- (void)updateFollowerCount:(NSInteger)delta;
 
-//Functions for handling server interactions 
+/**
+ * Update the follower count by the given delta
+ */
+- (void)updateFollowerCount:(NSInteger)delta;
+ 
+/**
+ * Start downloading the image at smallURL or provide a suitable
+ * placeholder
+ */
 - (void)startSmallPreviewDownload;
+
+/**
+ * Start downloading the image at largeURl or provide a suitable
+ * placeholder
+ */
 - (void)startLargePreviewDownload;
 
-
+/**
+ * Generate the display address for a place
+ */
 - (NSString*)displayAddress;
+
+/**
+ * Title text generated from the place's followers
+ */
 - (NSString*)titleText;
-
-@property (copy) NSString *name;
-@property (copy) NSString *hashedId;
-
-@property (copy) NSString *town;
-@property (copy) NSString *state;
-@property (copy) NSString *country;
-
-@property (copy) NSString *smallURL;
-@property (copy) NSString *largeURL;
-
-@property (copy) CLLocation *location;
-
-@property (retain) UIImage *smallPreviewImage;
-@property (retain) UIImage *largePreviewImage;
-
-
-@property (readonly) BOOL hasPhoto;
 
 @end
 

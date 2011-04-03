@@ -258,7 +258,7 @@
 - (void)loadItems {
 	[super loadItems];
 	
-	[[DWRequestsManager sharedDWRequestsManager] getPlaceWithHashedID:_origPlace.hashedId
+	[[DWRequestsManager sharedDWRequestsManager] getPlaceWithHashedID:_origPlace.hashedID
 													   withDatabaseID:_place.databaseID
 															   atPage:_currentPage];
 }
@@ -369,11 +369,7 @@
 		return;	
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		
-		NSDictionary *body = [info objectForKey:kKeyBody];
-		NSDictionary *placeJSON = [body objectForKey:PLACE_JSON_KEY];
-		[_place updatePreviewURLs:placeJSON];
-		self.placeJSON = placeJSON;		
+		[_place update:[[info objectForKey:kKeyBody] objectForKey:kKeyPlace]];
 	}
 	
 	[mbProgressIndicator hideUsingAnimation:YES];

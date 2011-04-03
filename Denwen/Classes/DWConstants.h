@@ -47,6 +47,16 @@ extern NSString* const kKeySmallURL;
 extern NSString* const kKeyMediumURL;
 extern NSString* const kKeyLargeURL;
 extern NSString* const kKeyIsProcessed;
+extern NSString* const kKeyName;
+extern NSString* const kKeyHashedID;
+extern NSString* const kKeyFollowingsCount;
+extern NSString* const kKeyLatitude;
+extern NSString* const kKeyLongitude;
+extern NSString* const kKeyAddress;
+extern NSString* const kKeyShortTown;
+extern NSString* const kKeyShortState;
+extern NSString* const kKeyShortCountry;
+
 
 /**
  * Notification names
@@ -233,11 +243,6 @@ extern NSString * const PROFILE_TAB_NAME;
 extern NSString * const PROFILE_TAB_IMAGE_NAME;
 
 
-extern NSString * const PLACE_SMALL_PLACEHOLDER_IMAGE_NAME;
-extern NSString * const PLACE_MEDIUM_PLACEHOLDER_IMAGE_NAME;
-extern NSString * const PLACE_LARGE_PLACEHOLDER_IMAGE_NAME;
-
-
 extern NSString * const CHANGE_USER_PIC_IMAGE_NAME;
 extern NSString * const CHANGE_PLACE_PIC_IMAGE_NAME;
 extern NSString * const USER_PROFILE_CREATE_POST_IMAGE_NAME;
@@ -325,7 +330,6 @@ extern NSString * const SHARE_LOGGEDOUT_MSG;
 extern NSString * const MAP_TOOLTIP_MSG;
 extern NSString * const LOADING_CELL_MSG;
 extern NSString * const PAGINATION_CELL_MSG;
-extern NSString * const FINDING_LOCALITY_MSG;
 extern NSString * const EMPTY_POST_MSG;
 extern NSString * const EMPTY_PLACENAME_MSG;
 extern NSString * const EMPTY_LOGIN_FIELDS_MSG;

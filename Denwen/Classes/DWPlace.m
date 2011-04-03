@@ -1,31 +1,37 @@
 //
 //  DWPlace.m
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWPlace.h"
 #import "DWRequestsManager.h"
+#import "UIImage+ImageProcessing.h"
+#import "DWConstants.h"
+
+static NSString* const kImgSmallPlaceHolder = @"place_small_placeholder.png";
+static NSString* const kImgLargePlaceHolder = @"place_placeholder.png";
+static NSString* const kMsgFindingLocality	= @"Finding locality";
 
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWPlace
 
-@synthesize name=_name,hashedId=_hashedId,smallURL=_smallURL,largeURL=_largeURL,location=_location,
-		smallPreviewImage=_smallPreviewImage,largePreviewImage=_largePreviewImage,
-		hasPhoto=_hasPhoto,
-		town=_town,state=_state,country=_country;
+@synthesize name				= _name;
+@synthesize hashedID			= _hashedID;
+@synthesize smallURL			= _smallURL;
+@synthesize largeURL			= _largeURL;
+@synthesize location			= _location;
+@synthesize smallPreviewImage	= _smallPreviewImage;
+@synthesize largePreviewImage	= _largePreviewImage;
+@synthesize hasPhoto			= _hasPhoto;
+@synthesize	town				= _town;
+@synthesize state				= _state;
+@synthesize country				= _country;
 
-
-
-#pragma mark -
-#pragma mark Initialization logic
-
-
-// Init the class along with its member variables 
-//
+//----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
@@ -59,94 +65,114 @@
 	return self;  
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)freeMemory {
+	if(_hasPhoto) {
+		self.smallPreviewImage = nil;
+		self.largePreviewImage = nil;
+	}
+}
 
+//----------------------------------------------------------------------------------------------------
+-(void)dealloc{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	//NSLog(@"place released %d",_databaseID);
+	
+	self.name					= nil;
+	self.hashedID				= nil;
+	self.town					= nil;
+	self.state					= nil;
+	self.country				= nil;
+	self.location				= nil;
+	
+	if(_hasPhoto) {
+		self.smallURL			= nil;
+		self.largeURL			= nil;
+		
+		self.smallPreviewImage	= nil;
+		self.largePreviewImage	= nil;
+	}
+	
+	[super dealloc];
+}
 
-#pragma mark -
-#pragma mark Server interaction methods
-
-
-// Populate place attributes from JSON object
-// parsed into a NSDictionary object
-//
+//----------------------------------------------------------------------------------------------------
 - (void)populate:(NSDictionary*)place {	
 	[super populate:place];
 	
-	_databaseID = [[place objectForKey:@"id"] integerValue];
-	_hasPhoto = [[place objectForKey:@"has_photo"] boolValue];
+	_databaseID				= [[place objectForKey:kKeyID] integerValue];
+	_hasPhoto				= [[place objectForKey:kKeyHasPhoto] boolValue];
 	
-	self.name = [place objectForKey:@"name"];
-	self.hashedId = [place objectForKey:@"hashed_id"];
-	_followersCount = [[place objectForKey:@"followings_count"] integerValue];
+	self.name				= [place objectForKey:kKeyName];
+	self.hashedID			= [place objectForKey:kKeyHashedID];
+	_followersCount			= [[place objectForKey:kKeyFollowingsCount] integerValue];
 	
-	CLLocation *tempLocation = [[CLLocation alloc] initWithLatitude:[[place objectForKey:@"latitude"] floatValue] 
-							   longitude:[[place objectForKey:@"longitude"] floatValue]];
-	self.location = tempLocation;
-	[tempLocation release];
-	
+	self.location = [[[CLLocation alloc] initWithLatitude:[[place objectForKey:kKeyLatitude]  floatValue] 
+												longitude:[[place objectForKey:kKeyLongitude] floatValue]] autorelease];
 	
 	if(_hasPhoto) {
-		NSDictionary *photo = [place objectForKey:@"photo"];
-		self.smallURL = [photo objectForKey:@"small_url"]; 
-		self.largeURL = [photo objectForKey:@"large_url"];
-		_isProcessed = [[photo objectForKey:@"is_processed"] boolValue];
+		NSDictionary *photo = [place objectForKey:kKeyPhoto];
+		
+		self.smallURL		= [photo objectForKey:kKeySmallURL]; 
+		self.largeURL		= [photo objectForKey:kKeyLargeURL];
+		_isProcessed		= [[photo objectForKey:kKeyIsProcessed] boolValue];
 	}
 	
-	NSDictionary *address = [place objectForKey:ADDRESS_JSON_KEY];
+	NSDictionary *address = [place objectForKey:kKeyAddress];
 	
 	if (address) {
-		_hasAddress = YES;
-		self.town = [address objectForKey:@"short_town"];
-		self.state = [address objectForKey:@"short_state"];
-		self.country = [address objectForKey:@"short_country"];
+		_hasAddress		= YES;
+		
+		self.town		= [address objectForKey:kKeyShortTown];
+		self.state		= [address objectForKey:kKeyShortState];
+		self.country	= [address objectForKey:kKeyShortCountry];
 	}
-
-
 }
 
-
-// Override the update method to check for changes to place name, location and preview images
-//
-- (void)update:(NSDictionary*)objectJSON {
+//----------------------------------------------------------------------------------------------------
+- (void)update:(NSDictionary*)place {
 	
 	float interval = -[self.updatedAt timeIntervalSinceNow];
 	
 	if(interval > kMPObjectUpdateInterval) {
 		
-		NSString *newName = [objectJSON objectForKey:@"name"];
+		NSString *newName = [place objectForKey:kKeyName];
 		 
 		 if(![self.name isEqualToString:newName])
 			 self.name = newName;
 		
-		NSString *newHashedId = [objectJSON objectForKey:@"hashed_id"];
+		NSString *newHashedID = [place objectForKey:kKeyHashedID];
 		
-		if(![self.hashedId isEqualToString:newHashedId])
-			self.hashedId = newHashedId;
+		if(![self.hashedID isEqualToString:newHashedID])
+			self.hashedID = newHashedID;
 		
-		_followersCount = [[objectJSON objectForKey:@"followings_count"] integerValue];
-		
-		 
-		 _hasPhoto = [[objectJSON objectForKey:@"has_photo"] boolValue];
+		_followersCount		= [[place objectForKey:kKeyFollowingsCount] integerValue];
+		 _hasPhoto			= [[place objectForKey:kKeyHasPhoto]		boolValue];
 		 
 		 if(_hasPhoto) {
-			 NSDictionary *photo = [objectJSON objectForKey:@"photo"];
-			 NSString *newSmallURL = [photo objectForKey:@"small_url"]; 
+			 NSDictionary *photo	= [place objectForKey:kKeyPhoto];
+			 NSString *newSmallURL	= [photo objectForKey:kKeySmallURL]; 
 			 
 			 if(![self.smallURL isEqualToString:newSmallURL]) {
-				 self.smallURL = newSmallURL;
-				 self.largeURL = [photo objectForKey:@"large_url"];
-				 _isProcessed = [[photo objectForKey:@"is_processed"] boolValue];
-				 self.smallPreviewImage = nil;
-				 self.largePreviewImage = nil;
+				 self.smallURL				= newSmallURL;
+				 self.largeURL				= [photo objectForKey:kKeyLargeURL];
+				 
+				 _isProcessed				= [[photo objectForKey:kKeyIsProcessed] boolValue];
+				 
+				 self.smallPreviewImage		= nil;
+				 self.largePreviewImage		= nil;
 			 }
 		 }
 		
-		NSDictionary *address = [objectJSON objectForKey:ADDRESS_JSON_KEY];
+		NSDictionary *address = [place objectForKey:kKeyAddress];
 		
 		if(!_hasAddress && address) {
-			_hasAddress = YES;
-			self.town = [address objectForKey:@"short_town"];
-			self.state = [address objectForKey:@"short_state"];
-			self.country = [address objectForKey:@"short_country"];			
+			_hasAddress		= YES;
+			
+			self.town		= [address objectForKey:kKeyShortTown];
+			self.state		= [address objectForKey:kKeyShortState];
+			self.country	= [address objectForKey:kKeyShortCountry];		
 		}
 		
 		[self refreshUpdatedAt];
@@ -154,150 +180,19 @@
 	
 }
 
-- (void)applyNewSmallImage:(UIImage*)image {
-	
-	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
-						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
-						   image										,kKeyImage,
-						   nil];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgSmallPlaceLoaded
-														object:nil
-													  userInfo:info];
-}
-
-- (void)applyNewLargeImage:(UIImage*)image {
-	
-	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
-						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
-						   image										,kKeyImage,
-						   nil];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgLargePlaceLoaded
-														object:nil
-													  userInfo:info];
-}
-
-
-// Update the place's preview urls using a place JSON object
-//
-- (void)updatePreviewURLs:(NSDictionary*)place {
-	_hasPhoto = YES;
-	
-	NSDictionary *photo = [place objectForKey:@"photo"];
-	
-	self.smallURL = [photo objectForKey:@"small_url"];
-	self.largeURL = [photo objectForKey:@"large_url"];
-}
-
-
-// Resize and update preview images from the given image
-//
-- (void)updatePreviewImages:(UIImage*)image {
-	[self applyNewSmallImage:image];
-	[self applyNewLargeImage:image];
-}
-
-
-// Update the follower count by the given amount
-//
-- (void)updateFollowerCount:(NSInteger)delta {
-	_followersCount += delta;
-}
-
-
-//Start the small file download
-//
-- (void)startSmallPreviewDownload {
-	if(_hasPhoto && !_isSmallDownloading && !self.smallPreviewImage) {
-		_isSmallDownloading = YES;
-		
-		[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.smallURL
-												 withResourceID:self.databaseID
-											successNotification:kNImgSmallPlaceLoaded
-											  errorNotification:kNImgSmallPlaceError];
-	}
-	else if(!_hasPhoto){ 
-		[self applyNewSmallImage:[UIImage imageNamed:PLACE_SMALL_PLACEHOLDER_IMAGE_NAME]];
-	}
-}
-
-
-//Start the large file download
-//
-- (void)startLargePreviewDownload {
-	if(_hasPhoto && !_isLargeDownloading && !self.largePreviewImage) {
-		_isLargeDownloading = YES;
-		
-		[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.largeURL 
-												 withResourceID:self.databaseID
-		 									successNotification:kNImgLargePlaceLoaded
-											  errorNotification:kNImgLargePlaceError];
-	}
-}
-
-
-- (void)smallImageLoaded:(NSNotification*)notification {
-	NSDictionary *info		= [notification userInfo];
-	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(resourceID != self.databaseID)
-		return;
-	
-	self.smallPreviewImage = [info objectForKey:kKeyImage];		
-	_isSmallDownloading = NO;
-}
-
-- (void)smallImageError:(NSNotification*)notification {
-	NSDictionary *info		= [notification userInfo];
-	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(resourceID != self.databaseID)
-		return;
-	
-	_isSmallDownloading = NO;
-}
-
-
-- (void)largeImageLoaded:(NSNotification*)notification {
-	NSDictionary *info		= [notification userInfo];
-	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(resourceID != self.databaseID)
-		return;
-	
-	self.largePreviewImage = [info objectForKey:kKeyImage];		
-	_isLargeDownloading = NO;
-}
-
-- (void)largeImageError:(NSNotification*)notification {
-	NSDictionary *info		= [notification userInfo];
-	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(resourceID != self.databaseID)
-		return;
-	
-	_isLargeDownloading = NO;
-}
-
-
-
-// Generates an autoreleased display address for the place
-//
+//----------------------------------------------------------------------------------------------------
 - (NSString*)displayAddress {
 	NSString *result = nil;
 	
 	if(_hasAddress)
-		result = [[[NSString alloc] initWithFormat:@"%@, %@",self.town,self.state] autorelease];
+		result = [NSString stringWithFormat:@"%@, %@",self.town,self.state];
 	else
-		result = FINDING_LOCALITY_MSG;
+		result = kMsgFindingLocality;
 	
 	return result;
 }
 
-
-// Title text used on place view pages
-//
+//----------------------------------------------------------------------------------------------------
 - (NSString*)titleText {
 	NSString *text = nil;
 	
@@ -311,47 +206,120 @@
 	return text;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)applyNewSmallImage:(UIImage*)image {
+	
+	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+						   image										,kKeyImage,
+						   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgSmallPlaceLoaded
+														object:nil
+													  userInfo:info];
+}
 
+//----------------------------------------------------------------------------------------------------
+- (void)applyNewLargeImage:(UIImage*)image {
+	
+	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+						   image										,kKeyImage,
+						   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgLargePlaceLoaded
+														object:nil
+													  userInfo:info];
+}
 
+//----------------------------------------------------------------------------------------------------
+- (void)updatePreviewImages:(UIImage*)image {
+	[self applyNewSmallImage:image];
+	[self applyNewLargeImage:image];
+}
 
+//----------------------------------------------------------------------------------------------------
+- (void)updateFollowerCount:(NSInteger)delta {
+	_followersCount += delta;
+}
 
-#pragma mark -
-#pragma mark Memory Management
+//----------------------------------------------------------------------------------------------------
+- (void)startSmallPreviewDownload {
+	if(_hasPhoto && !_isSmallDownloading && !self.smallPreviewImage) {
+		_isSmallDownloading = YES;
+		
+		[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.smallURL
+												 withResourceID:self.databaseID
+											successNotification:kNImgSmallPlaceLoaded
+											  errorNotification:kNImgSmallPlaceError];
+	}
+	else if(!_hasPhoto){ 
+		[self applyNewSmallImage:[UIImage imageNamed:kImgSmallPlaceHolder]];
+	}
+}
 
-
-// Free small and medium preview images
-//
-- (void)freeMemory {
-	if(_hasPhoto) {
-		self.smallPreviewImage = nil;
-		self.largePreviewImage = nil;
+//----------------------------------------------------------------------------------------------------
+- (void)startLargePreviewDownload {
+	if(_hasPhoto && !_isLargeDownloading && !self.largePreviewImage) {
+		_isLargeDownloading = YES;
+		
+		[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.largeURL 
+												 withResourceID:self.databaseID
+		 									successNotification:kNImgLargePlaceLoaded
+											  errorNotification:kNImgLargePlaceError];
 	}
 }
 
 
-// Usual Memory Cleanup
-// 
--(void)dealloc{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
 
-	//NSLog(@"place released %d",_databaseID);
+//----------------------------------------------------------------------------------------------------
+- (void)smallImageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 	
-	self.name = nil;
-	self.hashedId = nil;
-	self.town = nil;
-	self.state = nil;
-	self.country = nil;
-	self.location = nil;
+	if(resourceID != self.databaseID)
+		return;
 	
-	if(_hasPhoto) {
-		self.smallURL = nil;
-		self.largeURL = nil;
-		
-		self.smallPreviewImage = nil;
-		self.largePreviewImage = nil;
-	}
+	self.smallPreviewImage = [info objectForKey:kKeyImage];		
+	_isSmallDownloading = NO;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)smallImageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 	
-	[super dealloc];
+	if(resourceID != self.databaseID)
+		return;
+	
+	_isSmallDownloading = NO;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)largeImageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	self.largePreviewImage = [info objectForKey:kKeyImage];		
+	_isLargeDownloading = NO;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)largeImageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	_isLargeDownloading = NO;
 }
 
 
