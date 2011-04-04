@@ -320,13 +320,16 @@
 		[self createVisit];
 	}
 	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNNewLocationAvailable 
+														object:nil];
+	
 	//NSLog(@"%f %f %f T %f ",
 	// newLocation.coordinate.latitude,
 	// newLocation.coordinate.longitude,
 	// newLocation.horizontalAccuracy,
 	// fabs([newLocation.timestamp timeIntervalSinceNow])
 	// );
-	//[[NSNotificationCenter defaultCenter] postNotificationName:N_LOCATION_CHANGED object:newLocation];
+	
 }
 
 

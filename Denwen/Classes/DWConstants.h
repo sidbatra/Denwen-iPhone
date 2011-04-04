@@ -120,6 +120,8 @@ extern NSString* const kNImgActualAttachmentLoaded;
 extern NSString* const kNImgActualAttachmentError;
 extern NSString* const kNNewApplicationBadge;
 extern NSString* const kNTabSelectionChanged;
+extern NSString* const kNNewLocationAvailable;
+
 
 /**
  * Push notifcation types

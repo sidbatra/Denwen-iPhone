@@ -28,10 +28,10 @@ static NSString* const kSearchBarText		= @"Search All Places";
 	
 	if (self) {		
 		
-		if (&UIApplicationWillEnterForegroundNotification != NULL) {
+		if (&UIApplicationDidEnterBackgroundNotification != NULL) {
 			[[NSNotificationCenter defaultCenter] addObserver:self 
-													 selector:@selector(applicationEnteringForeground:) 
-														 name:UIApplicationWillEnterForegroundNotification
+													 selector:@selector(applicationEnteringBackground:) 
+														 name:UIApplicationDidEnterBackgroundNotification
 													   object:nil];
 		}
 		
@@ -48,6 +48,11 @@ static NSString* const kSearchBarText		= @"Search All Places";
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newPlaceParsed:) 
 													 name:kNNewPlaceParsed 
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(newLocationAvailable:) 
+													 name:kNNewLocationAvailable 
 												   object:nil];
 	}
 	
@@ -94,9 +99,9 @@ static NSString* const kSearchBarText		= @"Search All Places";
 #pragma mark Notifications
 
 //----------------------------------------------------------------------------------------------------
-- (void)applicationEnteringForeground:(NSNotification*)notification {
+- (void)applicationEnteringBackground:(NSNotification*)notification {
 	if(_isLoadedOnce)
-		[self hardRefresh];
+		_refreshOnNextLocationUpdate = YES;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -139,6 +144,13 @@ static NSString* const kSearchBarText		= @"Search All Places";
 	[self finishedLoadingPlaces];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)newLocationAvailable:(NSNotification*)notification {
+	if(_refreshOnNextLocationUpdate) {
+		[self hardRefresh];
+		_refreshOnNextLocationUpdate = NO;
+	}
+}
 
 @end
 

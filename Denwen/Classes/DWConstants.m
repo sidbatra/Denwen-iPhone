@@ -129,6 +129,7 @@ NSString* const kNImgActualAttachmentLoaded	= @"NImgActualAttachmentLoaded";
 NSString* const kNImgActualAttachmentError	= @"NImgActualAttachmentError";
 NSString* const kNNewApplicationBadge		= @"NNewApplicationBadge"; 
 NSString* const kNTabSelectionChanged		= @"NTabSelectionChanged";
+NSString* const kNNewLocationAvailable		= @"NNewLocationAvailable";
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kPNLive			= 0;
