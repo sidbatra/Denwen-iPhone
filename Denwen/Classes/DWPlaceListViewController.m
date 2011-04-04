@@ -24,9 +24,10 @@ static NSInteger const kSearchPlaceActiveCellHeight	= 3000;
 static NSString* const kPlaceFeedCellIdentifier		= @"PlaceFeedCell";
 static NSInteger const kMessageCellIndex			= 1;
 static NSInteger const kSpinnerCellIndex			= 1;
-static NSInteger const kSearchActiveAlpha			= 0.8;
-static NSInteger const kSearchInActiveAlpha			= 1.0;
+static float	 const kSearchActiveAlpha			= 0.8;
+static float	 const kSearchInActiveAlpha			= 1.0;
 static NSInteger const kPlacesPerPage				= 20;
+static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -78,6 +79,22 @@ static NSInteger const kPlacesPerPage				= 20;
 	CGRect frame		= self.view.frame;
 	frame.origin.y		= 0; 
 	self.view.frame		= frame;
+	
+	/*
+	frame											= self.searchDisplayController.searchBar.frame;
+	frame.size.height								= kSearchBarOffset;
+	self.searchDisplayController.searchBar.frame	= frame;
+	*/
+	
+	self.searchDisplayController.searchBar.backgroundColor	= [UIColor blackColor];
+	self.searchDisplayController.searchBar.tintColor		= [UIColor blackColor];
+	
+	for (UIView *subview in self.searchDisplayController.searchBar.subviews) {
+		if ([subview isKindOfClass:NSClassFromString(kSearchBarBackgroundClass)]) {
+			[subview removeFromSuperview];
+			break;
+		}
+	}
 	
 	
 	[self.tableView setSeparatorColor:[UIColor colorWithRed:kSeparatorRedValue 
@@ -541,6 +558,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 		[self searchPlaces:self.searchDisplayController.searchBar.text];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -548,11 +569,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark UISearchDisplayControllerDelegate 
 
 //----------------------------------------------------------------------------------------------------
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller 
-shouldReloadTableForSearchString:(NSString *)searchString {
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
 	
 	if(_isLocalSearch)
-		[_placeManager filterPlacesForSearchText:searchString];
+		[self.placeManager filterPlacesForSearchText:searchString];
 	else {
 		[self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor blackColor]];
 		[self.searchDisplayController.searchResultsTableView setRowHeight:kSearchPlaceActiveCellHeight];

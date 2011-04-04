@@ -8,7 +8,7 @@
 #import "DWConstants.h"
 
 static NSInteger const kCapacity			= 1;
-static NSString* const kSearchBarText		= @"Search All Places";
+static NSString* const kSearchBarText		= @"Search Nearby Places";
 
 
 
