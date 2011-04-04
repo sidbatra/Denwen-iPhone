@@ -431,6 +431,8 @@
 // The usual dealloc
 //
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	_delegate = nil;
 	
 	self.twitterSwitch = nil;

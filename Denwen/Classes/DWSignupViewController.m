@@ -368,6 +368,8 @@
 // The usual memory cleanup
 //
 - (void)dealloc {	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	_delegate = nil;
 	
 	self.password = nil;

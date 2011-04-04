@@ -127,6 +127,8 @@
 // The usual cleanup
 //
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	[url release];
     [super dealloc];
 }

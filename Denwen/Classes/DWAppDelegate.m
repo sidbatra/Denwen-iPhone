@@ -383,6 +383,8 @@
 // The usual memory cleanup
 //
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	[_locationManager release];
 	[tabBarController release];
 	

@@ -90,8 +90,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
+	
 	_delegate				= nil;
 	self.itemManager		= nil;
 	self.messageCellText	= nil;

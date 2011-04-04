@@ -803,6 +803,7 @@
 // The usual memory cleanup
 //
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	if(_place) {
 		_place.largePreviewImage = nil;
