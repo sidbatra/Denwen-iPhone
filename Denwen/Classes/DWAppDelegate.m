@@ -29,6 +29,8 @@
 
 @implementation DWAppDelegate
 
+@synthesize placesTabButton = _placesTabButton;
+@synthesize feedTabButton = _feedTabButton;
 @synthesize window,signupToolbar;
 
 
@@ -177,8 +179,58 @@
 		[self displaySignedOutState];
 	else
 		[self displaySignedInState];
+	
+	
+	/*self.placesTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[self.placesTabButton setFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth/2,49)];
+	[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateNormal];
+	[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateHighlighted];
+	[self.placesTabButton addTarget:self action:@selector(didTapPlacesButton:event:) forControlEvents:UIControlEventTouchUpInside];
+	[tabBarController.tabBar addSubview:self.placesTabButton];
+	
+	self.feedTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[self.feedTabButton setFrame:CGRectMake(kSegmentedPlacesViewWidth/2,0,kSegmentedPlacesViewWidth/2,49)];
+	[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateNormal];
+	[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateHighlighted];
+	[self.feedTabButton addTarget:self action:@selector(didTapFeedButton:event:) forControlEvents:UIControlEventTouchUpInside];
+	[tabBarController.tabBar addSubview:self.feedTabButton];
+	 */
 }
 
+/*
+- (void)didTapPlacesButton:(id)sender event:(id)event {
+	NSLog(@"Selected index - %d",tabBarController.selectedIndex);
+	
+	if(tabBarController.selectedIndex == 0) {
+		NSLog(@"popping");
+		[(UINavigationController*)tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
+	}
+	else {
+		tabBarController.selectedIndex = 0;
+		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateNormal];
+		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateHighlighted];
+		
+		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateNormal];
+		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateHighlighted];
+	}
+}
+
+- (void)didTapFeedButton:(id)sender event:(id)event {
+	
+	if(tabBarController.selectedIndex == 1) {
+		[(UINavigationController*)tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
+	}
+	else {
+		tabBarController.selectedIndex = 1;
+		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_off.png"] forState:UIControlStateNormal];
+		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_off.png"] forState:UIControlStateHighlighted];
+		
+		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_on.png"] forState:UIControlStateNormal];
+		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_on.png"] forState:UIControlStateHighlighted];
+	}
+
+}
+*/
 
 // Changes the UI to display a signed in state
 //
@@ -390,6 +442,9 @@
 	
 	[signupToolbar release];
     [window release];
+	
+	self.placesTabButton	= nil;
+	self.feedTabButton		= nil;
 	
     [super dealloc];
 }

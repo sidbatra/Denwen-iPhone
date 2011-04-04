@@ -11,18 +11,22 @@
 
 
 @interface DWAppDelegate : NSObject <UIApplicationDelegate,UINavigationBarDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate> {
-    UIWindow *window;
-	UIToolbar *signupToolbar;
+    UIWindow			*window;
+	UIToolbar			*signupToolbar;
 	
-	UITabBarController *tabBarController;
+	UITabBarController	*tabBarController;
+	UIButton			*_placesTabButton;
+	UIButton			*_feedTabButton;
 	
-	CLLocationManager *_locationManager;
+	CLLocationManager	*_locationManager;
 	
-	BOOL _isVisitRecorded;
+	BOOL				_isVisitRecorded;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UIToolbar *signupToolbar;
+@property (nonatomic, retain) UIButton *placesTabButton;
+@property (nonatomic, retain) UIButton *feedTabButton;
 
 - (IBAction)loginButtonClicked:(id)sender;
 - (IBAction)signupButtonClicked:(id)sender;
