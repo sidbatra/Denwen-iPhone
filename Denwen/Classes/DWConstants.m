@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -72,6 +72,7 @@ NSString* const kKeyCreatedAt			= @"created_at_timestamp";
 NSString* const kKeyCondensedData		= @"condensed_data";
 NSString* const kKeyAttachment			= @"attachment";
 NSString* const kKeyURLs				= @"urls";
+NSString* const kKeyFollowing			= @"following";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -98,6 +99,7 @@ NSString* const kNUserLoaded				= @"NUserLoaded";
 NSString* const kNUserError					= @"NUserError";
 NSString* const kNUserUpdated				= @"NUserUpdated";
 NSString* const kNUserUpdateError			= @"NUserUpdateError";
+NSString* const kNUserLogsIn				= @"NUserLogsIn";
 NSString* const kNFollowedItemsLoaded		= @"NFollowedItemsLoaded";
 NSString* const kNFollowedItemsError		= @"NFollowedItemsError";
 NSString* const kNNewItemCreated			= @"NNewItemCreated";
@@ -208,6 +210,8 @@ NSInteger const kAttachmentYPadding				= 10;
 NSInteger const kURLTagMultipler				= 100;
 NSInteger const kPaginationCellHeight			= 60;
 NSInteger const kUserViewCellHeight				= 126;
+NSInteger const kPlaceViewCellHeight			= 177;
+
 
 
 
@@ -282,7 +286,6 @@ NSString * const USER_PROFILE_CREATE_PLACE_IMAGE_NAME = @"create_place_user_prof
 NSString * const USER_PROFILE_CREATE_PLACE_HIGHLIGHTED_IMAGE_NAME = @"create_place_user_profile_on.png";
 
 NSString * const USER_PROFILE_BG_TEXTURE = @"user_profile_bg.png";
-NSString * const PLACE_VIEW_FADE_IMAGE_NAME = @"refreshfade.png";
 NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME = @"trans40.png";
 NSString * const TRANSPARENT_BUTTON_BG_IMAGE_NAME = @"trans27.png";
 NSString * const FOLLOW_BUTTON_BG_IMAGE_NAME = @"button_bg.png";
@@ -315,7 +318,6 @@ int const FEED_TABLE_HEIGHT = 416;
 int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH = 304;
 int const USER_LABEL_PADDING = 5;
 int const USER_NAME_PADDING = 5;
-int const FOLLOW_PLACE_CELL_HEIGHT = 177;//141;
 int const FOLLOW_CURRENT_USER_CELL_HEIGHT = 177;//141;//192;
 int const SPINNER_HEIGHT = 20;
 int const VIDEO_VIEW_SPINNER_SIDE = 25;
@@ -388,7 +390,6 @@ NSString * const N_LOCATION_CHANGED = @"LocationChanged";
 NSString * const N_FOLLOWED_ITEMS_READ = @"FollowedItemsRead";
 NSString * const N_FACEBOOK_URL_OPENED = @"FacebookURLOpened";
 NSString * const N_DENWEN_URL_OPENED = @"DenwenURLOpened";
-NSString * const N_USER_LOGS_IN = @"UserLogsIn";
 NSString * const N_USER_LOGS_OUT = @"UserLogsOut";
 NSString * const N_NEW_ITEM_CREATED = @"NewItemCreated";
 

@@ -5,6 +5,7 @@
 
 #import "DWNearbyPlacesViewController.h"
 #import "DWRequestsManager.h"
+#import "DWSession.h"
 #import "DWConstants.h"
 
 static NSInteger const kCapacity			= 1;

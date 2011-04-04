@@ -62,6 +62,7 @@ extern NSString* const kKeyCreatedAt;
 extern NSString* const kKeyCondensedData;
 extern NSString* const kKeyAttachment;
 extern NSString* const kKeyURLs;
+extern NSString* const kKeyFollowing;
 
 /**
  * Notification names
@@ -89,6 +90,7 @@ extern NSString* const kNUserLoaded;
 extern NSString* const kNUserError;
 extern NSString* const kNUserUpdated;
 extern NSString* const kNUserUpdateError;
+extern NSString* const kNUserLogsIn;
 extern NSString* const kNFollowedItemsLoaded;
 extern NSString* const kNFollowedItemsError;
 extern NSString* const kNNewItemCreated;
@@ -211,7 +213,7 @@ extern NSInteger const kAttachmentYPadding;
 extern NSInteger const kURLTagMultipler;
 extern NSInteger const kPaginationCellHeight;
 extern NSInteger const kUserViewCellHeight;
-
+extern NSInteger const kPlaceViewCellHeight;
 
 
 
@@ -260,7 +262,6 @@ extern NSString * const USER_PROFILE_CREATE_PLACE_HIGHLIGHTED_IMAGE_NAME;
 extern NSString * const NEW_POST_TEXTVIEW_PLACEHOLDER_TEXT;
 
 extern NSString * const USER_PROFILE_BG_TEXTURE;
-extern NSString * const PLACE_VIEW_FADE_IMAGE_NAME;
 extern NSString * const TRANSPARENT_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const TRANSPARENT_BUTTON_BG_IMAGE_NAME;
 extern NSString * const FOLLOW_BUTTON_BG_IMAGE_NAME;
@@ -284,7 +285,6 @@ extern int const FEED_TABLE_HEIGHT;
 extern int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH;
 extern int const USER_LABEL_PADDING;
 extern int const USER_NAME_PADDING;
-extern int const FOLLOW_PLACE_CELL_HEIGHT;
 extern int const FOLLOW_CURRENT_USER_CELL_HEIGHT;
 extern int const SPINNER_HEIGHT;
 extern int const VIDEO_VIEW_SPINNER_SIDE;
@@ -345,7 +345,6 @@ extern NSString * const N_LOCATION_CHANGED;
 extern NSString * const N_FOLLOWED_ITEMS_READ;
 extern NSString * const N_FACEBOOK_URL_OPENED;
 extern NSString * const N_DENWEN_URL_OPENED;
-extern NSString * const N_USER_LOGS_IN;
 extern NSString * const N_USER_LOGS_OUT;
 extern NSString * const N_NEW_ITEM_CREATED;
 

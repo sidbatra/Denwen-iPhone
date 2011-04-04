@@ -37,7 +37,9 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 @synthesize mbProgressIndicator	= _mbProgressIndicator;
 
 //----------------------------------------------------------------------------------------------------
-- (id)initWithUser:(DWUser*)theUser andDelegate:(id)delegate {
+- (id)initWithUser:(DWUser*)theUser 
+	   andDelegate:(id)delegate {
+	
 	self = [super initWithDelegate:delegate];
 	
 	if (self) {
@@ -91,6 +93,11 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:kGenericBackButtonTitle
+																			  style:UIBarButtonItemStyleBordered
+																			 target:nil
+																			 action:nil] autorelease];
 	
 	self.mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.navigationController.view] autorelease];
 	[self.navigationController.view addSubview:self.mbProgressIndicator];

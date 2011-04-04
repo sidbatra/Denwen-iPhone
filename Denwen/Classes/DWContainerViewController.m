@@ -62,7 +62,8 @@
 // Push a placeViewController onto the nav stack 
 //
 -(void)displaySelectedPlace:(DWPlace*)place {
-	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlace:place withNewItemPrompt:NO andDelegate:self];
+	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlace:place 
+																		andDelegate:self];
 	[self.navigationController pushViewController:placeView animated:YES];
 	[placeView release];
 }

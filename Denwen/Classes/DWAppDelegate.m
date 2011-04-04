@@ -45,7 +45,7 @@
 		
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(userLogsIn:) 
-												 name:N_USER_LOGS_IN
+												 name:kNUserLogsIn
 											   object:nil];
 	
 	

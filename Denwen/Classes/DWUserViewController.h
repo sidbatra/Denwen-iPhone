@@ -33,6 +33,7 @@
  * Init with user whose view is being displayed and delegate
  * to receive item feed view delegate events - see DWItemFeedViewController
  */
-- (id)initWithUser:(DWUser*)theUser andDelegate:(id)delegate;
+- (id)initWithUser:(DWUser*)theUser 
+	   andDelegate:(id)delegate;
 
 @end

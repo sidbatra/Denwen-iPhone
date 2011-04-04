@@ -171,7 +171,7 @@
 		[[DWSession sharedDWSession] create:user];
 		
 		[_delegate loginSuccessful];
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_USER_LOGS_IN object:user];
+		[[NSNotificationCenter defaultCenter] postNotificationName:kNUserLogsIn object:user];
 	}
 	else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 

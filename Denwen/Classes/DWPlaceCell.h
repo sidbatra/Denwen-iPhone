@@ -16,7 +16,6 @@
 	NSInteger _rowInTable;	
 	
 	UILabel *placeName;
-	UIButton *editPlaceImage;
 	UIButton *followButton;
 	UIButton *unfollowButton;
 	UIButton *shareButton;
@@ -37,8 +36,5 @@
 
 - (void)displayFollowingState;
 - (void)displayUnfollowingState;
-
-- (void)displaySignedInState:(BOOL)hasPhoto;
-- (void)displaySignedOutState;
 
 @end

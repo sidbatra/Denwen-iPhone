@@ -1,46 +1,51 @@
 //
 //  DWPlaceViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 #import "DWItemFeedViewController.h"
-#import "DWNewItemViewController.h"
-#import "DWImageViewController.h"
 #import "DWPlace.h"
 #import "DWFollowing.h"
-#import "DWRequestsManager.h"
-#import "DWPlaceCell.h"
+
 #import "MBProgressHUD.h"
-#import "DWItemFeedCell.h"
-#import "DWPlaceDetailsViewController.h"
-#import "DWShareViewController.h"
-#import "DWSession.h"
 
+/**
+ * Place view with place info and all the items posted at
+ * this place
+ */
+@interface DWPlaceViewController : DWItemFeedViewController<UIActionSheetDelegate> {
+	DWPlace			*_place;
+	DWFollowing		*_following;
 
-@interface DWPlaceViewController : DWItemFeedViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
-	DWPlace *_origPlace;
-	DWPlace *_place;
-	DWFollowing *_following;
-
-	MBProgressHUD *mbProgressIndicator;
+	MBProgressHUD		*_mbProgressIndicator;
 	
-	BOOL _newItemPrompt;
-	BOOL _isViewLoaded;
-	BOOL _isReadyForCreateItem;
-	NSInteger _uploadID;
-	
-	NSDictionary *_placeJSON;
+	NSInteger			_uploadID;
 }
 
-@property (retain) DWFollowing *following;
-@property (retain) NSDictionary *placeJSON;
+/**
+ * The place obejct whose items and details are being displayed
+ */
+@property (nonatomic,retain) DWPlace *place;
 
--(id)initWithPlace:(DWPlace*)place withNewItemPrompt:(BOOL)newItemPrompt andDelegate:(id)delegate;
+/**
+ * Following object representing the follower relationship between
+ * the current user and the place being viwed
+ */
+@property (nonatomic,retain) DWFollowing *following;
+
+/**
+ * Subview for displaying progress
+ */
+@property (nonatomic,retain) MBProgressHUD *mbProgressIndicator;
+
+/**
+ * Init with place and item feed delegate to receive navigation
+ * events
+ */
+-(id)initWithPlace:(DWPlace*)thePlace 
+	   andDelegate:(id)delegate;
 
 
 @end

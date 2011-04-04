@@ -23,7 +23,7 @@
 	if (self) {
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(newItemParsed::) 
+												 selector:@selector(newItemParsed:) 
 													 name:kNNewItemParsed 
 												   object:nil];
 		

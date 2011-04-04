@@ -13,7 +13,6 @@
 - (void) createPlaceBackgroundImage;
 - (void) createPlaceBackgroundImageFilter;
 - (void) createPlaceName;
-- (void) createEditPlaceImage;
 - (void) createFollowButton;
 - (void) createUnfollowButton;
 - (void) createShareButton;
@@ -54,7 +53,7 @@
 // Creates an Imageview which is used to display the place Background Image
 //
 - (void) createPlaceBackgroundImage; {
-	CGRect rect = CGRectMake(0,0,self.contentView.frame.size.width,FOLLOW_PLACE_CELL_HEIGHT); 
+	CGRect rect = CGRectMake(0,0,self.contentView.frame.size.width,kPlaceViewCellHeight); 
 	placeBackgroundImage = [[UIImageView alloc] initWithFrame:rect];
 	placeBackgroundImage.contentMode = UIViewContentModeScaleAspectFill;
 	placeBackgroundImage.clipsToBounds = YES;
@@ -66,7 +65,7 @@
 // Creates an Imageview which is used to display the place Background Image Filter
 //
 - (void) createPlaceBackgroundImageFilter {
- 	CGRect rect = CGRectMake(0, 0,self.contentView.frame.size.width,FOLLOW_PLACE_CELL_HEIGHT);
+ 	CGRect rect = CGRectMake(0, 0,self.contentView.frame.size.width,kPlaceViewCellHeight);
 	placeBackgroundImageFilter = [[UIImageView alloc] initWithFrame:rect];
 	placeBackgroundImageFilter.image = [UIImage imageNamed:TRANSPARENT_PLACEHOLDER_IMAGE_NAME];
 	[self.contentView addSubview:placeBackgroundImageFilter];
@@ -92,20 +91,7 @@
 }
 
 
-// Creates a button which is used to edit the place photo
-//
-- (void) createEditPlaceImage {
-	CGRect rect = CGRectMake(0, 25, 50, 75); 
-	editPlaceImage = [[UIButton alloc] initWithFrame:rect];
-	[editPlaceImage setBackgroundImage:[UIImage imageNamed:CHANGE_PLACE_PIC_IMAGE_NAME] forState:UIControlStateNormal];
-	editPlaceImage.tag = _rowInTable;
-	
-	[editPlaceImage addTarget:_eventTarget action:@selector(didTapPlaceMediumImage:event:) 
-		 forControlEvents:UIControlEventTouchUpInside];
-	
-	[self.contentView addSubview:editPlaceImage];	
-	[editPlaceImage release];
-}
+
 
 
 // Creates an imageview which is used to display the change place image in the place info cell
@@ -238,7 +224,6 @@
 	[self createPlaceBackgroundImage];
 	[self createPlaceBackgroundImageFilter];
 	[self createPlaceName];
-	[self createEditPlaceImage];
 	[self createUnfollowButton];
 	[self createFollowButton];
 	[self createShareButton];
@@ -268,25 +253,6 @@
 	unfollowButton.hidden = YES;
 	shareButton.hidden = NO;
 	followButton.hidden = NO;
-}
-
-// Displays the signed in state of the cell
-//
-- (void)displaySignedInState:(BOOL)hasPhoto {
-	//if(hasPhoto)
-	//	changePlaceImage.hidden = NO;
-	
-	editPlaceImage.hidden = NO;
-}
-
-
-// Displays the signed out state of the cell
-//
-- (void)displaySignedOutState {
-	//changePlaceImage.hidden = YES;
-	
-	editPlaceImage.hidden = YES;
-	
 }
 
 
