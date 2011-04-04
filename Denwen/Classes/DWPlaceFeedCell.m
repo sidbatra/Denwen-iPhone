@@ -18,7 +18,7 @@
 	
     if (self) {
         self.opaque				= YES;
-		self.backgroundColor	= [UIColor redColor];
+		self.backgroundColor	= [UIColor whiteColor];
     }
     
     return self;
@@ -61,7 +61,7 @@
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
 	
-	_highlighted ? [[UIColor whiteColor] set] : NO;
+	//_highlighted ? [[UIColor whiteColor] set] : NO;
 		
 	[self.placeName drawInRect:CGRectMake(64, 7, 230, 22) 
 					  withFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]
@@ -69,7 +69,8 @@
 					 alignment:UITextAlignmentLeft];
 	
 	
-	_highlighted ? [[UIColor whiteColor] set] : [[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
+	//_highlighted ? [[UIColor whiteColor] set] : [[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
+	[[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
 	
 	[self.placeDetails drawInRect:CGRectMake(64, 31, 230, 16) 
 						 withFont:[UIFont fontWithName:@"Helvetica" size:13] 
@@ -109,14 +110,36 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)reset {
+	_highlighted = NO;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)redisplay {
 	[self setNeedsDisplay];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)setHighlighted:(BOOL)highlighted {
-    _highlighted = highlighted;
-    [self setNeedsDisplay];
+	_highlighted = highlighted;
+	[self redisplay];
+	
+	/*if(!_highlighted) {
+		_highlighted = highlighted;
+		[self redisplay];
+	}
+	else {
+		[self performSelector:@selector(removeHighlight:) 
+				   withObject:nil
+				   afterDelay:5.0];
+	}
+	 */
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)removeHighlight:(id)sender {
+	_highlighted = NO;
+	[self redisplay];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -161,6 +184,11 @@
 	self.placeFeedView = nil;
 	
     [super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)reset {
+	[self.placeFeedView reset];
 }
 
 //----------------------------------------------------------------------------------------------------

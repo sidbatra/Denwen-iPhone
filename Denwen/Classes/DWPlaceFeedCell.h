@@ -41,6 +41,11 @@
 @property (nonatomic,retain) UIImage* placeImage;
 
 /**
+ * Reset any variables that may not be refreshed - eg : _highlight
+ */
+- (void)reset;
+
+/**
  * Set the view to redraw when visible content has
  * been modified
  */
@@ -60,6 +65,12 @@
  * Primary view for drawing content
  */
 @property (nonatomic,retain) DWPlaceFeedView *placeFeedView;
+
+
+/**
+ * Reset any variables that may not be refreshed 
+ */
+- (void)reset;
 
 /**
  * Set the place name

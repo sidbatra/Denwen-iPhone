@@ -388,7 +388,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 			cell = [[[DWPlaceFeedCell alloc] initWithStyle:UITableViewCellStyleDefault 
 										   reuseIdentifier:kPlaceFeedCellIdentifier] autorelease];
 		
-		
+		[cell reset];
 		[cell setPlaceName:place.name];
 		[cell setPlaceDetails:[place displayAddress]];
 		

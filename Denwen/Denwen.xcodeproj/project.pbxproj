@@ -1022,8 +1022,6 @@
 				BB17BAE412EA3A3F00DD42FC /* DWLoginViewController.m */,
 				BBD1EAD212EC1218003C1BC7 /* DWSignupViewController.h */,
 				BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */,
-				BB33138712F26A1B00B713F9 /* DWImageViewController.h */,
-				BB33138812F26A1B00B713F9 /* DWImageViewController.m */,
 				26CF62D312F3E92200505A37 /* DWWebViewController.h */,
 				26CF62D412F3E92200505A37 /* DWWebViewController.m */,
 				BB537BD3132C55E50018B942 /* DWVideoViewController.h */,
@@ -1406,6 +1404,8 @@
 		BBD0C2E01346C3A000BCFB96 /* Deprecated */ = {
 			isa = PBXGroup;
 			children = (
+				BB33138712F26A1B00B713F9 /* DWImageViewController.h */,
+				BB33138812F26A1B00B713F9 /* DWImageViewController.m */,
 				BBE326EC12EE83B000657024 /* DWNewItemViewController.h */,
 				BBE326ED12EE83B000657024 /* DWNewItemViewController.m */,
 				BBE327E812EEAD8300657024 /* DWNewPlaceViewController.h */,
