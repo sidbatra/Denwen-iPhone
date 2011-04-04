@@ -87,7 +87,7 @@
 	[self.view addSubview:mbProgressIndicator];
 	[mbProgressIndicator release];
 	
-	textView.text = [NSString stringWithFormat:@"This is %@ ",_place.name];
+	textView.text = [NSString stringWithFormat:@"This is %@ in %@ ",_place.name,[_place displayAddress]];
 	hashedLink.text = [NSString stringWithFormat:@"http://denwen.com/p/%@",_place.hashedID];
 	
 	[textView becomeFirstResponder];
