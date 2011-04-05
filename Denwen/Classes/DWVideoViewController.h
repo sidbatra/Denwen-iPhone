@@ -1,23 +1,27 @@
 //
 //  DWVideoViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 3/12/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-#import "DWGUIManager.h"
-#import "DWConstants.h"
-
-
-
+/**
+ * Customized version of MPMoviePlayerViewController with a custom spinner
+ * to show loading progress
+ */
 @interface DWVideoViewController : MPMoviePlayerViewController {
-
+	UIActivityIndicatorView		*_spinner;
 }
 
+/**
+ * Spinner to show progress while the move is loading
+ */
+@property (nonatomic,retain) UIActivityIndicatorView *spinner;
+
+/**
+ * Init with URL of the video
+ */
 - (id)initWithMediaURL:(NSString*)theURL;
 
 

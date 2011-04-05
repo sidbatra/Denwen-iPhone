@@ -287,7 +287,6 @@ extern int const USER_LABEL_PADDING;
 extern int const USER_NAME_PADDING;
 extern int const FOLLOW_CURRENT_USER_CELL_HEIGHT;
 extern int const SPINNER_HEIGHT;
-extern int const VIDEO_VIEW_SPINNER_SIDE;
 
 
 extern int const SIZE_PLACE_SMALL_IMAGE;

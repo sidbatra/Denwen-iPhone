@@ -315,7 +315,6 @@ int const USER_LABEL_PADDING = 5;
 int const USER_NAME_PADDING = 5;
 int const FOLLOW_CURRENT_USER_CELL_HEIGHT = 177;//141;//192;
 int const SPINNER_HEIGHT = 20;
-int const VIDEO_VIEW_SPINNER_SIDE = 25;
 
 
 

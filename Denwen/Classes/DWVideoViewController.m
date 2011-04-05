@@ -1,140 +1,120 @@
     //
 //  DWVideoViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 3/12/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWVideoViewController.h"
+#import "DWGUIManager.h"
+#import "DWConstants.h"
+
+static NSInteger const kSpinnerSide		= 25;
 
 
-@interface DWVideoViewController() 
-	- (void)displaySpinner:(BOOL)withInit forOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
-@end
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWVideoViewController
 
+@synthesize spinner = _spinner;
 
-
-#pragma mark -
-#pragma mark View lifecycle
-
-
-// Init and setup the view
-//
+//----------------------------------------------------------------------------------------------------
 - (id)initWithMediaURL:(NSString*)theURL {
 	
-	NSURL *url = [[NSURL alloc] initWithString:theURL];
-	self = [super initWithContentURL:url];
-	[url release];
+	self = [super initWithContentURL:[NSURL URLWithString:theURL]];
     
 	if (self) {
-		[self.view setBackgroundColor:[UIColor blackColor]];
 		
-		[self displaySpinner:YES forOrientation:[DWGUIManager getCurrentOrientation]];
-		
-		//Listen for movie player notifications
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:) 
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(moviePlayerStateChanged:) 
 													 name:MPMoviePlayerLoadStateDidChangeNotification 
-												   object:[self moviePlayer]
-		 ];
+												   object:[self moviePlayer]];
 	}
     
 	return self;
 }
 
-
-// 
-//
-- (void)viewDidLoad {
-	self.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-	[self.moviePlayer play];
-}
-
-
-// Allow all orientations
-//
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return YES;
-}
-
-
-// Refits the image when the device is about to be rotated
-//
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-	[self displaySpinner:NO forOrientation:toInterfaceOrientation];
-}
-
-
-// Display the spinner in the middle of the screen 
-//
-- (void)displaySpinner:(BOOL)withInit forOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	UIActivityIndicatorView *spinner = nil;
-	CGSize screenSize = [DWGUIManager currentScreenSize:toInterfaceOrientation];
-	
-	//Add a spinner to the center of the movie player view
-	CGRect frame = CGRectMake((screenSize.width - VIDEO_VIEW_SPINNER_SIDE)/2,
-							  (screenSize.height - VIDEO_VIEW_SPINNER_SIDE)/2 ,
-							  VIDEO_VIEW_SPINNER_SIDE,VIDEO_VIEW_SPINNER_SIDE
-							  );
-	
-	if(withInit) {
-		spinner = [[UIActivityIndicatorView alloc] initWithFrame:frame];
-		spinner.tag = 3;
-		[spinner startAnimating];
-		[self.view addSubview:spinner];
-		[spinner release];
-	}
-	else {
-		spinner = (UIActivityIndicatorView*)[self.view viewWithTag:3];
-		spinner.frame = frame;
-	}
-	
-}
-
-
-
-#pragma mark -
-#pragma mark Movie player notifications
-
-// Receives notifications from the movie player. When the video has loaded
-// i.e. loadState is 1 the spinner stops animating
-//
-- (void)moviePlayBackDidFinish:(NSNotification*)notification {
-	if ([[self moviePlayer] loadState] == 1) {
-		UIActivityIndicatorView *spinner = (UIActivityIndicatorView*)[self.view viewWithTag:3];
-		[spinner stopAnimating];
-	}
-}
-
-
-
-#pragma mark -
-#pragma mark Memory Management
-
-
-// The usual memory warning
-//
+//----------------------------------------------------------------------------------------------------
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	self.spinner = nil;
+	
+    [super dealloc];
+}
 
-// The usual view did unload
-//
+//----------------------------------------------------------------------------------------------------
+- (void)displaySpinnerAtOrientation:(UIInterfaceOrientation)orientation {
+	
+	CGSize screenSize = [DWGUIManager currentScreenSize:orientation];
+	
+	/**
+	 * Add spinner to center of movie player
+	 */
+	CGRect frame = CGRectMake((screenSize.width - kSpinnerSide)/2,
+							  (screenSize.height - kSpinnerSide)/2 ,
+							  kSpinnerSide,
+							  kSpinnerSide
+							  );
+	
+	if(!self.spinner) {
+		self.spinner = [[[UIActivityIndicatorView alloc] initWithFrame:frame] autorelease];
+		[self.spinner startAnimating];
+		[self.view addSubview:self.spinner];
+	}
+	else {
+		self.spinner.frame = frame;
+	}
+	
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidLoad {
+	self.view.backgroundColor = [UIColor blackColor];
+	
+	[self displaySpinnerAtOrientation:[DWGUIManager getCurrentOrientation]];
+	
+	self.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+	[self.moviePlayer play];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	return YES;
+}
 
-// The usual dealloc
-//
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+//----------------------------------------------------------------------------------------------------
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+								duration:(NSTimeInterval)duration {
 	
-    [super dealloc];
+	[self displaySpinnerAtOrientation:toInterfaceOrientation];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
+//----------------------------------------------------------------------------------------------------
+- (void)moviePlayerStateChanged:(NSNotification*)notification {
+	/**
+	 * Receives notifications from the movie player. When the video has loaded
+	 * i.e. loadState is 1 the spinner stops animating
+	 */
+	if ([[self moviePlayer] loadState] == 1) {
+		[self.spinner stopAnimating];
+	}
 }
 
 
