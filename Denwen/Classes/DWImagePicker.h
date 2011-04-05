@@ -3,8 +3,8 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //
 
-
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 @protocol DWImagePickerDelegate;
 

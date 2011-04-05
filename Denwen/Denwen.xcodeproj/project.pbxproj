@@ -225,7 +225,6 @@
 		BBA03B6D132DB56B0073105B /* refreshfade.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6B132DB56B0073105B /* refreshfade.png */; };
 		BBA03B6E132DB56B0073105B /* refreshfade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6C132DB56B0073105B /* refreshfade@2x.png */; };
 		BBA03C18132DBD970073105B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA03C17132DBD970073105B /* AVFoundation.framework */; };
-		BBA03C54132DC5EE0073105B /* DWVideoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA03C53132DC5EE0073105B /* DWVideoHelper.m */; };
 		BBA03C95132DD6990073105B /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03C93132DD6990073105B /* play.png */; };
 		BBA03C96132DD6990073105B /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03C94132DD6990073105B /* play@2x.png */; };
 		BBB519F412F9FAC10024086F /* DWPoolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB519F312F9FAC10024086F /* DWPoolObject.m */; };
@@ -606,8 +605,6 @@
 		BBA03B6B132DB56B0073105B /* refreshfade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refreshfade.png; path = resources/refreshfade.png; sourceTree = "<group>"; };
 		BBA03B6C132DB56B0073105B /* refreshfade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refreshfade@2x.png"; path = "resources/refreshfade@2x.png"; sourceTree = "<group>"; };
 		BBA03C17132DBD970073105B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		BBA03C52132DC5EE0073105B /* DWVideoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWVideoHelper.h; path = Classes/DWVideoHelper.h; sourceTree = "<group>"; };
-		BBA03C53132DC5EE0073105B /* DWVideoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWVideoHelper.m; path = Classes/DWVideoHelper.m; sourceTree = "<group>"; };
 		BBA03C93132DD6990073105B /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = resources/play.png; sourceTree = "<group>"; };
 		BBA03C94132DD6990073105B /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play@2x.png"; path = "resources/play@2x.png"; sourceTree = "<group>"; };
 		BBB519F212F9FAC10024086F /* DWPoolObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPoolObject.h; path = Classes/DWPoolObject.h; sourceTree = "<group>"; };
@@ -1101,8 +1098,6 @@
 				BBD0C3711346E2D700BCFB96 /* DWNotificationsHelper.m */,
 				BB3CCBC312F936E200ADFCD7 /* DWMemoryPool.h */,
 				BB3CCBC412F936E200ADFCD7 /* DWMemoryPool.m */,
-				BBA03C52132DC5EE0073105B /* DWVideoHelper.h */,
-				BBA03C53132DC5EE0073105B /* DWVideoHelper.m */,
 			);
 			name = Singletons;
 			sourceTree = "<group>";
@@ -1706,7 +1701,6 @@
 				BB40089413123696000BDE4D /* FBRequest.m in Sources */,
 				BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */,
 				BB537BD5132C55E50018B942 /* DWVideoViewController.m in Sources */,
-				BBA03C54132DC5EE0073105B /* DWVideoHelper.m in Sources */,
 				BB3BE0B5133A9D940055FED0 /* DWRequestsManager.m in Sources */,
 				BB3BE173133AB49A0055FED0 /* DWDenwenRequest.m in Sources */,
 				BB3BE1CE133AB65F0055FED0 /* ASIAuthenticationDialog.m in Sources */,

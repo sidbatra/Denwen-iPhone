@@ -15,7 +15,6 @@
 #import "NSString+Helpers.h"
 #import "DWMemoryPool.h"
 #import "UIImage+ImageProcessing.h"
-#import "DWVideoHelper.h"
 #import "KTTextView.h"
 #import "DWImagePicker.h"
 
