@@ -76,6 +76,11 @@
 		   ofPlaceWithID:(NSInteger)placeID;
 
 /**
+ * Create a new touch interaction
+ */
+- (void)createTouch:(NSInteger)itemID;
+
+/**
  * User profile with page representing items pagination
  */
 - (void)getUserWithID:(NSInteger)userID

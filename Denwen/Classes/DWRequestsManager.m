@@ -28,6 +28,7 @@ static NSString* const kNewPlaceURI				= @"/places.json?place[name]=%@&place[lat
 static NSString* const kVisitsURI				= @"/visits.json?lat=%f&lon=%f";
 static NSString* const kFollowingsURI			= @"/followings.json?place_id=%d";
 static NSString* const kFollowingsDestroyURI	= @"/followings/%d.json?ignore=1";
+static NSString* const kTouchesURI				= @"/touches.json?item_id=%d";
 static NSString* const kUserURI					= @"/users/%d.json?page=%d";
 static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
 static NSString* const kUserUpdateTwitterURI	= @"/users/%d.json?twitter_data=%@";
@@ -258,6 +259,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 			errorNotification:kNFollowingDestroyError
 				requestMethod:kDelete
 				   resourceID:placeID];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)createTouch:(NSInteger)itemID {
+	NSString *localRequestURL = [NSString stringWithFormat:kTouchesURI,
+								 itemID];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:nil
+			errorNotification:nil
+				requestMethod:kPost
+				   resourceID:itemID];
 }
 
 //----------------------------------------------------------------------------------------------------
