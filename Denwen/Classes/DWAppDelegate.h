@@ -18,8 +18,6 @@
 	UIButton			*_feedTabButton;
 	
 	CLLocationManager	*_locationManager;
-	
-	BOOL				_isVisitRecorded;
 }
 
 /**

@@ -181,7 +181,6 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 
 //----------------------------------------------------------------------------------------------------
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-	[[DWRequestsManager sharedDWRequestsManager] createVisit];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -254,8 +253,6 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 		
 	//if(![[UIApplication sharedApplication] enabledRemoteNotificationTypes])
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
-	
-	[[DWRequestsManager sharedDWRequestsManager] createVisit];
 }	
 
 
@@ -341,7 +338,7 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Location related methods
+#pragma mark CLLocationManagerDelegate
 
 
 //----------------------------------------------------------------------------------------------------
@@ -350,11 +347,6 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
            fromLocation:(CLLocation *)oldLocation {
 	
 	[DWSession sharedDWSession].location = newLocation;
-	
-	if(!_isVisitRecorded) {
-		_isVisitRecorded = YES;
-		[[DWRequestsManager sharedDWRequestsManager] createVisit];
-	}
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNNewLocationAvailable 
 														object:nil];

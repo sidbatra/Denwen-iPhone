@@ -4,6 +4,9 @@
 //
 
 #import "DWSession.h"
+#import "DWRequestsManager.h"
+#import "DWConstants.h"
+
 #import "SynthesizeSingleton.h"
 
 
@@ -24,9 +27,34 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	
 	if(self) {
 		[self read];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(newLocationAvailable:) 
+													 name:kNNewLocationAvailable 
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userLogsIn:) 
+													 name:kNUserLogsIn
+												   object:nil];
+		
+		if (&UIApplicationWillEnterForegroundNotification != NULL) {
+			[[NSNotificationCenter defaultCenter] addObserver:self 
+													 selector:@selector(applicationEnteringForeground:) 
+														 name:UIApplicationWillEnterForegroundNotification
+													   object:nil];
+		}
+		
 	}
 	
 	return self;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	[super dealloc];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -35,7 +63,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	
 	if([user readFromDisk]) {
 		self.currentUser = user;
-		//[self.currentUser print];
 	}
 	else {
 		[user release];
@@ -64,5 +91,37 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 - (BOOL)doesCurrentUserHaveID:(NSInteger)userID {
 	return [self isActive] && self.currentUser.databaseID == userID;
 }
+
+//----------------------------------------------------------------------------------------------------
+- (void)createVisit {
+	[[DWRequestsManager sharedDWRequestsManager] createVisit];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
+//----------------------------------------------------------------------------------------------------
+- (void)newLocationAvailable:(NSNotification*)notification {
+	
+	if(!_firstVisitRecorded && [self isActive]) {
+		[self createVisit];
+		_firstVisitRecorded = YES;
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)userLogsIn:(NSNotification*)notification {
+	_firstVisitRecorded = YES;
+	[self createVisit];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)applicationEnteringForeground:(NSNotification*)notification {
+	[self createVisit];
+}
+
 
 @end

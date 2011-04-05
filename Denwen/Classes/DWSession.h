@@ -14,6 +14,7 @@
 @interface DWSession : NSObject {
 	DWUser			*_currentUser;
 	CLLocation		*_location;
+	BOOL			_firstVisitRecorded;
 }
 
 /**
