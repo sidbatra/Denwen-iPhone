@@ -31,8 +31,6 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	self = [super init];
 	
 	if (self) {
-		self.title						= kTabTitle;
-		self.tabBarItem.image			= [UIImage imageNamed:kImgTab];
 		_currentSelectedSegmentIndex	= kSelectedIndex;
 	}
     
@@ -40,20 +38,21 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	[popularViewController	release];
+	[nearbyViewController	release];
+	
+    [super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
 			
-	CGRect segmentedViewFrame		= CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight);
-	UIView *segmentedView			= [[[UIView alloc] initWithFrame:segmentedViewFrame] autorelease];
-	segmentedView.backgroundColor	= [UIColor colorWithPatternImage:[UIImage imageNamed:kImgSegmentedViewBackground]];	
-	
-	[self.view addSubview:segmentedView];
-	
-	
 	/**
 	 * Create segmented control
 	 */
-	UISegmentedControl *segmentedControl = [[[UISegmentedControl alloc] initWithItems:nil] autorelease];
+	 segmentedControl = [[[UISegmentedControl alloc] initWithItems:nil] autorelease];
 	
 	if(_currentSelectedSegmentIndex == kPopularIndex) {
 		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:kImgSegmentedViewPopularOn] 
@@ -81,8 +80,10 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	[segmentedControl	addTarget:self 
 						   action:@selector(segmentedControllerSelectionChanged:)
 				 forControlEvents:UIControlEventValueChanged];
-	[segmentedView		addSubview:segmentedControl];
-	
+
+	[self.navigationController.navigationBar addSubview:segmentedControl];
+	self.navigationItem.titleView = nil;
+
 	
 	/**
 	 * Add sub views
@@ -108,11 +109,15 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)dealloc {
-	[popularViewController	release];
-	[nearbyViewController	release];
-	
-    [super dealloc];
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	segmentedControl.hidden = YES;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	segmentedControl.hidden = NO;
 }
 
 
@@ -122,31 +127,31 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 #pragma mark Private
 
 //----------------------------------------------------------------------------------------------------
-- (void)hidePreviouslySelectedView:(UISegmentedControl*)segmentedControl {
+- (void)hidePreviouslySelectedView:(UISegmentedControl*)theSegmentedControl {
 	if(_currentSelectedSegmentIndex == kPopularIndex) {
 		[popularViewController viewIsDeselected];
-		[segmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewPopularOff] 
-				 forSegmentAtIndex:_currentSelectedSegmentIndex];
+		[theSegmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewPopularOff] 
+					forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
 	else if(_currentSelectedSegmentIndex == kNearbyIndex) {
 		[nearbyViewController viewIsDeselected];
-		[segmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewNearbyOff] 
-				 forSegmentAtIndex:_currentSelectedSegmentIndex];
+		[theSegmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewNearbyOff] 
+					forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)loadSelectedView:(UISegmentedControl*)segmentedControl {	
+- (void)loadSelectedView:(UISegmentedControl*)theSegmentedControl {	
 	
 	if(_currentSelectedSegmentIndex == kPopularIndex) {
 		[popularViewController viewIsSelected];
-		[segmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewPopularOn] 
-				 forSegmentAtIndex:_currentSelectedSegmentIndex];
+		[theSegmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewPopularOn] 
+					forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
 	else if(_currentSelectedSegmentIndex == kNearbyIndex) {
 		[nearbyViewController viewIsSelected];
-		[segmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewNearbyOn] 
-				 forSegmentAtIndex:_currentSelectedSegmentIndex];
+		[theSegmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewNearbyOn] 
+					forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
 }
 

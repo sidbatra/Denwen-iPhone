@@ -4,6 +4,7 @@
 //
 
 #import "DWCreateViewController.h"
+#import "DWConstants.h"
 
 static NSString* const kTabTitle					= @"Create";
 static NSString* const kImgTab						= @"profile.png";
@@ -45,6 +46,19 @@ static NSString* const kImgTab						= @"profile.png";
 //----------------------------------------------------------------------------------------------------
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[[UIApplication sharedApplication] setStatusBarStyle:kStatusBarStyle];
 }
 
 //----------------------------------------------------------------------------------------------------

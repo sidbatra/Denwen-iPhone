@@ -38,8 +38,7 @@ static NSInteger const kPlacesIndex				= 0;
 	[super viewDidLoad];
 	
 	CGRect frame		= self.view.frame;
-	frame.origin.y		= kSegmentedPlacesViewHeight; 
-	frame.size.height	= frame.size.height - kSegmentedPlacesViewHeight;
+	frame.origin.y		= 0; 
 	self.view.frame		= frame;
 	
 		

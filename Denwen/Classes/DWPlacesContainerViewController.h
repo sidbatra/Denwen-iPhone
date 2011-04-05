@@ -16,8 +16,10 @@
  */
 @interface DWPlacesContainerViewController : DWContainerViewController {
 	
-	DWPopularPlacesViewController *popularViewController;
-	DWNearbyPlacesViewController *nearbyViewController;
+	DWPopularPlacesViewController	*popularViewController;
+	DWNearbyPlacesViewController	*nearbyViewController;
+	
+	UISegmentedControl				*segmentedControl;
 		
 	int _currentSelectedSegmentIndex;
 }
