@@ -232,7 +232,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		
 		DWPlaceCell *placeCell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
 		
-		[self updateFollowing:[[info objectForKey:kKeyBody] objectForKey:kKeyFollowing]];
+		[self updateFollowing:[info objectForKey:kKeyBody]];
 		[placeCell displayFollowingState];
 		[self.place updateFollowerCount:1];
 		
