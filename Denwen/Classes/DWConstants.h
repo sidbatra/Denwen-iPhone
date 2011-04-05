@@ -124,6 +124,8 @@ extern NSString* const kNNewApplicationBadge;
 extern NSString* const kNTabSelectionChanged;
 extern NSString* const kNNewLocationAvailable;
 extern NSString* const kNFacebookURLOpened;
+extern NSString* const kNDenwenURLOpened ;
+
 
 /**
  * Push notifcation types
@@ -335,13 +337,6 @@ extern NSString * const PAGINATION_CELL_MSG;
 extern NSString * const EMPTY_POST_MSG;
 extern NSString * const EMPTY_PLACENAME_MSG;
 extern NSString * const EMPTY_LOGIN_FIELDS_MSG;
-
-
-extern NSString * const BADGE_NOTIFICATION_LIVE;
-extern NSString * const BADGE_NOTIFICATION_BACKGROUND;
-
-extern NSString * const N_DENWEN_URL_OPENED;
-
 
 
 

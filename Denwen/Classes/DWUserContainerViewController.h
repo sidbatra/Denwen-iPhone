@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "DWContainerViewController.h"
+#import "DWUserViewController.h"
 
 
 #import "DWSession.h"

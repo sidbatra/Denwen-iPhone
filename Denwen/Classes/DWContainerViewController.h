@@ -1,9 +1,6 @@
 //
 //  DWContainerViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 3/8/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,18 +8,18 @@
 #import "DWItemFeedViewController.h"
 #import "DWPlaceListViewController.h"
 
-#import "DWUserViewController.h"
-#import "DWPlaceViewController.h"
-#import "DWImageViewController.h"
-#import "DWWebViewController.h"
-#import "DWVideoViewController.h"
-
-#import "NSString+Helpers.h"
-
+/**
+ * Base class for containers which form the root views for
+ * each of the tabs
+ */
 @interface DWContainerViewController : UIViewController <DWItemFeedViewControllerDelegate,DWPlaceListViewControllerDelegate> {
 	
 }
 
+/**
+ * Indicates if the container child is on the currently
+ * selected tab
+ */
 - (BOOL)isSelectedTab;
 
 

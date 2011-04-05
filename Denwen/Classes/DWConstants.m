@@ -132,7 +132,8 @@ NSString* const kNImgActualAttachmentError	= @"NImgActualAttachmentError";
 NSString* const kNNewApplicationBadge		= @"NNewApplicationBadge"; 
 NSString* const kNTabSelectionChanged		= @"NTabSelectionChanged";
 NSString* const kNNewLocationAvailable		= @"NNewLocationAvailable";
-NSString* const kNFacebookURLOpened			= @"FacebookURLOpened";
+NSString* const kNFacebookURLOpened			= @"NFacebookURLOpened";
+NSString* const kNDenwenURLOpened			= @"NDenwenURLOpened";
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kPNLive			= 0;
@@ -372,15 +373,6 @@ NSString * const EMPTY_POST_MSG = @"Post can't be empty";
 NSString * const EMPTY_PLACENAME_MSG = @"Place name can't be empty";
 NSString * const EMPTY_LOGIN_FIELDS_MSG = @"Please fill out all the required fields.";
 
-
-
-//Different badge notifications types
-NSString * const BADGE_NOTIFICATION_LIVE = @"b_live";
-NSString * const BADGE_NOTIFICATION_BACKGROUND = @"b_back";
-
-
-// Notification names
-NSString * const N_DENWEN_URL_OPENED = @"DenwenURLOpened";
 
 
 

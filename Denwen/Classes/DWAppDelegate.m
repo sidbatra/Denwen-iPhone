@@ -89,7 +89,7 @@
 															object:url];	
 	}
 	else {
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_DENWEN_URL_OPENED 
+		[[NSNotificationCenter defaultCenter] postNotificationName:kNDenwenURLOpened 
 															object:[url absoluteString]];	
 	}
 	

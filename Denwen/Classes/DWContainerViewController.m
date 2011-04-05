@@ -1,31 +1,24 @@
 //
 //  DWContainerViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 3/8/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWContainerViewController.h"
+#import "DWUserViewController.h"
+#import "DWPlaceViewController.h"
+#import "DWImageViewController.h"
+#import "DWWebViewController.h"
+#import "DWVideoViewController.h"
+#import "NSString+Helpers.h"
 
 
-@interface DWContainerViewController() 
-- (void)displaySelectedPlace:(DWPlace*)place;
-- (void)processLaunchURL:(NSString*)url;
-@end
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWContainerViewController
 
-
-
-
-#pragma mark -
-#pragma mark View lifecycle
-
-
-// Init the view along with its member variables 
-//
+//----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
@@ -33,17 +26,21 @@
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(denwenURLOpened:) 
-													 name:N_DENWEN_URL_OPENED
+													 name:kNDenwenURLOpened
 												   object:nil];
-		
 	}
     
 	return self;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+    [super dealloc];
+}
 
-// Test if a launchURL exists on viewDidLoad logic
-//
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	//if(launchURL) {
 	//	[self processLaunchURL:[launchURL absoluteString]];
@@ -51,16 +48,23 @@
 	//}
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
 
-// Tests if its the currently selected tab
-//
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+	if(![self isSelectedTab])
+		[super didReceiveMemoryWarning];   
+}
+
+//----------------------------------------------------------------------------------------------------
 - (BOOL)isSelectedTab {
 	return self.navigationController.tabBarController.selectedViewController == self.navigationController;
 }
 
-
-// Push a placeViewController onto the nav stack 
-//
+//----------------------------------------------------------------------------------------------------
 -(void)displaySelectedPlace:(DWPlace*)place {
 	DWPlaceViewController *placeView = [[DWPlaceViewController alloc] initWithPlace:place 
 																		andDelegate:self];
@@ -68,22 +72,19 @@
 	[placeView release];
 }
 
-
-// Dispatch logic when a URL is opened by the application
-//
+//----------------------------------------------------------------------------------------------------
 - (void)processLaunchURL:(NSString*)url {
 	//if([url hasPrefix:DENWEN_URL_PREFIX])
 	//	[self displaySelectedPlace:[url substringFromIndex:[DENWEN_URL_PREFIX length]]];
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Notification handlers
+#pragma mark Notifications
 
-
-// Refresh UI when user logs in
-//
+//----------------------------------------------------------------------------------------------------
 - (void)denwenURLOpened:(NSNotification*)notification {
 	if([self isSelectedTab]) {
 		NSString *url = (NSString*)[notification object];
@@ -92,20 +93,18 @@
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark ItemFeedViewControllerDelegate
 
 
-// Fired when a place is selected in an item cell within a child of the ItemFeedViewController
-//
+//----------------------------------------------------------------------------------------------------
 - (void)placeSelected:(DWPlace*)place {
 	[self displaySelectedPlace:place];
 }
 
-
-// Fired when a user is selected in an item cell within a child of the ItemFeedViewController
-//
+//----------------------------------------------------------------------------------------------------
 - (void)userSelected:(DWUser*)user {
 	DWUserViewController *userView = [[DWUserViewController alloc] initWithUser:user
 																	  andDelegate:self];
@@ -114,15 +113,15 @@
 	[userView release];
 }
 
-
-// Fired when an attachment is clicked on in an item cell within a child of the ItemFeedViewController
-//
+//----------------------------------------------------------------------------------------------------
 - (void)attachmentSelected:(NSString*)url withIsImageType:(BOOL)isImage {
 	
 	if(isImage) {
 		DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:url];
 		imageView.hidesBottomBarWhenPushed = YES;
-		[self.navigationController pushViewController:imageView animated:YES];
+		
+		[self.navigationController pushViewController:imageView 
+											 animated:YES];
 		[imageView release];
 	}
 	else {
@@ -131,12 +130,9 @@
 		[self presentMoviePlayerViewControllerAnimated:videoView];
 		[videoView release];
 	}
-
 }
 
-
-// Fired when a url is clicked on in an item cell within a child of the ItemFeedViewController
-//
+//----------------------------------------------------------------------------------------------------
 - (void)urlSelected:(NSString *)url {
 	DWWebViewController *webViewController = [[DWWebViewController alloc] initWithWebPageURL:url]; 
 	webViewController.hidesBottomBarWhenPushed = YES;
@@ -146,30 +142,5 @@
 	
 	[webViewController release];
 }
-
-
-//
-//
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
-
-// Launch a did receive memory warning if its not the currently selected tab
-//
-- (void)didReceiveMemoryWarning {
-	if(![self isSelectedTab])
-		[super didReceiveMemoryWarning];   
-}
-
-
-// The usual dealloc
-//
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-    [super dealloc];
-}
-
 
 @end
