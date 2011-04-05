@@ -6,7 +6,7 @@
 #import "DWAppDelegate.h"
 #import "ASIDownloadCache.h"
 #import "DWItemsContainerViewController.h"
-#import "DWUserContainerViewController.h"
+#import "DWCreateViewController.h"
 #import "DWPlacesContainerViewController.h"
 #import "DWLoginViewController.h"
 #import "DWSignupViewController.h"
@@ -17,6 +17,18 @@
 static NSString* const kFacebookURLPrefix			= @"fb";
 static NSInteger const kLocationRefreshDistance		= 750;
 static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, memory pool free memmory called";
+static NSInteger const kTabBarWidth					= 320;
+static NSInteger const kTabBarHeight				= 49;
+static NSInteger const kPlacesIndex					= 0;
+static NSInteger const kCreateIndex					= 1;
+static NSInteger const kFeedIndex					= 2;
+static NSString* const kImgPlacesOn					= @"popular_on.png";
+static NSString* const kImgPlacesOff				= @"popular_off.png";
+static NSString* const kImgCreateOn					= @"popular_on.png";
+static NSString* const kImgCreateOff				= @"popular_off.png";
+static NSString* const kImgFeedOn					= @"popular_on.png";
+static NSString* const kImgFeedOff					= @"popular_off.png";
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -28,129 +40,10 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 
 @synthesize tabBarController	= _tabBarController;
 @synthesize placesTabButton		= _placesTabButton;
+@synthesize createTabButton		= _createTabButton;
 @synthesize feedTabButton		= _feedTabButton;
 
 @synthesize locationManager		= _locationManager;
-
-//----------------------------------------------------------------------------------------------------
-- (void)displaySignedInState {
-	self.tabBarController.tabBar.hidden	= NO;
-	self.signupToolbar.hidden			= YES;
-	[self.window bringSubviewToFront:self.tabBarController.view];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)displaySignedOutState {
-	self.tabBarController.tabBar.hidden	= YES;
-	self.signupToolbar.hidden			= NO;
-	[self.window bringSubviewToFront:self.signupToolbar];	
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)createTabBarController {
-	/**
-	 * Increase height of the signupToolbar to fully cover the tabBarController
-	 */
-	[self.signupToolbar setFrame:CGRectMake(0, 431, 320, 49)];
-	
-	
-	DWItemsContainerViewController *itemsContainerViewController = [[DWItemsContainerViewController alloc] init];
-	UINavigationController *itemsNavController = [[UINavigationController alloc] initWithRootViewController:itemsContainerViewController];
-	[itemsContainerViewController release];
-	
-	
-	/*DWUserContainerViewController *userContainerViewController = [[DWUserContainerViewController alloc] init];
-	 UINavigationController *userNavController = [[UINavigationController alloc] initWithRootViewController:userContainerViewController];
-	 [userContainerViewController release];
-	 */															
-	
-	
-	DWPlacesContainerViewController *placesContainerViewController = [[DWPlacesContainerViewController alloc] init];
-	UINavigationController *placesNavController = [[UINavigationController alloc] initWithRootViewController:placesContainerViewController];
-	[placesContainerViewController release];
-	
-	
-	
-	NSMutableArray *localControllersArray = [[NSMutableArray alloc] initWithCapacity:3];
-	[localControllersArray addObject:placesNavController];
-	//[localControllersArray addObject:userNavController];
-	[localControllersArray addObject:itemsNavController];
-	
-	[itemsNavController release];
-	//[userNavController release];
-	[placesNavController release];
-	
-	
-	self.tabBarController					= [[UITabBarController alloc] init];
-	self.tabBarController.delegate			= self;
-	self.tabBarController.viewControllers	= localControllersArray;
-	[localControllersArray release];
-	
-	
-	[self.window addSubview:self.tabBarController.view];
-	[self.window makeKeyAndVisible];
-	
-	
-	self.locationManager					= [[[CLLocationManager alloc] init] autorelease];
-	self.locationManager.delegate			= self;
-	self.locationManager.desiredAccuracy	= kCLLocationAccuracyBest;
-	self.locationManager.distanceFilter		= kLocationRefreshDistance;	
-	
-	
-	[[DWSession sharedDWSession] isActive] ? [self displaySignedInState] : [self displaySignedOutState];
-	
-	
-	
-	/*self.placesTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	 [self.placesTabButton setFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth/2,49)];
-	 [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateNormal];
-	 [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateHighlighted];
-	 [self.placesTabButton addTarget:self action:@selector(didTapPlacesButton:event:) forControlEvents:UIControlEventTouchUpInside];
-	 [tabBarController.tabBar addSubview:self.placesTabButton];
-	 
-	 self.feedTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	 [self.feedTabButton setFrame:CGRectMake(kSegmentedPlacesViewWidth/2,0,kSegmentedPlacesViewWidth/2,49)];
-	 [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateNormal];
-	 [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateHighlighted];
-	 [self.feedTabButton addTarget:self action:@selector(didTapFeedButton:event:) forControlEvents:UIControlEventTouchUpInside];
-	 [tabBarController.tabBar addSubview:self.feedTabButton];
-	 */
-}
-
-/*
- - (void)didTapPlacesButton:(id)sender event:(id)event {
- NSLog(@"Selected index - %d",tabBarController.selectedIndex);
- 
- if(tabBarController.selectedIndex == 0) {
- NSLog(@"popping");
- [(UINavigationController*)tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
- }
- else {
- tabBarController.selectedIndex = 0;
- [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateNormal];
- [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateHighlighted];
- 
- [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateNormal];
- [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateHighlighted];
- }
- }
- 
- - (void)didTapFeedButton:(id)sender event:(id)event {
- 
- if(tabBarController.selectedIndex == 1) {
- [(UINavigationController*)tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
- }
- else {
- tabBarController.selectedIndex = 1;
- [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_off.png"] forState:UIControlStateNormal];
- [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_off.png"] forState:UIControlStateHighlighted];
- 
- [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_on.png"] forState:UIControlStateNormal];
- [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_on.png"] forState:UIControlStateHighlighted];
- }
- 
- }
- */
 
 //----------------------------------------------------------------------------------------------------
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {    
@@ -207,10 +100,8 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 
 	if(self.tabBarController == nil) 
-		[self createTabBarController];
-	
-	[self.locationManager startUpdatingLocation];
-		
+		[self setupApplication];
+			
 	[[DWNotificationsHelper sharedDWNotificationsHelper] handleBackgroundNotification];
 }
 
@@ -227,6 +118,7 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 	
 	self.tabBarController	= nil;
 	self.placesTabButton	= nil;
+	self.createTabButton	= nil;
 	self.feedTabButton		= nil;
 	
 	self.locationManager	= nil;
@@ -239,6 +131,136 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 	
 	[[DWMemoryPool sharedDWMemoryPool] freeMemory];
 	NSLog(@"%@",kMsgLowMemoryWarning);
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)displaySignedInState {
+	self.tabBarController.tabBar.hidden	= NO;
+	self.signupToolbar.hidden			= YES;
+	[self.window bringSubviewToFront:self.tabBarController.view];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)displaySignedOutState {
+	self.tabBarController.tabBar.hidden	= YES;
+	self.signupToolbar.hidden			= NO;
+	[self.window bringSubviewToFront:self.signupToolbar];	
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setupLocationTracking {
+	self.locationManager					= [[[CLLocationManager alloc] init] autorelease];
+	self.locationManager.delegate			= self;
+	self.locationManager.desiredAccuracy	= kCLLocationAccuracyBest;
+	self.locationManager.distanceFilter		= kLocationRefreshDistance;	
+	
+	[self.locationManager startUpdatingLocation];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setupTabBarController {
+	DWItemsContainerViewController *itemsContainerViewController = [[DWItemsContainerViewController alloc] init];
+	UINavigationController *itemsNavController = [[UINavigationController alloc] initWithRootViewController:itemsContainerViewController];
+	[itemsContainerViewController release];
+	
+	DWCreateViewController *createViewController = [[DWCreateViewController alloc] init];
+	
+	DWPlacesContainerViewController *placesContainerViewController = [[DWPlacesContainerViewController alloc] init];
+	UINavigationController *placesNavController = [[UINavigationController alloc] initWithRootViewController:placesContainerViewController];
+	[placesContainerViewController release];
+	
+	
+	NSMutableArray *localControllersArray = [[NSMutableArray alloc] initWithCapacity:3];
+	[localControllersArray addObject:placesNavController];
+	[localControllersArray addObject:createViewController];
+	[localControllersArray addObject:itemsNavController];
+	
+	[itemsNavController release];
+	[createViewController release];
+	[placesNavController release];
+	
+	
+	self.tabBarController					= [[UITabBarController alloc] init];
+	self.tabBarController.delegate			= self;
+	self.tabBarController.viewControllers	= localControllersArray;
+	[localControllersArray release];	
+	
+	_currentSelectedTabIndex = kPlacesIndex;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setupCustomTabBar {
+	/**
+	 * Create places tab button
+	 */
+	 self.placesTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	 [self.placesTabButton setFrame:CGRectMake(0,0,kTabBarWidth/3,kTabBarHeight)];
+	
+	 [self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOn] 
+									 forState:UIControlStateNormal];
+	
+	 [self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOn] 
+									 forState:UIControlStateHighlighted];
+	
+	 [self.placesTabButton addTarget:self action:@selector(customTabBarSelectionChanged:) 
+					forControlEvents:UIControlEventTouchUpInside];
+	
+	[self.tabBarController.tabBar addSubview:self.placesTabButton]; 
+	
+	
+	/**
+	 * Create create tab button
+	 */
+	self.createTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[self.createTabButton setFrame:CGRectMake(kTabBarWidth/3,0,kTabBarWidth/3,kTabBarHeight)];
+	
+	[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOff] 
+								  forState:UIControlStateNormal];
+	
+	[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOff] 
+								  forState:UIControlStateHighlighted];
+	
+	[self.createTabButton addTarget:self action:@selector(customTabBarSelectionChanged:) 
+				 forControlEvents:UIControlEventTouchUpInside];
+	
+	[self.tabBarController.tabBar addSubview:self.createTabButton];
+	
+	
+	/**
+	 * Create feed tab button
+	 */	
+	 self.feedTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	 [self.feedTabButton setFrame:CGRectMake((kTabBarWidth/3) * 2,0,kTabBarWidth/3,kTabBarHeight)];
+	
+	 [self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOff] 
+								   forState:UIControlStateNormal];
+	
+	 [self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOff] 
+								   forState:UIControlStateHighlighted];
+	
+	 [self.feedTabButton addTarget:self action:@selector(customTabBarSelectionChanged:) 
+				  forControlEvents:UIControlEventTouchUpInside];
+	 
+	[self.tabBarController.tabBar addSubview:self.feedTabButton];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setupApplication {
+	/**
+	 * Increase height of the signupToolbar to fully cover the tabBarController
+	 */
+	[self.signupToolbar setFrame:CGRectMake(0, 431, kTabBarWidth, kTabBarHeight)];
+	
+	[self setupTabBarController];	
+	[self setupCustomTabBar];
+	
+	[self.window addSubview:self.tabBarController.view];
+	[self.window makeKeyAndVisible];
+	
+	
+	[self setupLocationTracking];
+	
+	[[DWSession sharedDWSession] isActive] ? [self displaySignedInState] : [self displaySignedOutState];
 }
 
 
@@ -374,5 +396,103 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 - (BOOL)tabBarController:(UITabBarController *)theTabBarController shouldSelectViewController:(UIViewController *)viewController {
 	return YES;
 }
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Private
+
+//----------------------------------------------------------------------------------------------------
+- (void)hidePreviouslySelectedTab {
+	if(_currentSelectedTabIndex == kPlacesIndex) {
+		
+		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOff] 
+										forState:UIControlStateNormal];
+		
+		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOff] 
+										forState:UIControlStateHighlighted];
+	}
+	else if(_currentSelectedTabIndex == kCreateIndex) {
+		
+		[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOff] 
+										forState:UIControlStateNormal];
+		
+		[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOff] 
+										forState:UIControlStateHighlighted];
+	}
+	else if(_currentSelectedTabIndex == kFeedIndex) {
+		
+		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOff] 
+										forState:UIControlStateNormal];
+		
+		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOff] 
+										forState:UIControlStateHighlighted];
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadSelectedTab {	
+	if(_currentSelectedTabIndex == kPlacesIndex) {
+		
+		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOn] 
+										forState:UIControlStateNormal];
+		
+		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOn] 
+										forState:UIControlStateHighlighted];
+	}
+	else if(_currentSelectedTabIndex == kCreateIndex) {
+		
+		[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOn] 
+										forState:UIControlStateNormal];
+		
+		[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOn] 
+										forState:UIControlStateHighlighted];
+	}
+	else if(_currentSelectedTabIndex == kFeedIndex) {
+		
+		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOn] 
+									  forState:UIControlStateNormal];
+		
+		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOn] 
+									  forState:UIControlStateHighlighted];
+	}
+	
+	self.tabBarController.selectedIndex = _currentSelectedTabIndex;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIControlEventValueChanged
+
+//----------------------------------------------------------------------------------------------------
+- (void)customTabBarSelectionChanged:(id)sender {
+	
+	NSInteger newSelection = -1;
+	
+	if(self.placesTabButton == (UIButton*)sender)
+		newSelection = kPlacesIndex;
+	else if(self.createTabButton == (UIButton*)sender)
+		newSelection = kCreateIndex;
+	else if(self.feedTabButton == (UIButton*)sender)
+		newSelection = kFeedIndex;
+	
+	if(_currentSelectedTabIndex != newSelection) {
+		[self hidePreviouslySelectedTab];
+		_currentSelectedTabIndex = newSelection;
+		[self loadSelectedTab];
+	}
+	else if(_currentSelectedTabIndex == kPlacesIndex) {
+		[(UINavigationController*)self.tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
+	}
+	else if(_currentSelectedTabIndex == kCreateIndex) {
+	}
+	else if(_currentSelectedTabIndex == kFeedIndex) {
+		[(UINavigationController*)self.tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
+	}
+}
+
 
 @end

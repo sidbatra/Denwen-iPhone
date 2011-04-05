@@ -67,6 +67,7 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
 	[self resetBadgeValue];
 }
 

@@ -15,9 +15,12 @@
 	
 	UITabBarController	*_tabBarController;
 	UIButton			*_placesTabButton;
+	UIButton			*_createTabButton;
 	UIButton			*_feedTabButton;
 	
 	CLLocationManager	*_locationManager;
+	
+	NSInteger			_currentSelectedTabIndex;
 }
 
 /**
@@ -30,6 +33,7 @@
  */
 
 @property (nonatomic,retain) UIButton *placesTabButton;
+@property (nonatomic,retain) UIButton *createTabButton;
 @property (nonatomic,retain) UIButton *feedTabButton;
 @property (nonatomic,retain) UITabBarController *tabBarController;
 
@@ -48,5 +52,17 @@
 - (IBAction)loginButtonClicked:(id)sender;
 - (IBAction)signupButtonClicked:(id)sender;
 
+@end
+
+/**
+ * Declarations for select private methods
+ */
+@interface DWAppDelegate(Private)
+
+/**
+ * Init and position the UI elements that form the foundation
+ * of the application. Also start services like location tracking
+ */
+- (void)setupApplication;
 @end
 

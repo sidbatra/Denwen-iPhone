@@ -187,6 +187,8 @@
 		BB5E67DF13318438006D0C66 /* video_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5E67DD13318438006D0C66 /* video_placeholder@2x.png */; };
 		BB5E686A13319FCC006D0C66 /* profile_button_tiny.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5E686813319FCC006D0C66 /* profile_button_tiny.png */; };
 		BB5E686B13319FCC006D0C66 /* profile_button_tiny@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5E686913319FCC006D0C66 /* profile_button_tiny@2x.png */; };
+		BB6419AD134BAE93002A2325 /* DWCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6419AB134BAE93002A2325 /* DWCreateViewController.m */; };
+		BB6419AE134BAE93002A2325 /* DWCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */; };
 		BB67B77E130A538900378578 /* create_place_user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77A130A538900378578 /* create_place_user_profile.png */; };
 		BB67B77F130A538900378578 /* create_place_user_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77B130A538900378578 /* create_place_user_profile@2x.png */; };
 		BB67B780130A538900378578 /* create_post_user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77C130A538900378578 /* create_post_user_profile.png */; };
@@ -531,6 +533,9 @@
 		BB5E67DD13318438006D0C66 /* video_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "video_placeholder@2x.png"; path = "resources/video_placeholder@2x.png"; sourceTree = "<group>"; };
 		BB5E686813319FCC006D0C66 /* profile_button_tiny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile_button_tiny.png; path = resources/profile_button_tiny.png; sourceTree = "<group>"; };
 		BB5E686913319FCC006D0C66 /* profile_button_tiny@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "profile_button_tiny@2x.png"; path = "resources/profile_button_tiny@2x.png"; sourceTree = "<group>"; };
+		BB6419AA134BAE93002A2325 /* DWCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCreateViewController.h; path = Classes/DWCreateViewController.h; sourceTree = "<group>"; };
+		BB6419AB134BAE93002A2325 /* DWCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCreateViewController.m; path = Classes/DWCreateViewController.m; sourceTree = "<group>"; };
+		BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWCreateViewController.xib; path = Classes/DWCreateViewController.xib; sourceTree = "<group>"; };
 		BB67B77A130A538900378578 /* create_place_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_place_user_profile.png; path = resources/create_place_user_profile.png; sourceTree = "<group>"; };
 		BB67B77B130A538900378578 /* create_place_user_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "create_place_user_profile@2x.png"; path = "resources/create_place_user_profile@2x.png"; sourceTree = "<group>"; };
 		BB67B77C130A538900378578 /* create_post_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_post_user_profile.png; path = resources/create_post_user_profile.png; sourceTree = "<group>"; };
@@ -966,6 +971,7 @@
 				BB3313E812F282BF00B713F9 /* DWImageViewController.xib */,
 				26CF62D512F3E92200505A37 /* DWWebViewController.xib */,
 				BB6EBB871311D8A9009D2DAF /* DWShareViewController.xib */,
+				BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Denwen-Info.plist */,
 			);
@@ -1025,6 +1031,8 @@
 				BB537BD4132C55E50018B942 /* DWVideoViewController.m */,
 				BB6EBB851311D8A9009D2DAF /* DWShareViewController.h */,
 				BB6EBB861311D8A9009D2DAF /* DWShareViewController.m */,
+				BB6419AA134BAE93002A2325 /* DWCreateViewController.h */,
+				BB6419AB134BAE93002A2325 /* DWCreateViewController.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1617,6 +1625,7 @@
 				BB5E67DF13318438006D0C66 /* video_placeholder@2x.png in Resources */,
 				BB5E686A13319FCC006D0C66 /* profile_button_tiny.png in Resources */,
 				BB5E686B13319FCC006D0C66 /* profile_button_tiny@2x.png in Resources */,
+				BB6419AE134BAE93002A2325 /* DWCreateViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1729,6 +1738,7 @@
 				BBD0BFDB1344487C00BCFB96 /* DWConstants.m in Sources */,
 				BBD0C3721346E2D700BCFB96 /* DWNotificationsHelper.m in Sources */,
 				26327E9D1347C86100EDAFA8 /* DWImagePicker.m in Sources */,
+				BB6419AD134BAE93002A2325 /* DWCreateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
