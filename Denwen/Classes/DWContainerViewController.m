@@ -138,10 +138,12 @@
 // Fired when a url is clicked on in an item cell within a child of the ItemFeedViewController
 //
 - (void)urlSelected:(NSString *)url {
-	DWWebViewController *webViewController = [[DWWebViewController alloc] 
-											  initWithResourceURL:url]; 
+	DWWebViewController *webViewController = [[DWWebViewController alloc] initWithWebPageURL:url]; 
 	webViewController.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:webViewController animated:YES];
+	
+	[self.navigationController pushViewController:webViewController 
+										 animated:YES];
+	
 	[webViewController release];
 }
 

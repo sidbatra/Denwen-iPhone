@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-//#define PRODUCTION 1 
+#define PRODUCTION 1 
 
 
 #import "DWConstants.h"

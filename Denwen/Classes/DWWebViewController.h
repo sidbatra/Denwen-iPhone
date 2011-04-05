@@ -1,23 +1,32 @@
 //
 //  DWWebViewController.h
-//  Denwen
-//
-//  Created by Deepak Rao on 1/28/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "DWGUIManager.h"
 
-
+/**
+ * Display a URL in the iOS web view
+ */
 @interface DWWebViewController : UIViewController <UIWebViewDelegate> {
-	UIWebView *webView;
-	NSURLRequest *_request;
+	UIWebView		*_webView;
+	NSString		*_url;
 }
 
+/**
+ * URL of the webpage
+ */
+@property (nonatomic,copy) NSString* url;
+
+/**
+ * iOS web view
+ */
 @property (nonatomic,retain) IBOutlet UIWebView *webView;
 
-- (id)initWithResourceURL:(NSString*)theURL;
+/**
+ * Init with the url of the webpage to be opened
+ */
+- (id)initWithWebPageURL:(NSString*)theURL;
 
 @end
 
