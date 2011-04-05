@@ -246,7 +246,6 @@ NSInteger const kPlaceViewCellHeight			= 177;
 /* Location manager constants */
 int const LOCATION_FRESHNESS = 9;
 int const LOCATION_ACCURACY = 1100;
-int const LOCATION_REFRESH_DISTANCE = 750;
 int const LOCATION_FAILSAFE_DURATION = 6;
 
 
@@ -338,7 +337,6 @@ NSString * const PIN_IDENTIFIER = @"PinIdentifier";
 
 
 NSString * const DENWEN_URL_PREFIX = @"denwen://p/";
-NSString * const FACEBOOK_URL_PREFIX = @"fb";
 
 // Folders on S3
 NSString * const S3_ITEMS_FOLDER = @"items";

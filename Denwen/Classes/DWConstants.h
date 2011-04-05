@@ -307,7 +307,6 @@ extern NSString * const USER_CELL_IDENTIFIER;
 extern NSString * const STATIC_PIN_IDENTIFIER;
 
 extern NSString * const DENWEN_URL_PREFIX;
-extern NSString * const FACEBOOK_URL_PREFIX;
 
 
 

@@ -1,9 +1,6 @@
 //
 //  DWAppDelegate.m
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWAppDelegate.h"
@@ -17,29 +14,146 @@
 #import "DWNotificationsHelper.h"
 #import "NSString+Helpers.h"
 
+static NSString* const kFacebookURLPrefix			= @"fb";
+static NSInteger const kLocationRefreshDistance		= 750;
+static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, memory pool free memmory called";
 
-@interface DWAppDelegate () 
-- (void)createTabBarController;
-- (void)displaySignedInState;
-- (void)displaySignedOutState;
-
-- (void)createVisit;
-@end
-
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWAppDelegate
 
-@synthesize placesTabButton = _placesTabButton;
-@synthesize feedTabButton = _feedTabButton;
-@synthesize window,signupToolbar;
+@synthesize window				= _window;
+@synthesize signupToolbar		= _signupToolbar;
 
+@synthesize tabBarController	= _tabBarController;
+@synthesize placesTabButton		= _placesTabButton;
+@synthesize feedTabButton		= _feedTabButton;
 
+@synthesize locationManager		= _locationManager;
 
-#pragma mark -
-#pragma mark Application lifecycle
+//----------------------------------------------------------------------------------------------------
+- (void)displaySignedInState {
+	self.tabBarController.tabBar.hidden	= NO;
+	self.signupToolbar.hidden			= YES;
+	[self.window bringSubviewToFront:self.tabBarController.view];
+}
 
+//----------------------------------------------------------------------------------------------------
+- (void)displaySignedOutState {
+	self.tabBarController.tabBar.hidden	= YES;
+	self.signupToolbar.hidden			= NO;
+	[self.window bringSubviewToFront:self.signupToolbar];	
+}
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+//----------------------------------------------------------------------------------------------------
+- (void)createTabBarController {
+	/**
+	 * Increase height of the signupToolbar to fully cover the tabBarController
+	 */
+	[self.signupToolbar setFrame:CGRectMake(0, 431, 320, 49)];
+	
+	
+	DWItemsContainerViewController *itemsContainerViewController = [[DWItemsContainerViewController alloc] init];
+	UINavigationController *itemsNavController = [[UINavigationController alloc] initWithRootViewController:itemsContainerViewController];
+	[itemsContainerViewController release];
+	
+	
+	/*DWUserContainerViewController *userContainerViewController = [[DWUserContainerViewController alloc] init];
+	 UINavigationController *userNavController = [[UINavigationController alloc] initWithRootViewController:userContainerViewController];
+	 [userContainerViewController release];
+	 */															
+	
+	
+	DWPlacesContainerViewController *placesContainerViewController = [[DWPlacesContainerViewController alloc] init];
+	UINavigationController *placesNavController = [[UINavigationController alloc] initWithRootViewController:placesContainerViewController];
+	[placesContainerViewController release];
+	
+	
+	
+	NSMutableArray *localControllersArray = [[NSMutableArray alloc] initWithCapacity:3];
+	[localControllersArray addObject:placesNavController];
+	//[localControllersArray addObject:userNavController];
+	[localControllersArray addObject:itemsNavController];
+	
+	[itemsNavController release];
+	//[userNavController release];
+	[placesNavController release];
+	
+	
+	self.tabBarController					= [[UITabBarController alloc] init];
+	self.tabBarController.delegate			= self;
+	self.tabBarController.viewControllers	= localControllersArray;
+	[localControllersArray release];
+	
+	
+	[self.window addSubview:self.tabBarController.view];
+	[self.window makeKeyAndVisible];
+	
+	
+	self.locationManager					= [[[CLLocationManager alloc] init] autorelease];
+	self.locationManager.delegate			= self;
+	self.locationManager.desiredAccuracy	= kCLLocationAccuracyBest;
+	self.locationManager.distanceFilter		= kLocationRefreshDistance;	
+	
+	
+	[[DWSession sharedDWSession] isActive] ? [self displaySignedInState] : [self displaySignedOutState];
+	
+	
+	
+	/*self.placesTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	 [self.placesTabButton setFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth/2,49)];
+	 [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateNormal];
+	 [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateHighlighted];
+	 [self.placesTabButton addTarget:self action:@selector(didTapPlacesButton:event:) forControlEvents:UIControlEventTouchUpInside];
+	 [tabBarController.tabBar addSubview:self.placesTabButton];
+	 
+	 self.feedTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	 [self.feedTabButton setFrame:CGRectMake(kSegmentedPlacesViewWidth/2,0,kSegmentedPlacesViewWidth/2,49)];
+	 [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateNormal];
+	 [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateHighlighted];
+	 [self.feedTabButton addTarget:self action:@selector(didTapFeedButton:event:) forControlEvents:UIControlEventTouchUpInside];
+	 [tabBarController.tabBar addSubview:self.feedTabButton];
+	 */
+}
+
+/*
+ - (void)didTapPlacesButton:(id)sender event:(id)event {
+ NSLog(@"Selected index - %d",tabBarController.selectedIndex);
+ 
+ if(tabBarController.selectedIndex == 0) {
+ NSLog(@"popping");
+ [(UINavigationController*)tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
+ }
+ else {
+ tabBarController.selectedIndex = 0;
+ [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateNormal];
+ [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateHighlighted];
+ 
+ [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateNormal];
+ [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateHighlighted];
+ }
+ }
+ 
+ - (void)didTapFeedButton:(id)sender event:(id)event {
+ 
+ if(tabBarController.selectedIndex == 1) {
+ [(UINavigationController*)tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
+ }
+ else {
+ tabBarController.selectedIndex = 1;
+ [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_off.png"] forState:UIControlStateNormal];
+ [self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_off.png"] forState:UIControlStateHighlighted];
+ 
+ [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_on.png"] forState:UIControlStateNormal];
+ [self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_on.png"] forState:UIControlStateHighlighted];
+ }
+ 
+ }
+ */
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {    
     
 	//[[ASIDownloadCache sharedCache] clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
 		
@@ -48,43 +162,37 @@
 												 name:kNUserLogsIn
 											   object:nil];
 	
-	
 	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
 
     return YES;
 }
 
-
+//----------------------------------------------------------------------------------------------------
 - (void)applicationWillResignActive:(UIApplication *)application {
 }
 
-
-// Free non essential resources when the app enters the background
-//
+//----------------------------------------------------------------------------------------------------
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-	[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
+	/**
+	 * Free non critical resources when app enters background
+	 */
+	[[DWMemoryPool sharedDWMemoryPool] freeMemory];
 }
 
-
-// Create a new visit when the app is about to come into the foreground
-//
+//----------------------------------------------------------------------------------------------------
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-	[self createVisit];
+	[[DWRequestsManager sharedDWRequestsManager] createVisit];
 }
 
-
-// Fired when a remote notification is received when the app is open
-//
+//----------------------------------------------------------------------------------------------------
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 	[[DWNotificationsHelper sharedDWNotificationsHelper] handleLiveNotificationWithUserInfo:userInfo];
 }
 
-
-// A URL matching one of the custom schemes is opened
-//
+//----------------------------------------------------------------------------------------------------
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
 
-	if([[url absoluteString] hasPrefix:FACEBOOK_URL_PREFIX]) {
+	if([[url absoluteString] hasPrefix:kFacebookURLPrefix]) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:kNFacebookURLOpened 
 															object:url];	
 	}
@@ -96,168 +204,47 @@
 	return YES;
 }
 
-
-// Listens for the application launching for the first time or coming out of the background
-// 
+//----------------------------------------------------------------------------------------------------
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 
-	// If first launch
-	if(tabBarController == nil) 
+	if(self.tabBarController == nil) 
 		[self createTabBarController];
 	
-	[_locationManager startUpdatingLocation];
+	[self.locationManager startUpdatingLocation];
 		
 	[[DWNotificationsHelper sharedDWNotificationsHelper] handleBackgroundNotification];
 }
 
-
+//----------------------------------------------------------------------------------------------------
 - (void)applicationWillTerminate:(UIApplication *)application {
 }
 
-
-
-// Release any prior memory usuage by navController and init 
-// and add a fresh copy onto the stack.
-//
-- (void)createTabBarController {
-	//Increase height of the signupToolbar to fully cover the tabBarController
-	[signupToolbar setFrame:CGRectMake(0, 431, 320, 49)];
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
+	self.window				= nil;
+	self.signupToolbar		= nil;
 	
-	DWItemsContainerViewController *itemsContainerViewController = [[DWItemsContainerViewController alloc] init];
-	UINavigationController *itemsNavController = [[UINavigationController alloc] 
-												  initWithRootViewController:itemsContainerViewController];
-	[itemsContainerViewController release];
+	self.tabBarController	= nil;
+	self.placesTabButton	= nil;
+	self.feedTabButton		= nil;
 	
+	self.locationManager	= nil;
 	
-	
-	
-	/*DWUserContainerViewController *userContainerViewController = [[DWUserContainerViewController alloc] init];
-	UINavigationController *userNavController = [[UINavigationController alloc] 
-												  initWithRootViewController:userContainerViewController];
-	[userContainerViewController release];
-	*/															
-	
-	
-	
-	
-	DWPlacesContainerViewController *placesContainerViewController = [[DWPlacesContainerViewController alloc] init];
-	UINavigationController *placesNavController = [[UINavigationController alloc] 
-												   initWithRootViewController:placesContainerViewController];
-	[placesContainerViewController release];
-	 
-	
-	
-	NSMutableArray *localControllersArray = [[NSMutableArray alloc] initWithCapacity:3];
-	[localControllersArray addObject:placesNavController];
-	//[localControllersArray addObject:userNavController];
-	[localControllersArray addObject:itemsNavController];
-	
-	
-	
-	[itemsNavController release];
-	//[userNavController release];
-	[placesNavController release];
-	
-	
-	tabBarController = [[UITabBarController alloc] init];
-	tabBarController.delegate = self;
-	tabBarController.viewControllers = localControllersArray;
-	[localControllersArray release];
-	
-	
-	[window addSubview:tabBarController.view];
-	[window makeKeyAndVisible];
-	
-	
-	_locationManager = [[CLLocationManager alloc] init];
-	_locationManager.delegate = self;
-	_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-	_locationManager.distanceFilter = LOCATION_REFRESH_DISTANCE;	
-	
-	if(![[DWSession sharedDWSession] isActive]) 
-		[self displaySignedOutState];
-	else
-		[self displaySignedInState];
-	
-	
-	/*self.placesTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.placesTabButton setFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth/2,49)];
-	[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateNormal];
-	[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateHighlighted];
-	[self.placesTabButton addTarget:self action:@selector(didTapPlacesButton:event:) forControlEvents:UIControlEventTouchUpInside];
-	[tabBarController.tabBar addSubview:self.placesTabButton];
-	
-	self.feedTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.feedTabButton setFrame:CGRectMake(kSegmentedPlacesViewWidth/2,0,kSegmentedPlacesViewWidth/2,49)];
-	[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateNormal];
-	[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateHighlighted];
-	[self.feedTabButton addTarget:self action:@selector(didTapFeedButton:event:) forControlEvents:UIControlEventTouchUpInside];
-	[tabBarController.tabBar addSubview:self.feedTabButton];
-	 */
+    [super dealloc];
 }
 
-/*
-- (void)didTapPlacesButton:(id)sender event:(id)event {
-	NSLog(@"Selected index - %d",tabBarController.selectedIndex);
+//----------------------------------------------------------------------------------------------------
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
 	
-	if(tabBarController.selectedIndex == 0) {
-		NSLog(@"popping");
-		[(UINavigationController*)tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
-	}
-	else {
-		tabBarController.selectedIndex = 0;
-		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateNormal];
-		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_on.png"] forState:UIControlStateHighlighted];
-		
-		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateNormal];
-		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_off.png"] forState:UIControlStateHighlighted];
-	}
-}
-
-- (void)didTapFeedButton:(id)sender event:(id)event {
-	
-	if(tabBarController.selectedIndex == 1) {
-		[(UINavigationController*)tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
-	}
-	else {
-		tabBarController.selectedIndex = 1;
-		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_off.png"] forState:UIControlStateNormal];
-		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:@"popular_off.png"] forState:UIControlStateHighlighted];
-		
-		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_on.png"] forState:UIControlStateNormal];
-		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:@"nearby_on.png"] forState:UIControlStateHighlighted];
-	}
-
-}
-*/
-
-// Changes the UI to display a signed in state
-//
-- (void)displaySignedInState {
-	tabBarController.tabBar.hidden = NO;
-	signupToolbar.hidden = YES;
-	[window bringSubviewToFront:tabBarController.view];
-}
-
-// Changes the UI to display a signed out state
-//
-- (void)displaySignedOutState {
-	tabBarController.tabBar.hidden = YES;
-	signupToolbar.hidden = NO;
-	[window bringSubviewToFront:signupToolbar];	
+	[[DWMemoryPool sharedDWMemoryPool] freeMemory];
+	NSLog(@"%@",kMsgLowMemoryWarning);
 }
 
 
-// Creates a visit for the current user
-//
-- (void)createVisit {
-	if([[DWSession sharedDWSession] isActive])
-		[[DWRequestsManager sharedDWRequestsManager] createVisit];
-}
-
-
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
 
@@ -268,144 +255,122 @@
 	//if(![[UIApplication sharedApplication] enabledRemoteNotificationTypes])
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
 	
-	[self createVisit];
+	[[DWRequestsManager sharedDWRequestsManager] createVisit];
 }	
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Push notificatin delegate methods
+#pragma mark Push Notifiation Permission Responses
 
 
-// User approves push notifications
-//
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 	[[DWRequestsManager sharedDWRequestsManager] updateDeviceIDForCurrentUser:[NSString stringWithFormat:@"%@",deviceToken]];
 }
 
-
-// User rejects push noitifications
-//
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark IB Events
+#pragma mark IBActions
 
-// User clicks the signup button
-//
+//----------------------------------------------------------------------------------------------------
 - (void)signupButtonClicked:(id)sender {
 	DWSignupViewController *signupView = [[DWSignupViewController alloc] initWithDelegate:self];
-	[tabBarController presentModalViewController:signupView animated:YES];
+	[self.tabBarController presentModalViewController:signupView 
+										animated:YES];
 	[signupView release];
 }
 
-// User clicks the login button
-//
+//----------------------------------------------------------------------------------------------------
 - (void)loginButtonClicked:(id)sender {
 	DWLoginViewController *loginView = [[DWLoginViewController alloc] initWithDelegate:self];
-	[tabBarController presentModalViewController:loginView animated:YES];
+	[self.tabBarController presentModalViewController:loginView 
+										animated:YES];
 	[loginView release];
 }
 
 	
 
 #pragma mark -
-#pragma mark Login delegate methods
+#pragma mark DWLoginViewControllerDelegate
 
-// User cancels the login process
-//
+//----------------------------------------------------------------------------------------------------
 - (void)loginViewCancelButtonClicked {
-	[tabBarController dismissModalViewControllerAnimated:YES];
+	[self.tabBarController dismissModalViewControllerAnimated:YES];
 }
 
-// User successfully logs in
-//
+//----------------------------------------------------------------------------------------------------
 -  (void)loginSuccessful {
 	[self displaySignedInState];
-	[tabBarController dismissModalViewControllerAnimated:YES];
+	[self.tabBarController dismissModalViewControllerAnimated:YES];
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Signup delegate methods
+#pragma mark DWSignupViewControllerDelegate
 
-
-//Hide the signup toolbar when the signup view appears
-//
+//----------------------------------------------------------------------------------------------------
 - (void)signupViewLoaded {
-	signupToolbar.hidden = YES;
+	self.signupToolbar.hidden = YES;
 }
 
-// User cancels the signup process
-//
+//----------------------------------------------------------------------------------------------------
 - (void)signupViewCancelButtonClicked {
-	signupToolbar.hidden = NO;
-	[tabBarController dismissModalViewControllerAnimated:YES];
+	self.signupToolbar.hidden = NO;
+	[self.tabBarController dismissModalViewControllerAnimated:YES];
 }
 
-// User successfully signs up
-//
+//----------------------------------------------------------------------------------------------------
 - (void)signupSuccessful {
 	[self displaySignedInState];
-	[tabBarController dismissModalViewControllerAnimated:YES];
+	[self.tabBarController dismissModalViewControllerAnimated:YES];
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Location related methods
 
 
-// Receives location updates from the locationManager
-//
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
+//----------------------------------------------------------------------------------------------------
+- (void)locationManager:(CLLocationManager *)manager
+	didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
-	
 	
 	[DWSession sharedDWSession].location = newLocation;
 	
 	if(!_isVisitRecorded) {
 		_isVisitRecorded = YES;
-		[self createVisit];
+		[[DWRequestsManager sharedDWRequestsManager] createVisit];
 	}
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNNewLocationAvailable 
 														object:nil];
-	
-	//NSLog(@"%f %f %f T %f ",
-	// newLocation.coordinate.latitude,
-	// newLocation.coordinate.longitude,
-	// newLocation.horizontalAccuracy,
-	// fabs([newLocation.timestamp timeIntervalSinceNow])
-	// );
-	
 }
 
-
-// Receives error messages from the locationManager
-//
+//----------------------------------------------------------------------------------------------------
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-	//TODO: handle location procurement error
-	/*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"There was an error estimating your location"
-												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
-										  otherButtonTitles: nil];
-	[alert show];
-	[alert release];*/
 }
 
 
-
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UITabBarControllerDelegate
 
-// Fired when the selected item changes
-//
+//----------------------------------------------------------------------------------------------------
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNTabSelectionChanged
@@ -413,41 +378,9 @@
 													  userInfo:nil];
 }
 
-// Fired when the user clicks on a tab bar item to change the tab
-//
+//----------------------------------------------------------------------------------------------------
 - (BOOL)tabBarController:(UITabBarController *)theTabBarController shouldSelectViewController:(UIViewController *)viewController {
 	return YES;
 }
-
-
-
-#pragma mark -
-#pragma mark Memory management
-
-// The usual memory warning
-//
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-	NSLog(@"memory warning received and images purged");
-	[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
-}
-
-
-// The usual memory cleanup
-//
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	[_locationManager release];
-	[tabBarController release];
-	
-	[signupToolbar release];
-    [window release];
-	
-	self.placesTabButton	= nil;
-	self.feedTabButton		= nil;
-	
-    [super dealloc];
-}
-
 
 @end
