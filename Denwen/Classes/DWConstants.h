@@ -123,7 +123,7 @@ extern NSString* const kNImgActualAttachmentError;
 extern NSString* const kNNewApplicationBadge;
 extern NSString* const kNTabSelectionChanged;
 extern NSString* const kNNewLocationAvailable;
-
+extern NSString* const kNFacebookURLOpened;
 
 /**
  * Push notifcation types
@@ -201,6 +201,13 @@ extern NSString* const kMsgCancelMedia;
  */
 extern NSString* const kImgGenericPlaceHolder;
 
+/**
+ * Third party service tokens
+ */
+extern NSString* const kTwitterOAuthConsumerKey;
+extern NSString* const kTwitterOAuthConsumerSecret;
+extern NSString* const kFacebookAppID;
+
 
 /**
  * Misc App UI
@@ -217,14 +224,8 @@ extern NSInteger const kPlaceViewCellHeight;
 
 
 
-extern int const IMAGE;
-extern int const VIDEO;
 
 
-extern NSString * const TWITTER_OAUTH_CONSUMER_KEY;
-extern NSString * const TWITTER_OAUTH_CONSUMER_SECRET;
-
-extern NSString * const FACEBOOK_APP_ID;
 
 extern int const LOCATION_FRESHNESS;
 extern int const LOCATION_ACCURACY;
@@ -235,7 +236,6 @@ extern int const LOCATION_FAILSAFE_DURATION;
 
 extern int const MAX_PLACE_NAME_LENGTH;
 extern int const MAX_POST_DATA_LENGTH;
-extern int const MAX_SHARE_DATA_LENGTH;
 
 
 extern float const JPEG_COMPRESSION;
@@ -341,12 +341,8 @@ extern NSString * const EMPTY_LOGIN_FIELDS_MSG;
 extern NSString * const BADGE_NOTIFICATION_LIVE;
 extern NSString * const BADGE_NOTIFICATION_BACKGROUND;
 
-extern NSString * const N_LOCATION_CHANGED;
-extern NSString * const N_FOLLOWED_ITEMS_READ;
-extern NSString * const N_FACEBOOK_URL_OPENED;
 extern NSString * const N_DENWEN_URL_OPENED;
-extern NSString * const N_USER_LOGS_OUT;
-extern NSString * const N_NEW_ITEM_CREATED;
+
 
 
 

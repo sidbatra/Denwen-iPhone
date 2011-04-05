@@ -132,6 +132,7 @@ NSString* const kNImgActualAttachmentError	= @"NImgActualAttachmentError";
 NSString* const kNNewApplicationBadge		= @"NNewApplicationBadge"; 
 NSString* const kNTabSelectionChanged		= @"NTabSelectionChanged";
 NSString* const kNNewLocationAvailable		= @"NNewLocationAvailable";
+NSString* const kNFacebookURLOpened			= @"FacebookURLOpened";
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kPNLive			= 0;
@@ -200,6 +201,29 @@ NSString* const kMsgCancelMedia					= @"Cancel";
 NSString* const kImgGenericPlaceHolder = @"generic_placeholder.png";
 
 
+//----------------------------------------------------------------------------------------------------
+#ifdef PRODUCTION
+
+/**
+ * Denwen Twitter and Facebook apps made by sbat
+ */
+NSString* const kTwitterOAuthConsumerKey			= @"Y8wcijb0orzZSbkd3fQ4g";
+NSString* const kTwitterOAuthConsumerSecret		= @"i7Oqqpy1I1ZycqRpJOSsBMylURsFlC2Qo7pQc0YbUzk";
+NSString* const kFacebookAppID					= @"127979053940843";
+
+#else
+
+/**
+ * Tenwen Twitter and Facebook apps made by drao
+ */
+NSString* const kTwitterOAuthConsumerKey			= @"kC2Kv9gsqYdZGwHHzx4bTQ";
+NSString* const kTwitterOAuthConsumerSecret		= @"CO7MYDyF2TyzBAVPzARIWt7GI6SLSb1fgAcMPhLgE";
+NSString* const kFacebookAppID					= @"176869555684965";
+
+#endif
+
+
+
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kPlaceListViewControllerNib		= @"DWPlaceListViewController";
@@ -215,34 +239,6 @@ NSInteger const kPlaceViewCellHeight			= 177;
 
 
 
-/* File Types */
-int const IMAGE = 0;
-int const VIDEO = 1;
-
-
-#ifdef PRODUCTION
-
-/* Keys for third party services */
-
-//Offical DENWEN app made by sbat
-NSString * const TWITTER_OAUTH_CONSUMER_KEY = @"Y8wcijb0orzZSbkd3fQ4g";
-NSString * const TWITTER_OAUTH_CONSUMER_SECRET = @"i7Oqqpy1I1ZycqRpJOSsBMylURsFlC2Qo7pQc0YbUzk";
-
-//Official DENWEN facebook app made by sbat
-NSString * const FACEBOOK_APP_ID = @"127979053940843";
-
-#else
-
-/* Keys for third party services */
-
-//TENWEN app made by drao
-NSString * const TWITTER_OAUTH_CONSUMER_KEY = @"kC2Kv9gsqYdZGwHHzx4bTQ";
-NSString * const TWITTER_OAUTH_CONSUMER_SECRET = @"CO7MYDyF2TyzBAVPzARIWt7GI6SLSb1fgAcMPhLgE";
-
-//TENWEN facebook app made by drao
-NSString * const FACEBOOK_APP_ID = @"176869555684965";
-
-#endif
 
 
 
@@ -256,7 +252,6 @@ int const LOCATION_FAILSAFE_DURATION = 6;
 /* max lengths for texts */
 int const MAX_PLACE_NAME_LENGTH = 32;
 int const MAX_POST_DATA_LENGTH = 180;
-int const MAX_SHARE_DATA_LENGTH = 140;
 
 
 /* JPEG compression */
@@ -386,12 +381,8 @@ NSString * const BADGE_NOTIFICATION_BACKGROUND = @"b_back";
 
 
 // Notification names
-NSString * const N_LOCATION_CHANGED = @"LocationChanged";
-NSString * const N_FOLLOWED_ITEMS_READ = @"FollowedItemsRead";
-NSString * const N_FACEBOOK_URL_OPENED = @"FacebookURLOpened";
 NSString * const N_DENWEN_URL_OPENED = @"DenwenURLOpened";
-NSString * const N_USER_LOGS_OUT = @"UserLogsOut";
-NSString * const N_NEW_ITEM_CREATED = @"NewItemCreated";
+
 
 
 

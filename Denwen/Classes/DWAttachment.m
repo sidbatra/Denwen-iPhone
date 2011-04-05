@@ -8,6 +8,9 @@
 #import "UIImage+ImageProcessing.h"
 #import "DWConstants.h"
 
+static NSInteger const kAttachmentImage		= 0;
+static NSInteger const kAttachmentVideo		= 1;
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -82,13 +85,13 @@
 
 //----------------------------------------------------------------------------------------------------							  
 - (BOOL)isVideo {
-	return _fileType == VIDEO;
+	return _fileType == kAttachmentVideo;
 }
 
 
 //----------------------------------------------------------------------------------------------------							  
 - (BOOL)isImage {
-	return _fileType == IMAGE;
+	return _fileType == kAttachmentImage;
 }
 
 //----------------------------------------------------------------------------------------------------

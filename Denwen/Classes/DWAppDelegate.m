@@ -85,7 +85,7 @@
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
 
 	if([[url absoluteString] hasPrefix:FACEBOOK_URL_PREFIX]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_FACEBOOK_URL_OPENED 
+		[[NSNotificationCenter defaultCenter] postNotificationName:kNFacebookURLOpened 
 															object:url];	
 	}
 	else {

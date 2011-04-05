@@ -440,8 +440,9 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapShareButton:(id)sender event:(id)event {
-	DWShareViewController *shareView	= [[DWShareViewController alloc] initWithDelegate:self
-																			  andPlace:self.place];
+	DWShareViewController *shareView	= [[DWShareViewController alloc] initWithPlace:self.place
+																		   andDelegate:self];
+
 	shareView.modalTransitionStyle		= UIModalTransitionStyleFlipHorizontal;
 	
 	[self.navigationController presentModalViewController:shareView 

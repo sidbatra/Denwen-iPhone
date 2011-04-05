@@ -238,7 +238,7 @@
 		item.pointerCount--;
 		[item release];
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_NEW_ITEM_CREATED object:item];
+		//[[NSNotificationCenter defaultCenter] postNotificationName:N_NEW_ITEM_CREATED object:item];
 		[_delegate newItemCreationFinished];
 	}
 	else {
