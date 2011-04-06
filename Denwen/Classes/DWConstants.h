@@ -63,6 +63,8 @@ extern NSString* const kKeyCondensedData;
 extern NSString* const kKeyAttachment;
 extern NSString* const kKeyURLs;
 extern NSString* const kKeyFollowing;
+extern NSString* const kKeyTabIndex;
+
 
 /**
  * Notification names
@@ -125,7 +127,7 @@ extern NSString* const kNTabSelectionChanged;
 extern NSString* const kNNewLocationAvailable;
 extern NSString* const kNFacebookURLOpened;
 extern NSString* const kNDenwenURLOpened ;
-
+extern NSString* const kNRequestTabBarIndexChange;
 
 /**
  * Push notifcation types
@@ -151,7 +153,11 @@ extern NSString* const kTVMessageCellIdentifier;
 extern NSString* const kTVLoadingCellIdentifier;
 extern NSString* const kTVDefaultCellIdentifier;
 
-
+/**
+ * Media picker modes
+ */
+extern NSInteger const kMediaPickerCaptureMode;
+extern NSInteger const kMediaPickerLibraryMode;
 
 /**
  * Segmented Control 
@@ -281,7 +287,6 @@ extern NSString * const MODALVIEW_BACKGROUND_IMAGE;
 extern NSString * const VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const VIDEO_PLAY_BUTTON_IMAGE_NAME;
-extern int const VIDEO_MAX_DURATION;
 
 extern int const FEED_TABLE_HEIGHT;
 extern int const DYNAMIC_CELL_HEIGHT_REFERENCE_WIDTH;

@@ -64,5 +64,11 @@
  * of the application. Also start services like location tracking
  */
 - (void)setupApplication;
+
+/**
+ * Switches tabs to dispay the given tab index or 
+ * pops controllers on an existing tab
+ */
+- (void)displayNewTab:(NSInteger)newTabIndex;
 @end
 

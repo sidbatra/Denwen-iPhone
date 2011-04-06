@@ -15,6 +15,7 @@
 	DWUser			*_currentUser;
 	CLLocation		*_location;
 	BOOL			_firstVisitRecorded;
+	NSInteger		_previouslySelectedTab;
 }
 
 /**
@@ -31,6 +32,11 @@
  * Current location of the user
  */
 @property (nonatomic,retain) CLLocation *location;
+
+/**
+ * Index of the previously selected tab
+ */
+@property (nonatomic,assign) NSInteger previouslySelectedTab;
 
 /**
  * Read the user session from disk using NSUserDefaults

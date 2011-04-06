@@ -4,6 +4,7 @@
 //
 
 #import "DWCreateViewController.h"
+#import "DWSession.h"
 #import "DWConstants.h"
 
 static NSString* const kTabTitle					= @"Create";
@@ -16,13 +17,16 @@ static NSString* const kImgTab						= @"profile.png";
 //----------------------------------------------------------------------------------------------------
 @implementation DWCreateViewController
 
+@synthesize previewImageView	= _previewImageView;
+@synthesize transImageView		= _transImageView;
+@synthesize placeNameTextField	= _placeNameTextField;
+@synthesize dataTextView		= _dataTextView;
+
 //----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
-	if (self) {		
-		self.title						= kTabTitle;
-		self.tabBarItem.image			= [UIImage imageNamed:kImgTab];
+	if (self) {
 	}
     
 	return self;
@@ -36,16 +40,26 @@ static NSString* const kImgTab						= @"profile.png";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	self.dataTextView.placeholderText = @"What's going on here?";
+	
+	[self.placeNameTextField becomeFirstResponder];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidUnload {
     [super viewDidUnload];
+	
+	self.previewImageView		= nil;
+	self.transImageView			= nil;
+	self.placeNameTextField		= nil;
+	self.dataTextView			= nil;
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+	if(![self isSelectedTab])
+		[super didReceiveMemoryWarning];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -53,7 +67,6 @@ static NSString* const kImgTab						= @"profile.png";
 	[super viewWillAppear:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 }
-
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewWillDisappear:(BOOL)animated {
@@ -64,6 +77,21 @@ static NSString* const kImgTab						= @"profile.png";
 //----------------------------------------------------------------------------------------------------
 - (BOOL)isSelectedTab {
 	return self.tabBarController.selectedViewController == self;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark IBActions
+
+//----------------------------------------------------------------------------------------------------
+- (void)cancelButtonClicked:(id)sender {
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNRequestTabBarIndexChange 
+														object:nil
+													  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+																[NSNumber numberWithInt:[DWSession sharedDWSession].previouslySelectedTab],kKeyTabIndex,
+																nil]];
 }
 
 

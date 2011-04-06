@@ -191,32 +191,35 @@
 	if(buttonIndex != 2) {
 		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 		
-        self.imagePicker = [[[DWImagePicker alloc] initWithDelegate:self] autorelease];
-        [self.imagePicker prepareForMedia:buttonIndex];
-		[self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
+        //self.imagePicker = [[[DWMediaPicker alloc] initWithDelegate:self] autorelease];
+        //[self.imagePicker prepareForMedia:buttonIndex];
+		//[self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
 	}
 }	
 
 
 
 #pragma mark -
-#pragma mark DWImagePicker Delegate
+#pragma mark DWMediaPicker Delegate
 
 
 - (void)mediaPickedAndProcessedWithID:(NSInteger)uploadID andPreview:(UIImage*)previewImage {
-	imagePlaceholder.hidden = NO;
+	/*imagePlaceholder.hidden = NO;
 	imagePreview.image = previewImage;
     _uploadID = uploadID;
     _isUploading = YES;
 
 	[self dismissModalViewControllerAnimated:YES];
     self.imagePicker = nil;
+	 */
 }
 
 
 - (void)mediaCancelled {
+	/*
 	[self dismissModalViewControllerAnimated:YES];
     self.imagePicker = nil;
+	 */
 }
 
 

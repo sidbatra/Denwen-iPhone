@@ -34,6 +34,7 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 @implementation DWUserViewController
 
 @synthesize user				= _user;
+@synthesize mediaPicker			= _mediaPicker;
 @synthesize mbProgressIndicator	= _mbProgressIndicator;
 
 //----------------------------------------------------------------------------------------------------
@@ -133,6 +134,7 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 	
 	self.user.mediumPreviewImage	= nil;
 	self.user						= nil;
+	self.mediaPicker				= nil;
 	self.mbProgressIndicator		= nil;
 	
     [super dealloc];
@@ -426,17 +428,13 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 	if(buttonIndex != 2) {
 		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 		
-		UIImagePickerController *imagePickerController	= [[UIImagePickerController alloc] init];
-		imagePickerController.delegate					= self;
-		imagePickerController.allowsEditing				= YES;		
-		imagePickerController.sourceType				=  buttonIndex == 0 ? 
-															UIImagePickerControllerSourceTypeCamera : 
-															UIImagePickerControllerSourceTypePhotoLibrary;
+		self.mediaPicker = [[[DWMediaPicker alloc] initWithDelegate:self] autorelease];
 		
-		[self presentModalViewController:imagePickerController
+		[self.mediaPicker prepareForImageWithPickerMode:buttonIndex == 0 ? kMediaPickerCaptureMode : kMediaPickerLibraryMode
+											 withEditing:YES];
+		
+		[self presentModalViewController:self.mediaPicker.imagePickerController
 								animated:YES];
-		
-		[imagePickerController release];
 	}
 }	
 
@@ -444,26 +442,29 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UIImagePickerControllerDelegate
+#pragma mark DWMediaPickerDelegate
 
 //----------------------------------------------------------------------------------------------------
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
+- (void)didFinishPickingImage:(UIImage*)originalImage andEditedTo:(UIImage*)editedImage {
 	
 	[self dismissModalViewControllerAnimated:YES];
+	
+	self.mediaPicker = nil;
 	
 	self.mbProgressIndicator.labelText = @"Loading";
 	[self.mbProgressIndicator showUsingAnimation:YES];
 	
-	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
 																		toFolder:S3_USERS_FOLDER];
-
-	[self.user updatePreviewImages:image];
+	
+	[self.user updatePreviewImages:editedImage];	
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+- (void)mediaPickerCancelled {
 	[self dismissModalViewControllerAnimated:YES];
+	
+	self.mediaPicker = nil;
 }
 
 

@@ -55,6 +55,11 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 												 name:kNUserLogsIn
 											   object:nil];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(requestTabBarIndexChange:) 
+												 name:kNRequestTabBarIndexChange
+											   object:nil];
+	
 	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
 
     return YES;
@@ -269,13 +274,17 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 #pragma mark -
 #pragma mark Notifications
 
-// Refresh UI when user logs in
-//
+//----------------------------------------------------------------------------------------------------
 - (void)userLogsIn:(NSNotification*)notification {
 		
 	//if(![[UIApplication sharedApplication] enabledRemoteNotificationTypes])
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
 }	
+
+//----------------------------------------------------------------------------------------------------
+- (void)requestTabBarIndexChange:(NSNotification*)notification {
+	[self displayNewTab:[[[notification userInfo] objectForKey:kKeyTabIndex] integerValue]];
+}
 
 
 //----------------------------------------------------------------------------------------------------
@@ -401,7 +410,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Private
+#pragma mark Tab Manipulation
 
 //----------------------------------------------------------------------------------------------------
 - (void)hidePreviouslySelectedTab {
@@ -461,27 +470,15 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	self.tabBarController.selectedIndex = _currentSelectedTabIndex;
 }
 
-
 //----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark UIControlEventValueChanged
-
-//----------------------------------------------------------------------------------------------------
-- (void)customTabBarSelectionChanged:(id)sender {
+- (void)displayNewTab:(NSInteger)newTabIndex {
 	
-	NSInteger newSelection = -1;
-	
-	if(self.placesTabButton == (UIButton*)sender)
-		newSelection = kPlacesIndex;
-	else if(self.createTabButton == (UIButton*)sender)
-		newSelection = kCreateIndex;
-	else if(self.feedTabButton == (UIButton*)sender)
-		newSelection = kFeedIndex;
-	
-	if(_currentSelectedTabIndex != newSelection) {
+	if(_currentSelectedTabIndex != newTabIndex) {
 		[self hidePreviouslySelectedTab];
-		_currentSelectedTabIndex = newSelection;
+		
+		[DWSession sharedDWSession].previouslySelectedTab	= _currentSelectedTabIndex;
+		_currentSelectedTabIndex							= newTabIndex;
+		
 		[self loadSelectedTab];
 	}
 	else if(_currentSelectedTabIndex == kPlacesIndex) {
@@ -491,7 +488,28 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	}
 	else if(_currentSelectedTabIndex == kFeedIndex) {
 		[(UINavigationController*)self.tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
-	}
+	}	
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIControlEventValueChanged
+
+//----------------------------------------------------------------------------------------------------
+- (void)customTabBarSelectionChanged:(id)sender {
+	
+	NSInteger newTabIndex = -1;
+	
+	if(self.placesTabButton == (UIButton*)sender)
+		newTabIndex = kPlacesIndex;
+	else if(self.createTabButton == (UIButton*)sender)
+		newTabIndex = kCreateIndex;
+	else if(self.feedTabButton == (UIButton*)sender)
+		newTabIndex = kFeedIndex;
+	
+	[self displayNewTab:newTabIndex];
 }
 
 

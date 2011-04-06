@@ -18,6 +18,7 @@
 
 @synthesize currentUser				= _currentUser;
 @synthesize location				= _location;
+@synthesize previouslySelectedTab	= _previouslySelectedTab;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 

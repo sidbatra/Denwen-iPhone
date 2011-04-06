@@ -4,15 +4,35 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KTTextView.h"
 
 /**
  * Facilitates creation of items and places
  */
 @interface DWCreateViewController : UIViewController {
-
+	UIImageView				*_previewImageView;
+	UIImageView				*_transImageView;
+	UITextField				*_placeNameTextField;
+	KTTextView				*_dataTextView;
 }
 
+/**
+ * IBOutlet properties
+ */
+
+@property (nonatomic, retain) IBOutlet UIImageView *previewImageView;
+@property (nonatomic, retain) IBOutlet UIImageView *transImageView;
+@property (nonatomic, retain) IBOutlet UITextField *placeNameTextField;
+@property (nonatomic, retain) IBOutlet KTTextView *dataTextView;
+
+/**
+ * IBActions
+ */
+- (IBAction)cancelButtonClicked:(id)sender;
+
+
 @end
+
 
 /**
  * Declarations for select private methods
@@ -22,6 +42,6 @@
 /**
  * Indicates if the create tab is currently selected
  */
-- (BOOL)isTabSelected;
+- (BOOL)isSelectedTab;
 
 @end

@@ -73,6 +73,8 @@ NSString* const kKeyCondensedData		= @"condensed_data";
 NSString* const kKeyAttachment			= @"attachment";
 NSString* const kKeyURLs				= @"urls";
 NSString* const kKeyFollowing			= @"following";
+NSString* const kKeyTabIndex			= @"tabIndex";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -134,6 +136,8 @@ NSString* const kNTabSelectionChanged		= @"NTabSelectionChanged";
 NSString* const kNNewLocationAvailable		= @"NNewLocationAvailable";
 NSString* const kNFacebookURLOpened			= @"NFacebookURLOpened";
 NSString* const kNDenwenURLOpened			= @"NDenwenURLOpened";
+NSString* const kNRequestTabBarIndexChange	= @"NRequestTabBarIndexChange";
+
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kPNLive			= 0;
@@ -163,6 +167,10 @@ NSString* const kTVPaginationCellIdentifier = @"PaginationCell";
 NSString* const kTVMessageCellIdentifier	= @"MessageCell";
 NSString* const kTVLoadingCellIdentifier	= @"LoadingCell";
 NSString* const kTVDefaultCellIdentifier	= @"Cell";
+
+//----------------------------------------------------------------------------------------------------
+NSInteger const kMediaPickerCaptureMode		= UIImagePickerControllerSourceTypeCamera;
+NSInteger const kMediaPickerLibraryMode		= UIImagePickerControllerSourceTypePhotoLibrary;
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kSegmentedPlacesViewWidth	= 320;
@@ -303,7 +311,6 @@ NSString * const NEW_POST_TEXTVIEW_PLACEHOLDER_TEXT = @"What's going on here?";
 NSString * const VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME = @"video_attach.png";
 NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME = @"video_placeholder.png";
 NSString * const VIDEO_PLAY_BUTTON_IMAGE_NAME = @"play.png";
-int const VIDEO_MAX_DURATION = 45;
 
 /* App UI Attributes */
 

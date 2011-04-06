@@ -16,11 +16,11 @@
 #import "DWMemoryPool.h"
 #import "UIImage+ImageProcessing.h"
 #import "KTTextView.h"
-#import "DWImagePicker.h"
+#import "DWMediaPicker.h"
 
 @protocol DWNewItemViewControllerDelegate;
 
-@interface DWNewItemViewController : UIViewController<UIActionSheetDelegate,DWImagePickerDelegate> {
+@interface DWNewItemViewController : UIViewController<UIActionSheetDelegate> {
 	
 	KTTextView *textView;
 	UILabel *placeLabel;
@@ -42,7 +42,7 @@
 	BOOL _isLoadedOnce;
 	NSInteger _uploadID;
 	
-	DWImagePicker *_imagePicker;
+	DWMediaPicker *_imagePicker;
     
 	id <DWNewItemViewControllerDelegate> _delegate;
 }
@@ -59,7 +59,7 @@
 @property (copy) NSString *filename;
 
 
-@property (nonatomic,retain) DWImagePicker *imagePicker;
+@property (nonatomic,retain) DWMediaPicker *imagePicker;
 
 
 - (IBAction)cancelButtonClicked:(id)sender;
