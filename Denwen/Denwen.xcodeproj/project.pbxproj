@@ -223,7 +223,6 @@
 		BB7A68C5131CB7260000157E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB7A68BE131CB7260000157E /* Icon.png */; };
 		BB7A68C6131CB7260000157E /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB7A68BF131CB7260000157E /* Icon@2x.png */; };
 		BB89EB24133163FC001F6611 /* trans40.png in Resources */ = {isa = PBXBuildFile; fileRef = BB89EB23133163FC001F6611 /* trans40.png */; };
-		BB99755212F3DC4600425678 /* DWUserContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB99755012F3DC4600425678 /* DWUserContainerViewController.xib */; };
 		BBA03B6D132DB56B0073105B /* refreshfade.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6B132DB56B0073105B /* refreshfade.png */; };
 		BBA03B6E132DB56B0073105B /* refreshfade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6C132DB56B0073105B /* refreshfade@2x.png */; };
 		BBA03C18132DBD970073105B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA03C17132DBD970073105B /* AVFoundation.framework */; };
@@ -606,7 +605,6 @@
 		BB7A68BE131CB7260000157E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = resources/Icon.png; sourceTree = "<group>"; };
 		BB7A68BF131CB7260000157E /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "resources/Icon@2x.png"; sourceTree = "<group>"; };
 		BB89EB23133163FC001F6611 /* trans40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trans40.png; path = resources/trans40.png; sourceTree = "<group>"; };
-		BB99755012F3DC4600425678 /* DWUserContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWUserContainerViewController.xib; path = Classes/DWUserContainerViewController.xib; sourceTree = "<group>"; };
 		BBA03B6B132DB56B0073105B /* refreshfade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refreshfade.png; path = resources/refreshfade.png; sourceTree = "<group>"; };
 		BBA03B6C132DB56B0073105B /* refreshfade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refreshfade@2x.png"; path = "resources/refreshfade@2x.png"; sourceTree = "<group>"; };
 		BBA03C17132DBD970073105B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -942,7 +940,6 @@
 			isa = PBXGroup;
 			children = (
 				BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */,
-				BB99755012F3DC4600425678 /* DWUserContainerViewController.xib */,
 				BB3311F712F24A4100B713F9 /* DWUserViewController.xib */,
 				26CAF7A812F21E110058C01E /* DWItemsContainerViewController.xib */,
 				BB17B8D912EA11AF00DD42FC /* DWItemFeedViewController.xib */,
@@ -1487,7 +1484,6 @@
 				BB40522D12F23BB900916688 /* DWFollowedItemsViewController.xib in Resources */,
 				BB3311F912F24A4100B713F9 /* DWUserViewController.xib in Resources */,
 				BB3313E912F282BF00B713F9 /* DWImageViewController.xib in Resources */,
-				BB99755212F3DC4600425678 /* DWUserContainerViewController.xib in Resources */,
 				26CF62D712F3E92200505A37 /* DWWebViewController.xib in Resources */,
 				BBC0C6E012F4C56000291C33 /* blackArrow.png in Resources */,
 				BBC0C6E112F4C56000291C33 /* blackArrow@2x.png in Resources */,
