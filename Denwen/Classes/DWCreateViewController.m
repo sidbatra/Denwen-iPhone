@@ -9,7 +9,10 @@
 
 static NSString* const kTabTitle					= @"Create";
 static NSString* const kImgTab						= @"profile.png";
-
+static NSInteger const kTableViewX					= 0;
+static NSInteger const kTableViewY					= 32;
+static NSInteger const kTableViewWidth				= 320;
+static NSInteger const kTableViewHeight				= 270;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -21,6 +24,7 @@ static NSString* const kImgTab						= @"profile.png";
 @synthesize transImageView		= _transImageView;
 @synthesize placeNameTextField	= _placeNameTextField;
 @synthesize dataTextView		= _dataTextView;
+@synthesize searchResults		= _searchResults;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -43,6 +47,13 @@ static NSString* const kImgTab						= @"profile.png";
 	
 	self.dataTextView.placeholderText = @"What's going on here?";
 	
+	CGRect frame					= CGRectMake(kTableViewX,kTableViewY,kTableViewWidth,kTableViewHeight);
+	self.searchResults				= [[[DWPlacesSearchResultsViewController alloc] init] autorelease];
+	self.searchResults.view.frame	= frame;
+	self.searchResults.view.hidden	= YES;
+	
+	[self.view addSubview:self.searchResults.view];
+	
 	[self.placeNameTextField becomeFirstResponder];
 }
 
@@ -54,6 +65,7 @@ static NSString* const kImgTab						= @"profile.png";
 	self.transImageView			= nil;
 	self.placeNameTextField		= nil;
 	self.dataTextView			= nil;
+	self.searchResults			= nil;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -77,6 +89,21 @@ static NSString* const kImgTab						= @"profile.png";
 //----------------------------------------------------------------------------------------------------
 - (BOOL)isSelectedTab {
 	return self.tabBarController.selectedViewController == self;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITextFieldDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)textField:(UITextField *)theTextField shouldChangeCharactersInRange:(NSRange)range
+replacementString:(NSString *)string {
+	
+	return YES;
+	//NSUInteger newLength = [theTextField.text length] + [string length] - range.length;
+    //return (newLength > MAX_PLACE_NAME_LENGTH) ? NO : YES;
 }
 
 

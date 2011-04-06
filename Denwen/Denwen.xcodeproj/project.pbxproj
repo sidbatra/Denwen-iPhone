@@ -189,6 +189,7 @@
 		BB6419AD134BAE93002A2325 /* DWCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6419AB134BAE93002A2325 /* DWCreateViewController.m */; };
 		BB6419AE134BAE93002A2325 /* DWCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */; };
 		BB641B4D134BE730002A2325 /* DWMediaPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641B4C134BE730002A2325 /* DWMediaPicker.m */; };
+		BB641BDC134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641BDB134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m */; };
 		BB67B77E130A538900378578 /* create_place_user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77A130A538900378578 /* create_place_user_profile.png */; };
 		BB67B77F130A538900378578 /* create_place_user_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77B130A538900378578 /* create_place_user_profile@2x.png */; };
 		BB67B780130A538900378578 /* create_post_user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77C130A538900378578 /* create_post_user_profile.png */; };
@@ -535,6 +536,8 @@
 		BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWCreateViewController.xib; path = Classes/DWCreateViewController.xib; sourceTree = "<group>"; };
 		BB641B4B134BE730002A2325 /* DWMediaPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWMediaPicker.h; path = Classes/DWMediaPicker.h; sourceTree = "<group>"; };
 		BB641B4C134BE730002A2325 /* DWMediaPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWMediaPicker.m; path = Classes/DWMediaPicker.m; sourceTree = "<group>"; };
+		BB641BDA134BFDEE002A2325 /* DWPlacesSearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlacesSearchResultsViewController.h; path = Classes/DWPlacesSearchResultsViewController.h; sourceTree = "<group>"; };
+		BB641BDB134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlacesSearchResultsViewController.m; path = Classes/DWPlacesSearchResultsViewController.m; sourceTree = "<group>"; };
 		BB67B77A130A538900378578 /* create_place_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_place_user_profile.png; path = resources/create_place_user_profile.png; sourceTree = "<group>"; };
 		BB67B77B130A538900378578 /* create_place_user_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "create_place_user_profile@2x.png"; path = "resources/create_place_user_profile@2x.png"; sourceTree = "<group>"; };
 		BB67B77C130A538900378578 /* create_post_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_post_user_profile.png; path = resources/create_post_user_profile.png; sourceTree = "<group>"; };
@@ -1389,6 +1392,8 @@
 				BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */,
 				26DC2E5F130A877A00FC1F3A /* DWPlaceDetailsViewController.h */,
 				26DC2E60130A877A00FC1F3A /* DWPlaceDetailsViewController.m */,
+				BB641BDA134BFDEE002A2325 /* DWPlacesSearchResultsViewController.h */,
+				BB641BDB134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m */,
 			);
 			name = Places;
 			sourceTree = "<group>";
@@ -1727,6 +1732,7 @@
 				BBD0C3721346E2D700BCFB96 /* DWNotificationsHelper.m in Sources */,
 				BB6419AD134BAE93002A2325 /* DWCreateViewController.m in Sources */,
 				BB641B4D134BE730002A2325 /* DWMediaPicker.m in Sources */,
+				BB641BDC134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

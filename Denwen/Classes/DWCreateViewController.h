@@ -4,6 +4,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#import "DWPlacesSearchResultsViewController.h"
+
 #import "KTTextView.h"
 
 /**
@@ -14,7 +17,14 @@
 	UIImageView				*_transImageView;
 	UITextField				*_placeNameTextField;
 	KTTextView				*_dataTextView;
+	
+	DWPlacesSearchResultsViewController *_searchResults;
 }
+
+/**
+ * Table view controller for displaying results for a place name search
+ */
+@property (nonatomic,retain) DWPlacesSearchResultsViewController *searchResults;
 
 /**
  * IBOutlet properties
