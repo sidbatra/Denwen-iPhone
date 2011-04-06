@@ -19,9 +19,9 @@ static NSInteger const kLocationRefreshDistance		= 750;
 static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, memory pool free memmory called";
 static NSInteger const kTabBarWidth					= 320;
 static NSInteger const kTabBarHeight				= 49;
+static NSInteger const kTabBarCount					= 2;
 static NSInteger const kPlacesIndex					= 0;
-static NSInteger const kCreateIndex					= 1;
-static NSInteger const kFeedIndex					= 2;
+static NSInteger const kFeedIndex					= 1;
 static NSString* const kImgPlacesOn					= @"popular_on.png";
 static NSString* const kImgPlacesOff				= @"popular_off.png";
 static NSString* const kImgCreateOn					= @"popular_on.png";
@@ -168,20 +168,16 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	UINavigationController *itemsNavController = [[UINavigationController alloc] initWithRootViewController:itemsContainerViewController];
 	[itemsContainerViewController release];
 	
-	DWCreateViewController *createViewController = [[DWCreateViewController alloc] init];
-	
 	DWPlacesContainerViewController *placesContainerViewController = [[DWPlacesContainerViewController alloc] init];
 	UINavigationController *placesNavController = [[UINavigationController alloc] initWithRootViewController:placesContainerViewController];
 	[placesContainerViewController release];
 	
 	
-	NSMutableArray *localControllersArray = [[NSMutableArray alloc] initWithCapacity:3];
+	NSMutableArray *localControllersArray = [[NSMutableArray alloc] initWithCapacity:kTabBarCount];
 	[localControllersArray addObject:placesNavController];
-	[localControllersArray addObject:createViewController];
 	[localControllersArray addObject:itemsNavController];
 	
 	[itemsNavController release];
-	[createViewController release];
 	[placesNavController release];
 	
 	
@@ -225,7 +221,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOff] 
 								  forState:UIControlStateHighlighted];
 	
-	[self.createTabButton addTarget:self action:@selector(customTabBarSelectionChanged:) 
+	[self.createTabButton addTarget:self action:@selector(createButtonClicked:) 
 				 forControlEvents:UIControlEventTouchUpInside];
 	
 	[self.tabBarController.tabBar addSubview:self.createTabButton];
@@ -276,7 +272,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)userLogsIn:(NSNotification*)notification {
-		
+
 	//if(![[UIApplication sharedApplication] enabledRemoteNotificationTypes])
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
 }	
@@ -422,14 +418,6 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOff] 
 										forState:UIControlStateHighlighted];
 	}
-	else if(_currentSelectedTabIndex == kCreateIndex) {
-		
-		[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOff] 
-										forState:UIControlStateNormal];
-		
-		[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOff] 
-										forState:UIControlStateHighlighted];
-	}
 	else if(_currentSelectedTabIndex == kFeedIndex) {
 		
 		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOff] 
@@ -450,14 +438,6 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOn] 
 										forState:UIControlStateHighlighted];
 	}
-	else if(_currentSelectedTabIndex == kCreateIndex) {
-		
-		[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOn] 
-										forState:UIControlStateNormal];
-		
-		[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOn] 
-										forState:UIControlStateHighlighted];
-	}
 	else if(_currentSelectedTabIndex == kFeedIndex) {
 		
 		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOn] 
@@ -476,19 +456,13 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	if(_currentSelectedTabIndex != newTabIndex) {
 		[self hidePreviouslySelectedTab];
 		
-		[DWSession sharedDWSession].previouslySelectedTab	= _currentSelectedTabIndex;
-		_currentSelectedTabIndex							= newTabIndex;
+		_currentSelectedTabIndex = newTabIndex;
 		
 		[self loadSelectedTab];
 	}
-	else if(_currentSelectedTabIndex == kPlacesIndex) {
+	else {
 		[(UINavigationController*)self.tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
 	}
-	else if(_currentSelectedTabIndex == kCreateIndex) {
-	}
-	else if(_currentSelectedTabIndex == kFeedIndex) {
-		[(UINavigationController*)self.tabBarController.selectedViewController popToRootViewControllerAnimated:YES];
-	}	
 }
 
 
@@ -504,13 +478,20 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	
 	if(self.placesTabButton == (UIButton*)sender)
 		newTabIndex = kPlacesIndex;
-	else if(self.createTabButton == (UIButton*)sender)
-		newTabIndex = kCreateIndex;
 	else if(self.feedTabButton == (UIButton*)sender)
 		newTabIndex = kFeedIndex;
 	
 	[self displayNewTab:newTabIndex];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)createButtonClicked:(id)sender {
+	DWCreateViewController *createView	= [[DWCreateViewController alloc] init];
+	createView.modalTransitionStyle		= UIModalTransitionStyleCrossDissolve;
+	
+	[(UINavigationController*)self.tabBarController.selectedViewController presentModalViewController:createView
+																							 animated:YES];
+	[createView release];
+}
 
 @end

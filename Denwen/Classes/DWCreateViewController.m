@@ -114,11 +114,7 @@ replacementString:(NSString *)string {
 
 //----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClicked:(id)sender {
-	[[NSNotificationCenter defaultCenter] postNotificationName:kNRequestTabBarIndexChange 
-														object:nil
-													  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																[NSNumber numberWithInt:[DWSession sharedDWSession].previouslySelectedTab],kKeyTabIndex,
-																nil]];
+	[self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
 
