@@ -12,11 +12,14 @@
 /**
  * Facilitates creation of items and places
  */
-@interface DWCreateViewController : UIViewController {
+@interface DWCreateViewController : UIViewController<DWPlacesSearchResultsViewControllerDelegate> {
 	UIImageView				*_previewImageView;
 	UIImageView				*_transImageView;
 	UITextField				*_placeNameTextField;
 	KTTextView				*_dataTextView;
+	UIButton				*_mapButton;
+	
+	BOOL					_newPlaceMode;
 	
 	DWPlacesSearchResultsViewController *_searchResults;
 }
@@ -34,6 +37,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView *transImageView;
 @property (nonatomic, retain) IBOutlet UITextField *placeNameTextField;
 @property (nonatomic, retain) IBOutlet KTTextView *dataTextView;
+@property (nonatomic, retain) IBOutlet UIButton *mapButton;
 
 /**
  * IBActions

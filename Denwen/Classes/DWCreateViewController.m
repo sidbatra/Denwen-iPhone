@@ -13,7 +13,8 @@ static NSInteger const kTableViewX					= 0;
 static NSInteger const kTableViewY					= 32;
 static NSInteger const kTableViewWidth				= 320;
 static NSInteger const kTableViewHeight				= 270;
-
+static NSInteger const kMaxPlaceNameLength			= 32;
+static NSInteger const kMaxPostLength				= 180;
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -25,6 +26,7 @@ static NSInteger const kTableViewHeight				= 270;
 @synthesize placeNameTextField	= _placeNameTextField;
 @synthesize dataTextView		= _dataTextView;
 @synthesize searchResults		= _searchResults;
+@synthesize	mapButton			= _mapButton;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -50,6 +52,7 @@ static NSInteger const kTableViewHeight				= 270;
 	
 	CGRect frame					= CGRectMake(kTableViewX,kTableViewY,kTableViewWidth,kTableViewHeight);
 	self.searchResults				= [[[DWPlacesSearchResultsViewController alloc] init] autorelease];
+	self.searchResults.delegate		= self;
 	self.searchResults.view.frame	= frame;
 	self.searchResults.view.hidden	= YES;
 	
@@ -96,15 +99,57 @@ static NSInteger const kTableViewHeight				= 270;
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
+#pragma mark DWPlacesSearchResultsViewControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)placeSelected:(DWPlace *)place {
+	self.placeNameTextField.text = place.name;
+	[self.dataTextView becomeFirstResponder];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)newPlaceSelected {
+	_newPlaceMode			= YES;
+	self.mapButton.hidden	= NO;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
 #pragma mark UITextFieldDelegate
 
 //----------------------------------------------------------------------------------------------------
 - (BOOL)textField:(UITextField *)theTextField shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string {
 	
-	return YES;
-	//NSUInteger newLength = [theTextField.text length] + [string length] - range.length;
-    //return (newLength > MAX_PLACE_NAME_LENGTH) ? NO : YES;
+	NSUInteger newLength = [self.placeNameTextField.text length] + [string length] - range.length;
+    return (newLength > kMaxPlaceNameLength) ? NO : YES;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	
+	if(textField == self.placeNameTextField && _newPlaceMode) {
+		[self.placeNameTextField resignFirstResponder];
+		[self.dataTextView becomeFirstResponder];
+	}
+
+	return NO;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITextViewDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)textView:(UITextView *)theTextView shouldChangeTextInRange:(NSRange)range 
+ replacementText:(NSString *)text{
+	
+	NSUInteger newLength = [self.dataTextView.text length] + [text length] - range.length;
+    return (newLength > kMaxPostLength) ? NO : YES;
 }
 
 
@@ -121,8 +166,10 @@ replacementString:(NSString *)string {
 //----------------------------------------------------------------------------------------------------
 - (IBAction)placeNameTextFieldEditingChanged:(id)sender {
 	
-	self.searchResults.searchText = self.placeNameTextField.text;
-	[self.searchResults filterPlacesBySearchText];
+	if(!_newPlaceMode) {
+		self.searchResults.searchText = self.placeNameTextField.text;
+		[self.searchResults filterPlacesBySearchText];
+	}
 }
 
 

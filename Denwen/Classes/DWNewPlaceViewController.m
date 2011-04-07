@@ -259,8 +259,9 @@ static NSString* const PIN_IDENTIFIER = @"PinIdenfiter";
 //
 - (BOOL)textField:(UITextField *)theTextField shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string {
-    NSUInteger newLength = [theTextField.text length] + [string length] - range.length;
-    return (newLength > MAX_PLACE_NAME_LENGTH) ? NO : YES;
+	return YES;
+    //NSUInteger newLength = [theTextField.text length] + [string length] - range.length;
+    //return (newLength > MAX_PLACE_NAME_LENGTH) ? NO : YES;
 }
 
 

@@ -7,6 +7,8 @@
 
 #import "DWPlacesManager.h"
 
+@protocol DWPlacesSearchResultsViewControllerDelegate;
+
 /**
  * Displays search results for places in an SMS style UI
  */
@@ -14,6 +16,8 @@
 	DWPlacesManager		*_placesManager;
 	NSString			*_searchText;
 	NSInteger			_tableViewUsage;
+	
+	id <DWPlacesSearchResultsViewControllerDelegate>	_delegate;
 }
 
 /**
@@ -26,6 +30,11 @@
  */
 @property (nonatomic,retain) DWPlacesManager *placesManager;
 
+/**
+ * Delegate for receiving events on place selection
+ */
+@property (nonatomic, assign) id<DWPlacesSearchResultsViewControllerDelegate> delegate;
+
 
 /**
  * Filters the available places by the given search queries and displays them
@@ -33,5 +42,23 @@
  */
 - (void)filterPlacesBySearchText;
 
+
+@end
+
+/**
+ * Delegate protocol to receive updates about place search result
+ * selection
+ */
+@protocol DWPlacesSearchResultsViewControllerDelegate
+
+/**
+ * Fired when user selects an existing place
+ */
+- (void)placeSelected:(DWPlace*)place;
+
+/**
+ * Fired when user selects the create new place cell
+ */
+- (void)newPlaceSelected;
 
 @end

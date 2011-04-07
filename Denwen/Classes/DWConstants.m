@@ -260,8 +260,7 @@ int const LOCATION_FAILSAFE_DURATION = 6;
 
 
 /* max lengths for texts */
-int const MAX_PLACE_NAME_LENGTH = 32;
-int const MAX_POST_DATA_LENGTH = 180;
+
 
 
 /* JPEG compression */

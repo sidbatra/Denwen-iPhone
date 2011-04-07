@@ -12,6 +12,7 @@
 static NSInteger const kSectionCount						= 1;
 static NSInteger const kSpinnerCellIndex					= 1;
 static NSInteger const kLoadingCellCount					= 3;
+static NSInteger const kNewPlaceCellBufferCount				= 1;
 static NSString* const kEmptyString							= @"";
 static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCell";
 
@@ -22,6 +23,7 @@ static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCe
 
 @synthesize placesManager	= _placesManager;
 @synthesize searchText		= _searchText;
+@synthesize delegate		= _delegate;
 
 - (id)init {
 	self = [super init];
@@ -129,7 +131,7 @@ static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCe
 	if(_tableViewUsage == kTableViewAsSpinner)
 		rows = kLoadingCellCount;
 	else if(_tableViewUsage == kTableViewAsData)
-		rows = [self.placesManager totalFilteredPlaces];
+		rows = [self.placesManager totalFilteredPlaces] + kNewPlaceCellBufferCount;
 	
     return rows;
 }
@@ -139,7 +141,7 @@ static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCe
     
 	UITableViewCell *cell = nil;
 	
-	if(_tableViewUsage == kTableViewAsData) {
+	if(_tableViewUsage == kTableViewAsData && indexPath.row < [self.placesManager totalFilteredPlaces]) {
 		
 		DWPlaceSearchResultCell *cell = (DWPlaceSearchResultCell*)[tableView dequeueReusableCellWithIdentifier:kPlaceSearchResultCellIdentifier];
 		
@@ -156,6 +158,20 @@ static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCe
 		[cell setPlaceDetails:[place displayAddress]];
 		
 		return cell;
+	}
+	if(_tableViewUsage == kTableViewAsData && indexPath.row == [self.placesManager totalFilteredPlaces]) {
+		
+		DWLoadingCell *cell = (DWLoadingCell*)[tableView dequeueReusableCellWithIdentifier:kTVLoadingCellIdentifier];
+		
+		if (!cell) 
+			cell = [[[DWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault 
+										 reuseIdentifier:kTVLoadingCellIdentifier] autorelease];
+		
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;	
+		[cell.spinner startAnimating];
+		
+		return cell;
+		
 	}
 	else if(_tableViewUsage == kTableViewAsSpinner && indexPath.row == kSpinnerCellIndex) {
 		
@@ -194,6 +210,16 @@ static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCe
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[self.tableView deselectRowAtIndexPath:indexPath 
 								  animated:YES];
+	
+	if(_tableViewUsage == kTableViewAsData && indexPath.row < [self.placesManager totalFilteredPlaces]) {
+		DWPlace *place = [self.placesManager getFilteredPlace:indexPath.row];
+		[_delegate placeSelected:place];
+		self.view.hidden = YES;
+	}
+	else if(_tableViewUsage == kTableViewAsData && indexPath.row == [self.placesManager totalFilteredPlaces]) {
+		[_delegate newPlaceSelected];
+		self.view.hidden = YES;
+	}
 }
 
 

@@ -115,8 +115,9 @@
 //
 - (BOOL)textView:(UITextView *)theTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
    
-	NSUInteger newLength = [theTextView.text length] + [text length] - range.length;
-    return (newLength > MAX_POST_DATA_LENGTH) ? NO : YES;
+	return YES;
+	//NSUInteger newLength = [theTextView.text length] + [text length] - range.length;
+    //return (newLength > MAX_POST_DATA_LENGTH) ? NO : YES;
 }
 
 

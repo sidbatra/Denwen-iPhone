@@ -245,9 +245,6 @@ extern int const LOCATION_FAILSAFE_DURATION;
 
 
 
-extern int const MAX_PLACE_NAME_LENGTH;
-extern int const MAX_POST_DATA_LENGTH;
-
 
 extern float const JPEG_COMPRESSION;
 
