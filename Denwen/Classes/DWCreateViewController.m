@@ -47,6 +47,7 @@ static NSInteger const kTableViewHeight				= 270;
 	
 	self.dataTextView.placeholderText = @"What's going on here?";
 	
+	
 	CGRect frame					= CGRectMake(kTableViewX,kTableViewY,kTableViewWidth,kTableViewHeight);
 	self.searchResults				= [[[DWPlacesSearchResultsViewController alloc] init] autorelease];
 	self.searchResults.view.frame	= frame;
@@ -115,6 +116,13 @@ replacementString:(NSString *)string {
 //----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClicked:(id)sender {
 	[self.parentViewController dismissModalViewControllerAnimated:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (IBAction)placeNameTextFieldEditingChanged:(id)sender {
+	
+	self.searchResults.searchText = self.placeNameTextField.text;
+	[self.searchResults filterPlacesBySearchText];
 }
 
 

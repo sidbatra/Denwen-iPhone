@@ -191,6 +191,7 @@
 		BB641C4D134D31D5002A2325 /* DWPlacesCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641C4C134D31D5002A2325 /* DWPlacesCache.m */; };
 		BB641C5A134D33B3002A2325 /* DWPlacesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641C59134D33B3002A2325 /* DWPlacesManager.m */; };
 		BB641D5C134D3E20002A2325 /* DWItemsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641D5B134D3E20002A2325 /* DWItemsManager.m */; };
+		BB641EF6134D97BB002A2325 /* DWPlaceSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641EF5134D97BB002A2325 /* DWPlaceSearchResultCell.m */; };
 		BB67B77E130A538900378578 /* create_place_user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77A130A538900378578 /* create_place_user_profile.png */; };
 		BB67B77F130A538900378578 /* create_place_user_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77B130A538900378578 /* create_place_user_profile@2x.png */; };
 		BB67B780130A538900378578 /* create_post_user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = BB67B77C130A538900378578 /* create_post_user_profile.png */; };
@@ -541,6 +542,8 @@
 		BB641D5A134D3E20002A2325 /* DWItemsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWItemsManager.h; path = Classes/DWItemsManager.h; sourceTree = "<group>"; };
 		BB641D5B134D3E20002A2325 /* DWItemsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItemsManager.m; path = Classes/DWItemsManager.m; sourceTree = "<group>"; };
 		BB641D78134D439E002A2325 /* DWPlacesCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlacesCache.h; path = Classes/DWPlacesCache.h; sourceTree = "<group>"; };
+		BB641EF4134D97BB002A2325 /* DWPlaceSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceSearchResultCell.h; path = Classes/DWPlaceSearchResultCell.h; sourceTree = "<group>"; };
+		BB641EF5134D97BB002A2325 /* DWPlaceSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlaceSearchResultCell.m; path = Classes/DWPlaceSearchResultCell.m; sourceTree = "<group>"; };
 		BB67B77A130A538900378578 /* create_place_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_place_user_profile.png; path = resources/create_place_user_profile.png; sourceTree = "<group>"; };
 		BB67B77B130A538900378578 /* create_place_user_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "create_place_user_profile@2x.png"; path = "resources/create_place_user_profile@2x.png"; sourceTree = "<group>"; };
 		BB67B77C130A538900378578 /* create_post_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_post_user_profile.png; path = resources/create_post_user_profile.png; sourceTree = "<group>"; };
@@ -877,6 +880,8 @@
 				26B973CB12F0BED9000F8F1F /* DWItemFeedCell.m */,
 				26B9789812F180C8000F8F1F /* DWPlaceFeedCell.h */,
 				26B9789912F180C8000F8F1F /* DWPlaceFeedCell.m */,
+				BB641EF4134D97BB002A2325 /* DWPlaceSearchResultCell.h */,
+				BB641EF5134D97BB002A2325 /* DWPlaceSearchResultCell.m */,
 				BB33130512F25F3E00B713F9 /* DWImageView.h */,
 				BB33130612F25F3E00B713F9 /* DWImageView.m */,
 				261C905112FBA43600D16F72 /* DWLoadingCell.h */,
@@ -1747,6 +1752,7 @@
 				BB641C4D134D31D5002A2325 /* DWPlacesCache.m in Sources */,
 				BB641C5A134D33B3002A2325 /* DWPlacesManager.m in Sources */,
 				BB641D5C134D3E20002A2325 /* DWItemsManager.m in Sources */,
+				BB641EF6134D97BB002A2325 /* DWPlaceSearchResultCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -39,6 +39,7 @@
  * IBActions
  */
 - (IBAction)cancelButtonClicked:(id)sender;
+- (IBAction)placeNameTextFieldEditingChanged:(id)sender;
 
 
 @end

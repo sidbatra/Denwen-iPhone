@@ -10,8 +10,9 @@
 
 #import "SynthesizeSingleton.h"
 
-static NSInteger const kCapacity		= 1;
+static NSInteger const kCapacity		= 2;
 static NSInteger const kNearbyIndex		= 0;
+static NSInteger const kFollowedIndex	= 1;
 
 
 
@@ -20,8 +21,9 @@ static NSInteger const kNearbyIndex		= 0;
 //----------------------------------------------------------------------------------------------------
 @implementation DWPlacesCache
 
-@synthesize placesManager		= _placesManager;
-@synthesize nearbyPlacesReady	= _nearbyPlacesReady;
+@synthesize placesManager			= _placesManager;
+@synthesize nearbyPlacesReady		= _nearbyPlacesReady;
+@synthesize followedPlacesReady		= _followedPlacesReady;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 
@@ -42,6 +44,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 		}
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(applicationDidBecomeActive:) 
+													 name:UIApplicationDidBecomeActiveNotification
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userLogsIn:) 
+													 name:kNUserLogsIn
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(nearbyPlacesLoaded:) 
 													 name:kNNearbyPlacesLoaded
 												   object:nil];
@@ -60,6 +72,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 												 selector:@selector(newLocationAvailable:) 
 													 name:kNNewLocationAvailable 
 												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userPlacesLoaded:) 
+													 name:kNUserPlacesLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userPlacesError:) 
+													 name:kNUserPlacesError
+												   object:nil];
+		
 	}
 	
 	return self;
@@ -80,8 +103,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSMutableArray*)getFollowedPlaces {
+	return [self.placesManager getPlacesAtRow:kFollowedIndex];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)loadNearbyPlaces {
 	[[DWRequestsManager sharedDWRequestsManager] getNearbyPlaces];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadFollowedPlaces {
+	if([[DWSession sharedDWSession] isActive])
+		[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:[DWSession sharedDWSession].currentUser.databaseID];
 }
 
 
@@ -136,6 +170,45 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 		[self loadNearbyPlaces]; 
 		_refreshNearbyPlacesOnNextLocationUpdate = NO;
 	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)applicationDidBecomeActive:(NSNotification*)notification {
+	if(!_followedPlacesReady) {
+		[self loadFollowedPlaces];
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)userLogsIn:(NSNotification*)notification {
+	[self loadFollowedPlaces];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)userPlacesLoaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != [DWSession sharedDWSession].currentUser.databaseID)
+		return;
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
+		[self.placesManager populatePlaces:[[info objectForKey:kKeyBody] objectForKey:kKeyPlaces]
+							  atIndex:kFollowedIndex];
+		
+		_followedPlacesReady = YES;
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:kNFollowedPlacesCacheUpdated
+															object:nil];
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)userPlacesError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != [DWSession sharedDWSession].currentUser.databaseID)
+		return;
 }
 
 @end

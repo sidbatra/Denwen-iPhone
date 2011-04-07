@@ -73,7 +73,6 @@ extern NSString* const kNPopularPlacesLoaded;
 extern NSString* const kNPopularPlacesError;
 extern NSString* const kNNearbyPlacesLoaded;
 extern NSString* const kNNearbyPlacesError;
-extern NSString* const kNNearbyPlacesCacheUpdated;
 extern NSString* const kNUserPlacesLoaded;
 extern NSString* const kNUserPlacesError;
 extern NSString* const kNSearchPlacesLoaded;
@@ -129,6 +128,9 @@ extern NSString* const kNNewLocationAvailable;
 extern NSString* const kNFacebookURLOpened;
 extern NSString* const kNDenwenURLOpened ;
 extern NSString* const kNRequestTabBarIndexChange;
+extern NSString* const kNNearbyPlacesCacheUpdated;
+extern NSString* const kNFollowedPlacesCacheUpdated;
+
 
 /**
  * Push notifcation types

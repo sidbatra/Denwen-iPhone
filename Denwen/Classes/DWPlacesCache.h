@@ -14,6 +14,7 @@
 	DWPlacesManager		*_placesManager;
 	BOOL				_refreshNearbyPlacesOnNextLocationUpdate;
 	BOOL				_nearbyPlacesReady;
+	BOOL				_followedPlacesReady;
 }
 
 /**
@@ -27,13 +28,23 @@
 @property (nonatomic,readonly) BOOL nearbyPlacesReady;
 
 /**
+ * Indicates whether followed places have been loaded once
+ */
+@property (nonatomic,readonly) BOOL followedPlacesReady;
+
+/**
  * Holds the cached places
  */
 @property (nonatomic,retain) DWPlacesManager *placesManager;
 
 /**
- * Returns the cached nearby places
+ * Returns the cached array of nearby places
  */
 - (NSMutableArray*)getNearbyPlaces;
+
+/**
+ * Returns the cache array of followed places
+ */
+- (NSMutableArray*)getFollowedPlaces;
 
 @end

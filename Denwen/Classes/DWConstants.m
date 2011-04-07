@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-//#define PRODUCTION 1 
+#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -78,66 +78,67 @@ NSString* const kKeyTabIndex			= @"tabIndex";
 
 
 //----------------------------------------------------------------------------------------------------
-NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
-NSString* const kNPopularPlacesError		= @"NPopularPlacesError";
-NSString* const kNNearbyPlacesLoaded		= @"NNearbyPlacesLoaded";
-NSString* const kNNearbyPlacesError			= @"NNearbyPlacesError";
-NSString* const kNNearbyPlacesCacheUpdated	= @"NNearbyPlacesCacheUpdated";
-NSString* const kNUserPlacesLoaded			= @"NUserPlacesLoaded";
-NSString* const kNUserPlacesError			= @"NUserPlacesError";
-NSString* const kNSearchPlacesLoaded		= @"NSearchPlacesLoaded";
-NSString* const kNSearchPlacesError			= @"NSearchPlacesError";
-NSString* const kNPlaceLoaded				= @"NPlaceLoaded";
-NSString* const kNPlaceError				= @"NPlaceError";
-NSString* const kNPlaceUpdated				= @"NPlaceUpdated";
-NSString* const kNPlaceUpdateError			= @"NPlaceUpdateError";
-NSString* const kNNewPlaceCreated			= @"NNewPlaceCreated";
-NSString* const kNNewPlaceError				= @"NNewPlaceError";
-NSString* const kNNewPlaceParsed			= @"NNewPlaceParsed";
-NSString* const kNNewFollowingCreated		= @"NNewFollowingCreated";
-NSString* const kNNewFollowingError			= @"NNewFollowingError";
-NSString* const kNFollowingDestroyed		= @"NFollowingDestroyed";
-NSString* const kNFollowingDestroyError		= @"NFollowingDestroyError";
-NSString* const kNUserLoaded				= @"NUserLoaded";
-NSString* const kNUserError					= @"NUserError";
-NSString* const kNUserUpdated				= @"NUserUpdated";
-NSString* const kNUserUpdateError			= @"NUserUpdateError";
-NSString* const kNUserLogsIn				= @"NUserLogsIn";
-NSString* const kNFollowedItemsLoaded		= @"NFollowedItemsLoaded";
-NSString* const kNFollowedItemsError		= @"NFollowedItemsError";
-NSString* const kNNewItemCreated			= @"NNewItemCreated";
-NSString* const kNNewItemError				= @"NNewItemError";
-NSString* const kNNewItemParsed				= @"NNewItemParsed";
-NSString* const kNNewUserCreated			= @"NNewUserCreated";
-NSString* const kNNewUserError				= @"NNewUserError";	
-NSString* const kNNewSessionCreated			= @"NNewSessionCreated";
-NSString* const kNNewSessionError			= @"NNewSessionError";
-NSString* const kNS3UploadDone				= @"NS3UploadDone";
-NSString* const kNS3UploadError				= @"NS3UploadError";
-NSString* const kNImgSmallUserLoaded		= @"NImgSmallUserLoaded";
-NSString* const kNImgSmallUserError			= @"NImgSmallUserError";
-NSString* const kNImgMediumUserLoaded		= @"NImgMediumUserLoaded";
-NSString* const kNImgMediumUserError		= @"NImgMediumUserError";
-NSString* const kNImgLargeUserLoaded		= @"NImgLargeUserLoaded";
-NSString* const kNImgLargeUserError			= @"NImgLargeUserError";
-NSString* const kNImgSmallPlaceLoaded		= @"NImgSmallPlaceLoaded";
-NSString* const kNImgSmallPlaceError		= @"NImgSmallPlaceError";
-NSString* const kNImgMediumPlaceLoaded		= @"NImgMediumPlaceLoaded";
-NSString* const kNImgMediumPlaceError		= @"NImgMediumPlaceError";
-NSString* const kNImgLargePlaceLoaded		= @"NImgLargePlaceLoaded";
-NSString* const kNImgLargePlaceError		= @"NImgLargePlaceError";
-NSString* const kNImgMediumAttachmentLoaded	= @"NImgMediumAttachmentLoaded";
-NSString* const kNImgMediumAttachmentError	= @"NImgMediumAttachmentError";
-NSString* const kNImgLargeAttachmentLoaded	= @"NImgLargeAttachmentLoaded";
-NSString* const kNImgLargeAttachmentError	= @"NImgLargeAttachmentError";
-NSString* const kNImgActualAttachmentLoaded	= @"NImgActualAttachmentLoaded";
-NSString* const kNImgActualAttachmentError	= @"NImgActualAttachmentError";
-NSString* const kNNewApplicationBadge		= @"NNewApplicationBadge"; 
-NSString* const kNTabSelectionChanged		= @"NTabSelectionChanged";
-NSString* const kNNewLocationAvailable		= @"NNewLocationAvailable";
-NSString* const kNFacebookURLOpened			= @"NFacebookURLOpened";
-NSString* const kNDenwenURLOpened			= @"NDenwenURLOpened";
-NSString* const kNRequestTabBarIndexChange	= @"NRequestTabBarIndexChange";
+NSString* const kNPopularPlacesLoaded			= @"NPopularPlacesLoaded";
+NSString* const kNPopularPlacesError			= @"NPopularPlacesError";
+NSString* const kNNearbyPlacesLoaded			= @"NNearbyPlacesLoaded";
+NSString* const kNNearbyPlacesError				= @"NNearbyPlacesError";
+NSString* const kNUserPlacesLoaded				= @"NUserPlacesLoaded";
+NSString* const kNUserPlacesError				= @"NUserPlacesError";
+NSString* const kNSearchPlacesLoaded			= @"NSearchPlacesLoaded";
+NSString* const kNSearchPlacesError				= @"NSearchPlacesError";
+NSString* const kNPlaceLoaded					= @"NPlaceLoaded";
+NSString* const kNPlaceError					= @"NPlaceError";
+NSString* const kNPlaceUpdated					= @"NPlaceUpdated";
+NSString* const kNPlaceUpdateError				= @"NPlaceUpdateError";
+NSString* const kNNewPlaceCreated				= @"NNewPlaceCreated";
+NSString* const kNNewPlaceError					= @"NNewPlaceError";
+NSString* const kNNewPlaceParsed				= @"NNewPlaceParsed";
+NSString* const kNNewFollowingCreated			= @"NNewFollowingCreated";
+NSString* const kNNewFollowingError				= @"NNewFollowingError";
+NSString* const kNFollowingDestroyed			= @"NFollowingDestroyed";
+NSString* const kNFollowingDestroyError			= @"NFollowingDestroyError";
+NSString* const kNUserLoaded					= @"NUserLoaded";
+NSString* const kNUserError						= @"NUserError";
+NSString* const kNUserUpdated					= @"NUserUpdated";
+NSString* const kNUserUpdateError				= @"NUserUpdateError";
+NSString* const kNUserLogsIn					= @"NUserLogsIn";
+NSString* const kNFollowedItemsLoaded			= @"NFollowedItemsLoaded";
+NSString* const kNFollowedItemsError			= @"NFollowedItemsError";
+NSString* const kNNewItemCreated				= @"NNewItemCreated";
+NSString* const kNNewItemError					= @"NNewItemError";
+NSString* const kNNewItemParsed					= @"NNewItemParsed";
+NSString* const kNNewUserCreated				= @"NNewUserCreated";
+NSString* const kNNewUserError					= @"NNewUserError";	
+NSString* const kNNewSessionCreated				= @"NNewSessionCreated";
+NSString* const kNNewSessionError				= @"NNewSessionError";
+NSString* const kNS3UploadDone					= @"NS3UploadDone";
+NSString* const kNS3UploadError					= @"NS3UploadError";
+NSString* const kNImgSmallUserLoaded			= @"NImgSmallUserLoaded";
+NSString* const kNImgSmallUserError				= @"NImgSmallUserError";
+NSString* const kNImgMediumUserLoaded			= @"NImgMediumUserLoaded";
+NSString* const kNImgMediumUserError			= @"NImgMediumUserError";
+NSString* const kNImgLargeUserLoaded			= @"NImgLargeUserLoaded";
+NSString* const kNImgLargeUserError				= @"NImgLargeUserError";
+NSString* const kNImgSmallPlaceLoaded			= @"NImgSmallPlaceLoaded";
+NSString* const kNImgSmallPlaceError			= @"NImgSmallPlaceError";
+NSString* const kNImgMediumPlaceLoaded			= @"NImgMediumPlaceLoaded";
+NSString* const kNImgMediumPlaceError			= @"NImgMediumPlaceError";
+NSString* const kNImgLargePlaceLoaded			= @"NImgLargePlaceLoaded";
+NSString* const kNImgLargePlaceError			= @"NImgLargePlaceError";
+NSString* const kNImgMediumAttachmentLoaded		= @"NImgMediumAttachmentLoaded";
+NSString* const kNImgMediumAttachmentError		= @"NImgMediumAttachmentError";
+NSString* const kNImgLargeAttachmentLoaded		= @"NImgLargeAttachmentLoaded";
+NSString* const kNImgLargeAttachmentError		= @"NImgLargeAttachmentError";
+NSString* const kNImgActualAttachmentLoaded		= @"NImgActualAttachmentLoaded";
+NSString* const kNImgActualAttachmentError		= @"NImgActualAttachmentError";
+NSString* const kNNewApplicationBadge			= @"NNewApplicationBadge"; 
+NSString* const kNTabSelectionChanged			= @"NTabSelectionChanged";
+NSString* const kNNewLocationAvailable			= @"NNewLocationAvailable";
+NSString* const kNFacebookURLOpened				= @"NFacebookURLOpened";
+NSString* const kNDenwenURLOpened				= @"NDenwenURLOpened";
+NSString* const kNRequestTabBarIndexChange		= @"NRequestTabBarIndexChange";
+NSString* const kNNearbyPlacesCacheUpdated		= @"NNearbyPlacesCacheUpdated";
+NSString* const kNFollowedPlacesCacheUpdated	= @"NFollowedPlacesCacheUpdated";
 
 
 //----------------------------------------------------------------------------------------------------
