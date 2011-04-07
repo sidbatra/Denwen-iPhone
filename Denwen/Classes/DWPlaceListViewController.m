@@ -55,7 +55,7 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 		
 		_delegate = delegate;
 		
-		self.placeManager		= [[[DWPlaceManager alloc] initWithCapacity:capacity] autorelease];
+		self.placeManager		= [[[DWPlacesManager alloc] initWithCapacity:capacity] autorelease];
 		_tableViewUsage			= kTableViewAsSpinner;
 		_isLocalSearch			= localSearchFlag;
 		_isReloading			= NO;

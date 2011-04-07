@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 
 #import "DWPlaceViewController.h"
-#import "DWPlaceManager.h"
+#import "DWPlacesManager.h"
 
 #import "EGORefreshTableHeaderView.h"
 
@@ -17,7 +17,7 @@
  * Base class for displaying a list of places
  */
 @interface DWPlaceListViewController : UITableViewController<UISearchDisplayDelegate,UISearchBarDelegate,EGORefreshTableHeaderDelegate> {
-	DWPlaceManager	*_placeManager;
+	DWPlacesManager	*_placeManager;
 	
 	NSString		*_messageCellText;
 	NSDate			*_lastRefreshDate;
@@ -38,7 +38,7 @@
 /**
  * Manages retreival and creation of DWPlacem mobjects
  */
-@property (nonatomic,retain) DWPlaceManager *placeManager;
+@property (nonatomic,retain) DWPlacesManager *placeManager;
 
 /**
  * Text to be displayed when tableViewUsuage is message
