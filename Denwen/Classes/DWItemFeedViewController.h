@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DWItemManager.h"
+#import "DWItemsManager.h"
 
 #import "EGORefreshTableHeaderView.h"
 
@@ -16,7 +16,7 @@
  */
 @interface DWItemFeedViewController : UITableViewController<EGORefreshTableHeaderDelegate> {
 	
-	DWItemManager	*_itemManager;
+	DWItemsManager	*_itemManager;
 
 	NSInteger		_currentPage;
 	NSInteger		_tableViewUsage;
@@ -36,7 +36,7 @@
 /**
  * Manages retreival and creation of items
  */
-@property (nonatomic,retain) DWItemManager *itemManager;
+@property (nonatomic,retain) DWItemsManager *itemManager;
 
 /**
  * Text to be displayed in message mode - see _tableViewUsage

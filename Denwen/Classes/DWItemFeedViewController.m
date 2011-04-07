@@ -5,6 +5,7 @@
 
 #import "DWItemFeedViewController.h"
 #import "DWRequestsManager.h"
+#import "DWMemoryPool.h"
 #import "DWItemFeedCell.h"
 #import "DWLoadingCell.h"
 #import "DWMessageCell.h"
@@ -35,7 +36,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	
 	if (self) {
 		
-		self.itemManager	= [[[DWItemManager alloc] init] autorelease];
+		self.itemManager	= [[[DWItemsManager alloc] init] autorelease];
 		_isReloading		= NO;
 		_isLoadedOnce		= NO;
 		_tableViewUsage		= kTableViewAsSpinner;

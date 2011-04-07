@@ -5,6 +5,7 @@
 
 #import "DWUserViewController.h"
 #import "DWRequestsManager.h"
+#import "DWMemoryPool.h"
 #import "DWFollowedPlacesViewController.h"
 #import "DWSession.h"
 

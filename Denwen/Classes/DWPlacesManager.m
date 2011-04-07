@@ -4,6 +4,7 @@
 //
 
 #import "DWPlacesManager.h"
+#import "DWMemoryPool.h"
 #import "DWConstants.h"
 
 

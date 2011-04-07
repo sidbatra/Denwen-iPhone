@@ -5,11 +5,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "DWMemoryPool.h"
 #import "DWPlace.h"
 
 /**
- * Manages a set of places and abstract their memeory management
+ * Manages groups of places and abstracts their memeory management, retreival
+ * and local filtering
  */
 @interface DWPlacesManager : NSObject {
 	NSMutableArray	*_places;
