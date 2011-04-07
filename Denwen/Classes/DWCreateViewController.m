@@ -9,6 +9,7 @@
 
 static NSString* const kTabTitle					= @"Create";
 static NSString* const kImgTab						= @"profile.png";
+static NSString* const kMsgDataTextViewPlaceholder	= @"What's going on here";
 static NSInteger const kTableViewX					= 0;
 static NSInteger const kTableViewY					= 32;
 static NSInteger const kTableViewWidth				= 320;
@@ -47,7 +48,7 @@ static NSInteger const kMaxPostLength				= 180;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.dataTextView.placeholderText = @"What's going on here?";
+	self.dataTextView.placeholderText = kMsgDataTextViewPlaceholder;
 	
 	
 	CGRect frame					= CGRectMake(kTableViewX,kTableViewY,kTableViewWidth,kTableViewHeight);

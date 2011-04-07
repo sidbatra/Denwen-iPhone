@@ -6,6 +6,7 @@
 #import "DWPlacesSearchResultsViewController.h"
 #import "DWPlacesCache.h"
 #import "DWPlaceSearchResultCell.h"
+#import "DWNewPlaceCell.h"
 #import "DWLoadingCell.h"
 #import "DWConstants.h"
 
@@ -15,6 +16,9 @@ static NSInteger const kLoadingCellCount					= 3;
 static NSInteger const kNewPlaceCellBufferCount				= 1;
 static NSString* const kEmptyString							= @"";
 static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCell";
+static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
+
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -161,17 +165,13 @@ static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCe
 	}
 	if(_tableViewUsage == kTableViewAsData && indexPath.row == [self.placesManager totalFilteredPlaces]) {
 		
-		DWLoadingCell *cell = (DWLoadingCell*)[tableView dequeueReusableCellWithIdentifier:kTVLoadingCellIdentifier];
+		DWNewPlaceCell *cell = (DWNewPlaceCell*)[tableView dequeueReusableCellWithIdentifier:kNewPlaceCellIdentifier];
 		
 		if (!cell) 
-			cell = [[[DWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault 
-										 reuseIdentifier:kTVLoadingCellIdentifier] autorelease];
-		
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;	
-		[cell.spinner startAnimating];
+			cell = [[[DWNewPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault 
+										 reuseIdentifier:kNewPlaceCellIdentifier] autorelease];
 		
 		return cell;
-		
 	}
 	else if(_tableViewUsage == kTableViewAsSpinner && indexPath.row == kSpinnerCellIndex) {
 		
