@@ -38,8 +38,13 @@
 /**
  * Retrieve place for a aprticular grouping at a particular column
  */
-- (DWPlace *)getPlaceAtRow:(NSInteger)row 
+- (DWPlace*)getPlaceAtRow:(NSInteger)row 
 				 andColumn:(NSInteger)column;
+
+/**
+ * Retrieve the entire array of places for a group
+ */
+- (NSMutableArray*)getPlacesAtRow:(NSInteger)row;
 
 /**
  * Retreive a filtered place at the given index
@@ -67,6 +72,15 @@
  */
 - (void)populatePlaces:(NSArray*)places 
 			   atIndex:(NSInteger)index;
+
+/**
+ * Populate an entire of array of pre parsed places at the given row.
+ * clearStatus indicates appending or replacing.
+ * The entries are references to tbe memory pool so reference counts are incremented
+ */
+- (void)populatePreParsedPlaces:(NSMutableArray*)places
+						atIndex:(NSInteger)index
+					  withClear:(BOOL)clearStatus;
 
 /**
  * Populate filtered places externally 

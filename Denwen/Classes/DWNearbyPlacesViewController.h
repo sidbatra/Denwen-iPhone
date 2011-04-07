@@ -12,7 +12,6 @@
  * Display places near the user's location
  */
 @interface DWNearbyPlacesViewController : DWPlaceListViewController {
-	BOOL _refreshOnNextLocationUpdate;
 }
 
 /**

@@ -10,6 +10,7 @@
 #import "DWPlacesContainerViewController.h"
 #import "DWLoginViewController.h"
 #import "DWSignupViewController.h"
+#import "DWPlacesCache.h"
 #import "DWSession.h"
 #import "DWNotificationsHelper.h"
 #import "NSString+Helpers.h"
@@ -49,6 +50,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {    
     
 	//[[ASIDownloadCache sharedCache] clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
+	[DWPlacesCache sharedDWPlacesCache];
 		
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(userLogsIn:) 

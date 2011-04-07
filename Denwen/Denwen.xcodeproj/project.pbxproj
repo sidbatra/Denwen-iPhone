@@ -540,6 +540,7 @@
 		BB641C59134D33B3002A2325 /* DWPlacesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlacesManager.m; path = Classes/DWPlacesManager.m; sourceTree = "<group>"; };
 		BB641D5A134D3E20002A2325 /* DWItemsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWItemsManager.h; path = Classes/DWItemsManager.h; sourceTree = "<group>"; };
 		BB641D5B134D3E20002A2325 /* DWItemsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItemsManager.m; path = Classes/DWItemsManager.m; sourceTree = "<group>"; };
+		BB641D78134D439E002A2325 /* DWPlacesCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlacesCache.h; path = Classes/DWPlacesCache.h; sourceTree = "<group>"; };
 		BB67B77A130A538900378578 /* create_place_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_place_user_profile.png; path = resources/create_place_user_profile.png; sourceTree = "<group>"; };
 		BB67B77B130A538900378578 /* create_place_user_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "create_place_user_profile@2x.png"; path = "resources/create_place_user_profile@2x.png"; sourceTree = "<group>"; };
 		BB67B77C130A538900378578 /* create_post_user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_post_user_profile.png; path = resources/create_post_user_profile.png; sourceTree = "<group>"; };
@@ -915,6 +916,7 @@
 				BBD0C2E01346C3A000BCFB96 /* Deprecated */,
 				BBD0CC91133C0A3C003E5E7D /* Extensions */,
 				BB3CCBC212F9368F00ADFCD7 /* Singletons */,
+				BB641D7E134D446F002A2325 /* Camera */,
 				26EF03B012E77CD600E7BA76 /* Models */,
 				BBB51A0812F9FB490024086F /* Managers */,
 				BBB51A0712F9FB080024086F /* Networking */,
@@ -1098,8 +1100,8 @@
 				BBD0C3711346E2D700BCFB96 /* DWNotificationsHelper.m */,
 				BB3CCBC312F936E200ADFCD7 /* DWMemoryPool.h */,
 				BB3CCBC412F936E200ADFCD7 /* DWMemoryPool.m */,
-				BB641B4B134BE730002A2325 /* DWMediaPicker.h */,
-				BB641B4C134BE730002A2325 /* DWMediaPicker.m */,
+				BB641D78134D439E002A2325 /* DWPlacesCache.h */,
+				BB641C4C134D31D5002A2325 /* DWPlacesCache.m */,
 			);
 			name = Singletons;
 			sourceTree = "<group>";
@@ -1205,6 +1207,15 @@
 			);
 			name = REGEXKIT;
 			path = External/REGEXKIT;
+			sourceTree = "<group>";
+		};
+		BB641D7E134D446F002A2325 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				BB641B4B134BE730002A2325 /* DWMediaPicker.h */,
+				BB641B4C134BE730002A2325 /* DWMediaPicker.m */,
+			);
+			name = Camera;
 			sourceTree = "<group>";
 		};
 		BB6EBA651311CCCC009D2DAF /* Twitter+OAuth */ = {
@@ -1396,7 +1407,6 @@
 				26DC2E60130A877A00FC1F3A /* DWPlaceDetailsViewController.m */,
 				BB641BDA134BFDEE002A2325 /* DWPlacesSearchResultsViewController.h */,
 				BB641BDB134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m */,
-				BB641C4C134D31D5002A2325 /* DWPlacesCache.m */,
 			);
 			name = Places;
 			sourceTree = "<group>";

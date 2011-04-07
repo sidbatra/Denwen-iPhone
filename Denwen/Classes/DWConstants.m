@@ -82,6 +82,7 @@ NSString* const kNPopularPlacesLoaded		= @"NPopularPlacesLoaded";
 NSString* const kNPopularPlacesError		= @"NPopularPlacesError";
 NSString* const kNNearbyPlacesLoaded		= @"NNearbyPlacesLoaded";
 NSString* const kNNearbyPlacesError			= @"NNearbyPlacesError";
+NSString* const kNNearbyPlacesCacheUpdated	= @"NNearbyPlacesCacheUpdated";
 NSString* const kNUserPlacesLoaded			= @"NUserPlacesLoaded";
 NSString* const kNUserPlacesError			= @"NUserPlacesError";
 NSString* const kNSearchPlacesLoaded		= @"NSearchPlacesLoaded";

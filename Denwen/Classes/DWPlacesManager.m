@@ -83,6 +83,11 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSMutableArray*)getPlacesAtRow:(NSInteger)row {
+	return (NSMutableArray*)[_places objectAtIndex:row];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (DWPlace *)getFilteredPlace:(NSInteger)index {
 	return [_filteredPlaces objectAtIndex:index];
 }
@@ -128,6 +133,23 @@
 		[placesAtIndex addObject:new_place];
 	}
 }
+
+//----------------------------------------------------------------------------------------------------
+- (void)populatePreParsedPlaces:(NSMutableArray*)places
+						atIndex:(NSInteger)index
+					  withClear:(BOOL)clearStatus {
+	
+	if(clearStatus)
+		[self clearPlacesAtIndex:index];
+	
+	NSMutableArray *placesAtIndex = [_places objectAtIndex:index];
+	
+	for(DWPlace *place in places) {
+		[placesAtIndex addObject:place];
+		place.pointerCount++;
+	}
+}
+
 
 //----------------------------------------------------------------------------------------------------
 - (void)populateFilteredPlaces:(NSArray*)places {
@@ -178,7 +200,7 @@
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Populate places
+#pragma mark Clear places
 
 //----------------------------------------------------------------------------------------------------
 - (void)clearPlacesAtIndex:(NSInteger)index {

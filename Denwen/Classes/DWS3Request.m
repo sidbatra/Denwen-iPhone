@@ -12,7 +12,7 @@ static NSInteger const kRandomStringBase	= 10;
 
 static NSString* const kImageSuffix			= @"photo.jpg";
 static NSString* const kImageContentType	= @"image/jpeg";
-static float	 const kImageCompression	= 0.6;
+static float	 const kImageCompression	= 0.5;
 static NSString* const kVideoContentType	= @"video/quicktime";
 static NSString* const kVideoSuffixFormat	= @"video_o_%@.mov";
 

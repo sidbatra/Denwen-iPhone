@@ -5,10 +5,11 @@
 
 #import "DWNearbyPlacesViewController.h"
 #import "DWRequestsManager.h"
+#import "DWPlacesCache.h"
 #import "DWSession.h"
 #import "DWConstants.h"
 
-static NSInteger const kCapacity			= 1;
+static NSInteger const kPlacesIndex			= 0;
 static NSString* const kSearchBarText		= @"Search Nearby Places";
 
 
@@ -24,36 +25,14 @@ static NSString* const kSearchBarText		= @"Search Nearby Places";
 	self = [super initWithNibName:kPlaceListViewControllerNib 
 						   bundle:nil
 					   searchType:YES
-					 withCapacity:kCapacity
+					 withCapacity:kPlacesIndex + 1
 					  andDelegate:delegate];
 	
 	if (self) {		
 		
-		if (&UIApplicationDidEnterBackgroundNotification != NULL) {
-			[[NSNotificationCenter defaultCenter] addObserver:self 
-													 selector:@selector(applicationEnteringBackground:) 
-														 name:UIApplicationDidEnterBackgroundNotification
-													   object:nil];
-		}
-		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(nearbyPlacesLoaded:) 
-													 name:kNNearbyPlacesLoaded
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(nearbyPlacesError:) 
-													 name:kNNearbyPlacesError
-												   object:nil];	
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(newPlaceParsed:) 
-													 name:kNNewPlaceParsed 
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(newLocationAvailable:) 
-													 name:kNNewLocationAvailable 
+												 selector:@selector(nearbyPlacesCacheUpdated:) 
+													 name:kNNearbyPlacesCacheUpdated
 												   object:nil];
 	}
 	
@@ -68,16 +47,47 @@ static NSString* const kSearchBarText		= @"Search Nearby Places";
 	frame.origin.y		= 0; 
 	self.view.frame		= frame;
 	
-	self.view.hidden = YES;
+	self.view.hidden	= YES;
 	
 	self.searchDisplayController.searchBar.placeholder = kSearchBarText;
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)displayPlaces {
+	if(_isLoadedOnce && [DWPlacesCache sharedDWPlacesCache].nearbyPlacesReady) {
+		
+		[_placeManager populatePreParsedPlaces:[[DWPlacesCache sharedDWPlacesCache] getNearbyPlaces]
+									   atIndex:kPlacesIndex
+									 withClear:YES];
+		
+		if([_placeManager totalPlacesAtRow:kPlacesIndex]) 
+			_tableViewUsage = kTableViewAsData;
+		else {
+			self.messageCellText	= kMsgNoPlacesNearby;
+			_tableViewUsage			= kTableViewAsMessage;
+		}
+		
+		[self markEndOfPagination];
+		[self.tableView reloadData];
+		
+		[self finishedLoadingPlaces];
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)loadPlaces {
 	[super loadPlaces];
-	
-	[[DWRequestsManager sharedDWRequestsManager] getNearbyPlaces];
+		
+	if(!_isLoadedOnce) {
+		_isLoadedOnce = YES;
+		[self displayPlaces];
+	}
+	else if(_isReloading) {
+		/**
+		 * On pull to refresh fire the request and let places cache handle it
+		 */
+		[[DWRequestsManager sharedDWRequestsManager] getNearbyPlaces];
+	}
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -99,58 +109,11 @@ static NSString* const kSearchBarText		= @"Search Nearby Places";
 #pragma mark Notifications
 
 //----------------------------------------------------------------------------------------------------
-- (void)applicationEnteringBackground:(NSNotification*)notification {
-	if(_isLoadedOnce)
-		_refreshOnNextLocationUpdate = YES;
+- (void)nearbyPlacesCacheUpdated:(NSNotification*)notification {
+	[self displayPlaces];
 }
 
-//----------------------------------------------------------------------------------------------------
-- (void)newPlaceParsed:(NSNotification*)notification {
-	DWPlace *place = (DWPlace*)[(NSDictionary*)[notification userInfo] objectForKey:kKeyPlace];
-	
-	if(_isLoadedOnce && 
-		[[DWSession sharedDWSession].location distanceFromLocation:place.location] <= kLocNearbyRadius)	
-		[self addNewPlace:place];
-}
 
-//----------------------------------------------------------------------------------------------------
-- (void)nearbyPlacesLoaded:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		
-		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
-		[_placeManager populatePlaces:places atIndex:kCapacity-1];
-		
-		
-		if([_placeManager totalPlacesAtRow:kCapacity-1]) 
-			_tableViewUsage = kTableViewAsData;
-		else {
-			self.messageCellText = kMsgNoPlacesNearby;
-			_tableViewUsage = kTableViewAsMessage;
-		}
-		
-		_isLoadedOnce = YES;
-		
-		[self markEndOfPagination];
-		[self.tableView reloadData];
-	}	
-	
-	[self finishedLoadingPlaces];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)nearbyPlacesError:(NSNotification*)notification {
-	[self finishedLoadingPlaces];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)newLocationAvailable:(NSNotification*)notification {
-	if(_refreshOnNextLocationUpdate) {
-		[self hardRefresh];
-		_refreshOnNextLocationUpdate = NO;
-	}
-}
 
 @end
 
