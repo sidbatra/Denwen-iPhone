@@ -24,6 +24,7 @@
 	DWUser			*_user;
 	
 	BOOL			_fromFollowedPlace; 
+	BOOL			_usesMemoryPool;
 	NSTimeInterval	_createdAtTimestamp;
 }
 
@@ -58,6 +59,12 @@
  * whether it is posted to a place followed by a user or not
  */
 @property (nonatomic,assign) BOOL fromFollowedPlace;
+
+/**
+ * Indicates whether the item relies on the memory pool
+ * for its members
+ */
+@property (nonatomic,assign) BOOL usesMemoryPool;
 
 /**
  * Does the item have a media attachment

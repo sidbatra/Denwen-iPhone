@@ -72,7 +72,7 @@
 	//_highlighted ? [[UIColor whiteColor] set] : [[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
 	[[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
 	
-	[self.placeDetails drawInRect:CGRectMake(64, 31, 230, 16) 
+	[self.placeDetails drawInRect:CGRectMake(64, 31, 230, 16)
 						 withFont:[UIFont fontWithName:@"Helvetica" size:13] 
 					lineBreakMode:UILineBreakModeTailTruncation
 						alignment:UITextAlignmentLeft];

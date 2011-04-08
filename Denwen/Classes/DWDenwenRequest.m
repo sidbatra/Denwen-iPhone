@@ -8,6 +8,8 @@
 #import "JSON.h"
 #import "DWConstants.h"
 
+static NSInteger const kRandomStringBase = 100000000;
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -15,6 +17,10 @@
 //----------------------------------------------------------------------------------------------------
 @implementation DWDenwenRequest
 
+//----------------------------------------------------------------------------------------------------
+- (void)generateResourceID {
+	_resourceID = [[NSDate date] timeIntervalSince1970] + arc4random() % kRandomStringBase;
+}
 
 //----------------------------------------------------------------------------------------------------
 - (void)processResponse:(NSString*)responseString andResponseData:(NSData*)responseData {

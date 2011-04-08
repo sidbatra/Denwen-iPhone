@@ -255,7 +255,7 @@
 	_isUploading = YES;
 
 	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
-																		toFolder:S3_USERS_FOLDER];
+																		toFolder:kS3UsersFolder];
 }
 
 

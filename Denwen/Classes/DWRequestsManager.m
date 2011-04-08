@@ -368,19 +368,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)createItemWithData:(NSString*)data 
-	withAttachmentFilename:(NSString*)filename
-			 atPlaceWithID:(NSInteger)placeID {
+- (NSInteger)createItemWithData:(NSString*)data 
+		 withAttachmentFilename:(NSString*)filename
+				  atPlaceWithID:(NSInteger)placeID {
 	
 	NSString *localRequestURL = [NSString stringWithFormat:kNewItemURI,
 										[data stringByEncodingHTMLCharacters],
 										placeID,
 										filename];
 	
-	[self createDenwenRequest:localRequestURL
-		  successNotification:kNNewItemCreated
-			errorNotification:kNNewItemError
-				requestMethod:kPost];
+	DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:[self createDenwenRequestURL:localRequestURL]
+												  successNotification:kNNewItemCreated
+													errorNotification:kNNewItemError];
+	[request setDelegate:self];
+	[request setRequestMethod:kPost];
+	[request generateResourceID];
+	[request startAsynchronous];
+	
+	return request.resourceID;
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -36,6 +36,7 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 	self = [super init];
 	
 	if(self != nil) {
+		
 		_isSmallDownloading = NO;
 		_isLargeDownloading = NO;
 		_hasAddress			= NO;

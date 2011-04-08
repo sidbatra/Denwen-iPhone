@@ -19,10 +19,17 @@
 	KTTextView				*_dataTextView;
 	UIButton				*_mapButton;
 	
+	DWPlace					*_selectedPlace;
+	
 	BOOL					_newPlaceMode;
 	
 	DWPlacesSearchResultsViewController *_searchResults;
 }
+
+/**
+ * Reference to an existing place being used to create a post
+ */
+@property (nonatomic,retain) DWPlace *selectedPlace;
 
 /**
  * Table view controller for displaying results for a place name search
@@ -43,6 +50,7 @@
  * IBActions
  */
 - (IBAction)cancelButtonClicked:(id)sender;
+- (IBAction)doneButtonClicked:(id)sender;
 - (IBAction)placeNameTextFieldEditingChanged:(id)sender;
 
 

@@ -19,7 +19,7 @@
 /**
  * Primary key / unique id to uniquely identify the object
  */
-@property (nonatomic,readonly) NSInteger databaseID;
+@property (nonatomic,assign) NSInteger databaseID;
 
 /**
  * Similar to retain count a count of the different places

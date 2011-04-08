@@ -12,6 +12,8 @@
 @interface DWAttachment : NSObject {
 	NSString		*_previewURL;
 	NSString		*_fileURL;
+	NSString		*_orientation;
+	NSURL			*_videoURL;
 	
 	NSInteger		_databaseID;
 	NSInteger		_fileType;
@@ -28,6 +30,11 @@
 @property (nonatomic,readonly) NSInteger databaseID;
 
 /**
+ * Filetype for the attachment - image or video
+ */
+@property (nonatomic,assign) NSInteger fileType;
+
+/**
  * URL of the actual attachment
  */
 @property (nonatomic,copy) NSString *fileURL;
@@ -37,6 +44,16 @@
  * or a video thumbnail
  */
 @property (nonatomic,copy) NSString *previewURL;
+
+/**
+ * Orientation for a video attachment
+ */
+@property (nonatomic,copy) NSString* orientation;
+
+/**
+ * Media URL for a video attachment
+ */
+@property (nonatomic,retain) NSURL *videoURL;
 
 /**
  * Preview image downloaded from previewURL

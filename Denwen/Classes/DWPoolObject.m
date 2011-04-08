@@ -4,7 +4,7 @@
 //
 
 #import "DWPoolObject.h"
-
+#import "DWConstants.h"
 
 
 //----------------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@
 	
 	if(self != nil) {
 		_pointerCount	= 0;
-		_databaseID		= 0;
+		_databaseID		= kMPDefaultDatabaseID;
 	}
 	
 	return self;  

@@ -456,7 +456,7 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 	[self.mbProgressIndicator showUsingAnimation:YES];
 	
 	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
-																		toFolder:S3_USERS_FOLDER];
+																		toFolder:kS3UsersFolder];
 	
 	[self.user updatePreviewImages:editedImage];	
 }

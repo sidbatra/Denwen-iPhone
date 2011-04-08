@@ -4,18 +4,22 @@
 //
 
 #import "DWCreateViewController.h"
+#import "DWCreationQueue.h"
 #import "DWSession.h"
 #import "DWConstants.h"
 
-static NSString* const kTabTitle					= @"Create";
-static NSString* const kImgTab						= @"profile.png";
-static NSString* const kMsgDataTextViewPlaceholder	= @"What's going on here";
-static NSInteger const kTableViewX					= 0;
-static NSInteger const kTableViewY					= 32;
-static NSInteger const kTableViewWidth				= 320;
-static NSInteger const kTableViewHeight				= 270;
-static NSInteger const kMaxPlaceNameLength			= 32;
-static NSInteger const kMaxPostLength				= 180;
+static NSString* const kTabTitle							= @"Create";
+static NSString* const kImgTab								= @"profile.png";
+static NSString* const kMsgDataTextViewPlaceholder			= @"What's going on here";
+static NSInteger const kTableViewX							= 0;
+static NSInteger const kTableViewY							= 32;
+static NSInteger const kTableViewWidth						= 320;
+static NSInteger const kTableViewHeight						= 270;
+static NSInteger const kMaxPlaceNameLength					= 32;
+static NSInteger const kMaxPostLength						= 180;
+static NSString* const kMsgImageUploadErrorTitle			= @"Error";
+static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. Please try again";
+static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -28,6 +32,7 @@ static NSInteger const kMaxPostLength				= 180;
 @synthesize dataTextView		= _dataTextView;
 @synthesize searchResults		= _searchResults;
 @synthesize	mapButton			= _mapButton;
+@synthesize selectedPlace		= _selectedPlace;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -41,6 +46,16 @@ static NSInteger const kMaxPostLength				= 180;
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	self.previewImageView		= nil;
+	self.transImageView			= nil;
+	self.placeNameTextField		= nil;
+	self.dataTextView			= nil;
+	self.mapButton				= nil;
+	self.searchResults			= nil;
+	self.selectedPlace			= nil;
+	
     [super dealloc];
 }
 
@@ -49,7 +64,6 @@ static NSInteger const kMaxPostLength				= 180;
     [super viewDidLoad];
 	
 	self.dataTextView.placeholderText = kMsgDataTextViewPlaceholder;
-	
 	
 	CGRect frame					= CGRectMake(kTableViewX,kTableViewY,kTableViewWidth,kTableViewHeight);
 	self.searchResults				= [[[DWPlacesSearchResultsViewController alloc] init] autorelease];
@@ -70,6 +84,7 @@ static NSInteger const kMaxPostLength				= 180;
 	self.transImageView			= nil;
 	self.placeNameTextField		= nil;
 	self.dataTextView			= nil;
+	self.mapButton				= nil;
 	self.searchResults			= nil;
 }
 
@@ -104,7 +119,9 @@ static NSInteger const kMaxPostLength				= 180;
 
 //----------------------------------------------------------------------------------------------------
 - (void)placeSelected:(DWPlace *)place {
-	self.placeNameTextField.text = place.name;
+	self.selectedPlace				= place;
+	self.placeNameTextField.text	= self.selectedPlace.name;
+	
 	[self.dataTextView becomeFirstResponder];
 }
 
@@ -113,6 +130,13 @@ static NSInteger const kMaxPostLength				= 180;
 	_newPlaceMode			= YES;
 	self.mapButton.hidden	= NO;
 }
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -161,6 +185,27 @@ replacementString:(NSString *)string {
 
 //----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClicked:(id)sender {
+	[self.parentViewController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)doneButtonClicked:(id)sender {
+
+	if(_newPlaceMode) {
+		
+	}
+	else {
+		[[DWCreationQueue sharedDWCreationQueue] addNewPostToQueueWithData:self.dataTextView.text
+													   withAttachmentImage:nil 
+																 toPlaceID:self.selectedPlace.databaseID];
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:kNRequestTabBarIndexChange
+															object:nil
+														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+																	[NSNumber numberWithInt:kTabBarFeedIndex],kKeyTabIndex,
+																	nil]];
+	}
+
+	
 	[self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 

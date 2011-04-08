@@ -20,13 +20,15 @@
 @synthesize user				= _user;
 @synthesize urls				= _urls;
 @synthesize fromFollowedPlace	= _fromFollowedPlace;
+@synthesize usesMemoryPool		= _usesMemoryPool;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
 	if(self != nil) {
-		_fromFollowedPlace = NO;
+		_fromFollowedPlace	= NO;
+		_usesMemoryPool		= YES;
 	}
 	
 	return self;  
@@ -47,12 +49,18 @@
 	self.attachment = nil;
 	
 	if(self.place) {
-		[[DWMemoryPool sharedDWMemoryPool]  removeObject:_place atRow:kMPPlacesIndex];
+		
+		if(_usesMemoryPool)
+			[[DWMemoryPool sharedDWMemoryPool]  removeObject:_place atRow:kMPPlacesIndex];
+		
 		self.place = nil;
 	}
 	
 	if(self.user) {
-		[[DWMemoryPool sharedDWMemoryPool]  removeObject:_user atRow:kMPUsersIndex];
+		
+		if(_usesMemoryPool)
+			[[DWMemoryPool sharedDWMemoryPool]  removeObject:_user atRow:kMPUsersIndex];
+		
 		self.user = nil;
 	}
 	

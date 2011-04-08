@@ -21,8 +21,6 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 static NSInteger const kTabBarWidth					= 320;
 static NSInteger const kTabBarHeight				= 49;
 static NSInteger const kTabBarCount					= 2;
-static NSInteger const kPlacesIndex					= 0;
-static NSInteger const kFeedIndex					= 1;
 static NSString* const kImgPlacesOn					= @"popular_on.png";
 static NSString* const kImgPlacesOff				= @"popular_off.png";
 static NSString* const kImgCreateOn					= @"popular_on.png";
@@ -189,7 +187,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	self.tabBarController.viewControllers	= localControllersArray;
 	[localControllersArray release];	
 	
-	_currentSelectedTabIndex = kPlacesIndex;
+	_currentSelectedTabIndex = kTabBarPlacesIndex;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -413,7 +411,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)hidePreviouslySelectedTab {
-	if(_currentSelectedTabIndex == kPlacesIndex) {
+	if(_currentSelectedTabIndex == kTabBarPlacesIndex) {
 		
 		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOff] 
 										forState:UIControlStateNormal];
@@ -421,7 +419,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOff] 
 										forState:UIControlStateHighlighted];
 	}
-	else if(_currentSelectedTabIndex == kFeedIndex) {
+	else if(_currentSelectedTabIndex == kTabBarFeedIndex) {
 		
 		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOff] 
 										forState:UIControlStateNormal];
@@ -433,7 +431,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)loadSelectedTab {	
-	if(_currentSelectedTabIndex == kPlacesIndex) {
+	if(_currentSelectedTabIndex == kTabBarPlacesIndex) {
 		
 		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOn] 
 										forState:UIControlStateNormal];
@@ -441,7 +439,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 		[self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOn] 
 										forState:UIControlStateHighlighted];
 	}
-	else if(_currentSelectedTabIndex == kFeedIndex) {
+	else if(_currentSelectedTabIndex == kTabBarFeedIndex) {
 		
 		[self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOn] 
 									  forState:UIControlStateNormal];
@@ -480,9 +478,9 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	NSInteger newTabIndex = -1;
 	
 	if(self.placesTabButton == (UIButton*)sender)
-		newTabIndex = kPlacesIndex;
+		newTabIndex = kTabBarPlacesIndex;
 	else if(self.feedTabButton == (UIButton*)sender)
-		newTabIndex = kFeedIndex;
+		newTabIndex = kTabBarFeedIndex;
 	
 	[self displayNewTab:newTabIndex];
 }

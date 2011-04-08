@@ -13,4 +13,9 @@
 @interface DWDenwenRequest : DWRequest {
 }
 
+/**
+ * Generates a timestamp based unique resourceID
+ */
+- (void)generateResourceID;
+
 @end

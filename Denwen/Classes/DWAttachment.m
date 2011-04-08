@@ -8,9 +8,6 @@
 #import "UIImage+ImageProcessing.h"
 #import "DWConstants.h"
 
-static NSInteger const kAttachmentImage		= 0;
-static NSInteger const kAttachmentVideo		= 1;
-
 
 
 //----------------------------------------------------------------------------------------------------
@@ -19,8 +16,11 @@ static NSInteger const kAttachmentVideo		= 1;
 @implementation DWAttachment
 
 @synthesize databaseID		= _databaseID;
+@synthesize fileType		= _fileType;
 @synthesize fileURL			= _fileURL;
 @synthesize previewURL		= _previewURL;
+@synthesize orientation		= _orientation;
+@synthesize videoURL		= _videoURL;
 @synthesize previewImage	= _previewImage;
 
 //----------------------------------------------------------------------------------------------------
@@ -55,6 +55,8 @@ static NSInteger const kAttachmentVideo		= 1;
 	
 	self.fileURL		= nil;
 	self.previewURL		= nil;
+	self.orientation	= nil;
+	self.videoURL		= nil;
 	self.previewImage	= nil;
 	
 	[super dealloc];

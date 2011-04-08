@@ -16,6 +16,20 @@ extern NSString* const kS3Signature;
 extern NSString* const kS3AccessID;
 extern NSString* const kS3ACL;
 extern NSString* const kS3Server;
+extern NSString* const kS3UsersFolder;
+extern NSString* const kS3ItemsFolder;
+
+/**
+ * Atachment types
+ */
+extern NSInteger const kAttachmentImage;
+extern NSInteger const kAttachmentVideo;
+
+/**
+ * Tab bar indices
+ */ 
+extern NSInteger const kTabBarPlacesIndex;
+extern NSInteger const kTabBarFeedIndex;
 
 /**
  * Keys used for objects in JSON and custom dictionaties
@@ -130,6 +144,7 @@ extern NSString* const kNDenwenURLOpened ;
 extern NSString* const kNRequestTabBarIndexChange;
 extern NSString* const kNNearbyPlacesCacheUpdated;
 extern NSString* const kNFollowedPlacesCacheUpdated;
+extern NSString* const kNCreationQueueItemProcessed;
 
 
 /**
@@ -190,6 +205,7 @@ extern NSInteger const kMPItemsIndex;
 extern NSInteger const kMPPlacesIndex;
 extern NSInteger const kMPUsersIndex;
 extern NSInteger const kMPObjectUpdateInterval;
+extern NSInteger const kMPDefaultDatabaseID;
 
 
 /**
@@ -314,9 +330,6 @@ extern NSString * const STATIC_PIN_IDENTIFIER;
 extern NSString * const DENWEN_URL_PREFIX;
 
 
-
-extern NSString * const S3_ITEMS_FOLDER;
-extern NSString * const S3_USERS_FOLDER;
 extern NSString * const S3_PLACES_FOLDER;
 
 extern NSString * const PLACE_JSON_KEY;

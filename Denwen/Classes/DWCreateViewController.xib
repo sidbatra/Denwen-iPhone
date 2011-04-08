@@ -201,7 +201,7 @@
 							<string key="NSResourceName">camera_button_round.png</string>
 						</object>
 					</object>
-					<object class="IBUIButton" id="292616484">
+					<object class="IBUIButton" id="307727434">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{297, 0}, {23, 26}}</string>
@@ -307,7 +307,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">mapButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="292616484"/>
+						<reference key="destination" ref="307727434"/>
 					</object>
 					<int key="connectionID">25</int>
 				</object>
@@ -318,6 +318,15 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">26</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">doneButtonClicked:</string>
+						<reference key="source" ref="655487943"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">27</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -342,7 +351,7 @@
 							<reference ref="195178794"/>
 							<reference ref="462710938"/>
 							<reference ref="299565080"/>
-							<reference ref="292616484"/>
+							<reference ref="307727434"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -406,7 +415,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
-						<reference key="object" ref="292616484"/>
+						<reference key="object" ref="307727434"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -500,7 +509,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">26</int>
+			<int key="maxID">27</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -513,10 +522,12 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>cancelButtonClicked:</string>
+							<string>doneButtonClicked:</string>
 							<string>placeNameTextFieldEditingChanged:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -526,12 +537,17 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>cancelButtonClicked:</string>
+							<string>doneButtonClicked:</string>
 							<string>placeNameTextFieldEditingChanged:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">cancelButtonClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">doneButtonClicked:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

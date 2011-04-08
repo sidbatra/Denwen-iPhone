@@ -273,6 +273,9 @@
 		BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */; };
 		BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */; };
 		BBF890E9134E53D500B332CA /* DWNewPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF890E8134E53D500B332CA /* DWNewPlaceCell.m */; };
+		BBF8913A134E885B00B332CA /* DWCreationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF89139134E885B00B332CA /* DWCreationQueue.m */; };
+		BBF891B5134ECDAB00B332CA /* DWCreationQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF891B4134ECDAB00B332CA /* DWCreationQueueItem.m */; };
+		BBF891B8134ECE1900B332CA /* DWNewPostQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF891B7134ECE1900B332CA /* DWNewPostQueueItem.m */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
 		BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */; };
 /* End PBXBuildFile section */
@@ -680,6 +683,12 @@
 		BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWPlaceViewController.xib; path = Classes/DWPlaceViewController.xib; sourceTree = "<group>"; };
 		BBF890E7134E53D500B332CA /* DWNewPlaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewPlaceCell.h; path = Classes/DWNewPlaceCell.h; sourceTree = "<group>"; };
 		BBF890E8134E53D500B332CA /* DWNewPlaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewPlaceCell.m; path = Classes/DWNewPlaceCell.m; sourceTree = "<group>"; };
+		BBF89138134E885B00B332CA /* DWCreationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCreationQueue.h; path = Classes/DWCreationQueue.h; sourceTree = "<group>"; };
+		BBF89139134E885B00B332CA /* DWCreationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCreationQueue.m; path = Classes/DWCreationQueue.m; sourceTree = "<group>"; };
+		BBF891B3134ECDAB00B332CA /* DWCreationQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCreationQueueItem.h; path = Classes/DWCreationQueueItem.h; sourceTree = "<group>"; };
+		BBF891B4134ECDAB00B332CA /* DWCreationQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCreationQueueItem.m; path = Classes/DWCreationQueueItem.m; sourceTree = "<group>"; };
+		BBF891B6134ECE1900B332CA /* DWNewPostQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewPostQueueItem.h; path = Classes/DWNewPostQueueItem.h; sourceTree = "<group>"; };
+		BBF891B7134ECE1900B332CA /* DWNewPostQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewPostQueueItem.m; path = Classes/DWNewPostQueueItem.m; sourceTree = "<group>"; };
 		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
 		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
 		BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWContainerViewController.xib; path = Classes/DWContainerViewController.xib; sourceTree = "<group>"; };
@@ -926,6 +935,7 @@
 				BBD0C2E01346C3A000BCFB96 /* Deprecated */,
 				BBD0CC91133C0A3C003E5E7D /* Extensions */,
 				BB3CCBC212F9368F00ADFCD7 /* Singletons */,
+				BBF891B2134ECD8F00B332CA /* Creation Queue */,
 				BB641D7E134D446F002A2325 /* Camera */,
 				26EF03B012E77CD600E7BA76 /* Models */,
 				BBB51A0812F9FB490024086F /* Managers */,
@@ -1447,6 +1457,19 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		BBF891B2134ECD8F00B332CA /* Creation Queue */ = {
+			isa = PBXGroup;
+			children = (
+				BBF89138134E885B00B332CA /* DWCreationQueue.h */,
+				BBF89139134E885B00B332CA /* DWCreationQueue.m */,
+				BBF891B3134ECDAB00B332CA /* DWCreationQueueItem.h */,
+				BBF891B4134ECDAB00B332CA /* DWCreationQueueItem.m */,
+				BBF891B6134ECE1900B332CA /* DWNewPostQueueItem.h */,
+				BBF891B7134ECE1900B332CA /* DWNewPostQueueItem.m */,
+			);
+			name = "Creation Queue";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1759,6 +1782,9 @@
 				BB641D5C134D3E20002A2325 /* DWItemsManager.m in Sources */,
 				BB641EF6134D97BB002A2325 /* DWPlaceSearchResultCell.m in Sources */,
 				BBF890E9134E53D500B332CA /* DWNewPlaceCell.m in Sources */,
+				BBF8913A134E885B00B332CA /* DWCreationQueue.m in Sources */,
+				BBF891B5134ECDAB00B332CA /* DWCreationQueueItem.m in Sources */,
+				BBF891B8134ECE1900B332CA /* DWNewPostQueueItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

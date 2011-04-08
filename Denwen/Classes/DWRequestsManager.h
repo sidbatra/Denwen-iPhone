@@ -122,9 +122,9 @@
 /**
  * Create a new item
  */
-- (void)createItemWithData:(NSString*)data 
-	withAttachmentFilename:(NSString*)filename
-			 atPlaceWithID:(NSInteger)placeID;
+- (NSInteger)createItemWithData:(NSString*)data 
+		 withAttachmentFilename:(NSString*)filename
+				  atPlaceWithID:(NSInteger)placeID;
 
 /**
  * Create a new user

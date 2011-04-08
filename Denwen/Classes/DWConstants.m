@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -28,6 +28,18 @@
 	NSString* const kS3ACL			= @"public-read";
 	NSString* const kS3Server		= @"http://tenwen.s3.amazonaws.com/";
 #endif
+
+NSString* const kS3UsersFolder	= @"user_photos";
+NSString* const kS3ItemsFolder	= @"items";
+
+
+//----------------------------------------------------------------------------------------------------
+NSInteger const kAttachmentImage		= 0;
+NSInteger const kAttachmentVideo		= 1;
+
+//----------------------------------------------------------------------------------------------------
+NSInteger const kTabBarPlacesIndex		= 0;
+NSInteger const kTabBarFeedIndex		= 1;
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kKeyStatus				= @"status";
@@ -139,6 +151,7 @@ NSString* const kNDenwenURLOpened				= @"NDenwenURLOpened";
 NSString* const kNRequestTabBarIndexChange		= @"NRequestTabBarIndexChange";
 NSString* const kNNearbyPlacesCacheUpdated		= @"NNearbyPlacesCacheUpdated";
 NSString* const kNFollowedPlacesCacheUpdated	= @"NFollowedPlacesCacheUpdated";
+NSString* const kNCreationQueueItemProcessed	= @"NCreationQueueItemProcessed";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -194,6 +207,7 @@ NSInteger const kMPItemsIndex			= 0;
 NSInteger const kMPPlacesIndex			= 1;
 NSInteger const kMPUsersIndex			= 2;
 NSInteger const kMPObjectUpdateInterval = 5;
+NSInteger const kMPDefaultDatabaseID	= -1;
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kMsgNoPlacesNearby				= @"No places nearby";
@@ -347,8 +361,6 @@ NSString * const PIN_IDENTIFIER = @"PinIdentifier";
 NSString * const DENWEN_URL_PREFIX = @"denwen://p/";
 
 // Folders on S3
-NSString * const S3_ITEMS_FOLDER = @"items";
-NSString * const S3_USERS_FOLDER = @"user_photos";
 NSString * const S3_PLACES_FOLDER = @"place_photos";
 
 
