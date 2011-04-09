@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 #import "DWCreationQueueItem.h"
 
@@ -36,6 +37,14 @@
 			withVideoURL:(NSURL*)url
 		  andOrientation:(NSString*)orientation 
 			   toPlaceID:(NSInteger)placeID;
+
+/**
+ * Post item with optional image to a new place
+ */
+- (void)postWithItemData:(NSString*)data
+	 withAttachmentImage:(UIImage*)image
+			 toPlaceName:(NSString*)name
+			  atLocation:(CLLocation*)location;
 
 @end
 

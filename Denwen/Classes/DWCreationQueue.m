@@ -75,6 +75,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 	[self.queue addObject:queueItem];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)addNewPostToQueueWithData:(NSString*)data
+			  withAttachmentImage:(UIImage*)image
+					  toPlaceName:(NSString*)name
+					   atLocation:(CLLocation*)location {
+	
+	DWNewPostQueueItem *queueItem = [[[DWNewPostQueueItem alloc] init] autorelease];
+	
+	[queueItem postWithItemData:data 
+			withAttachmentImage:image
+					toPlaceName:name
+					 atLocation:location];
+	
+	[self.queue addObject:queueItem];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

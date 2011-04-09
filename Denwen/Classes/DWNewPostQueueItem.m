@@ -61,6 +61,17 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)createPlaceWithName:(NSString*)name
+				 atLocation:(CLLocation*)location {
+	
+	DWPlace *place			= [[[DWPlace alloc] init] autorelease];
+	place.name				= name;
+	place.location			= location;
+	
+	self.item.place			= place;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)createAttachmentWithImage:(UIImage*)image {
 	
 	if(!image)
@@ -115,6 +126,20 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)postWithItemData:(NSString*)data
+	 withAttachmentImage:(UIImage*)image
+			 toPlaceName:(NSString*)name
+			  atLocation:(CLLocation*)location {
+	
+	[self createItemWithData:data];
+	[self createPlaceWithName:name
+				   atLocation:location];
+	[self createAttachmentWithImage:image];
+	
+	[self start];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)startMediaUpload {
 	[super startMediaUpload];
 	
@@ -136,14 +161,17 @@
 	
 	if(self.item.place.databaseID != kMPDefaultDatabaseID) {
 		
-		_primaryUploadID =  [[DWRequestsManager sharedDWRequestsManager] createItemWithData:self.item.data
-																	 withAttachmentFilename:self.filename
-																			  atPlaceWithID:self.item.place.databaseID];
+		_primaryUploadID = [[DWRequestsManager sharedDWRequestsManager] createItemWithData:self.item.data
+																	withAttachmentFilename:self.filename
+																			 atPlaceWithID:self.item.place.databaseID];
 	}
 	else {
 		
+		_primaryUploadID = [[DWRequestsManager sharedDWRequestsManager] createItemWithData:self.item.data
+																	withAttachmentFilename:self.filename
+																		   atPlaceWithName:self.item.place.name
+																				atLocation:self.item.place.location.coordinate];
 	}
-	
 }
 
 //----------------------------------------------------------------------------------------------------

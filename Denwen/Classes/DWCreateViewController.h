@@ -23,6 +23,7 @@
 	UIButton				*_mapButton;
 	
 	DWPlace					*_selectedPlace;
+	CLLocation				*_newPlaceLocation;
 	
 	UIImage					*_cameraImage;
 	NSURL					*_videoURL;
@@ -38,6 +39,11 @@
  * Reference to an existing place being used to create a post
  */
 @property (nonatomic,retain) DWPlace *selectedPlace;
+
+/**
+ * Location of a freshly created place
+ */
+@property (nonatomic,retain) CLLocation *newPlaceLocation;
 
 /**
  * Image selected using mediaPicker

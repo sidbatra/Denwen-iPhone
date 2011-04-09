@@ -127,6 +127,14 @@
 				  atPlaceWithID:(NSInteger)placeID;
 
 /**
+ * Create a new item along with a new place
+ */
+- (NSInteger)createItemWithData:(NSString*)data 
+		 withAttachmentFilename:(NSString*)filename
+				atPlaceWithName:(NSString*)name
+					 atLocation:(CLLocationCoordinate2D)location;
+
+/**
  * Create a new user
  */
 - (void)createUserWithName:(NSString*)name

@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 /**
  * Queue for managing asynchronous creation
@@ -38,5 +39,13 @@
 					 withVideoURL:(NSURL*)url
 					atOrientation:(NSString*)orientation
 						toPlaceID:(NSInteger)placeID;
+
+/**
+ * Create a new post with an optional image to a new place
+ */
+- (void)addNewPostToQueueWithData:(NSString*)data
+			  withAttachmentImage:(UIImage*)image
+					  toPlaceName:(NSString*)name
+					   atLocation:(CLLocation*)location;
 
 @end

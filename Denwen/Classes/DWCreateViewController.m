@@ -36,6 +36,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 @synthesize searchResults		= _searchResults;
 @synthesize	mapButton			= _mapButton;
 @synthesize selectedPlace		= _selectedPlace;
+@synthesize newPlaceLocation	= _newPlaceLocation;
 @synthesize cameraImage			= _cameraImage;
 @synthesize videoURL			= _videoURL;
 @synthesize videoOrientation	= _videoOrientation;
@@ -45,6 +46,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	self = [super init];
 	
 	if (self) {
+		_attachmentType = kAttachmentImage;
 	}
     
 	return self;
@@ -62,6 +64,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	self.mapButton				= nil;
 	self.searchResults			= nil;
 	self.selectedPlace			= nil;
+	self.newPlaceLocation		= nil;
 	self.cameraImage			= nil;
 	self.videoURL				= nil;
 	self.videoOrientation		= nil;
@@ -73,6 +76,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 - (void)viewDidLoad {
     [super viewDidLoad];
 		
+	self.newPlaceLocation				= [[DWSession sharedDWSession] location];
 	self.dataTextView.placeholderText	= kMsgDataTextViewPlaceholder;
 	
 	CGRect frame						= CGRectMake(kTableViewX,kTableViewY,kTableViewWidth,kTableViewHeight);
@@ -88,7 +92,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidUnload {
-    [super viewDidUnload];
+    [super viewDidUnload];	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -218,9 +222,16 @@ replacementString:(NSString *)string {
 
 //----------------------------------------------------------------------------------------------------
 - (void)doneButtonClicked:(id)sender {
-
+	
 	if(_newPlaceMode) {
 		
+		if(_attachmentType == kAttachmentImage) {
+			
+			[[DWCreationQueue sharedDWCreationQueue] addNewPostToQueueWithData:self.dataTextView.text
+														   withAttachmentImage:self.cameraImage
+																   toPlaceName:self.placeNameTextField.text
+																	atLocation:self.newPlaceLocation];
+		}
 	}
 	else {
 		
