@@ -4,6 +4,7 @@
 //
 
 #import "DWCreateViewController.h"
+#import "DWChooseLocationViewController.h"
 #import "DWMemoryPool.h"
 #import "DWCreationQueue.h"
 #import "DWSession.h"
@@ -34,6 +35,7 @@ static NSString* const kImgDarkMapButton					= @"pointer_gray_light.png";
 static NSString* const kMsgMissingFieldsTitle				= @"Missing Fields";
 static NSString* const kMsgPlaceMissing						= @"Select an existing place or create a new one";
 static NSString* const kMsgDataMissing						= @"Write a post or attach an image or video";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -71,6 +73,8 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	[[UIApplication sharedApplication] setStatusBarStyle:kStatusBarStyle];
 	
 	self.atLabel				= nil;
 	self.previewImageView		= nil;
@@ -126,14 +130,12 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewWillAppear:(BOOL)animated {
-	//[super viewWillAppear:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewWillDisappear:(BOOL)animated {
-	//[super viewWillDisappear:animated];
-	[[UIApplication sharedApplication] setStatusBarStyle:kStatusBarStyle];
+	//[[UIApplication sharedApplication] setStatusBarStyle:kStatusBarStyle];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -141,6 +143,8 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	/**
 	 * Revamp the entire UI when media is selected
 	 */
+	self.view.backgroundColor			= [UIColor blackColor];
+	
 	self.previewImageView.hidden		= NO;
 	self.transImageView.hidden			= NO;
 	
@@ -173,6 +177,8 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 
 //----------------------------------------------------------------------------------------------------
 - (void)displayNormalUI {
+	
+	self.view.backgroundColor			= [UIColor whiteColor];
 	
 	self.previewImageView.hidden		= YES;
 	self.transImageView.hidden			= YES;
@@ -304,7 +310,7 @@ replacementString:(NSString *)string {
 }
 
 //----------------------------------------------------------------------------------------------------
-- (IBAction)cameraButtonClicked:(id)sender {
+- (void)cameraButtonClicked:(id)sender {
 	
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
 															 delegate:self 
@@ -314,6 +320,24 @@ replacementString:(NSString *)string {
 	
 	[actionSheet showInView:self.view];
 	[actionSheet release];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)mapButtonClicked:(id)sender {
+	
+	/**
+	 * Update to latest location
+	 */
+	self.newPlaceLocation = [[DWSession sharedDWSession] location];
+	
+	DWChooseLocationViewController *chooseLocationView	= [[DWChooseLocationViewController alloc] initWithLocation:self.newPlaceLocation
+																									   andDelegate:self];
+	chooseLocationView.modalTransitionStyle				= UIModalTransitionStyleFlipHorizontal;
+	
+	[self presentModalViewController:chooseLocationView 
+							animated:YES];
+	
+	[chooseLocationView release];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -457,5 +481,19 @@ replacementString:(NSString *)string {
 - (void)mediaPickerCancelled {
 	[self dismissModalViewControllerAnimated:YES];
 }
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWChooseLocationViewControllerDeleagate
+
+//----------------------------------------------------------------------------------------------------
+- (void)chooseLocationFinishedWithLocation:(CLLocation*)location {
+	self.newPlaceLocation = location;
+	
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 
 @end

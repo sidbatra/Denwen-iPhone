@@ -88,6 +88,7 @@
  */
 - (IBAction)cancelButtonClicked:(id)sender;
 - (IBAction)cameraButtonClicked:(id)sender;
+- (IBAction)mapButtonClicked:(id)sender;
 - (IBAction)doneButtonClicked:(id)sender;
 - (IBAction)placeNameTextFieldEditingChanged:(id)sender;
 

@@ -312,6 +312,8 @@
 		BBF897B0135042AA00B332CA /* hr_gray_create@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF897AE135042AA00B332CA /* hr_gray_create@2x.png */; };
 		BBF8983913504CF800B332CA /* pointer_mini_white.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF8983713504CF800B332CA /* pointer_mini_white.png */; };
 		BBF8983A13504CF800B332CA /* pointer_mini_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF8983813504CF800B332CA /* pointer_mini_white@2x.png */; };
+		BBF899CB13510E7800B332CA /* DWChooseLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF899C913510E7800B332CA /* DWChooseLocationViewController.m */; };
+		BBF899CC13510E7800B332CA /* DWChooseLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF899CA13510E7800B332CA /* DWChooseLocationViewController.xib */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
 		BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */; };
 /* End PBXBuildFile section */
@@ -761,6 +763,9 @@
 		BBF897AE135042AA00B332CA /* hr_gray_create@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hr_gray_create@2x.png"; path = "resources/hr_gray_create@2x.png"; sourceTree = "<group>"; };
 		BBF8983713504CF800B332CA /* pointer_mini_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pointer_mini_white.png; path = resources/pointer_mini_white.png; sourceTree = "<group>"; };
 		BBF8983813504CF800B332CA /* pointer_mini_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pointer_mini_white@2x.png"; path = "resources/pointer_mini_white@2x.png"; sourceTree = "<group>"; };
+		BBF899C813510E7800B332CA /* DWChooseLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWChooseLocationViewController.h; path = Classes/DWChooseLocationViewController.h; sourceTree = "<group>"; };
+		BBF899C913510E7800B332CA /* DWChooseLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWChooseLocationViewController.m; path = Classes/DWChooseLocationViewController.m; sourceTree = "<group>"; };
+		BBF899CA13510E7800B332CA /* DWChooseLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWChooseLocationViewController.xib; path = Classes/DWChooseLocationViewController.xib; sourceTree = "<group>"; };
 		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
 		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
 		BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWContainerViewController.xib; path = Classes/DWContainerViewController.xib; sourceTree = "<group>"; };
@@ -1094,6 +1099,7 @@
 				26CF62D512F3E92200505A37 /* DWWebViewController.xib */,
 				BB6EBB871311D8A9009D2DAF /* DWShareViewController.xib */,
 				BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */,
+				BBF899CA13510E7800B332CA /* DWChooseLocationViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Denwen-Info.plist */,
 			);
@@ -1156,6 +1162,8 @@
 				BB6EBB861311D8A9009D2DAF /* DWShareViewController.m */,
 				BB6419AA134BAE93002A2325 /* DWCreateViewController.h */,
 				BB6419AB134BAE93002A2325 /* DWCreateViewController.m */,
+				BBF899C813510E7800B332CA /* DWChooseLocationViewController.h */,
+				BBF899C913510E7800B332CA /* DWChooseLocationViewController.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1809,6 +1817,7 @@
 				BBF897B0135042AA00B332CA /* hr_gray_create@2x.png in Resources */,
 				BBF8983913504CF800B332CA /* pointer_mini_white.png in Resources */,
 				BBF8983A13504CF800B332CA /* pointer_mini_white@2x.png in Resources */,
+				BBF899CC13510E7800B332CA /* DWChooseLocationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1929,6 +1938,7 @@
 				BBF891B5134ECDAB00B332CA /* DWCreationQueueItem.m in Sources */,
 				BBF891B8134ECE1900B332CA /* DWNewPostQueueItem.m in Sources */,
 				BBF893EA134FC0DE00B332CA /* DWMediaPickerController.m in Sources */,
+				BBF899CB13510E7800B332CA /* DWChooseLocationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
