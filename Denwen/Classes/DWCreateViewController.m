@@ -25,6 +25,9 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 static NSString* const kImgLightBackgroundButton			= @"button_gray_light.png";
 static NSString* const kImgLightCameraButton				= @"camera_white.png";
 static NSString* const kImgLightMapButton					= @"pointer_gray_light.png";
+static NSString* const kMsgMissingFieldsTitle				= @"Missing Fields";
+static NSString* const kMsgPlaceMissing						= @"Select an existing place or create a new one";
+static NSString* const kMsgDataMissing						= @"Write a post or attach an image or video";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -149,6 +152,41 @@ static NSString* const kImgLightMapButton					= @"pointer_gray_light.png";
 }
 
 //----------------------------------------------------------------------------------------------------
+-(BOOL)isValidPost {
+	
+	BOOL status = YES;
+	
+	if(!(self.selectedPlace || (_newPlaceMode && self.placeNameTextField.text.length > 0))) {
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgMissingFieldsTitle
+														message:kMsgPlaceMissing
+													   delegate:nil 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+		
+		status = NO;
+	}
+	
+	if(status && !(self.dataTextView.text.length > 0 || self.cameraImage || self.videoURL)) {
+
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgMissingFieldsTitle
+														message:kMsgDataMissing
+													   delegate:nil 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+		
+		status = NO;
+	}
+
+	return status;
+}
+
+
+//----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark DWPlacesSearchResultsViewControllerDelegate
@@ -241,6 +279,9 @@ replacementString:(NSString *)string {
 
 //----------------------------------------------------------------------------------------------------
 - (void)doneButtonClicked:(id)sender {
+	
+	if(![self isValidPost])
+		return;
 	
 	if(_newPlaceMode) {
 		
