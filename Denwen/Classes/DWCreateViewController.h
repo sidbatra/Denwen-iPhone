@@ -21,6 +21,9 @@
 	UITextField				*_placeNameTextField;
 	KTTextView				*_dataTextView;
 	UIButton				*_mapButton;
+	UIButton				*_cancelButton;
+	UIButton				*_doneButton;
+	UIButton				*_cameraButton;
 	
 	DWPlace					*_selectedPlace;
 	CLLocation				*_newPlaceLocation;
@@ -75,6 +78,9 @@
 @property (nonatomic, retain) IBOutlet UITextField *placeNameTextField;
 @property (nonatomic, retain) IBOutlet KTTextView *dataTextView;
 @property (nonatomic, retain) IBOutlet UIButton *mapButton;
+@property (nonatomic, retain) IBOutlet UIButton *cancelButton;
+@property (nonatomic, retain) IBOutlet UIButton *doneButton;
+@property (nonatomic, retain) IBOutlet UIButton *cameraButton;
 
 /**
  * IBActions

@@ -10,9 +10,11 @@
  * a new option
  */
 @interface DWNewPlaceCell : UITableViewCell {
-	UILabel *_messageLabel;
+	UIImageView		*_backgroundImageView;
+	UILabel			*_messageLabel;
 }
 
+@property (nonatomic,retain) UIImageView *backgroundImageView;
 @property (nonatomic,retain) UILabel *messageLabel;
 
 @end

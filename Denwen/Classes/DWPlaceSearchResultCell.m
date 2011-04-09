@@ -5,7 +5,7 @@
 
 #import "DWPlaceSearchResultCell.h"
 
-static NSString* const kImgPlaceIcon = @"PinFloating.png";
+static NSString* const kImgPlaceIcon = @"pointer_mini_gray_dark.png";
 
 
 

@@ -22,6 +22,10 @@ static NSString* const kMsgImageUploadErrorTitle			= @"Error";
 static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. Please try again";
 static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 static NSInteger const kActionSheetCancelIndex				= 2;
+static NSString* const kImgLightBackgroundButton			= @"button_gray_light.png";
+static NSString* const kImgLightCameraButton				= @"camera_white.png";
+static NSString* const kImgLightMapButton					= @"pointer_gray_light.png";
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -35,6 +39,9 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 @synthesize dataTextView		= _dataTextView;
 @synthesize searchResults		= _searchResults;
 @synthesize	mapButton			= _mapButton;
+@synthesize	cancelButton		= _cancelButton;
+@synthesize doneButton			= _doneButton;
+@synthesize cameraButton		= _cameraButton;
 @synthesize selectedPlace		= _selectedPlace;
 @synthesize newPlaceLocation	= _newPlaceLocation;
 @synthesize cameraImage			= _cameraImage;
@@ -62,6 +69,9 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	self.placeNameTextField		= nil;
 	self.dataTextView			= nil;
 	self.mapButton				= nil;
+	self.cancelButton			= nil;
+	self.doneButton				= nil;
+	self.cameraButton			= nil;
 	self.searchResults			= nil;
 	self.selectedPlace			= nil;
 	self.newPlaceLocation		= nil;
@@ -123,6 +133,15 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	 */
 	self.previewImageView.hidden		= NO;
 	self.transImageView.hidden			= NO;
+	
+	[self.cancelButton setBackgroundImage:[UIImage imageNamed:kImgLightBackgroundButton] 
+								 forState:UIControlStateNormal];
+	
+	[self.cameraButton setBackgroundImage:[UIImage imageNamed:kImgLightCameraButton]
+													 forState:UIControlStateNormal];
+	
+	[self.mapButton setBackgroundImage:[UIImage imageNamed:kImgLightMapButton]
+								 forState:UIControlStateNormal];
 	
 	self.placeNameTextField.textColor	= [UIColor whiteColor];
 	self.dataTextView.textColor			= [UIColor whiteColor];
