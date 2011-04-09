@@ -299,6 +299,15 @@
 		BBF8969E135029A400B332CA /* button_new_place@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF8969A135029A400B332CA /* button_new_place@2x.png */; };
 		BBF8969F135029A400B332CA /* pointer_mini_gray_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF8969B135029A400B332CA /* pointer_mini_gray_dark.png */; };
 		BBF896A0135029A400B332CA /* pointer_mini_gray_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF8969C135029A400B332CA /* pointer_mini_gray_dark@2x.png */; };
+		BBF8972D135034F800B332CA /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF8972C135034F800B332CA /* CoreMedia.framework */; };
+		BBF8975A1350366B00B332CA /* camera_blue_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF897521350366B00B332CA /* camera_blue_checked.png */; };
+		BBF8975B1350366B00B332CA /* camera_blue_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF897531350366B00B332CA /* camera_blue_checked@2x.png */; };
+		BBF8975C1350366B00B332CA /* camera_white_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF897541350366B00B332CA /* camera_white_checked.png */; };
+		BBF8975D1350366B00B332CA /* camera_white_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF897551350366B00B332CA /* camera_white_checked@2x.png */; };
+		BBF8975E1350366B00B332CA /* video_blue_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF897561350366B00B332CA /* video_blue_checked.png */; };
+		BBF8975F1350366B00B332CA /* video_blue_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF897571350366B00B332CA /* video_blue_checked@2x.png */; };
+		BBF897601350366B00B332CA /* video_white_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF897581350366B00B332CA /* video_white_checked.png */; };
+		BBF897611350366B00B332CA /* video_white_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF897591350366B00B332CA /* video_white_checked@2x.png */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
 		BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */; };
 /* End PBXBuildFile section */
@@ -735,6 +744,15 @@
 		BBF8969A135029A400B332CA /* button_new_place@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_new_place@2x.png"; path = "resources/button_new_place@2x.png"; sourceTree = "<group>"; };
 		BBF8969B135029A400B332CA /* pointer_mini_gray_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pointer_mini_gray_dark.png; path = resources/pointer_mini_gray_dark.png; sourceTree = "<group>"; };
 		BBF8969C135029A400B332CA /* pointer_mini_gray_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pointer_mini_gray_dark@2x.png"; path = "resources/pointer_mini_gray_dark@2x.png"; sourceTree = "<group>"; };
+		BBF8972C135034F800B332CA /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		BBF897521350366B00B332CA /* camera_blue_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera_blue_checked.png; path = resources/camera_blue_checked.png; sourceTree = "<group>"; };
+		BBF897531350366B00B332CA /* camera_blue_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_blue_checked@2x.png"; path = "resources/camera_blue_checked@2x.png"; sourceTree = "<group>"; };
+		BBF897541350366B00B332CA /* camera_white_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera_white_checked.png; path = resources/camera_white_checked.png; sourceTree = "<group>"; };
+		BBF897551350366B00B332CA /* camera_white_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_white_checked@2x.png"; path = "resources/camera_white_checked@2x.png"; sourceTree = "<group>"; };
+		BBF897561350366B00B332CA /* video_blue_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_blue_checked.png; path = resources/video_blue_checked.png; sourceTree = "<group>"; };
+		BBF897571350366B00B332CA /* video_blue_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "video_blue_checked@2x.png"; path = "resources/video_blue_checked@2x.png"; sourceTree = "<group>"; };
+		BBF897581350366B00B332CA /* video_white_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_white_checked.png; path = resources/video_white_checked.png; sourceTree = "<group>"; };
+		BBF897591350366B00B332CA /* video_white_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "video_white_checked@2x.png"; path = "resources/video_white_checked@2x.png"; sourceTree = "<group>"; };
 		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
 		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
 		BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWContainerViewController.xib; path = Classes/DWContainerViewController.xib; sourceTree = "<group>"; };
@@ -760,6 +778,7 @@
 				BB6EBAF91311CDD6009D2DAF /* libxml2.dylib in Frameworks */,
 				BB537BDA132C560E0018B942 /* MediaPlayer.framework in Frameworks */,
 				BBA03C18132DBD970073105B /* AVFoundation.framework in Frameworks */,
+				BBF8972D135034F800B332CA /* CoreMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,6 +816,14 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBF897521350366B00B332CA /* camera_blue_checked.png */,
+				BBF897531350366B00B332CA /* camera_blue_checked@2x.png */,
+				BBF897541350366B00B332CA /* camera_white_checked.png */,
+				BBF897551350366B00B332CA /* camera_white_checked@2x.png */,
+				BBF897561350366B00B332CA /* video_blue_checked.png */,
+				BBF897571350366B00B332CA /* video_blue_checked@2x.png */,
+				BBF897581350366B00B332CA /* video_white_checked.png */,
+				BBF897591350366B00B332CA /* video_white_checked@2x.png */,
 				BBF89699135029A400B332CA /* button_new_place.png */,
 				BBF8969A135029A400B332CA /* button_new_place@2x.png */,
 				BBF8969B135029A400B332CA /* pointer_mini_gray_dark.png */,
@@ -1078,6 +1105,7 @@
 				BB6EBAF81311CDD6009D2DAF /* libxml2.dylib */,
 				BB537BD9132C560E0018B942 /* MediaPlayer.framework */,
 				BBA03C17132DBD970073105B /* AVFoundation.framework */,
+				BBF8972C135034F800B332CA /* CoreMedia.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1757,6 +1785,14 @@
 				BBF8969E135029A400B332CA /* button_new_place@2x.png in Resources */,
 				BBF8969F135029A400B332CA /* pointer_mini_gray_dark.png in Resources */,
 				BBF896A0135029A400B332CA /* pointer_mini_gray_dark@2x.png in Resources */,
+				BBF8975A1350366B00B332CA /* camera_blue_checked.png in Resources */,
+				BBF8975B1350366B00B332CA /* camera_blue_checked@2x.png in Resources */,
+				BBF8975C1350366B00B332CA /* camera_white_checked.png in Resources */,
+				BBF8975D1350366B00B332CA /* camera_white_checked@2x.png in Resources */,
+				BBF8975E1350366B00B332CA /* video_blue_checked.png in Resources */,
+				BBF8975F1350366B00B332CA /* video_blue_checked@2x.png in Resources */,
+				BBF897601350366B00B332CA /* video_white_checked.png in Resources */,
+				BBF897611350366B00B332CA /* video_white_checked@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

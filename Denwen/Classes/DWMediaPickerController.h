@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
+
 @protocol DWMediaPickerControllerDelegate;
 
 /**
@@ -56,7 +57,8 @@
  * Fired when a video is successfully picked
  */
 - (void)didFinishPickingVideoAtURL:(NSURL*)videoURL
-				   withOrientation:(NSString*)orientation;
+				   withOrientation:(NSString*)orientation
+						andPreview:(UIImage*)image;
 
 /**
  * Fired when media picking is cancelled
