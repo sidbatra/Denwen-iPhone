@@ -6,7 +6,7 @@
 #import "DWPlaceSearchResultCell.h"
 
 static NSString* const kImgPlaceIcon = @"pointer_mini_gray_dark.png";
-
+static NSString* const kImgSeparator = @"hr_gray_create.png";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ static NSString* const kImgPlaceIcon = @"pointer_mini_gray_dark.png";
 	
     if (self) {
         self.opaque				= YES;
-		self.backgroundColor	= [UIColor whiteColor];
+		self.backgroundColor	= [UIColor colorWithRed:0.9725 green:0.9725 blue:0.9725 alpha:1.0];
     }
     
     return self;
@@ -61,22 +61,24 @@ static NSString* const kImgPlaceIcon = @"pointer_mini_gray_dark.png";
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
 	
-	_highlighted ? [[UIColor whiteColor] set] : NO;
+	_highlighted ? [[UIColor whiteColor] set] : [[UIColor blackColor] set];
 	
-	[self.placeName drawInRect:CGRectMake(64, 7, 230, 22) 
-					  withFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]
+	[self.placeName drawInRect:CGRectMake(20, 4, 293, 18) 
+					  withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
 				 lineBreakMode:UILineBreakModeTailTruncation
 					 alignment:UITextAlignmentLeft];
 	
 	
-	_highlighted ? [[UIColor whiteColor] set] : [[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
+	_highlighted ? [[UIColor whiteColor] set] : [[UIColor colorWithRed:0.4588 green:0.4588 blue:0.4588 alpha:1.0] set];
 	
-	[self.placeDetails drawInRect:CGRectMake(64, 31, 230, 16) 
-						 withFont:[UIFont fontWithName:@"Helvetica" size:13] 
+	[self.placeDetails drawInRect:CGRectMake(20, 21, 293, 18) 
+						 withFont:[UIFont fontWithName:@"HelveticaNeue" size:15] 
 					lineBreakMode:UILineBreakModeTailTruncation
 						alignment:UITextAlignmentLeft];
 	
-	[[UIImage imageNamed:kImgPlaceIcon] drawInRect:CGRectMake(0, 0, 20, 20)];
+	[[UIImage imageNamed:kImgPlaceIcon] drawInRect:CGRectMake(7, 8, 7, 11)];
+	
+	[[UIImage imageNamed:kImgSeparator] drawInRect:CGRectMake(0, 43, 320, 1)];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -123,6 +125,7 @@ static NSString* const kImgPlaceIcon = @"pointer_mini_gray_dark.png";
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
 	if (self) {
+		
 		CGRect frame = CGRectMake(0.0,0.0,self.contentView.bounds.size.width,self.contentView.bounds.size.height);
 		
 		self.placeSearchResultView = [[[DWPlaceSearchResultView alloc] initWithFrame:frame] autorelease];

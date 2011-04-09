@@ -119,34 +119,20 @@ static NSInteger const kMaxVideoDuration	= 45;
                                                 @selector(video:didFinishSavingWithError:contextInfo:), 
                                                 nil);
 		
-		
-		/*AVURLAsset *asset=[[AVURLAsset alloc] initWithURL:mediaURL options:nil];
-		AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-		generator.appliesPreferredTrackTransform=TRUE;
-		[asset release];
-		
-		CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
-		
-		UIImage *thumbImg = nil;
-		
-		AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
-			if (result != AVAssetImageGeneratorSucceeded) {
-				NSLog(@"couldn't generate thumbnail, error:%@", error);
-			}
-			//previewImage = [[UIImage imageWithCGImage:im] retain];
-			//[button setImage:[UIImage imageWithCGImage:im] forState:UIControlStateNormal];
-			thumbImg=[[UIImage imageWithCGImage:im] retain];
-			[generator release];
-		};
-		
-		CGSize maxSize = CGSizeMake(320, 180);
-		generator.maximumSize = maxSize;
-		[generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
-		 */
-		
+	
+		NSURL *url = mediaURL;
+		AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
+		AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+		NSError *err = NULL;
+		CMTime time = CMTimeMake(1, 60);
+		CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+		[generate release];
+		NSLog(@"err==%@, imageRef==%@", err, imgRef);
+		UIImage *currentImg = [UIImage imageWithCGImage:imgRef];
+	
 		[_mediaDelegate didFinishPickingVideoAtURL:mediaURL
 								   withOrientation:orientation
-										andPreview:nil];
+										andPreview:currentImg];
 	}
 }
 

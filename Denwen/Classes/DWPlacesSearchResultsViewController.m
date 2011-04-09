@@ -14,6 +14,7 @@ static NSInteger const kSectionCount						= 1;
 static NSInteger const kSpinnerCellIndex					= 1;
 static NSInteger const kLoadingCellCount					= 3;
 static NSInteger const kNewPlaceCellBufferCount				= 1;
+static NSInteger const kRowHeight							= 44;
 static NSString* const kEmptyString							= @"";
 static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCell";
 static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
@@ -69,7 +70,8 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.tableView.rowHeight = 50;
+	self.tableView.rowHeight		= kRowHeight;
+	self.tableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -13,11 +13,11 @@ static NSString* const kTabTitle							= @"Create";
 static NSString* const kImgTab								= @"profile.png";
 static NSString* const kMsgDataTextViewPlaceholder			= @"What's going on here";
 static NSInteger const kTableViewX							= 0;
-static NSInteger const kTableViewY							= 32;
+static NSInteger const kTableViewY							= 44;
 static NSInteger const kTableViewWidth						= 320;
-static NSInteger const kTableViewHeight						= 270;
+static NSInteger const kTableViewHeight						= 200;
 static NSInteger const kMaxPlaceNameLength					= 32;
-static NSInteger const kMaxPostLength						= 180;
+static NSInteger const kMaxPostLength						= 140;
 static NSString* const kMsgImageUploadErrorTitle			= @"Error";
 static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. Please try again";
 static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
@@ -104,6 +104,7 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	[self.view addSubview:self.searchResults.view];
 	
 	[self.placeNameTextField becomeFirstResponder];
+	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -122,13 +123,13 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+	//[super viewWillAppear:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
+	//[super viewWillDisappear:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:kStatusBarStyle];
 }
 
@@ -415,6 +416,8 @@ replacementString:(NSString *)string {
 	
 	self.videoURL			= theVideoURL;
 	self.videoOrientation	= orientation;	
+	
+	self.previewImageView.image = image;
 	
 	[self dismissModalViewControllerAnimated:YES];
 }
