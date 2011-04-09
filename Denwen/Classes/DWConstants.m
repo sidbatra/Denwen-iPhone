@@ -53,6 +53,7 @@ NSString* const kKeyImage				= @"image";
 NSString* const kKeyResourceID			= @"resourceID";
 NSString* const kKeyPlaces				= @"places";
 NSString* const kKeyPlace				= @"place";
+NSString* const kKeyNewPlace			= @"new_place";
 NSString* const kKeyItems				= @"items";
 NSString* const kKeyItem				= @"item";
 NSString* const kKeyUsers				= @"users";

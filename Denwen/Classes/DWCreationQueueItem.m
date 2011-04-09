@@ -79,6 +79,8 @@ static NSInteger const kStateFailed				= 2;
 
 //----------------------------------------------------------------------------------------------------
 - (void)primaryUploadFinished {
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNCreationQueueItemProcessed 
+														object:self];
 }
 
 //----------------------------------------------------------------------------------------------------

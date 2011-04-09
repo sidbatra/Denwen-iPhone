@@ -6,6 +6,7 @@
 #import "DWNewPostQueueItem.h"
 #import "DWRequestsManager.h"
 #import "DWMemoryPool.h"
+#import "DWPlacesCache.h"
 #import "DWItem.h"
 #import "DWConstants.h"
 
@@ -243,33 +244,34 @@
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
-		DWItem *item			= [[[DWItem alloc] init] autorelease];
-		item.fromFollowedPlace	= [[body objectForKey:kKeyFollowing] boolValue];
+		BOOL isNewPlace = [[body objectForKey:kKeyNewPlace] boolValue];
+				
 		
-		[item populate:[body objectForKey:kKeyItem]];
-		
-		
-		[[DWMemoryPool sharedDWMemoryPool] setObject:item 
-											   atRow:kMPItemsIndex];
+		DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool] getOrSetObject:[body objectForKey:kKeyItem]
+																			atRow:kMPItemsIndex];
+		item.fromFollowedPlace = isNewPlace ? YES : [[DWPlacesCache sharedDWPlacesCache] isFollowedPlace:item.place];
 		item.pointerCount--;
-		
-		[self primaryUploadFinished];
-		
+				
 		[[NSNotificationCenter defaultCenter] postNotificationName:kNNewItemParsed 
 															object:nil
 														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																	item,kKeyItem,
 																	nil]];
+		if(isNewPlace) {
+			[[NSNotificationCenter defaultCenter] postNotificationName:kNNewPlaceParsed 
+																object:nil
+															  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+																		item.place,kKeyPlace,
+																		nil]];
+		}
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName:kNCreationQueueItemProcessed 
-															object:self];
+		[self primaryUploadFinished];
 	}
 	else {
 		self.errorMessage = [[body objectForKey:kKeyItem] objectForKey:kKeyErrorMessages];
 				
 		[self primaryUploadError];
 	}
-	
 }
 
 //----------------------------------------------------------------------------------------------------

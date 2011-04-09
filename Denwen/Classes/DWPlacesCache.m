@@ -98,6 +98,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 }
 
 //----------------------------------------------------------------------------------------------------
+- (BOOL)isFollowedPlace:(DWPlace*)thePlace {
+	
+	BOOL status = NO;
+	
+	NSMutableArray *followedPlaces = [self getFollowedPlaces];
+	
+	for(DWPlace *place in followedPlaces) {
+		if(place.databaseID == thePlace.databaseID) {
+			status = YES;
+			break;
+		}
+	}
+	
+	return status;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (NSMutableArray*)getNearbyPlaces {
 	return [self.placesManager getPlacesAtRow:kNearbyIndex];
 }
@@ -138,10 +155,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 		[self.placesManager addPlace:place 
 							   atRow:kNearbyIndex
 						   andColumn:0];
-		
-		[[NSNotificationCenter defaultCenter] postNotificationName:kNNearbyPlacesCacheUpdated
-															object:nil];
 	}
+	
+	[self.placesManager addPlace:place 
+						   atRow:kFollowedIndex
+					   andColumn:0];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNNearbyPlacesCacheUpdated
+														object:nil];	
 }
 
 //----------------------------------------------------------------------------------------------------

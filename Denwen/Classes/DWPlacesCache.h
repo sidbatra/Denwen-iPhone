@@ -38,6 +38,11 @@
 @property (nonatomic,retain) DWPlacesManager *placesManager;
 
 /**
+ * Tests if the given place is followed by the current user
+ */
+- (BOOL)isFollowedPlace:(DWPlace*)thePlace;
+
+/**
  * Returns the cached array of nearby places
  */
 - (NSMutableArray*)getNearbyPlaces;
