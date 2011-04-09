@@ -40,12 +40,24 @@ static NSString* const kImgBackground	= @"button_new_place.png";
 		
 		[self.contentView addSubview:self.messageLabel];
 		
+		/*
 		UIView *selectedView			= [[[UIView alloc] initWithFrame:rect] autorelease];
 		selectedView.backgroundColor	= [UIColor clearColor];
 		self.selectedBackgroundView		= selectedView;
+		 */
 	}
 	
     return self;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+	[super setHighlighted:highlighted animated:animated];
+	
+	if(highlighted)
+		self.backgroundImageView.hidden = YES;
+	else
+		self.backgroundImageView.hidden = NO;
 }
 
 //----------------------------------------------------------------------------------------------------

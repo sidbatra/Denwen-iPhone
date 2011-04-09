@@ -54,7 +54,7 @@
 							<string key="NSResourceName">hr_gray_create.png</string>
 						</object>
 					</object>
-					<object class="IBUILabel" id="967625223">
+					<object class="IBUILabel" id="301573309">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, -20}, {320, 20}}</string>
@@ -126,7 +126,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{26, 10}, {227, 25}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="1035507923">
+						<object class="NSColor" key="IBUIBackgroundColor" id="8093075">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
@@ -135,7 +135,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
-						<string key="IBUIPlaceholder">Type place name</string>
+						<string key="IBUIPlaceholder">Where?</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC40OTgwMzkyMTU3IDAuNDk4MDM5MjE1NyAwLjQ5ODAzOTIxNTcAA</bytes>
@@ -181,7 +181,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{7, 207}, {60, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="IBUIBackgroundColor" ref="1035507923"/>
+						<reference key="IBUIBackgroundColor" ref="8093075"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -198,10 +198,6 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage" id="160319667">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button_blue.png</string>
-						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_gray_light.png</string>
@@ -212,7 +208,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{253, 207}, {60, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="IBUIBackgroundColor" ref="1035507923"/>
+						<reference key="IBUIBackgroundColor" ref="8093075"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -222,7 +218,10 @@
 						<reference key="IBUIHighlightedTitleColor" ref="638947902"/>
 						<reference key="IBUINormalTitleColor" ref="638947902"/>
 						<reference key="IBUINormalTitleShadowColor" ref="900694610"/>
-						<reference key="IBUINormalBackgroundImage" ref="160319667"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">button_blue.png</string>
+						</object>
 					</object>
 					<object class="IBUIButton" id="195178794">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -244,10 +243,6 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="900694610"/>
-						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">camera_blue.png</string>
-						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">camera_gray_dark.png</string>
@@ -269,10 +264,6 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="900694610"/>
-						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">pointer_blue.png</string>
-						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">pointer_gray_light.png</string>
@@ -454,7 +445,7 @@
 							<reference ref="655487943"/>
 							<reference ref="1065166881"/>
 							<reference ref="844613630"/>
-							<reference ref="967625223"/>
+							<reference ref="301573309"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -529,7 +520,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">35</int>
-						<reference key="object" ref="967625223"/>
+						<reference key="object" ref="301573309"/>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">status bar background</string>
 					</object>
@@ -1066,10 +1057,8 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>button_blue.png</string>
 				<string>button_gray_light.png</string>
-				<string>camera_blue.png</string>
 				<string>camera_gray_dark.png</string>
 				<string>hr_gray_create.png</string>
-				<string>pointer_blue.png</string>
 				<string>pointer_gray_light.png</string>
 				<string>trans40.png</string>
 			</object>
@@ -1077,10 +1066,8 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{60, 30}</string>
 				<string>{60, 30}</string>
-				<string>{45, 36}</string>
 				<string>{45, 37}</string>
 				<string>{320, 1}</string>
-				<string>{60, 30}</string>
 				<string>{60, 30}</string>
 				<string>{1, 1}</string>
 			</object>
