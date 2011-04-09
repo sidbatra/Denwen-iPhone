@@ -72,7 +72,6 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 	
 	self.tableView.rowHeight		= kRowHeight;
 	self.tableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
-	self.tableView.backgroundColor	= [UIColor colorWithRed:0.9725 green:0.9725 blue:0.9725 alpha:1.0];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -97,6 +96,8 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 		
 		_tableViewUsage = kTableViewAsData;
 		
+		self.tableView.backgroundColor	= [UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0];
+		
 		[self.placesManager filterPlacesForSearchText:self.searchText];
 		[self.tableView reloadData];
 	}
@@ -112,12 +113,14 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)nearbyPlacesCacheUpdated:(NSNotification*)notification {
-	[self filterPlacesBySearchText];
+	if(!_newPlaceMode)
+		[self filterPlacesBySearchText];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)followedPlacesCacheUpdated:(NSNotification*)notification {
-	[self filterPlacesBySearchText];
+	if(!_newPlaceMode)
+		[self filterPlacesBySearchText];
 }
 
 
@@ -221,6 +224,7 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 	}
 	else if(_tableViewUsage == kTableViewAsData && indexPath.row == [self.placesManager totalFilteredPlaces]) {
 		[_delegate newPlaceSelected];
+		_newPlaceMode = YES;
 		self.view.hidden = YES;
 	}
 }

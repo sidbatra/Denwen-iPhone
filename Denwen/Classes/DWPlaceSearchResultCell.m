@@ -45,7 +45,7 @@ static NSString* const kImgSeparator			= @"hr_gray_create.png";
 	
     if (self) {
         self.opaque				= YES;
-		self.backgroundColor	= [UIColor colorWithRed:0.9725 green:0.9725 blue:0.9725 alpha:1.0];
+		self.backgroundColor	= [UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0];
     }
     
     return self;

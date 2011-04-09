@@ -128,5 +128,68 @@ static CGRect swapWidthAndHeight(CGRect rect)
     return copy;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (UIImage*)cropToRect:(CGRect)rect
+{
+	
+	return nil;
+	/*CGSize finalSize = CGSizeMake(320.0, 320.0);
+	UIGraphicsBeginImageContext(finalSize);
+	[self drawInRect:CGRectMake(0, 0, finalSize.width, finalSize.height)];
+	playImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	*/
+	
+	// Make a new bounding rectangle including our crop
+	/*CGRect newSize = rect;//CGRectMake(0.0, 50.0, 320.0, 430.0);
+	
+	// Create a new image in quartz with our new bounds and original image
+	CGImageRef tmp = CGImageCreateWithImageInRect([self CGImage], newSize);
+	
+	// Pump our cropped image back into a UIImage object
+	UIImage *newImage = [UIImage imageWithCGImage:tmp];
+	
+	// Be good memory citizens and release the memory
+	CGImageRelease(tmp);
+	
+	return newImage;*/
+	
+	
+	/*
+    //create a context to do our clipping in
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+	
+    //create a rect with the size we want to crop the image to
+    //the X and Y here are zero so we start at the beginning of our
+    //newly created context
+    CGRect clippedRect = CGRectMake(0, 0, rect.size.width, rect.size.height);
+    CGContextClipToRect( currentContext, clippedRect);
+	
+    //create a rect equivalent to the full size of the image
+    //offset the rect by the X and Y we want to start the crop
+    //from in order to cut off anything before them
+    CGRect drawRect = CGRectMake(rect.origin.x * -1,
+                                 rect.origin.y * -1,
+                                 self.size.width,
+                                 self.size.height);
+	
+    //draw the image to our clipped context using our offset rect
+    CGContextTranslateCTM(currentContext, 0.0, rect.size.height);
+    CGContextScaleCTM(currentContext, 1.0, -1.0);
+    CGContextDrawImage(currentContext, drawRect, self.CGImage);
+	
+    //pull the image from our cropped context
+    UIImage *cropped = UIGraphicsGetImageFromCurrentImageContext();
+	
+    //pop the context to get back to the default
+    UIGraphicsEndImageContext();
+	
+    //Note: this is autoreleased
+    return cropped;
+	 */
+}
+
+
 
 @end

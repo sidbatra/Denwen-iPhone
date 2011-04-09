@@ -83,7 +83,6 @@ static NSInteger const kThumbnailTimestamp	= 1;
 	UIImage *result = nil;
 	
 	if(!err) {
-		
 		if([orientation isEqualToString:kRot0]) {
 			
 			result = [UIImage imageWithCGImage:imgRef];
@@ -108,7 +107,7 @@ static NSInteger const kThumbnailTimestamp	= 1;
 		}
 	}
 	
-	return result;
+	return result;//[result cropToRect:CGRectMake(0,(result.size.height - result.size.width)/2,result.size.width,result.size.width)];
 }
 
 //----------------------------------------------------------------------------------------------------

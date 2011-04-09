@@ -20,6 +20,11 @@
 /**
  * Rotate the image to the given orientation
  */
--(UIImage*)rotateTo:(UIImageOrientation)orient;
+- (UIImage*)rotateTo:(UIImageOrientation)orient;
+
+/**
+ * Crop the image to the given frame
+ */
+- (UIImage*)cropToRect:(CGRect)rect;
 
 @end

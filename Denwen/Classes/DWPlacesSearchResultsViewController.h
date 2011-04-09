@@ -16,6 +16,7 @@
 	DWPlacesManager		*_placesManager;
 	NSString			*_searchText;
 	NSInteger			_tableViewUsage;
+	BOOL				_newPlaceMode;
 	
 	id <DWPlacesSearchResultsViewControllerDelegate>	_delegate;
 }

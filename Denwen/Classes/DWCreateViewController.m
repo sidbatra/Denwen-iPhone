@@ -30,6 +30,7 @@ static NSString* const kImgCheckedBlueCameraButton			= @"camera_blue_checked.png
 static NSString* const kImgCheckedLightVideoButton			= @"video_white_checked.png";
 static NSString* const kImgCheckedBlueVideoButton			= @"video_blue_checked.png";
 static NSString* const kImgLightMapButton					= @"pointer_white.png";
+static NSString* const kImgDarkMapButton					= @"pointer_gray_light.png";
 static NSString* const kMsgMissingFieldsTitle				= @"Missing Fields";
 static NSString* const kMsgPlaceMissing						= @"Select an existing place or create a new one";
 static NSString* const kMsgDataMissing						= @"Write a post or attach an image or video";
@@ -164,11 +165,23 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 									 forState:UIControlStateHighlighted];
 	}
 	 */
-
 	
-	self.placeNameTextField.textColor	= [UIColor whiteColor];
-	self.dataTextView.textColor			= [UIColor whiteColor];
-	self.atLabel.textColor				= [UIColor whiteColor];
+	self.placeNameTextField.textColor		= [UIColor whiteColor];
+	self.dataTextView.textColor				= [UIColor whiteColor];
+	self.atLabel.textColor					= [UIColor whiteColor];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)displayNormalUI {
+	
+	self.previewImageView.hidden		= YES;
+	self.transImageView.hidden			= YES;
+	
+	[self.mapButton setBackgroundImage:[UIImage imageNamed:kImgDarkMapButton]
+							  forState:UIControlStateNormal];
+	
+	self.placeNameTextField.textColor		= [UIColor colorWithRed:.498 green:.498 blue:.498 alpha:1.0];	
+	self.atLabel.textColor					= [UIColor colorWithRed:0.7019 green:0.7019 blue:0.7019 alpha:1.0];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -216,12 +229,18 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	self.selectedPlace				= place;
 	self.placeNameTextField.text	= self.selectedPlace.name;
 	
+	if(_isMediaSelected)
+		[self displayMediaUI];
+	
 	[self.dataTextView becomeFirstResponder];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)newPlaceSelected {
 	self.selectedPlace		= nil;
+	
+	if(_isMediaSelected)
+		[self displayMediaUI];
 	
 	_newPlaceMode			= YES;
 	self.mapButton.hidden	= NO;
@@ -352,6 +371,11 @@ replacementString:(NSString *)string {
 - (IBAction)placeNameTextFieldEditingChanged:(id)sender {
 	
 	if(!_newPlaceMode) {
+		
+		if(_isMediaSelected)
+			self.placeNameTextField.text.length > 0 ? [self displayNormalUI] : [self displayMediaUI];
+		
+		
 		self.searchResults.searchText = self.placeNameTextField.text;
 		[self.searchResults filterPlacesBySearchText];
 	}
@@ -389,7 +413,8 @@ replacementString:(NSString *)string {
 - (void)didFinishPickingImage:(UIImage*)originalImage 
 				  andEditedTo:(UIImage*)editedImage {
 		
-	_attachmentType = kAttachmentImage;
+	_attachmentType		= kAttachmentImage;
+	_isMediaSelected	= YES;
 	
 	/**
 	 * Free memory from a previously selected video
@@ -410,7 +435,8 @@ replacementString:(NSString *)string {
 				   withOrientation:(NSString*)orientation
 						andPreview:(UIImage*)image {
 	
-	_attachmentType = kAttachmentVideo;
+	_attachmentType		= kAttachmentVideo;
+	_isMediaSelected	= YES;
 
 	/**
 	 * Free memory from a previously selected image
@@ -423,7 +449,7 @@ replacementString:(NSString *)string {
 	self.videoOrientation	= orientation;	
 	
 	self.previewImageView.image = image;
-	
+		
 	[self dismissModalViewControllerAnimated:YES];
 }
 

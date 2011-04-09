@@ -5,7 +5,7 @@
 
 #import "DWNewPlaceCell.h"
 
-static NSString* const kMsgNewPlace		= @"I am adding a new place";
+static NSString* const kMsgNewPlace		= @"I'm adding a new place";
 static NSString* const kImgBackground	= @"button_new_place.png";
 
 
@@ -33,7 +33,7 @@ static NSString* const kImgBackground	= @"button_new_place.png";
 		
 		self.messageLabel					= [[[UILabel alloc] initWithFrame:rect] autorelease];
 		self.messageLabel.text				= kMsgNewPlace;
-		self.messageLabel.font				= [UIFont fontWithName:@"Helvetica" size:15];	
+		self.messageLabel.font				= [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];	
 		self.messageLabel.backgroundColor	= [UIColor clearColor];
 		self.messageLabel.textColor			= [UIColor whiteColor];
 		self.messageLabel.textAlignment		= UITextAlignmentCenter;

@@ -34,6 +34,7 @@
 	NSInteger				_attachmentType;
 	
 	BOOL					_newPlaceMode;
+	BOOL					_isMediaSelected;
 	
 	DWPlacesSearchResultsViewController *_searchResults;
 }
