@@ -93,6 +93,13 @@
  */
 - (void)filterPlacesForSearchText:(NSString*)searchText;
 
+
+/**
+ * Remove a place for a particular grouping (row) 
+ */
+- (void)removePlace:(DWPlace*)place 
+			fromRow:(NSInteger)row;
+
 /**
  * Clear places for all the groupings
  */

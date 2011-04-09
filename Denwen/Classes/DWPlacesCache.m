@@ -4,6 +4,7 @@
 //
 
 #import "DWPlacesCache.h"
+#import "DWMemoryPool.h"
 #import "DWRequestsManager.h"
 #import "DWConstants.h"
 #import "DWSession.h"
@@ -81,6 +82,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(userPlacesError:) 
 													 name:kNUserPlacesError
+												   object:nil];
+		
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingCreated:) 
+													 name:kNNewFollowingCreated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingDestroyed:) 
+													 name:kNFollowingDestroyed
 												   object:nil];
 		
 	}
@@ -232,4 +244,31 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 		return;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)followingCreated:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+
+	DWPlace *place = (DWPlace*)[[DWMemoryPool sharedDWMemoryPool] getObject:[[info objectForKey:kKeyResourceID] integerValue]
+																	  atRow:kMPPlacesIndex];
+	
+	if(place) {
+		[self.placesManager addPlace:place 
+							   atRow:kFollowedIndex
+						   andColumn:0];		
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)followingDestroyed:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	DWPlace *place = (DWPlace*)[[DWMemoryPool sharedDWMemoryPool] getObject:[[info objectForKey:kKeyResourceID] integerValue]
+																	  atRow:kMPPlacesIndex];
+	
+	if(place) {
+		[self.placesManager removePlace:place 
+								fromRow:kFollowedIndex];
+	}
+}
+	
 @end
