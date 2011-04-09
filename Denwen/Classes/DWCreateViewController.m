@@ -23,11 +23,13 @@ static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. P
 static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 static NSInteger const kActionSheetCancelIndex				= 2;
 static NSString* const kImgLightBackgroundButton			= @"button_gray_light.png";
+static NSString* const kImgDarkBackgroundButton				= @"button_gray_dark.png";
+static NSString* const kImgLightCameraButton				= @"camera_white.png";
 static NSString* const kImgCheckedLightCameraButton			= @"camera_white_checked.png";
 static NSString* const kImgCheckedBlueCameraButton			= @"camera_blue_checked.png";
 static NSString* const kImgCheckedLightVideoButton			= @"video_white_checked.png";
 static NSString* const kImgCheckedBlueVideoButton			= @"video_blue_checked.png";
-static NSString* const kImgLightMapButton					= @"pointer_gray_light.png";
+static NSString* const kImgLightMapButton					= @"pointer_white.png";
 static NSString* const kMsgMissingFieldsTitle				= @"Missing Fields";
 static NSString* const kMsgPlaceMissing						= @"Select an existing place or create a new one";
 static NSString* const kMsgDataMissing						= @"Write a post or attach an image or video";
@@ -141,13 +143,15 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	self.previewImageView.hidden		= NO;
 	self.transImageView.hidden			= NO;
 	
-	[self.cancelButton setBackgroundImage:[UIImage imageNamed:kImgLightBackgroundButton] 
+	[self.cancelButton setBackgroundImage:[UIImage imageNamed:kImgDarkBackgroundButton] 
 								 forState:UIControlStateNormal];
 	
 	[self.mapButton setBackgroundImage:[UIImage imageNamed:kImgLightMapButton]
 								 forState:UIControlStateNormal];
 	
-	if(_attachmentType == kAttachmentImage) {
+	[self.cameraButton setBackgroundImage:[UIImage imageNamed:kImgLightCameraButton]
+								 forState:UIControlStateNormal];
+	/*if(_attachmentType == kAttachmentImage) {
 		
 		[self.cameraButton setBackgroundImage:[UIImage imageNamed:kImgCheckedLightCameraButton]
 									 forState:UIControlStateNormal];
@@ -159,6 +163,7 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 		[self.cameraButton setBackgroundImage:[UIImage imageNamed:kImgCheckedBlueVideoButton]
 									 forState:UIControlStateHighlighted];
 	}
+	 */
 
 	
 	self.placeNameTextField.textColor	= [UIColor whiteColor];

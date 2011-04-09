@@ -5,8 +5,9 @@
 
 #import "DWPlaceSearchResultCell.h"
 
-static NSString* const kImgPlaceIcon = @"pointer_mini_gray_dark.png";
-static NSString* const kImgSeparator = @"hr_gray_create.png";
+static NSString* const kImgPlaceIcon			= @"pointer_mini_gray_dark.png";
+static NSString* const kImgPlaceHighlightedIcon = @"pointer_mini_white.png";
+static NSString* const kImgSeparator			= @"hr_gray_create.png";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ static NSString* const kImgSeparator = @"hr_gray_create.png";
 	
     if (self) {
         self.opaque				= YES;
-		self.backgroundColor	= [UIColor greenColor];
+		self.backgroundColor	= [UIColor blueColor];
     }
     
     return self;
@@ -60,7 +61,7 @@ static NSString* const kImgSeparator = @"hr_gray_create.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
-	
+
 	_highlighted ? [[UIColor whiteColor] set] : [[UIColor blackColor] set];
 	
 	[self.placeName drawInRect:CGRectMake(20, 4, 293, 18) 
@@ -76,7 +77,7 @@ static NSString* const kImgSeparator = @"hr_gray_create.png";
 					lineBreakMode:UILineBreakModeTailTruncation
 						alignment:UITextAlignmentLeft];
 	
-	[[UIImage imageNamed:kImgPlaceIcon] drawInRect:CGRectMake(7, 8, 7, 11)];
+	[[UIImage imageNamed:_highlighted ? kImgPlaceHighlightedIcon : kImgPlaceIcon] drawInRect:CGRectMake(7, 8, 8, 11)];
 	
 	[[UIImage imageNamed:kImgSeparator] drawInRect:CGRectMake(0, 43, 320, 1)];
 }
@@ -134,7 +135,7 @@ static NSString* const kImgSeparator = @"hr_gray_create.png";
 		
 		[self.contentView addSubview:self.placeSearchResultView];
 		
-		self.selectedBackgroundView = [[[DWPlaceSearchResultSelectedView alloc] initWithFrame:frame] autorelease];
+		//self.selectedBackgroundView = [[[DWPlaceSearchResultSelectedView alloc] initWithFrame:frame] autorelease];
 		self.accessoryType			= UITableViewCellAccessoryNone;
     }
 	

@@ -14,7 +14,7 @@ static NSString* const kRot180				= @"180";
 static NSString* const kRot270				= @"270";
 static NSString* const kRot0				= @"0";
 static NSInteger const kMaxVideoDuration	= 45;
-
+static NSInteger const kThumbnailTimestamp	= 1;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -54,6 +54,61 @@ static NSInteger const kMaxVideoDuration	= 45;
 		orientation = kRot0;
 	
 	return orientation;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (UIImage*)extractThumbnailFromVideo:(NSURL*)videoURL 
+						atOrientation:(NSString*)orientation {
+	
+	/**
+	 * Extract thumbnail from the video and rotate it based
+	 * upon the provided orientation
+	 */
+	AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL
+												options:nil];
+	
+	AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+	
+	[asset release];
+	
+	NSError *err		= nil;
+	CMTime time			= CMTimeMake(kThumbnailTimestamp, 60);
+	
+	CGImageRef imgRef	= [generate copyCGImageAtTime:time 
+										   actualTime:NULL
+												error:&err];
+	
+	[generate release];
+	
+	UIImage *result = nil;
+	
+	if(!err) {
+		
+		if([orientation isEqualToString:kRot0]) {
+			
+			result = [UIImage imageWithCGImage:imgRef];
+		}
+		else if([orientation isEqualToString:kRot90]) {
+			
+			result = [UIImage imageWithCGImage:imgRef 
+										 scale:1.0
+								   orientation:UIImageOrientationRight];
+		}
+		else if([orientation isEqualToString:kRot180]) {
+			
+			result = [UIImage imageWithCGImage:imgRef 
+										 scale:1.0
+								   orientation:UIImageOrientationDown];
+		}
+		else if([orientation isEqualToString:kRot270]) {
+			
+			result = [UIImage imageWithCGImage:imgRef 
+										 scale:1.0
+								   orientation:UIImageOrientationLeft];
+		}
+	}
+	
+	return result;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -119,20 +174,10 @@ static NSInteger const kMaxVideoDuration	= 45;
                                                 @selector(video:didFinishSavingWithError:contextInfo:), 
                                                 nil);
 		
-	
-		NSURL *url = mediaURL;
-		AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
-		AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-		NSError *err = NULL;
-		CMTime time = CMTimeMake(1, 60);
-		CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
-		[generate release];
-		NSLog(@"err==%@, imageRef==%@", err, imgRef);
-		UIImage *currentImg = [UIImage imageWithCGImage:imgRef];
-	
 		[_mediaDelegate didFinishPickingVideoAtURL:mediaURL
 								   withOrientation:orientation
-										andPreview:currentImg];
+										andPreview:[self extractThumbnailFromVideo:mediaURL 
+																	 atOrientation:orientation]];
 	}
 }
 

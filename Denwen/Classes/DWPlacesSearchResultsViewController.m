@@ -72,6 +72,7 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 	
 	self.tableView.rowHeight		= kRowHeight;
 	self.tableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
+	self.tableView.backgroundColor	= [UIColor colorWithRed:0.9725 green:0.9725 blue:0.9725 alpha:1.0];
 }
 
 //----------------------------------------------------------------------------------------------------

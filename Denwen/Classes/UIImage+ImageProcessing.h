@@ -17,4 +17,9 @@
  */
 - (UIImage *)resizeTo:(CGSize)newSize;
 
+/**
+ * Rotate the image to the given orientation
+ */
+-(UIImage*)rotateTo:(UIImageOrientation)orient;
+
 @end
