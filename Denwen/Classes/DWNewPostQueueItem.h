@@ -46,5 +46,15 @@
 			 toPlaceName:(NSString*)name
 			  atLocation:(CLLocation*)location;
 
+/**
+ * Post item with optional video and orientation to a
+ * new place
+ */
+- (void)postWithItemData:(NSString*)data
+			withVideoURL:(NSURL*)url
+		  andOrientation:(NSString*)orientation
+			 toPlaceName:(NSString*)name
+			  atLocation:(CLLocation*)location;
+
 @end
 

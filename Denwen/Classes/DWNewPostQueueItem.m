@@ -140,6 +140,22 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)postWithItemData:(NSString*)data
+			withVideoURL:(NSURL*)url
+		  andOrientation:(NSString*)orientation
+			 toPlaceName:(NSString*)name
+			  atLocation:(CLLocation*)location {
+	
+	[self createItemWithData:data];
+	[self createPlaceWithName:name
+				   atLocation:location];
+	[self createAttachmentWithVideoURL:url
+						andOrientation:orientation];
+	
+	[self start];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)startMediaUpload {
 	[super startMediaUpload];
 	

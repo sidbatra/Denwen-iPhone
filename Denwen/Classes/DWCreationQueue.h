@@ -48,4 +48,14 @@
 					  toPlaceName:(NSString*)name
 					   atLocation:(CLLocation*)location;
 
+/**
+ * Create a new post with an optional video and orientation
+ * to a new place
+ */
+- (void)addNewPostToQueueWithData:(NSString*)data
+					 withVideoURL:(NSURL*)url
+					atOrientation:(NSString*)orientation
+					  toPlaceName:(NSString*)name
+					   atLocation:(CLLocation*)location;
+
 @end

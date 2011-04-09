@@ -232,6 +232,14 @@ replacementString:(NSString *)string {
 																   toPlaceName:self.placeNameTextField.text
 																	atLocation:self.newPlaceLocation];
 		}
+		else if(_attachmentType == kAttachmentVideo) {
+			
+			[[DWCreationQueue sharedDWCreationQueue] addNewPostToQueueWithData:self.dataTextView.text
+																  withVideoURL:self.videoURL
+																 atOrientation:self.videoOrientation
+																   toPlaceName:self.placeNameTextField.text
+																	atLocation:self.newPlaceLocation];
+		}
 	}
 	else {
 		

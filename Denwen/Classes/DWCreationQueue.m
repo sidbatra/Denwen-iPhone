@@ -91,6 +91,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 	[self.queue addObject:queueItem];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)addNewPostToQueueWithData:(NSString*)data
+					 withVideoURL:(NSURL*)url
+					atOrientation:(NSString*)orientation
+					  toPlaceName:(NSString*)name
+					   atLocation:(CLLocation*)location {
+	
+	DWNewPostQueueItem *queueItem = [[[DWNewPostQueueItem alloc] init] autorelease];
+	
+	[queueItem postWithItemData:data 
+				   withVideoURL:url
+				 andOrientation:orientation 
+					toPlaceName:name
+					 atLocation:location];
+	
+	[self.queue addObject:queueItem];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
