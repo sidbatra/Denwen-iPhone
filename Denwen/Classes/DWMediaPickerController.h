@@ -1,45 +1,37 @@
 //
-//  DWMediaPicker.h
+//  DWMediaPickerController.h
 //  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-@protocol DWMediaPickerDelegate;
+@protocol DWMediaPickerControllerDelegate;
 
 /**
  * Wrapper for UIImagePickerController
  */
-@interface DWMediaPicker : NSObject <UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
+@interface DWMediaPickerController : UIImagePickerController <UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
 	
-    UIImagePickerController		*_imagePickerController;
-    id <DWMediaPickerDelegate>	_delegate;
+    id <DWMediaPickerControllerDelegate>	_mediaDelegate;
 }
-
-/**
- * Apple's ImagePickerController for selecting and capturing media
- */
-@property (nonatomic,retain) UIImagePickerController *imagePickerController;
-
 
 /**
  * Init with delegate to capture media picker events
  */
-- (id)initWithDelegate:(id)delegate;
+- (id)initWithDelegate:(id)theDelegate;
 
 /**
  * Prepare the imagePickerController for media (image & video)
  */
 - (void)prepareForMediaWithPickerMode:(NSInteger)pickingMode 
-						   withEditing:(BOOL)allowsEditing;
+						  withEditing:(BOOL)doesAllowEditing;
 
 /**
  * Prepare the imagePickerController for images
  */
 - (void)prepareForImageWithPickerMode:(NSInteger)pickingMode
-						   withEditing:(BOOL)allowsEditing;
-
+						  withEditing:(BOOL)doesAllowEditing;
 
 @end
 
@@ -48,7 +40,7 @@
  * Delegate protocol to receive updates events
  * during the media picker lifecycle
  */
-@protocol DWMediaPickerDelegate
+@protocol DWMediaPickerControllerDelegate
 
 @required
 
@@ -64,10 +56,11 @@
  * Fired when a video is successfully picked
  */
 - (void)didFinishPickingVideoAtURL:(NSURL*)videoURL
-					 withOrientation:(NSString*)orientation;
+				   withOrientation:(NSString*)orientation;
 
 /**
  * Fired when media picking is cancelled
  */
 - (void)mediaPickerCancelled;
+
 @end

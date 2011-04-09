@@ -4,6 +4,7 @@
 //
 
 #import "DWCreateViewController.h"
+#import "DWMemoryPool.h"
 #import "DWCreationQueue.h"
 #import "DWSession.h"
 #import "DWConstants.h"
@@ -20,12 +21,14 @@ static NSInteger const kMaxPostLength						= 180;
 static NSString* const kMsgImageUploadErrorTitle			= @"Error";
 static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. Please try again";
 static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
+static NSInteger const kActionSheetCancelIndex				= 2;
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 @implementation DWCreateViewController
 
+@synthesize atLabel				= _atLabel;
 @synthesize previewImageView	= _previewImageView;
 @synthesize transImageView		= _transImageView;
 @synthesize placeNameTextField	= _placeNameTextField;
@@ -33,6 +36,9 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 @synthesize searchResults		= _searchResults;
 @synthesize	mapButton			= _mapButton;
 @synthesize selectedPlace		= _selectedPlace;
+@synthesize cameraImage			= _cameraImage;
+@synthesize videoURL			= _videoURL;
+@synthesize videoOrientation	= _videoOrientation;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -48,6 +54,7 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
+	self.atLabel				= nil;
 	self.previewImageView		= nil;
 	self.transImageView			= nil;
 	self.placeNameTextField		= nil;
@@ -55,6 +62,9 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 	self.mapButton				= nil;
 	self.searchResults			= nil;
 	self.selectedPlace			= nil;
+	self.cameraImage			= nil;
+	self.videoURL				= nil;
+	self.videoOrientation		= nil;
 	
     [super dealloc];
 }
@@ -62,14 +72,14 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
+		
+	self.dataTextView.placeholderText	= kMsgDataTextViewPlaceholder;
 	
-	self.dataTextView.placeholderText = kMsgDataTextViewPlaceholder;
-	
-	CGRect frame					= CGRectMake(kTableViewX,kTableViewY,kTableViewWidth,kTableViewHeight);
-	self.searchResults				= [[[DWPlacesSearchResultsViewController alloc] init] autorelease];
-	self.searchResults.delegate		= self;
-	self.searchResults.view.frame	= frame;
-	self.searchResults.view.hidden	= YES;
+	CGRect frame						= CGRectMake(kTableViewX,kTableViewY,kTableViewWidth,kTableViewHeight);
+	self.searchResults					= [[[DWPlacesSearchResultsViewController alloc] init] autorelease];
+	self.searchResults.delegate			= self;
+	self.searchResults.view.frame		= frame;
+	self.searchResults.view.hidden		= YES;
 	
 	[self.view addSubview:self.searchResults.view];
 	
@@ -79,19 +89,15 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidUnload {
     [super viewDidUnload];
-	
-	self.previewImageView		= nil;
-	self.transImageView			= nil;
-	self.placeNameTextField		= nil;
-	self.dataTextView			= nil;
-	self.mapButton				= nil;
-	self.searchResults			= nil;
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)didReceiveMemoryWarning {
-	if(![self isSelectedTab])
-		[super didReceiveMemoryWarning];
+	/**
+	 * Commented out to prevent reloading upon a
+	 * low memory warning
+	 */
+	//[super didReceiveMemoryWarning];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -107,10 +113,17 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (BOOL)isSelectedTab {
-	return self.tabBarController.selectedViewController == self;
+- (void)displayMediaUI {
+	/**
+	 * Revamp the entire UI when media is selected
+	 */
+	self.previewImageView.hidden		= NO;
+	self.transImageView.hidden			= NO;
+	
+	self.placeNameTextField.textColor	= [UIColor whiteColor];
+	self.dataTextView.textColor			= [UIColor whiteColor];
+	self.atLabel.textColor				= [UIColor whiteColor];
 }
-
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -127,6 +140,8 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 
 //----------------------------------------------------------------------------------------------------
 - (void)newPlaceSelected {
+	self.selectedPlace		= nil;
+	
 	_newPlaceMode			= YES;
 	self.mapButton.hidden	= NO;
 }
@@ -188,15 +203,41 @@ replacementString:(NSString *)string {
 	[self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (IBAction)cameraButtonClicked:(id)sender {
+	
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
+															 delegate:self 
+													cancelButtonTitle:kMsgCancelMedia
+											   destructiveButtonTitle:nil
+													otherButtonTitles:kMsgTakeMedia,kMsgChooseMedia,nil];
+	
+	[actionSheet showInView:self.view];
+	[actionSheet release];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)doneButtonClicked:(id)sender {
 
 	if(_newPlaceMode) {
 		
 	}
 	else {
-		[[DWCreationQueue sharedDWCreationQueue] addNewPostToQueueWithData:self.dataTextView.text
-													   withAttachmentImage:nil 
-																 toPlaceID:self.selectedPlace.databaseID];
+		
+		if(_attachmentType == kAttachmentImage) {
+			
+			[[DWCreationQueue sharedDWCreationQueue] addNewPostToQueueWithData:self.dataTextView.text
+														   withAttachmentImage:self.cameraImage
+																	 toPlaceID:self.selectedPlace.databaseID];
+		}
+		else if(_attachmentType == kAttachmentVideo) {			
+			
+			[[DWCreationQueue sharedDWCreationQueue] addNewPostToQueueWithData:self.dataTextView.text
+																  withVideoURL:self.videoURL
+																 atOrientation:self.videoOrientation
+																	 toPlaceID:self.selectedPlace.databaseID];
+		}
+
 		
 		[[NSNotificationCenter defaultCenter] postNotificationName:kNRequestTabBarIndexChange
 															object:nil
@@ -204,7 +245,6 @@ replacementString:(NSString *)string {
 																	[NSNumber numberWithInt:kTabBarFeedIndex],kKeyTabIndex,
 																	nil]];
 	}
-
 	
 	[self.parentViewController dismissModalViewControllerAnimated:YES];
 }
@@ -218,5 +258,76 @@ replacementString:(NSString *)string {
 	}
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIActionSheetDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
+	
+	if(buttonIndex != kActionSheetCancelIndex) {
+		[[DWMemoryPool sharedDWMemoryPool] freeMemory];
+		
+		DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
+		
+		[picker prepareForMediaWithPickerMode:buttonIndex == 0 ? kMediaPickerCaptureMode : kMediaPickerLibraryMode
+								  withEditing:YES];
+		
+		[self presentModalViewController:picker
+								animated:YES];
+	}
+}	
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWMediaPickerControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)didFinishPickingImage:(UIImage*)originalImage 
+				  andEditedTo:(UIImage*)editedImage {
+		
+	_attachmentType = kAttachmentImage;
+	
+	/**
+	 * Free memory from a previously selected video
+	 */
+	self.videoURL			= nil;
+	self.videoOrientation	= nil;
+	
+	[self displayMediaUI];
+	
+	self.cameraImage			= editedImage;
+	self.previewImageView.image = editedImage;
+	
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didFinishPickingVideoAtURL:(NSURL*)theVideoURL
+				   withOrientation:(NSString*)orientation {
+	
+	_attachmentType = kAttachmentVideo;
+
+	/**
+	 * Free memory from a previously selected image
+	 */
+	self.cameraImage = nil;
+	
+	[self displayMediaUI];
+	
+	self.videoURL			= theVideoURL;
+	self.videoOrientation	= orientation;	
+	
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)mediaPickerCancelled {
+	[self dismissModalViewControllerAnimated:YES];
+}
 
 @end

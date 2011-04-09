@@ -21,7 +21,7 @@
 #import "NSString+Helpers.h"
 #import "DWMemoryPool.h"
 #import "UIImage+ImageProcessing.h"
-#import "DWMediaPicker.h"
+#import "DWMediaPickerController.h"
 
 @protocol DWNewPlaceViewControllerDelegate;
 

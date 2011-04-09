@@ -6,18 +6,19 @@
 #import <UIKit/UIKit.h>
 
 #import "DWItemFeedViewController.h"
-#import "DWMediaPicker.h"
+#import "DWMediaPickerController.h"
 #import "DWUser.h"
 
 #import "MBProgressHUD.h"
 
+@protocol DWMediaPickerControllerDelegate;
+
 /**
  * Display details about a user and the items posted by them
  */
-@interface DWUserViewController : DWItemFeedViewController <UIActionSheetDelegate,DWMediaPickerDelegate> {
+@interface DWUserViewController : DWItemFeedViewController <UIActionSheetDelegate,DWMediaPickerControllerDelegate> {
 	DWUser			*_user;
 	NSInteger		_uploadID;
-	DWMediaPicker	*_mediaPicker;
 	MBProgressHUD	*_mbProgressIndicator;
 }
 
@@ -25,11 +26,6 @@
  * User object whose view is being displayed
  */
 @property (nonatomic,retain) DWUser *user;
-
-/**
- * Used to procure media from the user
- */
-@property (nonatomic,retain) DWMediaPicker *mediaPicker;
 
 /**
  * Progress indicator for displaying spinners 

@@ -42,6 +42,14 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="IBUIImageView" id="920025008">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">-2147483356</int>
+						<string key="NSFrame">{{0, -20}, {320, 320}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
 					<object class="IBUIImageView" id="802427541">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483374</int>
@@ -53,14 +61,6 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">trans40.png</string>
 						</object>
-					</object>
-					<object class="IBUIImageView" id="920025008">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{0, -20}, {320, 320}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<object class="IBUILabel" id="1065166881">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -201,7 +201,7 @@
 							<string key="NSResourceName">camera_button_round.png</string>
 						</object>
 					</object>
-					<object class="IBUIButton" id="307727434">
+					<object class="IBUIButton" id="235097576">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{297, 0}, {23, 26}}</string>
@@ -307,7 +307,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">mapButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="307727434"/>
+						<reference key="destination" ref="235097576"/>
 					</object>
 					<int key="connectionID">25</int>
 				</object>
@@ -328,6 +328,23 @@
 					</object>
 					<int key="connectionID">27</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">cameraButtonClicked:</string>
+						<reference key="source" ref="195178794"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">28</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">atLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1065166881"/>
+					</object>
+					<int key="connectionID">29</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -343,7 +360,6 @@
 						<reference key="object" ref="191373211"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="802427541"/>
 							<reference ref="1065166881"/>
 							<reference ref="920025008"/>
 							<reference ref="215997632"/>
@@ -351,7 +367,8 @@
 							<reference ref="195178794"/>
 							<reference ref="462710938"/>
 							<reference ref="299565080"/>
-							<reference ref="307727434"/>
+							<reference ref="235097576"/>
+							<reference ref="802427541"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -415,7 +432,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
-						<reference key="object" ref="307727434"/>
+						<reference key="object" ref="235097576"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -485,7 +502,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw7kAAA</bytes>
+						<bytes key="NSTransformStruct">AQAAAADBoAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -509,7 +526,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">27</int>
+			<int key="maxID">29</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -521,12 +538,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cameraButtonClicked:</string>
 							<string>cancelButtonClicked:</string>
 							<string>doneButtonClicked:</string>
 							<string>placeNameTextFieldEditingChanged:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -536,12 +555,17 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cameraButtonClicked:</string>
 							<string>cancelButtonClicked:</string>
 							<string>doneButtonClicked:</string>
 							<string>placeNameTextFieldEditingChanged:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">cameraButtonClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">cancelButtonClicked:</string>
 								<string key="candidateClassName">id</string>
@@ -560,6 +584,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>atLabel</string>
 							<string>dataTextView</string>
 							<string>mapButton</string>
 							<string>placeNameTextField</string>
@@ -568,6 +593,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UILabel</string>
 							<string>KTTextView</string>
 							<string>UIButton</string>
 							<string>UITextField</string>
@@ -579,6 +605,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>atLabel</string>
 							<string>dataTextView</string>
 							<string>mapButton</string>
 							<string>placeNameTextField</string>
@@ -587,6 +614,10 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">atLabel</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">dataTextView</string>
 								<string key="candidateClassName">KTTextView</string>

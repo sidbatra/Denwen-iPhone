@@ -17,7 +17,7 @@
 
 static NSString* const kFacebookURLPrefix			= @"fb";
 static NSInteger const kLocationRefreshDistance		= 750;
-static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, memory pool free memmory called";
+static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, memory pool free memory called";
 static NSInteger const kTabBarWidth					= 320;
 static NSInteger const kTabBarHeight				= 49;
 static NSInteger const kTabBarCount					= 2;

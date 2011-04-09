@@ -41,9 +41,7 @@
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
 	self.item = nil;
-	
-	NSLog(@"new post queue item finished");
-	
+		
 	[super dealloc];
 }
 
@@ -107,7 +105,7 @@
 			withVideoURL:(NSURL*)url
 		  andOrientation:(NSString*)orientation 
 			   toPlaceID:(NSInteger)placeID {
-	
+		
 	[self createItemWithData:data];
 	[self createPlaceWithID:placeID];
 	[self createAttachmentWithVideoURL:url
@@ -161,10 +159,10 @@
 //----------------------------------------------------------------------------------------------------
 - (void)mediaUploadFinished:(NSString*)theFilename {
 	[super mediaUploadFinished:theFilename];
-	
+		
 	self.filename			= theFilename;
 	self.item.attachment	= nil;
-	
+		
 	[self startPrimaryUpload];
 }
 
@@ -223,7 +221,8 @@
 															object:self];
 	}
 	else {
-		self.errorMessage = [[body objectForKey:kKeyItem] objectForKey:kKeyErrorMessage];
+		self.errorMessage = [[body objectForKey:kKeyItem] objectForKey:kKeyErrorMessages];
+				
 		[self primaryUploadError];
 	}
 	
@@ -237,7 +236,7 @@
 	
 	if(_primaryUploadID != resourceID)
 		return;
-	
+		
 	[self primaryUploadError];
 }
 

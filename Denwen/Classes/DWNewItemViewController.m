@@ -192,7 +192,7 @@
 	if(buttonIndex != 2) {
 		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 		
-        //self.imagePicker = [[[DWMediaPicker alloc] initWithDelegate:self] autorelease];
+        //self.imagePicker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
         //[self.imagePicker prepareForMedia:buttonIndex];
 		//[self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
 	}
@@ -201,7 +201,7 @@
 
 
 #pragma mark -
-#pragma mark DWMediaPicker Delegate
+#pragma mark DWMediaPickerController Delegate
 
 
 - (void)mediaPickedAndProcessedWithID:(NSInteger)uploadID andPreview:(UIImage*)previewImage {

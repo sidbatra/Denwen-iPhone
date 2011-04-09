@@ -186,7 +186,6 @@
 		BB5E686B13319FCC006D0C66 /* profile_button_tiny@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5E686913319FCC006D0C66 /* profile_button_tiny@2x.png */; };
 		BB6419AD134BAE93002A2325 /* DWCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6419AB134BAE93002A2325 /* DWCreateViewController.m */; };
 		BB6419AE134BAE93002A2325 /* DWCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */; };
-		BB641B4D134BE730002A2325 /* DWMediaPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641B4C134BE730002A2325 /* DWMediaPicker.m */; };
 		BB641BDC134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641BDB134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m */; };
 		BB641C4D134D31D5002A2325 /* DWPlacesCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641C4C134D31D5002A2325 /* DWPlacesCache.m */; };
 		BB641C5A134D33B3002A2325 /* DWPlacesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB641C59134D33B3002A2325 /* DWPlacesManager.m */; };
@@ -276,6 +275,7 @@
 		BBF8913A134E885B00B332CA /* DWCreationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF89139134E885B00B332CA /* DWCreationQueue.m */; };
 		BBF891B5134ECDAB00B332CA /* DWCreationQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF891B4134ECDAB00B332CA /* DWCreationQueueItem.m */; };
 		BBF891B8134ECE1900B332CA /* DWNewPostQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF891B7134ECE1900B332CA /* DWNewPostQueueItem.m */; };
+		BBF893EA134FC0DE00B332CA /* DWMediaPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF893E9134FC0DE00B332CA /* DWMediaPickerController.m */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
 		BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */; };
 /* End PBXBuildFile section */
@@ -536,8 +536,6 @@
 		BB6419AA134BAE93002A2325 /* DWCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCreateViewController.h; path = Classes/DWCreateViewController.h; sourceTree = "<group>"; };
 		BB6419AB134BAE93002A2325 /* DWCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCreateViewController.m; path = Classes/DWCreateViewController.m; sourceTree = "<group>"; };
 		BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWCreateViewController.xib; path = Classes/DWCreateViewController.xib; sourceTree = "<group>"; };
-		BB641B4B134BE730002A2325 /* DWMediaPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWMediaPicker.h; path = Classes/DWMediaPicker.h; sourceTree = "<group>"; };
-		BB641B4C134BE730002A2325 /* DWMediaPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWMediaPicker.m; path = Classes/DWMediaPicker.m; sourceTree = "<group>"; };
 		BB641BDA134BFDEE002A2325 /* DWPlacesSearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlacesSearchResultsViewController.h; path = Classes/DWPlacesSearchResultsViewController.h; sourceTree = "<group>"; };
 		BB641BDB134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlacesSearchResultsViewController.m; path = Classes/DWPlacesSearchResultsViewController.m; sourceTree = "<group>"; };
 		BB641C4C134D31D5002A2325 /* DWPlacesCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlacesCache.m; path = Classes/DWPlacesCache.m; sourceTree = "<group>"; };
@@ -689,6 +687,8 @@
 		BBF891B4134ECDAB00B332CA /* DWCreationQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCreationQueueItem.m; path = Classes/DWCreationQueueItem.m; sourceTree = "<group>"; };
 		BBF891B6134ECE1900B332CA /* DWNewPostQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewPostQueueItem.h; path = Classes/DWNewPostQueueItem.h; sourceTree = "<group>"; };
 		BBF891B7134ECE1900B332CA /* DWNewPostQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewPostQueueItem.m; path = Classes/DWNewPostQueueItem.m; sourceTree = "<group>"; };
+		BBF893E8134FC0DE00B332CA /* DWMediaPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWMediaPickerController.h; path = Classes/DWMediaPickerController.h; sourceTree = "<group>"; };
+		BBF893E9134FC0DE00B332CA /* DWMediaPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWMediaPickerController.m; path = Classes/DWMediaPickerController.m; sourceTree = "<group>"; };
 		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
 		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
 		BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWContainerViewController.xib; path = Classes/DWContainerViewController.xib; sourceTree = "<group>"; };
@@ -1232,8 +1232,8 @@
 		BB641D7E134D446F002A2325 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				BB641B4B134BE730002A2325 /* DWMediaPicker.h */,
-				BB641B4C134BE730002A2325 /* DWMediaPicker.m */,
+				BBF893E8134FC0DE00B332CA /* DWMediaPickerController.h */,
+				BBF893E9134FC0DE00B332CA /* DWMediaPickerController.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -1775,7 +1775,6 @@
 				BBD0BFDB1344487C00BCFB96 /* DWConstants.m in Sources */,
 				BBD0C3721346E2D700BCFB96 /* DWNotificationsHelper.m in Sources */,
 				BB6419AD134BAE93002A2325 /* DWCreateViewController.m in Sources */,
-				BB641B4D134BE730002A2325 /* DWMediaPicker.m in Sources */,
 				BB641BDC134BFDEE002A2325 /* DWPlacesSearchResultsViewController.m in Sources */,
 				BB641C4D134D31D5002A2325 /* DWPlacesCache.m in Sources */,
 				BB641C5A134D33B3002A2325 /* DWPlacesManager.m in Sources */,
@@ -1785,6 +1784,7 @@
 				BBF8913A134E885B00B332CA /* DWCreationQueue.m in Sources */,
 				BBF891B5134ECDAB00B332CA /* DWCreationQueueItem.m in Sources */,
 				BBF891B8134ECE1900B332CA /* DWNewPostQueueItem.m in Sources */,
+				BBF893EA134FC0DE00B332CA /* DWMediaPickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

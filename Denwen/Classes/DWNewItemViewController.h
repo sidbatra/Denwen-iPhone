@@ -16,7 +16,7 @@
 #import "DWMemoryPool.h"
 #import "UIImage+ImageProcessing.h"
 #import "KTTextView.h"
-#import "DWMediaPicker.h"
+#import "DWMediaPickerController.h"
 
 @protocol DWNewItemViewControllerDelegate;
 
@@ -42,7 +42,7 @@
 	BOOL _isLoadedOnce;
 	NSInteger _uploadID;
 	
-	DWMediaPicker *_imagePicker;
+	DWMediaPickerController *_imagePicker;
     
 	id <DWNewItemViewControllerDelegate> _delegate;
 }
@@ -59,7 +59,7 @@
 @property (copy) NSString *filename;
 
 
-@property (nonatomic,retain) DWMediaPicker *imagePicker;
+@property (nonatomic,retain) DWMediaPickerController *imagePicker;
 
 
 - (IBAction)cancelButtonClicked:(id)sender;

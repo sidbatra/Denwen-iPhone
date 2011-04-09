@@ -31,7 +31,7 @@ static NSInteger const kStateFailed				= 2;
 		self.filename = kEmptyString;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(mediaUploaded:) 
+												 selector:@selector(mediaUploadDone:) 
 													 name:kNS3UploadDone
 												   object:nil];
 		

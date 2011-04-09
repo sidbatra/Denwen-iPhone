@@ -6,13 +6,16 @@
 #import <UIKit/UIKit.h>
 
 #import "DWPlacesSearchResultsViewController.h"
+#import "DWMediaPickerController.h"
 
 #import "KTTextView.h"
 
 /**
  * Facilitates creation of items and places
  */
-@interface DWCreateViewController : UIViewController<DWPlacesSearchResultsViewControllerDelegate> {
+@interface DWCreateViewController : UIViewController<UIActionSheetDelegate,DWMediaPickerControllerDelegate,DWPlacesSearchResultsViewControllerDelegate> {
+	
+	UILabel					*_atLabel;
 	UIImageView				*_previewImageView;
 	UIImageView				*_transImageView;
 	UITextField				*_placeNameTextField;
@@ -20,6 +23,11 @@
 	UIButton				*_mapButton;
 	
 	DWPlace					*_selectedPlace;
+	
+	UIImage					*_cameraImage;
+	NSURL					*_videoURL;
+	NSString				*_videoOrientation;
+	NSInteger				_attachmentType;
 	
 	BOOL					_newPlaceMode;
 	
@@ -32,6 +40,21 @@
 @property (nonatomic,retain) DWPlace *selectedPlace;
 
 /**
+ * Image selected using mediaPicker
+ */
+@property (nonatomic,retain) UIImage *cameraImage;
+
+/**
+ * URL of the video seleced using mediaPicker
+ */
+@property (nonatomic,retain) NSURL *videoURL;
+
+/**
+ * Orientation of the video selected using mediaPicker
+ */ 
+@property (nonatomic,copy) NSString *videoOrientation;
+
+/**
  * Table view controller for displaying results for a place name search
  */
 @property (nonatomic,retain) DWPlacesSearchResultsViewController *searchResults;
@@ -40,6 +63,7 @@
  * IBOutlet properties
  */
 
+@property (nonatomic, retain) IBOutlet UILabel *atLabel;
 @property (nonatomic, retain) IBOutlet UIImageView *previewImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *transImageView;
 @property (nonatomic, retain) IBOutlet UITextField *placeNameTextField;
@@ -50,21 +74,9 @@
  * IBActions
  */
 - (IBAction)cancelButtonClicked:(id)sender;
+- (IBAction)cameraButtonClicked:(id)sender;
 - (IBAction)doneButtonClicked:(id)sender;
 - (IBAction)placeNameTextFieldEditingChanged:(id)sender;
 
-
-@end
-
-
-/**
- * Declarations for select private methods
- */
-@interface DWCreateViewController(Private)
-
-/**
- * Indicates if the create tab is currently selected
- */
-- (BOOL)isSelectedTab;
 
 @end

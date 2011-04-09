@@ -1,9 +1,9 @@
 //
-//  DWMediaPicker.m
+//  DWMediaPickerController.m
 //  Copyright 2011 Denwen. All rights reserved.
 //
 
-#import "DWMediaPicker.h"
+#import "DWMediaPickerController.h"
 #import "UIImage+ImageProcessing.h"
 #import "DWConstants.h"
 #import "DWRequestsManager.h"
@@ -19,16 +19,14 @@ static NSInteger const kMaxVideoDuration	= 45;
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
-@implementation DWMediaPicker
-
-@synthesize imagePickerController = _imagePickerController;
+@implementation DWMediaPickerController
 
 //----------------------------------------------------------------------------------------------------
-- (id)initWithDelegate:(id)delegate {
+- (id)initWithDelegate:(id)theDelegate {
     self = [super init];
     
-    if(self != nil) {
-        _delegate = delegate;
+    if(self) {
+        _mediaDelegate = theDelegate;
     }
     
 	return self;  
@@ -58,37 +56,34 @@ static NSInteger const kMaxVideoDuration	= 45;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)prepare:(NSInteger)pickerMode allowsEditing:(BOOL)allowsEditing {
+- (void)prepare:(NSInteger)pickerMode allowsEditing:(BOOL)doesAllowEditing {
 	
-	self.imagePickerController					= [[[UIImagePickerController alloc] init] autorelease];
-    self.imagePickerController.delegate			= self;
-	self.imagePickerController.allowsEditing	= allowsEditing;
-    self.imagePickerController.sourceType		= pickerMode;
+    self.delegate					= self;
+	self.allowsEditing				= doesAllowEditing;
+    self.sourceType					= pickerMode;
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)prepareForImageWithPickerMode:(NSInteger)pickerMode
-						   withEditing:(BOOL)allowsEditing {
+						  withEditing:(BOOL)doesAllowEditing {
 	
-	[self prepare:pickerMode allowsEditing:allowsEditing];
+	[self prepare:pickerMode allowsEditing:doesAllowEditing];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)prepareForMediaWithPickerMode:(NSInteger)pickerMode
-						   withEditing:(BOOL)allowsEditing {
+						  withEditing:(BOOL)doesAllowEditing {
 	
-    [self prepare:pickerMode allowsEditing:allowsEditing];
+	[self prepare:pickerMode allowsEditing:doesAllowEditing];
 	
-    self.imagePickerController.mediaTypes			= [UIImagePickerController availableMediaTypesForSourceType:
-															self.imagePickerController.sourceType];   
-    self.imagePickerController.videoMaximumDuration = kMaxVideoDuration;
-    self.imagePickerController.videoQuality			= UIImagePickerControllerQualityTypeMedium;
+    self.mediaTypes					= [UIImagePickerController availableMediaTypesForSourceType:
+																self.sourceType];   
+    self.videoMaximumDuration		= kMaxVideoDuration;
+    self.videoQuality				= UIImagePickerControllerQualityTypeMedium;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void) dealloc {
-    self.imagePickerController = nil;
-	
+- (void) dealloc {		
     [super dealloc];
 }
 
@@ -112,7 +107,8 @@ static NSInteger const kMaxVideoDuration	= 45;
                                            @selector(image:didFinishSavingWithError:contextInfo:), 
                                            nil);
 		
-		[_delegate didFinishPickingImage:originalImage andEditedTo:editedImage];
+		[_mediaDelegate didFinishPickingImage:originalImage 
+								  andEditedTo:editedImage];
 	}
 	else {
 		NSString *orientation = [self extractOrientationOfVideo:mediaURL];
@@ -122,20 +118,21 @@ static NSInteger const kMaxVideoDuration	= 45;
                                                 @selector(video:didFinishSavingWithError:contextInfo:), 
                                                 nil);
 		
-		[_delegate didFinishPickingVideoAtURL:mediaURL withOrientation:orientation];
+		[_mediaDelegate didFinishPickingVideoAtURL:mediaURL
+								   withOrientation:orientation];
 	}
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [_delegate mediaPickerCancelled];
+   [_mediaDelegate mediaPickerCancelled];
 }
 
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Selectors fired when saving images and video to disk
+#pragma mark Selectors fired when image or video is saved to disk
 
 //----------------------------------------------------------------------------------------------------
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error 

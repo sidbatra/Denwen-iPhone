@@ -6,8 +6,8 @@
 #import "DWUserViewController.h"
 #import "DWRequestsManager.h"
 #import "DWMemoryPool.h"
-#import "DWFollowedPlacesViewController.h"
 #import "DWSession.h"
+#import "DWFollowedPlacesViewController.h"
 
 //Cells
 #import "DWUserCell.h"
@@ -26,7 +26,7 @@ static NSString* const kMsgImageUploadErrorTitle			= @"Error";
 static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. Please try again";
 static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
-
+static NSInteger const kActionSheetCancelIndex				= 2;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -35,7 +35,6 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 @implementation DWUserViewController
 
 @synthesize user				= _user;
-@synthesize mediaPicker			= _mediaPicker;
 @synthesize mbProgressIndicator	= _mbProgressIndicator;
 
 //----------------------------------------------------------------------------------------------------
@@ -135,7 +134,6 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 	
 	self.user.mediumPreviewImage	= nil;
 	self.user						= nil;
-	self.mediaPicker				= nil;
 	self.mbProgressIndicator		= nil;
 	
     [super dealloc];
@@ -426,15 +424,15 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 //----------------------------------------------------------------------------------------------------
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
 	
-	if(buttonIndex != 2) {
-		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
+	if(buttonIndex != kActionSheetCancelIndex) {
+		[[DWMemoryPool sharedDWMemoryPool] freeMemory];
 		
-		self.mediaPicker = [[[DWMediaPicker alloc] initWithDelegate:self] autorelease];
+		DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
 		
-		[self.mediaPicker prepareForImageWithPickerMode:buttonIndex == 0 ? kMediaPickerCaptureMode : kMediaPickerLibraryMode
-											 withEditing:YES];
+		[picker prepareForImageWithPickerMode:buttonIndex == 0 ? kMediaPickerCaptureMode : kMediaPickerLibraryMode
+								  withEditing:YES];
 		
-		[self presentModalViewController:self.mediaPicker.imagePickerController
+		[self presentModalViewController:picker
 								animated:YES];
 	}
 }	
@@ -443,15 +441,14 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark DWMediaPickerDelegate
+#pragma mark DWMediaPickerControllerDelegate
 
 //----------------------------------------------------------------------------------------------------
-- (void)didFinishPickingImage:(UIImage*)originalImage andEditedTo:(UIImage*)editedImage {
+- (void)didFinishPickingImage:(UIImage*)originalImage 
+				  andEditedTo:(UIImage*)editedImage {
 	
 	[self dismissModalViewControllerAnimated:YES];
-	
-	self.mediaPicker = nil;
-	
+		
 	self.mbProgressIndicator.labelText = @"Loading";
 	[self.mbProgressIndicator showUsingAnimation:YES];
 	
@@ -465,7 +462,6 @@ static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 - (void)mediaPickerCancelled {
 	[self dismissModalViewControllerAnimated:YES];
 	
-	self.mediaPicker = nil;
 }
 
 
