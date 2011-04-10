@@ -25,6 +25,7 @@
 	UIButton				*_cancelButton;
 	UIButton				*_doneButton;
 	UIButton				*_cameraButton;
+	UILabel					*_coverLabel;
 	
 	DWPlace					*_selectedPlace;
 	CLLocation				*_newPlaceLocation;
@@ -83,6 +84,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *cancelButton;
 @property (nonatomic, retain) IBOutlet UIButton *doneButton;
 @property (nonatomic, retain) IBOutlet UIButton *cameraButton;
+@property (nonatomic, retain) IBOutlet UILabel *coverLabel;
 
 /**
  * IBActions

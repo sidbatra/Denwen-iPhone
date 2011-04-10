@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
+			<integer value="37"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -69,7 +69,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText"/>
-						<object class="NSColor" key="IBUITextColor">
+						<object class="NSColor" key="IBUITextColor" id="37560877">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
 						</object>
@@ -94,7 +94,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">trans40.png</string>
+							<string key="NSResourceName">trans55.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="1065166881">
@@ -269,6 +269,23 @@
 							<string key="NSResourceName">pointer_gray_light.png</string>
 						</object>
 					</object>
+					<object class="IBUILabel" id="111037269">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{0, 244}, {320, 216}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="IBUIBackgroundColor" ref="638947902"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<string key="IBUIText"/>
+						<reference key="IBUITextColor" ref="37560877"/>
+						<reference key="IBUIHighlightedColor" ref="638947902"/>
+						<int key="IBUIBaselineAdjustment">1</int>
+						<float key="IBUIMinimumFontSize">10</float>
+					</object>
 				</object>
 				<string key="NSFrameSize">{320, 460}</string>
 				<reference key="NSSuperview"/>
@@ -429,6 +446,14 @@
 					</object>
 					<int key="connectionID">36</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">coverLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="111037269"/>
+					</object>
+					<int key="connectionID">38</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -455,6 +480,7 @@
 							<reference ref="1065166881"/>
 							<reference ref="844613630"/>
 							<reference ref="301573309"/>
+							<reference ref="111037269"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -533,6 +559,12 @@
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">status bar background</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">37</int>
+						<reference key="object" ref="111037269"/>
+						<reference key="parent" ref="191373211"/>
+						<string key="objectName">cover label</string>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -562,6 +594,8 @@
 					<string>34.IBViewBoundsToFrameTransform</string>
 					<string>35.IBPluginDependency</string>
 					<string>35.IBViewBoundsToFrameTransform</string>
+					<string>37.IBPluginDependency</string>
+					<string>37.IBViewBoundsToFrameTransform</string>
 					<string>8.IBPluginDependency</string>
 					<string>8.IBViewBoundsToFrameTransform</string>
 					<string>9.IBPluginDependency</string>
@@ -571,7 +605,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>DWCreateViewController</string>
 					<string>UIResponder</string>
-					<string>{{568, 312}, {320, 480}}</string>
+					<string>{{592, 323}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -612,6 +646,10 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw38AAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AQAAAADBoAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -636,7 +674,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">36</int>
+			<int key="maxID">38</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -704,6 +742,7 @@
 							<string>atLabel</string>
 							<string>cameraButton</string>
 							<string>cancelButton</string>
+							<string>coverLabel</string>
 							<string>dataTextView</string>
 							<string>doneButton</string>
 							<string>mapButton</string>
@@ -716,6 +755,7 @@
 							<string>UILabel</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
+							<string>UILabel</string>
 							<string>KTTextView</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -731,6 +771,7 @@
 							<string>atLabel</string>
 							<string>cameraButton</string>
 							<string>cancelButton</string>
+							<string>coverLabel</string>
 							<string>dataTextView</string>
 							<string>doneButton</string>
 							<string>mapButton</string>
@@ -751,6 +792,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">cancelButton</string>
 								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">coverLabel</string>
+								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">dataTextView</string>
@@ -1076,7 +1121,7 @@
 				<string>camera_gray_dark.png</string>
 				<string>hr_gray_create.png</string>
 				<string>pointer_gray_light.png</string>
-				<string>trans40.png</string>
+				<string>trans55.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>

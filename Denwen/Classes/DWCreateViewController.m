@@ -53,6 +53,8 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 @synthesize	cancelButton		= _cancelButton;
 @synthesize doneButton			= _doneButton;
 @synthesize cameraButton		= _cameraButton;
+@synthesize coverLabel			= _coverLabel;
+
 @synthesize selectedPlace		= _selectedPlace;
 @synthesize newPlaceLocation	= _newPlaceLocation;
 @synthesize cameraImage			= _cameraImage;
@@ -85,6 +87,8 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	self.cancelButton			= nil;
 	self.doneButton				= nil;
 	self.cameraButton			= nil;
+	self.coverLabel				= nil;
+	
 	self.searchResults			= nil;
 	self.selectedPlace			= nil;
 	self.newPlaceLocation		= nil;
@@ -143,7 +147,7 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	/**
 	 * Revamp the entire UI when media is selected
 	 */
-	self.view.backgroundColor			= [UIColor blackColor];
+	self.coverLabel.backgroundColor		= [UIColor blackColor];
 	
 	self.previewImageView.hidden		= NO;
 	self.transImageView.hidden			= NO;
@@ -183,7 +187,7 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 //----------------------------------------------------------------------------------------------------
 - (void)displayNormalUI {
 	
-	self.view.backgroundColor			= [UIColor whiteColor];
+	self.coverLabel.backgroundColor		= [UIColor whiteColor];
 	
 	self.previewImageView.hidden		= YES;
 	self.transImageView.hidden			= YES;
