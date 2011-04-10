@@ -8,6 +8,8 @@
 
 #import "DWPoolObject.h"
 
+@class DWAttachment;
+
 /**
  * Place model represents a place entity as defined
  * in the database
@@ -15,6 +17,8 @@
 @interface DWPlace : DWPoolObject {
 	NSString		*_name;
 	NSString		*_hashedID;
+	NSString		*_lastItemData;
+	NSInteger		_lastItemDatabaseID;
 	
 	NSString		*_town;
 	NSString		*_state;
@@ -27,6 +31,8 @@
 
 	UIImage			*_smallPreviewImage;
 	UIImage			*_largePreviewImage;
+	
+	DWAttachment	*_attachment;
 	
 	NSInteger		_followersCount;
 	
@@ -47,6 +53,11 @@
  * Unique ID for the place used in obfuscated URLs
  */
 @property (nonatomic,copy) NSString *hashedID;
+
+/**
+ * Data entered with the last item created at the place
+ */
+@property (nonatomic,copy) NSString *lastItemData;
 
 /**
  * Town in which the place is located
@@ -87,6 +98,11 @@
  * Image corresponding to the large URL
  */
 @property (nonatomic,retain) UIImage *largePreviewImage;
+
+/**
+ * Optional attachment of the last item posted at the place
+ */
+@property (nonatomic,retain) DWAttachment *attachment;
 
 /**
  * Flag for whether a photo has been added to the place profile

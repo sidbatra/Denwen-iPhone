@@ -84,6 +84,7 @@ NSString* const kKeyFileType			= @"filetype";
 NSString* const kKeyActualURL			= @"actual_url";
 NSString* const kKeyCreatedAt			= @"created_at_timestamp";
 NSString* const kKeyCondensedData		= @"condensed_data";
+NSString* const kKeyData				= @"data";
 NSString* const kKeyAttachment			= @"attachment";
 NSString* const kKeyURLs				= @"urls";
 NSString* const kKeyFollowing			= @"following";

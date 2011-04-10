@@ -4,6 +4,7 @@
 //
 
 #import "DWPlace.h"
+#import "DWAttachment.h"
 #import "DWRequestsManager.h"
 #import "UIImage+ImageProcessing.h"
 #import "DWConstants.h"
@@ -21,11 +22,13 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 
 @synthesize name				= _name;
 @synthesize hashedID			= _hashedID;
+@synthesize lastItemData		= _lastItemData;
 @synthesize smallURL			= _smallURL;
 @synthesize largeURL			= _largeURL;
 @synthesize location			= _location;
 @synthesize smallPreviewImage	= _smallPreviewImage;
 @synthesize largePreviewImage	= _largePreviewImage;
+@synthesize attachment			= _attachment;
 @synthesize hasPhoto			= _hasPhoto;
 @synthesize	town				= _town;
 @synthesize state				= _state;
@@ -36,10 +39,6 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 	self = [super init];
 	
 	if(self != nil) {
-		
-		_isSmallDownloading = NO;
-		_isLargeDownloading = NO;
-		_hasAddress			= NO;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(smallImageLoaded:) 
@@ -82,6 +81,7 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 	
 	self.name					= nil;
 	self.hashedID				= nil;
+	self.lastItemData			= nil;
 	self.town					= nil;
 	self.state					= nil;
 	self.country				= nil;
@@ -94,6 +94,8 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 		self.smallPreviewImage	= nil;
 		self.largePreviewImage	= nil;
 	}
+	
+	self.attachment				= nil;
 	
 	[super dealloc];
 }
@@ -128,6 +130,20 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 		self.town		= [address objectForKey:kKeyShortTown];
 		self.state		= [address objectForKey:kKeyShortState];
 		self.country	= [address objectForKey:kKeyShortCountry];
+	}
+	
+	NSDictionary *item = [place objectForKey:kKeyItem];
+	
+	if(item) {
+		_lastItemDatabaseID	= [[item objectForKey:kKeyID] integerValue];
+		self.lastItemData	= [item objectForKey:kKeyData];
+				
+		NSDictionary *itemAttachment = [item objectForKey:kKeyAttachment];	
+		
+		if(itemAttachment) {
+			self.attachment = [[[DWAttachment alloc] init] autorelease];
+			[self.attachment populate:itemAttachment];
+		}
 	}
 }
 
@@ -174,6 +190,28 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 			self.town		= [address objectForKey:kKeyShortTown];
 			self.state		= [address objectForKey:kKeyShortState];
 			self.country	= [address objectForKey:kKeyShortCountry];		
+		}
+		
+		NSDictionary *item = [place objectForKey:kKeyItem];
+		
+		if(item) {
+			NSInteger newItemDatabaseID	= [[item objectForKey:kKeyID] integerValue];
+	
+			if(newItemDatabaseID != _lastItemDatabaseID) {
+				
+				_lastItemDatabaseID	= newItemDatabaseID;
+				self.lastItemData	= [item objectForKey:kKeyData];
+				
+				
+				NSDictionary *itemAttachment = [item objectForKey:kKeyAttachment];	
+				
+				if(itemAttachment) {
+					self.attachment = [[[DWAttachment alloc] init] autorelease];
+					[self.attachment populate:itemAttachment];
+				}
+				else
+					self.attachment = nil;
+			}
 		}
 		
 		[self refreshUpdatedAt];
