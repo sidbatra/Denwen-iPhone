@@ -316,7 +316,7 @@
 		BBF899CC13510E7800B332CA /* DWChooseLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF899CA13510E7800B332CA /* DWChooseLocationViewController.xib */; };
 		BBF89AF71351320900B332CA /* button_new_place_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89AF51351320900B332CA /* button_new_place_active.png */; };
 		BBF89AF81351320900B332CA /* button_new_place_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89AF61351320900B332CA /* button_new_place_active@2x.png */; };
-		BBF89C0A1352705100B332CA /* video_slice_preview.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89C091352705100B332CA /* video_slice_preview.png */; };
+		BBF89C151352739800B332CA /* video_slice_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89C141352739800B332CA /* video_slice_placeholder.png */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
 		BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */; };
 /* End PBXBuildFile section */
@@ -771,7 +771,7 @@
 		BBF899CA13510E7800B332CA /* DWChooseLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWChooseLocationViewController.xib; path = Classes/DWChooseLocationViewController.xib; sourceTree = "<group>"; };
 		BBF89AF51351320900B332CA /* button_new_place_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_new_place_active.png; path = resources/button_new_place_active.png; sourceTree = "<group>"; };
 		BBF89AF61351320900B332CA /* button_new_place_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_new_place_active@2x.png"; path = "resources/button_new_place_active@2x.png"; sourceTree = "<group>"; };
-		BBF89C091352705100B332CA /* video_slice_preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_slice_preview.png; path = resources/video_slice_preview.png; sourceTree = "<group>"; };
+		BBF89C141352739800B332CA /* video_slice_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_slice_placeholder.png; path = resources/video_slice_placeholder.png; sourceTree = "<group>"; };
 		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
 		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
 		BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWContainerViewController.xib; path = Classes/DWContainerViewController.xib; sourceTree = "<group>"; };
@@ -835,7 +835,7 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				BBF89C091352705100B332CA /* video_slice_preview.png */,
+				BBF89C141352739800B332CA /* video_slice_placeholder.png */,
 				BBF89AF51351320900B332CA /* button_new_place_active.png */,
 				BBF89AF61351320900B332CA /* button_new_place_active@2x.png */,
 				BBF8983713504CF800B332CA /* pointer_mini_white.png */,
@@ -1829,7 +1829,7 @@
 				BBF899CC13510E7800B332CA /* DWChooseLocationViewController.xib in Resources */,
 				BBF89AF71351320900B332CA /* button_new_place_active.png in Resources */,
 				BBF89AF81351320900B332CA /* button_new_place_active@2x.png in Resources */,
-				BBF89C0A1352705100B332CA /* video_slice_preview.png in Resources */,
+				BBF89C151352739800B332CA /* video_slice_placeholder.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
