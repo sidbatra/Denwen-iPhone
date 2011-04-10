@@ -6,7 +6,6 @@
 #import "DWCreationQueueItem.h"
 #import "DWConstants.h"
 
-static NSString* const kEmptyString				= @"";
 static NSInteger const kStateMediaUploading		= 0;
 static NSInteger const kStatePrimaryUploading	= 1;
 static NSInteger const kStateFailed				= 2;

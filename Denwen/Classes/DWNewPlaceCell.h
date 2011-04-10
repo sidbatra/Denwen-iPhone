@@ -11,10 +11,11 @@
  */
 @interface DWNewPlaceCell : UITableViewCell {
 	UIImageView		*_backgroundImageView;
-	UILabel			*_messageLabel;
+	UIImageView		*_separatorImageView;
 }
 
 @property (nonatomic,retain) UIImageView *backgroundImageView;
-@property (nonatomic,retain) UILabel *messageLabel;
+@property (nonatomic,retain) UIImageView *separatorImageView;
+
 
 @end

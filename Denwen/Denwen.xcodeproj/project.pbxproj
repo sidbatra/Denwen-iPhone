@@ -314,6 +314,8 @@
 		BBF8983A13504CF800B332CA /* pointer_mini_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF8983813504CF800B332CA /* pointer_mini_white@2x.png */; };
 		BBF899CB13510E7800B332CA /* DWChooseLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF899C913510E7800B332CA /* DWChooseLocationViewController.m */; };
 		BBF899CC13510E7800B332CA /* DWChooseLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF899CA13510E7800B332CA /* DWChooseLocationViewController.xib */; };
+		BBF89AF71351320900B332CA /* button_new_place_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89AF51351320900B332CA /* button_new_place_active.png */; };
+		BBF89AF81351320900B332CA /* button_new_place_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89AF61351320900B332CA /* button_new_place_active@2x.png */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
 		BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */; };
 /* End PBXBuildFile section */
@@ -766,6 +768,8 @@
 		BBF899C813510E7800B332CA /* DWChooseLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWChooseLocationViewController.h; path = Classes/DWChooseLocationViewController.h; sourceTree = "<group>"; };
 		BBF899C913510E7800B332CA /* DWChooseLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWChooseLocationViewController.m; path = Classes/DWChooseLocationViewController.m; sourceTree = "<group>"; };
 		BBF899CA13510E7800B332CA /* DWChooseLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWChooseLocationViewController.xib; path = Classes/DWChooseLocationViewController.xib; sourceTree = "<group>"; };
+		BBF89AF51351320900B332CA /* button_new_place_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_new_place_active.png; path = resources/button_new_place_active.png; sourceTree = "<group>"; };
+		BBF89AF61351320900B332CA /* button_new_place_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_new_place_active@2x.png"; path = "resources/button_new_place_active@2x.png"; sourceTree = "<group>"; };
 		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
 		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
 		BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWContainerViewController.xib; path = Classes/DWContainerViewController.xib; sourceTree = "<group>"; };
@@ -829,6 +833,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBF89AF51351320900B332CA /* button_new_place_active.png */,
+				BBF89AF61351320900B332CA /* button_new_place_active@2x.png */,
 				BBF8983713504CF800B332CA /* pointer_mini_white.png */,
 				BBF8983813504CF800B332CA /* pointer_mini_white@2x.png */,
 				BBF897AD135042AA00B332CA /* hr_gray_create.png */,
@@ -1818,6 +1824,8 @@
 				BBF8983913504CF800B332CA /* pointer_mini_white.png in Resources */,
 				BBF8983A13504CF800B332CA /* pointer_mini_white@2x.png in Resources */,
 				BBF899CC13510E7800B332CA /* DWChooseLocationViewController.xib in Resources */,
+				BBF89AF71351320900B332CA /* button_new_place_active.png in Resources */,
+				BBF89AF81351320900B332CA /* button_new_place_active@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

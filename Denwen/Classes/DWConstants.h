@@ -249,7 +249,7 @@ extern NSInteger const kURLTagMultipler;
 extern NSInteger const kPaginationCellHeight;
 extern NSInteger const kUserViewCellHeight;
 extern NSInteger const kPlaceViewCellHeight;
-
+extern NSString* const kEmptyString;
 
 
 

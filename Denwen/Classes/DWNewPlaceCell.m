@@ -5,8 +5,11 @@
 
 #import "DWNewPlaceCell.h"
 
-static NSString* const kMsgNewPlace		= @"I'm adding a new place";
-static NSString* const kImgBackground	= @"button_new_place.png";
+static NSString* const kMsgNewPlace			= @"I'm adding a new place";
+static NSString* const kImgBackground		= @"button_new_place.png";
+static NSString* const kImgBackgroundActive	= @"button_new_place_active.png";
+static NSString* const kImgSeparator		= @"hr_gray_create.png";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -15,7 +18,7 @@ static NSString* const kImgBackground	= @"button_new_place.png";
 @implementation DWNewPlaceCell
 
 @synthesize backgroundImageView = _backgroundImageView;
-@synthesize messageLabel		= _messageLabel;
+@synthesize separatorImageView	= _separatorImageView;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -31,20 +34,16 @@ static NSString* const kImgBackground	= @"button_new_place.png";
 		
 		[self.contentView addSubview:self.backgroundImageView];
 		
-		self.messageLabel					= [[[UILabel alloc] initWithFrame:rect] autorelease];
-		self.messageLabel.text				= kMsgNewPlace;
-		self.messageLabel.font				= [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];	
-		self.messageLabel.backgroundColor	= [UIColor clearColor];
-		self.messageLabel.textColor			= [UIColor whiteColor];
-		self.messageLabel.textAlignment		= UITextAlignmentCenter;
+		rect								= CGRectMake(0, 43, 320, 1);
+		self.separatorImageView				= [[[UIImageView alloc] initWithFrame:rect] autorelease];
+		self.separatorImageView.image		= [UIImage imageNamed:kImgSeparator];
 		
-		[self.contentView addSubview:self.messageLabel];
+		[self.contentView addSubview:self.separatorImageView];
 		
-		/*
 		UIView *selectedView			= [[[UIView alloc] initWithFrame:rect] autorelease];
 		selectedView.backgroundColor	= [UIColor clearColor];
 		self.selectedBackgroundView		= selectedView;
-		 */
+		 
 	}
 	
     return self;
@@ -55,15 +54,15 @@ static NSString* const kImgBackground	= @"button_new_place.png";
 	[super setHighlighted:highlighted animated:animated];
 	
 	if(highlighted)
-		self.backgroundImageView.hidden = YES;
+		self.backgroundImageView.image		= [UIImage imageNamed:kImgBackgroundActive];
 	else
-		self.backgroundImageView.hidden = NO;
+		self.backgroundImageView.image		= [UIImage imageNamed:kImgBackground];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
 	self.backgroundImageView	= nil;
-	self.messageLabel			=nil;
+	self.separatorImageView		= nil;
     
 	[super dealloc];
 }

@@ -169,6 +169,8 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 									 forState:UIControlStateHighlighted];
 	}
 	 */
+	self.dataTextView.placeholderColor		= [UIColor clearColor];
+	[self.dataTextView setNeedsDisplay];
 	
 	self.placeNameTextField.textColor		= [UIColor whiteColor];
 	self.dataTextView.textColor				= [UIColor whiteColor];
