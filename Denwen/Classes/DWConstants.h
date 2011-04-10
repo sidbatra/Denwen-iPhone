@@ -61,6 +61,7 @@ extern NSString* const kKeyPhoto;
 extern NSString* const kKeySmallURL;
 extern NSString* const kKeyMediumURL;
 extern NSString* const kKeyLargeURL;
+extern NSString* const kKeySliceURL;
 extern NSString* const kKeyIsProcessed;
 extern NSString* const kKeyName;
 extern NSString* const kKeyHashedID;
@@ -137,6 +138,9 @@ extern NSString* const kNImgLargeAttachmentLoaded;
 extern NSString* const kNImgLargeAttachmentError;
 extern NSString* const kNImgActualAttachmentLoaded;
 extern NSString* const kNImgActualAttachmentError;
+extern NSString* const kNImgSliceAttachmentLoaded;
+extern NSString* const kNImgSliceAttachmentFinalized;
+extern NSString* const kNImgSliceAttachmentError;
 extern NSString* const kNNewApplicationBadge;
 extern NSString* const kNTabSelectionChanged;
 extern NSString* const kNNewLocationAvailable;
@@ -229,6 +233,7 @@ extern NSString* const kMsgCancelMedia;
  */
 extern NSString* const kImgGenericPlaceHolder;
 
+
 /**
  * Third party service tokens
  */
@@ -302,7 +307,6 @@ extern NSString * const ARROW_BUTTON_IMAGE_NAME;
 extern NSString * const MODALVIEW_BACKGROUND_IMAGE;
 
 extern NSString * const VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME;
-extern NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME;
 extern NSString * const VIDEO_PLAY_BUTTON_IMAGE_NAME;
 
 extern int const FEED_TABLE_HEIGHT;

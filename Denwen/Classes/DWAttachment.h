@@ -11,6 +11,7 @@
  */
 @interface DWAttachment : NSObject {
 	NSString		*_previewURL;
+	NSString		*_sliceURL;
 	NSString		*_fileURL;
 	NSString		*_orientation;
 	NSURL			*_videoURL;
@@ -20,8 +21,10 @@
 	
 	BOOL			_isProcessed;
 	BOOL			_isDownloading;
+	BOOL			_isSliceDownloading;
 	
 	UIImage			*_previewImage;
+	UIImage			*_sliceImage;
 }
 
 /**
@@ -38,6 +41,12 @@
  * URL of the actual attachment
  */
 @property (nonatomic,copy) NSString *fileURL;
+
+/**
+ * URL of the slice preview image - used for 
+ * displaying places
+ */
+@property (nonatomic,copy) NSString *sliceURL;
 
 /**
  * URL of the preview image - either a image preview
@@ -61,6 +70,11 @@
 @property (nonatomic,retain) UIImage *previewImage;
 
 /**
+ * Preview slice image downloaded from sliceURL
+ */
+@property (nonatomic,retain) UIImage *sliceImage;
+
+/**
  * Populate the object using a JSON dictionary
  */
 - (void)populate:(NSDictionary*)attacment;
@@ -74,6 +88,11 @@
  * Start downloading the image at previewURL
  */
 - (void)startPreviewDownload;
+
+/**
+ * Start downloading the image at sliceURL
+ */
+- (void)startSliceDownload;
 
 /**
  * Is the attachment a vide

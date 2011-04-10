@@ -69,6 +69,7 @@ NSString* const kKeyPhoto				= @"photo";
 NSString* const kKeySmallURL			= @"small_url";
 NSString* const kKeyMediumURL			= @"medium_url";
 NSString* const kKeyLargeURL			= @"large_url";
+NSString* const kKeySliceURL			= @"slice_url";
 NSString* const kKeyIsProcessed			= @"is_processed";
 NSString* const kKeyName				= @"name";
 NSString* const kKeyHashedID			= @"hashed_id";
@@ -144,6 +145,9 @@ NSString* const kNImgLargeAttachmentLoaded		= @"NImgLargeAttachmentLoaded";
 NSString* const kNImgLargeAttachmentError		= @"NImgLargeAttachmentError";
 NSString* const kNImgActualAttachmentLoaded		= @"NImgActualAttachmentLoaded";
 NSString* const kNImgActualAttachmentError		= @"NImgActualAttachmentError";
+NSString* const kNImgSliceAttachmentLoaded		= @"NImgSliceAttachmentLoaded";
+NSString* const kNImgSliceAttachmentFinalized	= @"NImgSliceAttachmentFinalized";
+NSString* const kNImgSliceAttachmentError		= @"NImgSliceAttachmentError";
 NSString* const kNNewApplicationBadge			= @"NNewApplicationBadge"; 
 NSString* const kNTabSelectionChanged			= @"NTabSelectionChanged";
 NSString* const kNNewLocationAvailable			= @"NNewLocationAvailable";
@@ -224,8 +228,7 @@ NSString* const kMsgCancelPhoto					= @"Cancel";
 NSString* const kMsgCancelMedia					= @"Cancel";
 
 //----------------------------------------------------------------------------------------------------
-NSString* const kImgGenericPlaceHolder = @"generic_placeholder.png";
-
+NSString* const kImgGenericPlaceHolder			= @"generic_placeholder.png";
 
 //----------------------------------------------------------------------------------------------------
 #ifdef PRODUCTION
@@ -262,7 +265,6 @@ NSInteger const kPaginationCellHeight			= 60;
 NSInteger const kUserViewCellHeight				= 126;
 NSInteger const kPlaceViewCellHeight			= 177;
 NSString* const kEmptyString					= @"";
-
 
 
 
@@ -325,7 +327,6 @@ NSString * const NEW_POST_TEXTVIEW_PLACEHOLDER_TEXT = @"What's going on here?";
 
 /* Video attributes */
 NSString * const VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME = @"video_attach.png";
-NSString * const VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME = @"video_placeholder.png";
 NSString * const VIDEO_PLAY_BUTTON_IMAGE_NAME = @"play.png";
 
 /* App UI Attributes */
