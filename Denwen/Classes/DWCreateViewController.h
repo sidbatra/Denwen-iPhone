@@ -4,6 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 #import "DWPlacesSearchResultsViewController.h"
 #import "DWMediaPickerController.h"
