@@ -491,6 +491,7 @@ successNotification:(NSString*)theSuccessNotification
 	DWS3Request *request = [DWS3Request requestNewImage:image
 											   toFolder:folder];
 	[request setDelegate:self];
+	//[request setDownloadProgressDelegate:self];
 	[request startAsynchronous];
 	
 	return request.resourceID;
