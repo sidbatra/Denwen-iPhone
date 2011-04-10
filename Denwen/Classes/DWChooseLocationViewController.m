@@ -77,7 +77,7 @@ static NSString* const kPinIdentifier			= @"PinIdentifier";
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidAppear:(BOOL)animated {
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 }
 
 

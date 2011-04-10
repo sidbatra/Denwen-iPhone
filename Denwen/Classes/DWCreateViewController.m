@@ -306,7 +306,7 @@ replacementString:(NSString *)string {
 
 //----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClicked:(id)sender {
-	[self.parentViewController dismissModalViewControllerAnimated:YES];
+	[self.parentViewController dismissModalViewControllerAnimated:NO];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -332,10 +332,10 @@ replacementString:(NSString *)string {
 	
 	DWChooseLocationViewController *chooseLocationView	= [[DWChooseLocationViewController alloc] initWithLocation:self.newPlaceLocation
 																									   andDelegate:self];
-	chooseLocationView.modalTransitionStyle				= UIModalTransitionStyleFlipHorizontal;
+	chooseLocationView.modalTransitionStyle				= UIModalTransitionStyleCoverVertical;
 	
 	[self presentModalViewController:chooseLocationView 
-							animated:YES];
+							animated:NO];
 	
 	[chooseLocationView release];
 }
@@ -388,7 +388,7 @@ replacementString:(NSString *)string {
 																	nil]];
 	}
 	
-	[self.parentViewController dismissModalViewControllerAnimated:YES];
+	[self.parentViewController dismissModalViewControllerAnimated:NO];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -492,7 +492,7 @@ replacementString:(NSString *)string {
 - (void)chooseLocationFinishedWithLocation:(CLLocation*)location {
 	self.newPlaceLocation = location;
 	
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:NO];
 }
 
 

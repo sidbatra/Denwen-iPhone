@@ -491,7 +491,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	createView.modalTransitionStyle		= UIModalTransitionStyleCrossDissolve;
 	
 	[(UINavigationController*)self.tabBarController.selectedViewController presentModalViewController:createView
-																							 animated:YES];
+																							 animated:NO];
 	[createView release];
 }
 

@@ -129,10 +129,13 @@ static CGRect swapWidthAndHeight(CGRect rect)
 }
 
 //----------------------------------------------------------------------------------------------------
-- (UIImage*)cropToRect:(CGRect)rect
-{
+- (UIImage*)cropToRect:(CGRect)rect {
+	return [self cropToRect:rect withOrientation:UIImageOrientationUp];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (UIImage*)cropToRect:(CGRect)rect withOrientation:(UIImageOrientation)orientation {
 	
-	return nil;
 	/*CGSize finalSize = CGSizeMake(320.0, 320.0);
 	UIGraphicsBeginImageContext(finalSize);
 	[self drawInRect:CGRectMake(0, 0, finalSize.width, finalSize.height)];
@@ -141,18 +144,19 @@ static CGRect swapWidthAndHeight(CGRect rect)
 	*/
 	
 	// Make a new bounding rectangle including our crop
-	/*CGRect newSize = rect;//CGRectMake(0.0, 50.0, 320.0, 430.0);
+	CGRect newSize = rect;//CGRectMake(0.0, 50.0, 320.0, 430.0);
 	
 	// Create a new image in quartz with our new bounds and original image
 	CGImageRef tmp = CGImageCreateWithImageInRect([self CGImage], newSize);
 	
+	
 	// Pump our cropped image back into a UIImage object
-	UIImage *newImage = [UIImage imageWithCGImage:tmp];
+	UIImage *newImage = [UIImage imageWithCGImage:tmp scale:1.0 orientation:orientation];
 	
 	// Be good memory citizens and release the memory
 	CGImageRelease(tmp);
 	
-	return newImage;*/
+	return newImage;
 	
 	
 	/*

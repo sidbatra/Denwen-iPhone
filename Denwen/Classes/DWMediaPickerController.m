@@ -80,7 +80,9 @@ static NSInteger const kThumbnailTimestamp	= 1;
 	
 	[generate release];
 	
-	UIImage *result = nil;
+	
+	UIImage				*result				= nil;
+	UIImageOrientation	imageOrientation	= UIImageOrientationUp;
 	
 	if(!err) {
 		if([orientation isEqualToString:kRot0]) {
@@ -92,22 +94,31 @@ static NSInteger const kThumbnailTimestamp	= 1;
 			result = [UIImage imageWithCGImage:imgRef 
 										 scale:1.0
 								   orientation:UIImageOrientationRight];
+			
+			imageOrientation = UIImageOrientationRight;
 		}
 		else if([orientation isEqualToString:kRot180]) {
 			
 			result = [UIImage imageWithCGImage:imgRef 
 										 scale:1.0
 								   orientation:UIImageOrientationDown];
+			
+			imageOrientation = UIImageOrientationDown;
 		}
 		else if([orientation isEqualToString:kRot270]) {
 			
 			result = [UIImage imageWithCGImage:imgRef 
 										 scale:1.0
 								   orientation:UIImageOrientationLeft];
+			
+			imageOrientation = UIImageOrientationLeft;
 		}
 	}
 	
-	return result;//[result cropToRect:CGRectMake(0,(result.size.height - result.size.width)/2,result.size.width,result.size.width)];
+	return [result cropToRect:CGRectMake(0,(result.size.height - result.size.width)/2,
+										 result.size.width,
+										 result.size.width)
+			  withOrientation:imageOrientation];
 }
 
 //----------------------------------------------------------------------------------------------------

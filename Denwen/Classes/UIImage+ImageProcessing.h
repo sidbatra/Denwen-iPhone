@@ -23,8 +23,10 @@
 - (UIImage*)rotateTo:(UIImageOrientation)orient;
 
 /**
- * Crop the image to the given frame
+ * Crop the image to the given frame with the default orientation
  */
 - (UIImage*)cropToRect:(CGRect)rect;
+
+- (UIImage*)cropToRect:(CGRect)rect withOrientation:(UIImageOrientation)orientation;
 
 @end
