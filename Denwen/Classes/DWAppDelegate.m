@@ -17,6 +17,7 @@
 
 static NSString* const kFacebookURLPrefix			= @"fb";
 static NSInteger const kLocationRefreshDistance		= 750;
+static NSInteger const kLocationFreshnessThreshold	= 10;
 static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, memory pool free memory called";
 static NSInteger const kTabBarWidth					= 320;
 static NSInteger const kTabBarHeight				= 49;
@@ -374,10 +375,13 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 	didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
 	
-	[DWSession sharedDWSession].location = newLocation;
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:kNNewLocationAvailable 
-														object:nil];
+	if(fabs([newLocation.timestamp timeIntervalSinceNow]) < kLocationFreshnessThreshold) {
+		
+		[DWSession sharedDWSession].location = newLocation;
+		
+		[[NSNotificationCenter defaultCenter] postNotificationName:kNNewLocationAvailable 
+															object:nil];
+	}
 }
 
 //----------------------------------------------------------------------------------------------------

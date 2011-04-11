@@ -35,7 +35,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 	if(self) {
 		self.placesManager = [[[DWPlacesManager alloc] initWithCapacity:kCapacity] autorelease];
 		
-		_refreshNearbyPlacesOnNextLocationUpdate = YES;
+		_refreshNearbyPlacesOnNextLocationUpdate	= YES;
+		_followedPlacesReady						= YES;
+		
 		
 		if (&UIApplicationDidEnterBackgroundNotification != NULL) {
 			[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -44,6 +46,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 													   object:nil];
 		}
 		
+		/*
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(applicationDidBecomeActive:) 
 													 name:UIApplicationDidBecomeActiveNotification
@@ -53,6 +56,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 												 selector:@selector(userLogsIn:) 
 													 name:kNUserLogsIn
 												   object:nil];
+		 */
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(nearbyPlacesLoaded:) 
@@ -73,7 +77,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 												 selector:@selector(newLocationAvailable:) 
 													 name:kNNewLocationAvailable 
 												   object:nil];
-		
+		/*
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(userPlacesLoaded:) 
 													 name:kNUserPlacesLoaded
@@ -94,7 +98,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 												 selector:@selector(followingDestroyed:) 
 													 name:kNFollowingDestroyed
 												   object:nil];
-		
+		 */
 	}
 	
 	return self;
@@ -143,8 +147,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 
 //----------------------------------------------------------------------------------------------------
 - (void)loadFollowedPlaces {
-	if([[DWSession sharedDWSession] isActive])
-		[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:[DWSession sharedDWSession].currentUser.databaseID];
+	//if([[DWSession sharedDWSession] isActive])
+	//	[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:[DWSession sharedDWSession].currentUser.databaseID];
 }
 
 
@@ -169,9 +173,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 						   andColumn:0];
 	}
 	
+	/*
 	[self.placesManager addPlace:place 
 						   atRow:kFollowedIndex
 					   andColumn:0];
+	 */
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNNearbyPlacesCacheUpdated
 														object:nil];	
@@ -182,7 +188,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 	NSDictionary *info = [notification userInfo];
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-				
+						
 		[self.placesManager populatePlaces:[[info objectForKey:kKeyBody] objectForKey:kKeyPlaces]
 								   atIndex:kNearbyIndex];
 		
@@ -205,6 +211,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 	}
 }
 
+/*
 //----------------------------------------------------------------------------------------------------
 - (void)applicationDidBecomeActive:(NSNotification*)notification {
 	if(!_followedPlacesReady) {
@@ -270,5 +277,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 								fromRow:kFollowedIndex];
 	}
 }
-	
+*/
+
 @end
