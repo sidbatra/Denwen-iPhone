@@ -21,12 +21,12 @@ static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, me
 static NSInteger const kTabBarWidth					= 320;
 static NSInteger const kTabBarHeight				= 49;
 static NSInteger const kTabBarCount					= 2;
-static NSString* const kImgPlacesOn					= @"popular_on.png";
-static NSString* const kImgPlacesOff				= @"popular_off.png";
-static NSString* const kImgCreateOn					= @"popular_on.png";
-static NSString* const kImgCreateOff				= @"popular_off.png";
-static NSString* const kImgFeedOn					= @"popular_on.png";
-static NSString* const kImgFeedOff					= @"popular_off.png";
+static NSString* const kImgPlacesOn					= @"tab_places_on.png";
+static NSString* const kImgPlacesOff				= @"tab_places_off.png";
+static NSString* const kImgCreateOn					= @"tab_create_on.png";
+static NSString* const kImgCreateOff				= @"tab_create_on.png";
+static NSString* const kImgFeedOn					= @"tab_feed_on.png";
+static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -196,7 +196,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	 * Create places tab button
 	 */
 	 self.placesTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	 [self.placesTabButton setFrame:CGRectMake(0,0,kTabBarWidth/3,kTabBarHeight)];
+	 [self.placesTabButton setFrame:CGRectMake(0,0,106,kTabBarHeight)];
 	
 	 [self.placesTabButton setBackgroundImage:[UIImage imageNamed:kImgPlacesOn] 
 									 forState:UIControlStateNormal];
@@ -214,7 +214,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	 * Create create tab button
 	 */
 	self.createTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.createTabButton setFrame:CGRectMake(kTabBarWidth/3,0,kTabBarWidth/3,kTabBarHeight)];
+	[self.createTabButton setFrame:CGRectMake(106,0,108,kTabBarHeight)];
 	
 	[self.createTabButton setBackgroundImage:[UIImage imageNamed:kImgCreateOff] 
 								  forState:UIControlStateNormal];
@@ -232,7 +232,7 @@ static NSString* const kImgFeedOff					= @"popular_off.png";
 	 * Create feed tab button
 	 */	
 	 self.feedTabButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	 [self.feedTabButton setFrame:CGRectMake((kTabBarWidth/3) * 2,0,kTabBarWidth/3,kTabBarHeight)];
+	 [self.feedTabButton setFrame:CGRectMake(214,0,106,kTabBarHeight)];
 	
 	 [self.feedTabButton setBackgroundImage:[UIImage imageNamed:kImgFeedOff] 
 								   forState:UIControlStateNormal];
