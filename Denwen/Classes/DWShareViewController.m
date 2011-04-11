@@ -55,11 +55,6 @@ static NSString* const kMsgTwitterError		= @"Error connecting to Twitter, please
 												 selector:@selector(facebookURLOpened:) 
 													 name:kNFacebookURLOpened
 												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(largeImageLoaded:) 
-													 name:kNImgLargePlaceLoaded
-												   object:nil];
 	}
 	
 	return self;
@@ -270,17 +265,6 @@ static NSString* const kMsgTwitterError		= @"Error connecting to Twitter, please
 //----------------------------------------------------------------------------------------------------
 - (void)facebookURLOpened:(NSNotification*)notification {
 	[self.facebook handleOpenURL:(NSURL*)[notification object]];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)largeImageLoaded:(NSNotification*)notification {
-	NSDictionary *info		= [notification userInfo];
-	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(resourceID != self.place.databaseID)
-		return;
-	
-	self.backgroundImageView.image = [info objectForKey:kKeyImage];
 }
 
 

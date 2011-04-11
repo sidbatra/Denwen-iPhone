@@ -53,11 +53,6 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 												 selector:@selector(smallUserImageLoaded:) 
 													 name:kNImgSmallUserLoaded
 												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(smallPlaceImageLoaded:) 
-													 name:kNImgSmallPlaceLoaded
-												   object:nil];
 	}
 	return self;
 }
@@ -192,27 +187,6 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
-
-//----------------------------------------------------------------------------------------------------
-- (void)smallPlaceImageLoaded:(NSNotification*)notification {
-	
-	if(_tableViewUsage != kTableViewAsData || ![_itemManager totalItems])
-		return;
-	
-	NSDictionary *info		= [notification userInfo];
-	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
-	
-	NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
-	
-	for (NSIndexPath *indexPath in visiblePaths) {            
-		DWItem *item = [_itemManager getItem:indexPath.row];
-		
-		if(item.place.databaseID == resourceID) {
-			DWItemFeedCell *cell = (DWItemFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-			[cell setSmallPreviewPlaceImage:[info objectForKey:kKeyImage]];
-		}
-	}	
-}	
 
 //----------------------------------------------------------------------------------------------------
 - (void)smallUserImageLoaded:(NSNotification*)notification {

@@ -37,11 +37,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		
 		self.place			= thePlace;
 		_tableViewUsage		= kTableViewAsData;
-			
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(largePlaceImageLoaded:) 
-													 name:kNImgLargePlaceLoaded
-												   object:nil];
 	
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newItemParsed:) 
@@ -274,31 +269,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		return;
 	
 	[self.mbProgressIndicator hideUsingAnimation:YES];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)largePlaceImageLoaded:(NSNotification*)notification {
-	
-	if(_tableViewUsage != kTableViewAsData)
-		return;
-	
-	NSDictionary *info = [notification userInfo];
-	
-	if([[info objectForKey:kKeyResourceID] integerValue] != self.place.databaseID)
-		return;
-	
-	
-	UIImage *image = [info objectForKey:kKeyImage];
-	
-	NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 
-													 inSection:0];
-	
-	DWPlaceCell *cell				= (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
-	cell.placeBackgroundImage.image = image;
-	
-	[self.refreshHeaderView applyBackgroundImage:image 
-								   withFadeImage:[UIImage imageNamed:kImgPullToRefreshBackground]
-							 withBackgroundColor:[UIColor blackColor]];
 }
 
 //----------------------------------------------------------------------------------------------------
