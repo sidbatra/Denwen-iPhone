@@ -9,7 +9,6 @@
 #import "DWConstants.h"
 
 static NSString* const kImgVideoPreviewPlaceholder		= @"video_placeholder.png";
-static NSString* const kImgVideoSlicePlaceholder		= @"video_slice_placeholder.png";
 static NSInteger const kSliceWidth						= 320;
 static NSInteger const kSliceY							= 114;
 static float	 const kSliceHeight						= 92;
@@ -178,10 +177,6 @@ static float	 const kSliceHeight						= 92;
 												successNotification:kNImgSliceAttachmentLoaded
 												  errorNotification:kNImgSliceAttachmentError];
 		}
-		else {
-			[self appplyNewSliceImage:[UIImage imageNamed:kImgVideoSlicePlaceholder]];
-		}
-		
 	}
 }
 

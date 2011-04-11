@@ -120,6 +120,11 @@
 - (void)updateFollowerCount:(NSInteger)delta;
  
 /**
+ * Start downloading any images attachmented to the last item
+ */
+- (void)startPreviewDownload;
+
+/**
  * Start downloading the image at smallURL or provide a suitable
  * placeholder
  */

@@ -17,4 +17,6 @@
 @property (nonatomic, retain) UIActivityIndicatorView *spinner;
 @property (nonatomic, retain) UILabel *messageLabel;
 
+- (void)displayDarkState;
+
 @end

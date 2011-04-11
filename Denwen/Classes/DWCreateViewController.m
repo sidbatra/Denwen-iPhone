@@ -24,7 +24,7 @@ static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. P
 static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 static NSInteger const kActionSheetCancelIndex				= 2;
 static NSString* const kImgLightBackgroundButton			= @"button_gray_light.png";
-static NSString* const kImgDarkBackgroundButton				= @"button_gray_dark.png";
+static NSString* const kImgDarkBackgroundCancelButton		= @"button_gray_dark_cancel.png";
 static NSString* const kImgLightCameraButton				= @"camera_white.png";
 static NSString* const kImgCheckedLightCameraButton			= @"camera_white_checked.png";
 static NSString* const kImgCheckedBlueCameraButton			= @"camera_blue_checked.png";
@@ -155,7 +155,7 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	self.previewImageView.hidden		= NO;
 	self.transImageView.hidden			= NO;
 	
-	[self.cancelButton setBackgroundImage:[UIImage imageNamed:kImgDarkBackgroundButton] 
+	[self.cancelButton setBackgroundImage:[UIImage imageNamed:kImgDarkBackgroundCancelButton] 
 								 forState:UIControlStateNormal];
 	
 	[self.mapButton setBackgroundImage:[UIImage imageNamed:kImgLightMapButton]

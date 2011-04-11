@@ -5,6 +5,8 @@
 
 #import "DWPlaceFeedCell.h"
 
+static NSString* const kImgSeparator	= @"hr_place_list.png";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -18,7 +20,7 @@
 	
     if (self) {
         self.opaque				= YES;
-		self.backgroundColor	= [UIColor whiteColor];
+		self.backgroundColor	= [UIColor blackColor];
     }
     
     return self;
@@ -43,7 +45,7 @@
 	
     if (self) {
         self.opaque				= YES;
-		self.backgroundColor	= [UIColor whiteColor];
+		self.backgroundColor	= [UIColor blackColor];
     }
     
     return self;
@@ -61,25 +63,10 @@
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
 	
-	//_highlighted ? [[UIColor whiteColor] set] : NO;
-		
-	[self.placeName drawInRect:CGRectMake(64, 7, 230, 22) 
-					  withFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]
-				 lineBreakMode:UILineBreakModeTailTruncation
-					 alignment:UITextAlignmentLeft];
-	
-	
-	//_highlighted ? [[UIColor whiteColor] set] : [[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
-	[[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
-	
-	[self.placeDetails drawInRect:CGRectMake(64, 31, 230, 16)
-						 withFont:[UIFont fontWithName:@"Helvetica" size:13] 
-					lineBreakMode:UILineBreakModeTailTruncation
-						alignment:UITextAlignmentLeft];
-	
-	CGRect imageFrame = CGRectMake(0, 0, 55, 55);
+	CGRect imageFrame = CGRectMake(0,0,320,92);
 
 	if(self.placeImage) {
+		
 		if(!_highlighted) {
 			CGContextRef context = UIGraphicsGetCurrentContext();
 			CGContextSaveGState(context);	
@@ -103,9 +90,34 @@
 	else {
 		CGContextRef context = UIGraphicsGetCurrentContext();
 		CGContextSaveGState(context);	
-		CGContextSetFillColor(context,CGColorGetComponents([UIColor colorWithRed:0.8862 green:0.9058 blue:0.9294 alpha:1.0].CGColor));
+		//CGContextSetFillColor(context,CGColorGetComponents([UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0].CGColor));
+		[[UIColor blackColor] set];
 		CGContextFillRect(context,imageFrame);
 		CGContextRestoreGState(context);
+	}
+	
+	CGRect separatorFrame = CGRectMake(0,91,320,1);
+	
+	[[UIImage imageNamed:kImgSeparator] drawInRect:separatorFrame
+										 blendMode:kCGBlendModeNormal
+											 alpha:1.0];
+	
+	
+	if(!_highlighted) {
+		
+		[[UIColor whiteColor] set];
+		
+		[self.placeName drawInRect:CGRectMake(64, 7, 230, 22) 
+						  withFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]
+					 lineBreakMode:UILineBreakModeTailTruncation
+						 alignment:UITextAlignmentLeft];
+		
+		[[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
+		
+		[self.placeDetails drawInRect:CGRectMake(64, 31, 230, 16)
+							 withFont:[UIFont fontWithName:@"Helvetica" size:13] 
+						lineBreakMode:UILineBreakModeTailTruncation
+							alignment:UITextAlignmentLeft];
 	}
 }
 
@@ -173,7 +185,7 @@
 		[self.contentView addSubview:self.placeFeedView];
 		
 		self.selectedBackgroundView = [[[DWPlaceFeedSelectedView alloc] initWithFrame:frame] autorelease];
-		self.accessoryType			= UITableViewCellAccessoryDisclosureIndicator;
+		self.accessoryType			= UITableViewCellAccessoryNone;
     }
 	
     return self;

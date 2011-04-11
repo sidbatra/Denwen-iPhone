@@ -283,6 +283,12 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)startPreviewDownload {
+	if(self.attachment)
+		[self.attachment startSliceDownload];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)startSmallPreviewDownload {
 	if(_hasPhoto && !_isSmallDownloading && !self.smallPreviewImage) {
 		_isSmallDownloading = YES;

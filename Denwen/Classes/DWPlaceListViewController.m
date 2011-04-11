@@ -19,7 +19,7 @@ static float	 const kSeparatorAlphaValue			= 1.0;
 static NSInteger const kSearchBarOffset				= 44;
 static NSInteger const kDefaultPlacesRow			= 0;
 static NSInteger const kDefaultSections				= 1;
-static NSInteger const kPlaceFeedCellHeight			= 56;
+static NSInteger const kPlaceFeedCellHeight			= 92;
 static NSInteger const kSearchPlaceActiveCellHeight	= 3000;
 static NSString* const kPlaceFeedCellIdentifier		= @"PlaceFeedCell";
 static NSInteger const kMessageCellIndex			= 1;
@@ -64,8 +64,8 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 		[self resetPagination];
 				
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(smallPlaceImageLoaded:) 
-													 name:kNImgSmallPlaceLoaded
+												 selector:@selector(placePreviewImageLoaded:) 
+													 name:kNImgSliceAttachmentFinalized
 												   object:nil];
 	}
 	
@@ -86,6 +86,8 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 	self.searchDisplayController.searchBar.frame	= frame;
 	*/
 	
+	self.tableView.backgroundColor	= [UIColor blackColor];
+	
 	self.searchDisplayController.searchBar.backgroundColor	= [UIColor blackColor];
 	self.searchDisplayController.searchBar.tintColor		= [UIColor blackColor];
 	
@@ -96,11 +98,14 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 		}
 	}
 	
+	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	
-	[self.tableView setSeparatorColor:[UIColor colorWithRed:kSeparatorRedValue 
+	/*
+	 [self.tableView setSeparatorColor:[UIColor colorWithRed:kSeparatorRedValue 
 													  green:kSeparatorGreenValue
 													   blue:kSeparatorBlueValue
 													  alpha:kSeparatorAlphaValue]];
+	 */
 
 	/**
 	 * Tuck the search bar above the table view
@@ -265,7 +270,7 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 		[_placeManager getFilteredPlace:indexPath.row] :
 		[_placeManager getPlaceAtRow:indexPath.section andColumn:indexPath.row];
 		
-		[place startSmallPreviewDownload];
+		[place startPreviewDownload];
 	}
 }
 
@@ -275,7 +280,7 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 #pragma mark -
 #pragma mark Notifications
 
-- (void)smallPlaceImageLoaded:(NSNotification*)notification {
+- (void)placePreviewImageLoaded:(NSNotification*)notification {
 	
 	if(_tableViewUsage != kTableViewAsData || !_isLoadedOnce)
 		return;
@@ -293,7 +298,7 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 		[_placeManager getFilteredPlace:indexPath.row] :
 		[_placeManager getPlaceAtRow:indexPath.section andColumn:indexPath.row];
 		
-		if(place.databaseID == resourceID) {
+		if(place.attachment.databaseID == resourceID) {
 			DWPlaceFeedCell *cell = nil;
 			
 			if(self.searchDisplayController.isActive)
@@ -410,10 +415,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 		[cell setPlaceDetails:[place displayAddress]];
 		
 		if (!tableView.dragging && !tableView.decelerating)
-			[place startSmallPreviewDownload];
+			[place startPreviewDownload];
 		
-		if (place.smallPreviewImage)
-			[cell setPlaceImage:place.smallPreviewImage];
+		if (place.attachment && place.attachment.sliceImage)
+			[cell setPlaceImage:place.attachment.sliceImage];
 		else
 			[cell setPlaceImage:nil];
 		
@@ -443,6 +448,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 										 reuseIdentifier:kTVLoadingCellIdentifier] autorelease];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;	
+		[cell displayDarkState];
 		[cell.spinner startAnimating];
 		
 		return cell;
@@ -468,7 +474,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
 										   reuseIdentifier:kTVDefaultCellIdentifier] autorelease];
 		
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.selectionStyle					= UITableViewCellSelectionStyleNone;
+		cell.contentView.backgroundColor	= [UIColor blackColor];
 		
 		return cell;
 	}

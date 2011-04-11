@@ -212,7 +212,6 @@
 							<double key="NSSize">12</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<string key="IBUINormalTitle">Cancel</string>
 						<reference key="IBUIHighlightedTitleColor" ref="638947902"/>
 						<reference key="IBUINormalTitleColor" ref="638947902"/>
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="900694610">
@@ -221,7 +220,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button_gray_light.png</string>
+							<string key="NSResourceName">button_gray_light_cancel.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="655487943">
@@ -235,13 +234,12 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="515939437"/>
-						<string key="IBUINormalTitle">Done</string>
 						<reference key="IBUIHighlightedTitleColor" ref="638947902"/>
 						<reference key="IBUINormalTitleColor" ref="638947902"/>
 						<reference key="IBUINormalTitleShadowColor" ref="900694610"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button_blue.png</string>
+							<string key="NSResourceName">button_blue_done.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="195178794">
@@ -1163,8 +1161,8 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>button_blue.png</string>
-				<string>button_gray_light.png</string>
+				<string>button_blue_done.png</string>
+				<string>button_gray_light_cancel.png</string>
 				<string>camera_gray_dark.png</string>
 				<string>hr_gray_create.png</string>
 				<string>pointer_gray_light.png</string>
