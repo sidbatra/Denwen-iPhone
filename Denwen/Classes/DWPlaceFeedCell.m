@@ -66,47 +66,18 @@ static NSString* const kImgChevron		= @"chevron.png";
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
 	
-	CGRect imageFrame		= CGRectMake(0,0,320,92);
+	CGRect imageFrame = CGRectMake(0,0,320,92);
 
-
-	if(self.placeImage) {
-		
-		//if(!_highlighted) {
-			CGContextRef context = UIGraphicsGetCurrentContext();
-			CGContextSaveGState(context);	
-			
-			/*
-			 * Try [[UIColor blackColor] set]; if the background interferes
-			 * with the rendering
-			 */
-			//CGContextSetFillColor(context,CGColorGetComponents([UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0].CGColor));
-			[[UIColor blackColor] set];
-			CGContextFillRect(context,imageFrame);
-			
-		[self.placeImage drawInRect:imageFrame blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.45 : 0.6];
-			
-			CGContextRestoreGState(context);
-		//}
-		//else {
-			//[self.placeImage drawInRect:imageFrame];
-		//}
-	}
-	else {
-		CGContextRef context = UIGraphicsGetCurrentContext();
-		CGContextSaveGState(context);	
-		[[UIColor blackColor] set];
-		CGContextFillRect(context,imageFrame);
-		CGContextRestoreGState(context);
-	}
-	
-	[[UIImage imageNamed:kImgSeparator] drawInRect:CGRectMake(0,91,320,1)];
-	[[UIImage imageNamed:kImgChevron]	drawInRect:CGRectMake(304,38,9,14)];
-	
-			
-	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSaveGState(context);	
 	
+	[[UIColor blackColor] set];
+	CGContextFillRect(context,imageFrame);
+	
+	if(self.placeImage)
+		[self.placeImage drawInRect:imageFrame blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.45 : 0.6];
+			
+
 	[[UIColor whiteColor] set];
 	
 	CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
@@ -122,8 +93,11 @@ static NSString* const kImgChevron		= @"chevron.png";
 						 withFont:[UIFont fontWithName:@"HelveticaNeue" size:13] 
 					lineBreakMode:UILineBreakModeTailTruncation
 						alignment:UITextAlignmentLeft];
-	
+
 	CGContextRestoreGState(context);
+	
+	[[UIImage imageNamed:kImgSeparator] drawInRect:CGRectMake(0,91,320,1)];
+	[[UIImage imageNamed:kImgChevron]	drawInRect:CGRectMake(304,38,9,14)];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -211,26 +185,21 @@ static NSString* const kImgChevron		= @"chevron.png";
 //----------------------------------------------------------------------------------------------------
 - (void)setPlaceName:(NSString*)placeName {
 	self.placeFeedView.placeName = placeName;
-	[self.placeFeedView redisplay];
-
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)setPlaceData:(NSString*)placeData {
 	self.placeFeedView.placeData = placeData;
-	[self.placeFeedView redisplay];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)setPlaceDetails:(NSString *)placeDetails {
 	self.placeFeedView.placeDetails = placeDetails;
-	[self.placeFeedView redisplay];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)setPlaceImage:(UIImage*)placeImage {
 	self.placeFeedView.placeImage = placeImage;
-	[self.placeFeedView redisplay];
 }
 
 //----------------------------------------------------------------------------------------------------

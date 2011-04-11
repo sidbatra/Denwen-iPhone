@@ -307,6 +307,7 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 				cell = (DWPlaceFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
 
 			[cell setPlaceImage:[info objectForKey:kKeyImage]];
+			[cell redisplay];
 		}
 	}	
 	
@@ -421,6 +422,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 			[cell setPlaceImage:place.attachment.sliceImage];
 		else
 			[cell setPlaceImage:nil];
+				
+		if(!place.attachment)
+			[cell setPlaceData:place.lastItemData];
+				
+		[cell redisplay];
 		
 		return cell;
 	}
