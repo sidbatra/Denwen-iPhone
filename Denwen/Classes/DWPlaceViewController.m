@@ -91,7 +91,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-	self.place.largePreviewImage	= nil;
 	self.place						= nil;
 	self.following					= nil;
 	self.mbProgressIndicator		= nil;
@@ -355,12 +354,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.placeName.text = self.place.name;
 		
-		[self.place startLargePreviewDownload];
-		
-		if(self.place.largePreviewImage)
-			cell.placeBackgroundImage.image = self.place.largePreviewImage;
-		else
-			cell.placeBackgroundImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];
+		cell.placeBackgroundImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];
 		
 		return cell;
 	}

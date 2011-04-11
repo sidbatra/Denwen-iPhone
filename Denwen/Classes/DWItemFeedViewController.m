@@ -351,7 +351,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		[cell updateClassMemberHasAttachment:[item hasAttachment] 
 								   andItemID:item.databaseID];
 		
-
+		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		
 		[cell.placeName setTitle:[NSString stringWithFormat:@"at %@", item.place.name] 
@@ -380,10 +380,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 				[cell displayPlayIcon];
 		}
 		
-		if (item.place.smallPreviewImage)
-			[cell setSmallPreviewPlaceImage:item.place.smallPreviewImage];
-		else
-			[cell setSmallPreviewPlaceImage:[UIImage imageNamed:kImgGenericPlaceHolder]];
+		[cell setSmallPreviewPlaceImage:[UIImage imageNamed:kImgGenericPlaceHolder]];
 		
 		if (item.user.smallPreviewImage)
 			cell.userImage.image = item.user.smallPreviewImage;

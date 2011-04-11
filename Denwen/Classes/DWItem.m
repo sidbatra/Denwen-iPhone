@@ -159,9 +159,6 @@
 	if (self.attachment)
 		[self.attachment startPreviewDownload];
 	
-	if(self.place)
-		[self.place	startSmallPreviewDownload];
-	
 	if(self.user)
 		[self.user startSmallPreviewDownload];
 }

@@ -125,13 +125,8 @@ static NSString* const kMsgTwitterError		= @"Error connecting to Twitter, please
 	[[self.sharingOptionsContainerView layer] setBorderWidth:0.0f];
 	[[self.sharingOptionsContainerView layer] setMasksToBounds:YES];
 	[[self.sharingOptionsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
-	
-	[self.place startLargePreviewDownload];
-	
-	if(self.place.largePreviewImage)
-		self.backgroundImageView.image = self.place.largePreviewImage;
-	else
-		self.backgroundImageView.image = [UIImage imageNamed:kImgGenericPlaceHolder];
+		
+	self.backgroundImageView.image = [UIImage imageNamed:kImgGenericPlaceHolder];
 	
 	self.mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
 	[self.view addSubview:self.mbProgressIndicator];
@@ -218,7 +213,7 @@ static NSString* const kMsgTwitterError		= @"Error connecting to Twitter, please
 - (void)doneButtonClicked:(id)sender {
 	
 	NSString *fullText		= [NSString stringWithFormat:@"%@ %@",self.textView.text,self.hashedLink.text];
-	NSString *photoURL		= [self.place hasPhoto] ? self.place.largeURL : @"";
+	NSString *photoURL		= @"";//[self.place hasPhoto] ? self.place.largeURL : @"";
 	NSString *placeTitle	= [NSString stringWithFormat:@"This is %@",self.place.name];
 	
 	if(self.twitterSwitch.on && [DWSession sharedDWSession].currentUser.twitterOAuthData) {
