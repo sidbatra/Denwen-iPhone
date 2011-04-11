@@ -19,6 +19,7 @@
  */
 @interface DWPlaceFeedView : UIView {
 	NSString	*_placeName;
+	NSString	*_placeData;
 	NSString	*_placeDetails;
 	UIImage		*_placeImage;
 	
@@ -29,6 +30,11 @@
  * Place name
  */
 @property (nonatomic,copy) NSString* placeName;
+
+/**
+ * Text to be displayed at a place 
+ */
+@property (nonatomic,copy) NSString* placeData;
 
 /**
  * The address for the place
@@ -76,6 +82,11 @@
  * Set the place name
  */
 - (void)setPlaceName:(NSString*)placeName;
+
+/**
+ * Set the 
+ */
+- (void)setPlaceData:(NSString*)placeData;
 
 /**
  * Set the place details

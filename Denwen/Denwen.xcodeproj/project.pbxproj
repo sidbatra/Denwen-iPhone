@@ -325,6 +325,8 @@
 		BBF89CD713528FB400B332CA /* button_gray_dark_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89CD113528FB400B332CA /* button_gray_dark_cancel@2x.png */; };
 		BBF89CD813528FB400B332CA /* button_gray_light_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89CD213528FB400B332CA /* button_gray_light_cancel.png */; };
 		BBF89CD913528FB400B332CA /* button_gray_light_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89CD313528FB400B332CA /* button_gray_light_cancel@2x.png */; };
+		BBF89D4F1352CB5400B332CA /* chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89D4D1352CB5400B332CA /* chevron.png */; };
+		BBF89D501352CB5400B332CA /* chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89D4E1352CB5400B332CA /* chevron@2x.png */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
 		BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */; };
 /* End PBXBuildFile section */
@@ -788,6 +790,8 @@
 		BBF89CD113528FB400B332CA /* button_gray_dark_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_dark_cancel@2x.png"; path = "resources/button_gray_dark_cancel@2x.png"; sourceTree = "<group>"; };
 		BBF89CD213528FB400B332CA /* button_gray_light_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_gray_light_cancel.png; path = resources/button_gray_light_cancel.png; sourceTree = "<group>"; };
 		BBF89CD313528FB400B332CA /* button_gray_light_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_light_cancel@2x.png"; path = "resources/button_gray_light_cancel@2x.png"; sourceTree = "<group>"; };
+		BBF89D4D1352CB5400B332CA /* chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chevron.png; path = resources/chevron.png; sourceTree = "<group>"; };
+		BBF89D4E1352CB5400B332CA /* chevron@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chevron@2x.png"; path = "resources/chevron@2x.png"; sourceTree = "<group>"; };
 		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
 		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
 		BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWContainerViewController.xib; path = Classes/DWContainerViewController.xib; sourceTree = "<group>"; };
@@ -851,6 +855,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBF89D4D1352CB5400B332CA /* chevron.png */,
+				BBF89D4E1352CB5400B332CA /* chevron@2x.png */,
 				BBF89CCE13528FB400B332CA /* button_blue_done.png */,
 				BBF89CCF13528FB400B332CA /* button_blue_done@2x.png */,
 				BBF89CD013528FB400B332CA /* button_gray_dark_cancel.png */,
@@ -1862,6 +1868,8 @@
 				BBF89CD713528FB400B332CA /* button_gray_dark_cancel@2x.png in Resources */,
 				BBF89CD813528FB400B332CA /* button_gray_light_cancel.png in Resources */,
 				BBF89CD913528FB400B332CA /* button_gray_light_cancel@2x.png in Resources */,
+				BBF89D4F1352CB5400B332CA /* chevron.png in Resources */,
+				BBF89D501352CB5400B332CA /* chevron@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

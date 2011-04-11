@@ -9,8 +9,9 @@
 #import "DWConstants.h"
 
 static NSString* const kImgVideoPreviewPlaceholder		= @"video_placeholder.png";
-static NSInteger const kSliceWidth						= 320;
+static NSInteger const kSliceX							= 0;
 static NSInteger const kSliceY							= 114;
+static NSInteger const kSliceWidth						= 320;
 static float	 const kSliceHeight						= 92;
 
 
@@ -227,7 +228,7 @@ static float	 const kSliceHeight						= 92;
 			self.sliceImage = [self.sliceImage resizeTo:CGSizeMake(kSliceWidth,kSliceWidth)];
 		}
 		
-		self.sliceImage = [self.sliceImage cropToRect:CGRectMake(0,kSliceY,kSliceWidth,kSliceHeight)];
+		self.sliceImage = [self.sliceImage cropToRect:CGRectMake(kSliceX,kSliceY,kSliceWidth,kSliceHeight)];
 	}
 	else {
 		self.sliceImage	= [info objectForKey:kKeyImage];

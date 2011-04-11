@@ -6,6 +6,7 @@
 #import "DWPlaceFeedCell.h"
 
 static NSString* const kImgSeparator	= @"hr_place_list.png";
+static NSString* const kImgChevron		= @"chevron.png";
 
 
 
@@ -36,6 +37,7 @@ static NSString* const kImgSeparator	= @"hr_place_list.png";
 @implementation DWPlaceFeedView
 
 @synthesize placeName		= _placeName;
+@synthesize placeData		= _placeData;
 @synthesize placeDetails	= _placeDetails;
 @synthesize placeImage		= _placeImage;
 
@@ -54,6 +56,7 @@ static NSString* const kImgSeparator	= @"hr_place_list.png";
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
 	self.placeName		= nil;
+	self.placeData		= nil;
 	self.placeDetails	= nil;
 	self.placeImage		= nil;
 	
@@ -63,11 +66,12 @@ static NSString* const kImgSeparator	= @"hr_place_list.png";
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
 	
-	CGRect imageFrame = CGRectMake(0,0,320,92);
+	CGRect imageFrame		= CGRectMake(0,0,320,92);
+
 
 	if(self.placeImage) {
 		
-		if(!_highlighted) {
+		//if(!_highlighted) {
 			CGContextRef context = UIGraphicsGetCurrentContext();
 			CGContextSaveGState(context);	
 			
@@ -79,46 +83,47 @@ static NSString* const kImgSeparator	= @"hr_place_list.png";
 			[[UIColor blackColor] set];
 			CGContextFillRect(context,imageFrame);
 			
-			[self.placeImage drawInRect:imageFrame blendMode:kCGBlendModeNormal alpha:0.6];
+		[self.placeImage drawInRect:imageFrame blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.45 : 0.6];
 			
 			CGContextRestoreGState(context);
-		}
-		else {
-			[self.placeImage drawInRect:imageFrame];
-		}
+		//}
+		//else {
+			//[self.placeImage drawInRect:imageFrame];
+		//}
 	}
 	else {
 		CGContextRef context = UIGraphicsGetCurrentContext();
 		CGContextSaveGState(context);	
-		//CGContextSetFillColor(context,CGColorGetComponents([UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0].CGColor));
 		[[UIColor blackColor] set];
 		CGContextFillRect(context,imageFrame);
 		CGContextRestoreGState(context);
 	}
 	
-	CGRect separatorFrame = CGRectMake(0,91,320,1);
+	[[UIImage imageNamed:kImgSeparator] drawInRect:CGRectMake(0,91,320,1)];
+	[[UIImage imageNamed:kImgChevron]	drawInRect:CGRectMake(304,38,9,14)];
 	
-	[[UIImage imageNamed:kImgSeparator] drawInRect:separatorFrame
-										 blendMode:kCGBlendModeNormal
-											 alpha:1.0];
+			
 	
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSaveGState(context);	
 	
-	if(!_highlighted) {
-		
-		[[UIColor whiteColor] set];
-		
-		[self.placeName drawInRect:CGRectMake(64, 7, 230, 22) 
-						  withFont:[UIFont fontWithName:@"Helvetica-Bold" size:17]
-					 lineBreakMode:UILineBreakModeTailTruncation
-						 alignment:UITextAlignmentLeft];
-		
-		[[UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0] set];
-		
-		[self.placeDetails drawInRect:CGRectMake(64, 31, 230, 16)
-							 withFont:[UIFont fontWithName:@"Helvetica" size:13] 
-						lineBreakMode:UILineBreakModeTailTruncation
-							alignment:UITextAlignmentLeft];
-	}
+	[[UIColor whiteColor] set];
+	
+	CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+	
+	[self.placeName drawInRect:CGRectMake(7,24,293,23) 
+					  withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
+				 lineBreakMode:UILineBreakModeTailTruncation
+					 alignment:UITextAlignmentLeft];
+	
+	[[UIColor whiteColor] set];
+	
+	[self.placeDetails drawInRect:CGRectMake(7,47,293,23)
+						 withFont:[UIFont fontWithName:@"HelveticaNeue" size:13] 
+					lineBreakMode:UILineBreakModeTailTruncation
+						alignment:UITextAlignmentLeft];
+	
+	CGContextRestoreGState(context);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -208,6 +213,12 @@ static NSString* const kImgSeparator	= @"hr_place_list.png";
 	self.placeFeedView.placeName = placeName;
 	[self.placeFeedView redisplay];
 
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setPlaceData:(NSString*)placeData {
+	self.placeFeedView.placeData = placeData;
+	[self.placeFeedView redisplay];
 }
 
 //----------------------------------------------------------------------------------------------------
