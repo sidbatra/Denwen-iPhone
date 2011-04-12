@@ -51,16 +51,25 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-		
-	NSArray *segmentImageNames = [NSArray arrayWithObjects:
-								  kImgSegmentedViewPopularOn,kImgSegmentedViewPopularOff,
-								  kImgSegmentedViewNearbyOn,kImgSegmentedViewNearbyOff,
-								  nil];
 	
+	NSArray *segmentsInfo	= [NSArray arrayWithObjects:
+								[NSDictionary dictionaryWithObjectsAndKeys:
+								 [NSNumber numberWithInt:160],kKeyWidth,
+								 [NSNumber numberWithBool:YES],kKeyIsSelected,
+								 kImgSegmentedViewPopularOn,kKeySelectedImageName,
+								 kImgSegmentedViewPopularOff,kKeyNormalImageName,
+								 nil],
+								[NSDictionary dictionaryWithObjectsAndKeys:
+								 [NSNumber numberWithInt:160],kKeyWidth,
+								 [NSNumber numberWithBool:NO],kKeyIsSelected,
+								 kImgSegmentedViewNearbyOn,kKeySelectedImageName,
+								 kImgSegmentedViewNearbyOff,kKeyNormalImageName,
+								 nil],
+								nil];
+
 	segmentedControl = [[[DWSegmentedControl alloc] initWithFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight)
-									   withImageNamesForSegments:segmentImageNames
-											   withSelectedIndex:kSelectedIndex
-													 andDelegate:self] autorelease];
+												 withSegmentsInfo:segmentsInfo
+													  andDelegate:self] autorelease];
 
 	[self.navigationController.navigationBar addSubview:segmentedControl];
 	self.navigationItem.titleView = nil;
@@ -139,7 +148,6 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 //----------------------------------------------------------------------------------------------------
 - (void)selectedSegmentModifiedFrom:(NSInteger)oldSelectedIndex 
 								 to:(NSInteger)newSelectedIndex {
-	
 	[self hidePreviouslySelectedView:oldSelectedIndex];
 	[self loadSelectedView:newSelectedIndex];
 }

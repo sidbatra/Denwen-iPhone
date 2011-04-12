@@ -23,11 +23,12 @@
 @property (nonatomic,retain) NSMutableArray *buttons;
 
 /**
- * Init with a frame, names of selected and deselected segments and a delegate
- * to receive events about selected index changes
+ * Init with a frame, delegate to receive index change events
+ * and an array of dictionaries to provide width, selection
+ * status, state images and other properties of each segment
  */
-- (id)initWithFrame:(CGRect)frame withImageNamesForSegments:(NSArray*)images 
-  withSelectedIndex:(NSInteger)theSelectedIndex
+- (id)initWithFrame:(CGRect)frame 
+   withSegmentsInfo:(NSArray*)segmentsInfo
 		andDelegate:(id)theDelegate;
 
 @end

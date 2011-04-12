@@ -41,6 +41,7 @@ NSInteger const kAttachmentVideo		= 1;
 NSInteger const kTabBarPlacesIndex		= 0;
 NSInteger const kTabBarFeedIndex		= 1;
 
+
 //----------------------------------------------------------------------------------------------------
 NSString* const kKeyStatus				= @"status";
 NSString* const kKeyMessage				= @"message";
@@ -89,7 +90,10 @@ NSString* const kKeyAttachment			= @"attachment";
 NSString* const kKeyURLs				= @"urls";
 NSString* const kKeyFollowing			= @"following";
 NSString* const kKeyTabIndex			= @"tabIndex";
-
+NSString* const kKeyWidth				= @"width";
+NSString* const kKeyIsSelected			= @"is_selected";
+NSString* const kKeySelectedImageName	= @"selected_image";
+NSString* const kKeyNormalImageName		= @"normal_image";
 
 
 //----------------------------------------------------------------------------------------------------

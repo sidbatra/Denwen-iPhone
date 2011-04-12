@@ -81,7 +81,10 @@ extern NSString* const kKeyAttachment;
 extern NSString* const kKeyURLs;
 extern NSString* const kKeyFollowing;
 extern NSString* const kKeyTabIndex;
-
+extern NSString* const kKeyWidth;
+extern NSString* const kKeyIsSelected;
+extern NSString* const kKeySelectedImageName;
+extern NSString* const kKeyNormalImageName;
 
 /**
  * Notification names

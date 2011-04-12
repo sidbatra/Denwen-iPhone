@@ -72,7 +72,7 @@ static NSString* const kImgChevron		= @"chevron.png";
 	if(self.placeImage)
 		[self.placeImage drawAtPoint:CGPointMake(0,0)
 						  blendMode:kCGBlendModeNormal 
-							  alpha:_highlighted ? 0.65 : 0.6];
+							  alpha:_highlighted ? 0.45 : 0.65];
 			
 	
 	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
