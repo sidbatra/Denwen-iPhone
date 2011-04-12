@@ -71,14 +71,11 @@ static NSString* const kImgChevron		= @"chevron.png";
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSaveGState(context);	
 	
-	[[UIColor blackColor] set];
-	CGContextFillRect(context,imageFrame);
-	
 	if(self.placeImage)
 		[self.placeImage drawInRect:imageFrame blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.65 : 0.6];
 			
-
-	[[UIColor whiteColor] set];
+	
+	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
 	
 	CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
 	
