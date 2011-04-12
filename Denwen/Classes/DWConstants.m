@@ -194,10 +194,6 @@ NSInteger const kMediaPickerCaptureMode		= UIImagePickerControllerSourceTypeCame
 NSInteger const kMediaPickerLibraryMode		= UIImagePickerControllerSourceTypePhotoLibrary;
 
 //----------------------------------------------------------------------------------------------------
-NSInteger const kSegmentedPlacesViewWidth	= 320;
-NSInteger const kSegmentedPlacesViewHeight	= 44;
-
-//----------------------------------------------------------------------------------------------------
 NSInteger const kLocFreshness				= 9;
 NSInteger const kLocAccuracy				= 1100;
 NSInteger const kLocRefreshDistance			= 750;

@@ -235,6 +235,7 @@
 		BB8B8E9C1352EB1C00C8CB76 /* tab_places_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8B8E921352EB1C00C8CB76 /* tab_places_off@2x.png */; };
 		BB8B8E9D1352EB1C00C8CB76 /* tab_places_on.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8B8E931352EB1C00C8CB76 /* tab_places_on.png */; };
 		BB8B8E9E1352EB1C00C8CB76 /* tab_places_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8B8E941352EB1C00C8CB76 /* tab_places_on@2x.png */; };
+		BB9EC00F1353F64F00D6BBF6 /* DWSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9EC00E1353F64F00D6BBF6 /* DWSegmentedControl.m */; };
 		BBA03B6D132DB56B0073105B /* refreshfade.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6B132DB56B0073105B /* refreshfade.png */; };
 		BBA03B6E132DB56B0073105B /* refreshfade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6C132DB56B0073105B /* refreshfade@2x.png */; };
 		BBA03C18132DBD970073105B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA03C17132DBD970073105B /* AVFoundation.framework */; };
@@ -687,6 +688,8 @@
 		BB8B8E921352EB1C00C8CB76 /* tab_places_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab_places_off@2x.png"; path = "resources/tab_places_off@2x.png"; sourceTree = "<group>"; };
 		BB8B8E931352EB1C00C8CB76 /* tab_places_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_places_on.png; path = resources/tab_places_on.png; sourceTree = "<group>"; };
 		BB8B8E941352EB1C00C8CB76 /* tab_places_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab_places_on@2x.png"; path = "resources/tab_places_on@2x.png"; sourceTree = "<group>"; };
+		BB9EC00D1353F64F00D6BBF6 /* DWSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSegmentedControl.h; path = Classes/DWSegmentedControl.h; sourceTree = "<group>"; };
+		BB9EC00E1353F64F00D6BBF6 /* DWSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSegmentedControl.m; path = Classes/DWSegmentedControl.m; sourceTree = "<group>"; };
 		BBA03B6B132DB56B0073105B /* refreshfade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refreshfade.png; path = resources/refreshfade.png; sourceTree = "<group>"; };
 		BBA03B6C132DB56B0073105B /* refreshfade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refreshfade@2x.png"; path = "resources/refreshfade@2x.png"; sourceTree = "<group>"; };
 		BBA03C17132DBD970073105B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1064,28 +1067,10 @@
 		26EF03AF12E77CAD00E7BA76 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				26CF62D812F3E96100505A37 /* DWPlaceCell.h */,
-				26CF62D912F3E96100505A37 /* DWPlaceCell.m */,
-				26CF62DA12F3E96100505A37 /* DWUserCell.h */,
-				26CF62DB12F3E96100505A37 /* DWUserCell.m */,
-				BB33134112F2628F00B713F9 /* DWGUIManager.h */,
-				BB33134212F2628F00B713F9 /* DWGUIManager.m */,
-				26B973CA12F0BED9000F8F1F /* DWItemFeedCell.h */,
-				26B973CB12F0BED9000F8F1F /* DWItemFeedCell.m */,
-				26B9789812F180C8000F8F1F /* DWPlaceFeedCell.h */,
-				26B9789912F180C8000F8F1F /* DWPlaceFeedCell.m */,
-				BB641EF4134D97BB002A2325 /* DWPlaceSearchResultCell.h */,
-				BB641EF5134D97BB002A2325 /* DWPlaceSearchResultCell.m */,
+				BB9EC00D1353F64F00D6BBF6 /* DWSegmentedControl.h */,
+				BB9EC00E1353F64F00D6BBF6 /* DWSegmentedControl.m */,
 				BB33130512F25F3E00B713F9 /* DWImageView.h */,
 				BB33130612F25F3E00B713F9 /* DWImageView.m */,
-				261C905112FBA43600D16F72 /* DWLoadingCell.h */,
-				261C905212FBA43600D16F72 /* DWLoadingCell.m */,
-				261C90CA12FBB7BC00D16F72 /* DWMessageCell.h */,
-				261C90CB12FBB7BC00D16F72 /* DWMessageCell.m */,
-				BB0CFCFA1302261400F38552 /* DWPaginationCell.h */,
-				BB0CFCFB1302261400F38552 /* DWPaginationCell.m */,
-				BBF890E7134E53D500B332CA /* DWNewPlaceCell.h */,
-				BBF890E8134E53D500B332CA /* DWNewPlaceCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1122,6 +1107,7 @@
 				26EF03B012E77CD600E7BA76 /* Models */,
 				BBB51A0812F9FB490024086F /* Managers */,
 				BBB51A0712F9FB080024086F /* Networking */,
+				BB9EBFFE1353F5C400D6BBF6 /* Table View Cells */,
 				26EF03AF12E77CAD00E7BA76 /* Views */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1519,6 +1505,31 @@
 			path = SAOAuthTwitterEngine;
 			sourceTree = "<group>";
 		};
+		BB9EBFFE1353F5C400D6BBF6 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				26CF62D812F3E96100505A37 /* DWPlaceCell.h */,
+				26CF62D912F3E96100505A37 /* DWPlaceCell.m */,
+				26CF62DA12F3E96100505A37 /* DWUserCell.h */,
+				26CF62DB12F3E96100505A37 /* DWUserCell.m */,
+				26B973CA12F0BED9000F8F1F /* DWItemFeedCell.h */,
+				26B973CB12F0BED9000F8F1F /* DWItemFeedCell.m */,
+				26B9789812F180C8000F8F1F /* DWPlaceFeedCell.h */,
+				26B9789912F180C8000F8F1F /* DWPlaceFeedCell.m */,
+				BB641EF4134D97BB002A2325 /* DWPlaceSearchResultCell.h */,
+				BB641EF5134D97BB002A2325 /* DWPlaceSearchResultCell.m */,
+				261C905112FBA43600D16F72 /* DWLoadingCell.h */,
+				261C905212FBA43600D16F72 /* DWLoadingCell.m */,
+				261C90CA12FBB7BC00D16F72 /* DWMessageCell.h */,
+				261C90CB12FBB7BC00D16F72 /* DWMessageCell.m */,
+				BB0CFCFA1302261400F38552 /* DWPaginationCell.h */,
+				BB0CFCFB1302261400F38552 /* DWPaginationCell.m */,
+				BBF890E7134E53D500B332CA /* DWNewPlaceCell.h */,
+				BBF890E8134E53D500B332CA /* DWNewPlaceCell.m */,
+			);
+			name = "Table View Cells";
+			sourceTree = "<group>";
+		};
 		BBB51A0712F9FB080024086F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -1543,6 +1554,8 @@
 				BB641D5B134D3E20002A2325 /* DWItemsManager.m */,
 				BB641C58134D33B3002A2325 /* DWPlacesManager.h */,
 				BB641C59134D33B3002A2325 /* DWPlacesManager.m */,
+				BB33134112F2628F00B713F9 /* DWGUIManager.h */,
+				BB33134212F2628F00B713F9 /* DWGUIManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -2031,6 +2044,7 @@
 				BBF891B8134ECE1900B332CA /* DWNewPostQueueItem.m in Sources */,
 				BBF893EA134FC0DE00B332CA /* DWMediaPickerController.m in Sources */,
 				BBF899CB13510E7800B332CA /* DWChooseLocationViewController.m in Sources */,
+				BB9EC00F1353F64F00D6BBF6 /* DWSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

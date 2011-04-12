@@ -184,12 +184,6 @@ extern NSInteger const kMediaPickerCaptureMode;
 extern NSInteger const kMediaPickerLibraryMode;
 
 /**
- * Segmented Control 
- */
-extern NSInteger const kSegmentedPlacesViewWidth;
-extern NSInteger const kSegmentedPlacesViewHeight;
-
-/**
  * Location
  */
 extern NSInteger const kLocFreshness;

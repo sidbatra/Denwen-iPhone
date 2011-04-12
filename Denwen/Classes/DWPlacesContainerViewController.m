@@ -4,12 +4,16 @@
 //
 
 #import "DWPlacesContainerViewController.h"
-#import "DWNewPlaceViewController.h"
+#import "DWNearbyPlacesViewController.h"
+#import "DWPopularPlacesViewController.h"
+#import "DWSegmentedControl.h"
 #import "DWSession.h"
 
 static NSString* const kTabTitle					= @"Places";
 static NSString* const kImgTab						= @"places.png";
 static NSInteger const kSelectedIndex				= 0;
+static NSInteger const kSegmentedPlacesViewWidth	= 320;
+static NSInteger const kSegmentedPlacesViewHeight	= 44;
 static NSString* const kImgSegmentedViewBackground	= @"segmented_view_bg.png";
 static NSString* const kImgSegmentedViewPopularOn	= @"popular_on.png";
 static NSString* const kImgSegmentedViewPopularOff	= @"popular_off.png";
@@ -31,7 +35,6 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	self = [super init];
 	
 	if (self) {
-		_currentSelectedSegmentIndex	= kSelectedIndex;
 	}
     
 	return self;
@@ -48,42 +51,20 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-			
-	/**
-	 * Create segmented control
-	 */
-	 segmentedControl = [[[UISegmentedControl alloc] initWithItems:nil] autorelease];
+		
+	NSArray *segmentImageNames = [NSArray arrayWithObjects:
+								  kImgSegmentedViewPopularOn,kImgSegmentedViewPopularOff,
+								  kImgSegmentedViewNearbyOn,kImgSegmentedViewNearbyOff,
+								  nil];
 	
-	if(_currentSelectedSegmentIndex == kPopularIndex) {
-		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:kImgSegmentedViewPopularOn] 
-										 atIndex:kPopularIndex
-										animated:NO];
-		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:kImgSegmentedViewNearbyOff] 
-										 atIndex:kNearbyIndex
-										animated:NO];
-	}
-	else {
-		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:kImgSegmentedViewPopularOff] 
-										 atIndex:kPopularIndex
-										animated:NO];
-		[segmentedControl insertSegmentWithImage:[UIImage imageNamed:kImgSegmentedViewNearbyOn] 
-										 atIndex:kNearbyIndex
-										animated:NO];
-	}
-	
-	
-	segmentedControl.segmentedControlStyle	= UISegmentedControlStyleBar;
-	segmentedControl.frame					= CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight);
-	segmentedControl.backgroundColor		= [UIColor	clearColor];
-	segmentedControl.selectedSegmentIndex	= _currentSelectedSegmentIndex;
-
-	[segmentedControl	addTarget:self 
-						   action:@selector(segmentedControllerSelectionChanged:)
-				 forControlEvents:UIControlEventValueChanged];
+	segmentedControl = [[[DWSegmentedControl alloc] initWithFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight)
+									   withImageNamesForSegments:segmentImageNames
+											   withSelectedIndex:kSelectedIndex
+													 andDelegate:self] autorelease];
 
 	[self.navigationController.navigationBar addSubview:segmentedControl];
 	self.navigationItem.titleView = nil;
-
+	  
 	
 	/**
 	 * Add sub views
@@ -98,7 +79,7 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	[self.view addSubview:nearbyViewController.view];
 	
 
-	[self loadSelectedView:segmentedControl];
+	[self loadSelectedView:kSelectedIndex];
 }
 
 
@@ -127,31 +108,24 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 #pragma mark Private
 
 //----------------------------------------------------------------------------------------------------
-- (void)hidePreviouslySelectedView:(UISegmentedControl*)theSegmentedControl {
-	if(_currentSelectedSegmentIndex == kPopularIndex) {
+- (void)hidePreviouslySelectedView:(NSInteger)previousSelectedIndex {
+	
+	if(previousSelectedIndex == kPopularIndex) {
 		[popularViewController viewIsDeselected];
-		[theSegmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewPopularOff] 
-					forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
-	else if(_currentSelectedSegmentIndex == kNearbyIndex) {
+	else if(previousSelectedIndex == kNearbyIndex) {
 		[nearbyViewController viewIsDeselected];
-		[theSegmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewNearbyOff] 
-					forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)loadSelectedView:(UISegmentedControl*)theSegmentedControl {	
+- (void)loadSelectedView:(NSInteger)currentSelectedIndex {	
 	
-	if(_currentSelectedSegmentIndex == kPopularIndex) {
+	if(currentSelectedIndex == kPopularIndex) {
 		[popularViewController viewIsSelected];
-		[theSegmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewPopularOn] 
-					forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
-	else if(_currentSelectedSegmentIndex == kNearbyIndex) {
+	else if(currentSelectedIndex == kNearbyIndex) {
 		[nearbyViewController viewIsSelected];
-		[theSegmentedControl setImage:[UIImage imageNamed:kImgSegmentedViewNearbyOn] 
-					forSegmentAtIndex:_currentSelectedSegmentIndex];
 	}
 }
 
@@ -159,17 +133,16 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UIControlEventValueChanged
+#pragma mark DWSegmentedControlDelegate
+
 
 //----------------------------------------------------------------------------------------------------
-- (void)segmentedControllerSelectionChanged:(id)sender {
-	UISegmentedControl *segmentedController = (UISegmentedControl*)sender;
-
-	[self hidePreviouslySelectedView:segmentedController];
-	_currentSelectedSegmentIndex = segmentedController.selectedSegmentIndex;
-	[self loadSelectedView:segmentedController];
+- (void)selectedSegmentModifiedFrom:(NSInteger)oldSelectedIndex 
+								 to:(NSInteger)newSelectedIndex {
+	
+	[self hidePreviouslySelectedView:oldSelectedIndex];
+	[self loadSelectedView:newSelectedIndex];
 }
-
 
 
 @end

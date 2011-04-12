@@ -7,8 +7,10 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "DWContainerViewController.h"
-#import "DWNearbyPlacesViewController.h"
-#import "DWPopularPlacesViewController.h"
+
+@class DWPopularPlacesViewController;
+@class DWNearbyPlacesViewController;
+@class DWSegmentedControl;
 
 /**
  * Primary view for the places tab and container for popular
@@ -19,9 +21,7 @@
 	DWPopularPlacesViewController	*popularViewController;
 	DWNearbyPlacesViewController	*nearbyViewController;
 	
-	UISegmentedControl				*segmentedControl;
-		
-	int _currentSelectedSegmentIndex;
+	DWSegmentedControl				*segmentedControl;
 }
 
 
@@ -31,5 +31,5 @@
  * Declaration for select private methods
  */
 @interface DWPlacesContainerViewController (Private)
-- (void)loadSelectedView:(UISegmentedControl*)segmentedControl;
+- (void)loadSelectedView:(NSInteger)currentSelectedIndex;	
 @end
