@@ -75,7 +75,7 @@ static NSString* const kImgChevron		= @"chevron.png";
 	CGContextFillRect(context,imageFrame);
 	
 	if(self.placeImage)
-		[self.placeImage drawInRect:imageFrame blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.45 : 0.6];
+		[self.placeImage drawInRect:imageFrame blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.65 : 0.6];
 			
 
 	[[UIColor whiteColor] set];
@@ -86,9 +86,7 @@ static NSString* const kImgChevron		= @"chevron.png";
 					  withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
 				 lineBreakMode:UILineBreakModeTailTruncation
 					 alignment:UITextAlignmentLeft];
-	
-	[[UIColor whiteColor] set];
-	
+		
 	[self.placeDetails drawInRect:CGRectMake(7,47,293,23)
 						 withFont:[UIFont fontWithName:@"HelveticaNeue" size:13] 
 					lineBreakMode:UILineBreakModeTailTruncation
