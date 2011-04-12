@@ -98,15 +98,9 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 		}
 	}
 	
-	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+	self.tableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
 	
-	/*
-	 [self.tableView setSeparatorColor:[UIColor colorWithRed:kSeparatorRedValue 
-													  green:kSeparatorGreenValue
-													   blue:kSeparatorBlueValue
-													  alpha:kSeparatorAlphaValue]];
-	 */
-
+	
 	/**
 	 * Tuck the search bar above the table view
 	 */

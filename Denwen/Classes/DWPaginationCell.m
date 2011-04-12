@@ -74,7 +74,7 @@
 //
 - (void) drawCellItems {
 	[self createMessageLabel];
-	[self createSpinner];
+	[self createSpinner];	
 }
 
 
