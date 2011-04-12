@@ -65,14 +65,14 @@ static NSString* const kImgChevron		= @"chevron.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
-	
-	CGRect imageFrame = CGRectMake(0,0,320,92);
 
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSaveGState(context);	
 	
 	if(self.placeImage)
-		[self.placeImage drawInRect:imageFrame blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.65 : 0.6];
+		[self.placeImage drawAtPoint:CGPointMake(0,0)
+						  blendMode:kCGBlendModeNormal 
+							  alpha:_highlighted ? 0.65 : 0.6];
 			
 	
 	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
@@ -91,8 +91,8 @@ static NSString* const kImgChevron		= @"chevron.png";
 
 	CGContextRestoreGState(context);
 	
-	[[UIImage imageNamed:kImgSeparator] drawInRect:CGRectMake(0,91,320,1)];
-	[[UIImage imageNamed:kImgChevron]	drawInRect:CGRectMake(304,38,9,14)];
+	[[UIImage imageNamed:kImgSeparator] drawAtPoint:CGPointMake(0,91)];
+	[[UIImage imageNamed:kImgChevron]	drawAtPoint:CGPointMake(304,38)];
 }
 
 //----------------------------------------------------------------------------------------------------
