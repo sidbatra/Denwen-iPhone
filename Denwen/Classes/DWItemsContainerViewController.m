@@ -126,7 +126,11 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 //----------------------------------------------------------------------------------------------------
 - (void)tabSelectionChanged:(NSNotification*)notification {
 	
-	if([self isSelectedTab] && [DWNotificationsHelper sharedDWNotificationsHelper].unreadItems) {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeySelectedIndex] integerValue] == kTabBarFeedIndex && 
+		[DWNotificationsHelper sharedDWNotificationsHelper].unreadItems) {
+		
 		[self.navigationController popToRootViewControllerAnimated:NO];
 		[followedViewController scrollToTop];
 	}

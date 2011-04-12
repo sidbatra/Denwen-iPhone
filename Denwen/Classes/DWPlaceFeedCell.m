@@ -88,7 +88,7 @@ static NSString* const kImgChevron		= @"chevron.png";
 						 withFont:[UIFont fontWithName:@"HelveticaNeue" size:13] 
 					lineBreakMode:UILineBreakModeTailTruncation
 						alignment:UITextAlignmentLeft];
-
+	
 	CGContextRestoreGState(context);
 	
 	[[UIImage imageNamed:kImgSeparator] drawAtPoint:CGPointMake(0,91)];

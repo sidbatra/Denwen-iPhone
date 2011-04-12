@@ -25,6 +25,7 @@
 		
 		self.buttons			= [NSMutableArray array];
 		_delegate				= theDelegate;
+		
 		NSInteger index			= 0;
 		NSInteger nextTabX		= 0;
 		

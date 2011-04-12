@@ -26,10 +26,13 @@ extern NSInteger const kAttachmentImage;
 extern NSInteger const kAttachmentVideo;
 
 /**
- * Tab bar indices
+ * Tab bar
  */ 
 extern NSInteger const kTabBarPlacesIndex;
+extern NSInteger const kTabBarCreateIndex;
 extern NSInteger const kTabBarFeedIndex;
+extern NSInteger const kTabBarNormalTag;
+extern NSInteger const kTabBarSpecialTag;
 
 /**
  * Keys used for objects in JSON and custom dictionaties
@@ -84,7 +87,11 @@ extern NSString* const kKeyTabIndex;
 extern NSString* const kKeyWidth;
 extern NSString* const kKeyIsSelected;
 extern NSString* const kKeySelectedImageName;
+extern NSString* const kKeyHighlightedImageName;
 extern NSString* const kKeyNormalImageName;
+extern NSString* const kKeyTag;
+extern NSString* const kKeySelectedIndex;
+extern NSString* const kKeyOldSelectedIndex;
 
 /**
  * Notification names

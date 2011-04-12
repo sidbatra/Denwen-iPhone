@@ -6,6 +6,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+@class DWTabBarController;
+
 /**
  * Application delegate
  */
@@ -13,14 +15,9 @@
     UIWindow			*_window;
 	UIToolbar			*_signupToolbar;
 	
-	UITabBarController	*_tabBarController;
-	UIButton			*_placesTabButton;
-	UIButton			*_createTabButton;
-	UIButton			*_feedTabButton;
+	DWTabBarController	*_tabBarController;
 	
 	CLLocationManager	*_locationManager;
-	
-	NSInteger			_currentSelectedTabIndex;
 }
 
 /**
@@ -32,10 +29,7 @@
  * UI Properties
  */
 
-@property (nonatomic,retain) UIButton *placesTabButton;
-@property (nonatomic,retain) UIButton *createTabButton;
-@property (nonatomic,retain) UIButton *feedTabButton;
-@property (nonatomic,retain) UITabBarController *tabBarController;
+@property (nonatomic,retain) DWTabBarController *tabBarController;
 
 /**
  * IBOutlet properties

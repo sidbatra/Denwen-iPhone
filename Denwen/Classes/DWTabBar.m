@@ -4,11 +4,7 @@
 //
 
 #import "DWTabBar.h"
-
-static NSString* const kTBKeyWidth			= @"tabBarButtonWidth";
-static NSString* const kTBKeySelected		= @"tabBarButtonSelected";
-static NSString* const kTBKeySelectedImage	= @"tabBarButtonSelectedImage";
-static NSString* const kTBKeyNormalImage	= @"tabBarButtonNormalImage";
+#import "DWConstants.h"
 
 
 //----------------------------------------------------------------------------------------------------
@@ -16,11 +12,12 @@ static NSString* const kTBKeyNormalImage	= @"tabBarButtonNormalImage";
 //----------------------------------------------------------------------------------------------------
 @implementation DWTabBar
 
-@synthesize buttons		= _buttons;
+@synthesize buttons			= _buttons;
+@synthesize selectedIndex	= _selectedIndex;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithFrame:(CGRect)frame 
-		withTabInfo:(NSArray*)tabsInfo
+		   withInfo:(NSArray*)tabsInfo
 		andDelegate:(id)theDelegate {
 	
     self = [super initWithFrame:frame];
@@ -36,16 +33,21 @@ static NSString* const kTBKeyNormalImage	= @"tabBarButtonNormalImage";
 			
 			UIButton *button		= [UIButton buttonWithType:UIButtonTypeCustom];
 			
-			NSInteger buttonWidth	= [[tabInfo objectForKey:kTBKeyWidth] integerValue];
+			NSInteger buttonWidth	= [[tabInfo objectForKey:kKeyWidth] integerValue];
 			button.frame			= CGRectMake(nextTabX,0,buttonWidth,frame.size.height);
+			button.tag				= [[tabInfo objectForKey:kKeyTag] integerValue];
 			
 			nextTabX				+= buttonWidth;	
 			
-			[button setBackgroundImage:[UIImage imageNamed:[tabInfo objectForKey:kTBKeyNormalImage]]
+			[button setBackgroundImage:[UIImage imageNamed:[tabInfo objectForKey:kKeyNormalImageName]]
 							  forState:UIControlStateNormal];
 			
-			[button setBackgroundImage:[UIImage imageNamed:[tabInfo objectForKey:kTBKeySelectedImage]]
+			[button setBackgroundImage:[UIImage imageNamed:[tabInfo objectForKey:kKeySelectedImageName]]
 							  forState:UIControlStateSelected];
+			
+			if([tabInfo objectForKey:kKeyHighlightedImageName])
+				[button setBackgroundImage:[UIImage imageNamed:[tabInfo objectForKey:kKeyHighlightedImageName]]
+								  forState:UIControlStateHighlighted];
 			
 			[button addTarget:self 
 					   action:@selector(didTouchDownOnButton:) 
@@ -67,7 +69,7 @@ static NSString* const kTBKeyNormalImage	= @"tabBarButtonNormalImage";
 					   action:@selector(didOtherTouchesToButton:)
 			 forControlEvents:UIControlEventTouchDragInside];
 			
-			if([[tabInfo objectForKey:kTBKeySelected] boolValue]) {
+			if([[tabInfo objectForKey:kKeyIsSelected] boolValue]) {
 				button.selected = YES;
 				_selectedIndex	= index;
 			}
@@ -85,6 +87,60 @@ static NSString* const kTBKeyNormalImage	= @"tabBarButtonNormalImage";
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
     [super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)selectButton:(UIButton*)selectedButton {
+	
+	NSInteger index = 0;
+	NSInteger i		= 0;
+	
+	if(selectedButton.tag != kTabBarSpecialTag) {
+		
+		for (UIButton* button in self.buttons) {
+			
+			if(button == selectedButton) {
+				button.selected = YES;
+				index = i;
+			}
+			else {
+				button.selected = NO;
+			}
+			
+			
+			button.highlighted = NO;
+			i++;
+		}
+	}
+	else {
+		index = [self.buttons indexOfObject:selectedButton];
+	}
+	
+	return index;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTouchDownOnButton:(UIButton*)button {
+	
+	NSInteger oldIndex	= _selectedIndex;
+	_selectedIndex		= [self selectButton:button];
+	
+	[_delegate selectedTabWithSpecialTab:button.tag == kTabBarSpecialTag
+							modifiedFrom:oldIndex
+									  to:_selectedIndex];
+	
+	if(button.tag == kTabBarSpecialTag)
+		_selectedIndex = oldIndex;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTouchUpInsideButton:(UIButton*)button {
+	[self selectButton:button];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didOtherTouchesToButton:(UIButton*)button {
+	[self selectButton:button];
 }
 
 
