@@ -180,26 +180,26 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 	
 	NSArray *tabBarInfo	= [NSArray arrayWithObjects:
 						   [NSDictionary dictionaryWithObjectsAndKeys:
-							[NSNumber numberWithInt:114],kKeyWidth,
-							[NSNumber numberWithBool:YES],kKeyIsSelected,
-							[NSNumber numberWithInt:kTabBarNormalTag],kKeyTag,
-							kImgPlacesOn,kKeySelectedImageName,
-							kImgPlacesOff,kKeyNormalImageName,
+							[NSNumber numberWithInt:114]				,kKeyWidth,
+							[NSNumber numberWithBool:YES]				,kKeyIsSelected,
+							[NSNumber numberWithInt:kTabBarNormalTag]	,kKeyTag,
+							kImgPlacesOn								,kKeySelectedImageName,
+							kImgPlacesOff								,kKeyNormalImageName,
 							nil],
 						   [NSDictionary dictionaryWithObjectsAndKeys:
-							[NSNumber numberWithInt:92],kKeyWidth,
-							[NSNumber numberWithBool:NO],kKeyIsSelected,
-							[NSNumber numberWithInt:kTabBarSpecialTag],kKeyTag,
-							kImgCreateOff,kKeySelectedImageName,
-							kImgCreateOn,kKeyHighlightedImageName,
-							kImgCreateOff,kKeyNormalImageName,
+							[NSNumber numberWithInt:92]					,kKeyWidth,
+							[NSNumber numberWithBool:NO]				,kKeyIsSelected,
+							[NSNumber numberWithInt:kTabBarSpecialTag]	,kKeyTag,
+							kImgCreateOff								,kKeySelectedImageName,
+							kImgCreateOn								,kKeyHighlightedImageName,
+							kImgCreateOff								,kKeyNormalImageName,
 							nil],
 						   [NSDictionary dictionaryWithObjectsAndKeys:
-							[NSNumber numberWithInt:114],kKeyWidth,
-							[NSNumber numberWithBool:NO],kKeyIsSelected,
-							[NSNumber numberWithInt:kTabBarNormalTag],kKeyTag,
-							kImgFeedOn,kKeySelectedImageName,
-							kImgFeedOff,kKeyNormalImageName,
+							[NSNumber numberWithInt:114]				,kKeyWidth,
+							[NSNumber numberWithBool:NO]				,kKeyIsSelected,
+							[NSNumber numberWithInt:kTabBarNormalTag]	,kKeyTag,
+							kImgFeedOn									,kKeySelectedImageName,
+							kImgFeedOff									,kKeyNormalImageName,
 							nil],
 						   nil];
 	

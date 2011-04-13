@@ -73,7 +73,7 @@ static NSString* const kImgChevron		= @"chevron.png";
 
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSaveGState(context);	
-	
+
 	//if(self.placeImage)
 	//	[self.placeImage drawAtPoint:CGPointMake(0,0)];
 						  /*blendMode:kCGBlendModeNormal 

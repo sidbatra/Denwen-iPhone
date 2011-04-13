@@ -16,14 +16,18 @@
  * Primary view for the places tab and container for popular
  * and nearby places views
  */
-@interface DWPlacesContainerViewController : DWContainerViewController {
+@interface DWPlacesContainerViewController : DWContainerViewController<UINavigationControllerDelegate> {
 	
 	DWPopularPlacesViewController	*popularViewController;
 	DWNearbyPlacesViewController	*nearbyViewController;
 	
-	DWSegmentedControl				*segmentedControl;
+	DWSegmentedControl				*_segmentedControl;
 }
 
+/**
+ * Segmented control on the nav bar to show choices to filter places
+ */ 
+@property (nonatomic,retain) DWSegmentedControl *segmentedControl;
 
 @end
 

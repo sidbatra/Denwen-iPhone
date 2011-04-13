@@ -30,6 +30,8 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 //----------------------------------------------------------------------------------------------------
 @implementation DWPlacesContainerViewController
 
+@synthesize segmentedControl	= _segmentedControl;
+
 //----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
@@ -45,6 +47,8 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	[popularViewController	release];
 	[nearbyViewController	release];
 	
+	self.segmentedControl	= nil;
+	
     [super dealloc];
 }
 
@@ -54,25 +58,28 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	
 	NSArray *segmentsInfo	= [NSArray arrayWithObjects:
 								[NSDictionary dictionaryWithObjectsAndKeys:
-								 [NSNumber numberWithInt:160],kKeyWidth,
-								 [NSNumber numberWithBool:YES],kKeyIsSelected,
-								 kImgSegmentedViewPopularOn,kKeySelectedImageName,
-								 kImgSegmentedViewPopularOff,kKeyNormalImageName,
+								 [NSNumber numberWithInt:160]	,kKeyWidth,
+								 [NSNumber numberWithBool:YES]	,kKeyIsSelected,
+								 kImgSegmentedViewPopularOn		,kKeySelectedImageName,
+								 kImgSegmentedViewPopularOff	,kKeyNormalImageName,
 								 nil],
 								[NSDictionary dictionaryWithObjectsAndKeys:
-								 [NSNumber numberWithInt:160],kKeyWidth,
-								 [NSNumber numberWithBool:NO],kKeyIsSelected,
-								 kImgSegmentedViewNearbyOn,kKeySelectedImageName,
-								 kImgSegmentedViewNearbyOff,kKeyNormalImageName,
+								 [NSNumber numberWithInt:160]	,kKeyWidth,
+								 [NSNumber numberWithBool:NO]	,kKeyIsSelected,
+								 kImgSegmentedViewNearbyOn		,kKeySelectedImageName,
+								 kImgSegmentedViewNearbyOff		,kKeyNormalImageName,
 								 nil],
 								nil];
 
-	segmentedControl = [[[DWSegmentedControl alloc] initWithFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight)
-												 withSegmentsInfo:segmentsInfo
-													  andDelegate:self] autorelease];
+	self.segmentedControl = [[[DWSegmentedControl alloc] initWithFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight)
+													  withSegmentsInfo:segmentsInfo
+														   andDelegate:self] autorelease];
 
-	[self.navigationController.navigationBar addSubview:segmentedControl];
-	self.navigationItem.titleView = nil;
+	
+	[self.navigationController.navigationBar addSubview:self.segmentedControl];
+	
+	self.navigationController.delegate	= self;
+	self.navigationItem.titleView		= nil;
 	
 	/**
 	 * Add sub views
@@ -85,28 +92,16 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	if(!nearbyViewController)
 		nearbyViewController = [[DWNearbyPlacesViewController alloc] initWithDelegate:self];
 	[self.view addSubview:nearbyViewController.view];
-	
+		
 
 	[self loadSelectedView:kSelectedIndex];
 }
 
-
-
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidUnload {	
 	NSLog(@"%@",kMsgUnload);
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	segmentedControl.hidden = YES;
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	segmentedControl.hidden = NO;
+	
+	self.segmentedControl = nil;
 }
 
 
@@ -149,6 +144,20 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 								 to:(NSInteger)newSelectedIndex {
 	[self hidePreviouslySelectedView:oldSelectedIndex];
 	[self loadSelectedView:newSelectedIndex];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UINavigationControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)navigationController:(UINavigationController *)navigationController 
+	  willShowViewController:(UIViewController *)viewController
+					animated:(BOOL)animated {
+	
+	self.segmentedControl.hidden = viewController != self;
 }
 
 
