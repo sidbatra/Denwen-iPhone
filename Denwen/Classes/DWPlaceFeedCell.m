@@ -87,17 +87,17 @@ static NSString* const kImgChevron		= @"chevron.png";
 		CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor);
 		CGContextFillRect(context,CGRectMake(0,0,320,92));
 	}
-		
+	
 			
 	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
 	CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
 	
-	[self.placeName drawInRect:CGRectMake(7,25,293,23) 
+	[self.placeName drawInRect:CGRectMake(7,24,293,23) 
 					  withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18]
 				 lineBreakMode:UILineBreakModeTailTruncation
 					 alignment:UITextAlignmentLeft];
 		
-	[self.placeDetails drawInRect:CGRectMake(7,47,293,23)
+	[self.placeDetails drawInRect:CGRectMake(7,48,293,23)
 						 withFont:[UIFont fontWithName:@"HelveticaNeue" size:14] 
 					lineBreakMode:UILineBreakModeTailTruncation
 						alignment:UITextAlignmentLeft];
