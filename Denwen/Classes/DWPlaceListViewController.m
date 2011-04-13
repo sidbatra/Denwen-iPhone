@@ -112,6 +112,12 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 																						  self.view.frame.size.width,
 																						  self.tableView.bounds.size.height)] autorelease];
 	self.refreshHeaderView.delegate = self;
+	
+	[self.refreshHeaderView applyBackgroundImage:nil 
+								   withFadeImage:nil
+							 withBackgroundColor:[UIColor blackColor]];
+
+	
 	[self.tableView addSubview:self.refreshHeaderView];
 }
 

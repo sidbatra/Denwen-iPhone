@@ -30,6 +30,19 @@ static NSString* const kImgCreateOff				= @"tab_create_on.png";
 static NSString* const kImgFeedOn					= @"tab_feed_on.png";
 static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
+@implementation UINavigationBar (CustomImage)
+- (void)drawRect:(CGRect)rect {
+
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSaveGState(context);	
+
+	//CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1].CGColor);
+	//[[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.2] set];
+	CGContextFillRect(context,CGRectMake(0,0,self.frame.size.width,self.frame.size.height));		
+	
+	CGContextRestoreGState(context);
+}
+@end
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

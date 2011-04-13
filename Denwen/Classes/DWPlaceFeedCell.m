@@ -73,7 +73,13 @@ static NSString* const kImgChevron		= @"chevron.png";
 		[self.placeImage drawAtPoint:CGPointMake(0,0)
 						  blendMode:kCGBlendModeNormal 
 							  alpha:_highlighted ? 0.45 : 0.65];
-			
+	else {
+		CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor);
+		CGContextFillRect(context,CGRectMake(0,0,320,92));
+	}
+		
+		
+		//[[UIImage imageNamed:@"ghost.png"] drawAtPoint:CGPointMake(0,0)];
 	
 	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
 	

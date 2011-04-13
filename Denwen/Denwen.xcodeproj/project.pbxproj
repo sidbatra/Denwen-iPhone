@@ -240,6 +240,8 @@
 		BB9EC27713542DF000D6BBF6 /* DWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9EC27613542DF000D6BBF6 /* DWTabBarController.m */; };
 		BB9EC29E135430A800D6BBF6 /* tab_create_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9EC29C135430A800D6BBF6 /* tab_create_active.png */; };
 		BB9EC29F135430A800D6BBF6 /* tab_create_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9EC29D135430A800D6BBF6 /* tab_create_active@2x.png */; };
+		BB9EC5E413551BD600D6BBF6 /* ghost.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9EC5E213551BD600D6BBF6 /* ghost.png */; };
+		BB9EC5E513551BD600D6BBF6 /* ghost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9EC5E313551BD600D6BBF6 /* ghost@2x.png */; };
 		BBA03B6D132DB56B0073105B /* refreshfade.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6B132DB56B0073105B /* refreshfade.png */; };
 		BBA03B6E132DB56B0073105B /* refreshfade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA03B6C132DB56B0073105B /* refreshfade@2x.png */; };
 		BBA03C18132DBD970073105B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA03C17132DBD970073105B /* AVFoundation.framework */; };
@@ -700,6 +702,8 @@
 		BB9EC27613542DF000D6BBF6 /* DWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTabBarController.m; path = Classes/DWTabBarController.m; sourceTree = "<group>"; };
 		BB9EC29C135430A800D6BBF6 /* tab_create_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_create_active.png; path = resources/tab_create_active.png; sourceTree = "<group>"; };
 		BB9EC29D135430A800D6BBF6 /* tab_create_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab_create_active@2x.png"; path = "resources/tab_create_active@2x.png"; sourceTree = "<group>"; };
+		BB9EC5E213551BD600D6BBF6 /* ghost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ghost.png; path = resources/ghost.png; sourceTree = "<group>"; };
+		BB9EC5E313551BD600D6BBF6 /* ghost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghost@2x.png"; path = "resources/ghost@2x.png"; sourceTree = "<group>"; };
 		BBA03B6B132DB56B0073105B /* refreshfade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refreshfade.png; path = resources/refreshfade.png; sourceTree = "<group>"; };
 		BBA03B6C132DB56B0073105B /* refreshfade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refreshfade@2x.png"; path = "resources/refreshfade@2x.png"; sourceTree = "<group>"; };
 		BBA03C17132DBD970073105B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -888,6 +892,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BB9EC5E213551BD600D6BBF6 /* ghost.png */,
+				BB9EC5E313551BD600D6BBF6 /* ghost@2x.png */,
 				BB9EC29C135430A800D6BBF6 /* tab_create_active.png */,
 				BB9EC29D135430A800D6BBF6 /* tab_create_active@2x.png */,
 				BB8B8E8B1352EB1C00C8CB76 /* tab_create_on.png */,
@@ -1941,6 +1947,8 @@
 				BB8B8E9E1352EB1C00C8CB76 /* tab_places_on@2x.png in Resources */,
 				BB9EC29E135430A800D6BBF6 /* tab_create_active.png in Resources */,
 				BB9EC29F135430A800D6BBF6 /* tab_create_active@2x.png in Resources */,
+				BB9EC5E413551BD600D6BBF6 /* ghost.png in Resources */,
+				BB9EC5E513551BD600D6BBF6 /* ghost@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
