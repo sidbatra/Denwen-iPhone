@@ -22,11 +22,9 @@ static NSString* const kSearchBarText		= @"Search Nearby Places";
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)delegate {
 	
-	self = [super initWithNibName:kPlaceListViewControllerNib 
-						   bundle:nil
-					   searchType:YES
-					 withCapacity:kPlacesIndex + 1
-					  andDelegate:delegate];
+	self = [super initWithSearchType:YES
+						withCapacity:kPlacesIndex + 1
+						 andDelegate:delegate];
 	
 	if (self) {		
 		

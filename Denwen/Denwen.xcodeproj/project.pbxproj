@@ -278,6 +278,15 @@
 		BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */; };
 		BBDB664512EF92D50051A45C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB664412EF92D50051A45C /* MapKit.framework */; };
 		BBDB66A312EF9A0F0051A45C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */; };
+		BBE24F6A13562D2200A90B44 /* UINavigationBar+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE24F6913562D2200A90B44 /* UINavigationBar+Custom.m */; };
+		BBE24F7E13562E4700A90B44 /* nav_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24F7C13562E4700A90B44 /* nav_bar.png */; };
+		BBE24F7F13562E4700A90B44 /* nav_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24F7D13562E4700A90B44 /* nav_bar@2x.png */; };
+		BBE24FD213563C5100A90B44 /* button_blue_done_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FCC13563C5100A90B44 /* button_blue_done_active.png */; };
+		BBE24FD313563C5100A90B44 /* button_blue_done_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FCD13563C5100A90B44 /* button_blue_done_active@2x.png */; };
+		BBE24FD413563C5100A90B44 /* button_gray_dark_cancel_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FCE13563C5100A90B44 /* button_gray_dark_cancel_active.png */; };
+		BBE24FD513563C5100A90B44 /* button_gray_dark_cancel_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FCF13563C5100A90B44 /* button_gray_dark_cancel_active@2x.png */; };
+		BBE24FD613563C5100A90B44 /* button_gray_light_cancel_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FD013563C5100A90B44 /* button_gray_light_cancel_active.png */; };
+		BBE24FD713563C5100A90B44 /* button_gray_light_cancel_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FD113563C5100A90B44 /* button_gray_light_cancel_active@2x.png */; };
 		BBE326EF12EE83B000657024 /* DWNewItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE326ED12EE83B000657024 /* DWNewItemViewController.m */; };
 		BBE326F012EE83B000657024 /* DWNewItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */; };
 		BBE327EB12EEAD8300657024 /* DWNewPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */; };
@@ -752,6 +761,16 @@
 		BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWSignupViewController.xib; path = Classes/DWSignupViewController.xib; sourceTree = "<group>"; };
 		BBDB664412EF92D50051A45C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BBE24F6813562D2200A90B44 /* UINavigationBar+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationBar+Custom.h"; path = "Classes/UINavigationBar+Custom.h"; sourceTree = "<group>"; };
+		BBE24F6913562D2200A90B44 /* UINavigationBar+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationBar+Custom.m"; path = "Classes/UINavigationBar+Custom.m"; sourceTree = "<group>"; };
+		BBE24F7C13562E4700A90B44 /* nav_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nav_bar.png; path = resources/nav_bar.png; sourceTree = "<group>"; };
+		BBE24F7D13562E4700A90B44 /* nav_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nav_bar@2x.png"; path = "resources/nav_bar@2x.png"; sourceTree = "<group>"; };
+		BBE24FCC13563C5100A90B44 /* button_blue_done_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blue_done_active.png; path = resources/button_blue_done_active.png; sourceTree = "<group>"; };
+		BBE24FCD13563C5100A90B44 /* button_blue_done_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_blue_done_active@2x.png"; path = "resources/button_blue_done_active@2x.png"; sourceTree = "<group>"; };
+		BBE24FCE13563C5100A90B44 /* button_gray_dark_cancel_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_gray_dark_cancel_active.png; path = resources/button_gray_dark_cancel_active.png; sourceTree = "<group>"; };
+		BBE24FCF13563C5100A90B44 /* button_gray_dark_cancel_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_dark_cancel_active@2x.png"; path = "resources/button_gray_dark_cancel_active@2x.png"; sourceTree = "<group>"; };
+		BBE24FD013563C5100A90B44 /* button_gray_light_cancel_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_gray_light_cancel_active.png; path = resources/button_gray_light_cancel_active.png; sourceTree = "<group>"; };
+		BBE24FD113563C5100A90B44 /* button_gray_light_cancel_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_light_cancel_active@2x.png"; path = "resources/button_gray_light_cancel_active@2x.png"; sourceTree = "<group>"; };
 		BBE326EC12EE83B000657024 /* DWNewItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewItemViewController.h; path = Classes/DWNewItemViewController.h; sourceTree = "<group>"; };
 		BBE326ED12EE83B000657024 /* DWNewItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewItemViewController.m; path = Classes/DWNewItemViewController.m; sourceTree = "<group>"; };
 		BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWNewItemViewController.xib; path = Classes/DWNewItemViewController.xib; sourceTree = "<group>"; };
@@ -892,6 +911,14 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBE24FCC13563C5100A90B44 /* button_blue_done_active.png */,
+				BBE24FCD13563C5100A90B44 /* button_blue_done_active@2x.png */,
+				BBE24FCE13563C5100A90B44 /* button_gray_dark_cancel_active.png */,
+				BBE24FCF13563C5100A90B44 /* button_gray_dark_cancel_active@2x.png */,
+				BBE24FD013563C5100A90B44 /* button_gray_light_cancel_active.png */,
+				BBE24FD113563C5100A90B44 /* button_gray_light_cancel_active@2x.png */,
+				BBE24F7C13562E4700A90B44 /* nav_bar.png */,
+				BBE24F7D13562E4700A90B44 /* nav_bar@2x.png */,
 				BB9EC5E213551BD600D6BBF6 /* ghost.png */,
 				BB9EC5E313551BD600D6BBF6 /* ghost@2x.png */,
 				BB9EC29C135430A800D6BBF6 /* tab_create_active.png */,
@@ -1674,6 +1701,8 @@
 				BBD0CEAB133C5EA1003E5E7D /* NSData+Crypto.m */,
 				BBD0D0621340026C003E5E7D /* UIImage+ImageProcessing.h */,
 				BBD0D0631340026C003E5E7D /* UIImage+ImageProcessing.m */,
+				BBE24F6813562D2200A90B44 /* UINavigationBar+Custom.h */,
+				BBE24F6913562D2200A90B44 /* UINavigationBar+Custom.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1949,6 +1978,14 @@
 				BB9EC29F135430A800D6BBF6 /* tab_create_active@2x.png in Resources */,
 				BB9EC5E413551BD600D6BBF6 /* ghost.png in Resources */,
 				BB9EC5E513551BD600D6BBF6 /* ghost@2x.png in Resources */,
+				BBE24F7E13562E4700A90B44 /* nav_bar.png in Resources */,
+				BBE24F7F13562E4700A90B44 /* nav_bar@2x.png in Resources */,
+				BBE24FD213563C5100A90B44 /* button_blue_done_active.png in Resources */,
+				BBE24FD313563C5100A90B44 /* button_blue_done_active@2x.png in Resources */,
+				BBE24FD413563C5100A90B44 /* button_gray_dark_cancel_active.png in Resources */,
+				BBE24FD513563C5100A90B44 /* button_gray_dark_cancel_active@2x.png in Resources */,
+				BBE24FD613563C5100A90B44 /* button_gray_light_cancel_active.png in Resources */,
+				BBE24FD713563C5100A90B44 /* button_gray_light_cancel_active@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2073,6 +2110,7 @@
 				BB9EC00F1353F64F00D6BBF6 /* DWSegmentedControl.m in Sources */,
 				BB9EC16E13541A8E00D6BBF6 /* DWTabBar.m in Sources */,
 				BB9EC27713542DF000D6BBF6 /* DWTabBarController.m in Sources */,
+				BBE24F6A13562D2200A90B44 /* UINavigationBar+Custom.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

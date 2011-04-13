@@ -72,7 +72,7 @@
 		_lastUpdatedLabel=label;
 		[label release];
 		
-		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 38.0f, self.frame.size.width, 20.0f)];
+		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 27.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		label.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
 		label.textColor = TEXT_COLOR;
@@ -99,7 +99,7 @@
 		//_arrowImage=layer;
 		
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		view.frame = CGRectMake(frame.size.width / 2 - 10.0f, frame.size.height - 38.0f, 20.0f, 20.0f);
+		view.frame = CGRectMake(frame.size.width / 2 - 10.0f, frame.size.height - 27.0f, 20.0f, 20.0f);
 		[self addSubview:view];
 		_activityView = view;
 		[view release];
@@ -177,7 +177,7 @@
 			[UIView beginAnimations:nil context:NULL];
 			//[UIView setAnimationDelegate:self];
 			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-			[UIView setAnimationDuration:0.8];
+			[UIView setAnimationDuration:0.6];
 			[_statusLabel setAlpha:1];
 			[UIView commitAnimations];
 			
@@ -209,7 +209,7 @@
 			[UIView beginAnimations:nil context:NULL];
 			//[UIView setAnimationDelegate:self];
 			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-			[UIView setAnimationDuration:0.8];
+			[UIView setAnimationDuration:0.6];
 			[_statusLabel setAlpha:0];
 			[UIView commitAnimations];
 			}

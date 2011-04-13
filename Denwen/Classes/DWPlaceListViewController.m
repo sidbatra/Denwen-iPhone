@@ -23,7 +23,7 @@ static NSInteger const kPlaceFeedCellHeight			= 92;
 static NSInteger const kSearchPlaceActiveCellHeight	= 3000;
 static NSString* const kPlaceFeedCellIdentifier		= @"PlaceFeedCell";
 static NSInteger const kMessageCellIndex			= 1;
-static NSInteger const kSpinnerCellIndex			= 1;
+static NSInteger const kSpinnerCellIndex			= 2;
 static float	 const kSearchActiveAlpha			= 0.8;
 static float	 const kSearchInActiveAlpha			= 1.0;
 static NSInteger const kPlacesPerPage				= 20;
@@ -42,14 +42,11 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 
 
 //----------------------------------------------------------------------------------------------------
-- (id)initWithNibName:(NSString *)nibNameOrNil 
-			   bundle:(NSBundle *)nibBundleOrNil 
-		   searchType:(BOOL)localSearchFlag
-		 withCapacity:(NSInteger)capacity 
-		  andDelegate:(id)delegate {
+- (id)initWithSearchType:(BOOL)localSearchFlag
+			withCapacity:(NSInteger)capacity 
+			 andDelegate:(id)delegate {
 		
-	self = [super initWithNibName:nibNameOrNil 
-						   bundle:nibBundleOrNil];
+	self = [super init];
 	
 	if (self) {
 		
@@ -77,6 +74,12 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 	self.view.hidden	= YES;
 	
 	CGRect frame		= self.view.frame;
+	frame.origin.y		= 0; 
+	frame.size.height	= frame.size.height; 
+	self.view.frame		= frame;
+	
+	/*
+	CGRect frame		= self.view.frame;
 	frame.origin.y		= -kNavBarHeight; 
 	frame.size.height	= frame.size.height + kNavBarHeight; 
 	self.view.frame		= frame;
@@ -87,6 +90,7 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 	frame.origin.y			= kNavBarHeight; 
 	frame.size.height		= frame.size.height - kNavBarHeight * 2; 
 	self.tableView.frame	= frame;
+	*/
 	
 	/*
 	frame											= self.searchDisplayController.searchBar.frame;

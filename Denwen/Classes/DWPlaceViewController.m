@@ -101,20 +101,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	CGRect frame		= self.view.frame;
-	frame.origin.y		= -kNavBarHeight; 
-	frame.size.height	= frame.size.height + kNavBarHeight; 
-	self.view.frame		= frame;
-	
-	self.view.clipsToBounds = NO;
-	
-	
-	frame					= self.tableView.frame;
-	frame.origin.y			= kNavBarHeight;
-	frame.size.height		= frame.size.height - kNavBarHeight; 
-	self.tableView.frame	= frame;
-	
 
 	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:kGenericBackButtonTitle
 																			  style:UIBarButtonItemStyleBordered

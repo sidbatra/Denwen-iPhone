@@ -218,6 +218,10 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
+						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">button_gray_light_cancel_active.png</string>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_gray_light_cancel.png</string>
@@ -237,6 +241,10 @@
 						<reference key="IBUIHighlightedTitleColor" ref="638947902"/>
 						<reference key="IBUINormalTitleColor" ref="638947902"/>
 						<reference key="IBUINormalTitleShadowColor" ref="900694610"/>
+						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">button_blue_done_active.png</string>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_blue_done.png</string>
@@ -1162,7 +1170,9 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>button_blue_done.png</string>
+				<string>button_blue_done_active.png</string>
 				<string>button_gray_light_cancel.png</string>
+				<string>button_gray_light_cancel_active.png</string>
 				<string>camera_gray_dark.png</string>
 				<string>hr_gray_create.png</string>
 				<string>pointer_gray_light.png</string>
@@ -1170,6 +1180,8 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{60, 30}</string>
+				<string>{60, 30}</string>
 				<string>{60, 30}</string>
 				<string>{60, 30}</string>
 				<string>{45, 37}</string>

@@ -24,9 +24,7 @@ static NSInteger const kCapacity					= 1;
 - (id)initWithDelegate:(id)delegate 
 			  withUser:(DWUser*)user {
 	
-	self = [super initWithNibName:kPlaceListViewControllerNib 
-						   bundle:nil
-					   searchType:YES
+	self = [super initWithSearchType:YES
 					 withCapacity:kCapacity
 					  andDelegate:delegate];
 	

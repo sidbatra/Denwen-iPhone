@@ -56,16 +56,14 @@
 @property (nonatomic,retain) EGORefreshTableHeaderView *refreshHeaderView;
 
 /**
- * Init with the normal nib and bundle name along with 
+ * Init with 
  * search type (see isLocalSearch)
  * capacity (different types of places needed by the view)
  * delegate to receive events when a place is selected
  */
-- (id)initWithNibName:(NSString*)nibNameOrNil 
-			   bundle:(NSBundle*)nibBundleOrNil 
-		   searchType:(BOOL)localSearchFlag
-		 withCapacity:(NSInteger)capacity
-		  andDelegate:(id)delegate;
+- (id)initWithSearchType:(BOOL)localSearchFlag
+			withCapacity:(NSInteger)capacity 
+			 andDelegate:(id)delegate;
 
 /**
  * Reset pagination status - called when the view is fully refreshed

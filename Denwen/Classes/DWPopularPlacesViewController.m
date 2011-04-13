@@ -21,9 +21,7 @@ static NSInteger const kPlacesIndex				= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)delegate {
-	self = [super initWithNibName:kPlaceListViewControllerNib
-						   bundle:nil 
-					   searchType:NO 
+	self = [super initWithSearchType:NO 
 					 withCapacity:kCapacity 
 					  andDelegate:delegate];
 	

@@ -32,11 +32,8 @@ static NSString* const kImgCreateOff				= @"tab_create_on.png";
 static NSString* const kImgFeedOn					= @"tab_feed_on.png";
 static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
-@implementation UINavigationBar (CustomImage)
-- (void)drawRect:(CGRect)rect {
-}
-@end
 
+ 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -170,16 +167,12 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 	DWItemsContainerViewController *itemsContainerViewController	= [[[DWItemsContainerViewController alloc] init] autorelease];
 	UINavigationController *itemsNavController						= [[[UINavigationController alloc] initWithRootViewController:
 																		itemsContainerViewController] autorelease];
-	itemsNavController.navigationBar.backgroundColor				= kNavBarColor;
-	itemsNavController.navigationBar.barStyle						= UIBarStyleBlackTranslucent;
 	
 	UIViewController *createController = [[[UIViewController alloc] init] autorelease];
 	
 	DWPlacesContainerViewController *placesContainerViewController	= [[[DWPlacesContainerViewController alloc] init] autorelease];
 	UINavigationController *placesNavController						= [[[UINavigationController alloc] initWithRootViewController:
 																		placesContainerViewController] autorelease];
-	placesNavController.navigationBar.backgroundColor				= kNavBarColor;
-	placesNavController.navigationBar.barStyle						= UIBarStyleBlackTranslucent;
 	
 	
 	NSArray *localControllersArray = [NSArray arrayWithObjects:placesNavController,createController,itemsNavController,nil];

@@ -74,7 +74,6 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	[self.navigationController.navigationBar addSubview:segmentedControl];
 	self.navigationItem.titleView = nil;
 	
-	
 	/**
 	 * Add sub views
 	 */
