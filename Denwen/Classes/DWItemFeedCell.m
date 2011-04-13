@@ -7,7 +7,7 @@
 //
 
 #import "DWItemFeedCell.h"
-
+/*
 @interface DWItemFeedCell() 
 
 - (void) createPlaceName;
@@ -22,13 +22,179 @@
 - (void) createCellItems;
 
 
+@end*/
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+@implementation DWItemFeedSelectedView
+
+//----------------------------------------------------------------------------------------------------
+- (id)initWithFrame:(CGRect)frame {
+	self = [super initWithFrame:frame];
+	
+    if (self) {
+        self.opaque				= YES;
+		self.backgroundColor	= [UIColor blackColor];
+    }
+    
+    return self;
+}
+
 @end
 
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+@implementation DWItemFeedView
+
+@synthesize itemData		= _itemData;
+@synthesize itemImage		= _itemImage;
+
+//----------------------------------------------------------------------------------------------------
+- (id)initWithFrame:(CGRect)frame {
+	self = [super initWithFrame:frame];
+	
+    if (self) {
+        self.opaque				= YES;
+		self.backgroundColor	= [UIColor blackColor];
+        _itemImage = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,320)];
+        [self addSubview:_itemImage];
+        [_itemImage release];
+    }
+    
+    return self;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	self.itemData		= nil;
+	//self.itemImage		= nil;
+	
+	[super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)drawRect:(CGRect)rect {
+	/*CGRect imageFrame = CGRectMake(0,0,320,320);
+    
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSaveGState(context);	
+	
+	[[UIColor blackColor] set];
+	CGContextFillRect(context,imageFrame);*/
+	
+	//if(self.itemImage)
+	//	[self.itemImage drawInRect:imageFrame]; //blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.45 : 0.6];
+    
+    
+	[[UIColor whiteColor] set];
+	
+	//CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+	
+	[self.itemData drawInRect:CGRectMake(7,24,293,23) 
+					  withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
+				 lineBreakMode:UILineBreakModeWordWrap
+					 alignment:UITextAlignmentLeft];
+	
+    //CGContextRestoreGState(context);
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)reset {
+	_highlighted = NO;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)redisplay {
+	[self setNeedsDisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setHighlighted:(BOOL)highlighted {
+	_highlighted = highlighted;
+	[self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)removeHighlight:(id)sender {
+	_highlighted = NO;
+	[self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)isHighlighted {
+    return _highlighted;
+}
+
+@end
+
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWItemFeedCell
 
-@synthesize placeName,userImage,attachmentImage;
+@synthesize itemFeedView = _itemFeedView;
 
+//----------------------------------------------------------------------------------------------------
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
+	if (self) {
+		CGRect frame = CGRectMake(0.0,0.0,
+                                  self.contentView.bounds.size.width,
+                                  self.contentView.bounds.size.height
+                                  );
+		
+		self.itemFeedView = [[[DWItemFeedView alloc] initWithFrame:frame] autorelease];
+        self.itemFeedView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.itemFeedView.contentMode		= UIViewContentModeRedraw;
+		
+		[self.contentView addSubview:self.itemFeedView];
+		
+		self.selectedBackgroundView = [[[DWItemFeedSelectedView alloc] initWithFrame:frame] autorelease];
+		self.accessoryType			= UITableViewCellAccessoryNone;
+    }
+	
+    return self;
+}
 
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {	
+	self.itemFeedView = nil;
+	
+    [super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)reset {
+	[self.itemFeedView reset];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setItemData:(NSString *)itemData {
+	self.itemFeedView.itemData = itemData;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setItemImage:(UIImage *)itemImage {
+	self.itemFeedView.itemImage.image = itemImage;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)redisplay {
+	[self.itemFeedView redisplay];
+}
+
+@end
+
+/*
 #pragma mark -
 #pragma mark Cell Lifecycle
 
@@ -327,6 +493,4 @@
 - (void)dealloc {
     [super dealloc];
 }
-
-
-@end
+*/

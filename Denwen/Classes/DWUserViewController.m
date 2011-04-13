@@ -356,8 +356,8 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 			((DWMessageCell*)cell).customTextLabel.text = self.messageCellText;
 		}
 		
-		if(_tableViewUsage == kTableViewAsData && indexPath.row < [self.itemManager totalItems])
-			[(DWItemFeedCell*)cell disableUserButtons];
+		/*if(_tableViewUsage == kTableViewAsData && indexPath.row < [self.itemManager totalItems])
+			[(DWItemFeedCell*)cell disableUserButtons];*/
 	}
 	
 	return cell;

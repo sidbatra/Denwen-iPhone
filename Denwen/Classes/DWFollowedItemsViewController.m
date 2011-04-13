@@ -181,7 +181,7 @@
 	if([cell isKindOfClass:[DWItemFeedCell class]] && 
 	   indexPath.row < [DWNotificationsHelper sharedDWNotificationsHelper].unreadItems) {
 		
-		[(DWItemFeedCell*)cell displayNewCellState];
+		//[(DWItemFeedCell*)cell displayNewCellState];
 	}
 		
 	

@@ -192,7 +192,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)smallUserImageLoaded:(NSNotification*)notification {
-	
+	/*
 	if(_tableViewUsage != kTableViewAsData || ![_itemManager totalItems])
 		return;
 	
@@ -208,7 +208,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 			DWItemFeedCell *cell = (DWItemFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
 			cell.userImage.image = [info objectForKey:kKeyImage];
 		}
-	}	
+	}*/
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -227,7 +227,9 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		
 		if(item.attachment.databaseID == resourceID) {
 			DWItemFeedCell *cell = (DWItemFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-			[cell.attachmentImage setBackgroundImage:[info objectForKey:kKeyImage] forState:UIControlStateNormal];	
+			//[cell.attachmentImage setBackgroundImage:[info objectForKey:kKeyImage] forState:UIControlStateNormal];	
+            [cell setItemImage:[info objectForKey:kKeyImage]];
+            [cell redisplay];
 		}
 	}	
 }
@@ -287,16 +289,17 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	if(_tableViewUsage == kTableViewAsData && indexPath.row < [_itemManager totalItems]) {
 		
 		CGSize textSize = {self.view.frame.size.width - 69, kMaxFeedCellHeight};
-		CGSize size = [[_itemManager getItem:indexPath.row].data sizeWithFont:[UIFont fontWithName:@"Helvetica" size:15] 
+		CGSize size = [[_itemManager getItem:indexPath.row].data sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17] 
 															constrainedToSize:textSize
 																lineBreakMode:UILineBreakModeWordWrap];
 		
-		NSInteger attachmentHeight = 0;
+		//NSInteger attachmentHeight = 0;
 		
 		if ([[_itemManager getItem:indexPath.row] hasAttachment]) 
-			attachmentHeight = kAttachmentHeight + kAttachmentYPadding;
-		
-		height =  size.height + 61 + attachmentHeight;
+            height = 320;
+        else
+            height =  size.height;//61;
+			//attachmentHeight = kAttachmentHeight + kAttachmentYPadding;		
 	}
 	else if(_tableViewUsage == kTableViewAsData && indexPath.row == [_itemManager totalItems])
 		height = kPaginationCellHeight;
@@ -312,38 +315,46 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	UITableViewCell *cell = nil;
 		
 	if(_tableViewUsage == kTableViewAsData && indexPath.row < [_itemManager totalItems]) {
-		
 		DWItem *item			= [_itemManager getItem:indexPath.row];
 		DWItemFeedCell *cell	= (DWItemFeedCell*)[tableView dequeueReusableCellWithIdentifier:kItemFeedCellIdentifier];
 		
 		if(!cell) 
 			cell = [[[DWItemFeedCell alloc] initWithStyle:UITableViewCellStyleDefault 
-										  reuseIdentifier:kItemFeedCellIdentifier
-											   withTarget:self] autorelease];
+										  reuseIdentifier:kItemFeedCellIdentifier] autorelease];
 		
 		/** 
 		 * Update resused cell
 		 */
-		[cell updateClassMemberHasAttachment:[item hasAttachment] 
-								   andItemID:item.databaseID];
+		/*[cell updateClassMemberHasAttachment:[item hasAttachment] 
+								   andItemID:item.databaseID];*/
 		
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell reset];
+		[cell setItemData:item.data];
 		
-		[cell.placeName setTitle:[NSString stringWithFormat:@"at %@", item.place.name] 
-						forState:UIControlStateNormal];
+		/*[cell.placeName setTitle:[NSString stringWithFormat:@"at %@", item.place.name] 
+						forState:UIControlStateNormal];*/
 		
 		/**
 		 * Reposition elements on reused cell
 		 */
-		[cell positionAndCustomizeCellItemsFrom:item.data
+		/*[cell positionAndCustomizeCellItemsFrom:item.data
 									   userName:[item.user fullName]
-										andTime:[item createdTimeAgoInWords]];
+										andTime:[item createdTimeAgoInWords]];*/
 		
 		if (!tableView.dragging && !tableView.decelerating) {
 			[item startRemoteImagesDownload];
 		}
-		
+        
+        if ([item hasAttachment])
+			[cell setItemImage:item.attachment.previewImage];
+		else
+			[cell setItemImage:nil];
+        
+        [cell redisplay];
+		/*
 		if ([item hasAttachment]) {
 			if (item.attachment.previewImage)
 				[cell.attachmentImage setBackgroundImage:item.attachment.previewImage 
@@ -361,7 +372,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		if (item.user.smallPreviewImage)
 			cell.userImage.image = item.user.smallPreviewImage;
 		else
-			cell.userImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];
+			cell.userImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];*/
 		
 		return cell;
 	}
@@ -471,7 +482,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UIItemFeedCellDelegate
-
+/*
 //----------------------------------------------------------------------------------------------------
 - (void)didTapPlaceName:(id)sender event:(id)event {
 	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:((UIButton*)sender).tag 
@@ -513,7 +524,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	
 	[_delegate urlSelected:[item.urls objectAtIndex:tag % kURLTagMultipler]];
 }
-
+*/
 
 @end
 

@@ -427,14 +427,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 		[cell setPlaceName:place.name];
 		[cell setPlaceDetails:[place displayAddress]];
 		
-		if (!tableView.dragging && !tableView.decelerating)
-			[place startPreviewDownload];
+		//if (!tableView.dragging && !tableView.decelerating)
+		//	[place startPreviewDownload];
 		
 		if (place.attachment && place.attachment.sliceImage)
 			[cell setPlaceImage:place.attachment.sliceImage];
-		else
+		else{
 			[cell setPlaceImage:nil];
-				
+            [place startPreviewDownload];
+        }	
 		if(!place.attachment)
 			[cell setPlaceData:[place sliceText]];
 				

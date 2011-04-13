@@ -39,7 +39,7 @@ static NSString* const kImgChevron		= @"chevron.png";
 @synthesize placeName		= _placeName;
 @synthesize placeData		= _placeData;
 @synthesize placeDetails	= _placeDetails;
-@synthesize placeImage		= _placeImage;
+@synthesize placeImageView	= _placeImageView;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithFrame:(CGRect)frame {
@@ -48,6 +48,10 @@ static NSString* const kImgChevron		= @"chevron.png";
     if (self) {
         self.opaque				= YES;
 		self.backgroundColor	= [UIColor blackColor];
+        self.placeImageView     = [[[UIImageView alloc] 
+                                    initWithFrame:CGRectMake(0, 0, 320, 92)] autorelease];
+        
+        [self addSubview:self.placeImageView];
     }
     
     return self;
@@ -55,13 +59,14 @@ static NSString* const kImgChevron		= @"chevron.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
-	self.placeName		= nil;
-	self.placeData		= nil;
-	self.placeDetails	= nil;
-	self.placeImage		= nil;
+	self.placeName          = nil;
+	self.placeData          = nil;
+	self.placeDetails       = nil;
+	self.placeImageView     = nil;
 	
 	[super dealloc];
 }
+
 
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
@@ -69,11 +74,15 @@ static NSString* const kImgChevron		= @"chevron.png";
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSaveGState(context);	
 	
-	if(self.placeImage)
+	//if(self.placeImage)
+	//	[self.placeImage drawAtPoint:CGPointMake(0,0)];
+						  /*blendMode:kCGBlendModeNormal 
+							  alpha:_highlighted ? 0.45 : 0.65];*/
+	/*if(self.placeImage)
 		[self.placeImage drawAtPoint:CGPointMake(0,0)
 						  blendMode:kCGBlendModeNormal 
-							  alpha:_highlighted ? 0.45 : 0.65];
-	else if(self.placeData) {
+							  alpha:_highlighted ? 0.45 : 0.65];*/
+	if(self.placeData) {
 		CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.0549 green:0.05882 blue:0.0549 alpha:1.0].CGColor);
 		CGContextFillRect(context,CGRectMake(0,0,320,92));
 		
@@ -89,8 +98,9 @@ static NSString* const kImgChevron		= @"chevron.png";
 	}
 	
 			
-	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-	CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+	//CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+    	[[UIColor whiteColor] set];
+	//CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
 	
 	[self.placeName drawInRect:CGRectMake(7,24,293,23) 
 					  withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18]
@@ -102,10 +112,10 @@ static NSString* const kImgChevron		= @"chevron.png";
 					lineBreakMode:UILineBreakModeTailTruncation
 						alignment:UITextAlignmentLeft];
 	 
-	CGContextRestoreGState(context);
+	//CGContextRestoreGState(context);
 	
-	[[UIImage imageNamed:kImgSeparator] drawAtPoint:CGPointMake(0,91)];
-	[[UIImage imageNamed:kImgChevron]	drawAtPoint:CGPointMake(304,38)];
+	/*[[UIImage imageNamed:kImgSeparator] drawAtPoint:CGPointMake(0,91)];
+	[[UIImage imageNamed:kImgChevron]	drawAtPoint:CGPointMake(304,38)];*/
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -121,8 +131,10 @@ static NSString* const kImgChevron		= @"chevron.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)setHighlighted:(BOOL)highlighted {
-	_highlighted = highlighted;
-	[self redisplay];
+    if (_highlighted != highlighted) {
+        _highlighted = highlighted;
+        [self redisplay];
+    }
 	
 	/*if(!_highlighted) {
 		_highlighted = highlighted;
@@ -164,15 +176,43 @@ static NSString* const kImgChevron		= @"chevron.png";
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
 	if (self) {
-		CGRect frame = CGRectMake(0.0,0.0,self.contentView.bounds.size.width,self.contentView.bounds.size.height);
-		
+        
+		CGRect frame = CGRectMake(0.0,0.0,320,92);//self.contentView.bounds.size.width,self.contentView.bounds.size.height);
+        
 		self.placeFeedView = [[[DWPlaceFeedView alloc] initWithFrame:frame] autorelease];
-        self.placeFeedView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.placeFeedView.contentMode		= UIViewContentModeRedraw;
+        //self.placeFeedView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        //self.placeFeedView.contentMode		= UIViewContentModeRedraw;
+        [self.contentView addSubview:self.placeFeedView];
+        
+        /*
+        _placeImage = [[UIImageView alloc] init];
+        _placeImage.frame = CGRectMake(0, 0, 320, 92);
+        
+
+        [self.contentView addSubview:_placeImage];
+        [_placeImage release];
+        
+        _placeName = [[UILabel alloc] init];
+        _placeName.frame = CGRectMake(7,24,293,23);
+        _placeName.lineBreakMode = UILineBreakModeTailTruncation;
+        _placeName.backgroundColor = [UIColor clearColor];
+        _placeName.textColor = [UIColor whiteColor];
+        _placeName.textAlignment = UITextAlignmentLeft;
+        _placeName.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
+        [self.contentView addSubview:_placeName];
+        [_placeName release];
+        
+        _placeDetails = [[UILabel alloc] init];
+        _placeDetails.frame = CGRectMake(7,47,293,23);
+        _placeDetails.lineBreakMode = UILineBreakModeTailTruncation;
+        _placeDetails.textAlignment = UITextAlignmentLeft;
+        _placeDetails.backgroundColor = [UIColor clearColor];
+        _placeDetails.textColor = [UIColor whiteColor];
+        _placeDetails.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+        [self.contentView addSubview:_placeDetails];
+        [_placeDetails release];*/
 		
-		[self.contentView addSubview:self.placeFeedView];
-		
-		self.selectedBackgroundView = [[[DWPlaceFeedSelectedView alloc] initWithFrame:frame] autorelease];
+		//self.selectedBackgroundView = [[[DWPlaceFeedSelectedView alloc] initWithFrame:frame] autorelease];
 		self.accessoryType			= UITableViewCellAccessoryNone;
     }
 	
@@ -194,21 +234,25 @@ static NSString* const kImgChevron		= @"chevron.png";
 //----------------------------------------------------------------------------------------------------
 - (void)setPlaceName:(NSString*)placeName {
 	self.placeFeedView.placeName = placeName;
+    //_placeName.text = placeName;
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)setPlaceData:(NSString*)placeData {
 	self.placeFeedView.placeData = placeData;
+    //_placeDetails.text = placeData;
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)setPlaceDetails:(NSString *)placeDetails {
 	self.placeFeedView.placeDetails = placeDetails;
+    //_placeDetails.text = placeDetails;
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)setPlaceImage:(UIImage*)placeImage {
-	self.placeFeedView.placeImage = placeImage;
+	self.placeFeedView.placeImageView.image = placeImage;
+    //_placeImage.image = placeImage;
 }
 
 //----------------------------------------------------------------------------------------------------

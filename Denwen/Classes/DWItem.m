@@ -159,8 +159,8 @@
 	if (self.attachment)
 		[self.attachment startPreviewDownload];
 	
-	if(self.user)
-		[self.user startSmallPreviewDownload];
+	/*if(self.user)
+		[self.user startSmallPreviewDownload];*/
 }
 
 @end

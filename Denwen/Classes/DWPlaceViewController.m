@@ -330,9 +330,9 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	}
 	else {
 		cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-		
+		/*
 		if(_tableViewUsage == kTableViewAsData && indexPath.row < [self.itemManager totalItems])
-			[(DWItemFeedCell*)cell disablePlaceButtons];
+			[(DWItemFeedCell*)cell disablePlaceButtons];*/
 	}
 	
 	return cell;
