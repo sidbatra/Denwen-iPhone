@@ -183,6 +183,11 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSString*)sliceText {
+	return [self.lastItemData substringToIndex:MIN(20,self.lastItemData.length)];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)updateFollowerCount:(NSInteger)delta {
 	_followersCount += delta;
 }

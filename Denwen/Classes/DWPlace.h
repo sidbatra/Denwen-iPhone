@@ -94,6 +94,11 @@
  */
 - (NSString*)titleText;
 
+/**
+ * Slice text used to preview the last item data
+ */
+- (NSString*)sliceText;
+
 @end
 
 

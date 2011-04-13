@@ -31,8 +31,9 @@ static NSString* const kImgFeedOn					= @"tab_feed_on.png";
 static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 @implementation UINavigationBar (CustomImage)
-- (void)drawRect:(CGRect)rect {
+/*- (void)drawRect:(CGRect)rect {
 
+	//[super drawRect:rect];
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSaveGState(context);	
 
@@ -41,7 +42,8 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 	CGContextFillRect(context,CGRectMake(0,0,self.frame.size.width,self.frame.size.height));		
 	
 	CGContextRestoreGState(context);
-}
+	  
+}*/
 @end
 
 //----------------------------------------------------------------------------------------------------

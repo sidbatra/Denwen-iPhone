@@ -73,25 +73,32 @@ static NSString* const kImgChevron		= @"chevron.png";
 		[self.placeImage drawAtPoint:CGPointMake(0,0)
 						  blendMode:kCGBlendModeNormal 
 							  alpha:_highlighted ? 0.45 : 0.65];
+	else if(self.placeData) {
+		CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.0549 green:0.05882 blue:0.0549 alpha:1.0].CGColor);
+		CGContextFillRect(context,CGRectMake(0,0,320,92));
+		
+		CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.2196 green:0.2196 blue:0.2196 alpha:1.0].CGColor);
+		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+		
+		[self.placeData drawAtPoint:CGPointMake(7,-10)
+						   withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:78]];
+	}
 	else {
 		CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor);
 		CGContextFillRect(context,CGRectMake(0,0,320,92));
 	}
 		
-		
-		//[[UIImage imageNamed:@"ghost.png"] drawAtPoint:CGPointMake(0,0)];
-	
+			
 	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-	
 	CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
 	
-	[self.placeName drawInRect:CGRectMake(7,24,293,23) 
-					  withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
+	[self.placeName drawInRect:CGRectMake(7,25,293,23) 
+					  withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18]
 				 lineBreakMode:UILineBreakModeTailTruncation
 					 alignment:UITextAlignmentLeft];
 		
 	[self.placeDetails drawInRect:CGRectMake(7,47,293,23)
-						 withFont:[UIFont fontWithName:@"HelveticaNeue" size:13] 
+						 withFont:[UIFont fontWithName:@"HelveticaNeue" size:14] 
 					lineBreakMode:UILineBreakModeTailTruncation
 						alignment:UITextAlignmentLeft];
 	 
@@ -103,7 +110,8 @@ static NSString* const kImgChevron		= @"chevron.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)reset {
-	_highlighted = NO;
+	_highlighted	= NO;
+	self.placeData	= nil;
 }
 
 //----------------------------------------------------------------------------------------------------

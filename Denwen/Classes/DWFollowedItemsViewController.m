@@ -59,14 +59,14 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+
 	/*
 	CGRect frame		= self.view.frame;
 	frame.origin.y		= -44; 
 	self.view.frame		= frame;
 	*/
 	 
-	[self.refreshHeaderView applyBackgroundColor:[UIColor whiteColor] 
-								   withTextColor:[UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1.0]];	
+	[self.refreshHeaderView applyBackgroundColor:[UIColor whiteColor]];	
 	
 	[self loadItems];
 }

@@ -424,7 +424,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 			[cell setPlaceImage:nil];
 				
 		if(!place.attachment)
-			[cell setPlaceData:place.lastItemData];
+			[cell setPlaceData:[place sliceText]];
 				
 		[cell redisplay];
 		
