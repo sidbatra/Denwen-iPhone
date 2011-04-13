@@ -35,6 +35,11 @@ extern NSInteger const kTabBarNormalTag;
 extern NSInteger const kTabBarSpecialTag;
 
 /**
+ * Nav bar
+ */
+extern NSInteger const kNavBarHeight;
+
+/**
  * Keys used for objects in JSON and custom dictionaties
  */
 extern NSString* const kKeyStatus;

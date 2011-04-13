@@ -36,11 +36,6 @@ static NSInteger const kPlacesIndex				= 0;
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	CGRect frame		= self.view.frame;
-	frame.origin.y		= 0; 
-	self.view.frame		= frame;
-	
 		
 	self.searchDisplayController.searchBar.placeholder = kSearchBarText;
 	

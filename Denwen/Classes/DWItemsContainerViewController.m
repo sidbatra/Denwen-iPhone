@@ -56,8 +56,10 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	//self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
 	//self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-
+	
 	/**
 	 * Add subview
 	 */

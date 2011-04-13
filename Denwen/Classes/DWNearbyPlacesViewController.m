@@ -42,11 +42,7 @@ static NSString* const kSearchBarText		= @"Search Nearby Places";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	CGRect frame		= self.view.frame;
-	frame.origin.y		= 0; 
-	self.view.frame		= frame;
-	
+
 	self.view.hidden	= YES;
 	
 	self.searchDisplayController.searchBar.placeholder = kSearchBarText;

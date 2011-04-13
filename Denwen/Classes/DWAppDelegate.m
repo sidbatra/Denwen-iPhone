@@ -16,6 +16,8 @@
 #import "DWNotificationsHelper.h"
 #import "NSString+Helpers.h"
 
+#define kNavBarColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]
+
 static NSString* const kFacebookURLPrefix			= @"fb";
 static NSInteger const kLocationRefreshDistance		= 750;
 static NSInteger const kLocationFreshnessThreshold	= 10;
@@ -31,19 +33,8 @@ static NSString* const kImgFeedOn					= @"tab_feed_on.png";
 static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 @implementation UINavigationBar (CustomImage)
-/*- (void)drawRect:(CGRect)rect {
-
-	//[super drawRect:rect];
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	CGContextSaveGState(context);	
-
-	//CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1].CGColor);
-	//[[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.2] set];
-	CGContextFillRect(context,CGRectMake(0,0,self.frame.size.width,self.frame.size.height));		
-	
-	CGContextRestoreGState(context);
-	  
-}*/
+- (void)drawRect:(CGRect)rect {
+}
 @end
 
 //----------------------------------------------------------------------------------------------------
@@ -176,15 +167,19 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)setupTabBarController {
-	DWItemsContainerViewController *itemsContainerViewController = [[[DWItemsContainerViewController alloc] init] autorelease];
-	UINavigationController *itemsNavController = [[[UINavigationController alloc] initWithRootViewController:
-												   itemsContainerViewController] autorelease];
+	DWItemsContainerViewController *itemsContainerViewController	= [[[DWItemsContainerViewController alloc] init] autorelease];
+	UINavigationController *itemsNavController						= [[[UINavigationController alloc] initWithRootViewController:
+																		itemsContainerViewController] autorelease];
+	itemsNavController.navigationBar.backgroundColor				= kNavBarColor;
+	itemsNavController.navigationBar.barStyle						= UIBarStyleBlackTranslucent;
 	
 	UIViewController *createController = [[[UIViewController alloc] init] autorelease];
 	
-	DWPlacesContainerViewController *placesContainerViewController = [[[DWPlacesContainerViewController alloc] init] autorelease];
-	UINavigationController *placesNavController = [[[UINavigationController alloc] initWithRootViewController:
-													placesContainerViewController] autorelease];
+	DWPlacesContainerViewController *placesContainerViewController	= [[[DWPlacesContainerViewController alloc] init] autorelease];
+	UINavigationController *placesNavController						= [[[UINavigationController alloc] initWithRootViewController:
+																		placesContainerViewController] autorelease];
+	placesNavController.navigationBar.backgroundColor				= kNavBarColor;
+	placesNavController.navigationBar.barStyle						= UIBarStyleBlackTranslucent;
 	
 	
 	NSArray *localControllersArray = [NSArray arrayWithObjects:placesNavController,createController,itemsNavController,nil];

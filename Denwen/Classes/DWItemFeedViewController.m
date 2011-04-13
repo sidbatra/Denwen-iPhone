@@ -59,9 +59,18 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
-	CGRect frame	= self.view.frame;
-	frame.origin.y	= 0; 
-	self.view.frame	= frame;
+	CGRect frame		= self.view.frame;
+	frame.origin.y		= -kNavBarHeight; 
+	frame.size.height	= frame.size.height + kNavBarHeight; 
+	self.view.frame		= frame;
+	
+	self.view.clipsToBounds = NO;
+	
+	frame					= self.tableView.frame;
+	frame.origin.y			= kNavBarHeight; 
+	frame.size.height		= frame.size.height - kNavBarHeight * 2; 
+	self.tableView.frame	= frame;
+	
 	
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 

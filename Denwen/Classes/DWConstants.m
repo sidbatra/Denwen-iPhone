@@ -45,6 +45,9 @@ NSInteger const kTabBarNormalTag		= 0;
 NSInteger const kTabBarSpecialTag		= -1;
 
 //----------------------------------------------------------------------------------------------------
+NSInteger const kNavBarHeight	= 44;;
+
+//----------------------------------------------------------------------------------------------------
 NSString* const kKeyStatus					= @"status";
 NSString* const kKeyMessage					= @"message";
 NSString* const kKeyBody					= @"body";

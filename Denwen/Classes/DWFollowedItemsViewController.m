@@ -58,13 +58,6 @@
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-
-	/*
-	CGRect frame		= self.view.frame;
-	frame.origin.y		= -44; 
-	self.view.frame		= frame;
-	*/
 	 
 	[self.refreshHeaderView applyBackgroundColor:[UIColor whiteColor]];	
 	

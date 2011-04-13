@@ -75,10 +75,18 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	self.view.hidden	= YES;
-
+	
 	CGRect frame		= self.view.frame;
-	frame.origin.y		= 0; 
+	frame.origin.y		= -kNavBarHeight; 
+	frame.size.height	= frame.size.height + kNavBarHeight; 
 	self.view.frame		= frame;
+	
+	self.view.clipsToBounds = NO;
+	
+	frame					= self.tableView.frame;
+	frame.origin.y			= kNavBarHeight; 
+	frame.size.height		= frame.size.height - kNavBarHeight * 2; 
+	self.tableView.frame	= frame;
 	
 	/*
 	frame											= self.searchDisplayController.searchBar.frame;

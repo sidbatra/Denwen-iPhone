@@ -29,7 +29,7 @@
 
 #define TEXT_COLOR	 [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0]
 #define FLIP_ANIMATION_DURATION 0.18f
-
+#define PULL_OFFSET -20.0f
 
 @interface EGORefreshTableHeaderView (Private)
 - (void)setState:(EGOPullRefreshState)aState;
@@ -170,7 +170,19 @@
 	switch (aState) {
 		case EGOOPullRefreshPulling:
 			
+			_statusLabel.alpha = 0.0;
 			_statusLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
+
+			//[UIView 
+			[UIView beginAnimations:nil context:NULL];
+			//[UIView setAnimationDelegate:self];
+			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+			[UIView setAnimationDuration:0.8];
+			[_statusLabel setAlpha:1];
+			[UIView commitAnimations];
+			
+			
+			
 			//[CATransaction begin];
 			//[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 			//_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
@@ -187,7 +199,25 @@
 			}
 			
 			_statusLabel.hidden = NO;
-			_statusLabel.text = NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
+			_statusLabel.text = @"";//NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
+			_statusLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
+			
+			//[UIView 
+			
+			if(_state != EGOOPullRefreshLoading) {
+			_statusLabel.alpha = 1.0;
+			[UIView beginAnimations:nil context:NULL];
+			//[UIView setAnimationDelegate:self];
+			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+			[UIView setAnimationDuration:0.8];
+			[_statusLabel setAlpha:0];
+			[UIView commitAnimations];
+			}
+			else {
+				_statusLabel.alpha = 0.0;
+			}
+
+			
 			[_activityView stopAnimating];
 			//[CATransaction begin];
 			//[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
@@ -235,9 +265,9 @@
 			_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
 		}
 		
-		if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f && !_loading) {
+		if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y > PULL_OFFSET && scrollView.contentOffset.y < 0.0f && !_loading) {
 			[self setState:EGOOPullRefreshNormal];
-		} else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y < -65.0f && !_loading) {
+		} else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y < PULL_OFFSET && !_loading) {
 			[self setState:EGOOPullRefreshPulling];
 		}
 		
@@ -256,7 +286,7 @@
 		_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
 	}
 	
-	if (scrollView.contentOffset.y <= - 65.0f && !_loading) {
+	if (scrollView.contentOffset.y <= PULL_OFFSET && !_loading) {
 		
 		if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDidTriggerRefresh:)]) {
 			[_delegate egoRefreshTableHeaderDidTriggerRefresh:self];
