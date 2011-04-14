@@ -22,8 +22,7 @@
  * Primary view for DWItemFeedViewCell
  */
 @interface DWItemFeedView : UIView {
-    //UIImage     *_itemImage;
-    UIImageView   *_itemImage;
+    UIImage     *_itemImage;
     NSString    *_itemData;
     
     BOOL        _highlighted;
@@ -37,8 +36,7 @@
 /**
  * Place Image
  */
-//@property (nonatomic,retain) UIImage* itemImage;
-@property (nonatomic,retain) UIImageView* itemImage;
+@property (nonatomic,retain) UIImage* itemImage;
 
 
 /**
@@ -59,7 +57,8 @@
  * Cell used in item feed view controller
  */
 @interface DWItemFeedCell : UITableViewCell {
-    DWItemFeedView *_itemFeedView;
+    DWItemFeedView	*_itemFeedView;
+	UIImageView		*_itemImageView;
     /*
 	id _eventTarget;
 	bool _hasAttachment;
@@ -83,6 +82,9 @@
  * Primary view for drawing content
  */
 @property (nonatomic,retain) DWItemFeedView *itemFeedView;
+
+
+@property (nonatomic,retain) UIImageView* itemImageView;
 
 
 /**

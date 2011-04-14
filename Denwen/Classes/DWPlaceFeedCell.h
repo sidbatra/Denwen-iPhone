@@ -21,8 +21,7 @@
 	NSString	*_placeName;
 	NSString	*_placeData;
 	NSString	*_placeDetails;
-	//UIImage		*_placeImage;
-    UIImageView *_placeImageView;
+	UIImage		*_placeImage;
 	
 	BOOL		_highlighted;
 }
@@ -45,8 +44,7 @@
 /**
  * Place Image
  */
-//@property (nonatomic,retain) UIImage* placeImage;
-@property (nonatomic,retain) UIImageView* placeImageView;
+@property (nonatomic,retain) UIImage* placeImage;
 
 /**
  * Reset any variables that may not be refreshed - eg : _highlight
@@ -67,9 +65,7 @@
  */
 @interface DWPlaceFeedCell : UITableViewCell {
 	DWPlaceFeedView *_placeFeedView;
-    /*UILabel *_placeName;
-    UILabel *_placeDetails;
-    UIImageView *_placeImage;*/
+     UIImageView	*_placeImageView;
 }
 
 /**
@@ -77,6 +73,7 @@
  */
 @property (nonatomic,retain) DWPlaceFeedView *placeFeedView;
 
+@property (nonatomic,retain) UIImageView* placeImageView;
 
 /**
  * Reset any variables that may not be refreshed 

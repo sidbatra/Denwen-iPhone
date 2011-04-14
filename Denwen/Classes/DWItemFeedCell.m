@@ -61,10 +61,9 @@
     if (self) {
         self.opaque				= YES;
 		self.backgroundColor	= [UIColor blackColor];
-        _itemImage = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,320)];
-        [self addSubview:_itemImage];
-        [_itemImage release];
-    }
+		self.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.contentMode		= UIViewContentModeRedraw;
+	}
     
     return self;
 }
@@ -72,35 +71,34 @@
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
 	self.itemData		= nil;
-	//self.itemImage		= nil;
+	self.itemImage		= nil;
 	
 	[super dealloc];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
-	/*CGRect imageFrame = CGRectMake(0,0,320,320);
+	CGRect imageFrame = CGRectMake(0,0,320,320);
     
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSaveGState(context);	
 	
-	[[UIColor blackColor] set];
-	CGContextFillRect(context,imageFrame);*/
 	
-	//if(self.itemImage)
-	//	[self.itemImage drawInRect:imageFrame]; //blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.45 : 0.6];
+	if(self.itemImage)
+		[self.itemImage drawInRect:imageFrame]; //blendMode:kCGBlendModeNormal alpha:_highlighted ? 0.45 : 0.6];
     
     
 	[[UIColor whiteColor] set];
 	
-	//CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+	CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+	CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
 	
 	[self.itemData drawInRect:CGRectMake(7,24,293,23) 
 					  withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
 				 lineBreakMode:UILineBreakModeWordWrap
 					 alignment:UITextAlignmentLeft];
 	
-    //CGContextRestoreGState(context);
+    CGContextRestoreGState(context);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -139,7 +137,8 @@
 //----------------------------------------------------------------------------------------------------
 @implementation DWItemFeedCell
 
-@synthesize itemFeedView = _itemFeedView;
+@synthesize itemFeedView	= _itemFeedView;
+@synthesize itemImageView	= _itemImageView;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -153,10 +152,10 @@
                                   );
 		
 		self.itemFeedView = [[[DWItemFeedView alloc] initWithFrame:frame] autorelease];
-        self.itemFeedView.autoresizingMask	= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.itemFeedView.contentMode		= UIViewContentModeRedraw;
-		
 		[self.contentView addSubview:self.itemFeedView];
+		
+		self.itemImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,320)] autorelease];
+        [self addSubview:self.itemImageView];
 		
 		self.selectedBackgroundView = [[[DWItemFeedSelectedView alloc] initWithFrame:frame] autorelease];
 		self.accessoryType			= UITableViewCellAccessoryNone;
@@ -167,7 +166,8 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {	
-	self.itemFeedView = nil;
+	self.itemFeedView	= nil;
+	self.itemImageView	= nil;
 	
     [super dealloc];
 }
@@ -184,7 +184,8 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)setItemImage:(UIImage *)itemImage {
-	self.itemFeedView.itemImage.image = itemImage;
+	self.itemFeedView.itemImage = itemImage;
+	//self.itemImageView.image = itemImage;
 }
 
 //----------------------------------------------------------------------------------------------------
