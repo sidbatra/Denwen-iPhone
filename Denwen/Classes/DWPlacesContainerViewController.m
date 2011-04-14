@@ -4,8 +4,9 @@
 //
 
 #import "DWPlacesContainerViewController.h"
-#import "DWNearbyPlacesViewController.h"
 #import "DWPopularPlacesViewController.h"
+#import "DWSearchPlacesViewController.h"
+#import "DWNearbyPlacesViewController.h"
 #import "DWSegmentedControl.h"
 #import "DWSession.h"
 
@@ -14,13 +15,15 @@ static NSString* const kImgTab						= @"places.png";
 static NSInteger const kSelectedIndex				= 0;
 static NSInteger const kSegmentedPlacesViewWidth	= 320;
 static NSInteger const kSegmentedPlacesViewHeight	= 44;
-static NSString* const kImgSegmentedViewBackground	= @"segmented_view_bg.png";
 static NSString* const kImgSegmentedViewPopularOn	= @"popular_on.png";
 static NSString* const kImgSegmentedViewPopularOff	= @"popular_off.png";
+static NSString* const kImgSegmentedViewSearchOn	= @"search_on.png";
+static NSString* const kImgSegmentedViewSearchOff	= @"search_off.png";
 static NSString* const kImgSegmentedViewNearbyOn	= @"nearby_on.png";
 static NSString* const kImgSegmentedViewNearbyOff	= @"nearby_off.png";
 static NSInteger const kPopularIndex				= 0;
-static NSInteger const kNearbyIndex					= 1;
+static NSInteger const kSearchIndex					= 1;
+static NSInteger const kNearbyIndex					= 2;
 static NSString* const kMsgUnload					= @"Unload called on places container";
 
 
@@ -44,8 +47,9 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
-	[popularViewController	release];
-	[nearbyViewController	release];
+	[popularViewController		release];
+	[searchPlacesViewController	release];
+	[nearbyViewController		release];
 	
 	self.segmentedControl	= nil;
 	
@@ -58,13 +62,19 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	
 	NSArray *segmentsInfo	= [NSArray arrayWithObjects:
 								[NSDictionary dictionaryWithObjectsAndKeys:
-								 [NSNumber numberWithInt:160]	,kKeyWidth,
+								 [NSNumber numberWithInt:114]	,kKeyWidth,
 								 [NSNumber numberWithBool:YES]	,kKeyIsSelected,
 								 kImgSegmentedViewPopularOn		,kKeySelectedImageName,
 								 kImgSegmentedViewPopularOff	,kKeyNormalImageName,
 								 nil],
+							   [NSDictionary dictionaryWithObjectsAndKeys:
+								[NSNumber numberWithInt:92]	,kKeyWidth,
+								[NSNumber numberWithBool:NO]	,kKeyIsSelected,
+								kImgSegmentedViewSearchOn		,kKeySelectedImageName,
+								kImgSegmentedViewSearchOff		,kKeyNormalImageName,
+								nil],
 								[NSDictionary dictionaryWithObjectsAndKeys:
-								 [NSNumber numberWithInt:160]	,kKeyWidth,
+								 [NSNumber numberWithInt:114]	,kKeyWidth,
 								 [NSNumber numberWithBool:NO]	,kKeyIsSelected,
 								 kImgSegmentedViewNearbyOn		,kKeySelectedImageName,
 								 kImgSegmentedViewNearbyOff		,kKeyNormalImageName,
@@ -87,6 +97,11 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	if(!popularViewController)
 		popularViewController = [[DWPopularPlacesViewController alloc] initWithDelegate:self];
 	[self.view addSubview:popularViewController.view];
+	
+	
+	if(!searchPlacesViewController)
+		searchPlacesViewController = [[DWSearchPlacesViewController alloc] initWithDelegate:self];
+	[self.view addSubview:searchPlacesViewController.view];
 
 	
 	if(!nearbyViewController)
@@ -116,6 +131,9 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	if(previousSelectedIndex == kPopularIndex) {
 		[popularViewController viewIsDeselected];
 	}
+	else if(previousSelectedIndex == kSearchIndex) {
+		[searchPlacesViewController viewIsDeselected];
+	}
 	else if(previousSelectedIndex == kNearbyIndex) {
 		[nearbyViewController viewIsDeselected];
 	}
@@ -126,6 +144,9 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	
 	if(currentSelectedIndex == kPopularIndex) {
 		[popularViewController viewIsSelected];
+	}
+	else if(currentSelectedIndex == kSearchIndex) {
+		[searchPlacesViewController viewIsSelected];
 	}
 	else if(currentSelectedIndex == kNearbyIndex) {
 		[nearbyViewController viewIsSelected];

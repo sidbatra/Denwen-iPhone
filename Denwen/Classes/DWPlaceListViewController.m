@@ -23,11 +23,10 @@ static NSInteger const kPlaceFeedCellHeight			= 92;
 static NSInteger const kSearchPlaceActiveCellHeight	= 3000;
 static NSString* const kPlaceFeedCellIdentifier		= @"PlaceFeedCell";
 static NSInteger const kMessageCellIndex			= 1;
-static NSInteger const kSpinnerCellIndex			= 2;
+static NSInteger const kSpinnerCellIndex			= 1;
 static float	 const kSearchActiveAlpha			= 0.8;
 static float	 const kSearchInActiveAlpha			= 1.0;
 static NSInteger const kPlacesPerPage				= 20;
-static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -99,24 +98,13 @@ static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 	*/
 	
 	self.tableView.backgroundColor	= [UIColor blackColor];
-	
-	self.searchDisplayController.searchBar.backgroundColor	= [UIColor blackColor];
-	self.searchDisplayController.searchBar.tintColor		= [UIColor blackColor];
-	
-	for (UIView *subview in self.searchDisplayController.searchBar.subviews) {
-		if ([subview isKindOfClass:NSClassFromString(kSearchBarBackgroundClass)]) {
-			[subview removeFromSuperview];
-			break;
-		}
-	}
-	
 	self.tableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
 	
 	
 	/**
 	 * Tuck the search bar above the table view
 	 */
-	[self.tableView setContentOffset:CGPointMake(0,kSearchBarOffset) animated:NO];
+	//[self.tableView setContentOffset:CGPointMake(0,kSearchBarOffset) animated:NO];
 	
 	
 	self.refreshHeaderView = [[[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 

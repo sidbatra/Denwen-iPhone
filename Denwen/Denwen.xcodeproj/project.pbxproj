@@ -280,6 +280,11 @@
 		BBD67A731356710300292856 /* button_gray_dark_back_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67A6F1356710300292856 /* button_gray_dark_back_active@2x.png */; };
 		BBD67A741356710300292856 /* button_gray_dark_back.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67A701356710300292856 /* button_gray_dark_back.png */; };
 		BBD67A751356710300292856 /* button_gray_dark_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67A711356710300292856 /* button_gray_dark_back@2x.png */; };
+		BBD67B601356B08C00292856 /* DWSearchPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD67B5F1356B08C00292856 /* DWSearchPlacesViewController.m */; };
+		BBD67B851356B27100292856 /* search_off.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67B811356B27100292856 /* search_off.png */; };
+		BBD67B861356B27100292856 /* search_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67B821356B27100292856 /* search_off@2x.png */; };
+		BBD67B871356B27100292856 /* search_on.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67B831356B27100292856 /* search_on.png */; };
+		BBD67B881356B27100292856 /* search_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67B841356B27100292856 /* search_on@2x.png */; };
 		BBDB664512EF92D50051A45C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB664412EF92D50051A45C /* MapKit.framework */; };
 		BBDB66A312EF9A0F0051A45C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */; };
 		BBE24F6A13562D2200A90B44 /* UINavigationBar+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE24F6913562D2200A90B44 /* UINavigationBar+Custom.m */; };
@@ -767,6 +772,12 @@
 		BBD67A6F1356710300292856 /* button_gray_dark_back_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_dark_back_active@2x.png"; path = "resources/button_gray_dark_back_active@2x.png"; sourceTree = "<group>"; };
 		BBD67A701356710300292856 /* button_gray_dark_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_gray_dark_back.png; path = resources/button_gray_dark_back.png; sourceTree = "<group>"; };
 		BBD67A711356710300292856 /* button_gray_dark_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_dark_back@2x.png"; path = "resources/button_gray_dark_back@2x.png"; sourceTree = "<group>"; };
+		BBD67B5E1356B08C00292856 /* DWSearchPlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSearchPlacesViewController.h; path = Classes/DWSearchPlacesViewController.h; sourceTree = "<group>"; };
+		BBD67B5F1356B08C00292856 /* DWSearchPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSearchPlacesViewController.m; path = Classes/DWSearchPlacesViewController.m; sourceTree = "<group>"; };
+		BBD67B811356B27100292856 /* search_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = search_off.png; path = resources/search_off.png; sourceTree = "<group>"; };
+		BBD67B821356B27100292856 /* search_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search_off@2x.png"; path = "resources/search_off@2x.png"; sourceTree = "<group>"; };
+		BBD67B831356B27100292856 /* search_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = search_on.png; path = resources/search_on.png; sourceTree = "<group>"; };
+		BBD67B841356B27100292856 /* search_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search_on@2x.png"; path = "resources/search_on@2x.png"; sourceTree = "<group>"; };
 		BBDB664412EF92D50051A45C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BBE24F6813562D2200A90B44 /* UINavigationBar+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationBar+Custom.h"; path = "Classes/UINavigationBar+Custom.h"; sourceTree = "<group>"; };
@@ -919,6 +930,10 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBD67B811356B27100292856 /* search_off.png */,
+				BBD67B821356B27100292856 /* search_off@2x.png */,
+				BBD67B831356B27100292856 /* search_on.png */,
+				BBD67B841356B27100292856 /* search_on@2x.png */,
 				BBD67A6E1356710300292856 /* button_gray_dark_back_active.png */,
 				BBD67A6F1356710300292856 /* button_gray_dark_back_active@2x.png */,
 				BBD67A701356710300292856 /* button_gray_dark_back.png */,
@@ -1675,12 +1690,14 @@
 				26CAF7B012F21E110058C01E /* DWPlacesContainerViewController.m */,
 				26CAF7AC12F21E110058C01E /* DWPlaceListViewController.h */,
 				26CAF7AD12F21E110058C01E /* DWPlaceListViewController.m */,
+				BB4051D712F237AD00916688 /* DWPopularPlacesViewController.h */,
+				BB4051D812F237AD00916688 /* DWPopularPlacesViewController.m */,
+				BBD67B5E1356B08C00292856 /* DWSearchPlacesViewController.h */,
+				BBD67B5F1356B08C00292856 /* DWSearchPlacesViewController.m */,
 				26CAF7A912F21E110058C01E /* DWNearbyPlacesViewController.h */,
 				26CAF7AA12F21E110058C01E /* DWNearbyPlacesViewController.m */,
 				26CAF7A312F21E110058C01E /* DWFollowedPlacesViewController.h */,
 				26CAF7A412F21E110058C01E /* DWFollowedPlacesViewController.m */,
-				BB4051D712F237AD00916688 /* DWPopularPlacesViewController.h */,
-				BB4051D812F237AD00916688 /* DWPopularPlacesViewController.m */,
 				BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */,
 				BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */,
 				26DC2E5F130A877A00FC1F3A /* DWPlaceDetailsViewController.h */,
@@ -2002,6 +2019,10 @@
 				BBD67A731356710300292856 /* button_gray_dark_back_active@2x.png in Resources */,
 				BBD67A741356710300292856 /* button_gray_dark_back.png in Resources */,
 				BBD67A751356710300292856 /* button_gray_dark_back@2x.png in Resources */,
+				BBD67B851356B27100292856 /* search_off.png in Resources */,
+				BBD67B861356B27100292856 /* search_off@2x.png in Resources */,
+				BBD67B871356B27100292856 /* search_on.png in Resources */,
+				BBD67B881356B27100292856 /* search_on@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2127,6 +2148,7 @@
 				BB9EC16E13541A8E00D6BBF6 /* DWTabBar.m in Sources */,
 				BB9EC27713542DF000D6BBF6 /* DWTabBarController.m in Sources */,
 				BBE24F6A13562D2200A90B44 /* UINavigationBar+Custom.m in Sources */,
+				BBD67B601356B08C00292856 /* DWSearchPlacesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

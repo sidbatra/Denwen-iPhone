@@ -9,6 +9,7 @@
 #import "DWContainerViewController.h"
 
 @class DWPopularPlacesViewController;
+@class DWSearchPlacesViewController;
 @class DWNearbyPlacesViewController;
 @class DWSegmentedControl;
 
@@ -19,6 +20,7 @@
 @interface DWPlacesContainerViewController : DWContainerViewController<UINavigationControllerDelegate> {
 	
 	DWPopularPlacesViewController	*popularViewController;
+	DWSearchPlacesViewController	*searchPlacesViewController;
 	DWNearbyPlacesViewController	*nearbyViewController;
 	
 	DWSegmentedControl				*_segmentedControl;
