@@ -105,11 +105,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 
 	self.navigationItem.leftBarButtonItem = [DWGUIManager customBackButton:_delegate];
 	
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose 
-																							target:self 
-																							action:@selector(didPressCreateNewItem:event:)]
-											  autorelease];
-	
 	self.mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.navigationController.view] autorelease];
 	[self.navigationController.view addSubview:self.mbProgressIndicator];
 	
@@ -365,10 +360,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark CLick events from across the view
-
-//----------------------------------------------------------------------------------------------------
-- (void)didPressCreateNewItem:(id)sender event:(id)event {
-}
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapPlaceName:(id)sender event:(id)event {
