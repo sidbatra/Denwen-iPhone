@@ -276,6 +276,10 @@
 		BBD0D2141340576A003E5E7D /* DWS3Request.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D2131340576A003E5E7D /* DWS3Request.m */; };
 		BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */; };
 		BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */; };
+		BBD67A721356710300292856 /* button_gray_dark_back_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67A6E1356710300292856 /* button_gray_dark_back_active.png */; };
+		BBD67A731356710300292856 /* button_gray_dark_back_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67A6F1356710300292856 /* button_gray_dark_back_active@2x.png */; };
+		BBD67A741356710300292856 /* button_gray_dark_back.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67A701356710300292856 /* button_gray_dark_back.png */; };
+		BBD67A751356710300292856 /* button_gray_dark_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD67A711356710300292856 /* button_gray_dark_back@2x.png */; };
 		BBDB664512EF92D50051A45C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB664412EF92D50051A45C /* MapKit.framework */; };
 		BBDB66A312EF9A0F0051A45C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */; };
 		BBE24F6A13562D2200A90B44 /* UINavigationBar+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE24F6913562D2200A90B44 /* UINavigationBar+Custom.m */; };
@@ -759,6 +763,10 @@
 		BBD1EAD212EC1218003C1BC7 /* DWSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSignupViewController.h; path = Classes/DWSignupViewController.h; sourceTree = "<group>"; };
 		BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSignupViewController.m; path = Classes/DWSignupViewController.m; sourceTree = "<group>"; };
 		BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWSignupViewController.xib; path = Classes/DWSignupViewController.xib; sourceTree = "<group>"; };
+		BBD67A6E1356710300292856 /* button_gray_dark_back_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_gray_dark_back_active.png; path = resources/button_gray_dark_back_active.png; sourceTree = "<group>"; };
+		BBD67A6F1356710300292856 /* button_gray_dark_back_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_dark_back_active@2x.png"; path = "resources/button_gray_dark_back_active@2x.png"; sourceTree = "<group>"; };
+		BBD67A701356710300292856 /* button_gray_dark_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_gray_dark_back.png; path = resources/button_gray_dark_back.png; sourceTree = "<group>"; };
+		BBD67A711356710300292856 /* button_gray_dark_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_dark_back@2x.png"; path = "resources/button_gray_dark_back@2x.png"; sourceTree = "<group>"; };
 		BBDB664412EF92D50051A45C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BBE24F6813562D2200A90B44 /* UINavigationBar+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationBar+Custom.h"; path = "Classes/UINavigationBar+Custom.h"; sourceTree = "<group>"; };
@@ -911,6 +919,10 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBD67A6E1356710300292856 /* button_gray_dark_back_active.png */,
+				BBD67A6F1356710300292856 /* button_gray_dark_back_active@2x.png */,
+				BBD67A701356710300292856 /* button_gray_dark_back.png */,
+				BBD67A711356710300292856 /* button_gray_dark_back@2x.png */,
 				BBE24FCC13563C5100A90B44 /* button_blue_done_active.png */,
 				BBE24FCD13563C5100A90B44 /* button_blue_done_active@2x.png */,
 				BBE24FCE13563C5100A90B44 /* button_gray_dark_cancel_active.png */,
@@ -1986,6 +1998,10 @@
 				BBE24FD513563C5100A90B44 /* button_gray_dark_cancel_active@2x.png in Resources */,
 				BBE24FD613563C5100A90B44 /* button_gray_light_cancel_active.png in Resources */,
 				BBE24FD713563C5100A90B44 /* button_gray_light_cancel_active@2x.png in Resources */,
+				BBD67A721356710300292856 /* button_gray_dark_back_active.png in Resources */,
+				BBD67A731356710300292856 /* button_gray_dark_back_active@2x.png in Resources */,
+				BBD67A741356710300292856 /* button_gray_dark_back.png in Resources */,
+				BBD67A751356710300292856 /* button_gray_dark_back@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

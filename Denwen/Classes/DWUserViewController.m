@@ -5,6 +5,7 @@
 
 #import "DWUserViewController.h"
 #import "DWRequestsManager.h"
+#import "DWGUIManager.h"
 #import "DWMemoryPool.h"
 #import "DWSession.h"
 #import "DWFollowedPlacesViewController.h"
@@ -95,10 +96,8 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:kGenericBackButtonTitle
-																			  style:UIBarButtonItemStyleBordered
-																			 target:nil
-																			 action:nil] autorelease];
+	self.navigationItem.leftBarButtonItem = [DWGUIManager customBackButton:_delegate];
+	
 	
 	self.mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.navigationController.view] autorelease];
 	[self.navigationController.view addSubview:self.mbProgressIndicator];

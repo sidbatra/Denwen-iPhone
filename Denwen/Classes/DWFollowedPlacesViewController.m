@@ -5,6 +5,7 @@
 
 #import "DWFollowedPlacesViewController.h"
 #import "DWRequestsManager.h"
+#import "DWGUIManager.h"
 
 static NSString* const kCurrentUserTitle			= @"Your Places";
 static NSString* const kNormalUserTitle				= @"%@'s Places";
@@ -59,10 +60,8 @@ static NSInteger const kCapacity					= 1;
 	self.searchDisplayController.searchBar.placeholder = [NSString stringWithFormat:kSearchString,
 														  self.title];
 	
-	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:kGenericBackButtonTitle
-																   style:UIBarButtonItemStyleBordered
-																  target:nil
-																  action:nil] autorelease];
+	self.navigationItem.leftBarButtonItem = [DWGUIManager customBackButton:_delegate];
+	
 	
 	_tableViewUsage = kTableViewAsSpinner;
 	[self.tableView reloadData];

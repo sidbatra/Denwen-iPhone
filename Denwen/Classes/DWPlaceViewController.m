@@ -7,6 +7,7 @@
 #import "DWPlaceDetailsViewController.h"
 #import "DWShareViewController.h"
 #import "DWRequestsManager.h"
+#import "DWGUIManager.h"
 #import "DWPlaceCell.h"
 #import "DWItemFeedCell.h"
 #import "DWSession.h"
@@ -102,10 +103,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:kGenericBackButtonTitle
-																			  style:UIBarButtonItemStyleBordered
-																			 target:nil
-																			 action:nil] autorelease];
+	self.navigationItem.leftBarButtonItem = [DWGUIManager customBackButton:_delegate];
 	
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose 
 																							target:self 

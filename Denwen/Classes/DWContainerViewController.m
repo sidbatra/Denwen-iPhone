@@ -98,7 +98,6 @@
 #pragma mark -
 #pragma mark ItemFeedViewControllerDelegate
 
-
 //----------------------------------------------------------------------------------------------------
 - (void)placeSelected:(DWPlace*)place {
 	[self displaySelectedPlace:place];
@@ -141,6 +140,17 @@
 										 animated:YES];
 	
 	[webViewController release];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIControlEvents
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTapBackButton:(id)sender event:(id)event {
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

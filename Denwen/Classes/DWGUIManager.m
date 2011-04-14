@@ -8,6 +8,8 @@
 
 #import "DWGUIManager.h"
 
+static NSString* const kImgBackButton			= @"button_gray_dark_back.png";
+static NSString* const kImgBackButtonActive		= @"button_gray_dark_back_active.png";
 
 @implementation DWGUIManager
 
@@ -43,6 +45,17 @@
 	return [UIApplication sharedApplication].statusBarOrientation;
 }
 
+
++ (UIBarButtonItem*)customBackButton:(id)target {
+	UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:kImgBackButton] forState:UIControlStateNormal];
+	 [button setBackgroundImage:[UIImage imageNamed:kImgBackButtonActive] forState:UIControlStateHighlighted];
+	[button addTarget:target action:@selector(didTapBackButton:event:) 
+		   forControlEvents:UIControlEventTouchUpInside];
+	[button setFrame:CGRectMake(0, 0, 60, 30)];
+	
+	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+}
 
 
 #pragma mark -

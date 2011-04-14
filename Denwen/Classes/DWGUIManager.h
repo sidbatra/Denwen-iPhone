@@ -20,6 +20,9 @@
 + (CGSize)currentScreenSize;
 + (UIInterfaceOrientation)getCurrentOrientation;
 
++ (UIBarButtonItem*)customBackButton:(id)target;
+
+
 //Spinner methods
 + (void)showSpinnerInNav:(id)target;
 + (void)hideSpinnnerInNav:(id)target;
