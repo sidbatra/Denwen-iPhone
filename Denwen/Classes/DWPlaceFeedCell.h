@@ -4,6 +4,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import <CoreText/CoreText.h>
 
 /**
  * Forms the background view of a selected place feed cell
@@ -18,12 +20,15 @@
  * Primary view for DWPlaceFeedViewCell
  */
 @interface DWPlaceFeedView : UIView {
-	NSString	*_placeName;
-	NSString	*_placeData;
-	NSString	*_placeDetails;
-	UIImage		*_placeImage;
+	NSString		*_placeName;
+	NSString		*_placeData;
+	NSString		*_placeDetails;
+	UIImage			*_placeImage;
 	
-	BOOL		_highlighted;
+	CALayer			*_placeImageLayer;
+	CALayer			*_placeNameLayer;
+	
+	BOOL			_highlighted;
 }
 
 /**
@@ -45,6 +50,10 @@
  * Place Image
  */
 @property (nonatomic,retain) UIImage* placeImage;
+
+@property (nonatomic,retain) CALayer* placeImageLayer;
+
+@property (nonatomic,retain) CALayer* placeNameLayer;
 
 /**
  * Reset any variables that may not be refreshed - eg : _highlight

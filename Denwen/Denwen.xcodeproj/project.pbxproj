@@ -114,6 +114,7 @@
 		BB05BADB131B28E00068331E /* popular_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB05BAD3131B28E00068331E /* popular_on@2x.png */; };
 		BB05BB21131B30E50068331E /* segmented_view_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BB05BB1F131B30E50068331E /* segmented_view_bg.png */; };
 		BB05BB22131B30E50068331E /* segmented_view_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB05BB20131B30E50068331E /* segmented_view_bg@2x.png */; };
+		BB0C7E301357FE280007D6A9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0C7E2F1357FE280007D6A9 /* CoreText.framework */; };
 		BB0CFCFC1302261400F38552 /* DWPaginationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0CFCFB1302261400F38552 /* DWPaginationCell.m */; };
 		BB17B8DA12EA11AF00DD42FC /* DWItemFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB17B8D812EA11AF00DD42FC /* DWItemFeedViewController.m */; };
 		BB17B8DB12EA11AF00DD42FC /* DWItemFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17B8D912EA11AF00DD42FC /* DWItemFeedViewController.xib */; };
@@ -499,6 +500,7 @@
 		BB05BAD3131B28E00068331E /* popular_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popular_on@2x.png"; path = "resources/popular_on@2x.png"; sourceTree = "<group>"; };
 		BB05BB1F131B30E50068331E /* segmented_view_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = segmented_view_bg.png; path = resources/segmented_view_bg.png; sourceTree = "<group>"; };
 		BB05BB20131B30E50068331E /* segmented_view_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "segmented_view_bg@2x.png"; path = "resources/segmented_view_bg@2x.png"; sourceTree = "<group>"; };
+		BB0C7E2F1357FE280007D6A9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		BB0CFCFA1302261400F38552 /* DWPaginationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPaginationCell.h; path = Classes/DWPaginationCell.h; sourceTree = "<group>"; };
 		BB0CFCFB1302261400F38552 /* DWPaginationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPaginationCell.m; path = Classes/DWPaginationCell.m; sourceTree = "<group>"; };
 		BB0CFE721302703A00F38552 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = resources/Entitlements.plist; sourceTree = "<group>"; };
@@ -898,6 +900,7 @@
 				BB537BDA132C560E0018B942 /* MediaPlayer.framework in Frameworks */,
 				BBA03C18132DBD970073105B /* AVFoundation.framework in Frameworks */,
 				BBF8972D135034F800B332CA /* CoreMedia.framework in Frameworks */,
+				BB0C7E301357FE280007D6A9 /* CoreText.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,6 +1266,7 @@
 				BB537BD9132C560E0018B942 /* MediaPlayer.framework */,
 				BBA03C17132DBD970073105B /* AVFoundation.framework */,
 				BBF8972C135034F800B332CA /* CoreMedia.framework */,
+				BB0C7E2F1357FE280007D6A9 /* CoreText.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
