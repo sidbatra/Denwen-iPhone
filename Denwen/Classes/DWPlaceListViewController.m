@@ -362,7 +362,7 @@ static NSInteger const kPlacesPerPage				= 20;
 	if(_tableViewUsage == kTableViewAsData)
 		rows = self.searchDisplayController.isActive ? 
 					[_placeManager totalFilteredPlaces] : 
-					[_placeManager totalPlacesAtRow:section] + _paginationCellStatus;
+					[_placeManager totalPlacesAtRow:section] ; //+ _paginationCellStatus;
 	else
 		rows = kTVLoadingCellCount;
 			
