@@ -1,22 +1,39 @@
 //
 //  DWLoadingCell.h
-//  Denwen
-//
-//  Created by Deepak Rao on 2/3/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "DWConstants.h"
 
+/**
+ * Displaying a loading state
+ */
 @interface DWLoadingCell : UITableViewCell {
-	UIActivityIndicatorView *spinner;
-	UILabel *messageLabel;
+	UIActivityIndicatorView		*spinner;
+	UILabel						*messageLabel;
+	
+	BOOL						_isShortMode;
 }
 
+/**
+ * Loading spinner
+ */
 @property (nonatomic, retain) UIActivityIndicatorView *spinner;
-@property (nonatomic, retain) UILabel *messageLabel;
 
-- (void)displayDarkState;
+/**
+ * Adjusts the cell to accomodate a shorter container
+ */
+- (void)shorterCellMode;
+
+@end
+
+/**
+ * Declarations for private methods
+ */
+@interface DWLoadingCell (Private)
+
+- (void)createBackground;
+- (void)createSpinner;
+- (void)createMessageLabel;
 
 @end

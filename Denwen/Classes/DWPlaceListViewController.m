@@ -22,8 +22,8 @@ static NSInteger const kDefaultSections				= 1;
 static NSInteger const kPlaceFeedCellHeight			= 92;
 static NSInteger const kSearchPlaceActiveCellHeight	= 3000;
 static NSString* const kPlaceFeedCellIdentifier		= @"PlaceFeedCell";
-static NSInteger const kMessageCellIndex			= 1;
-static NSInteger const kSpinnerCellIndex			= 1;
+static NSInteger const kMessageCellIndex			= 0;
+static NSInteger const kSpinnerCellIndex			= 0;
 static float	 const kSearchActiveAlpha			= 0.8;
 static float	 const kSearchInActiveAlpha			= 1.0;
 static NSInteger const kPlacesPerPage				= 20;
@@ -99,7 +99,7 @@ static NSInteger const kPlacesPerPage				= 20;
 	
 	self.tableView.backgroundColor	= [UIColor blackColor];
 	self.tableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
-	
+	self.tableView.scrollEnabled	= NO;
 	
 	/**
 	 * Tuck the search bar above the table view
@@ -214,6 +214,9 @@ static NSInteger const kPlacesPerPage				= 20;
 //----------------------------------------------------------------------------------------------------
 - (void)finishedLoadingPlaces {
 	[self.refreshHeaderView refreshLastUpdatedDate];
+	
+	if(_tableViewUsage == kTableViewAsData)
+		self.tableView.scrollEnabled	= YES;
 	
 	if([_placeManager totalPlacesAtRow:kDefaultPlacesRow] < kPlacesPerPage || 
 	   ([_placeManager totalPlacesAtRow:kDefaultPlacesRow] - _prePaginationCellCount < kPlacesPerPage &&
@@ -340,10 +343,10 @@ static NSInteger const kPlacesPerPage				= 20;
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UITableViewDataSource
-
 
 //----------------------------------------------------------------------------------------------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -457,8 +460,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 			cell = [[[DWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault 
 										 reuseIdentifier:kTVLoadingCellIdentifier] autorelease];
 		
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;	
-		[cell displayDarkState];
 		[cell.spinner startAnimating];
 		
 		return cell;
@@ -472,8 +473,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 			cell = [[[DWMessageCell alloc] initWithStyle:UITableViewCellStyleDefault 
 										 reuseIdentifier:kTVMessageCellIdentifier] autorelease];
 		
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;	
-		cell.textLabel.text = self.messageCellText;
+		cell.messageLabel.text = self.messageCellText;
 		
 		return cell;
 	}

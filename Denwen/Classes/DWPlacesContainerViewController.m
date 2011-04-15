@@ -68,7 +68,7 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 								 kImgSegmentedViewPopularOff	,kKeyNormalImageName,
 								 nil],
 							   [NSDictionary dictionaryWithObjectsAndKeys:
-								[NSNumber numberWithInt:92]	,kKeyWidth,
+								[NSNumber numberWithInt:92]		,kKeyWidth,
 								[NSNumber numberWithBool:NO]	,kKeyIsSelected,
 								kImgSegmentedViewSearchOn		,kKeySelectedImageName,
 								kImgSegmentedViewSearchOff		,kKeyNormalImageName,

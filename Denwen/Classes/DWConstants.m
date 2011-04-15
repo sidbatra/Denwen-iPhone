@@ -194,8 +194,8 @@ NSInteger const kTableViewAsMessage			= 2;
 NSInteger const kTableViewAsProfileMessage	= 3;
 
 //----------------------------------------------------------------------------------------------------
-NSInteger const kTVLoadingCellCount			= 5;
-NSInteger const kTVLoadingCellHeight		= 74;
+NSInteger const kTVLoadingCellCount			= 1;
+NSInteger const kTVLoadingCellHeight		= 367;
 NSString* const kTVPaginationCellIdentifier = @"PaginationCell";
 NSString* const kTVMessageCellIdentifier	= @"MessageCell";
 NSString* const kTVLoadingCellIdentifier	= @"LoadingCell";

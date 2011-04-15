@@ -35,16 +35,6 @@ static NSInteger const kPlacesIndex				= 0;
 												 selector:@selector(popularPlacesError:) 
 													 name:kNPopularPlacesError
 												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(searchPlacesLoaded:) 
-													 name:kNSearchPlacesLoaded
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(searchPlacesError:) 
-													 name:kNSearchPlacesError
-												   object:nil];
 	}
 	
 	return self;
@@ -73,12 +63,6 @@ static NSInteger const kPlacesIndex				= 0;
 - (void)loadPlaces {
 	[super loadPlaces];
 	[[DWRequestsManager sharedDWRequestsManager] getPopularPlaces:_currentPage];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)searchPlaces:(NSString*)query {
-	if(query.length >= kMinimumQueryLength)
-		[[DWRequestsManager sharedDWRequestsManager] getSearchPlaces:query];
 }
 
 
@@ -111,22 +95,6 @@ static NSInteger const kPlacesIndex				= 0;
 	[self finishedLoadingPlaces];
 }
 
-//----------------------------------------------------------------------------------------------------
-- (void)searchPlacesLoaded:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-
-	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
-		
-		[_placeManager populateFilteredPlaces:places];
-		
-		[self refreshFilteredPlacesUI];
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)searchPlacesError:(NSNotification*)notification {
-}
 
 
 @end

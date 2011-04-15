@@ -14,7 +14,7 @@
 
 static NSInteger const kItemsPerPage				= 20;
 static NSInteger const kDefaultSections				= 1;
-static NSInteger const kSpinnerCellIndex			= 2;
+static NSInteger const kSpinnerCellIndex			= 0;
 static NSInteger const kMessageCellIndex			= 2;
 static NSInteger const kMaxFeedCellHeight			= 2000;
 static NSInteger const kItemFeedCellHeight			= 320;
@@ -387,8 +387,6 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 			cell = [[[DWLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault
 										 reuseIdentifier:kTVLoadingCellIdentifier] autorelease];
 		
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		[cell displayDarkState];
 		[cell.spinner startAnimating];
 		
 		return cell;

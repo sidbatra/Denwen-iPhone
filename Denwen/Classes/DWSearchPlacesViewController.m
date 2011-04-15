@@ -5,9 +5,11 @@
 
 #import "DWSearchPlacesViewController.h"
 #import "DWRequestsManager.h"
+#import "DWLoadingCell.h"
+#import "DWMessageCell.h"
 
-static NSString* const kSearchBarText				= @"Search any place in the world";
-static NSString* const kMsgInitial					= @"Search any place in the world";
+static NSString* const kSearchBarText				= @"Search places worldwide";
+static NSString* const kMsgInitial					= @"";
 static NSString* const kMsgNotFound					= @"No places found for %@";
 static NSString* const kSearchBarBackgroundClass	= @"UISearchBarBackground";
 static NSInteger const kMinimumQueryLength			= 1;
@@ -51,9 +53,9 @@ static NSInteger const kPlacesIndex					= 0;
 	searchBar					= [[[UISearchBar alloc] initWithFrame:CGRectMake(0,0,self.tableView.frame.size.width,0)] autorelease];
 	searchBar.delegate			= self;
 	searchBar.placeholder		= kSearchBarText;
-	searchBar.backgroundColor	= [UIColor blackColor];
-	searchBar.tintColor			= [UIColor blackColor];
+	searchBar.backgroundColor	= [UIColor colorWithRed:0.1294 green:0.1294 blue:0.1294 alpha:1.0];
 	[searchBar sizeToFit];	
+	
 	
 	for (UIView *subview in searchBar.subviews) {
 		if ([subview isKindOfClass:NSClassFromString(kSearchBarBackgroundClass)]) {
@@ -64,8 +66,12 @@ static NSInteger const kPlacesIndex					= 0;
 	
 	self.tableView.tableHeaderView = searchBar;
 	
-	_tableViewUsage			= kTableViewAsMessage;
-	self.messageCellText	= kMsgInitial;
+	_tableViewUsage					= kTableViewAsMessage;
+	self.messageCellText			= kMsgInitial;
+	
+	[self.refreshHeaderView applyBackgroundImage:nil 
+								   withFadeImage:nil
+							 withBackgroundColor:[UIColor colorWithRed:0.1294 green:0.1294 blue:0.1294 alpha:1.0]];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -155,7 +161,8 @@ static NSInteger const kPlacesIndex					= 0;
 	
 	if(theSearchBar.text.length >= kMinimumQueryLength) {
 		
-		_tableViewUsage	= kTableViewAsSpinner;
+		_tableViewUsage					= kTableViewAsSpinner;
+		self.tableView.scrollEnabled	= NO;
 		[self.tableView reloadData];
 		
 		[searchBar resignFirstResponder];
@@ -163,6 +170,27 @@ static NSInteger const kPlacesIndex					= 0;
 		[self loadPlaces];
 	}
 	
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+//----------------------------------------------------------------------------------------------------
+- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	UITableViewCell *cell = [super tableView:theTableView cellForRowAtIndexPath:indexPath];
+	
+	if(_tableViewUsage == kTableViewAsSpinner) {
+		[((DWLoadingCell*)cell) shorterCellMode];
+	}
+	else if(_tableViewUsage == kTableViewAsMessage) {
+		[((DWMessageCell*)cell) shorterCellMode];
+	}
+
+	return cell;
 }
 
 @end

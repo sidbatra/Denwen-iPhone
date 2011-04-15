@@ -347,16 +347,6 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	}
 	else {
 		cell = [super tableView:(tableView) cellForRowAtIndexPath:indexPath];
-		
-		//Override position of the message cell
-		if(_tableViewUsage == kTableViewAsProfileMessage && indexPath.row == kMessageCellIndex) {
-			((DWMessageCell*)cell).textLabel.text = @"";
-			((DWMessageCell*)cell).customTextLabel.hidden = NO;
-			((DWMessageCell*)cell).customTextLabel.text = self.messageCellText;
-		}
-		
-		/*if(_tableViewUsage == kTableViewAsData && indexPath.row < [self.itemManager totalItems])
-			[(DWItemFeedCell*)cell disableUserButtons];*/
 	}
 	
 	return cell;
