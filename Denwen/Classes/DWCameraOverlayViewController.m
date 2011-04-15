@@ -75,8 +75,8 @@
 - (void)viewDidLoad {
     self.view.backgroundColor   = [UIColor clearColor];
     
-    if ([[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] hasFlash])
-        [self showToggleCameraAndFlashButtons];
+    //if ([[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] hasFlash])
+    //    [self showToggleCameraAndFlashButtons];
     
     [super viewDidLoad];
 }

@@ -132,6 +132,11 @@ static NSString* const kImgChevron		= @"chevron.png";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (BOOL)isHighlighted {
+    return _highlighted;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)setPlaceImage:(UIImage*)placeImage {
 	placeImageLayer.contents = (id)placeImage.CGImage;
 }

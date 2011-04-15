@@ -58,9 +58,7 @@
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	 
-	[self.refreshHeaderView applyBackgroundColor:[UIColor whiteColor]];	
-	
+	 	
 	[self loadItems];
 }
 

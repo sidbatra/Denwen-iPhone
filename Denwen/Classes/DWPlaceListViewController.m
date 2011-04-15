@@ -382,7 +382,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	else if(_tableViewUsage == kTableViewAsData && 
 			indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section])
 		
-		height = kPlaceFeedCellHeight;
+		height = kPaginationCellHeight;
 	else
 		height = kTVLoadingCellHeight;
 	

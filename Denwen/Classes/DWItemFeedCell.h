@@ -5,50 +5,21 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "DWGUIManager.h"
-#import "InteractiveLabel.h"
 
-
-/**
- * Forms the background view of a selected item feed cell
- */
-@interface DWItemFeedSelectedView : UIView {
-}
-
-@end
-
+@class DWItemFeedCell;
 
 /**
- * Primary view for DWItemFeedViewCell
+ * Custom layer for display elements that are drawn
+ * via core graphics, mostly used for text
  */
-@interface DWItemFeedView : UIView {
-    UIImage     *_itemImage;
-    NSString    *_itemData;
-    
-    BOOL        _highlighted;
+@interface DWItemFeedCellDrawingLayer : CALayer {
+	DWItemFeedCell *itemCell;
 }
 
 /**
- * Text to be displayed at a place 
+ * Non retained reference to the item feed cell
  */
-@property (nonatomic,copy) NSString* itemData;
-
-/**
- * Place Image
- */
-@property (nonatomic,retain) UIImage* itemImage;
-
-
-/**
- * Reset any variables that may not be refreshed - eg : _highlight
- */
-- (void)reset;
-
-/**
- * Set the view to redraw when visible content has
- * been modified
- */
-- (void)redisplay;
+@property (nonatomic,assign) DWItemFeedCell *itemCell;
 
 @end
 
@@ -57,45 +28,25 @@
  * Cell used in item feed view controller
  */
 @interface DWItemFeedCell : UITableViewCell {
-    DWItemFeedView	*_itemFeedView;
-	UIImageView		*_itemImageView;
-    /*
-	id _eventTarget;
-	bool _hasAttachment;
-	NSInteger _itemID;
-	UIButton *placeName;
-	UIButton *placeImage;
-	UIImageView *userImage;
-	InteractiveLabel *dataLabel;
-	UILabel *userName;
-	UIButton *attachmentImage;
-	UIImageView *videoPlayIcon;
-	UILabel *timeLabel;
-	UIButton *transparentButton;*/
+	
+	CALayer							*itemImageLayer;
+	DWItemFeedCellDrawingLayer		*drawingLayer;
+
+	
+	BOOL							_highlighted;
+	
+	NSString						*_itemData;
 }
 
-/*@property (nonatomic, retain) UIButton *placeName;
-@property (nonatomic, retain) UIImageView *userImage;
-@property (nonatomic, retain) UIButton *attachmentImage;*/
-
 /**
- * Primary view for drawing content
+ * Text to be displayed on top of the item
  */
-@property (nonatomic,retain) DWItemFeedView *itemFeedView;
-
-
-@property (nonatomic,retain) UIImageView* itemImageView;
-
+@property (nonatomic,copy) NSString* itemData;
 
 /**
  * Reset any variables that may not be refreshed 
  */
 - (void)reset;
-
-/**
- * Set the item data
- */
-- (void)setItemData:(NSString*)itemData;
 
 /**
  * Set the item image
@@ -106,19 +57,6 @@
  * Sets the cell to be rerendered
  */
 - (void)redisplay;
-
-/*
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withTarget:(id)target;
-- (void)updateClassMemberHasAttachment:(BOOL)hasAttachment andItemID:(NSInteger)itemID;
-- (void)positionAndCustomizeCellItemsFrom:(NSString*)data userName:(NSString*)fullName andTime:(NSString*)timeAgoInWords;
-
-- (void)disablePlaceButtons;
-- (void)disableUserButtons;
-
-- (void)displayNewCellState;
-- (void)displayPlayIcon;
-
-- (void)setSmallPreviewPlaceImage:(UIImage*)image;*/
 
 @end
 

@@ -17,6 +17,7 @@ static NSInteger const kDefaultSections				= 1;
 static NSInteger const kSpinnerCellIndex			= 2;
 static NSInteger const kMessageCellIndex			= 2;
 static NSInteger const kMaxFeedCellHeight			= 2000;
+static NSInteger const kItemFeedCellHeight			= 320;
 static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 
 
@@ -65,14 +66,19 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	frame.size.height	= frame.size.height; 
 	self.view.frame		= frame;
 	
-	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
+	self.tableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
+	self.tableView.backgroundColor	= [UIColor blackColor];
 	
 	self.refreshHeaderView = [[[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 
 																						  0.0f - self.tableView.bounds.size.height,
 																						  self.view.frame.size.width,
 																						  self.tableView.bounds.size.height)] autorelease];
 	self.refreshHeaderView.delegate = self;
+	
+	[self.refreshHeaderView applyBackgroundImage:nil 
+								   withFadeImage:nil
+							 withBackgroundColor:[UIColor blackColor]];
+
 	[self.tableView addSubview:self.refreshHeaderView];	
 }
 
@@ -286,21 +292,8 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat height = 0;
 		
-	if(_tableViewUsage == kTableViewAsData && indexPath.row < [_itemManager totalItems]) {
-		
-		CGSize textSize = {self.view.frame.size.width - 69, kMaxFeedCellHeight};
-		CGSize size = [[_itemManager getItem:indexPath.row].data sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17] 
-															constrainedToSize:textSize
-																lineBreakMode:UILineBreakModeWordWrap];
-		
-		//NSInteger attachmentHeight = 0;
-		
-		if ([[_itemManager getItem:indexPath.row] hasAttachment]) 
-            height = 320;
-        else
-            height =  size.height;//61;
-			//attachmentHeight = kAttachmentHeight + kAttachmentYPadding;		
-	}
+	if(_tableViewUsage == kTableViewAsData && indexPath.row < [_itemManager totalItems])
+		height = kItemFeedCellHeight;
 	else if(_tableViewUsage == kTableViewAsData && indexPath.row == [_itemManager totalItems])
 		height = kPaginationCellHeight;
 	else 
@@ -395,6 +388,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 										 reuseIdentifier:kTVLoadingCellIdentifier] autorelease];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		[cell displayDarkState];
 		[cell.spinner startAnimating];
 		
 		return cell;
