@@ -47,7 +47,7 @@
 - (void) createSpinner {
 	CGRect rect = CGRectMake((self.contentView.frame.size.width - SPINNER_HEIGHT)/2, 
 							 (kPaginationCellHeight-SPINNER_HEIGHT)/2, SPINNER_HEIGHT, SPINNER_HEIGHT); 
-	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 	spinner.frame = rect;
 	
 	[self.contentView addSubview:spinner];	
@@ -61,9 +61,10 @@
 	CGRect rect = CGRectMake(112, 18, 120, 22);
 	messageLabel = [[UILabel alloc] initWithFrame:rect];	
 	messageLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];	
-	messageLabel.textColor = [UIColor colorWithRed:0.098 green:0.333 blue:0.559 alpha:1.0];
+	messageLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:0.098 green:0.333 blue:0.559 alpha:1.0];
 	messageLabel.highlightedTextColor = [UIColor whiteColor];
 	messageLabel.textAlignment = UITextAlignmentLeft;
+	messageLabel.backgroundColor = [UIColor clearColor];
 	
 	[self.contentView addSubview:messageLabel];
 	[messageLabel release];
