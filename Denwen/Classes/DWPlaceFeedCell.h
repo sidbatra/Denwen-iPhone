@@ -5,30 +5,38 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import <CoreText/CoreText.h>
+
+@class DWPlaceFeedCell;
 
 /**
- * Forms the background view of a selected place feed cell
+ * Custom layer for display elements that are drawn
+ * via core graphics, mostly used for text
  */
-@interface DWPlaceFeedSelectedView : UIView {
+@interface DWPlaceFeedCellDrawingLayer : CALayer {
+	DWPlaceFeedCell *placeCell;
 }
+
+/**
+ * Non retained reference to the place feed cell
+ */
+@property (nonatomic,assign) DWPlaceFeedCell *placeCell;
 
 @end
 
 
 /**
- * Primary view for DWPlaceFeedViewCell
+ * Represents a place in a list
  */
-@interface DWPlaceFeedView : UIView {
-	NSString		*_placeName;
-	NSString		*_placeData;
-	NSString		*_placeDetails;
-	UIImage			*_placeImage;
+@interface DWPlaceFeedCell : UITableViewCell {	
 	
-	CALayer			*_placeImageLayer;
-	CALayer			*_placeNameLayer;
+	CALayer							*placeImageLayer;
+	DWPlaceFeedCellDrawingLayer		*drawingLayer;
 	
-	BOOL			_highlighted;
+	BOOL							_highlighted;
+	
+	NSString						*_placeName;
+	NSString						*_placeData;
+	NSString						*_placeDetails;
 }
 
 /**
@@ -47,70 +55,17 @@
 @property (nonatomic,copy) NSString* placeDetails;
 
 /**
- * Place Image
- */
-@property (nonatomic,retain) UIImage* placeImage;
-
-@property (nonatomic,retain) CALayer* placeImageLayer;
-
-@property (nonatomic,retain) CALayer* placeNameLayer;
-
-/**
- * Reset any variables that may not be refreshed - eg : _highlight
- */
-- (void)reset;
-
-/**
- * Set the view to redraw when visible content has
- * been modified
- */
-- (void)redisplay;
-
-@end
-
-
-/**
- * Cell used in place list view controller
- */
-@interface DWPlaceFeedCell : UITableViewCell {
-	DWPlaceFeedView *_placeFeedView;
-     UIImageView	*_placeImageView;
-}
-
-/**
- * Primary view for drawing content
- */
-@property (nonatomic,retain) DWPlaceFeedView *placeFeedView;
-
-@property (nonatomic,retain) UIImageView* placeImageView;
-
-/**
  * Reset any variables that may not be refreshed 
  */
 - (void)reset;
 
 /**
- * Set the place name
- */
-- (void)setPlaceName:(NSString*)placeName;
-
-/**
- * Set the 
- */
-- (void)setPlaceData:(NSString*)placeData;
-
-/**
- * Set the place details
- */ 
-- (void)setPlaceDetails:(NSString*)placeDetails;
-
-/**
- * Set the place image
+ * Set the place image via the placeImageLayer
  */
 - (void)setPlaceImage:(UIImage*)placeImage;
 
 /**
- * Sets the cell to be rerendered
+ * Mark layers for redisplay
  */
 - (void)redisplay;
 

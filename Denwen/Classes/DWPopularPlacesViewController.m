@@ -26,6 +26,25 @@ static NSInteger const kPlacesIndex				= 0;
 					  andDelegate:delegate];
 	
 	if (self) {
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(popularPlacesLoaded:) 
+													 name:kNPopularPlacesLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(popularPlacesError:) 
+													 name:kNPopularPlacesError
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(searchPlacesLoaded:) 
+													 name:kNSearchPlacesLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(searchPlacesError:) 
+													 name:kNSearchPlacesError
+												   object:nil];
 	}
 	
 	return self;
@@ -36,27 +55,6 @@ static NSInteger const kPlacesIndex				= 0;
 	[super viewDidLoad];
 		
 	self.searchDisplayController.searchBar.placeholder = kSearchBarText;
-	
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(popularPlacesLoaded:) 
-												 name:kNPopularPlacesLoaded
-											   object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(popularPlacesError:) 
-												 name:kNPopularPlacesError
-											   object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(searchPlacesLoaded:) 
-												 name:kNSearchPlacesLoaded
-											   object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(searchPlacesError:) 
-												 name:kNSearchPlacesError
-											   object:nil];
 }
 
 //----------------------------------------------------------------------------------------------------

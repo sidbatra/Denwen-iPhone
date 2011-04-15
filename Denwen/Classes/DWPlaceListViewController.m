@@ -412,8 +412,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 										   reuseIdentifier:kPlaceFeedCellIdentifier] autorelease];
 		
 		[cell reset];
-		[cell setPlaceName:place.name];
-		[cell setPlaceDetails:[place displayAddress]];
+		cell.placeName  = place.name;
+		cell.placeDetails = [place displayAddress];
 		
 		//if (!tableView.dragging && !tableView.decelerating)
 		//	[place startPreviewDownload];
@@ -424,8 +424,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 			[cell setPlaceImage:nil];
             [place startPreviewDownload];
         }	
+		
+				
 		if(!place.attachment)
-			[cell setPlaceData:[place sliceText]];
+			cell.placeData = [place sliceText];
+
 				
 		[cell redisplay];
 		

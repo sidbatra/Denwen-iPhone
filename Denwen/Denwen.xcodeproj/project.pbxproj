@@ -66,7 +66,6 @@
 		2640A40F130A2A5700E0AEAF /* arrow_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2640A40D130A2A5700E0AEAF /* arrow_button@2x.png */; };
 		2661B1A21319F7BD00A89D13 /* mediabar_keyboard_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2661B1A01319F7BD00A89D13 /* mediabar_keyboard_bg.png */; };
 		2661B1A31319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2661B1A11319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png */; };
-		2666BC811358141200C0980D /* DWSearchPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2666BC801358141200C0980D /* DWSearchPlacesViewController.m */; };
 		2672240D131B3F9600654D88 /* modalview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2672240B131B3F9600654D88 /* modalview_bg.png */; };
 		2672240E131B3F9600654D88 /* modalview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2672240C131B3F9600654D88 /* modalview_bg@2x.png */; };
 		268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B56811356682800BB43DC /* DWCameraOverlayViewController.m */; };
@@ -116,6 +115,7 @@
 		BB05BB21131B30E50068331E /* segmented_view_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BB05BB1F131B30E50068331E /* segmented_view_bg.png */; };
 		BB05BB22131B30E50068331E /* segmented_view_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB05BB20131B30E50068331E /* segmented_view_bg@2x.png */; };
 		BB0C7E301357FE280007D6A9 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0C7E2F1357FE280007D6A9 /* CoreText.framework */; };
+		BB0C7FE7135811F20007D6A9 /* DWSearchPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C7FE6135811F20007D6A9 /* DWSearchPlacesViewController.m */; };
 		BB0CFCFC1302261400F38552 /* DWPaginationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0CFCFB1302261400F38552 /* DWPaginationCell.m */; };
 		BB17B8DA12EA11AF00DD42FC /* DWItemFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB17B8D812EA11AF00DD42FC /* DWItemFeedViewController.m */; };
 		BB17B8DB12EA11AF00DD42FC /* DWItemFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17B8D912EA11AF00DD42FC /* DWItemFeedViewController.xib */; };
@@ -425,8 +425,6 @@
 		2640A40D130A2A5700E0AEAF /* arrow_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow_button@2x.png"; path = "resources/arrow_button@2x.png"; sourceTree = "<group>"; };
 		2661B1A01319F7BD00A89D13 /* mediabar_keyboard_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mediabar_keyboard_bg.png; path = resources/mediabar_keyboard_bg.png; sourceTree = "<group>"; };
 		2661B1A11319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mediabar_keyboard_bg@2x.png"; path = "resources/mediabar_keyboard_bg@2x.png"; sourceTree = "<group>"; };
-		2666BC7F1358141200C0980D /* DWSearchPlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSearchPlacesViewController.h; path = Classes/DWSearchPlacesViewController.h; sourceTree = "<group>"; };
-		2666BC801358141200C0980D /* DWSearchPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSearchPlacesViewController.m; path = Classes/DWSearchPlacesViewController.m; sourceTree = "<group>"; };
 		2672240B131B3F9600654D88 /* modalview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = modalview_bg.png; path = resources/modalview_bg.png; sourceTree = "<group>"; };
 		2672240C131B3F9600654D88 /* modalview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modalview_bg@2x.png"; path = "resources/modalview_bg@2x.png"; sourceTree = "<group>"; };
 		268B56801356682800BB43DC /* DWCameraOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCameraOverlayViewController.h; path = Classes/DWCameraOverlayViewController.h; sourceTree = "<group>"; };
@@ -495,6 +493,8 @@
 		BB05BB1F131B30E50068331E /* segmented_view_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = segmented_view_bg.png; path = resources/segmented_view_bg.png; sourceTree = "<group>"; };
 		BB05BB20131B30E50068331E /* segmented_view_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "segmented_view_bg@2x.png"; path = "resources/segmented_view_bg@2x.png"; sourceTree = "<group>"; };
 		BB0C7E2F1357FE280007D6A9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		BB0C7FE5135811F20007D6A9 /* DWSearchPlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSearchPlacesViewController.h; path = Classes/DWSearchPlacesViewController.h; sourceTree = "<group>"; };
+		BB0C7FE6135811F20007D6A9 /* DWSearchPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSearchPlacesViewController.m; path = Classes/DWSearchPlacesViewController.m; sourceTree = "<group>"; };
 		BB0CFCFA1302261400F38552 /* DWPaginationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPaginationCell.h; path = Classes/DWPaginationCell.h; sourceTree = "<group>"; };
 		BB0CFCFB1302261400F38552 /* DWPaginationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPaginationCell.m; path = Classes/DWPaginationCell.m; sourceTree = "<group>"; };
 		BB0CFE721302703A00F38552 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = resources/Entitlements.plist; sourceTree = "<group>"; };
@@ -1690,8 +1690,8 @@
 		BBC2FA4212F234E1001BF5D6 /* Places */ = {
 			isa = PBXGroup;
 			children = (
-				2666BC7F1358141200C0980D /* DWSearchPlacesViewController.h */,
-				2666BC801358141200C0980D /* DWSearchPlacesViewController.m */,
+				BB0C7FE5135811F20007D6A9 /* DWSearchPlacesViewController.h */,
+				BB0C7FE6135811F20007D6A9 /* DWSearchPlacesViewController.m */,
 				26CAF7AF12F21E110058C01E /* DWPlacesContainerViewController.h */,
 				26CAF7B012F21E110058C01E /* DWPlacesContainerViewController.m */,
 				26CAF7AC12F21E110058C01E /* DWPlaceListViewController.h */,
@@ -2146,7 +2146,7 @@
 				BB9EC27713542DF000D6BBF6 /* DWTabBarController.m in Sources */,
 				BBE24F6A13562D2200A90B44 /* UINavigationBar+Custom.m in Sources */,
 				268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */,
-				2666BC811358141200C0980D /* DWSearchPlacesViewController.m in Sources */,
+				BB0C7FE7135811F20007D6A9 /* DWSearchPlacesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
