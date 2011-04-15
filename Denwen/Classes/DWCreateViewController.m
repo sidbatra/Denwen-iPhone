@@ -331,15 +331,11 @@ replacementString:(NSString *)string {
 
 //----------------------------------------------------------------------------------------------------
 - (void)cameraButtonClicked:(id)sender {
-	
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
-															 delegate:self 
-													cancelButtonTitle:kMsgCancelMedia
-											   destructiveButtonTitle:nil
-													otherButtonTitles:kMsgTakeMedia,kMsgChooseMedia,nil];
-	
-	[actionSheet showInView:self.view];
-	[actionSheet release];
+    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
+    
+    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
+    [picker prepareForMediaWithPickerMode:kMediaPickerCaptureMode];
+    [self presentModalViewController:picker animated:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -429,28 +425,6 @@ replacementString:(NSString *)string {
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UIActionSheetDelegate
-
-//----------------------------------------------------------------------------------------------------
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
-	
-	if(buttonIndex != kActionSheetCancelIndex) {
-		[[DWMemoryPool sharedDWMemoryPool] freeMemory];
-		
-		DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
-		
-		[picker prepareForMediaWithPickerMode:buttonIndex == 0 ? kMediaPickerCaptureMode : kMediaPickerLibraryMode
-								  withEditing:YES];
-		
-		[self presentModalViewController:picker
-								animated:YES];
-	}
-}	
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
 #pragma mark DWMediaPickerControllerDelegate
 
 //----------------------------------------------------------------------------------------------------
@@ -500,6 +474,17 @@ replacementString:(NSString *)string {
 //----------------------------------------------------------------------------------------------------
 - (void)mediaPickerCancelled {
 	[self dismissModalViewControllerAnimated:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)photoLibraryModeSelected {
+    [self dismissModalViewControllerAnimated:NO];
+    
+    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
+    
+    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
+    [picker prepareForMediaWithPickerMode:kMediaPickerLibraryMode];
+    [self presentModalViewController:picker animated:YES];
 }
 
 

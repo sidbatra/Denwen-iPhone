@@ -428,9 +428,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 		
 		DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
 		
-		[picker prepareForImageWithPickerMode:buttonIndex == 0 ? kMediaPickerCaptureMode : kMediaPickerLibraryMode
-								  withEditing:YES];
-		
+		[picker prepareForImageWithPickerMode:kMediaPickerCaptureMode];
 		[self presentModalViewController:picker
 								animated:YES];
 	}

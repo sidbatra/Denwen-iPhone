@@ -22,12 +22,16 @@ static NSInteger const kThumbnailTimestamp	= 1;
 //----------------------------------------------------------------------------------------------------
 @implementation DWMediaPickerController
 
+@synthesize cameraOverlayViewController     = _cameraOverlayViewController;
+
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)theDelegate {
     self = [super init];
     
     if(self) {
         _mediaDelegate = theDelegate;
+        self.cameraOverlayViewController = [[[DWCameraOverlayViewController alloc] 
+                                             initWithDelegate:self] autorelease];
     }
     
 	return self;  
@@ -122,26 +126,25 @@ static NSInteger const kThumbnailTimestamp	= 1;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)prepare:(NSInteger)pickerMode allowsEditing:(BOOL)doesAllowEditing {
-	
-    self.delegate					= self;
-	self.allowsEditing				= doesAllowEditing;
-    self.sourceType					= pickerMode;
+- (void)prepare:(NSInteger)pickerMode {
+    self.delegate                   = self;
+    self.sourceType                 = pickerMode;
+    
+    if (pickerMode == kMediaPickerCaptureMode) {
+        self.cameraOverlayView          = self.cameraOverlayViewController.view;
+        self.showsCameraControls        = NO;
+    }
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)prepareForImageWithPickerMode:(NSInteger)pickerMode
-						  withEditing:(BOOL)doesAllowEditing {
-	
-	[self prepare:pickerMode allowsEditing:doesAllowEditing];
+- (void)prepareForImageWithPickerMode:(NSInteger)pickerMode {
+	[self prepare:pickerMode];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)prepareForMediaWithPickerMode:(NSInteger)pickerMode
-						  withEditing:(BOOL)doesAllowEditing {
-	
-	[self prepare:pickerMode allowsEditing:doesAllowEditing];
-	
+- (void)prepareForMediaWithPickerMode:(NSInteger)pickerMode {
+	[self prepare:pickerMode];
+    
     self.mediaTypes					= [UIImagePickerController availableMediaTypesForSourceType:
 																self.sourceType];   
     self.videoMaximumDuration		= kMaxVideoDuration;
@@ -149,7 +152,9 @@ static NSInteger const kThumbnailTimestamp	= 1;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void) dealloc {		
+- (void) dealloc {	
+	self.cameraOverlayViewController = nil;
+    
     [super dealloc];
 }
 
@@ -161,12 +166,11 @@ static NSInteger const kThumbnailTimestamp	= 1;
 
 //----------------------------------------------------------------------------------------------------
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
 	NSURL *mediaURL = (NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
 	
 	if(!mediaURL) {
 		UIImage *originalImage	= [info valueForKey:UIImagePickerControllerOriginalImage];
-		UIImage *editedImage	= [info valueForKey:UIImagePickerControllerEditedImage];
+		//UIImage *editedImage	= [info valueForKey:UIImagePickerControllerEditedImage];
 		
 		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
 			UIImageWriteToSavedPhotosAlbum(originalImage, self, 
@@ -174,7 +178,7 @@ static NSInteger const kThumbnailTimestamp	= 1;
                                            nil);
 		
 		[_mediaDelegate didFinishPickingImage:originalImage 
-								  andEditedTo:editedImage];
+								  andEditedTo:originalImage];
 	}
 	else {
 		NSString *orientation = [self extractOrientationOfVideo:mediaURL];
@@ -196,6 +200,34 @@ static NSInteger const kThumbnailTimestamp	= 1;
    [_mediaDelegate mediaPickerCancelled];
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWCameraOverlayViewControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)cameraButtonClickedInOverlayView {
+    [self takePicture];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)cancelButtonClickedInOverlayView {
+    [_mediaDelegate mediaPickerCancelled];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)toggleCameraButtonClickedInOverlayView {
+    if (self.cameraDevice == UIImagePickerControllerCameraDeviceRear)
+        self.cameraDevice  = UIImagePickerControllerCameraDeviceFront;
+    else
+        self.cameraDevice  = UIImagePickerControllerCameraDeviceRear;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)photoLibraryButtonClickedInOverlayView {
+    [_mediaDelegate photoLibraryModeSelected];
+}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

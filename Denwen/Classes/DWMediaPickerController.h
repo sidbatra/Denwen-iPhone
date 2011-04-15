@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "DWCameraOverlayViewController.h"
+
 
 @protocol DWMediaPickerControllerDelegate;
 
@@ -15,7 +17,15 @@
 @interface DWMediaPickerController : UIImagePickerController <UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
 	
     id <DWMediaPickerControllerDelegate>	_mediaDelegate;
+    DWCameraOverlayViewController           *_cameraOverlayViewController;
 }
+
+
+/**
+ * Overlay for the default iPhone Camera
+ */
+@property (nonatomic,retain) DWCameraOverlayViewController *cameraOverlayViewController;
+
 
 /**
  * Init with delegate to capture media picker events
@@ -25,16 +35,15 @@
 /**
  * Prepare the imagePickerController for media (image & video)
  */
-- (void)prepareForMediaWithPickerMode:(NSInteger)pickingMode 
-						  withEditing:(BOOL)doesAllowEditing;
+- (void)prepareForMediaWithPickerMode:(NSInteger)pickingMode;
 
 /**
  * Prepare the imagePickerController for images
  */
-- (void)prepareForImageWithPickerMode:(NSInteger)pickingMode
-						  withEditing:(BOOL)doesAllowEditing;
-
+- (void)prepareForImageWithPickerMode:(NSInteger)pickingMode;
+						
 @end
+
 
 
 /**
@@ -64,5 +73,11 @@
  * Fired when media picking is cancelled
  */
 - (void)mediaPickerCancelled;
+
+
+/**
+ * Fired when the photo library option is selected
+ */
+- (void)photoLibraryModeSelected;
 
 @end
