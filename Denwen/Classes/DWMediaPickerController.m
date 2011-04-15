@@ -133,6 +133,7 @@ static NSInteger const kThumbnailTimestamp	= 1;
     if (pickerMode == kMediaPickerCaptureMode) {
         self.cameraOverlayView          = self.cameraOverlayViewController.view;
         self.showsCameraControls        = NO;
+        self.cameraFlashMode            = UIImagePickerControllerCameraFlashModeOff;
     }
 }
 
@@ -216,6 +217,11 @@ static NSInteger const kThumbnailTimestamp	= 1;
     [_mediaDelegate mediaPickerCancelled];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)flashButtonClickedInOverlayView:(NSInteger)cameraFlashMode {
+    self.cameraFlashMode = cameraFlashMode;
+}
+ 
 //----------------------------------------------------------------------------------------------------
 - (void)toggleCameraButtonClickedInOverlayView {
     if (self.cameraDevice == UIImagePickerControllerCameraDeviceRear)

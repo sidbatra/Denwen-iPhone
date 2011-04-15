@@ -33,6 +33,7 @@
     self = [super init];
     if (self) {
         _overlayDelegate            = theDelegate;
+        _cameraFlashMode            = kCameraFlashModeOff;     
     }
     return self;
 }
@@ -43,6 +44,7 @@
     self.cancelButton           = nil;
     self.flashButton            = nil;
     self.toggleCameraButton     = nil;
+    self.photoLibraryButton     = nil;
     
     [super dealloc];
 }
@@ -60,7 +62,8 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)showToggleCameraAndFlashButtons {
-    self.toggleCameraButton.hidden  = NO;
+    self.toggleCameraButton.hidden      = NO;
+    self.flashButton.hidden             = NO;
 }
 
 
@@ -101,7 +104,15 @@
 
 //----------------------------------------------------------------------------------------------------
 - (IBAction)flashButtonClicked:(id)sender {
-
+    if (_cameraFlashMode == kCameraFlashModeOff) {
+        _cameraFlashMode = kCameraFlashModeOn;
+        [self.flashButton setTitle:@"Flash On" forState:UIControlStateNormal];
+    }
+    else {
+        _cameraFlashMode = kCameraFlashModeOff;
+        [self.flashButton setTitle:@"Flash Off" forState:UIControlStateNormal];
+    }
+    [_overlayDelegate flashButtonClickedInOverlayView:_cameraFlashMode];
 }
 
 //----------------------------------------------------------------------------------------------------

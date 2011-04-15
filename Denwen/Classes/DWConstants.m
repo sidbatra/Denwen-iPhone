@@ -206,6 +206,10 @@ NSInteger const kMediaPickerCaptureMode		= UIImagePickerControllerSourceTypeCame
 NSInteger const kMediaPickerLibraryMode		= UIImagePickerControllerSourceTypePhotoLibrary;
 
 //----------------------------------------------------------------------------------------------------
+NSInteger const kCameraFlashModeOn          = UIImagePickerControllerCameraFlashModeOn;
+NSInteger const kCameraFlashModeOff         = UIImagePickerControllerCameraFlashModeOff;
+
+//----------------------------------------------------------------------------------------------------
 NSInteger const kLocFreshness				= 9;
 NSInteger const kLocAccuracy				= 1100;
 NSInteger const kLocRefreshDistance			= 750;

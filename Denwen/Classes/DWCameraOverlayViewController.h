@@ -6,6 +6,8 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "DWConstants.h"
+
 
 @protocol DWCameraOverlayViewControllerDelegate;
 
@@ -13,13 +15,15 @@
  * Camera Overlay View Controller
  */
 @interface DWCameraOverlayViewController : UIViewController {
-    id <DWCameraOverlayViewControllerDelegate>      _overlayDelegate;
+    NSInteger       _cameraFlashMode;    
     
     UIButton        *_cameraButton;
     UIButton        *_cancelButton;
     UIButton        *_flashButton;
     UIButton        *_toggleCameraButton;
     UIButton        *_photoLibraryButton;
+    
+    id <DWCameraOverlayViewControllerDelegate>      _overlayDelegate;
 }
 
 
@@ -61,6 +65,7 @@
 - (void)cameraButtonClickedInOverlayView;
 - (void)cancelButtonClickedInOverlayView;
 - (void)toggleCameraButtonClickedInOverlayView;
+- (void)flashButtonClickedInOverlayView:(NSInteger)cameraFlashMode;
 - (void)photoLibraryButtonClickedInOverlayView;
 
 @end

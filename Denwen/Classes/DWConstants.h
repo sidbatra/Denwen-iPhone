@@ -199,6 +199,12 @@ extern NSInteger const kMediaPickerCaptureMode;
 extern NSInteger const kMediaPickerLibraryMode;
 
 /**
+ * Camera flash modes
+ */
+extern NSInteger const kCameraFlashModeOn;
+extern NSInteger const kCameraFlashModeOff;
+
+/**
  * Location
  */
 extern NSInteger const kLocFreshness;

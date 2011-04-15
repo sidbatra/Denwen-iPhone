@@ -253,9 +253,9 @@ static NSString* const kImgChevron		= @"chevron.png";
         
 		CGRect frame = CGRectMake(0.0,0.0,320,92);
         
-         placeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 92)];
+         /*placeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 92)];
         [self.contentView addSubview:placeImageView];
-        [placeImageView release];
+        [placeImageView release];*/
         
 		self.placeFeedView = [[[DWPlaceFeedView alloc] initWithFrame:frame] autorelease];
         [self.contentView addSubview:self.placeFeedView];
