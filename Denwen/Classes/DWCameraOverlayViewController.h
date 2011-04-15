@@ -15,13 +15,18 @@
  * Camera Overlay View Controller
  */
 @interface DWCameraOverlayViewController : UIViewController {
-    NSInteger       _cameraFlashMode;    
+    NSInteger       _cameraFlashMode;
+    NSInteger       _cameraCaptureMode;
+    NSInteger       _cameraDevice;
+    BOOL            _isRecording;
     
     UIButton        *_cameraButton;
     UIButton        *_cancelButton;
     UIButton        *_flashButton;
     UIButton        *_toggleCameraButton;
     UIButton        *_photoLibraryButton;
+    UIButton        *_recordButton;
+    UIButton        *_cameraCaptureModeButton;
     
     id <DWCameraOverlayViewControllerDelegate>      _overlayDelegate;
 }
@@ -41,6 +46,8 @@
 @property (nonatomic, retain) IBOutlet UIButton *flashButton;
 @property (nonatomic, retain) IBOutlet UIButton *toggleCameraButton;
 @property (nonatomic, retain) IBOutlet UIButton *photoLibraryButton;
+@property (nonatomic, retain) IBOutlet UIButton *recordButton;
+@property (nonatomic, retain) IBOutlet UIButton *cameraCaptureModeButton;
 
 
 /**
@@ -51,6 +58,8 @@
 - (IBAction)flashButtonClicked:(id)sender;
 - (IBAction)toggleCameraButtonClicked:(id)sender;
 - (IBAction)photoLibraryButtonClicked:(id)sender;
+- (IBAction)recordButtonClicked:(id)sender;
+- (IBAction)cameraCaptureModeButtonClicked:(id)sender;
 
 @end
 
@@ -62,10 +71,13 @@
  */
 @protocol DWCameraOverlayViewControllerDelegate
 
+- (void)startRecording;
+- (void)stopRecording;
 - (void)cameraButtonClickedInOverlayView;
 - (void)cancelButtonClickedInOverlayView;
-- (void)toggleCameraButtonClickedInOverlayView;
-- (void)flashButtonClickedInOverlayView:(NSInteger)cameraFlashMode;
 - (void)photoLibraryButtonClickedInOverlayView;
+- (void)cameraDeviceChangedInOverlayView:(NSInteger)cameraDevie;
+- (void)flashModeChangedInOverlayView:(NSInteger)cameraFlashMode;
+- (void)cameraCaptureModeChangedInOverlayView:(NSInteger)cameraCaptureMode;
 
 @end

@@ -72,7 +72,7 @@
 /**
  * Fired when media picking is cancelled
  */
-- (void)mediaPickerCancelled;
+- (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode;
 
 
 /**

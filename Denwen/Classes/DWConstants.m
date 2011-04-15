@@ -210,6 +210,14 @@ NSInteger const kCameraFlashModeOn          = UIImagePickerControllerCameraFlash
 NSInteger const kCameraFlashModeOff         = UIImagePickerControllerCameraFlashModeOff;
 
 //----------------------------------------------------------------------------------------------------
+NSInteger const kCameraCaptureModeVideo     = UIImagePickerControllerCameraCaptureModeVideo;
+NSInteger const kCameraCaptureModePhoto     = UIImagePickerControllerCameraCaptureModePhoto;
+
+//----------------------------------------------------------------------------------------------------
+NSInteger const kCameraDeviceRear           = UIImagePickerControllerCameraDeviceRear;
+NSInteger const kCameraDeviceFront          = UIImagePickerControllerCameraDeviceFront;
+
+//----------------------------------------------------------------------------------------------------
 NSInteger const kLocFreshness				= 9;
 NSInteger const kLocAccuracy				= 1100;
 NSInteger const kLocRefreshDistance			= 750;

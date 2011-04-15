@@ -198,7 +198,7 @@ static NSInteger const kThumbnailTimestamp	= 1;
 
 //----------------------------------------------------------------------------------------------------
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-   [_mediaDelegate mediaPickerCancelled];
+   [_mediaDelegate mediaPickerCancelledFromMode:picker.sourceType];
 }
 
 
@@ -214,25 +214,37 @@ static NSInteger const kThumbnailTimestamp	= 1;
 
 //----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClickedInOverlayView {
-    [_mediaDelegate mediaPickerCancelled];
+    [_mediaDelegate mediaPickerCancelledFromMode:UIImagePickerControllerSourceTypeCamera];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)flashButtonClickedInOverlayView:(NSInteger)cameraFlashMode {
+- (void)flashModeChangedInOverlayView:(NSInteger)cameraFlashMode {
     self.cameraFlashMode = cameraFlashMode;
 }
  
 //----------------------------------------------------------------------------------------------------
-- (void)toggleCameraButtonClickedInOverlayView {
-    if (self.cameraDevice == UIImagePickerControllerCameraDeviceRear)
-        self.cameraDevice  = UIImagePickerControllerCameraDeviceFront;
-    else
-        self.cameraDevice  = UIImagePickerControllerCameraDeviceRear;
+- (void)cameraDeviceChangedInOverlayView:(NSInteger)cameraDevie {
+    self.cameraDevice = cameraDevie;
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)photoLibraryButtonClickedInOverlayView {
     [_mediaDelegate photoLibraryModeSelected];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)startRecording {
+    [self startVideoCapture];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)stopRecording {
+    [self stopVideoCapture];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)cameraCaptureModeChangedInOverlayView:(NSInteger)cameraCaptureMode {
+    self.cameraCaptureMode = cameraCaptureMode;
 }
 
 //----------------------------------------------------------------------------------------------------

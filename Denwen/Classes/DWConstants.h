@@ -205,6 +205,18 @@ extern NSInteger const kCameraFlashModeOn;
 extern NSInteger const kCameraFlashModeOff;
 
 /**
+ * Camera capture modes
+ */
+NSInteger const kCameraCaptureModeVideo;
+NSInteger const kCameraCaptureModePhoto;
+
+/**
+ * Camera devices
+ */
+NSInteger const kCameraDeviceRear;
+NSInteger const kCameraDeviceFront;
+
+/**
  * Location
  */
 extern NSInteger const kLocFreshness;

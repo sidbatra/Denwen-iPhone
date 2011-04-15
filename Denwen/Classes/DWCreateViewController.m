@@ -321,6 +321,16 @@ replacementString:(NSString *)string {
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
+-(void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode {
+    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
+    
+    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
+    [picker prepareForMediaWithPickerMode:pickerMode];
+    [self presentModalViewController:picker animated:NO];   
+}
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark IBActions
 
@@ -331,11 +341,7 @@ replacementString:(NSString *)string {
 
 //----------------------------------------------------------------------------------------------------
 - (void)cameraButtonClicked:(id)sender {
-    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
-    
-    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
-    [picker prepareForMediaWithPickerMode:kMediaPickerCaptureMode];
-    [self presentModalViewController:picker animated:YES];
+    [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -445,7 +451,7 @@ replacementString:(NSString *)string {
 	self.cameraImage			= editedImage;
 	self.previewImageView.image = editedImage;
 	
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:NO];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -468,23 +474,21 @@ replacementString:(NSString *)string {
 	
 	self.previewImageView.image = image;
 		
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:NO];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)mediaPickerCancelled {
-	[self dismissModalViewControllerAnimated:YES];
+- (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode {    
+    [self dismissModalViewControllerAnimated:NO];  
+    
+    if (imagePickerMode == kMediaPickerLibraryMode)
+        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)photoLibraryModeSelected {
     [self dismissModalViewControllerAnimated:NO];
-    
-    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
-    
-    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
-    [picker prepareForMediaWithPickerMode:kMediaPickerLibraryMode];
-    [self presentModalViewController:picker animated:YES];
+    [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode];
 }
 
 
