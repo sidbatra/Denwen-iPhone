@@ -10,6 +10,7 @@
 
 #define kImgTouchIcon			@"chevron.png"
 #define kImgTouched				@"chevron.png"
+#define kImgPlay				@"play.png"
 #define kFontItemPlaceName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]
 #define kFontItemData			[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
 #define kFontItemUserName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]
@@ -21,7 +22,7 @@
 #define kNormalAlpha			0.45
 #define kHighlightAlpha			1.0
 #define kSelectionDelay			0.45
-#define kTouchInterval			0.8
+#define kTouchInterval			0.6
 #define kAfterTouchFadeInerval	1.0
 #define kNormalFadeInterval		0.5
 
@@ -167,6 +168,22 @@
 		[[self layer] addSublayer:touchedImageLayer];
 		
 		
+		playImageLayer					= [CALayer layer];
+		playImageLayer.frame			= CGRectMake(7,320-20,20,20);
+		playImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
+		playImageLayer.contents		= (id)[UIImage imageNamed:kImgPlay].CGImage;
+		playImageLayer.hidden		= YES;
+		playImageLayer.actions		= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										   [NSNull null], @"onOrderIn",
+										   [NSNull null], @"onOrderOut",
+										   [NSNull null], @"sublayers",
+										   [NSNull null], @"hidden",
+										   [NSNull null], @"contents",
+										   [NSNull null], @"bounds",
+										   nil];
+		[[self layer] addSublayer:playImageLayer];
+		
+		
 		
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
 		drawingLayer.itemCell			= self;
@@ -252,8 +269,10 @@
 	_highlighted				= NO;
 	_placeButtonPressed			= NO;
 	_userButtonPressed			= NO;
+	_isVideoAttachment			= NO;
 	
 	touchedImageLayer.hidden	= YES;
+	playImageLayer.hidden		= YES;
 	
 	_itemPlaceNameSize			= [self.itemPlaceName sizeWithFont:kFontItemPlaceName];
 	
@@ -310,11 +329,17 @@
 //----------------------------------------------------------------------------------------------------
 - (void)touchCell {
 	
-	touchedImageLayer.hidden = NO;
+	touchedImageLayer.hidden	= NO;
 	
-	[self performSelector:@selector(fadeCell) 
+	[self performSelector:@selector(finishTouchCell) 
 			   withObject:nil
 			   afterDelay:1.0];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)finishTouchCell {
+	[self fadeCell];
+	[_delegate cellTouched:_itemID];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -323,6 +348,9 @@
 	self.highlightedAt			= [NSDate dateWithTimeIntervalSinceNow:0];
 	touchIconImageLayer.hidden	= YES;
 	itemImageLayer.opacity		= kHighlightAlpha;
+	
+	if(_isVideoAttachment)
+		playImageLayer.hidden	= YES;
 	
 	[self redisplay];
 }
@@ -333,6 +361,9 @@
 	touchIconImageLayer.hidden	= NO;
 	itemImageLayer.opacity		= kNormalAlpha;
 	touchedImageLayer.hidden	= YES;
+	
+	if(_isVideoAttachment)
+		playImageLayer.hidden	= NO;
 	
 	[self redisplay];
 }
@@ -360,6 +391,13 @@
 	_userButtonPressed = YES;
 	[self redisplay];
 }
+
+//----------------------------------------------------------------------------------------------------
+- (void)setAsVideoAttachment {
+	playImageLayer.hidden	= NO;
+	_isVideoAttachment		= YES;
+}
+
 
 
 //----------------------------------------------------------------------------------------------------

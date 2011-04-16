@@ -19,8 +19,8 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 
 
 //----------------------------------------------------------------------------------------------------
-- (id)init {
-	self = [super init];
+- (id)initWithTabBarController:(UIViewController*)theCustomTabBarController {
+	self = [super initWithTabBarController:theCustomTabBarController];
 	
 	if (self) {		
 		self.title				= kTabTitle;

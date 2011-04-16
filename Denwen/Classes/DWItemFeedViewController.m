@@ -336,8 +336,12 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 			[item startRemoteImagesDownload];
 		}
         
-        if ([item hasAttachment])
+        if ([item hasAttachment]) {
 			[cell setItemImage:item.attachment.previewImage];
+			
+			if([item.attachment isVideo])
+				[cell setAsVideoAttachment];
+		}
 		else
 			[cell setItemImage:nil];
         
@@ -451,6 +455,16 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark DWItemFeedCellDelegate
+
+- (void)cellTouched:(NSInteger)itemID {
+	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:itemID
+																	atRow:kMPItemsIndex];
+	
+	if(item.attachment && [item.attachment isVideo]) {
+		[_delegate attachmentSelected:item.attachment.fileURL
+					  withIsImageType:NO];
+	}
+}
 
 //----------------------------------------------------------------------------------------------------
 - (void)placeSelectedForItemID:(NSInteger)itemID {

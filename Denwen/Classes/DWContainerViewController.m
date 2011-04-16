@@ -19,10 +19,12 @@
 @implementation DWContainerViewController
 
 //----------------------------------------------------------------------------------------------------
-- (id)init {
+- (id)initWithTabBarController:(UIViewController*)theCustomTabBarController {
 	self = [super init];
 	
 	if (self) {		
+		
+		customTabBarController = theCustomTabBarController;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(denwenURLOpened:) 
@@ -126,7 +128,7 @@
 	else {
 		DWVideoViewController *videoView = [[DWVideoViewController alloc] initWithMediaURL:url];
 		videoView.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-		[self presentMoviePlayerViewControllerAnimated:videoView];
+		[customTabBarController presentMoviePlayerViewControllerAnimated:videoView];
 		[videoView release];
 	}
 }

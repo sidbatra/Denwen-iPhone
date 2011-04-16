@@ -33,6 +33,7 @@
 	CALayer							*itemImageLayer;
 	CALayer							*touchIconImageLayer;
 	CALayer							*touchedImageLayer;
+	CALayer							*playImageLayer;
 
 	DWItemFeedCellDrawingLayer		*drawingLayer;
 
@@ -40,6 +41,7 @@
 	BOOL							_highlighted;
 	BOOL							_placeButtonPressed;
 	BOOL							_userButtonPressed;
+	BOOL							_isVideoAttachment;
 	
 	NSInteger						_itemID;
 	
@@ -96,6 +98,11 @@
 - (void)setItemImage:(UIImage*)itemImage;
 
 /**
+ * Modifies display for a video attachment
+ */
+- (void)setAsVideoAttachment;
+
+/**
  * Sets the cell to be rerendered
  */
 - (void)redisplay;
@@ -110,6 +117,7 @@
 - (void)highlightCell;
 - (void)fadeCell;
 - (void)touchCell;
+- (void)finishTouchCell;
 @end
 
 
@@ -117,6 +125,7 @@
  * Delegate protocol to send events about cell interactions
  */
 @protocol DWItemFeedCellDelegate
+- (void)cellTouched:(NSInteger)itemID;
 - (void)placeSelectedForItemID:(NSInteger)itemID;
 - (void)userSelectedForItemID:(NSInteger)itemID;
 @end

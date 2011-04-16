@@ -36,8 +36,8 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 @synthesize segmentedControl	= _segmentedControl;
 
 //----------------------------------------------------------------------------------------------------
-- (id)init {
-	self = [super init];
+- (id)initWithTabBarController:(UIViewController*)theCustomTabBarController {
+	self = [super initWithTabBarController:theCustomTabBarController];
 	
 	if (self) {
 	}

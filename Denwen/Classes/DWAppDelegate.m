@@ -164,20 +164,7 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)setupTabBarController {
-	DWItemsContainerViewController *itemsContainerViewController	= [[[DWItemsContainerViewController alloc] init] autorelease];
-	UINavigationController *itemsNavController						= [[[UINavigationController alloc] initWithRootViewController:
-																		itemsContainerViewController] autorelease];
-	
-	UIViewController *createController = [[[UIViewController alloc] init] autorelease];
-	
-	DWPlacesContainerViewController *placesContainerViewController	= [[[DWPlacesContainerViewController alloc] init] autorelease];
-	UINavigationController *placesNavController						= [[[UINavigationController alloc] initWithRootViewController:
-																		placesContainerViewController] autorelease];
-	
-	
-	NSArray *localControllersArray = [NSArray arrayWithObjects:placesNavController,createController,itemsNavController,nil];
-	
-	
+		
 	NSArray *tabBarInfo	= [NSArray arrayWithObjects:
 						   [NSDictionary dictionaryWithObjectsAndKeys:
 							[NSNumber numberWithInt:114]				,kKeyWidth,
@@ -206,8 +193,28 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 	self.tabBarController					= [[[DWTabBarController alloc] initWithDelegate:self 
 																			withTabBarFrame:CGRectMake(0,411,kTabBarWidth,kTabBarHeight)
 																			  andTabBarInfo:tabBarInfo] autorelease];
-	self.tabBarController.subControllers	= localControllersArray;
+	
+	
+	DWItemsContainerViewController *itemsContainerViewController	= [[[DWItemsContainerViewController alloc] initWithTabBarController:
+																			self.tabBarController] autorelease];
+	UINavigationController *itemsNavController						= [[[UINavigationController alloc] initWithRootViewController:
+																		itemsContainerViewController] autorelease];
+	
+	UIViewController *createController = [[[UIViewController alloc] init] autorelease];
+	
+	DWPlacesContainerViewController *placesContainerViewController	= [[[DWPlacesContainerViewController alloc] initWithTabBarController:
+																			self.tabBarController] autorelease];
+	UINavigationController *placesNavController						= [[[UINavigationController alloc] initWithRootViewController:
+																		placesContainerViewController] autorelease];
+	
+	
+
+	
+	self.tabBarController.subControllers = [NSArray arrayWithObjects:placesNavController,createController,itemsNavController,nil];
 	[self.window addSubview:self.tabBarController.view];
+	
+	
+	
 }
 
 //----------------------------------------------------------------------------------------------------
