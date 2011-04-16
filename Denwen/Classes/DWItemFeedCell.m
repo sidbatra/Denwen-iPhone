@@ -73,6 +73,15 @@
 		[itemCell.itemCreatedAt drawInRect:CGRectMake(7+itemCell.itemUserNameSize.width+5,
 													  kItemDataY+itemCell.itemDataSize.height,100,20) 
 								  withFont:kFontItemCreatedAt];
+		
+		
+		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+		
+		[itemCell.itemTouchesCount drawInRect:CGRectMake(180,320-30,100,20)
+									 withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]
+								lineBreakMode:UILineBreakModeTailTruncation
+									alignment:UITextAlignmentRight];
 	}
 
 	
@@ -95,6 +104,7 @@
 @synthesize itemPlaceName		= _itemPlaceName;
 @synthesize itemUserName		= _itemUserName;
 @synthesize itemCreatedAt		= _itemCreatedAt;
+@synthesize itemTouchesCount	= _itemTouchesCount;
 @synthesize itemDataSize		= _itemDataSize;
 @synthesize itemUserNameSize	= _itemUserNameSize;
 @synthesize itemPlaceNameSize	= _itemPlaceNameSize;
@@ -136,6 +146,14 @@
 						action:@selector(didTouchUpOnPlaceButton:) 
 			  forControlEvents:UIControlEventTouchUpInside];
 		
+		[placeButton addTarget:self
+						action:@selector(didDragOutsidePlaceButton:) 
+			  forControlEvents:UIControlEventTouchDragOutside];
+		
+		[placeButton addTarget:self
+						action:@selector(didDragInsidePlaceButton:) 
+			  forControlEvents:UIControlEventTouchDragInside];
+		
 		[self.contentView addSubview:placeButton];
 		
 		
@@ -151,6 +169,14 @@
 					   action:@selector(didTouchUpOnUserButton:) 
 			 forControlEvents:UIControlEventTouchUpInside];
 		
+		[userButton addTarget:self
+					   action:@selector(didDragOutsideUserButton:) 
+			 forControlEvents:UIControlEventTouchDragOutside];
+		
+		[userButton addTarget:self
+					   action:@selector(didDragInsideUserButton:) 
+			 forControlEvents:UIControlEventTouchDragInside];
+		
 		[self.contentView addSubview:userButton];
 		
 										   
@@ -164,10 +190,11 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {	
-	self.itemData		= nil;
-	self.itemPlaceName	= nil;
-	self.itemUserName	= nil;
-	self.itemCreatedAt	= nil;
+	self.itemData			= nil;
+	self.itemPlaceName		= nil;
+	self.itemUserName		= nil;
+	self.itemCreatedAt		= nil;
+	self.itemTouchesCount	= nil;
 	
     [super dealloc];
 }
@@ -221,7 +248,7 @@
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UIControlEventTouch
+#pragma mark UIControlEventTouches
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchDownOnPlaceButton:(UIButton*)button {
@@ -238,6 +265,19 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)didDragOutsidePlaceButton:(UIButton*)button {
+	_placeButtonPressed = NO;
+	[self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didDragInsidePlaceButton:(UIButton*)button {
+	_placeButtonPressed = YES;
+	[self redisplay];
+}
+
+
+//----------------------------------------------------------------------------------------------------
 - (void)didTouchDownOnUserButton:(UIButton*)button {
 	_userButtonPressed = YES;
 	[self redisplay];
@@ -249,6 +289,18 @@
 	[self redisplay];
 	
 	[_delegate userSelectedForItemID:_itemID];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didDragOutsideUserButton:(UIButton*)button {
+	_userButtonPressed = NO;
+	[self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didDragInsideUserButton:(UIButton*)button {
+	_userButtonPressed = YES;
+	[self redisplay];
 }
 
 @end

@@ -322,11 +322,12 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
         
 		cell.delegate		= self;
 		
-		cell.itemID			= item.databaseID;
-		cell.itemData		= item.data;
-		cell.itemPlaceName	= item.place.name;
-		cell.itemUserName	= [item.user fullName];
-		cell.itemCreatedAt	= [item createdTimeAgoInWords];
+		cell.itemID				= item.databaseID;
+		cell.itemTouchesCount	= [item touchesCountString];
+		cell.itemData			= item.data;
+		cell.itemPlaceName		= item.place.name;
+		cell.itemUserName		= [item.user fullName];
+		cell.itemCreatedAt		= [item createdTimeAgoInWords];
 		
 		[cell reset];
 		

@@ -44,6 +44,8 @@
 	NSString						*_itemPlaceName;
 	NSString						*_itemUserName;
 	NSString						*_itemCreatedAt;
+	NSString						*_itemTouchesCount;
+
 	
 	CGSize							_itemDataSize;
 	CGSize							_itemUserNameSize;
@@ -66,6 +68,7 @@
 @property (nonatomic,copy) NSString* itemPlaceName;
 @property (nonatomic,copy) NSString* itemUserName;
 @property (nonatomic,copy) NSString* itemCreatedAt;
+@property (nonatomic,copy) NSString* itemTouchesCount;
 
 @property (nonatomic,assign) CGSize	itemDataSize;
 @property (nonatomic,assign) CGSize	itemUserNameSize;

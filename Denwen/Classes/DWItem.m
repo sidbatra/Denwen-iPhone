@@ -15,6 +15,7 @@
 @implementation DWItem
 
 @synthesize data				= _data;
+@synthesize touchesCount		= _touchesCount;
 @synthesize attachment			= _attachment;
 @synthesize place				= _place;
 @synthesize user				= _user;
@@ -111,14 +112,20 @@
     }
 }
 
+//----------------------------------------------------------------------------------------------------
+- (NSString*)touchesCountString {
+	return !_touchesCount ? [NSString stringWithFormat:@"%d",130123] : @"";
+}
 
 //----------------------------------------------------------------------------------------------------
 - (void)populate:(NSDictionary*)item {
 	[super populate:item];
 
 	_databaseID				= [[item objectForKey:kKeyID] integerValue];
+	_touchesCount			= [[item objectForKey:kKeyTouchesCount] integerValue];
 	_createdAtTimestamp		= [[item objectForKey:kKeyCreatedAt] doubleValue];	
 	self.data				= [item objectForKey:kKeyCondensedData];
+	
 	
 	if ([item objectForKey:kKeyAttachment]) {
 		self.attachment = [[[DWAttachment alloc] init] autorelease];
@@ -143,6 +150,8 @@
 	float interval = -[self.updatedAt timeIntervalSinceNow];
 	
 	if(interval > kMPObjectUpdateInterval) {
+		
+		_touchesCount = [[item objectForKey:kKeyTouchesCount] integerValue];
 		
 		[_place update:[item objectForKey:kKeyPlace]];
 		[_user	update:[item objectForKey:kKeyUser]];

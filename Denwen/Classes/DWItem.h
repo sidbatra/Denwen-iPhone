@@ -19,6 +19,8 @@
 	NSString		*_data;
 	NSArray			*_urls;
 	
+	NSInteger		_touchesCount;
+	
 	DWAttachment	*_attachment;
 	DWPlace			*_place;
 	DWUser			*_user;
@@ -38,6 +40,11 @@
  * Array of urls in the item data
  */
 @property (nonatomic,copy) NSArray *urls;
+
+/**
+ * Total touches on the item
+ */
+@property (nonatomic,readonly) NSInteger touchesCount;
 
 /**
  * Attachment associated with the item
@@ -75,7 +82,12 @@
  * User friendly string for displaying the time when the
  * item was created
  */ 
-- (NSString *)createdTimeAgoInWords;
+- (NSString*)createdTimeAgoInWords;
+
+/**
+ * String representation of the touches count
+ */
+- (NSString*)touchesCountString;
 
 /**
  * Launch download of the images needed to display the item
