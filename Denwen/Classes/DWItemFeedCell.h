@@ -31,6 +31,9 @@
 @interface DWItemFeedCell : UITableViewCell {
 	
 	CALayer							*itemImageLayer;
+	CALayer							*touchIconImageLayer;
+	CALayer							*touchedImageLayer;
+
 	DWItemFeedCellDrawingLayer		*drawingLayer;
 
 	
@@ -45,6 +48,8 @@
 	NSString						*_itemUserName;
 	NSString						*_itemCreatedAt;
 	NSString						*_itemTouchesCount;
+	
+	NSDate							*_highlightedAt;
 
 	
 	CGSize							_itemDataSize;
@@ -70,6 +75,8 @@
 @property (nonatomic,copy) NSString* itemCreatedAt;
 @property (nonatomic,copy) NSString* itemTouchesCount;
 
+@property (nonatomic,retain) NSDate* highlightedAt;
+
 @property (nonatomic,assign) CGSize	itemDataSize;
 @property (nonatomic,assign) CGSize	itemUserNameSize;
 @property (nonatomic,assign) CGSize	itemPlaceNameSize;
@@ -93,6 +100,16 @@
  */
 - (void)redisplay;
 
+@end
+
+
+/**
+ * Declarations for select private methods
+ */
+@interface DWItemFeedCell(Private)
+- (void)highlightCell;
+- (void)fadeCell;
+- (void)touchCell;
 @end
 
 

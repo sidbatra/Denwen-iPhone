@@ -81,9 +81,11 @@
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     self.view.backgroundColor   = [UIColor clearColor];
-    
+
+    #ifndef TARGET_IPHONE_SIMULATOR
     if ([[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] hasFlash])
         [self showToggleCameraAndFlashButtons];
+	#endif
     
     [super viewDidLoad];
 }

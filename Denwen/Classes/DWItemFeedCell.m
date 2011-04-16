@@ -8,6 +8,8 @@
 
 #import "DWItemFeedCell.h"
 
+#define kImgTouchIcon			@"chevron.png"
+#define kImgTouched				@"chevron.png"
 #define kFontItemPlaceName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]
 #define kFontItemData			[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
 #define kFontItemUserName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]
@@ -18,6 +20,11 @@
 #define kItemPlaceNameY			104
 #define kNormalAlpha			0.45
 #define kHighlightAlpha			1.0
+#define kSelectionDelay			0.45
+#define kTouchInterval			0.8
+#define kAfterTouchFadeInerval	1.0
+#define kNormalFadeInterval		0.5
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -104,6 +111,7 @@
 @synthesize itemPlaceName		= _itemPlaceName;
 @synthesize itemUserName		= _itemUserName;
 @synthesize itemCreatedAt		= _itemCreatedAt;
+@synthesize highlightedAt		= _highlightedAt;
 @synthesize itemTouchesCount	= _itemTouchesCount;
 @synthesize itemDataSize		= _itemDataSize;
 @synthesize itemUserNameSize	= _itemUserNameSize;
@@ -128,11 +136,50 @@
 		itemImageLayer.backgroundColor	= [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor;
 		[[self layer] addSublayer:itemImageLayer];
 		
+		touchIconImageLayer					= [CALayer layer];
+		touchIconImageLayer.frame			= CGRectMake(320-9,320-14,9,14);
+		touchIconImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
+		touchIconImageLayer.contents		= (id)[UIImage imageNamed:kImgTouchIcon].CGImage;
+		touchIconImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+											   [NSNull null], @"onOrderIn",
+											   [NSNull null], @"onOrderOut",
+											   [NSNull null], @"sublayers",
+											   [NSNull null], @"hidden",
+											   [NSNull null], @"contents",
+											   [NSNull null], @"bounds",
+											   nil];
+		[[self layer] addSublayer:touchIconImageLayer];
+		
+		
+		touchedImageLayer				= [CALayer layer];
+		touchedImageLayer.frame			= CGRectMake(160-9,160-14,9,14);
+		touchedImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
+		touchedImageLayer.contents		= (id)[UIImage imageNamed:kImgTouched].CGImage;
+		touchedImageLayer.hidden		= YES;
+		touchedImageLayer.actions		= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+											[NSNull null], @"onOrderIn",
+											[NSNull null], @"onOrderOut",
+											[NSNull null], @"sublayers",
+											[NSNull null], @"hidden",
+											[NSNull null], @"contents",
+											[NSNull null], @"bounds",
+											nil];
+		[[self layer] addSublayer:touchedImageLayer];
+		
+		
+		
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
 		drawingLayer.itemCell			= self;
 		drawingLayer.frame				= frame;
 		drawingLayer.contentsScale		= [[UIScreen mainScreen] scale];
-        [[self layer] addSublayer:drawingLayer];
+		drawingLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										   [NSNull null], @"onOrderIn",
+											[NSNull null], @"onOrderOut",
+											[NSNull null], @"sublayers",
+											[NSNull null], @"contents",
+											[NSNull null], @"bounds",
+											nil];
+		[[self layer] addSublayer:drawingLayer];
 		
 		
 		placeButton						= [[[UIButton alloc] init] autorelease];
@@ -195,38 +242,54 @@
 	self.itemUserName		= nil;
 	self.itemCreatedAt		= nil;
 	self.itemTouchesCount	= nil;
+	self.highlightedAt		= nil;
 	
     [super dealloc];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)reset {
-	_highlighted = NO;
+	_highlighted				= NO;
+	_placeButtonPressed			= NO;
+	_userButtonPressed			= NO;
 	
-	_itemPlaceNameSize		= [self.itemPlaceName sizeWithFont:kFontItemPlaceName];
+	touchedImageLayer.hidden	= YES;
 	
-	_itemDataSize			= [self.itemData sizeWithFont:kFontItemData
-										constrainedToSize:CGSizeMake(kItemDataWidth,kItemDataHeight)
-											lineBreakMode:UILineBreakModeWordWrap];
+	_itemPlaceNameSize			= [self.itemPlaceName sizeWithFont:kFontItemPlaceName];
 	
-	_itemUserNameSize		= [self.itemUserName sizeWithFont:kFontItemUserName];
+	_itemDataSize				= [self.itemData sizeWithFont:kFontItemData
+											constrainedToSize:CGSizeMake(kItemDataWidth,kItemDataHeight)
+												lineBreakMode:UILineBreakModeWordWrap];
 	
-	_itemCreatedAtSize		= [self.itemCreatedAt sizeWithFont:kFontItemCreatedAt];
+	_itemUserNameSize			= [self.itemUserName sizeWithFont:kFontItemUserName];
 	
-	placeButton.frame		= CGRectMake(7,kItemPlaceNameY,_itemPlaceNameSize.width + 25,20);
+	_itemCreatedAtSize			= [self.itemCreatedAt sizeWithFont:kFontItemCreatedAt];
 	
-	userButton.frame		= CGRectMake(7,kItemDataY+_itemDataSize.height,_itemCreatedAtSize.width + _itemUserNameSize.width + 5,20);
+	placeButton.frame			= CGRectMake(7,kItemPlaceNameY,_itemPlaceNameSize.width + 25,20);
+	
+	userButton.frame			= CGRectMake(7,kItemDataY+_itemDataSize.height,_itemCreatedAtSize.width + _itemUserNameSize.width + 5,20);
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)setHighlighted:(BOOL)highlighted 
 			  animated:(BOOL)animated {
 	
-	if(_highlighted != highlighted) {
-		_highlighted = highlighted;
-		itemImageLayer.opacity = _highlighted ? kHighlightAlpha : kNormalAlpha;
-		[self redisplay];
+	if(highlighted && !_highlighted) {
+		[self highlightCell];
 	}
+	else if(!highlighted && _highlighted) {
+		
+		if(fabs([self.highlightedAt timeIntervalSinceNow]) > kTouchInterval) {
+			[self touchCell];
+		}
+		else {
+			[self performSelector:@selector(fadeCell)
+					   withObject:nil 
+					   afterDelay:kNormalFadeInterval];
+		}
+
+	}
+
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -244,6 +307,60 @@
 	[drawingLayer setNeedsDisplay];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)touchCell {
+	
+	touchedImageLayer.hidden = NO;
+	
+	[self performSelector:@selector(fadeCell) 
+			   withObject:nil
+			   afterDelay:1.0];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)highlightCell {
+	_highlighted				= YES;
+	self.highlightedAt			= [NSDate dateWithTimeIntervalSinceNow:0];
+	touchIconImageLayer.hidden	= YES;
+	itemImageLayer.opacity		= kHighlightAlpha;
+	
+	[self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)fadeCell {
+	_highlighted				= NO;
+	touchIconImageLayer.hidden	= NO;
+	itemImageLayer.opacity		= kNormalAlpha;
+	touchedImageLayer.hidden	= YES;
+	
+	[self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)highlightPlaceButton {
+	_placeButtonPressed = YES;
+	[self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)fadePlaceButton {
+	_placeButtonPressed = NO;
+	[self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)fadeUserButton {
+	_userButtonPressed = NO;
+	[self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)highlightUserButton {
+	_userButtonPressed = YES;
+	[self redisplay];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -252,55 +369,53 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchDownOnPlaceButton:(UIButton*)button {
-	_placeButtonPressed = YES;
-	[self redisplay];
+	[self highlightPlaceButton];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchUpOnPlaceButton:(UIButton*)button {
-	_placeButtonPressed = NO;
-	[self redisplay];
+	
+	[self performSelector:@selector(fadePlaceButton) 
+			   withObject:nil
+			   afterDelay:kSelectionDelay];
 	
 	[_delegate placeSelectedForItemID:_itemID];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)didDragOutsidePlaceButton:(UIButton*)button {
-	_placeButtonPressed = NO;
-	[self redisplay];
+	[self fadePlaceButton];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)didDragInsidePlaceButton:(UIButton*)button {
-	_placeButtonPressed = YES;
-	[self redisplay];
+	[self highlightPlaceButton];
 }
 
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchDownOnUserButton:(UIButton*)button {
-	_userButtonPressed = YES;
-	[self redisplay];
+	[self highlightUserButton];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchUpOnUserButton:(UIButton*)button {
-	_userButtonPressed = NO;
-	[self redisplay];
+
+	[self performSelector:@selector(fadeUserButton) 
+			   withObject:nil
+			   afterDelay:kSelectionDelay];
 	
 	[_delegate userSelectedForItemID:_itemID];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)didDragOutsideUserButton:(UIButton*)button {
-	_userButtonPressed = NO;
-	[self redisplay];
+	[self fadeUserButton];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)didDragInsideUserButton:(UIButton*)button {
-	_userButtonPressed = YES;
-	[self redisplay];
+	[self highlightUserButton];
 }
 
 @end
