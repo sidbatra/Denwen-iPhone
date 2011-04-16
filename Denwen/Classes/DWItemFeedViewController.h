@@ -6,15 +6,17 @@
 #import <UIKit/UIKit.h>
 
 #import "DWItemsManager.h"
+#import "DWItemFeedCell.h"
 
 #import "EGORefreshTableHeaderView.h"
 
 @protocol DWItemFeedViewControllerDelegate;
+@protocol DWItemFeedCellDelegate;
 
 /**
  * Base class for views that display a feed of items
  */
-@interface DWItemFeedViewController : UITableViewController<EGORefreshTableHeaderDelegate> {
+@interface DWItemFeedViewController : UITableViewController<EGORefreshTableHeaderDelegate,DWItemFeedCellDelegate> {
 	
 	DWItemsManager	*_itemManager;
 

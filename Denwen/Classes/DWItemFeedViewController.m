@@ -6,7 +6,6 @@
 #import "DWItemFeedViewController.h"
 #import "DWRequestsManager.h"
 #import "DWMemoryPool.h"
-#import "DWItemFeedCell.h"
 #import "DWLoadingCell.h"
 #import "DWMessageCell.h"
 #import "DWPaginationCell.h"
@@ -320,22 +319,17 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		 */
 		/*[cell updateClassMemberHasAttachment:[item hasAttachment] 
 								   andItemID:item.databaseID];*/
-		
-		
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        [cell reset];
-		[cell setItemData:item.data];
+		cell.delegate		= self;
 		
-		/*[cell.placeName setTitle:[NSString stringWithFormat:@"at %@", item.place.name] 
-						forState:UIControlStateNormal];*/
+		cell.itemID			= item.databaseID;
+		cell.itemData		= item.data;
+		cell.itemPlaceName	= item.place.name;
+		cell.itemUserName	= [item.user fullName];
+		cell.itemCreatedAt	= [item createdTimeAgoInWords];
 		
-		/**
-		 * Reposition elements on reused cell
-		 */
-		/*[cell positionAndCustomizeCellItemsFrom:item.data
-									   userName:[item.user fullName]
-										andTime:[item createdTimeAgoInWords]];*/
+		[cell reset];
+		
 		
 		if (!tableView.dragging && !tableView.decelerating) {
 			[item startRemoteImagesDownload];
@@ -346,26 +340,8 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		else
 			[cell setItemImage:nil];
         
-        [cell redisplay];
-		/*
-		if ([item hasAttachment]) {
-			if (item.attachment.previewImage)
-				[cell.attachmentImage setBackgroundImage:item.attachment.previewImage 
-												forState:UIControlStateNormal];	
-			else
-				[cell.attachmentImage setBackgroundImage:[UIImage imageNamed:kImgGenericPlaceHolder] 
-												forState:UIControlStateNormal];	
-			
-			if([item.attachment isVideo])
-				[cell displayPlayIcon];
-		}
-		
-		[cell setSmallPreviewPlaceImage:[UIImage imageNamed:kImgGenericPlaceHolder]];
-		
-		if (item.user.smallPreviewImage)
-			cell.userImage.image = item.user.smallPreviewImage;
-		else
-			cell.userImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];*/
+        
+		[cell redisplay];
 		
 		return cell;
 	}
@@ -473,31 +449,27 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UIItemFeedCellDelegate
-/*
+#pragma mark DWItemFeedCellDelegate
+
 //----------------------------------------------------------------------------------------------------
-- (void)didTapPlaceName:(id)sender event:(id)event {
-	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:((UIButton*)sender).tag 
-											  atRow:kMPItemsIndex];
+- (void)placeSelectedForItemID:(NSInteger)itemID {
+
+	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:itemID
+																	atRow:kMPItemsIndex];
 	
 	[_delegate placeSelected:item.place];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)didTapPlaceImage:(id)sender event:(id)event {
-	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:((UIButton*)sender).tag
-											  atRow:kMPItemsIndex];
+- (void)userSelectedForItemID:(NSInteger)itemID {
 	
-	[_delegate placeSelected:item.place];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)didTapUserImage:(id)sender event:(id)event {
-	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:((UIButton*)sender).tag 
-											  atRow:kMPItemsIndex];
+	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:itemID
+																	atRow:kMPItemsIndex];
 	
 	[_delegate userSelected:item.user];
 }
+
+/*
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapAttachmentImage:(id)sender event:(id)event {
