@@ -9,12 +9,13 @@
 #import "DWRequestsManager.h"
 
 
-static NSString* const kRot90				= @"90";
-static NSString* const kRot180				= @"180";
-static NSString* const kRot270				= @"270";
-static NSString* const kRot0				= @"0";
-static NSInteger const kMaxVideoDuration	= 45;
-static NSInteger const kThumbnailTimestamp	= 1;
+static NSString* const kRot90                   = @"90";
+static NSString* const kRot180                  = @"180";
+static NSString* const kRot270                  = @"270";
+static NSString* const kRot0                    = @"0";
+static NSInteger const kMaxVideoDuration        = 45;
+static NSInteger const kThumbnailTimestamp      = 1;
+static float     const kCroppedImageDimension   = 320.0;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -171,15 +172,35 @@ static NSInteger const kThumbnailTimestamp	= 1;
 	
 	if(!mediaURL) {
 		UIImage *originalImage	= [info valueForKey:UIImagePickerControllerOriginalImage];
-		//UIImage *editedImage	= [info valueForKey:UIImagePickerControllerEditedImage];
-		
+        UIImage *resizedImage   = nil; 
+        UIImage *editedImage    = nil;
+        
+        if(originalImage.size.width > originalImage.size.height) {
+            resizedImage    = [originalImage resizeTo:
+                               CGSizeMake(originalImage.size.width * 
+                                          kCroppedImageDimension/originalImage.size.height,
+                                          kCroppedImageDimension)];
+             editedImage    = [resizedImage cropToRect:
+                               CGRectMake((resizedImage.size.width - kCroppedImageDimension)/2, 0, 
+                                          kCroppedImageDimension, kCroppedImageDimension)];
+        }
+        else {
+            resizedImage    = [originalImage resizeTo:
+                               CGSizeMake(kCroppedImageDimension,
+                                          originalImage.size.height * 
+                                          kCroppedImageDimension/originalImage.size.width)];
+            editedImage     = [resizedImage cropToRect:
+                               CGRectMake(0,(resizedImage.size.height - kCroppedImageDimension)/2, 
+                                          kCroppedImageDimension, kCroppedImageDimension)];
+        }
+                
 		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
 			UIImageWriteToSavedPhotosAlbum(originalImage, self, 
                                            @selector(image:didFinishSavingWithError:contextInfo:), 
                                            nil);
 		
 		[_mediaDelegate didFinishPickingImage:originalImage 
-								  andEditedTo:originalImage];
+								  andEditedTo:editedImage];
 	}
 	else {
 		NSString *orientation = [self extractOrientationOfVideo:mediaURL];
@@ -214,7 +235,7 @@ static NSInteger const kThumbnailTimestamp	= 1;
 
 //----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClickedInOverlayView {
-    [_mediaDelegate mediaPickerCancelledFromMode:UIImagePickerControllerSourceTypeCamera];
+    [_mediaDelegate mediaPickerCancelledFromMode:kMediaPickerCaptureMode];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -246,6 +267,7 @@ static NSInteger const kThumbnailTimestamp	= 1;
 - (void)cameraCaptureModeChangedInOverlayView:(NSInteger)cameraCaptureMode {
     self.cameraCaptureMode = cameraCaptureMode;
 }
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

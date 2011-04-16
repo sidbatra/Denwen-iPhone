@@ -243,7 +243,7 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)requestTabBarIndexChange:(NSNotification*)notification {
-	[self displayNewTab:[[[notification userInfo] objectForKey:kKeyTabIndex] integerValue]];
+	//[self displayNewTab:[[[notification userInfo] objectForKey:kKeyTabIndex] integerValue]];
 }
 
 
