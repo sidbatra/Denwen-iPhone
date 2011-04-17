@@ -14,13 +14,19 @@
  * via core graphics, mostly used for text
  */
 @interface DWItemFeedCellDrawingLayer : CALayer {
-	DWItemFeedCell *itemCell;
+	DWItemFeedCell	*itemCell;
+	BOOL			_disableAnimation;
 }
 
 /**
  * Non retained reference to the item feed cell
  */
 @property (nonatomic,assign) DWItemFeedCell *itemCell;
+
+/**
+ * Disable content animations on item feed
+ */
+@property (nonatomic,assign) BOOL disableAnimation;
 
 @end
 

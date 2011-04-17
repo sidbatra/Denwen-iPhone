@@ -35,6 +35,16 @@
 @implementation DWItemFeedCellDrawingLayer
 
 @synthesize itemCell;
+@synthesize disableAnimation = _disableAnimation;
+
+//----------------------------------------------------------------------------------------------------
+- (id<CAAction>)actionForKey:(NSString *)key {
+	
+	//if([key isEqualToString:@"contents"] && _disableAnimation)
+	//	return (id)[NSNull null];		
+		
+	return [super actionForKey:key];
+}
 
 //----------------------------------------------------------------------------------------------------
 - (void)drawInContext:(CGContextRef)context {
@@ -191,11 +201,12 @@
 		
 		
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
+		drawingLayer.disableAnimation	= YES;
 		drawingLayer.itemCell			= self;
 		drawingLayer.frame				= frame;
 		drawingLayer.contentsScale		= [[UIScreen mainScreen] scale];
 		drawingLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
-										   [NSNull null], @"onOrderIn",
+											[NSNull null], @"onOrderIn",
 											[NSNull null], @"onOrderOut",
 											[NSNull null], @"sublayers",
 											[NSNull null], @"bounds",
@@ -279,6 +290,7 @@
 	[CATransaction setValue:[NSNumber numberWithFloat:kNoAnimationDuration]
 					 forKey:kCATransactionAnimationDuration];
 	
+	itemImageLayer.opacity		= kNormalAlpha;
 	touchedImageLayer.hidden	= YES;
 	playImageLayer.hidden		= YES;
 	[CATransaction commit];
