@@ -74,6 +74,11 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)touchesCountDelta:(NSInteger)delta {
+	_touchesCount += delta;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (NSString*)createdTimeAgoInWords {
 	
 	NSDate *createdDate = [NSDate dateWithTimeIntervalSince1970:_createdAtTimestamp];
@@ -114,7 +119,7 @@
 
 //----------------------------------------------------------------------------------------------------
 - (NSString*)touchesCountString {
-	return !_touchesCount ? [NSString stringWithFormat:@"%d",130123] : @"";
+	return !_touchesCount ? [NSString stringWithFormat:@"%d",18] : @"";
 }
 
 //----------------------------------------------------------------------------------------------------

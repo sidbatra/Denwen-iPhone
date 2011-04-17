@@ -8,17 +8,17 @@
 
 #import "DWItemFeedCell.h"
 
-#define kImgTouchIcon			@"chevron.png"
+#define kImgTouchIcon			@"hand.png"
 #define kImgTouched				@"chevron.png"
 #define kImgPlay				@"play.png"
-#define kFontItemPlaceName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]
+#define kFontItemPlaceName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:13]
 #define kFontItemData			[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
-#define kFontItemUserName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]
-#define kFontItemCreatedAt		[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]
-#define kItemDataWidth			293
+#define kFontItemUserName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:13]
+#define kFontItemCreatedAt		[UIFont fontWithName:@"HelveticaNeue" size:13]
+#define kItemDataWidth			306
 #define kItemDataHeight			70
-#define kItemDataY				124
-#define kItemPlaceNameY			104
+#define kItemDataY				121
+#define kItemPlaceNameY			101
 #define kNormalAlpha			0.45
 #define kHighlightAlpha			1.0
 #define kSelectionDelay			0.45
@@ -42,7 +42,7 @@
 	
 	//if([key isEqualToString:@"contents"] && _disableAnimation)
 	//	return (id)[NSNull null];		
-		
+			
 	return [super actionForKey:key];
 }
 
@@ -54,22 +54,22 @@
 	if(![itemCell isHighlighted]) {
 		
 		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-0.5f),0.0f,[UIColor blackColor].CGColor);
 		
 		if(itemCell.placeButtonPressed) {
-			CGContextSetFillColorWithColor(context,[UIColor grayColor].CGColor);
-			CGContextSetShadowWithColor(context,CGSizeMake(0.0f,1.0f),0.0f,[UIColor whiteColor].CGColor);
+			CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.4980 green:0.4980 blue:0.4980 alpha:1.0].CGColor);
+			CGContextSetShadowWithColor(context,CGSizeMake(0.0f,0.5f),0.0f,[UIColor whiteColor].CGColor);
 		}
 		
-		[@"at" drawInRect:CGRectMake(7,104,20,10) 
+		[@"at" drawInRect:CGRectMake(7,101,13,17)
 				 withFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
 		
-		[itemCell.itemPlaceName	drawInRect:CGRectMake(24,kItemPlaceNameY,293,20) 
+		[itemCell.itemPlaceName	drawInRect:CGRectMake(20,kItemPlaceNameY,293,17) 
 								  withFont:kFontItemPlaceName];
 		
 		
 		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-0.5f),0.0f,[UIColor blackColor].CGColor);
 		
 		[itemCell.itemData drawInRect:CGRectMake(7,
 												 kItemDataY,
@@ -80,26 +80,27 @@
 							  alignment:UITextAlignmentLeft];
 		
 		if(itemCell.userButtonPressed) {
-			CGContextSetFillColorWithColor(context,[UIColor grayColor].CGColor);
-			CGContextSetShadowWithColor(context,CGSizeMake(0.0f,1.0f),0.0f,[UIColor whiteColor].CGColor);
+			CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.4980 green:0.4980 blue:0.4980 alpha:1.0].CGColor);
+			CGContextSetShadowWithColor(context,CGSizeMake(0.0f,0.5f),0.0f,[UIColor whiteColor].CGColor);
 		}
 		
 		[itemCell.itemUserName drawInRect:CGRectMake(7,
-													 kItemDataY+itemCell.itemDataSize.height,
+													 kItemDataY+itemCell.itemDataSize.height+8,
 													 self.itemCell.itemUserNameSize.width,
-													 20) 
+													 17) 
 								 withFont:kFontItemUserName];
 		
 		[itemCell.itemCreatedAt drawInRect:CGRectMake(7+itemCell.itemUserNameSize.width+5,
-													  kItemDataY+itemCell.itemDataSize.height,100,20) 
+													  kItemDataY+itemCell.itemDataSize.height+8,
+													  100,17) 
 								  withFont:kFontItemCreatedAt];
 		
 		
 		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-0.5f),0.0f,[UIColor blackColor].CGColor);
 		
-		[itemCell.itemTouchesCount drawInRect:CGRectMake(180,320-30,100,20)
-									 withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]
+		[itemCell.itemTouchesCount drawInRect:CGRectMake(235,298,55,14)
+									 withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:13]
 								lineBreakMode:UILineBreakModeTailTruncation
 									alignment:UITextAlignmentRight];
 	}
@@ -156,7 +157,7 @@
 		[[self layer] addSublayer:itemImageLayer];
 		
 		touchIconImageLayer					= [CALayer layer];
-		touchIconImageLayer.frame			= CGRectMake(320-9,320-14,9,14);
+		touchIconImageLayer.frame			= CGRectMake(295,292,18,21);
 		touchIconImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		touchIconImageLayer.contents		= (id)[UIImage imageNamed:kImgTouchIcon].CGImage;
 		touchIconImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -305,9 +306,11 @@
 	
 	_itemCreatedAtSize			= [self.itemCreatedAt sizeWithFont:kFontItemCreatedAt];
 	
-	placeButton.frame			= CGRectMake(7,kItemPlaceNameY,_itemPlaceNameSize.width + 25,20);
+	placeButton.frame			= CGRectMake(0,kItemPlaceNameY - 2,_itemPlaceNameSize.width + 28 ,20);
 	
-	userButton.frame			= CGRectMake(7,kItemDataY+_itemDataSize.height,_itemCreatedAtSize.width + _itemUserNameSize.width + 5,20);
+	userButton.frame			= CGRectMake(0,
+											 kItemDataY+_itemDataSize.height+8-2,
+											 _itemCreatedAtSize.width + _itemUserNameSize.width + 18,20);
 }
 
 //----------------------------------------------------------------------------------------------------

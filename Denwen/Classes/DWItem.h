@@ -79,6 +79,11 @@
 - (BOOL)hasAttachment;
 
 /**
+ * Add the given delta to the touches count
+ */
+- (void)touchesCountDelta:(NSInteger)delta;
+
+/**
  * User friendly string for displaying the time when the
  * item was created
  */ 
