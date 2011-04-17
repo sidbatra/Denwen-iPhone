@@ -25,6 +25,8 @@
 #define kTouchInterval			0.6
 #define kAfterTouchFadeInerval	1.0
 #define kNormalFadeInterval		0.5
+#define kNoAnimationDuration	0.0
+#define kCellAnimationDuration	0.65
 
 
 //----------------------------------------------------------------------------------------------------
@@ -135,6 +137,12 @@
 		itemImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		itemImageLayer.opacity			= kNormalAlpha;
 		itemImageLayer.backgroundColor	= [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor;
+		itemImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										   [NSNull null], @"onOrderIn",
+										   [NSNull null], @"onOrderOut",
+										   [NSNull null], @"sublayers",
+										   [NSNull null], @"contents",
+										   nil];
 		[[self layer] addSublayer:itemImageLayer];
 		
 		touchIconImageLayer					= [CALayer layer];
@@ -145,7 +153,6 @@
 											   [NSNull null], @"onOrderIn",
 											   [NSNull null], @"onOrderOut",
 											   [NSNull null], @"sublayers",
-											   [NSNull null], @"hidden",
 											   [NSNull null], @"contents",
 											   [NSNull null], @"bounds",
 											   nil];
@@ -153,7 +160,7 @@
 		
 		
 		touchedImageLayer				= [CALayer layer];
-		touchedImageLayer.frame			= CGRectMake(160-9,160-14,9,14);
+		touchedImageLayer.frame			= CGRectMake(160-9,20,9,14);
 		touchedImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		touchedImageLayer.contents		= (id)[UIImage imageNamed:kImgTouched].CGImage;
 		touchedImageLayer.hidden		= YES;
@@ -161,7 +168,6 @@
 											[NSNull null], @"onOrderIn",
 											[NSNull null], @"onOrderOut",
 											[NSNull null], @"sublayers",
-											[NSNull null], @"hidden",
 											[NSNull null], @"contents",
 											[NSNull null], @"bounds",
 											nil];
@@ -177,7 +183,6 @@
 										   [NSNull null], @"onOrderIn",
 										   [NSNull null], @"onOrderOut",
 										   [NSNull null], @"sublayers",
-										   [NSNull null], @"hidden",
 										   [NSNull null], @"contents",
 										   [NSNull null], @"bounds",
 										   nil];
@@ -193,7 +198,6 @@
 										   [NSNull null], @"onOrderIn",
 											[NSNull null], @"onOrderOut",
 											[NSNull null], @"sublayers",
-											[NSNull null], @"contents",
 											[NSNull null], @"bounds",
 											nil];
 		[[self layer] addSublayer:drawingLayer];
@@ -271,8 +275,13 @@
 	_userButtonPressed			= NO;
 	_isVideoAttachment			= NO;
 	
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:kNoAnimationDuration]
+					 forKey:kCATransactionAnimationDuration];
+	
 	touchedImageLayer.hidden	= YES;
 	playImageLayer.hidden		= YES;
+	[CATransaction commit];
 	
 	_itemPlaceNameSize			= [self.itemPlaceName sizeWithFont:kFontItemPlaceName];
 	
@@ -306,9 +315,7 @@
 					   withObject:nil 
 					   afterDelay:kNormalFadeInterval];
 		}
-
 	}
-
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -329,7 +336,13 @@
 //----------------------------------------------------------------------------------------------------
 - (void)touchCell {
 	
-	touchedImageLayer.hidden	= NO;
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:0.5f] 
+					 forKey:kCATransactionAnimationDuration];
+	
+	touchedImageLayer.hidden = NO;
+	
+	[CATransaction commit];
 	
 	[self performSelector:@selector(finishTouchCell) 
 			   withObject:nil
@@ -346,6 +359,12 @@
 - (void)highlightCell {
 	_highlighted				= YES;
 	self.highlightedAt			= [NSDate dateWithTimeIntervalSinceNow:0];
+	
+	
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
+					 forKey:kCATransactionAnimationDuration];
+	
 	touchIconImageLayer.hidden	= YES;
 	itemImageLayer.opacity		= kHighlightAlpha;
 	
@@ -353,11 +372,18 @@
 		playImageLayer.hidden	= YES;
 	
 	[self redisplay];
+
+	[CATransaction commit];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)fadeCell {
 	_highlighted				= NO;
+	
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
+					 forKey:kCATransactionAnimationDuration];
+	
 	touchIconImageLayer.hidden	= NO;
 	itemImageLayer.opacity		= kNormalAlpha;
 	touchedImageLayer.hidden	= YES;
@@ -366,6 +392,8 @@
 		playImageLayer.hidden	= NO;
 	
 	[self redisplay];
+	
+	[CATransaction commit];
 }
 
 //----------------------------------------------------------------------------------------------------
