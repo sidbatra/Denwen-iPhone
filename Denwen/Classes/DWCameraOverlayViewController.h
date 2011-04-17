@@ -6,7 +6,6 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import "DWConstants.h"
 
 
 @protocol DWCameraOverlayViewControllerDelegate;
@@ -27,6 +26,7 @@
     UIButton        *_photoLibraryButton;
     UIButton        *_recordButton;
     UIButton        *_cameraCaptureModeButton;
+    UIImageView     *_letterBoxImage;
     
     id <DWCameraOverlayViewControllerDelegate>      _overlayDelegate;
 }
@@ -48,6 +48,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *photoLibraryButton;
 @property (nonatomic, retain) IBOutlet UIButton *recordButton;
 @property (nonatomic, retain) IBOutlet UIButton *cameraCaptureModeButton;
+@property (nonatomic, retain) IBOutlet UIImageView *letterBoxImage;
 
 
 /**

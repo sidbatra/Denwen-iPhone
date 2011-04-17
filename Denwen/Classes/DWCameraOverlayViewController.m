@@ -4,6 +4,16 @@
 //
 
 #import "DWCameraOverlayViewController.h"
+#import "DWConstants.h"
+
+
+static NSString* const kFlashOnImage				= @"flash_on.png";
+static NSString* const kFlashOffImage				= @"flash_off.png";
+static NSString* const kVideoOutLitImage            = @"video_out_lit.png";
+static NSString* const kVideoOutImage               = @"video_out.png";
+static NSString* const kSelectVideoImage            = @"select_video.png";
+static NSString* const kSelectPhotoImage            = @"select_photo.png";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -29,6 +39,7 @@
 @synthesize photoLibraryButton          = _photoLibraryButton;
 @synthesize recordButton                = _recordButton;
 @synthesize cameraCaptureModeButton     = _cameraCaptureModeButton;
+@synthesize letterBoxImage              = _letterBoxImage;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)theDelegate {
@@ -52,6 +63,7 @@
     self.photoLibraryButton         = nil;
     self.recordButton               = nil;
     self.cameraCaptureModeButton    = nil;
+    self.letterBoxImage             = nil;
     
     [super dealloc];
 }
@@ -116,13 +128,13 @@
     if (_cameraFlashMode == kCameraFlashModeOff) {
         _cameraFlashMode = kCameraFlashModeOn;
         [self.flashButton 
-                setBackgroundImage:[UIImage imageNamed:@"flash_on.png"] 
+                setBackgroundImage:[UIImage imageNamed:kFlashOnImage] 
                           forState:UIControlStateNormal];
     }
     else {
         _cameraFlashMode = kCameraFlashModeOff;
         [self.flashButton 
-                setBackgroundImage:[UIImage imageNamed:@"flash_off.png"] 
+                setBackgroundImage:[UIImage imageNamed:kFlashOffImage] 
                           forState:UIControlStateNormal];
     }
     [_overlayDelegate flashModeChangedInOverlayView:_cameraFlashMode];
@@ -147,16 +159,18 @@
 - (IBAction)recordButtonClicked:(id)sender {
     if (!_isRecording) {
         [self.recordButton 
-                setBackgroundImage:[UIImage imageNamed:@"video_out_lit.png"] 
+                setBackgroundImage:[UIImage imageNamed:kVideoOutLitImage] 
                           forState:UIControlStateNormal];
         _isRecording = YES;
+        self.cameraCaptureModeButton.enabled = NO;
         [_overlayDelegate startRecording];
     }
     else {
         [self.recordButton 
-                setBackgroundImage:[UIImage imageNamed:@"video_out.png"] 
+                setBackgroundImage:[UIImage imageNamed:kVideoOutImage] 
                           forState:UIControlStateNormal];
         _isRecording = NO;
+        self.cameraCaptureModeButton.enabled = YES;
         [_overlayDelegate stopRecording];
     }
 }
@@ -164,27 +178,29 @@
 //----------------------------------------------------------------------------------------------------
 - (IBAction)cameraCaptureModeButtonClicked:(id)sender {
     if (_cameraCaptureMode == kCameraCaptureModePhoto){
-        _cameraCaptureMode          = kCameraCaptureModeVideo;
-        self.recordButton.hidden    = NO;
-        self.cameraButton.hidden    = YES;
+        _cameraCaptureMode              = kCameraCaptureModeVideo;
+        self.recordButton.hidden        = NO;
+        self.cameraButton.hidden        = YES;
+        self.letterBoxImage.hidden      = YES;
         
         [self.cameraCaptureModeButton 
-                setBackgroundImage:[UIImage imageNamed:@"select_video.png"] 
+                setBackgroundImage:[UIImage imageNamed:kSelectVideoImage] 
                           forState:UIControlStateNormal];
         [self.cameraCaptureModeButton 
-                setBackgroundImage:[UIImage imageNamed:@"select_video.png"] 
+                setBackgroundImage:[UIImage imageNamed:kSelectVideoImage]
                           forState:UIControlStateHighlighted];
     }
     else { 
-        _cameraCaptureMode          = kCameraCaptureModePhoto;
-        self.recordButton.hidden    = YES;
-        self.cameraButton.hidden    = NO;
+        _cameraCaptureMode              = kCameraCaptureModePhoto;
+        self.recordButton.hidden        = YES;
+        self.cameraButton.hidden        = NO;
+        self.letterBoxImage.hidden      = NO;
         
         [self.cameraCaptureModeButton 
-                setBackgroundImage:[UIImage imageNamed:@"select_photo.png"] 
+                setBackgroundImage:[UIImage imageNamed:kSelectPhotoImage] 
                           forState:UIControlStateNormal];
         [self.cameraCaptureModeButton 
-                setBackgroundImage:[UIImage imageNamed:@"select_photo.png"] 
+                setBackgroundImage:[UIImage imageNamed:kSelectPhotoImage] 
                           forState:UIControlStateHighlighted];
     }
     
