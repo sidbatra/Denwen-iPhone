@@ -82,10 +82,10 @@
 - (void)viewDidLoad {
     self.view.backgroundColor   = [UIColor clearColor];
 
-    #ifndef TARGET_IPHONE_SIMULATOR
+    //#ifndef TARGET_IPHONE_SIMULATOR
     if ([[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] hasFlash])
         [self showToggleCameraAndFlashButtons];
-	#endif
+	//#endif
     
     [super viewDidLoad];
 }
@@ -115,11 +115,15 @@
 - (IBAction)flashButtonClicked:(id)sender {
     if (_cameraFlashMode == kCameraFlashModeOff) {
         _cameraFlashMode = kCameraFlashModeOn;
-        [self.flashButton setTitle:@"Flash On" forState:UIControlStateNormal];
+        [self.flashButton 
+                setBackgroundImage:[UIImage imageNamed:@"flash_on.png"] 
+                          forState:UIControlStateNormal];
     }
     else {
         _cameraFlashMode = kCameraFlashModeOff;
-        [self.flashButton setTitle:@"Flash Off" forState:UIControlStateNormal];
+        [self.flashButton 
+                setBackgroundImage:[UIImage imageNamed:@"flash_off.png"] 
+                          forState:UIControlStateNormal];
     }
     [_overlayDelegate flashModeChangedInOverlayView:_cameraFlashMode];
 }
@@ -142,12 +146,16 @@
 //----------------------------------------------------------------------------------------------------
 - (IBAction)recordButtonClicked:(id)sender {
     if (!_isRecording) {
-        [self.recordButton setTitle:@"Stop" forState:UIControlStateNormal];
+        [self.recordButton 
+                setBackgroundImage:[UIImage imageNamed:@"video_out_lit.png"] 
+                          forState:UIControlStateNormal];
         _isRecording = YES;
         [_overlayDelegate startRecording];
     }
     else {
-        [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+        [self.recordButton 
+                setBackgroundImage:[UIImage imageNamed:@"video_out.png"] 
+                          forState:UIControlStateNormal];
         _isRecording = NO;
         [_overlayDelegate stopRecording];
     }
@@ -159,11 +167,25 @@
         _cameraCaptureMode          = kCameraCaptureModeVideo;
         self.recordButton.hidden    = NO;
         self.cameraButton.hidden    = YES;
+        
+        [self.cameraCaptureModeButton 
+                setBackgroundImage:[UIImage imageNamed:@"select_video.png"] 
+                          forState:UIControlStateNormal];
+        [self.cameraCaptureModeButton 
+                setBackgroundImage:[UIImage imageNamed:@"select_video.png"] 
+                          forState:UIControlStateHighlighted];
     }
     else { 
         _cameraCaptureMode          = kCameraCaptureModePhoto;
         self.recordButton.hidden    = YES;
         self.cameraButton.hidden    = NO;
+        
+        [self.cameraCaptureModeButton 
+                setBackgroundImage:[UIImage imageNamed:@"select_photo.png"] 
+                          forState:UIControlStateNormal];
+        [self.cameraCaptureModeButton 
+                setBackgroundImage:[UIImage imageNamed:@"select_photo.png"] 
+                          forState:UIControlStateHighlighted];
     }
     
     [_overlayDelegate cameraCaptureModeChangedInOverlayView:_cameraCaptureMode];

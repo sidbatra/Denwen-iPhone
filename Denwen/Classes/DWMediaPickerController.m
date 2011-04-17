@@ -195,7 +195,7 @@ static float     const kCroppedImageDimension   = 320.0;
         }
                 
 		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
-			UIImageWriteToSavedPhotosAlbum(originalImage, self, 
+			UIImageWriteToSavedPhotosAlbum(editedImage, self, 
                                            @selector(image:didFinishSavingWithError:contextInfo:), 
                                            nil);
 		
