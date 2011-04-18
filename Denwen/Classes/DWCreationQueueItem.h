@@ -13,6 +13,9 @@
 	NSInteger	_mediaUploadID;
 	NSInteger	_primaryUploadID;
 	
+	NSInteger	_mediaUploadRetries;
+	NSInteger	_primaryUploadRetries;
+	
 	NSInteger	_state;
 	
 	NSString	*_filename;

@@ -35,7 +35,8 @@ static NSInteger const kPersistenceTimeout	= 120;
 		self.successNotification	= theSuccessNotification;
 		self.errorNotification		= theErrorNotification;
 		
-		[self setPersistentConnectionTimeoutSeconds:kPersistenceTimeout];
+		//[self setShouldAttemptPersistentConnection:NO];
+		//[self setPersistentConnectionTimeoutSeconds:kPersistenceTimeout];
 	}
 	
 	return self;

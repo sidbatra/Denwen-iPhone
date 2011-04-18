@@ -9,6 +9,8 @@
 static NSInteger const kStateMediaUploading		= 0;
 static NSInteger const kStatePrimaryUploading	= 1;
 static NSInteger const kStateFailed				= 2;
+static NSInteger const kTotalMediaRetries		= 25;
+static NSInteger const kTotalPrimaryRetries		= 5;
 
 
 
@@ -73,7 +75,10 @@ static NSInteger const kStateFailed				= 2;
 
 //----------------------------------------------------------------------------------------------------
 - (void)mediaUploadError {
-	_state = kStateFailed;
+	if(_mediaUploadRetries++ < kTotalMediaRetries)
+		[self startMediaUpload];
+	else
+		_state = kStateFailed;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -84,7 +89,10 @@ static NSInteger const kStateFailed				= 2;
 
 //----------------------------------------------------------------------------------------------------
 - (void)primaryUploadError {
-	_state = kStateFailed;
+	if(_primaryUploadRetries++ < kTotalPrimaryRetries)
+		[self startPrimaryUpload]
+	else
+		_state = kStateFailed;
 }
 
 

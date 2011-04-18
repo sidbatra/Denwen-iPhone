@@ -98,11 +98,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 														   resourceID:resourceID];
 	[request setDelegate:self];
 	[request setRequestMethod:requestMethod];
-	
+	/*
 	[request setDownloadCache:[ASIDownloadCache sharedCache]];
 	[request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
 	[request setSecondsToCache:1000000];
-	
+	*/
 	[request startAsynchronous];	
 }
 
@@ -494,11 +494,13 @@ successNotification:(NSString*)theSuccessNotification
 - (NSInteger)createImageWithData:(UIImage*)image
 						toFolder:(NSString*)folder {
 	
-	DWS3Request *request = [DWS3Request requestNewImage:image
-											   toFolder:folder];
+	DWS3Request *request			= [DWS3Request requestNewImage:image
+														  toFolder:folder];
+	request.showAccurateProgress	= YES;
 	[request setDelegate:self];
-	//[request setDownloadProgressDelegate:self];
+	[request setUploadProgressDelegate:self];
 	[request startAsynchronous];
+
 	
 	return request.resourceID;
 }
@@ -508,12 +510,14 @@ successNotification:(NSString*)theSuccessNotification
 				   atOrientation:(NSString*)orientation 
 						toFolder:(NSString*)folder {
 	
-	DWS3Request *request = [DWS3Request requestNewVideo:theURL 
-										  atOrientation:orientation
-											   toFolder:folder];
-	
+	DWS3Request *request			= [DWS3Request requestNewVideo:theURL 
+													 atOrientation:orientation
+														  toFolder:folder];
+	request.showAccurateProgress	= YES;
+	[request setUploadProgressDelegate:self];
 	[request setDelegate:self];
 	[request startAsynchronous];
+	
 	
 	return request.resourceID;
 }
@@ -525,15 +529,27 @@ successNotification:(NSString*)theSuccessNotification
 #pragma mark ASIHTTPRequestDelegate
 
 //----------------------------------------------------------------------------------------------------
-- (void)requestFinished:(DWRequest *)request {
+- (void)requestFinished:(DWRequest*)request {
 	[request processResponse:[request responseString] andResponseData:[request responseData]];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)requestFailed:(DWRequest *)request {
+- (void)requestFailed:(DWRequest*)request {
 	[request processError:[request error]];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)setProgress:(float)newProgress {
+	//NSLog(@"progress - %f",newProgress);
+}
 
+/*
+- (void)request:(ASIHTTPRequest *)request didSendBytes:(long long)bytes {
+}
+
+
+- (void)request:(ASIHTTPRequest *)request incrementUploadSizeBy:(long long)newLength {
+}
+*/
 
 @end

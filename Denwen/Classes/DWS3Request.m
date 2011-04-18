@@ -116,7 +116,7 @@ static NSString* const kS3SuccessResponse	= @"";
 						  [NSNumber numberWithInt:self.resourceID]		,kKeyResourceID,
 						  theError										,kKeyError,
 						  nil];
-	
+		
 	[[NSNotificationCenter defaultCenter] postNotificationName:self.errorNotification
 														object:nil
 													  userInfo:info];
