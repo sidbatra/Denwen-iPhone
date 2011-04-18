@@ -162,7 +162,6 @@ static NSInteger const kPlacesIndex					= 0;
 	if(theSearchBar.text.length >= kMinimumQueryLength) {
 		
 		_tableViewUsage					= kTableViewAsSpinner;
-		self.tableView.scrollEnabled	= NO;
 		[self.tableView reloadData];
 		
 		[searchBar resignFirstResponder];
@@ -170,6 +169,16 @@ static NSInteger const kPlacesIndex					= 0;
 		[self loadPlaces];
 	}
 	
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)searchBar:(UISearchBar *)searchBar
+	textDidChange:(NSString *)searchText {
+	
+	if([searchText isEqualToString:kEmptyString]) {
+		[_placeManager clearPlaces];
+		[self.tableView reloadData];
+	}
 }
 
 
