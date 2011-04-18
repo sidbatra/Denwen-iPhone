@@ -99,7 +99,6 @@ static NSInteger const kPlacesPerPage				= 20;
 	
 	self.tableView.backgroundColor	= [UIColor blackColor];
 	self.tableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
-	self.tableView.scrollEnabled	= NO;
 	
 	/**
 	 * Tuck the search bar above the table view
@@ -215,8 +214,8 @@ static NSInteger const kPlacesPerPage				= 20;
 - (void)finishedLoadingPlaces {
 	[self.refreshHeaderView refreshLastUpdatedDate];
 	
-	if(_tableViewUsage == kTableViewAsData)
-		self.tableView.scrollEnabled	= YES;
+	//if(_tableViewUsage == kTableViewAsData)
+	//	self.tableView.scrollEnabled	= YES;
 	
 	if([_placeManager totalPlacesAtRow:kDefaultPlacesRow] < kPlacesPerPage || 
 	   ([_placeManager totalPlacesAtRow:kDefaultPlacesRow] - _prePaginationCellCount < kPlacesPerPage &&

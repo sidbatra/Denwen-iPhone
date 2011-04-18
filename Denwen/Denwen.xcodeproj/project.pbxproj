@@ -1242,8 +1242,6 @@
 		26EF03AF12E77CAD00E7BA76 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				268B56801356682800BB43DC /* DWCameraOverlayViewController.h */,
-				268B56811356682800BB43DC /* DWCameraOverlayViewController.m */,
 				BB9EC27513542DF000D6BBF6 /* DWTabBarController.h */,
 				BB9EC27613542DF000D6BBF6 /* DWTabBarController.m */,
 				BB9EC16C13541A8E00D6BBF6 /* DWTabBar.h */,
@@ -1588,6 +1586,8 @@
 			children = (
 				BBF893E8134FC0DE00B332CA /* DWMediaPickerController.h */,
 				BBF893E9134FC0DE00B332CA /* DWMediaPickerController.m */,
+				268B56801356682800BB43DC /* DWCameraOverlayViewController.h */,
+				268B56811356682800BB43DC /* DWCameraOverlayViewController.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
