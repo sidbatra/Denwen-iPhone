@@ -70,3 +70,11 @@
 - (void)redisplay;
 
 @end
+
+/**
+ * Declarations for select private methods
+ */
+@interface DWPlaceFeedCell(Private)
+- (void)highlightCell;
+- (void)fadeCell;
+@end
