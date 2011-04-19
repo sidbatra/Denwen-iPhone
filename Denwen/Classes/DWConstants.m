@@ -219,6 +219,9 @@ NSInteger const kCameraDeviceRear           = UIImagePickerControllerCameraDevic
 NSInteger const kCameraDeviceFront          = UIImagePickerControllerCameraDeviceFront;
 
 //----------------------------------------------------------------------------------------------------
+NSInteger const kMaxVideoDuration           = 45;
+
+//----------------------------------------------------------------------------------------------------
 NSInteger const kLocFreshness				= 9;
 NSInteger const kLocAccuracy				= 1100;
 NSInteger const kLocRefreshDistance			= 750;

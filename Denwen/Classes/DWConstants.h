@@ -218,6 +218,11 @@ NSInteger const kCameraDeviceRear;
 NSInteger const kCameraDeviceFront;
 
 /**
+ * Camera video settings
+ */
+NSInteger const kMaxVideoDuration;
+
+/**
  * Location
  */
 extern NSInteger const kLocFreshness;

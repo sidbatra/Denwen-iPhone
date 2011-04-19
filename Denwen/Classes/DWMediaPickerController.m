@@ -13,7 +13,6 @@ static NSString* const kRot90                   = @"90";
 static NSString* const kRot180                  = @"180";
 static NSString* const kRot270                  = @"270";
 static NSString* const kRot0                    = @"0";
-static NSInteger const kMaxVideoDuration        = 45;
 static NSInteger const kThumbnailTimestamp      = 1;
 static float     const kCroppedImageDimension   = 320.0;
 
@@ -136,6 +135,8 @@ static float     const kCroppedImageDimension   = 320.0;
         self.showsCameraControls        = NO;
         self.cameraFlashMode            = UIImagePickerControllerCameraFlashModeOff;
     }
+    else
+        self.allowsEditing              = YES;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -175,29 +176,33 @@ static float     const kCroppedImageDimension   = 320.0;
         UIImage *resizedImage   = nil; 
         UIImage *editedImage    = nil;
         
-        if(originalImage.size.width > originalImage.size.height) {
-            resizedImage    = [originalImage resizeTo:
-                               CGSizeMake(originalImage.size.width * 
-                                          kCroppedImageDimension/originalImage.size.height,
-                                          kCroppedImageDimension)];
-             editedImage    = [resizedImage cropToRect:
-                               CGRectMake((resizedImage.size.width - kCroppedImageDimension)/2, 0, 
-                                          kCroppedImageDimension, kCroppedImageDimension)];
-        }
-        else {
-            resizedImage    = [originalImage resizeTo:
-                               CGSizeMake(kCroppedImageDimension,
-                                          originalImage.size.height * 
-                                          kCroppedImageDimension/originalImage.size.width)];
-            editedImage     = [resizedImage cropToRect:
-                               CGRectMake(0,(resizedImage.size.height - kCroppedImageDimension)/2, 
-                                          kCroppedImageDimension, kCroppedImageDimension)];
-        }
+        if (picker.sourceType == kMediaPickerCaptureMode) {
+            if(originalImage.size.width > originalImage.size.height) {
+                resizedImage    = [originalImage resizeTo:
+                                   CGSizeMake(originalImage.size.width * 
+                                              kCroppedImageDimension/originalImage.size.height,
+                                              kCroppedImageDimension)];
+                 editedImage    = [resizedImage cropToRect:
+                                   CGRectMake((int)((resizedImage.size.width - kCroppedImageDimension)/2), 0, 
+                                              kCroppedImageDimension, kCroppedImageDimension)];
+            }
+            else {
+                resizedImage    = [originalImage resizeTo:
+                                   CGSizeMake(kCroppedImageDimension,
+                                              originalImage.size.height * 
+                                              kCroppedImageDimension/originalImage.size.width)];
+                editedImage     = [resizedImage cropToRect:
+                                   CGRectMake(0,(int)((resizedImage.size.height - kCroppedImageDimension)/2), 
+                                              kCroppedImageDimension, kCroppedImageDimension)];
+            }
                 
-		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
-			UIImageWriteToSavedPhotosAlbum(editedImage, self, 
+			UIImageWriteToSavedPhotosAlbum(originalImage, self, 
                                            @selector(image:didFinishSavingWithError:contextInfo:), 
                                            nil);
+        }
+        else {
+            editedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+        }
 		
 		[_mediaDelegate didFinishPickingImage:originalImage 
 								  andEditedTo:editedImage];
@@ -256,6 +261,7 @@ static float     const kCroppedImageDimension   = 320.0;
 //----------------------------------------------------------------------------------------------------
 - (void)startRecording {
     [self startVideoCapture];
+    [self.cameraOverlayViewController displayRecordingTimer];
 }
 
 //----------------------------------------------------------------------------------------------------

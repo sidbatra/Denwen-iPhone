@@ -17,7 +17,9 @@
     NSInteger       _cameraFlashMode;
     NSInteger       _cameraCaptureMode;
     NSInteger       _cameraDevice;
+    NSInteger       _recordingTime;
     BOOL            _isRecording;
+    NSTimer         *_timer;
     
     UIButton        *_cameraButton;
     UIButton        *_cancelButton;
@@ -27,6 +29,7 @@
     UIButton        *_recordButton;
     UIButton        *_cameraCaptureModeButton;
     UIImageView     *_letterBoxImage;
+    UIButton        *_timerButton;
     
     id <DWCameraOverlayViewControllerDelegate>      _overlayDelegate;
 }
@@ -37,6 +40,15 @@
  */
 - (id)initWithDelegate:(id)theDelegate;
 
+/**
+ * Display the recording timer as soon as recording is started 
+ */
+- (void)displayRecordingTimer;
+
+/**
+ * Properties
+ */
+@property (nonatomic, retain) IBOutlet NSTimer *timer;
 
 /**
  * IBOutlet properties
@@ -48,6 +60,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *photoLibraryButton;
 @property (nonatomic, retain) IBOutlet UIButton *recordButton;
 @property (nonatomic, retain) IBOutlet UIButton *cameraCaptureModeButton;
+@property (nonatomic, retain) IBOutlet UIButton *timerButton;
 @property (nonatomic, retain) IBOutlet UIImageView *letterBoxImage;
 
 

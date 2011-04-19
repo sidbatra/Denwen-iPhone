@@ -40,6 +40,8 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
 @synthesize recordButton                = _recordButton;
 @synthesize cameraCaptureModeButton     = _cameraCaptureModeButton;
 @synthesize letterBoxImage              = _letterBoxImage;
+@synthesize timerButton                 = _timerButton;
+@synthesize timer                       = _timer;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)theDelegate {
@@ -50,6 +52,7 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
         _cameraCaptureMode          = kCameraCaptureModePhoto;
         _cameraDevice               = kCameraDeviceRear;
         _isRecording                = NO;
+        _recordingTime              = 0;
     }
     return self;
 }
@@ -64,6 +67,8 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
     self.recordButton               = nil;
     self.cameraCaptureModeButton    = nil;
     self.letterBoxImage             = nil;
+    self.timerButton                = nil;
+    self.timer                      = nil;
     
     [super dealloc];
 }
@@ -107,6 +112,35 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
     [super viewDidUnload];
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Timer Methods
+//----------------------------------------------------------------------------------------------------
+- (void)updateTimerDisplay {
+    _recordingTime++;
+    NSString *time = _recordingTime < 10 ? 
+                        [NSString stringWithFormat:@"00:00:0%d",_recordingTime]:
+                        [NSString stringWithFormat:@"00:00:%d",_recordingTime]; 
+    
+    [self.timerButton setTitle:time 
+                      forState:UIControlStateNormal];
+    
+    if (_recordingTime == kMaxVideoDuration) {
+        [self.timer invalidate];
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)displayRecordingTimer {
+    self.timerButton.hidden = NO;
+    self.timer =  [NSTimer scheduledTimerWithTimeInterval:1 
+                                                   target:self 
+                                                 selector:@selector(updateTimerDisplay) 
+                                                 userInfo:nil 
+                                                  repeats:YES]; 
+}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -162,7 +196,9 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
                 setBackgroundImage:[UIImage imageNamed:kVideoOutLitImage] 
                           forState:UIControlStateNormal];
         _isRecording = YES;
-        self.cameraCaptureModeButton.enabled = NO;
+        self.cameraCaptureModeButton.enabled    = NO;
+        self.toggleCameraButton.hidden          = YES;
+        self.photoLibraryButton.enabled         = NO;
         [_overlayDelegate startRecording];
     }
     else {
@@ -170,7 +206,6 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
                 setBackgroundImage:[UIImage imageNamed:kVideoOutImage] 
                           forState:UIControlStateNormal];
         _isRecording = NO;
-        self.cameraCaptureModeButton.enabled = YES;
         [_overlayDelegate stopRecording];
     }
 }

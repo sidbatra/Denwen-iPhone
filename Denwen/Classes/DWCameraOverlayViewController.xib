@@ -76,7 +76,7 @@
 						<string key="NSFrame">{{110, 434}, {100, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="443805634"/>
+						<reference key="NSNextKeyView" ref="164203482"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -113,7 +113,7 @@
 						<string key="NSFrame">{{10, 439}, {54, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="164203482"/>
+						<reference key="NSNextKeyView" ref="721714753"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -140,7 +140,7 @@
 						<string key="NSFrame">{{10, 11}, {69, 32}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="888856382"/>
+						<reference key="NSNextKeyView" ref="591714474"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -233,7 +233,7 @@
 						<string key="NSFrame">{{110, 434}, {100, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="721714753"/>
+						<reference key="NSNextKeyView" ref="443805634"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -253,6 +253,35 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">video_out.png</string>
 						</object>
+					</object>
+					<object class="IBUIButton" id="591714474">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">-2147483356</int>
+						<string key="NSFrame">{{218, 11}, {92, 29}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="888856382"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+							<integer value="257" key="IBUIAccessibilityTraits"/>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">HelveticaNeue</string>
+							<double key="NSSize">18</double>
+							<int key="NSfFlags">16</int>
+						</object>
+						<string key="IBUINormalTitle">00:00:00</string>
+						<reference key="IBUIHighlightedTitleColor" ref="411050839"/>
+						<reference key="IBUINormalTitleColor" ref="411050839"/>
+						<reference key="IBUINormalTitleShadowColor" ref="287073871"/>
+						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage" id="72702962">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">timer.png</string>
+						</object>
+						<reference key="IBUINormalBackgroundImage" ref="72702962"/>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 480}</string>
@@ -407,6 +436,14 @@
 					</object>
 					<int key="connectionID">41</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">timerButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="591714474"/>
+					</object>
+					<int key="connectionID">44</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -431,6 +468,7 @@
 							<reference ref="164203482"/>
 							<reference ref="803547678"/>
 							<reference ref="721714753"/>
+							<reference ref="591714474"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -490,6 +528,11 @@
 						<reference key="object" ref="803547678"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">43</int>
+						<reference key="object" ref="591714474"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -511,6 +554,8 @@
 					<string>34.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>39.IBPluginDependency</string>
 					<string>40.IBPluginDependency</string>
+					<string>43.IBPluginDependency</string>
+					<string>43.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>8.IBPluginDependency</string>
 					<string>8.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 				</object>
@@ -532,6 +577,8 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="0.0"/>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="1"/>
 				</object>
 			</object>
@@ -547,7 +594,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">41</int>
+			<int key="maxID">44</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -633,6 +680,8 @@
 							<string>letterBoxImage</string>
 							<string>photoLibraryButton</string>
 							<string>recordButton</string>
+							<string>timer</string>
+							<string>timerButton</string>
 							<string>toggleCameraButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -643,6 +692,8 @@
 							<string>UIButton</string>
 							<string>UIImageView</string>
 							<string>UIButton</string>
+							<string>UIButton</string>
+							<string>NSTimer</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 						</object>
@@ -658,6 +709,8 @@
 							<string>letterBoxImage</string>
 							<string>photoLibraryButton</string>
 							<string>recordButton</string>
+							<string>timer</string>
+							<string>timerButton</string>
 							<string>toggleCameraButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -691,6 +744,14 @@
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">timer</string>
+								<string key="candidateClassName">NSTimer</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">timerButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">toggleCameraButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
@@ -699,6 +760,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/DWCameraOverlayViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSTimer</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSTimer.h</string>
 					</object>
 				</object>
 			</object>
@@ -725,6 +794,7 @@
 				<string>letterbox.png</string>
 				<string>library.png</string>
 				<string>select_photo.png</string>
+				<string>timer.png</string>
 				<string>video_in.png</string>
 				<string>video_out.png</string>
 			</object>
@@ -740,6 +810,7 @@
 				<string>{320, 427}</string>
 				<string>{56, 32}</string>
 				<string>{60, 40}</string>
+				<string>{92, 29}</string>
 				<string>{100, 40}</string>
 				<string>{100, 40}</string>
 			</object>
