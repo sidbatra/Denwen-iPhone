@@ -4,6 +4,9 @@
 //
 
 #import "DWPostProgressView.h"
+#import "DWConstants.h"
+
+static const float kMinimumProgress = 0.001;
 
 
 
@@ -11,6 +14,8 @@
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 @implementation DWPostProgressView
+
+@synthesize delegate = _delegate;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithFrame:(CGRect)frame {
@@ -22,12 +27,38 @@
 		statusLabel.textColor		= [UIColor whiteColor];
 		statusLabel.backgroundColor	= [UIColor clearColor];
 		statusLabel.textAlignment	= UITextAlignmentCenter;
-		//statusLabel.text			= @"Posting... 2 of 2";
 		[self addSubview:statusLabel];
 		
 		progressView = [[[UIProgressView alloc] initWithFrame:CGRectMake(25,30,200,10)] autorelease];
-		progressView.progress = 0.0;
 		[self addSubview:progressView];
+		
+		deleteButton					= [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		deleteButton.frame				= CGRectMake(0,20,55,20);
+		deleteButton.hidden				= YES;
+		
+		[deleteButton setTitle:@"Delete"
+					  forState:UIControlStateNormal];
+		
+		[deleteButton addTarget:self
+						 action:@selector(didTapDeleteButton:)
+			   forControlEvents:UIControlEventTouchUpInside];
+		
+		
+		[self addSubview:deleteButton];
+		
+		
+		retryButton						= [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		retryButton.frame				= CGRectMake(60,20,55,20);
+		retryButton.hidden				= YES;
+		
+		[retryButton setTitle:@"Retry"
+					 forState:UIControlStateNormal];
+		
+		[retryButton addTarget:self
+						 action:@selector(didTapRetryButton:)
+			   forControlEvents:UIControlEventTouchUpInside];
+		
+		[self addSubview:retryButton];
     }
 	
     return self;
@@ -44,16 +75,44 @@
 					   totalProgress:(float)totalProgress {
 	
 	if(totalActive) {
+		deleteButton.hidden		= YES;
+		retryButton.hidden		= YES;
+		progressView.hidden		= NO;
+		
 		[progressView setProgress:totalProgress];
 		
-		if(totalActive == 1) {
-			statusLabel.text = @"Posting...";
+		if(totalActive == 1 && totalProgress < kMinimumProgress) {
+			statusLabel.text = @"Connecting..";
 		}
+		else if(totalActive == 1)
+			statusLabel.text = @"Posting...";
 		else {
 			statusLabel.text = [NSString stringWithFormat:@"Posting %d of %d",totalActive,totalActive];
 		}
 
 	}
+	else if(totalFailed) {
+		statusLabel.text		= [NSString stringWithFormat:@"%d Failed",totalFailed];
+		progressView.hidden		= YES;
+		deleteButton.hidden		= NO;
+		retryButton.hidden		= NO;
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTapDeleteButton:(UIButton*)button {
+	[_delegate deleteButtonPressed];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTapRetryButton:(UIButton*)button {
+	progressView.progress	= 0.0;
+	statusLabel.text		= kEmptyString;
+	deleteButton.hidden		= YES;
+	retryButton.hidden		= YES;
+	progressView.hidden		= NO;
+	
+	[_delegate retryButtonPressed];
 }
 
 @end

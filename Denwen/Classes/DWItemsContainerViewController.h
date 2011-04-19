@@ -8,14 +8,13 @@
 
 #import "DWFollowedItemsViewController.h"
 #import "DWContainerViewController.h"
-
-@class DWPostProgressView;
+#import "DWPostProgressView.h"
 
 /**
  * Primary view for the Feed tab and container for followed 
  * items view
  */
-@interface DWItemsContainerViewController : DWContainerViewController {
+@interface DWItemsContainerViewController : DWContainerViewController<DWPostProgressViewDelegate> {
 	DWFollowedItemsViewController	*followedViewController;
 	DWPostProgressView				*postProgressView;
 }

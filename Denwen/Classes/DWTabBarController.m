@@ -72,7 +72,7 @@
 	UIViewController *controller = [self.subControllers objectAtIndex:index];
 	controller.view.frame = CGRectMake(0,0,
 									   self.view.frame.size.width,
-									   self.view.frame.size.height-self.tabBar.frame.size.height);
+									   460-self.tabBar.frame.size.height);
 	
 	[self.view insertSubview:controller.view belowSubview:self.tabBar];
 }

@@ -58,4 +58,14 @@
 					  toPlaceName:(NSString*)name
 					   atLocation:(CLLocation*)location;
 
+/**
+ * Delete all failed requests from the queue
+ */
+- (void)deleteRequests;
+
+/**
+ * Retry all failed requests
+ */
+- (void)retryRequests;
+
 @end

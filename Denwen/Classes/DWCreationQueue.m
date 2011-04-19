@@ -143,6 +143,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 					 atLocation:location];	
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)retryRequests {
+	for(DWCreationQueueItem *item in self.queue) {
+		if([item isFailed]) {
+			[item start];
+		}
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)deleteRequests {
+	for(DWCreationQueueItem *item in self.queue) {
+		if([item isFailed])
+			[self.queue removeObject:item];
+	}
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

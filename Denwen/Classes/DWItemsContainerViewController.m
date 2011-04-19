@@ -4,6 +4,7 @@
 //
 
 #import "DWItemsContainerViewController.h"
+#import "DWCreationQueue.h"
 #import "DWPostProgressView.h"
 #import "DWNotificationsHelper.h"
 #import "DWSession.h"
@@ -63,11 +64,11 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 	[super viewDidLoad];
 	
 	
-	if(!postProgressView)
-		postProgressView = [[DWPostProgressView alloc] initWithFrame:CGRectMake(0,0,250,42)];
-	
-	//self.navigationItem.titleView	= postProgressView;
-	
+	if(!postProgressView) {
+		postProgressView			= [[DWPostProgressView alloc] initWithFrame:CGRectMake(0,0,250,42)];
+		postProgressView.delegate	= self;
+	}
+		
 	/**
 	 * Add subview
 	 */
@@ -183,6 +184,24 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 		self.navigationItem.titleView = nil;
 	}
 
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWPostProgressViewDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)deleteButtonPressed {
+	self.navigationItem.titleView = nil;
+	
+	[[DWCreationQueue sharedDWCreationQueue] deleteRequests];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)retryButtonPressed {
+	[[DWCreationQueue sharedDWCreationQueue] retryRequests];
 }
 
 @end
