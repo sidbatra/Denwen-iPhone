@@ -390,6 +390,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	[request setDelegate:self];
 	[request setRequestMethod:kPost];
 	[request generateResourceID];
+	[request setShouldContinueWhenAppEntersBackground:YES];
 	[request startAsynchronous];
 	
 	return request.resourceID;
@@ -414,6 +415,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	[request setDelegate:self];
 	[request setRequestMethod:kPost];
 	[request generateResourceID];
+	[request setShouldContinueWhenAppEntersBackground:YES];
 	[request startAsynchronous];
 	
 	return request.resourceID;
@@ -500,6 +502,7 @@ successNotification:(NSString*)theSuccessNotification
 	request.showAccurateProgress	= YES;
 	[request setDelegate:self];
 	[request setUploadProgressDelegate:uploadDelegate];
+	[request setShouldContinueWhenAppEntersBackground:YES];
 	[request startAsynchronous];
 
 	
@@ -517,6 +520,7 @@ successNotification:(NSString*)theSuccessNotification
 														  toFolder:folder];
 	request.showAccurateProgress	= YES;
 	[request setDelegate:self];
+	[request setShouldContinueWhenAppEntersBackground:YES];
 	[request setUploadProgressDelegate:uploadDelegate];
 	[request startAsynchronous];
 	
