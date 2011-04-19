@@ -492,13 +492,14 @@ successNotification:(NSString*)theSuccessNotification
 
 //----------------------------------------------------------------------------------------------------
 - (NSInteger)createImageWithData:(UIImage*)image
-						toFolder:(NSString*)folder {
+						toFolder:(NSString*)folder
+			  withUploadDelegate:(id)uploadDelegate {
 	
 	DWS3Request *request			= [DWS3Request requestNewImage:image
 														  toFolder:folder];
 	request.showAccurateProgress	= YES;
 	[request setDelegate:self];
-	[request setUploadProgressDelegate:self];
+	[request setUploadProgressDelegate:uploadDelegate];
 	[request startAsynchronous];
 
 	
@@ -508,14 +509,15 @@ successNotification:(NSString*)theSuccessNotification
 //----------------------------------------------------------------------------------------------------
 - (NSInteger)createVideoUsingURL:(NSURL*)theURL
 				   atOrientation:(NSString*)orientation 
-						toFolder:(NSString*)folder {
+						toFolder:(NSString*)folder
+			  withUploadDelegate:(id)uploadDelegate {
 	
 	DWS3Request *request			= [DWS3Request requestNewVideo:theURL 
 													 atOrientation:orientation
 														  toFolder:folder];
 	request.showAccurateProgress	= YES;
-	[request setUploadProgressDelegate:self];
 	[request setDelegate:self];
+	[request setUploadProgressDelegate:uploadDelegate];
 	[request startAsynchronous];
 	
 	
@@ -536,11 +538,6 @@ successNotification:(NSString*)theSuccessNotification
 //----------------------------------------------------------------------------------------------------
 - (void)requestFailed:(DWRequest*)request {
 	[request processError:[request error]];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)setProgress:(float)newProgress {
-	//NSLog(@"progress - %f",newProgress);
 }
 
 /*

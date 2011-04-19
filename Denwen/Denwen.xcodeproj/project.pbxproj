@@ -332,11 +332,11 @@
 		BBE24FD713563C5100A90B44 /* button_gray_light_cancel_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FD113563C5100A90B44 /* button_gray_light_cancel_active@2x.png */; };
 		BBE326EF12EE83B000657024 /* DWNewItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE326ED12EE83B000657024 /* DWNewItemViewController.m */; };
 		BBE326F012EE83B000657024 /* DWNewItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */; };
-		BBE327EB12EEAD8300657024 /* DWNewPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */; };
 		BBE327EC12EEAD8300657024 /* DWNewPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE327EA12EEAD8300657024 /* DWNewPlaceViewController.xib */; };
 		BBE3A9021330ABB100AE585A /* userprofilefade.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE3A9001330ABB100AE585A /* userprofilefade.png */; };
 		BBE3A9031330ABB100AE585A /* userprofilefade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE3A9011330ABB100AE585A /* userprofilefade@2x.png */; };
 		BBE52FE712F4078600A4F935 /* DWFollowing.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE52FE612F4078600A4F935 /* DWFollowing.m */; };
+		BBE70D9F135D10C2001D83CC /* DWPostProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE70D9E135D10C2001D83CC /* DWPostProgressView.m */; };
 		BBEB947C133AEA9C005AEA64 /* DWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEB947B133AEA9C005AEA64 /* DWRequest.m */; };
 		BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */; };
 		BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */; };
@@ -866,13 +866,13 @@
 		BBE326EC12EE83B000657024 /* DWNewItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewItemViewController.h; path = Classes/DWNewItemViewController.h; sourceTree = "<group>"; };
 		BBE326ED12EE83B000657024 /* DWNewItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewItemViewController.m; path = Classes/DWNewItemViewController.m; sourceTree = "<group>"; };
 		BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWNewItemViewController.xib; path = Classes/DWNewItemViewController.xib; sourceTree = "<group>"; };
-		BBE327E812EEAD8300657024 /* DWNewPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewPlaceViewController.h; path = Classes/DWNewPlaceViewController.h; sourceTree = "<group>"; };
-		BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewPlaceViewController.m; path = Classes/DWNewPlaceViewController.m; sourceTree = "<group>"; };
 		BBE327EA12EEAD8300657024 /* DWNewPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWNewPlaceViewController.xib; path = Classes/DWNewPlaceViewController.xib; sourceTree = "<group>"; };
 		BBE3A9001330ABB100AE585A /* userprofilefade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = userprofilefade.png; path = resources/userprofilefade.png; sourceTree = "<group>"; };
 		BBE3A9011330ABB100AE585A /* userprofilefade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "userprofilefade@2x.png"; path = "resources/userprofilefade@2x.png"; sourceTree = "<group>"; };
 		BBE52FE512F4078600A4F935 /* DWFollowing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFollowing.h; path = Classes/DWFollowing.h; sourceTree = "<group>"; };
 		BBE52FE612F4078600A4F935 /* DWFollowing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowing.m; path = Classes/DWFollowing.m; sourceTree = "<group>"; };
+		BBE70D9D135D10C2001D83CC /* DWPostProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPostProgressView.h; path = Classes/DWPostProgressView.h; sourceTree = "<group>"; };
+		BBE70D9E135D10C2001D83CC /* DWPostProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPostProgressView.m; path = Classes/DWPostProgressView.m; sourceTree = "<group>"; };
 		BBEB947A133AEA9C005AEA64 /* DWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWRequest.h; path = Classes/DWRequest.h; sourceTree = "<group>"; };
 		BBEB947B133AEA9C005AEA64 /* DWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequest.m; path = Classes/DWRequest.m; sourceTree = "<group>"; };
 		BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceViewController.h; path = Classes/DWPlaceViewController.h; sourceTree = "<group>"; };
@@ -1254,6 +1254,8 @@
 				BB9EC16D13541A8E00D6BBF6 /* DWTabBar.m */,
 				BB9EC00D1353F64F00D6BBF6 /* DWSegmentedControl.h */,
 				BB9EC00E1353F64F00D6BBF6 /* DWSegmentedControl.m */,
+				BBE70D9D135D10C2001D83CC /* DWPostProgressView.h */,
+				BBE70D9E135D10C2001D83CC /* DWPostProgressView.m */,
 				BB33130512F25F3E00B713F9 /* DWImageView.h */,
 				BB33130612F25F3E00B713F9 /* DWImageView.m */,
 			);
@@ -1827,8 +1829,6 @@
 				BB33138812F26A1B00B713F9 /* DWImageViewController.m */,
 				BBE326EC12EE83B000657024 /* DWNewItemViewController.h */,
 				BBE326ED12EE83B000657024 /* DWNewItemViewController.m */,
-				BBE327E812EEAD8300657024 /* DWNewPlaceViewController.h */,
-				BBE327E912EEAD8300657024 /* DWNewPlaceViewController.m */,
 			);
 			name = Deprecated;
 			sourceTree = "<group>";
@@ -2189,7 +2189,6 @@
 				BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */,
 				BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */,
 				BBE326EF12EE83B000657024 /* DWNewItemViewController.m in Sources */,
-				BBE327EB12EEAD8300657024 /* DWNewPlaceViewController.m in Sources */,
 				26B973CC12F0BED9000F8F1F /* DWItemFeedCell.m in Sources */,
 				26B9789A12F180C8000F8F1F /* DWPlaceFeedCell.m in Sources */,
 				26CAF7B212F21E110058C01E /* DWFollowedPlacesViewController.m in Sources */,
@@ -2295,6 +2294,7 @@
 				BBE24F6A13562D2200A90B44 /* UINavigationBar+Custom.m in Sources */,
 				268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */,
 				BB0C7FE7135811F20007D6A9 /* DWSearchPlacesViewController.m in Sources */,
+				BBE70D9F135D10C2001D83CC /* DWPostProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

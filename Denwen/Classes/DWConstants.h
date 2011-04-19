@@ -98,6 +98,9 @@ extern NSString* const kKeyNormalImageName;
 extern NSString* const kKeyTag;
 extern NSString* const kKeySelectedIndex;
 extern NSString* const kKeyOldSelectedIndex;
+extern NSString* const kKeyTotalActive;
+extern NSString* const kKeyTotalFailed;
+extern NSString* const kKeyTotalProgress;
 
 /**
  * Notification names
@@ -167,6 +170,9 @@ extern NSString* const kNRequestTabBarIndexChange;
 extern NSString* const kNNearbyPlacesCacheUpdated;
 extern NSString* const kNFollowedPlacesCacheUpdated;
 extern NSString* const kNCreationQueueItemProcessed;
+extern NSString* const kNQueueItemProgressUpdated;
+extern NSString* const kNCreationQueueUpdated;
+
 
 
 /**

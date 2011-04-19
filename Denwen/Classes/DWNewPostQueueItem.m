@@ -163,12 +163,14 @@
 	if(self.item.attachment.fileType == kAttachmentImage) {
 		
 		_mediaUploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:self.item.attachment.previewImage
-																				 toFolder:kS3ItemsFolder];
+																				 toFolder:kS3ItemsFolder
+																	   withUploadDelegate:self];
 	}
 	else {
 		_mediaUploadID = [[DWRequestsManager sharedDWRequestsManager] createVideoUsingURL:self.item.attachment.videoURL
 																			atOrientation:self.item.attachment.orientation
-																				 toFolder:kS3ItemsFolder];
+																				 toFolder:kS3ItemsFolder
+																	   withUploadDelegate:self];
 	}
 }
 
@@ -244,6 +246,9 @@
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
+		[self primaryUploadFinished];
+
+		
 		BOOL isNewPlace = [[body objectForKey:kKeyNewPlace] boolValue];
 				
 		
@@ -263,9 +268,7 @@
 															  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																		item.place,kKeyPlace,
 																		nil]];
-		}
-		
-		[self primaryUploadFinished];
+		}		
 	}
 	else {
 		self.errorMessage = [[body objectForKey:kKeyItem] objectForKey:kKeyErrorMessages];

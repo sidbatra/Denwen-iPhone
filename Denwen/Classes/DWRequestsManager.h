@@ -167,16 +167,20 @@ successNotification:(NSString*)theSuccessNotification
 /**
  * Upload an image to a S3 folder. Method returns
  * the resource ID to uniquely identify the image upload
+ * uploadDelegate receive events about the upload progress
  */
 - (NSInteger)createImageWithData:(UIImage*)image 
-						toFolder:(NSString*)folder;
+						toFolder:(NSString*)folder
+			  withUploadDelegate:(id)uploadDelegate;
 
 /**
  * Upload video located at the URL to the S3 folder. Method returns
  * the resource ID to unique identify the video upload
+ * uploadDelegate receive events about the upload progress
  */
 - (NSInteger)createVideoUsingURL:(NSURL*)theURL
 				   atOrientation:(NSString*)orientation 
-						toFolder:(NSString*)folder;
+						toFolder:(NSString*)folder
+			  withUploadDelegate:(id)uploadDelegate;
 
 @end

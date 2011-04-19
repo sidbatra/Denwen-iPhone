@@ -4,6 +4,7 @@
 //
 
 #import "DWItemsContainerViewController.h"
+#import "DWPostProgressView.h"
 #import "DWNotificationsHelper.h"
 #import "DWSession.h"
 
@@ -16,7 +17,6 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 @implementation DWItemsContainerViewController
-
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithTabBarController:(UIViewController*)theCustomTabBarController {
@@ -42,6 +42,11 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 													 name:kNTabSelectionChanged
 												   object:nil];
 		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(creationQueueUpdated:) 
+													 name:kNCreationQueueUpdated
+												   object:nil];
+		
 		if (&UIApplicationDidEnterBackgroundNotification != NULL) {
 			[[NSNotificationCenter defaultCenter] addObserver:self 
 													 selector:@selector(applicationEnteringBackground:) 
@@ -57,8 +62,11 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	//self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-	//self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+	
+	if(!postProgressView)
+		postProgressView = [[DWPostProgressView alloc] initWithFrame:CGRectMake(0,0,250,42)];
+	
+	//self.navigationItem.titleView	= postProgressView;
 	
 	/**
 	 * Add subview
@@ -75,7 +83,7 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)viewDidUnload {	
+- (void)viewDidUnload {		
 	NSLog(@"%@",kMsgUnload);
 }
 
@@ -84,6 +92,7 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
 	[followedViewController release];
+	[postProgressView release];
     
 	[super dealloc];
 }
@@ -149,6 +158,31 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 - (void)applicationEnteringBackground:(NSNotification *)aNotification {
 	if([self isSelectedTab])
 		[self resetBadgeValue];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)creationQueueUpdated:(NSNotification*)notification {
+	NSDictionary *userInfo	= [notification userInfo];
+	
+	NSInteger totalActive	= [[userInfo objectForKey:kKeyTotalActive] integerValue];
+	NSInteger totalFailed	= [[userInfo objectForKey:kKeyTotalFailed] integerValue];
+	float totalProgress		= [[userInfo objectForKey:kKeyTotalProgress] floatValue];
+	
+	NSLog(@"ACTIVE - %d, FAILED - %d, PROGRESS - %f",totalActive,totalFailed,totalProgress);
+	
+	if(totalActive || totalFailed) {
+		
+		if(!self.navigationItem.titleView)
+			self.navigationItem.titleView = postProgressView;
+		
+		[postProgressView updateDisplayWithTotalActive:totalActive
+										   totalFailed:totalFailed
+										 totalProgress:totalProgress];
+	}
+	else {
+		self.navigationItem.titleView = nil;
+	}
+
 }
 
 @end

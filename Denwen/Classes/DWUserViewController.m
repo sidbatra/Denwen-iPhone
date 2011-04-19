@@ -439,8 +439,8 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	self.mbProgressIndicator.labelText = @"Loading";
 	[self.mbProgressIndicator showUsingAnimation:YES];
 	
-	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
-																		toFolder:kS3UsersFolder];
+	//_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
+	//																	toFolder:kS3UsersFolder];
 	
 	[self.user updatePreviewImages:editedImage];	
 }

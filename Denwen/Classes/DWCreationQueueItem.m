@@ -9,10 +9,11 @@
 static NSInteger const kStateMediaUploading		= 0;
 static NSInteger const kStatePrimaryUploading	= 1;
 static NSInteger const kStateFailed				= 2;
+static NSInteger const kStateFinished			= 3;
 static NSInteger const kTotalMediaRetries		= 25;
 static NSInteger const kTotalPrimaryRetries		= 5;
-
-
+static float	 const kMaxProgress				= 1.0;
+static float	 const kMediaProgressFactor		= 0.9;
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -20,6 +21,7 @@ static NSInteger const kTotalPrimaryRetries		= 5;
 @implementation DWCreationQueueItem
 
 @synthesize state			= _state;
+@synthesize progress		= _progress;
 @synthesize filename		= _filename;
 @synthesize errorMessage	= _errorMessage;
 
@@ -56,6 +58,23 @@ static NSInteger const kTotalPrimaryRetries		= 5;
 }
 
 //----------------------------------------------------------------------------------------------------
+- (BOOL)isActive {
+	return _state == kStateMediaUploading || _state == kStatePrimaryUploading;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)isFailed {
+	return _state == kStateFailed;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)postUpdate {
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNQueueItemProgressUpdated 
+														object:nil
+													  userInfo:nil];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)startMediaUpload {
 	_state = kStateMediaUploading;
 }
@@ -63,10 +82,14 @@ static NSInteger const kTotalPrimaryRetries		= 5;
 //----------------------------------------------------------------------------------------------------
 - (void)startPrimaryUpload {
 	_state = kStatePrimaryUploading;
+	
+	[self postUpdate];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)start {
+	_mediaUploadRetries		= 0;
+	_primaryUploadRetries	= 0;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -77,12 +100,19 @@ static NSInteger const kTotalPrimaryRetries		= 5;
 - (void)mediaUploadError {
 	if(_mediaUploadRetries++ < kTotalMediaRetries)
 		[self startMediaUpload];
-	else
+	else {
 		_state = kStateFailed;
+		[self postUpdate];
+	}
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)primaryUploadFinished {
+	_progress	= kMaxProgress;
+	[self postUpdate];
+	
+	_state		= kStateFinished;
+		
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNCreationQueueItemProcessed 
 														object:self];
 }
@@ -91,8 +121,10 @@ static NSInteger const kTotalPrimaryRetries		= 5;
 - (void)primaryUploadError {
 	if(_primaryUploadRetries++ < kTotalPrimaryRetries)
 		[self startPrimaryUpload];
-	else
+	else {
 		_state = kStateFailed;
+		[self postUpdate];
+	}
 }
 
 
@@ -123,5 +155,19 @@ static NSInteger const kTotalPrimaryRetries		= 5;
 	}
 	
 }
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark ASIUploadProgressDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)setProgress:(float)newProgress {
+	_progress = newProgress * kMediaProgressFactor;
+	
+	[self postUpdate];
+}
+
 
 @end

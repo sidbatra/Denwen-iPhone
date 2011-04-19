@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -104,6 +104,10 @@ NSString* const kKeyNormalImageName			= @"normal_image";
 NSString* const kKeyTag						= @"tag";
 NSString* const kKeySelectedIndex			= @"selected_index";
 NSString* const kKeyOldSelectedIndex		= @"old_selected_index";
+NSString* const kKeyTotalActive				= @"total_active";
+NSString* const kKeyTotalFailed				= @"total_failed";
+NSString* const kKeyTotalProgress			= @"total_progress";
+
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kNPopularPlacesLoaded			= @"NPopularPlacesLoaded";
@@ -171,6 +175,9 @@ NSString* const kNRequestTabBarIndexChange		= @"NRequestTabBarIndexChange";
 NSString* const kNNearbyPlacesCacheUpdated		= @"NNearbyPlacesCacheUpdated";
 NSString* const kNFollowedPlacesCacheUpdated	= @"NFollowedPlacesCacheUpdated";
 NSString* const kNCreationQueueItemProcessed	= @"NCreationQueueItemProcessed";
+NSString* const kNQueueItemProgressUpdated		= @"NQueueItemProgressUpdated";
+NSString* const kNCreationQueueUpdated			= @"NCreationQueueUpdated";
+
 
 
 //----------------------------------------------------------------------------------------------------

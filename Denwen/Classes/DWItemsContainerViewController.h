@@ -9,16 +9,18 @@
 #import "DWFollowedItemsViewController.h"
 #import "DWContainerViewController.h"
 
+@class DWPostProgressView;
+
 /**
  * Primary view for the Feed tab and container for followed 
  * items view
  */
 @interface DWItemsContainerViewController : DWContainerViewController {
-	DWFollowedItemsViewController *followedViewController;
+	DWFollowedItemsViewController	*followedViewController;
+	DWPostProgressView				*postProgressView;
 }
 
 @end
-
 
 /**
  * Declarations for select private methods

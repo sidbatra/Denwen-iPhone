@@ -10,6 +10,8 @@
 
 #include "SynthesizeSingleton.h"
 
+static float kFinalPostUpdateDelay	= 0.5;
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -30,7 +32,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(queueItemProcessed:) 
 													 name:kNCreationQueueItemProcessed
-												   object:nil];		
+												   object:nil];	
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(queueItemProgressUpdated:) 
+													 name:kNQueueItemProgressUpdated
+												   object:nil];
 	}
 	
 	return self;
@@ -46,17 +53,44 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)postUpdate {
+	NSInteger	totalActive		= 0;
+	NSInteger	totalFailed		= 0;
+	float		totalProgress	= 0.0;
+	
+	for(DWCreationQueueItem *item in self.queue) {
+		if([item isActive]) {
+			totalActive++;
+			totalProgress += item.progress;
+		}
+		else if([item isFailed])
+			totalFailed++;
+	}
+		
+	if(totalActive)
+		totalProgress /= totalActive;
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNCreationQueueUpdated 
+														object:nil
+													  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+																[NSNumber numberWithInt:totalActive],kKeyTotalActive,
+																[NSNumber numberWithInt:totalFailed],kKeyTotalFailed,
+																[NSNumber numberWithFloat:totalProgress],kKeyTotalProgress,
+																 nil]];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)addNewPostToQueueWithData:(NSString*)data 
 			  withAttachmentImage:(UIImage*)image
 						toPlaceID:(NSInteger)placeID {
 	
 	DWNewPostQueueItem *queueItem = [[[DWNewPostQueueItem alloc] init] autorelease];
 	
+	[self.queue addObject:queueItem];
+
 	[queueItem postWithItemData:data
 			withAttachmentImage:image
-					  toPlaceID:placeID];
-	
-	[self.queue addObject:queueItem];
+					  toPlaceID:placeID];	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -67,12 +101,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 	
 	DWNewPostQueueItem *queueItem = [[[DWNewPostQueueItem alloc] init] autorelease];
 	
+	[self.queue addObject:queueItem];
+
 	[queueItem postWithItemData:data 
 				   withVideoURL:url
 				 andOrientation:orientation
-					  toPlaceID:placeID];
-	
-	[self.queue addObject:queueItem];
+					  toPlaceID:placeID];	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -83,12 +117,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 	
 	DWNewPostQueueItem *queueItem = [[[DWNewPostQueueItem alloc] init] autorelease];
 	
+	[self.queue addObject:queueItem];
+
 	[queueItem postWithItemData:data 
 			withAttachmentImage:image
 					toPlaceName:name
-					 atLocation:location];
-	
-	[self.queue addObject:queueItem];
+					 atLocation:location];	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -100,13 +134,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 	
 	DWNewPostQueueItem *queueItem = [[[DWNewPostQueueItem alloc] init] autorelease];
 	
+	[self.queue addObject:queueItem];
+
 	[queueItem postWithItemData:data 
 				   withVideoURL:url
 				 andOrientation:orientation 
 					toPlaceName:name
-					 atLocation:location];
-	
-	[self.queue addObject:queueItem];
+					 atLocation:location];	
 }
 
 
@@ -117,7 +151,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 
 //----------------------------------------------------------------------------------------------------
 - (void)queueItemProcessed:(NSNotification*)notification {
-	[self.queue removeObject:[notification object]];
+	[self.queue removeObject:[notification object]];	
+	
+	[self performSelector:@selector(postUpdate)
+			   withObject:nil
+			   afterDelay:kFinalPostUpdateDelay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)queueItemProgressUpdated:(NSNotification*)notification {
+	[self postUpdate];
 }
 
 

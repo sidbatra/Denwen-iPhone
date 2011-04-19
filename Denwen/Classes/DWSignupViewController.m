@@ -254,8 +254,8 @@
 	
 	_isUploading = YES;
 
-	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
-																		toFolder:kS3UsersFolder];
+	//_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
+	//																	toFolder:kS3UsersFolder];
 }
 
 

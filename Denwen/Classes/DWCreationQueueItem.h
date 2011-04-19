@@ -13,6 +13,8 @@
 	NSInteger	_mediaUploadID;
 	NSInteger	_primaryUploadID;
 	
+	float		_progress;
+	
 	NSInteger	_mediaUploadRetries;
 	NSInteger	_primaryUploadRetries;
 	
@@ -28,6 +30,11 @@
 @property (nonatomic,readonly) NSInteger state;
 
 /**
+ * Upload progress for both the uploads
+ */
+@property (nonatomic,readonly) float progress;
+
+/**
  * Generic filename, mainly used for storing filenames
  * of media attachments
  */
@@ -38,6 +45,21 @@
  * for a media or primary upload failure
  */ 
 @property (nonatomic,retain) NSString* errorMessage;
+
+/**
+ * YES if either of the upload is in progress
+ */
+- (BOOL)isActive;
+
+/**
+ * YES if either of the uploads has failed
+ */
+- (BOOL)isFailed;
+
+/**
+ * Fires a notification whenever the uploading makes progress
+ */
+- (void)postUpdate;
 
 /**
  * Stub for upload media to the server. Usually this is
