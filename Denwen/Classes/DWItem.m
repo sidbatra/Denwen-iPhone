@@ -118,16 +118,11 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (NSString*)touchesCountString {
-	return !_touchesCount ? [NSString stringWithFormat:@"%d",18] : @"";
-}
-
-//----------------------------------------------------------------------------------------------------
 - (void)populate:(NSDictionary*)item {
 	[super populate:item];
 
 	_databaseID				= [[item objectForKey:kKeyID] integerValue];
-	_touchesCount			= [[item objectForKey:kKeyTouchesCount] integerValue];
+	_touchesCount			= rand() % 100; ///[[item objectForKey:kKeyTouchesCount] integerValue];
 	_createdAtTimestamp		= [[item objectForKey:kKeyCreatedAt] doubleValue];	
 	self.data				= [item objectForKey:kKeyCondensedData];
 	

@@ -90,11 +90,6 @@
 - (NSString*)createdTimeAgoInWords;
 
 /**
- * String representation of the touches count
- */
-- (NSString*)touchesCountString;
-
-/**
  * Launch download of the images needed to display the item
  */
 - (void)startRemoteImagesDownload;

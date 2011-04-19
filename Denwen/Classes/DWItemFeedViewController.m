@@ -314,20 +314,16 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 			cell = [[[DWItemFeedCell alloc] initWithStyle:UITableViewCellStyleDefault 
 										  reuseIdentifier:kItemFeedCellIdentifier] autorelease];
 		
-		/** 
-		 * Update resused cell
-		 */
-		/*[cell updateClassMemberHasAttachment:[item hasAttachment] 
-								   andItemID:item.databaseID];*/
-        
+	
 		cell.delegate		= self;
 		
 		cell.itemID				= item.databaseID;
-		cell.itemTouchesCount	= [item touchesCountString];
 		cell.itemData			= item.data;
 		cell.itemPlaceName		= item.place.name;
-		cell.itemUserName		= [item.user fullName];
-		cell.itemCreatedAt		= [item createdTimeAgoInWords];
+		cell.itemUserName		= item.user.firstName;
+		
+		[cell setDetails:item.touchesCount 
+			andCreatedAt:[item createdTimeAgoInWords]];
 		
 		[cell reset];
 		

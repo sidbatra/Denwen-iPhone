@@ -40,6 +40,7 @@
 	CALayer							*touchIconImageLayer;
 	CALayer							*touchedImageLayer;
 	CALayer							*playImageLayer;
+	CALayer							*shareImageLayer;
 
 	DWItemFeedCellDrawingLayer		*drawingLayer;
 
@@ -50,23 +51,26 @@
 	BOOL							_isVideoAttachment;
 	
 	NSInteger						_itemID;
+	NSInteger						_itemTouchesCount;
 	
 	NSString						*_itemData;
 	NSString						*_itemPlaceName;
 	NSString						*_itemUserName;
 	NSString						*_itemCreatedAt;
-	NSString						*_itemTouchesCount;
+	NSString						*_itemDetails;
 	
 	NSDate							*_highlightedAt;
 
-	
-	CGSize							_itemDataSize;
-	CGSize							_itemUserNameSize;
-	CGSize							_itemPlaceNameSize;
-	CGSize							_itemCreatedAtSize;
+	CGRect							_userNameRect;
+	CGRect							_atRect;
+	CGRect							_placeNameRect;
+	CGRect							_dataRect;
+	CGRect							_detailsRect;
+
 	
 	UIButton						*placeButton;
 	UIButton						*userButton;
+	UIButton						*shareButton;
 	
 	id<DWItemFeedCellDelegate>		_delegate;
 }
@@ -81,14 +85,14 @@
 @property (nonatomic,copy) NSString* itemPlaceName;
 @property (nonatomic,copy) NSString* itemUserName;
 @property (nonatomic,copy) NSString* itemCreatedAt;
-@property (nonatomic,copy) NSString* itemTouchesCount;
-
+@property (nonatomic,copy) NSString* itemDetails;
 @property (nonatomic,retain) NSDate* highlightedAt;
+@property (nonatomic,readonly) CGRect userNameRect;
+@property (nonatomic,readonly) CGRect atRect;
+@property (nonatomic,readonly) CGRect placeNameRect;
+@property (nonatomic,readonly) CGRect dataRect;
+@property (nonatomic,readonly) CGRect detailsRect;
 
-@property (nonatomic,assign) CGSize	itemDataSize;
-@property (nonatomic,assign) CGSize	itemUserNameSize;
-@property (nonatomic,assign) CGSize	itemPlaceNameSize;
-@property (nonatomic,assign) CGSize	itemCreatedAtSize;
 
 @property (nonatomic,assign) id<DWItemFeedCellDelegate> delegate;
 
@@ -102,6 +106,12 @@
  * Set the item image
  */
 - (void)setItemImage:(UIImage*)itemImage;
+
+/**
+ * Set item details - touchesCount and createdAtString
+ */
+- (void)setDetails:(NSInteger)touchesCount 
+	  andCreatedAt:(NSString*)createdAt;
 
 /**
  * Modifies display for a video attachment

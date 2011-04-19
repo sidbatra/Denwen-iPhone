@@ -1,9 +1,6 @@
 //
 //  DWItemFeedCell.m
-//  Denwen
-//
-//  Created by Deepak Rao on 1/24/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWItemFeedCell.h"
@@ -11,15 +8,33 @@
 #define kImgTouchIcon			@"hand.png"
 #define kImgTouched				@"chevron.png"
 #define kImgPlay				@"play.png"
-#define kFontItemPlaceName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:13]
-#define kFontItemData			[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
-#define kFontItemUserName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:13]
-#define kFontItemCreatedAt		[UIFont fontWithName:@"HelveticaNeue" size:13]
-#define kItemDataWidth			306
-#define kItemDataHeight			70
-#define kItemDataY				121
-#define kItemPlaceNameY			101
-#define kNormalAlpha			0.45
+#define kImgShare				@"share.png"
+#define kImgSeparator			@"hr_place_list.png"
+#define kFontItemUserName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+#define kFontAt					[UIFont fontWithName:@"HelveticaNeue" size:15]
+#define kFontItemPlaceName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+#define kFontItemData			[UIFont fontWithName:@"HelveticaNeue" size:23]
+#define kFontItemCreatedAt		[UIFont fontWithName:@"HelveticaNeue" size:15]
+#define kFontItemTouchesCount	[UIFont fontWithName:@"HelveticaNeue" size:15]
+#define kItemUserNameX			20
+#define kItemUserNameY			13
+#define kUnderlineYOffset		17
+#define kUnderlineHeight		0.75
+#define kAtXOffset				5
+#define kAtWidth				13
+#define kPlaceNameXOffset		5
+#define kMaxPlaceNameWidth		305
+#define kItemDataX				30
+#define kItemDataY				40
+#define kItemDataYOffset		2
+#define kItemDataWidth			270
+#define kItemDataHeight			240
+#define kDetailsX				20
+#define kDetailsY				285
+#define kTouchesIconXOffset		4
+#define kTouchesIconY			287
+#define kDefaultTextHeight		20
+#define kNormalAlpha			0.60
 #define kHighlightAlpha			1.0
 #define kSelectionDelay			0.45
 #define kTouchInterval			0.6
@@ -53,56 +68,55 @@
 	
 	if(![itemCell isHighlighted]) {
 		
+		
+		//----------------------------------
 		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-0.5f),0.0f,[UIColor blackColor].CGColor);
 		
-		if(itemCell.placeButtonPressed) {
-			CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.4980 green:0.4980 blue:0.4980 alpha:1.0].CGColor);
-			CGContextSetShadowWithColor(context,CGSizeMake(0.0f,0.5f),0.0f,[UIColor whiteColor].CGColor);
-		}
+		[itemCell.itemUserName drawInRect:itemCell.userNameRect 
+								 withFont:kFontItemUserName];
 		
-		[@"at" drawInRect:CGRectMake(7,101,13,17)
-				 withFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
-		
-		[itemCell.itemPlaceName	drawInRect:CGRectMake(20,kItemPlaceNameY,293,17) 
-								  withFont:kFontItemPlaceName];
+		CGContextFillRect(context,CGRectMake(itemCell.userNameRect.origin.x,
+											 itemCell.userNameRect.origin.y+kUnderlineYOffset,
+											 itemCell.userNameRect.size.width,
+											 kUnderlineHeight));
 		
 		
+		//----------------------------------
 		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-0.5f),0.0f,[UIColor blackColor].CGColor);
 		
-		[itemCell.itemData drawInRect:CGRectMake(7,
-												 kItemDataY,
-												 kItemDataWidth,
-												 kItemDataHeight) 
+		[@"at" drawInRect:itemCell.atRect
+				 withFont:kFontAt];
+		
+		
+		//----------------------------------	
+		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+		
+		
+		[itemCell.itemPlaceName drawInRect:itemCell.placeNameRect
+								  withFont:kFontItemPlaceName
+							 lineBreakMode:UILineBreakModeTailTruncation];
+		
+		CGContextFillRect(context,CGRectMake(itemCell.placeNameRect.origin.x,
+											 itemCell.placeNameRect.origin.y+kUnderlineYOffset,
+											 itemCell.placeNameRect.size.width,
+											 kUnderlineHeight));
+		
+		
+		//----------------------------------	
+		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+		
+		
+		[itemCell.itemData drawInRect:itemCell.dataRect 
 							   withFont:kFontItemData
 						  lineBreakMode:UILineBreakModeWordWrap
 							  alignment:UITextAlignmentLeft];
+
 		
-		if(itemCell.userButtonPressed) {
-			CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.4980 green:0.4980 blue:0.4980 alpha:1.0].CGColor);
-			CGContextSetShadowWithColor(context,CGSizeMake(0.0f,0.5f),0.0f,[UIColor whiteColor].CGColor);
-		}
-		
-		[itemCell.itemUserName drawInRect:CGRectMake(7,
-													 kItemDataY+itemCell.itemDataSize.height+8,
-													 self.itemCell.itemUserNameSize.width,
-													 17) 
-								 withFont:kFontItemUserName];
-		
-		[itemCell.itemCreatedAt drawInRect:CGRectMake(7+itemCell.itemUserNameSize.width+5,
-													  kItemDataY+itemCell.itemDataSize.height+8,
-													  100,17) 
-								  withFont:kFontItemCreatedAt];
-		
-		
+		//----------------------------------	
 		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-		CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-0.5f),0.0f,[UIColor blackColor].CGColor);
 		
-		[itemCell.itemTouchesCount drawInRect:CGRectMake(235,298,55,14)
-									 withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:13]
-								lineBreakMode:UILineBreakModeTailTruncation
-									alignment:UITextAlignmentRight];
+		[itemCell.itemDetails drawInRect:itemCell.detailsRect 
+								withFont:kFontItemCreatedAt];
 	}
 
 	
@@ -118,20 +132,21 @@
 //----------------------------------------------------------------------------------------------------
 @implementation DWItemFeedCell
 
-@synthesize itemID				= _itemID;
-@synthesize placeButtonPressed	= _placeButtonPressed;
-@synthesize userButtonPressed	= _userButtonPressed;
-@synthesize itemData			= _itemData;
-@synthesize itemPlaceName		= _itemPlaceName;
-@synthesize itemUserName		= _itemUserName;
-@synthesize itemCreatedAt		= _itemCreatedAt;
-@synthesize highlightedAt		= _highlightedAt;
-@synthesize itemTouchesCount	= _itemTouchesCount;
-@synthesize itemDataSize		= _itemDataSize;
-@synthesize itemUserNameSize	= _itemUserNameSize;
-@synthesize itemPlaceNameSize	= _itemPlaceNameSize;
-@synthesize itemCreatedAtSize	= _itemCreatedAtSize;
-@synthesize delegate			= _delegate;
+@synthesize itemID					= _itemID;
+@synthesize placeButtonPressed		= _placeButtonPressed;
+@synthesize userButtonPressed		= _userButtonPressed;
+@synthesize itemData				= _itemData;
+@synthesize itemPlaceName			= _itemPlaceName;
+@synthesize itemUserName			= _itemUserName;
+@synthesize itemCreatedAt			= _itemCreatedAt;
+@synthesize itemDetails				= _itemDetails;
+@synthesize highlightedAt			= _highlightedAt;
+@synthesize userNameRect			= _userNameRect;
+@synthesize atRect					= _atRect;
+@synthesize placeNameRect			= _placeNameRect;
+@synthesize dataRect				= _dataRect;
+@synthesize detailsRect				= _detailsRect;
+@synthesize delegate				= _delegate;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithStyle:(UITableViewCellStyle)style
@@ -157,7 +172,7 @@
 		[[self layer] addSublayer:itemImageLayer];
 		
 		touchIconImageLayer					= [CALayer layer];
-		touchIconImageLayer.frame			= CGRectMake(295,292,18,21);
+		touchIconImageLayer.frame			= CGRectMake(295,292,13,15);
 		touchIconImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		touchIconImageLayer.contents		= (id)[UIImage imageNamed:kImgTouchIcon].CGImage;
 		touchIconImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -188,9 +203,9 @@
 		playImageLayer					= [CALayer layer];
 		playImageLayer.frame			= CGRectMake(7,320-20,20,20);
 		playImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
-		playImageLayer.contents		= (id)[UIImage imageNamed:kImgPlay].CGImage;
-		playImageLayer.hidden		= YES;
-		playImageLayer.actions		= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+		playImageLayer.contents			= (id)[UIImage imageNamed:kImgPlay].CGImage;
+		playImageLayer.hidden			= YES;
+		playImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 										   [NSNull null], @"onOrderIn",
 										   [NSNull null], @"onOrderOut",
 										   [NSNull null], @"sublayers",
@@ -198,6 +213,22 @@
 										   [NSNull null], @"bounds",
 										   nil];
 		[[self layer] addSublayer:playImageLayer];
+		
+		shareImageLayer						= [CALayer layer];
+		shareImageLayer.frame				= CGRectMake(280,281,24,19);
+		shareImageLayer.contentsScale		= [[UIScreen mainScreen] scale];
+		shareImageLayer.contents			= (id)[UIImage imageNamed:kImgShare].CGImage;
+		shareImageLayer.actions				= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+											   [NSNull null], @"contents",
+											   nil];
+		[[self layer] addSublayer:shareImageLayer];
+		
+		
+		CALayer *separatorLayer			= [CALayer layer];
+		separatorLayer.frame			= CGRectMake(0,319,320,1);
+		separatorLayer.contentsScale	= [[UIScreen mainScreen] scale];
+		separatorLayer.contents			= (id)[UIImage imageNamed:kImgSeparator].CGImage;
+		[[self layer] addSublayer:separatorLayer];
 		
 		
 		
@@ -216,7 +247,7 @@
 		
 		
 		placeButton						= [[[UIButton alloc] init] autorelease];
-		placeButton.backgroundColor		= [UIColor greenColor];
+		//placeButton.backgroundColor		= [UIColor greenColor];
 		
 		[placeButton addTarget:self
 						action:@selector(didTouchDownOnPlaceButton:) 
@@ -239,7 +270,7 @@
 		
 		
 		userButton						= [[[UIButton alloc] init] autorelease];
-		userButton.backgroundColor		= [UIColor greenColor];
+		//userButton.backgroundColor		= [UIColor greenColor];
 		
 		[userButton addTarget:self
 					   action:@selector(didTouchDownOnUserButton:)				
@@ -259,6 +290,20 @@
 		
 		[self.contentView addSubview:userButton];
 		
+		
+		shareButton						= [[[UIButton alloc] init] autorelease];
+		//shareButton.backgroundColor		= [UIColor greenColor];
+		shareButton.frame				= CGRectMake(shareImageLayer.frame.origin.x - 4,
+													 shareImageLayer.frame.origin.y - 4,
+													 shareImageLayer.frame.size.width + 8,
+													 shareImageLayer.frame.size.height + 8);
+		
+		[shareButton addTarget:self
+					   action:@selector(didTouchUpOnShareButton:) 
+			 forControlEvents:UIControlEventTouchUpInside];
+		
+		[self.contentView addSubview:shareButton];
+		
 										   
 		
 		self.selectionStyle				= UITableViewCellSelectionStyleNone;
@@ -274,7 +319,7 @@
 	self.itemPlaceName		= nil;
 	self.itemUserName		= nil;
 	self.itemCreatedAt		= nil;
-	self.itemTouchesCount	= nil;
+	self.itemDetails		= nil;
 	self.highlightedAt		= nil;
 	
     [super dealloc];
@@ -287,6 +332,67 @@
 	_userButtonPressed			= NO;
 	_isVideoAttachment			= NO;
 	
+	
+	CGSize userNameSize			= [self.itemUserName sizeWithFont:kFontItemUserName];
+	
+	_userNameRect				= CGRectMake(kItemUserNameX,
+											 kItemUserNameY,
+											 userNameSize.width,
+											 userNameSize.height);
+	
+	
+	_atRect						= CGRectMake(_userNameRect.origin.x + _userNameRect.size.width + kAtXOffset,
+											 kItemUserNameY,
+											 kAtWidth,
+											 kDefaultTextHeight);
+
+	
+	
+	CGSize placeNameSize		= [self.itemPlaceName sizeWithFont:kFontItemPlaceName
+										   constrainedToSize:CGSizeMake(kMaxPlaceNameWidth-(_atRect.origin.x + _atRect.size.width),
+																		kDefaultTextHeight)
+											   lineBreakMode:UILineBreakModeTailTruncation];
+	
+	_placeNameRect				= CGRectMake(_atRect.origin.x + _atRect.size.width + kPlaceNameXOffset,
+											 kItemUserNameY,
+											 placeNameSize.width,
+											 placeNameSize.height);
+		
+	
+	
+	
+	CGSize dataSize				= [self.itemData sizeWithFont:kFontItemData
+											constrainedToSize:CGSizeMake(kItemDataWidth,kItemDataHeight)
+												lineBreakMode:UILineBreakModeWordWrap];
+	
+
+	_dataRect					= CGRectMake(kItemDataX,
+											 kItemDataY + (kItemDataHeight - dataSize.height) / 2 - kItemDataYOffset,
+											 dataSize.width,
+											 dataSize.height);
+	
+	
+	
+	CGSize detailsSize			= [self.itemDetails sizeWithFont:kFontItemCreatedAt];
+	
+	_detailsRect				= CGRectMake(kDetailsX,
+											 kDetailsY,
+											 detailsSize.width,
+											 detailsSize.height);
+
+	 
+	
+	userButton.frame			= CGRectMake(_userNameRect.origin.x-3,
+											 _userNameRect.origin.y-2,
+											 _userNameRect.size.width+6,
+											 _userNameRect.size.height+4);
+	
+	placeButton.frame			= CGRectMake(_placeNameRect.origin.x-3,
+											 _placeNameRect.origin.y-2,
+											 _placeNameRect.size.width+6,
+											 _placeNameRect.size.height+4);
+	
+	
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kNoAnimationDuration]
 					 forKey:kCATransactionAnimationDuration];
@@ -294,23 +400,15 @@
 	itemImageLayer.opacity		= kNormalAlpha;
 	touchedImageLayer.hidden	= YES;
 	playImageLayer.hidden		= YES;
+	shareImageLayer.hidden		= NO;
+	
+	touchIconImageLayer.frame	= CGRectMake(_detailsRect.origin.x+_detailsRect.size.width+kTouchesIconXOffset,
+											 kTouchesIconY,
+											 touchIconImageLayer.frame.size.width, 
+											 touchIconImageLayer.frame.size.height);
 	[CATransaction commit];
 	
-	_itemPlaceNameSize			= [self.itemPlaceName sizeWithFont:kFontItemPlaceName];
 	
-	_itemDataSize				= [self.itemData sizeWithFont:kFontItemData
-											constrainedToSize:CGSizeMake(kItemDataWidth,kItemDataHeight)
-												lineBreakMode:UILineBreakModeWordWrap];
-	
-	_itemUserNameSize			= [self.itemUserName sizeWithFont:kFontItemUserName];
-	
-	_itemCreatedAtSize			= [self.itemCreatedAt sizeWithFont:kFontItemCreatedAt];
-	
-	placeButton.frame			= CGRectMake(0,kItemPlaceNameY - 2,_itemPlaceNameSize.width + 28 ,20);
-	
-	userButton.frame			= CGRectMake(0,
-											 kItemDataY+_itemDataSize.height+8-2,
-											 _itemCreatedAtSize.width + _itemUserNameSize.width + 18,20);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -341,6 +439,16 @@
 //----------------------------------------------------------------------------------------------------
 - (void)setItemImage:(UIImage*)itemImage {
 	itemImageLayer.contents = (id)itemImage.CGImage;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setDetails:(NSInteger)touchesCount 
+	  andCreatedAt:(NSString*)createdAt {
+	
+	_itemTouchesCount	= touchesCount;
+	self.itemCreatedAt	= createdAt;
+	
+	self.itemDetails	= [NSString stringWithFormat:@"%@  |  %d",self.itemCreatedAt,_itemTouchesCount];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -386,6 +494,8 @@
 	if(_isVideoAttachment)
 		playImageLayer.hidden	= YES;
 	
+	shareImageLayer.hidden		= YES;
+	
 	[self redisplay];
 
 	[CATransaction commit];
@@ -405,6 +515,8 @@
 	
 	if(_isVideoAttachment)
 		playImageLayer.hidden	= NO;
+	
+	shareImageLayer.hidden		= NO;
 	
 	[self redisplay];
 	
@@ -437,10 +549,9 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)setAsVideoAttachment {
-	playImageLayer.hidden	= NO;
-	_isVideoAttachment		= YES;
+	//playImageLayer.hidden		= NO;
+	//_isVideoAttachment		= YES;
 }
-
 
 
 //----------------------------------------------------------------------------------------------------
@@ -497,6 +608,11 @@
 //----------------------------------------------------------------------------------------------------
 - (void)didDragInsideUserButton:(UIButton*)button {
 	[self highlightUserButton];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTouchUpOnShareButton:(UIButton*)button {
+	NSLog(@"share button clicked");
 }
 
 @end
