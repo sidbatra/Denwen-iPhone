@@ -142,6 +142,8 @@ static float     const kCroppedImageDimension   = 320.0;
 //----------------------------------------------------------------------------------------------------
 - (void)prepareForImageWithPickerMode:(NSInteger)pickerMode {
 	[self prepare:pickerMode];
+    
+    [self.cameraOverlayViewController hideCameraCaptureModeButtonForPickingImages];
 }
 
 //----------------------------------------------------------------------------------------------------

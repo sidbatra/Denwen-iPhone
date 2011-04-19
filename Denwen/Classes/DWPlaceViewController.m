@@ -36,7 +36,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	
 	if (self) {
 		
-		self.place			= thePlace;
+		self.place = thePlace;
 	
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newItemParsed:) 
@@ -272,87 +272,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 				 atIndex:kNewItemRowInTableView];
 	}
 }
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark UITableViewDataSource
-/*
-//----------------------------------------------------------------------------------------------------
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	CGFloat height = 0;
-	
-	if(_tableViewUsage == kTableViewAsData && indexPath.row==0)
-		height = kPlaceViewCellHeight;
-	else
-		height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
-
-	return height;
-}*/
-/*
-//----------------------------------------------------------------------------------------------------
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	UITableViewCell *cell = nil;
-	
-	if(_tableViewUsage == kTableViewAsData && indexPath.row == 0) {
-		DWPlaceCell *cell = (DWPlaceCell*)[tableView dequeueReusableCellWithIdentifier:kPlaceViewCellIdentifier];
-		
-		if (!cell) {
-			cell = [[[DWPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault 
-									   reuseIdentifier:kPlaceViewCellIdentifier
-											   withRow:indexPath.row 
-											  andTaget:self] autorelease];
-		}
-		
-		if(self.following)
-			[cell displayFollowingState];
-		else
-			[cell displayUnfollowingState];
-		
-			
-		
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		cell.placeName.text = self.place.name;
-		
-		cell.placeBackgroundImage.image = [UIImage imageNamed:kImgGenericPlaceHolder];
-		
-		return cell;
-	}
-	else {
-		cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-		if(_tableViewUsage == kTableViewAsData && indexPath.row < [self.itemManager totalItems])
-			[(DWItemFeedCell*)cell disablePlaceButtons];
-	}
-    cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-	
-	return cell;
-}*/
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark UITableViewDelegate
-/*
-//----------------------------------------------------------------------------------------------------
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(_tableViewUsage == kTableViewAsData && indexPath.row == 0) {
-		
-		DWPlaceDetailsViewController *placeDetailsViewController = [[DWPlaceDetailsViewController alloc] 
-																	initWithPlace:self.place];
-		placeDetailsViewController.hidesBottomBarWhenPushed = YES;
-		
-		[self.navigationController pushViewController:placeDetailsViewController 
-											 animated:YES];
-		[placeDetailsViewController release];
-	}
-	else {
-		[super tableView:tableView didSelectRowAtIndexPath:indexPath];
-	}
-	
-}*/
 
 
 //----------------------------------------------------------------------------------------------------

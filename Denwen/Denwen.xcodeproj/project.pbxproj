@@ -1698,8 +1698,6 @@
 		BB9EBFFE1353F5C400D6BBF6 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
-				26CF62D812F3E96100505A37 /* DWPlaceCell.h */,
-				26CF62D912F3E96100505A37 /* DWPlaceCell.m */,
 				26CF62DA12F3E96100505A37 /* DWUserCell.h */,
 				26CF62DB12F3E96100505A37 /* DWUserCell.m */,
 				26B973CA12F0BED9000F8F1F /* DWItemFeedCell.h */,
@@ -1829,6 +1827,8 @@
 				BB33138812F26A1B00B713F9 /* DWImageViewController.m */,
 				BBE326EC12EE83B000657024 /* DWNewItemViewController.h */,
 				BBE326ED12EE83B000657024 /* DWNewItemViewController.m */,
+				26CF62D812F3E96100505A37 /* DWPlaceCell.h */,
+				26CF62D912F3E96100505A37 /* DWPlaceCell.m */,
 			);
 			name = Deprecated;
 			sourceTree = "<group>";

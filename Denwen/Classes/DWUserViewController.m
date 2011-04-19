@@ -356,6 +356,20 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
+#pragma mark Private Methods
+//----------------------------------------------------------------------------------------------------
+-(void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode {
+    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
+    
+    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
+    [picker prepareForImageWithPickerMode:pickerMode];
+    [self presentModalViewController:picker animated:NO];   
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
 #pragma mark UITableViewDelegate
 
 //----------------------------------------------------------------------------------------------------
@@ -374,56 +388,15 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)didTapUserMediumImage:(id)sender event:(id)event {
-	
+- (void)didTapUserMediumImage:(id)sender event:(id)event {	
 	/**
 	 * Display editing options only if the user view belongs to the current users
 	 */
 	if([self.user isCurrentUser]) {
-		
-		UIActionSheet *actionSheet = nil;
-		
-		if(self.user.hasPhoto) {
-			actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
-													  delegate:self 
-											 cancelButtonTitle:kMsgCancelPhoto	
-										destructiveButtonTitle:nil
-											 otherButtonTitles:kMsgTakeBetterPhoto,kMsgChooseBetterPhoto,nil];
-		}
-		else {
-			actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
-													  delegate:self 
-											 cancelButtonTitle:kMsgCancelPhoto	
-										destructiveButtonTitle:nil
-											 otherButtonTitles:kMsgTakeFirstPhoto,kMsgChooseFirstPhoto,nil];
-		}
-		
-		[actionSheet showInView:self.tabBarController.view];
-		[actionSheet release];
+        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];  
 	}
-
 }
 
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark UIActionSheetDelegate
-
-//----------------------------------------------------------------------------------------------------
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
-	
-	if(buttonIndex != kActionSheetCancelIndex) {
-		[[DWMemoryPool sharedDWMemoryPool] freeMemory];
-		
-		DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
-		
-		[picker prepareForImageWithPickerMode:kMediaPickerCaptureMode];
-		[self presentModalViewController:picker
-								animated:YES];
-	}
-}	
-	
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -434,21 +407,29 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 - (void)didFinishPickingImage:(UIImage*)originalImage 
 				  andEditedTo:(UIImage*)editedImage {
 	
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:NO];
 		
 	self.mbProgressIndicator.labelText = @"Loading";
 	[self.mbProgressIndicator showUsingAnimation:YES];
 	
 	//_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
-	//																	toFolder:kS3UsersFolder];
+    //                                                                    toFolder:kS3UsersFolder];
 	
 	[self.user updatePreviewImages:editedImage];	
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)mediaPickerCancelled {
-	[self dismissModalViewControllerAnimated:YES];
-	
+- (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode {    
+    [self dismissModalViewControllerAnimated:NO];  
+    
+    if (imagePickerMode == kMediaPickerLibraryMode)
+        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)photoLibraryModeSelected {
+    [self dismissModalViewControllerAnimated:NO];
+    [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode];
 }
 
 

@@ -46,6 +46,12 @@
 - (void)displayRecordingTimer;
 
 /**
+ * Hide the camera capture mode button when the overlay is used
+ * only for images
+ */
+- (void)hideCameraCaptureModeButtonForPickingImages;
+
+/**
  * Properties
  */
 @property (nonatomic, retain) IBOutlet NSTimer *timer;
