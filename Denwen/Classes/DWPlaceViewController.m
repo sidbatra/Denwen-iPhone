@@ -37,7 +37,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	if (self) {
 		
 		self.place			= thePlace;
-		_tableViewUsage		= kTableViewAsData;
 	
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newItemParsed:) 
@@ -177,7 +176,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		NSDictionary *body = [info objectForKey:kKeyBody];
 		
 		[self.itemManager populateItems:[body objectForKey:kKeyItems]
-							 withBuffer:_currentPage==kPagInitialPage
+							 withBuffer:NO
 							  withClear:_isReloading];
 		
 		[self.place update:[body objectForKey:kKeyPlace]];
@@ -279,7 +278,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UITableViewDataSource
-
+/*
 //----------------------------------------------------------------------------------------------------
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat height = 0;
@@ -290,8 +289,8 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
 
 	return height;
-}
-
+}*/
+/*
 //----------------------------------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
@@ -323,20 +322,20 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	}
 	else {
 		cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-		/*
 		if(_tableViewUsage == kTableViewAsData && indexPath.row < [self.itemManager totalItems])
-			[(DWItemFeedCell*)cell disablePlaceButtons];*/
+			[(DWItemFeedCell*)cell disablePlaceButtons];
 	}
+    cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 	
 	return cell;
-}
+}*/
 
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UITableViewDelegate
-
+/*
 //----------------------------------------------------------------------------------------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(_tableViewUsage == kTableViewAsData && indexPath.row == 0) {
@@ -353,7 +352,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		[super tableView:tableView didSelectRowAtIndexPath:indexPath];
 	}
 	
-}
+}*/
 
 
 //----------------------------------------------------------------------------------------------------

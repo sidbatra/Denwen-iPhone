@@ -90,7 +90,7 @@ static NSInteger const kTotalPrimaryRetries		= 5;
 //----------------------------------------------------------------------------------------------------
 - (void)primaryUploadError {
 	if(_primaryUploadRetries++ < kTotalPrimaryRetries)
-		[self startPrimaryUpload]
+		[self startPrimaryUpload];
 	else
 		_state = kStateFailed;
 }
