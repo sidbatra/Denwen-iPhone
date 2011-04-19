@@ -363,7 +363,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
     
     DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
     [picker prepareForImageWithPickerMode:pickerMode];
-    [self presentModalViewController:picker animated:NO];   
+    [[_delegate requestCustomTabBarController] presentModalViewController:picker animated:NO];   
 }
 
 
@@ -377,8 +377,8 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == kTableViewAsProfileMessage) && 
 		indexPath.row == 0) {
 		
-		DWFollowedPlacesViewController *followedView = [[DWFollowedPlacesViewController alloc] initWithDelegate:_delegate 
-																								   withUser:self.user];
+		DWFollowedPlacesViewController *followedView = [[DWFollowedPlacesViewController alloc] initWithDelegate:_delegate
+                                                                                                       withUser:self.user];
 		[self.navigationController pushViewController:followedView animated:YES];
 		[followedView release];
 	}
@@ -407,20 +407,21 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 - (void)didFinishPickingImage:(UIImage*)originalImage 
 				  andEditedTo:(UIImage*)editedImage {
 	
-	[self dismissModalViewControllerAnimated:NO];
+	[[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];
 		
 	self.mbProgressIndicator.labelText = @"Loading";
 	[self.mbProgressIndicator showUsingAnimation:YES];
 	
-	//_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
-    //                                                                    toFolder:kS3UsersFolder];
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
+                                                                        toFolder:kS3UsersFolder
+                                                              withUploadDelegate:nil];
 	
 	[self.user updatePreviewImages:editedImage];	
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode {    
-    [self dismissModalViewControllerAnimated:NO];  
+    [[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];  
     
     if (imagePickerMode == kMediaPickerLibraryMode)
         [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
@@ -428,7 +429,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 
 //----------------------------------------------------------------------------------------------------
 - (void)photoLibraryModeSelected {
-    [self dismissModalViewControllerAnimated:NO];
+    [[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];
     [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode];
 }
 

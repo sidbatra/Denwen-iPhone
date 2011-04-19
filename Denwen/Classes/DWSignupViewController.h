@@ -14,6 +14,7 @@
 #import "NSString+Helpers.h"
 #import "DWSession.h"
 #import "DWMemoryPool.h"
+#import "DWMediaPickerController.h"
 #import "UIImage+ImageProcessing.h"
 
 #import "MBProgressHUD.h"

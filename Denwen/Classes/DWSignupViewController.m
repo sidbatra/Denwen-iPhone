@@ -127,6 +127,19 @@
 }
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Private Methods
+//----------------------------------------------------------------------------------------------------
+-(void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode {
+    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
+    
+    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
+    [picker prepareForImageWithPickerMode:pickerMode];
+    [self presentModalViewController:picker animated:NO];   
+}
+
 
 #pragma mark -
 #pragma mark IB Events
@@ -149,31 +162,8 @@
 // User wants to select  profile picture
 //
 - (IBAction)selectPhotoButtonClicked:(id)sender {
-	
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self 
-														cancelButtonTitle:kMsgCancelPhoto	destructiveButtonTitle:nil
-														otherButtonTitles:kMsgTakeFirstPhoto,kMsgChooseFirstPhoto,nil];
-	[actionSheet showInView:self.view];	
-	[actionSheet release];
+	[self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
 }
-
-
-// Handle clicks on the Photo modality selection action sheet
-//
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
-	
-	//Ignore event for the cancel button
-	if(buttonIndex != 2) {
-		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
-		
-		UIImagePickerController *imagePickerController = imagePickerController = [[UIImagePickerController alloc] init];
-		imagePickerController.delegate = self;
-		imagePickerController.allowsEditing = YES;		
-		imagePickerController.sourceType =  buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-		[self presentModalViewController:imagePickerController animated:YES];
-		[imagePickerController release];
-	}
-}	
 
 
 // Handles return key on the keyboard
@@ -237,32 +227,41 @@
 
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UIImagePickerControllerDelegate
+#pragma mark DWMediaPickerControllerDelegate
 
-
-// Called when a user chooses a picture from the library of the camera
-//
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+//----------------------------------------------------------------------------------------------------
+- (void)didFinishPickingImage:(UIImage*)originalImage 
+				  andEditedTo:(UIImage*)editedImage {
 	
-	UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
-	UIImage *resizedImage = [image resizeTo:CGSizeMake(SIZE_USER_PRE_UPLOAD_IMAGE,SIZE_USER_PRE_UPLOAD_IMAGE)];
+	[self dismissModalViewControllerAnimated:NO];
+    _isUploading = YES;
 	
-	[imagePickerButton setBackgroundImage:resizedImage forState:UIControlStateNormal];
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
+                                                                        toFolder:kS3UsersFolder
+                                                              withUploadDelegate:nil];
 	
-	[self dismissModalViewControllerAnimated:YES];
-	
-	_isUploading = YES;
-
-	//_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:image 
-	//																	toFolder:kS3UsersFolder];
+    UIImage *resizedImage = [editedImage resizeTo:CGSizeMake(SIZE_USER_PRE_UPLOAD_IMAGE,
+                                                             SIZE_USER_PRE_UPLOAD_IMAGE)];
+    
+	[imagePickerButton setBackgroundImage:resizedImage 
+                                 forState:UIControlStateNormal];	
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode {    
+    [self dismissModalViewControllerAnimated:NO];  
+    
+    if (imagePickerMode == kMediaPickerLibraryMode)
+        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
+}
 
-// Called when user cancels the photo selection / creation process
-//
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[self dismissModalViewControllerAnimated:YES];
+//----------------------------------------------------------------------------------------------------
+- (void)photoLibraryModeSelected {
+    [self dismissModalViewControllerAnimated:NO];
+    [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode];
 }
 
 

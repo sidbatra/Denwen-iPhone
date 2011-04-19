@@ -125,5 +125,11 @@
  */
 - (void)urlSelected:(NSString*)url;
 
+/** 
+ * Fired when the custom tab bar controller is requested for showing the 
+ * media picker to change profile picture
+ */
+- (UIViewController*)requestCustomTabBarController;
+
 @end
 

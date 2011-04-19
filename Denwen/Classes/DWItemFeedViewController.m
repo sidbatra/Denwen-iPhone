@@ -484,6 +484,11 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	[_delegate userSelected:item.user];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (UIViewController*)requestCustomTabBarController {
+	return [_delegate requestCustomTabBarController];
+}
+
 /*
 
 //----------------------------------------------------------------------------------------------------
