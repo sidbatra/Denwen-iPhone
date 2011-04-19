@@ -12,7 +12,7 @@
 #import "DWItemFeedCell.h"
 #import "DWSession.h"
 
-static NSInteger const kNewItemRowInTableView				= 1;
+static NSInteger const kNewItemRowInTableView				= 0;
 static NSString* const kPlaceViewCellIdentifier				= @"PlaceViewCell";
 static NSString* const kImgPullToRefreshBackground			= @"refreshfade.png";
 static NSString* const kMsgActionSheetCancel				= @"Cancel";
