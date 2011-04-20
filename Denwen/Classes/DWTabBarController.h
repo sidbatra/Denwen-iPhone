@@ -4,6 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MPMoviePlayerController.h>
 
 @class DWTabBar;
 @protocol DWTabBarControllerDelegate;

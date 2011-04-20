@@ -6,6 +6,8 @@
 #import "DWTabBarController.h"
 #import "DWTabBar.h"
 
+#define kApplicationFrame	CGRectMake(0,20,320,460)
+#define kResetFrameDelay	0.3
 
 
 //----------------------------------------------------------------------------------------------------
@@ -29,6 +31,11 @@
 		self.tabBar = [[[DWTabBar alloc] initWithFrame:tabBarFrame
 											  withInfo:tabBarInfo 
 										  andDelegate:self] autorelease];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(playbackDidFinish:) 
+													 name:MPMoviePlayerPlaybackDidFinishNotification 
+												   object:nil];
 	}
 	
 	return self;
@@ -36,6 +43,7 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	self.tabBar			= nil;
 	self.subControllers	= nil;
@@ -62,6 +70,11 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)resetFrame {
+	self.view.frame = kApplicationFrame;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)removeViewAtIndex:(NSInteger)index {
 	[((UIViewController*)[self.subControllers objectAtIndex:index]).view removeFromSuperview];
 }
@@ -70,6 +83,7 @@
 - (void)addViewAtIndex:(NSInteger)index {
 	
 	UIViewController *controller = [self.subControllers objectAtIndex:index];
+
 	controller.view.frame = CGRectMake(0,0,
 									   self.view.frame.size.width,
 									   460-self.tabBar.frame.size.height);
@@ -100,6 +114,19 @@
 	
 	[_delegate selectedTabModifiedFrom:oldSelectedIndex
 									to:newSelectedIndex];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
+//----------------------------------------------------------------------------------------------------
+- (void)playbackDidFinish:(NSNotification*)notification {
+	[self performSelector:@selector(resetFrame)
+			   withObject:nil 
+			   afterDelay:kResetFrameDelay];
 }
 
 @end
