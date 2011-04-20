@@ -484,6 +484,11 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)shareSelectedForItemID:(NSInteger)itemID {
+	NSLog(@"shared seleced for %d",itemID);
+}
+
+//----------------------------------------------------------------------------------------------------
 - (UIViewController*)requestCustomTabBarController {
 	return [_delegate requestCustomTabBarController];
 }

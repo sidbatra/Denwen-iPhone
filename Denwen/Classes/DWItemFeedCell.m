@@ -618,7 +618,7 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchUpOnShareButton:(UIButton*)button {
-	NSLog(@"share button clicked");
+	[_delegate shareSelectedForItemID:_itemID];
 }
 
 @end

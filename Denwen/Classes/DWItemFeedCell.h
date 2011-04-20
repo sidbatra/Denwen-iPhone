@@ -142,4 +142,5 @@
 - (void)cellTouched:(NSInteger)itemID;
 - (void)placeSelectedForItemID:(NSInteger)itemID;
 - (void)userSelectedForItemID:(NSInteger)itemID;
+- (void)shareSelectedForItemID:(NSInteger)itemID;
 @end
