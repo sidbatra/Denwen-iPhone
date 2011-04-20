@@ -48,10 +48,10 @@
 	BOOL							_highlighted;
 	BOOL							_placeButtonPressed;
 	BOOL							_userButtonPressed;
-	BOOL							_isVideoAttachment;
 	
 	NSInteger						_itemID;
 	NSInteger						_itemTouchesCount;
+	NSInteger						_attachmentType;
 	
 	NSString						*_itemData;
 	NSString						*_itemPlaceName;
@@ -77,6 +77,7 @@
 
 
 @property (nonatomic,assign) NSInteger itemID;
+@property (nonatomic,assign) NSInteger attachmentType;
 
 @property (nonatomic,readonly) BOOL placeButtonPressed;
 @property (nonatomic,readonly) BOOL userButtonPressed;
@@ -86,7 +87,9 @@
 @property (nonatomic,copy) NSString* itemUserName;
 @property (nonatomic,copy) NSString* itemCreatedAt;
 @property (nonatomic,copy) NSString* itemDetails;
+
 @property (nonatomic,retain) NSDate* highlightedAt;
+
 @property (nonatomic,readonly) CGRect userNameRect;
 @property (nonatomic,readonly) CGRect atRect;
 @property (nonatomic,readonly) CGRect placeNameRect;
@@ -112,11 +115,6 @@
  */
 - (void)setDetails:(NSInteger)touchesCount 
 	  andCreatedAt:(NSString*)createdAt;
-
-/**
- * Modifies display for a video attachment
- */
-- (void)setAsVideoAttachment;
 
 /**
  * Sets the cell to be rerendered

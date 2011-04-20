@@ -4,44 +4,48 @@
 //
 
 #import "DWItemFeedCell.h"
+#import "DWConstants.h"
 
-#define kImgTouchIcon			@"hand.png"
-#define kImgTouched				@"chevron.png"
-#define kImgPlay				@"play.png"
-#define kImgShare				@"share.png"
-#define kImgSeparator			@"hr_place_list.png"
-#define kFontItemUserName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
-#define kFontAt					[UIFont fontWithName:@"HelveticaNeue" size:15]
-#define kFontItemPlaceName		[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
-#define kFontItemData			[UIFont fontWithName:@"HelveticaNeue" size:23]
-#define kFontItemCreatedAt		[UIFont fontWithName:@"HelveticaNeue" size:15]
-#define kFontItemTouchesCount	[UIFont fontWithName:@"HelveticaNeue" size:15]
-#define kItemUserNameX			20
-#define kItemUserNameY			13
-#define kUnderlineYOffset		17
-#define kUnderlineHeight		0.75
-#define kAtXOffset				5
-#define kAtWidth				13
-#define kPlaceNameXOffset		5
-#define kMaxPlaceNameWidth		305
-#define kItemDataX				30
-#define kItemDataY				40
-#define kItemDataYOffset		2
-#define kItemDataWidth			270
-#define kItemDataHeight			240
-#define kDetailsX				20
-#define kDetailsY				285
-#define kTouchesIconXOffset		4
-#define kTouchesIconY			287
-#define kDefaultTextHeight		20
-#define kNormalAlpha			0.60
-#define kHighlightAlpha			1.0
-#define kSelectionDelay			0.45
-#define kTouchInterval			0.6
-#define kAfterTouchFadeInerval	1.0
-#define kNormalFadeInterval		0.5
-#define kNoAnimationDuration	0.0
-#define kCellAnimationDuration	0.65
+#define kImgTouchIcon				@"hand.png"
+#define kImgTouched					@"chevron.png"
+#define kImgPlay					@"play.png"
+#define kImgShare					@"share.png"
+#define kImgSeparator				@"hr_place_list.png"
+#define kColorAttachmentBg			[UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
+#define kColorNoAttachmentBg		[UIColor colorWithRed:0.3490 green:0.3490 blue: 0.3490 alpha:1.0].CGColor
+#define kFontItemUserName			[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+#define kFontAt						[UIFont fontWithName:@"HelveticaNeue" size:15]
+#define kFontItemPlaceName			[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+#define kFontItemData				[UIFont fontWithName:@"HelveticaNeue" size:23]
+#define kFontItemCreatedAt			[UIFont fontWithName:@"HelveticaNeue" size:15]
+#define kFontItemTouchesCount		[UIFont fontWithName:@"HelveticaNeue" size:15]
+#define kItemUserNameX				20
+#define kItemUserNameY				13
+#define kUnderlineYOffset			17
+#define kUnderlineHeight			0.75
+#define kAtXOffset					5
+#define kAtWidth					13
+#define kPlaceNameXOffset			5
+#define kMaxPlaceNameWidth			305
+#define kItemDataX					30
+#define kItemDataY					40
+#define kItemDataYOffset			2
+#define kItemDataWidth				270
+#define kItemDataHeight				240
+#define kDetailsX					20
+#define kDetailsY					285
+#define kTouchesIconXOffset			4
+#define kTouchesIconY				287
+#define kDefaultTextHeight			20
+#define kNormalAlpha				0.60
+#define kHighlightAlpha				1.0
+#define kNoAttachmentAlpha			1.0
+#define kSelectionDelay				0.45
+#define kTouchInterval				0.6
+#define kAfterTouchFadeInerval		1.0
+#define kNormalFadeInterval			0.5
+#define kNoAnimationDuration		0.0
+#define kCellAnimationDuration		0.65
 
 
 //----------------------------------------------------------------------------------------------------
@@ -69,8 +73,11 @@
 	if(![itemCell isHighlighted]) {
 		
 		
+		CGColorRef textColor = itemCell.attachmentType == kAttachmentNone ? 
+								[UIColor colorWithRed:0.9019 green:0.9019 blue:0.9019 alpha:1.0].CGColor :
+								[UIColor whiteColor].CGColor;
 		//----------------------------------
-		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+		CGContextSetFillColorWithColor(context,textColor);
 		
 		[itemCell.itemUserName drawInRect:itemCell.userNameRect 
 								 withFont:kFontItemUserName];
@@ -82,14 +89,14 @@
 		
 		
 		//----------------------------------
-		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+		CGContextSetFillColorWithColor(context,textColor);
 		
 		[@"at" drawInRect:itemCell.atRect
 				 withFont:kFontAt];
 		
 		
 		//----------------------------------	
-		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+		CGContextSetFillColorWithColor(context,textColor);
 		
 		
 		[itemCell.itemPlaceName drawInRect:itemCell.placeNameRect
@@ -103,7 +110,7 @@
 		
 		
 		//----------------------------------	
-		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+		CGContextSetFillColorWithColor(context,textColor);
 		
 		
 		[itemCell.itemData drawInRect:itemCell.dataRect 
@@ -113,7 +120,7 @@
 
 		
 		//----------------------------------	
-		CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
+		CGContextSetFillColorWithColor(context,textColor);
 		
 		[itemCell.itemDetails drawInRect:itemCell.detailsRect 
 								withFont:kFontItemCreatedAt];
@@ -147,6 +154,7 @@
 @synthesize dataRect				= _dataRect;
 @synthesize detailsRect				= _detailsRect;
 @synthesize delegate				= _delegate;
+@synthesize attachmentType			= _attachmentType;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithStyle:(UITableViewCellStyle)style
@@ -161,8 +169,6 @@
 		itemImageLayer					= [CALayer layer];
 		itemImageLayer.frame			= frame;
 		itemImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
-		itemImageLayer.opacity			= kNormalAlpha;
-		itemImageLayer.backgroundColor	= [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor;
 		itemImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 										   [NSNull null], @"onOrderIn",
 										   [NSNull null], @"onOrderOut",
@@ -229,7 +235,6 @@
 		separatorLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		separatorLayer.contents			= (id)[UIImage imageNamed:kImgSeparator].CGImage;
 		[[self layer] addSublayer:separatorLayer];
-		
 		
 		
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
@@ -330,7 +335,6 @@
 	_highlighted				= NO;
 	_placeButtonPressed			= NO;
 	_userButtonPressed			= NO;
-	_isVideoAttachment			= NO;
 	
 	
 	CGSize userNameSize			= [self.itemUserName sizeWithFont:kFontItemUserName];
@@ -396,11 +400,13 @@
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kNoAnimationDuration]
 					 forKey:kCATransactionAnimationDuration];
-	
-	itemImageLayer.opacity		= kNormalAlpha;
-	touchedImageLayer.hidden	= YES;
-	playImageLayer.hidden		= YES;
-	shareImageLayer.hidden		= NO;
+
+	itemImageLayer.opacity			= _attachmentType == kAttachmentNone ? kNoAttachmentAlpha : kNormalAlpha;	
+	itemImageLayer.backgroundColor	= _attachmentType == kAttachmentNone ? kColorNoAttachmentBg : kColorAttachmentBg;
+	playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
+	shareImageLayer.hidden			= NO;
+	touchedImageLayer.hidden		= YES;
+	touchIconImageLayer.hidden		= NO;
 	
 	touchIconImageLayer.frame	= CGRectMake(_detailsRect.origin.x+_detailsRect.size.width+kTouchesIconXOffset,
 											 kTouchesIconY,
@@ -491,7 +497,7 @@
 	touchIconImageLayer.hidden	= YES;
 	itemImageLayer.opacity		= kHighlightAlpha;
 	
-	if(_isVideoAttachment)
+	if(_attachmentType == kAttachmentVideo)
 		playImageLayer.hidden	= YES;
 	
 	shareImageLayer.hidden		= YES;
@@ -513,7 +519,7 @@
 	itemImageLayer.opacity		= kNormalAlpha;
 	touchedImageLayer.hidden	= YES;
 	
-	if(_isVideoAttachment)
+	if(_attachmentType == kAttachmentVideo)
 		playImageLayer.hidden	= NO;
 	
 	shareImageLayer.hidden		= NO;
@@ -545,12 +551,6 @@
 - (void)highlightUserButton {
 	_userButtonPressed = YES;
 	[self redisplay];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)setAsVideoAttachment {
-	//playImageLayer.hidden		= NO;
-	//_isVideoAttachment		= YES;
 }
 
 

@@ -315,7 +315,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 										  reuseIdentifier:kItemFeedCellIdentifier] autorelease];
 		
 	
-		cell.delegate		= self;
+		cell.delegate			= self;
 		
 		cell.itemID				= item.databaseID;
 		cell.itemData			= item.data;
@@ -324,24 +324,27 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		
 		[cell setDetails:item.touchesCount 
 			andCreatedAt:[item createdTimeAgoInWords]];
+			
 		
-		[cell reset];
-		
-		
-		if (!tableView.dragging && !tableView.decelerating) {
+		if (!tableView.dragging && !tableView.decelerating)
 			[item startRemoteImagesDownload];
-		}
+
         
         if ([item hasAttachment]) {
 			[cell setItemImage:item.attachment.previewImage];
 			
 			if([item.attachment isVideo])
-				[cell setAsVideoAttachment];
+				cell.attachmentType = kAttachmentVideo;
+			else if([item.attachment isImage])
+				cell.attachmentType = kAttachmentImage;
 		}
-		else
+		else {
 			[cell setItemImage:nil];
+			
+			cell.attachmentType = kAttachmentNone;
+		}
         
-        
+		[cell reset];
 		[cell redisplay];
 		
 		return cell;

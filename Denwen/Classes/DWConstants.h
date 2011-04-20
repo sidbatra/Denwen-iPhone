@@ -22,6 +22,7 @@ extern NSString* const kS3ItemsFolder;
 /**
  * Atachment types
  */
+extern NSInteger const kAttachmentNone;
 extern NSInteger const kAttachmentImage;
 extern NSInteger const kAttachmentVideo;
 
