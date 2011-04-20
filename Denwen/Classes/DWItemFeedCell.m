@@ -4,6 +4,7 @@
 //
 
 #import "DWItemFeedCell.h"
+#import "DWTouchesManager.h"
 #import "DWConstants.h"
 
 #define kImgTouchIcon				@"hand.png"
@@ -432,7 +433,9 @@
 	}
 	else if(!highlighted && _highlighted) {
 		
-		if(fabs([self.highlightedAt timeIntervalSinceNow]) > kTouchInterval) {
+		if(fabs([self.highlightedAt timeIntervalSinceNow]) > kTouchInterval && 
+				![[DWTouchesManager sharedDWTouchesManager] getTouchStatusForItemWithID:_itemID]) {
+			
 			[self touchCell];
 		}
 		else {
@@ -449,6 +452,11 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)createItemDetails {
+	self.itemDetails = [NSString stringWithFormat:@"%@  |  %d",self.itemCreatedAt,_itemTouchesCount];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)setItemImage:(UIImage*)itemImage {
 	itemImageLayer.contents = (id)itemImage.CGImage;
 }
@@ -460,7 +468,7 @@
 	_itemTouchesCount	= touchesCount;
 	self.itemCreatedAt	= createdAt;
 	
-	self.itemDetails	= [NSString stringWithFormat:@"%@  |  %d",self.itemCreatedAt,_itemTouchesCount];
+	[self createItemDetails];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -470,6 +478,9 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)touchCell {
+	
+	_itemTouchesCount++;
+	[self createItemDetails];
 	
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:0.5f] 

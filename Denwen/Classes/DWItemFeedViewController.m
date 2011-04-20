@@ -6,6 +6,7 @@
 #import "DWItemFeedViewController.h"
 #import "DWRequestsManager.h"
 #import "DWMemoryPool.h"
+#import "DWTouchesManager.h"
 #import "DWLoadingCell.h"
 #import "DWMessageCell.h"
 #import "DWPaginationCell.h"
@@ -463,6 +464,8 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		[_delegate attachmentSelected:item.attachment.fileURL
 					  withIsImageType:NO];
 	}
+	
+	[[DWTouchesManager sharedDWTouchesManager] createTouchForItemWithID:itemID];
 }
 
 //----------------------------------------------------------------------------------------------------

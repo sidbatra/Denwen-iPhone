@@ -343,6 +343,7 @@
 		BBE712A5135E6785001D83CC /* hand_230@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE712A1135E6785001D83CC /* hand_230@2x.png */; };
 		BBE712A6135E6785001D83CC /* share_230.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE712A2135E6785001D83CC /* share_230.png */; };
 		BBE712A7135E6785001D83CC /* share_230@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE712A3135E6785001D83CC /* share_230@2x.png */; };
+		BBE712DD135E7000001D83CC /* DWTouchesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE712DC135E7000001D83CC /* DWTouchesManager.m */; };
 		BBEB947C133AEA9C005AEA64 /* DWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEB947B133AEA9C005AEA64 /* DWRequest.m */; };
 		BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */; };
 		BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */; };
@@ -885,6 +886,8 @@
 		BBE712A1135E6785001D83CC /* hand_230@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hand_230@2x.png"; path = "resources/hand_230@2x.png"; sourceTree = "<group>"; };
 		BBE712A2135E6785001D83CC /* share_230.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = share_230.png; path = resources/share_230.png; sourceTree = "<group>"; };
 		BBE712A3135E6785001D83CC /* share_230@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "share_230@2x.png"; path = "resources/share_230@2x.png"; sourceTree = "<group>"; };
+		BBE712DB135E7000001D83CC /* DWTouchesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTouchesManager.h; path = Classes/DWTouchesManager.h; sourceTree = "<group>"; };
+		BBE712DC135E7000001D83CC /* DWTouchesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTouchesManager.m; path = Classes/DWTouchesManager.m; sourceTree = "<group>"; };
 		BBEB947A133AEA9C005AEA64 /* DWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWRequest.h; path = Classes/DWRequest.h; sourceTree = "<group>"; };
 		BBEB947B133AEA9C005AEA64 /* DWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequest.m; path = Classes/DWRequest.m; sourceTree = "<group>"; };
 		BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceViewController.h; path = Classes/DWPlaceViewController.h; sourceTree = "<group>"; };
@@ -1500,6 +1503,8 @@
 				BB3CCBC412F936E200ADFCD7 /* DWMemoryPool.m */,
 				BB641D78134D439E002A2325 /* DWPlacesCache.h */,
 				BB641C4C134D31D5002A2325 /* DWPlacesCache.m */,
+				BBE712DB135E7000001D83CC /* DWTouchesManager.h */,
+				BBE712DC135E7000001D83CC /* DWTouchesManager.m */,
 			);
 			name = Singletons;
 			sourceTree = "<group>";
@@ -2319,6 +2324,7 @@
 				268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */,
 				BB0C7FE7135811F20007D6A9 /* DWSearchPlacesViewController.m in Sources */,
 				BBE70D9F135D10C2001D83CC /* DWPostProgressView.m in Sources */,
+				BBE712DD135E7000001D83CC /* DWTouchesManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
