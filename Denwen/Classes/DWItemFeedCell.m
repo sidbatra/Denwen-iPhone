@@ -7,9 +7,11 @@
 #import "DWConstants.h"
 
 #define kImgTouchIcon				@"hand.png"
+#define kImgTouchIcon230			@"hand_230.png"
 #define kImgTouched					@"chevron.png"
 #define kImgPlay					@"play.png"
 #define kImgShare					@"share.png"
+#define kImgShare230				@"share_230.png"
 #define kImgSeparator				@"hr_place_list.png"
 #define kColorAttachmentBg			[UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
 #define kColorNoAttachmentBg		[UIColor colorWithRed:0.3490 green:0.3490 blue: 0.3490 alpha:1.0].CGColor
@@ -180,7 +182,6 @@
 		touchIconImageLayer					= [CALayer layer];
 		touchIconImageLayer.frame			= CGRectMake(295,292,13,15);
 		touchIconImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
-		touchIconImageLayer.contents		= (id)[UIImage imageNamed:kImgTouchIcon].CGImage;
 		touchIconImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 											   [NSNull null], @"onOrderIn",
 											   [NSNull null], @"onOrderOut",
@@ -223,18 +224,10 @@
 		shareImageLayer						= [CALayer layer];
 		shareImageLayer.frame				= CGRectMake(280,281,24,19);
 		shareImageLayer.contentsScale		= [[UIScreen mainScreen] scale];
-		shareImageLayer.contents			= (id)[UIImage imageNamed:kImgShare].CGImage;
 		shareImageLayer.actions				= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 											   [NSNull null], @"contents",
 											   nil];
 		[[self layer] addSublayer:shareImageLayer];
-		
-		
-		CALayer *separatorLayer			= [CALayer layer];
-		separatorLayer.frame			= CGRectMake(0,319,320,1);
-		separatorLayer.contentsScale	= [[UIScreen mainScreen] scale];
-		separatorLayer.contents			= (id)[UIImage imageNamed:kImgSeparator].CGImage;
-		[[self layer] addSublayer:separatorLayer];
 		
 		
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
@@ -249,6 +242,15 @@
 											[NSNull null], @"bounds",
 											nil];
 		[[self layer] addSublayer:drawingLayer];
+		
+		
+		CALayer *separatorLayer			= [CALayer layer];
+		separatorLayer.frame			= CGRectMake(0,319,320,1);
+		separatorLayer.contentsScale	= [[UIScreen mainScreen] scale];
+		separatorLayer.contents			= (id)[UIImage imageNamed:kImgSeparator].CGImage;
+		[[self layer] addSublayer:separatorLayer];
+		
+		
 		
 		
 		placeButton						= [[[UIButton alloc] init] autorelease];
@@ -404,9 +406,13 @@
 	itemImageLayer.opacity			= _attachmentType == kAttachmentNone ? kNoAttachmentAlpha : kNormalAlpha;	
 	itemImageLayer.backgroundColor	= _attachmentType == kAttachmentNone ? kColorNoAttachmentBg : kColorAttachmentBg;
 	playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
-	shareImageLayer.hidden			= NO;
 	touchedImageLayer.hidden		= YES;
+	
+	shareImageLayer.hidden			= NO;
+	shareImageLayer.contents		= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgShare230 : kImgShare].CGImage;
+	
 	touchIconImageLayer.hidden		= NO;
+	touchIconImageLayer.contents	= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgTouchIcon230 : kImgTouchIcon].CGImage;
 	
 	touchIconImageLayer.frame	= CGRectMake(_detailsRect.origin.x+_detailsRect.size.width+kTouchesIconXOffset,
 											 kTouchesIconY,

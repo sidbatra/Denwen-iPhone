@@ -339,6 +339,10 @@
 		BBE70D9F135D10C2001D83CC /* DWPostProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE70D9E135D10C2001D83CC /* DWPostProgressView.m */; };
 		BBE7108E135E232D001D83CC /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE7108C135E232D001D83CC /* share.png */; };
 		BBE7108F135E232D001D83CC /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE7108D135E232D001D83CC /* share@2x.png */; };
+		BBE712A4135E6785001D83CC /* hand_230.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE712A0135E6785001D83CC /* hand_230.png */; };
+		BBE712A5135E6785001D83CC /* hand_230@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE712A1135E6785001D83CC /* hand_230@2x.png */; };
+		BBE712A6135E6785001D83CC /* share_230.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE712A2135E6785001D83CC /* share_230.png */; };
+		BBE712A7135E6785001D83CC /* share_230@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE712A3135E6785001D83CC /* share_230@2x.png */; };
 		BBEB947C133AEA9C005AEA64 /* DWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEB947B133AEA9C005AEA64 /* DWRequest.m */; };
 		BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */; };
 		BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */; };
@@ -877,6 +881,10 @@
 		BBE70D9E135D10C2001D83CC /* DWPostProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPostProgressView.m; path = Classes/DWPostProgressView.m; sourceTree = "<group>"; };
 		BBE7108C135E232D001D83CC /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = share.png; path = resources/share.png; sourceTree = "<group>"; };
 		BBE7108D135E232D001D83CC /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "share@2x.png"; path = "resources/share@2x.png"; sourceTree = "<group>"; };
+		BBE712A0135E6785001D83CC /* hand_230.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hand_230.png; path = resources/hand_230.png; sourceTree = "<group>"; };
+		BBE712A1135E6785001D83CC /* hand_230@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hand_230@2x.png"; path = "resources/hand_230@2x.png"; sourceTree = "<group>"; };
+		BBE712A2135E6785001D83CC /* share_230.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = share_230.png; path = resources/share_230.png; sourceTree = "<group>"; };
+		BBE712A3135E6785001D83CC /* share_230@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "share_230@2x.png"; path = "resources/share_230@2x.png"; sourceTree = "<group>"; };
 		BBEB947A133AEA9C005AEA64 /* DWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWRequest.h; path = Classes/DWRequest.h; sourceTree = "<group>"; };
 		BBEB947B133AEA9C005AEA64 /* DWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequest.m; path = Classes/DWRequest.m; sourceTree = "<group>"; };
 		BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceViewController.h; path = Classes/DWPlaceViewController.h; sourceTree = "<group>"; };
@@ -1007,6 +1015,10 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBE712A0135E6785001D83CC /* hand_230.png */,
+				BBE712A1135E6785001D83CC /* hand_230@2x.png */,
+				BBE712A2135E6785001D83CC /* share_230.png */,
+				BBE712A3135E6785001D83CC /* share_230@2x.png */,
 				BBE7108C135E232D001D83CC /* share.png */,
 				BBE7108D135E232D001D83CC /* share@2x.png */,
 				265C6B09135D082500331AD0 /* timer.png */,
@@ -2176,6 +2188,10 @@
 				265C6B0C135D082500331AD0 /* timer@2x.png in Resources */,
 				BBE7108E135E232D001D83CC /* share.png in Resources */,
 				BBE7108F135E232D001D83CC /* share@2x.png in Resources */,
+				BBE712A4135E6785001D83CC /* hand_230.png in Resources */,
+				BBE712A5135E6785001D83CC /* hand_230@2x.png in Resources */,
+				BBE712A6135E6785001D83CC /* share_230.png in Resources */,
+				BBE712A7135E6785001D83CC /* share_230@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
