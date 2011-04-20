@@ -6,7 +6,6 @@
 #import "DWItemFeedViewController.h"
 #import "DWRequestsManager.h"
 #import "DWMemoryPool.h"
-#import "DWTouchesManager.h"
 #import "DWLoadingCell.h"
 #import "DWMessageCell.h"
 #import "DWPaginationCell.h"
@@ -456,16 +455,29 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 #pragma mark -
 #pragma mark DWItemFeedCellDelegate
 
+//----------------------------------------------------------------------------------------------------
+- (BOOL)shouldTouchItemWithID:(NSInteger)itemID {
+	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:itemID
+																	atRow:kMPItemsIndex];
+	
+	return !item.isTouched && ![item.user isCurrentUser];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)cellTouched:(NSInteger)itemID {
 	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:itemID
 																	atRow:kMPItemsIndex];
 	
+	/*
 	if(item.attachment && [item.attachment isVideo]) {
 		[_delegate attachmentSelected:item.attachment.fileURL
 					  withIsImageType:NO];
 	}
+	 */
 	
-	[[DWTouchesManager sharedDWTouchesManager] createTouchForItemWithID:itemID];
+	item.isTouched = YES;
+	
+	[[DWRequestsManager sharedDWRequestsManager] createTouch:itemID];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -497,7 +509,6 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 }
 
 /*
-
 //----------------------------------------------------------------------------------------------------
 - (void)didTapAttachmentImage:(id)sender event:(id)event {
 	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:((UIButton*)sender).tag

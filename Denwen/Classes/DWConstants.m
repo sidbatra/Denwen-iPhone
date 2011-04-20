@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -92,6 +92,7 @@ NSString* const kKeyActualURL				= @"actual_url";
 NSString* const kKeyCreatedAt				= @"created_at_timestamp";
 NSString* const kKeyCondensedData			= @"condensed_data";
 NSString* const kKeyTouchesCount			= @"touches_count";
+NSString* const kKeyTouchID					= @"touch_id";
 NSString* const kKeyData					= @"data";
 NSString* const kKeyAttachment				= @"attachment";
 NSString* const kKeyURLs					= @"urls";

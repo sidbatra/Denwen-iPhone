@@ -22,6 +22,7 @@
 @synthesize urls				= _urls;
 @synthesize fromFollowedPlace	= _fromFollowedPlace;
 @synthesize usesMemoryPool		= _usesMemoryPool;
+@synthesize isTouched			= _isTouched;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -123,10 +124,10 @@
 
 	_databaseID				= [[item objectForKey:kKeyID] integerValue];
 	_touchesCount			= [[item objectForKey:kKeyTouchesCount] integerValue];
-	_createdAtTimestamp		= [[item objectForKey:kKeyCreatedAt] doubleValue];	
+	_isTouched				= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
+	_createdAtTimestamp		= [[item objectForKey:kKeyCreatedAt] doubleValue];
 	self.data				= [item objectForKey:kKeyCondensedData];
-	
-	
+		
 	if ([item objectForKey:kKeyAttachment]) {
 		self.attachment = [[[DWAttachment alloc] init] autorelease];
 		[self.attachment populate:[item objectForKey:kKeyAttachment]];
@@ -151,7 +152,8 @@
 	
 	if(interval > kMPObjectUpdateInterval) {
 		
-		_touchesCount = [[item objectForKey:kKeyTouchesCount] integerValue];
+		_touchesCount	= [[item objectForKey:kKeyTouchesCount] integerValue];
+		_isTouched		= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
 		
 		[_place update:[item objectForKey:kKeyPlace]];
 		[_user	update:[item objectForKey:kKeyUser]];

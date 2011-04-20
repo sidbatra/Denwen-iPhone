@@ -86,6 +86,7 @@ extern NSString* const kKeyActualURL;
 extern NSString* const kKeyCreatedAt;
 extern NSString* const kKeyCondensedData;
 extern NSString* const kKeyTouchesCount;
+extern NSString* const kKeyTouchID;
 extern NSString* const kKeyData;
 extern NSString* const kKeyAttachment;
 extern NSString* const kKeyURLs;

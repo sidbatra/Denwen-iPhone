@@ -27,6 +27,8 @@
 	
 	BOOL			_fromFollowedPlace; 
 	BOOL			_usesMemoryPool;
+	BOOL			_isTouched;
+	
 	NSTimeInterval	_createdAtTimestamp;
 }
 
@@ -72,6 +74,11 @@
  * for its members
  */
 @property (nonatomic,assign) BOOL usesMemoryPool;
+
+/**
+ * Item has been touched by the current user or not
+ */
+@property (nonatomic,assign) BOOL isTouched;
 
 /**
  * Does the item have a media attachment

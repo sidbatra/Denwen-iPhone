@@ -99,11 +99,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 	[request setDelegate:self];
 	[request setRequestMethod:requestMethod];
 	
-	
+	/*
 	[request setDownloadCache:[ASIDownloadCache sharedCache]];
 	[request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
 	[request setSecondsToCache:1000000];
-	 
+	 */
 	
 	[request startAsynchronous];	
 }

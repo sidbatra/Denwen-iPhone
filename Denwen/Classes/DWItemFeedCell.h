@@ -139,6 +139,7 @@
  * Delegate protocol to send events about cell interactions
  */
 @protocol DWItemFeedCellDelegate
+- (BOOL)shouldTouchItemWithID:(NSInteger)itemID;
 - (void)cellTouched:(NSInteger)itemID;
 - (void)placeSelectedForItemID:(NSInteger)itemID;
 - (void)userSelectedForItemID:(NSInteger)itemID;

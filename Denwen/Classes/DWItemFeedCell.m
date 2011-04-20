@@ -4,7 +4,6 @@
 //
 
 #import "DWItemFeedCell.h"
-#import "DWTouchesManager.h"
 #import "DWConstants.h"
 
 #define kImgTouchIcon				@"hand.png"
@@ -434,7 +433,7 @@
 	else if(!highlighted && _highlighted) {
 		
 		if(fabs([self.highlightedAt timeIntervalSinceNow]) > kTouchInterval && 
-				![[DWTouchesManager sharedDWTouchesManager] getTouchStatusForItemWithID:_itemID]) {
+				[_delegate shouldTouchItemWithID:_itemID]) {
 			
 			[self touchCell];
 		}
