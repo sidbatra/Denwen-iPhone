@@ -15,6 +15,8 @@
 @interface DWPlaceDetailsViewController : UIViewController<MKMapViewDelegate> {
 	DWPlace		*_place;
 	MKMapView	*_mapView;	
+    
+    id          _delegate;
 }
 
 /**
@@ -29,7 +31,8 @@
 
 /**
  * Init with the place whose details are to be shown
+ * and delegate to catch the back button event
  */
-- (id)initWithPlace:(DWPlace*)place;
+- (id)initWithPlace:(DWPlace*)place andDelegate:(id)delegate;
 
 @end

@@ -2322,9 +2322,7 @@
 				268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */,
 				BB0C7FE7135811F20007D6A9 /* DWSearchPlacesViewController.m in Sources */,
 				BBE70D9F135D10C2001D83CC /* DWPostProgressView.m in Sources */,
-				BBDE183A135F887E00B9502A /* DWFollowPlaceView.m in Sources */,
-				BBDE184F135F8A0400B9502A /* DWNavigationBar.m in Sources */,
-				BB49B049135F960000064870 /* DWItemFeedViewController.m in Sources */,
+				2633199E135E5A860014AF70 /* DWFollowPlaceView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

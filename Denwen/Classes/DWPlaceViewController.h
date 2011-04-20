@@ -6,7 +6,6 @@
 #import <UIKit/UIKit.h>
 
 #import "DWItemFeedViewController.h"
-#import "DWPlace.h"
 #import "DWFollowPlaceView.h"
 #import "DWFollowing.h"
 

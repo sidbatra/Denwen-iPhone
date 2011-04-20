@@ -5,6 +5,8 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol DWFollowPlaceViewDelegate;
+
 
 /**
  * Custom Follow Place View for PlaceViewControllers Nav Bar
@@ -12,16 +14,26 @@
 @interface DWFollowPlaceView : UIView {
     UILabel     *followLabel;
     UILabel     *followingCountLabel;
+    
+    BOOL        _isFollowing;
+    
+    id <DWFollowPlaceViewDelegate>  _delegate;
 }
 
+/**
+ * Init with delegate to follow/unfollow events
+ */
+- (id)initWithFrame:(CGRect)frame andDelegate:(id)delegate;
 
 /**
- * Update the following count label
+ * Update the follow button display state and the
+ * following count
  */
-- (void)updateFollowingCountLabelWithText:(NSString*)text;
+- (void)updateTitle:(NSString*)title 
+        andSubtitle:(NSString*)subtitle 
+     andIsFollowing:(BOOL)isFollowing;
 
 @end
-
 
 
 /**
@@ -34,3 +46,17 @@
 - (void)createFollowingCountLabel;
 
 @end
+
+
+/**
+ * Delegate protocol to receive updates events
+ * from follow/unfollow 
+ */
+@protocol DWFollowPlaceViewDelegate 
+
+-(void)didTapFollow;
+-(void)didTapUnfollow;
+
+@end
+
+

@@ -197,4 +197,22 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 	[[DWCreationQueue sharedDWCreationQueue] retryRequests];
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UINavigationControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)navigationController:(UINavigationController *)navigationController 
+	  willShowViewController:(UIViewController *)viewController
+					animated:(BOOL)animated {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNViewControllerPushedOnNav 
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                viewController,kKeyViewController,
+                                                                nil]];
+}
+
 @end

@@ -166,7 +166,6 @@
 - (void)navigationController:(UINavigationController *)navigationController 
 	  willShowViewController:(UIViewController *)viewController
 					animated:(BOOL)animated {
-	NSLog(@"in container view");
 }
 
 @end

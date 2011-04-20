@@ -106,8 +106,10 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)updateTitle {
-	[self.followPlaceView updateFollowingCountLabelWithText:[self.place titleText]];
+- (void)updateFollowView {
+	[self.followPlaceView updateTitle:self.following ? @"Following" : @"Follow" 
+                          andSubtitle:[self.place titleText] 
+                       andIsFollowing:self.following != nil] ;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -121,7 +123,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	self.mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.navigationController.view] autorelease];
 	[self.navigationController.view addSubview:self.mbProgressIndicator];
 	
-	[self updateTitle];
+	[self updateFollowView];
 	
 	if(!_isLoadedOnce)
 		[self loadItems];
@@ -192,7 +194,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 
 		[self updateFollowing:[body objectForKey:kKeyFollowing]];
 		
-		[self updateTitle];
+		[self updateFollowView];
 		
 		_tableViewUsage = kTableViewAsData;			
 		_isLoadedOnce	= YES;
@@ -221,17 +223,10 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		
-		NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 
-														 inSection:0];
-		
-		DWPlaceCell *placeCell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
-		
 		[self updateFollowing:[info objectForKey:kKeyBody]];
-		[placeCell displayFollowingState];
 		[self.place updateFollowerCount:1];
 		
-		[self updateTitle];
+		[self updateFollowView];
 	}
 	
 	[self.mbProgressIndicator hideUsingAnimation:YES];
@@ -246,17 +241,10 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		
-		NSIndexPath *placeIndexPath = [NSIndexPath indexPathForRow:0 
-														 inSection:0];
-		
-		DWPlaceCell *placeCell = (DWPlaceCell*)[self.tableView cellForRowAtIndexPath:placeIndexPath];
-		
 		self.following = nil;
-		[placeCell displayUnfollowingState];
 		[self.place updateFollowerCount:-1];
 		
-		[self updateTitle];
+		[self updateFollowView];
 	}
 	
 	[self.mbProgressIndicator hideUsingAnimation:YES];
@@ -290,7 +278,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
         self.followPlaceView = [[[DWFollowPlaceView alloc] 
                                  initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
                                                           kFollowPlaceViewWidth,
-                                                          kFollowPlaceViewHeight)] autorelease];
+                                                          kFollowPlaceViewHeight) andDelegate:self] autorelease];
 	if (viewController == self)
         [self.navigationController.navigationBar addSubview:self.followPlaceView];  
     else
@@ -317,49 +305,62 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	 */
 }
 
-//----------------------------------------------------------------------------------------------------
-- (void)didTapFollowButton:(id)sender event:(id)event {
-	[self sendFollowRequest];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)didTapUnfollowButton:(id)sender event:(id)event {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
-															 delegate:self 
-													cancelButtonTitle:kMsgActionSheetCancel
-											   destructiveButtonTitle:kMsgActionSheetUnfollow
-													otherButtonTitles:nil];
-	[actionSheet showInView:self.tabBarController.view];
-	[actionSheet release];
-}
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapShareButton:(id)sender event:(id)event {
 	DWShareViewController *shareView	= [[DWShareViewController alloc] initWithPlace:self.place
 																		   andDelegate:self];
-
-	shareView.modalTransitionStyle		= UIModalTransitionStyleFlipHorizontal;
+	shareView.modalTransitionStyle		= UIModalTransitionStyleFlipHorizontal;	
 	
-	[self.navigationController presentModalViewController:shareView 
+    [self.navigationController presentModalViewController:shareView 
 												 animated:YES];
 	
 	[shareView release];
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)didTapPlaceDetailsButton:(id)sender event:(id)event {
+    DWPlaceDetailsViewController *placeDetailsViewController = [[DWPlaceDetailsViewController alloc] 
+                                                                initWithPlace:self.place
+                                                                  andDelegate:_delegate];
+    
+    [self.navigationController pushViewController:placeDetailsViewController 
+                                         animated:YES];
+    
+    [placeDetailsViewController release];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark FollowPlaceViewDelegate
+//----------------------------------------------------------------------------------------------------
+- (void)didTapFollow {
+	[self sendFollowRequest];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTapUnfollow {
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
+															 delegate:self 
+													cancelButtonTitle:kMsgActionSheetCancel
+											   destructiveButtonTitle:kMsgActionSheetUnfollow
+													otherButtonTitles:nil];
+	[actionSheet showInView:[_delegate requestCustomTabBarController].view];
+	[actionSheet release];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIActionSheet Delegate
+//----------------------------------------------------------------------------------------------------
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
 	
 	if (buttonIndex == 0)
 		[self sendUnfollowRequest];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)didTapPlaceDetailsButton:(id)sender event:(id)event {
-    DWPlaceDetailsViewController *placeDetailsViewController = [[DWPlaceDetailsViewController alloc] 
-                                                                initWithPlace:self.place];
-    [self.navigationController pushViewController:placeDetailsViewController 
-                                         animated:YES];
-    [placeDetailsViewController release];
 }
 
 

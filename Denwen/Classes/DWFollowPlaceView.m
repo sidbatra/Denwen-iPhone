@@ -15,12 +15,14 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
 
 
 //----------------------------------------------------------------------------------------------------
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame andDelegate:(id)delegate {
     self = [super initWithFrame:frame];
     if (self) {
         [self createFollowButton];
         [self createFollowLabel];
         [self createFollowingCountLabel];
+        
+        _delegate = delegate;
     }
     return self;
 }
@@ -73,8 +75,8 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
 //----------------------------------------------------------------------------------------------------
 - (void)createFollowLabel {
     followLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 200, 18)];
+    
     followLabel.userInteractionEnabled      = NO;
-    followLabel.text                        = @"Follow";
     followLabel.textColor                   = [UIColor whiteColor];
     followLabel.textAlignment               = UITextAlignmentCenter;
     followLabel.backgroundColor             = [UIColor clearColor];
@@ -88,6 +90,7 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
 //----------------------------------------------------------------------------------------------------
 - (void)createFollowingCountLabel {
     followingCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 23, 200, 18)];
+    
     followingCountLabel.userInteractionEnabled      = NO;
     followingCountLabel.textColor                   = [UIColor colorWithRed:255 
                                                                       green:255 
@@ -106,9 +109,14 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Customize View Methods
-- (void)updateFollowingCountLabelWithText:(NSString*)text {
-    followingCountLabel.text = text;
+#pragma mark Update View Methods
+- (void)updateTitle:(NSString *)title 
+        andSubtitle:(NSString *)subtitle 
+     andIsFollowing:(BOOL)isFollowing {
+    
+    followLabel.text            = title;
+    followingCountLabel.text    = subtitle;
+    _isFollowing                = isFollowing;
 }
 
 
@@ -123,6 +131,11 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchUpInsideButton:(UIButton*)button {
+    if (_isFollowing) 
+        [_delegate didTapUnfollow];
+    else
+        [_delegate didTapFollow];
+    
     followingCountLabel.textColor = [UIColor colorWithRed:255 
                                                     green:255 
                                                      blue:255 

@@ -4,6 +4,7 @@
 //
 
 #import "DWPlaceDetailsViewController.h"
+#import "DWGUIManager.h"
 #import "DDAnnotation.h"
 #import "DWConstants.h"
 
@@ -22,11 +23,12 @@ static NSString* const kPinIdentifier			= @"PinIdentifier";
 @synthesize mapView		= _mapView;
 
 //----------------------------------------------------------------------------------------------------
-- (id)initWithPlace:(DWPlace*)thePlace {
+- (id)initWithPlace:(DWPlace*)thePlace andDelegate:(id)delegate{
     self = [super init];
 	
     if (self) {
-		self.place = thePlace;
+		self.place  = thePlace;
+        _delegate   = delegate;
     }
     
 	return self;
@@ -34,12 +36,16 @@ static NSString* const kPinIdentifier			= @"PinIdentifier";
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
+    self.navigationItem.leftBarButtonItem = [DWGUIManager customBackButton:_delegate];
+    
 	CLLocationCoordinate2D mapCenter;
-	mapCenter.latitude	= self.place.location.coordinate.latitude + kMapCenterLatOffset;
-	mapCenter.longitude = self.place.location.coordinate.longitude;
-	
-	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(mapCenter,kMapZoomLevel,kMapZoomLevel);
-	[self.mapView setRegion:region animated:YES];
+	mapCenter.latitude          = self.place.location.coordinate.latitude + kMapCenterLatOffset;
+	mapCenter.longitude         = self.place.location.coordinate.longitude;
+	MKCoordinateRegion region   = MKCoordinateRegionMakeWithDistance(mapCenter,
+                                                                     kMapZoomLevel,kMapZoomLevel);
+    
+	[self.mapView setRegion:region 
+                   animated:YES];
 		
 	DDAnnotation *annotation	= [[[DDAnnotation alloc] initWithCoordinate:self.place.location.coordinate
 														  addressDictionary:nil] autorelease];
@@ -94,7 +100,6 @@ static NSString* const kPinIdentifier			= @"PinIdentifier";
 	if (!pinView) {
 		pinView	= [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 
 												   reuseIdentifier:kPinIdentifier] autorelease];
-		//pinView.pinColor = MKPinAnnotationColorPurple;
 		//pinView.animatesDrop = YES;
 		pinView.canShowCallout = YES;
 	}
