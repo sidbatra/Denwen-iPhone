@@ -18,9 +18,10 @@
 }
 
 /**
- * Init with a refernce to the custom tab bar controller
+ * Non-reained reference to the custom tab bar controller
  */
-- (id)initWithTabBarController:(UIViewController*)theCustomTabBarController;
+@property (nonatomic,assign) UIViewController *customTabBarController;
+
 
 /**
  * Indicates if the container child is on the currently

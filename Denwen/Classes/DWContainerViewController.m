@@ -18,21 +18,15 @@
 //----------------------------------------------------------------------------------------------------
 @implementation DWContainerViewController
 
+@synthesize customTabBarController;
+
 //----------------------------------------------------------------------------------------------------
-- (id)initWithTabBarController:(UIViewController*)theCustomTabBarController {
-	self = [super init];
+- (void)awakeFromNib {
 	
-	if (self) {		
-		
-		customTabBarController = theCustomTabBarController;
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(denwenURLOpened:) 
-													 name:kNDenwenURLOpened
-												   object:nil];
-	}
-    
-	return self;
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(denwenURLOpened:) 
+												 name:kNDenwenURLOpened
+											   object:nil];
 }
 
 //----------------------------------------------------------------------------------------------------

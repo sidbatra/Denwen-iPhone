@@ -12,12 +12,15 @@
  * Application delegate
  */
 @interface DWAppDelegate : NSObject <UIApplicationDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate> {
-    UIWindow			*_window;
-	UIToolbar			*_signupToolbar;
+    UIWindow				*_window;
+	UIToolbar				*_signupToolbar;
 	
-	DWTabBarController	*_tabBarController;
+	DWTabBarController		*_tabBarController;
 	
-	CLLocationManager	*_locationManager;
+	CLLocationManager		*_locationManager;
+	
+	UINavigationController	*_placesNavController;
+	UINavigationController	*_itemsNavController;
 }
 
 /**
@@ -37,6 +40,8 @@
 
 @property (nonatomic,retain) IBOutlet UIWindow *window;
 @property (nonatomic,retain) IBOutlet UIToolbar *signupToolbar;
+@property (nonatomic,retain) IBOutlet UINavigationController *placesNavController;
+@property (nonatomic,retain) IBOutlet UINavigationController *itemsNavController;
 
 
 /**

@@ -1,16 +1,18 @@
 //
-//  UINavigationBar+Custom.m
+//  DWNavigationBar.m
 //  Copyright 2011 Denwen. All rights reserved.
 //
 
-#import "UINavigationBar+Custom.h"
+#import "DWNavigationBar.h"
 
 static NSString* const kImgNavBarBg = @"nav_bar.png";
 
+
+
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
-@implementation UINavigationBar(Custom)
+@implementation DWNavigationBar
 
 //----------------------------------------------------------------------------------------------------
 - (void)drawRect:(CGRect)rect {
@@ -21,5 +23,6 @@ static NSString* const kImgNavBarBg = @"nav_bar.png";
 	
 	CGContextRestoreGState(context);
 }
+
 
 @end

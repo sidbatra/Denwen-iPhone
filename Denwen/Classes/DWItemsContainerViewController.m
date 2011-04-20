@@ -10,7 +10,6 @@
 #import "DWSession.h"
 
 static NSString* const kTabTitle		= @"Feed";
-static NSString* const kImgTab			= @"posts.png";
 static NSString* const kMsgUnload		= @"Unload called on items container";
 
 
@@ -20,43 +19,37 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 @implementation DWItemsContainerViewController
 
 //----------------------------------------------------------------------------------------------------
-- (id)initWithTabBarController:(UIViewController*)theCustomTabBarController {
-	self = [super initWithTabBarController:theCustomTabBarController];
+- (void)awakeFromNib {
+	[super awakeFromNib];
+		
+	self.title				= kTabTitle;	
 	
-	if (self) {		
-		self.title				= kTabTitle;
-		self.tabBarItem.image	= [UIImage imageNamed:kImgTab];
-		
-		
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(newApplicationBadge:) 
+												 name:kNNewApplicationBadge
+											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(followedItemsLoaded:) 
+												 name:kNFollowedItemsLoaded
+											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(tabSelectionChanged:) 
+												 name:kNTabSelectionChanged
+											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(creationQueueUpdated:) 
+												 name:kNCreationQueueUpdated
+											   object:nil];
+	
+	if (&UIApplicationDidEnterBackgroundNotification != NULL) {
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(newApplicationBadge:) 
-													 name:kNNewApplicationBadge
+												 selector:@selector(applicationEnteringBackground:) 
+													 name:UIApplicationDidEnterBackgroundNotification
 												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(followedItemsLoaded:) 
-													 name:kNFollowedItemsLoaded
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(tabSelectionChanged:) 
-													 name:kNTabSelectionChanged
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(creationQueueUpdated:) 
-													 name:kNCreationQueueUpdated
-												   object:nil];
-		
-		if (&UIApplicationDidEnterBackgroundNotification != NULL) {
-			[[NSNotificationCenter defaultCenter] addObserver:self 
-													 selector:@selector(applicationEnteringBackground:) 
-														 name:UIApplicationDidEnterBackgroundNotification
-													   object:nil];
-		}
-	}
-    
-	return self;
+	}	
 }
 
 //----------------------------------------------------------------------------------------------------
