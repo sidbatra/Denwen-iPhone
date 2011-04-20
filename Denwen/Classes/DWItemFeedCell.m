@@ -453,7 +453,10 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)createItemDetails {
-	self.itemDetails = [NSString stringWithFormat:@"%@  |  %d",self.itemCreatedAt,_itemTouchesCount];
+	if(_itemTouchesCount)
+		self.itemDetails = [NSString stringWithFormat:@"%@  |  %d",self.itemCreatedAt,_itemTouchesCount];
+	else
+		self.itemDetails = [NSString stringWithFormat:@"%@  |  ",self.itemCreatedAt];
 }
 
 //----------------------------------------------------------------------------------------------------
