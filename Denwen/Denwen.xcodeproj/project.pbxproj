@@ -156,7 +156,6 @@
 		BB05BB22131B30E50068331E /* segmented_view_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB05BB20131B30E50068331E /* segmented_view_bg@2x.png */; };
 		BB0C7FE7135811F20007D6A9 /* DWSearchPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C7FE6135811F20007D6A9 /* DWSearchPlacesViewController.m */; };
 		BB0CFCFC1302261400F38552 /* DWPaginationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0CFCFB1302261400F38552 /* DWPaginationCell.m */; };
-		BB17B8DA12EA11AF00DD42FC /* DWItemFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB17B8D812EA11AF00DD42FC /* DWItemFeedViewController.m */; };
 		BB17B8DB12EA11AF00DD42FC /* DWItemFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17B8D912EA11AF00DD42FC /* DWItemFeedViewController.xib */; };
 		BB17BAE612EA3A3F00DD42FC /* DWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB17BAE412EA3A3F00DD42FC /* DWLoginViewController.m */; };
 		BB17BAE712EA3A3F00DD42FC /* DWLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BAE512EA3A3F00DD42FC /* DWLoginViewController.xib */; };
@@ -219,6 +218,7 @@
 		BB4051DB12F237AD00916688 /* DWPopularPlacesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB4051D912F237AD00916688 /* DWPopularPlacesViewController.xib */; };
 		BB40522C12F23BB900916688 /* DWFollowedItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */; };
 		BB40522D12F23BB900916688 /* DWFollowedItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB40522B12F23BB800916688 /* DWFollowedItemsViewController.xib */; };
+		BB49B049135F960000064870 /* DWItemFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB49B048135F960000064870 /* DWItemFeedViewController.m */; };
 		BB537BD5132C55E50018B942 /* DWVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB537BD4132C55E50018B942 /* DWVideoViewController.m */; };
 		BB537BDA132C560E0018B942 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB537BD9132C560E0018B942 /* MediaPlayer.framework */; };
 		BB5E67D1133182C3006D0C66 /* video_attach.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5E67CF133182C3006D0C66 /* video_attach.png */; };
@@ -331,7 +331,6 @@
 		BBDB66A312EF9A0F0051A45C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */; };
 		BBDE183A135F887E00B9502A /* DWFollowPlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBDE1839135F887E00B9502A /* DWFollowPlaceView.m */; };
 		BBDE184F135F8A0400B9502A /* DWNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBDE184E135F8A0400B9502A /* DWNavigationBar.m */; };
-		BBE24F6A13562D2200A90B44 /* UINavigationBar+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE24F6913562D2200A90B44 /* UINavigationBar+Custom.m */; };
 		BBE24F7E13562E4700A90B44 /* nav_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24F7C13562E4700A90B44 /* nav_bar.png */; };
 		BBE24F7F13562E4700A90B44 /* nav_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24F7D13562E4700A90B44 /* nav_bar@2x.png */; };
 		BBE24FD213563C5100A90B44 /* button_blue_done_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FCC13563C5100A90B44 /* button_blue_done_active.png */; };
@@ -587,7 +586,6 @@
 		BB0CFCFB1302261400F38552 /* DWPaginationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPaginationCell.m; path = Classes/DWPaginationCell.m; sourceTree = "<group>"; };
 		BB0CFE721302703A00F38552 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = resources/Entitlements.plist; sourceTree = "<group>"; };
 		BB17B8D712EA11AF00DD42FC /* DWItemFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWItemFeedViewController.h; path = Classes/DWItemFeedViewController.h; sourceTree = "<group>"; };
-		BB17B8D812EA11AF00DD42FC /* DWItemFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItemFeedViewController.m; path = Classes/DWItemFeedViewController.m; sourceTree = "<group>"; };
 		BB17B8D912EA11AF00DD42FC /* DWItemFeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWItemFeedViewController.xib; path = Classes/DWItemFeedViewController.xib; sourceTree = "<group>"; };
 		BB17BAE312EA3A3F00DD42FC /* DWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWLoginViewController.h; path = Classes/DWLoginViewController.h; sourceTree = "<group>"; };
 		BB17BAE412EA3A3F00DD42FC /* DWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWLoginViewController.m; path = Classes/DWLoginViewController.m; sourceTree = "<group>"; };
@@ -699,6 +697,7 @@
 		BB40522912F23BB800916688 /* DWFollowedItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFollowedItemsViewController.h; path = Classes/DWFollowedItemsViewController.h; sourceTree = "<group>"; };
 		BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowedItemsViewController.m; path = Classes/DWFollowedItemsViewController.m; sourceTree = "<group>"; };
 		BB40522B12F23BB800916688 /* DWFollowedItemsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWFollowedItemsViewController.xib; path = Classes/DWFollowedItemsViewController.xib; sourceTree = "<group>"; };
+		BB49B048135F960000064870 /* DWItemFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItemFeedViewController.m; path = Classes/DWItemFeedViewController.m; sourceTree = "<group>"; };
 		BB537BD3132C55E50018B942 /* DWVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWVideoViewController.h; path = Classes/DWVideoViewController.h; sourceTree = "<group>"; };
 		BB537BD4132C55E50018B942 /* DWVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWVideoViewController.m; path = Classes/DWVideoViewController.m; sourceTree = "<group>"; };
 		BB537BD9132C560E0018B942 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -871,8 +870,6 @@
 		BBDE1839135F887E00B9502A /* DWFollowPlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowPlaceView.m; path = Classes/DWFollowPlaceView.m; sourceTree = "<group>"; };
 		BBDE184D135F8A0400B9502A /* DWNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNavigationBar.h; path = Classes/DWNavigationBar.h; sourceTree = "<group>"; };
 		BBDE184E135F8A0400B9502A /* DWNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNavigationBar.m; path = Classes/DWNavigationBar.m; sourceTree = "<group>"; };
-		BBE24F6813562D2200A90B44 /* UINavigationBar+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationBar+Custom.h"; path = "Classes/UINavigationBar+Custom.h"; sourceTree = "<group>"; };
-		BBE24F6913562D2200A90B44 /* UINavigationBar+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationBar+Custom.m"; path = "Classes/UINavigationBar+Custom.m"; sourceTree = "<group>"; };
 		BBE24F7C13562E4700A90B44 /* nav_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nav_bar.png; path = resources/nav_bar.png; sourceTree = "<group>"; };
 		BBE24F7D13562E4700A90B44 /* nav_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nav_bar@2x.png"; path = "resources/nav_bar@2x.png"; sourceTree = "<group>"; };
 		BBE24FCC13563C5100A90B44 /* button_blue_done_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blue_done_active.png; path = resources/button_blue_done_active.png; sourceTree = "<group>"; };
@@ -1811,10 +1808,10 @@
 		BBC2FA4112F234DB001BF5D6 /* Items */ = {
 			isa = PBXGroup;
 			children = (
+				BB49B048135F960000064870 /* DWItemFeedViewController.m */,
 				26CAF7A612F21E110058C01E /* DWItemsContainerViewController.h */,
 				26CAF7A712F21E110058C01E /* DWItemsContainerViewController.m */,
 				BB17B8D712EA11AF00DD42FC /* DWItemFeedViewController.h */,
-				BB17B8D812EA11AF00DD42FC /* DWItemFeedViewController.m */,
 				BB40522912F23BB800916688 /* DWFollowedItemsViewController.h */,
 				BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */,
 			);
@@ -1868,8 +1865,6 @@
 				BBD0CEAB133C5EA1003E5E7D /* NSData+Crypto.m */,
 				BBD0D0621340026C003E5E7D /* UIImage+ImageProcessing.h */,
 				BBD0D0631340026C003E5E7D /* UIImage+ImageProcessing.m */,
-				BBE24F6813562D2200A90B44 /* UINavigationBar+Custom.h */,
-				BBE24F6913562D2200A90B44 /* UINavigationBar+Custom.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2218,7 +2213,6 @@
 				26EF045112E7A46800E7BA76 /* DWAttachment.m in Sources */,
 				26EF045712E7A4A000E7BA76 /* DWPlace.m in Sources */,
 				26EF048612E7AC1700E7BA76 /* DWUser.m in Sources */,
-				BB17B8DA12EA11AF00DD42FC /* DWItemFeedViewController.m in Sources */,
 				BB17BAE612EA3A3F00DD42FC /* DWLoginViewController.m in Sources */,
 				BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */,
 				BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */,
@@ -2325,12 +2319,12 @@
 				BB9EC00F1353F64F00D6BBF6 /* DWSegmentedControl.m in Sources */,
 				BB9EC16E13541A8E00D6BBF6 /* DWTabBar.m in Sources */,
 				BB9EC27713542DF000D6BBF6 /* DWTabBarController.m in Sources */,
-				BBE24F6A13562D2200A90B44 /* UINavigationBar+Custom.m in Sources */,
 				268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */,
 				BB0C7FE7135811F20007D6A9 /* DWSearchPlacesViewController.m in Sources */,
 				BBE70D9F135D10C2001D83CC /* DWPostProgressView.m in Sources */,
 				BBDE183A135F887E00B9502A /* DWFollowPlaceView.m in Sources */,
 				BBDE184F135F8A0400B9502A /* DWNavigationBar.m in Sources */,
+				BB49B049135F960000064870 /* DWItemFeedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

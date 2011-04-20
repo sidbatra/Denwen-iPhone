@@ -468,12 +468,12 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:itemID
 																	atRow:kMPItemsIndex];
 	
-	
+	/*
 	if(item.attachment && [item.attachment isVideo]) {
 		[_delegate attachmentSelected:item.attachment.fileURL
 					  withIsImageType:NO];
 	}
-	 
+	*/
 	
 	item.isTouched = YES;
 	
