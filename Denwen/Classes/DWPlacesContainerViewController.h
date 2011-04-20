@@ -17,7 +17,7 @@
  * Primary view for the places tab and container for popular
  * and nearby places views
  */
-@interface DWPlacesContainerViewController : DWContainerViewController<UINavigationControllerDelegate> {
+@interface DWPlacesContainerViewController : DWContainerViewController {
 	
 	DWPopularPlacesViewController	*popularViewController;
 	DWSearchPlacesViewController	*searchPlacesViewController;

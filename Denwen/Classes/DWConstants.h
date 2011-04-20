@@ -103,6 +103,7 @@ extern NSString* const kKeyOldSelectedIndex;
 extern NSString* const kKeyTotalActive;
 extern NSString* const kKeyTotalFailed;
 extern NSString* const kKeyTotalProgress;
+extern NSString* const kKeyViewController;
 
 /**
  * Notification names
@@ -174,6 +175,7 @@ extern NSString* const kNFollowedPlacesCacheUpdated;
 extern NSString* const kNCreationQueueItemProcessed;
 extern NSString* const kNQueueItemProgressUpdated;
 extern NSString* const kNCreationQueueUpdated;
+extern NSString* const kNViewControllerPushedOnNav;
 
 
 

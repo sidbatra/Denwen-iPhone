@@ -8,8 +8,10 @@
 
 #import "DWGUIManager.h"
 
-static NSString* const kImgBackButton			= @"button_gray_dark_back.png";
-static NSString* const kImgBackButtonActive		= @"button_gray_dark_back_active.png";
+static NSString* const kImgBackButton                   = @"button_back.png";
+static NSString* const kImgBackButtonActive             = @"button_back.png";
+static NSString* const kImgPlaceDetailsButton           = @"button_map.png";
+static NSString* const kImgPlaceDetailsButtonActive     = @"button_map.png";
 
 @implementation DWGUIManager
 
@@ -39,24 +41,37 @@ static NSString* const kImgBackButtonActive		= @"button_gray_dark_back_active.pn
 }
 
 
-//Gets the current status bar orientation
+// Gets the current status bar orientation
 //
 + (UIInterfaceOrientation)getCurrentOrientation {
 	return [UIApplication sharedApplication].statusBarOrientation;
 }
 
-
+// Custom back button for the app
+//
 + (UIBarButtonItem*)customBackButton:(id)target {
 	UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[UIImage imageNamed:kImgBackButton] forState:UIControlStateNormal];
 	 [button setBackgroundImage:[UIImage imageNamed:kImgBackButtonActive] forState:UIControlStateHighlighted];
 	[button addTarget:target action:@selector(didTapBackButton:event:) 
 		   forControlEvents:UIControlEventTouchUpInside];
-	[button setFrame:CGRectMake(0, 0, 60, 30)];
+	[button setFrame:CGRectMake(0, 0, 55, 44)];
 	
 	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
 }
 
+// Place details navigation bar button
+//
++ (UIBarButtonItem*)placeDetailsButton:(id)target {
+	UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:kImgPlaceDetailsButton] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:kImgPlaceDetailsButtonActive] forState:UIControlStateHighlighted];
+	[button addTarget:target action:@selector(didTapPlaceDetailsButton:event:) 
+     forControlEvents:UIControlEventTouchUpInside];
+	[button setFrame:CGRectMake(0, 0, 55, 44)];
+	
+	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+}
 
 #pragma mark -
 #pragma mark Spinner

@@ -48,6 +48,7 @@
 	//	[self processLaunchURL:[launchURL absoluteString]];
 	//	launchURL = nil;
 	//}
+    self.navigationController.delegate = self;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -159,6 +160,19 @@
 //----------------------------------------------------------------------------------------------------
 - (void)didTapBackButton:(id)sender event:(id)event {
 	[self.navigationController popViewControllerAnimated:YES];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UINavigationControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)navigationController:(UINavigationController *)navigationController 
+	  willShowViewController:(UIViewController *)viewController
+					animated:(BOOL)animated {
+	NSLog(@"in container view");
 }
 
 @end

@@ -109,6 +109,7 @@ NSString* const kKeyOldSelectedIndex		= @"old_selected_index";
 NSString* const kKeyTotalActive				= @"total_active";
 NSString* const kKeyTotalFailed				= @"total_failed";
 NSString* const kKeyTotalProgress			= @"total_progress";
+NSString* const kKeyViewController			= @"view_controller";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -179,6 +180,7 @@ NSString* const kNFollowedPlacesCacheUpdated	= @"NFollowedPlacesCacheUpdated";
 NSString* const kNCreationQueueItemProcessed	= @"NCreationQueueItemProcessed";
 NSString* const kNQueueItemProgressUpdated		= @"NQueueItemProgressUpdated";
 NSString* const kNCreationQueueUpdated			= @"NCreationQueueUpdated";
+NSString* const kNViewControllerPushedOnNav		= @"NViewControllerPushedOnNav";
 
 
 

@@ -87,9 +87,8 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 
 	
 	[self.navigationController.navigationBar addSubview:self.segmentedControl];
-	
-	self.navigationController.delegate	= self;
-	self.navigationItem.titleView		= nil;
+
+	self.navigationItem.titleView = nil;
 	
 	/**
 	 * Add sub views
@@ -114,8 +113,7 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidUnload {	
-	NSLog(@"%@",kMsgUnload);
-	
+	NSLog(@"%@",kMsgUnload);	
 	self.segmentedControl = nil;
 }
 
@@ -177,8 +175,13 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 - (void)navigationController:(UINavigationController *)navigationController 
 	  willShowViewController:(UIViewController *)viewController
 					animated:(BOOL)animated {
-	
 	self.segmentedControl.hidden = viewController != self;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNViewControllerPushedOnNav 
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                viewController,kKeyViewController,
+                                                                nil]];
 }
 
 

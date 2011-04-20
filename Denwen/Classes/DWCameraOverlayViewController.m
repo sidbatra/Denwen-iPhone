@@ -7,12 +7,12 @@
 #import "DWConstants.h"
 
 
-static NSString* const kFlashOnImage				= @"flash_on.png";
-static NSString* const kFlashOffImage				= @"flash_off.png";
-static NSString* const kVideoOutLitImage            = @"video_out_lit.png";
-static NSString* const kVideoOutImage               = @"video_out.png";
-static NSString* const kSelectVideoImage            = @"select_video.png";
-static NSString* const kSelectPhotoImage            = @"select_photo.png";
+static NSString* const kImgFlashOn				= @"flash_on.png";
+static NSString* const kImgFlashOff				= @"flash_off.png";
+static NSString* const kImgVideoOutLit          = @"video_out_lit.png";
+static NSString* const kImgVideoOut             = @"video_out.png";
+static NSString* const kImgSelectVideo          = @"select_video.png";
+static NSString* const kImgSelectPhoto          = @"select_photo.png";
 
 
 
@@ -172,13 +172,13 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
     if (_cameraFlashMode == kCameraFlashModeOff) {
         _cameraFlashMode = kCameraFlashModeOn;
         [self.flashButton 
-                setBackgroundImage:[UIImage imageNamed:kFlashOnImage] 
+                setBackgroundImage:[UIImage imageNamed:kImgFlashOn] 
                           forState:UIControlStateNormal];
     }
     else {
         _cameraFlashMode = kCameraFlashModeOff;
         [self.flashButton 
-                setBackgroundImage:[UIImage imageNamed:kFlashOffImage] 
+                setBackgroundImage:[UIImage imageNamed:kImgFlashOff] 
                           forState:UIControlStateNormal];
     }
     [_overlayDelegate flashModeChangedInOverlayView:_cameraFlashMode];
@@ -203,7 +203,7 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
 - (IBAction)recordButtonClicked:(id)sender {
     if (!_isRecording) {
         [self.recordButton 
-                setBackgroundImage:[UIImage imageNamed:kVideoOutLitImage] 
+                setBackgroundImage:[UIImage imageNamed:kImgVideoOutLit] 
                           forState:UIControlStateNormal];
         _isRecording = YES;
         self.cameraCaptureModeButton.enabled    = NO;
@@ -213,7 +213,7 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
     }
     else {
         [self.recordButton 
-                setBackgroundImage:[UIImage imageNamed:kVideoOutImage] 
+                setBackgroundImage:[UIImage imageNamed:kImgVideoOut] 
                           forState:UIControlStateNormal];
         _isRecording = NO;
         [_overlayDelegate stopRecording];
@@ -229,10 +229,10 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
         self.letterBoxImage.hidden      = YES;
         
         [self.cameraCaptureModeButton 
-                setBackgroundImage:[UIImage imageNamed:kSelectVideoImage] 
+                setBackgroundImage:[UIImage imageNamed:kImgSelectVideo] 
                           forState:UIControlStateNormal];
         [self.cameraCaptureModeButton 
-                setBackgroundImage:[UIImage imageNamed:kSelectVideoImage]
+                setBackgroundImage:[UIImage imageNamed:kImgSelectVideo]
                           forState:UIControlStateHighlighted];
     }
     else { 
@@ -242,10 +242,10 @@ static NSString* const kSelectPhotoImage            = @"select_photo.png";
         self.letterBoxImage.hidden      = NO;
         
         [self.cameraCaptureModeButton 
-                setBackgroundImage:[UIImage imageNamed:kSelectPhotoImage] 
+                setBackgroundImage:[UIImage imageNamed:kImgSelectPhoto] 
                           forState:UIControlStateNormal];
         [self.cameraCaptureModeButton 
-                setBackgroundImage:[UIImage imageNamed:kSelectPhotoImage] 
+                setBackgroundImage:[UIImage imageNamed:kImgSelectPhoto] 
                           forState:UIControlStateHighlighted];
     }
     

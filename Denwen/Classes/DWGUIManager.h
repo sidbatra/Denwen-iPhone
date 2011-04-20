@@ -21,6 +21,7 @@
 + (UIInterfaceOrientation)getCurrentOrientation;
 
 + (UIBarButtonItem*)customBackButton:(id)target;
++ (UIBarButtonItem*)placeDetailsButton:(id)target;
 
 
 //Spinner methods

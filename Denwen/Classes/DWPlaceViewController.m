@@ -11,8 +11,12 @@
 #import "DWPlaceCell.h"
 #import "DWItemFeedCell.h"
 #import "DWSession.h"
+#import "DWFollowPlaceView.h"
 
 static NSInteger const kNewItemRowInTableView				= 0;
+static NSInteger const kFollowPlaceViewX                    = 60;
+static NSInteger const kFollowPlaceViewWidth				= 200;
+static NSInteger const kFollowPlaceViewHeight				= 44;
 static NSString* const kPlaceViewCellIdentifier				= @"PlaceViewCell";
 static NSString* const kImgPullToRefreshBackground			= @"refreshfade.png";
 static NSString* const kMsgActionSheetCancel				= @"Cancel";
@@ -24,9 +28,11 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 @implementation DWPlaceViewController
 
-@synthesize place				= _place;
-@synthesize following			= _following;
-@synthesize mbProgressIndicator	= _mbProgressIndicator;
+@synthesize place                   = _place;
+@synthesize following               = _following;
+@synthesize mbProgressIndicator     = _mbProgressIndicator;
+@synthesize followPlaceView         = _followPlaceView;
+
 
 //----------------------------------------------------------------------------------------------------
 -(id)initWithPlace:(DWPlace*)thePlace
@@ -72,6 +78,11 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 												 selector:@selector(followingError:)
 													 name:kNFollowingDestroyError
 												   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(viewControllerPushedOnNav:)
+													 name:kNViewControllerPushedOnNav
+												   object:nil];
 	}
 	
 	return self;
@@ -85,25 +96,28 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
+    
 	self.place						= nil;
 	self.following					= nil;
 	self.mbProgressIndicator		= nil;
+    self.followPlaceView            = nil;
 	
     [super dealloc];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)updateTitle {
-	self.title = [self.place titleText];
+	[self.followPlaceView updateFollowingCountLabelWithText:[self.place titleText]];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	self.navigationItem.leftBarButtonItem = [DWGUIManager customBackButton:_delegate];
-	
+	self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
+    self.navigationItem.rightBarButtonItem  = [DWGUIManager placeDetailsButton:self];
+    self.navigationItem.titleView           = nil;
+        	
 	self.mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.navigationController.view] autorelease];
 	[self.navigationController.view addSubview:self.mbProgressIndicator];
 	
@@ -111,11 +125,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	
 	if(!_isLoadedOnce)
 		[self loadItems];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -273,6 +282,21 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	}
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)viewControllerPushedOnNav:(NSNotification*)notification {
+	UIViewController *viewController = (UIViewController*)[(NSDictionary*)[notification userInfo] 
+                                                           objectForKey:kKeyViewController];
+    if (!self.followPlaceView)
+        self.followPlaceView = [[[DWFollowPlaceView alloc] 
+                                 initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
+                                                          kFollowPlaceViewWidth,
+                                                          kFollowPlaceViewHeight)] autorelease];
+	if (viewController == self)
+        [self.navigationController.navigationBar addSubview:self.followPlaceView];  
+    else
+        [self.followPlaceView removeFromSuperview];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -327,7 +351,16 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	
 	if (buttonIndex == 0)
 		[self sendUnfollowRequest];
-}	
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTapPlaceDetailsButton:(id)sender event:(id)event {
+    DWPlaceDetailsViewController *placeDetailsViewController = [[DWPlaceDetailsViewController alloc] 
+                                                                initWithPlace:self.place];
+    [self.navigationController pushViewController:placeDetailsViewController 
+                                         animated:YES];
+    [placeDetailsViewController release];
+}
 
 
 //----------------------------------------------------------------------------------------------------
