@@ -58,10 +58,10 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 	
 	
 	if(!postProgressView) {
-		postProgressView			= [[DWPostProgressView alloc] initWithFrame:CGRectMake(0,0,250,42)];
+		postProgressView			= [[DWPostProgressView alloc] initWithFrame:CGRectMake(0,0,200,42)];
 		postProgressView.delegate	= self;
 	}
-			
+    			
 	/**
 	 * Add subview
 	 */
