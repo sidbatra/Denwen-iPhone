@@ -7,9 +7,10 @@
 #import "DWTabBar.h"
 
 #define kApplicationFrame	CGRectMake(0,20,320,460)
-#define kResetFrameDelay	0.3
+#define kResetFrameDelay    0.3
 
-static NSString* const kImgBottomShadow = @"shadow_bottom.png";
+static NSString* const kImgTopShadow        = @"shadow_top.png";
+static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 
 
 
@@ -19,7 +20,8 @@ static NSString* const kImgBottomShadow = @"shadow_bottom.png";
 @implementation DWTabBarController
 
 @synthesize tabBar				= _tabBar;
-@synthesize shadowView          = _shadowView;
+@synthesize topShadowView       = _topShadowView;
+@synthesize bottomShadowView    = _bottomShadowView;
 @synthesize subControllers		= _subControllers;
 
 //----------------------------------------------------------------------------------------------------
@@ -31,14 +33,19 @@ static NSString* const kImgBottomShadow = @"shadow_bottom.png";
 	
 	if(self) {
 		
-		_delegate               = theDelegate;
-		self.tabBar             = [[[DWTabBar alloc] initWithFrame:tabBarFrame
-                                                          withInfo:tabBarInfo 
-                                                       andDelegate:self] autorelease];
+        _delegate                       = theDelegate;
+		self.tabBar                     = [[[DWTabBar alloc] initWithFrame:tabBarFrame
+                                                                  withInfo:tabBarInfo 
+                                                               andDelegate:self] autorelease];
         
-        self.shadowView         = [[[UIImageView alloc] initWithImage:
-                                    [UIImage imageNamed:kImgBottomShadow]] autorelease];
-        self.shadowView.frame   = CGRectMake(0,self.tabBar.frame.origin.y-5,320,5);
+        self.topShadowView              = [[[UIImageView alloc] initWithImage:
+                                            [UIImage imageNamed:kImgTopShadow]] autorelease];
+        self.topShadowView.frame        = CGRectMake(0,44,320,5);
+        
+        self.bottomShadowView           = [[[UIImageView alloc] initWithImage:
+                                            [UIImage imageNamed:kImgBottomShadow]] autorelease];
+        self.bottomShadowView.frame     = CGRectMake(0,self.tabBar.frame.origin.y-5,320,5);
+        
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(playbackDidFinish:) 
@@ -53,9 +60,10 @@ static NSString* const kImgBottomShadow = @"shadow_bottom.png";
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-	self.tabBar			= nil;
-    self.shadowView     = nil;
-	self.subControllers	= nil;
+	self.tabBar             = nil;
+    self.topShadowView      = nil;
+    self.bottomShadowView   = nil;
+	self.subControllers     = nil;
 	
     [super dealloc];
 }
@@ -63,8 +71,9 @@ static NSString* const kImgBottomShadow = @"shadow_bottom.png";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-	[self.view addSubview:self.shadowView];
+    
+	[self.view addSubview:self.topShadowView];
+    [self.view addSubview:self.bottomShadowView];
 	[self.view addSubview:self.tabBar];
 	[self addViewAtIndex:self.tabBar.selectedIndex];
 }
@@ -98,7 +107,8 @@ static NSString* const kImgBottomShadow = @"shadow_bottom.png";
 									   self.view.frame.size.width,
 									   460-self.tabBar.frame.size.height);
 	
-	[self.view insertSubview:controller.view belowSubview:self.shadowView];
+	[self.view insertSubview:controller.view 
+                belowSubview:self.topShadowView];
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -14,21 +14,27 @@
  */
 @interface DWTabBarController : UIViewController {
 	DWTabBar			*_tabBar;
+    UIImageView         *_topShadowView;
+    UIImageView         *_bottomShadowView;
 	NSArray				*_subControllers;
-    UIImageView         *_shadowView;
 	
 	id<DWTabBarControllerDelegate> _delegate;
 }
 
 /**
- * Tab bar object for managing for the buttons and their states
+ * Image view with a shadow just below the navigation bar
  */
-@property (nonatomic,retain) DWTabBar *tabBar;
+@property (nonatomic,retain) UIImageView *topShadowView;
 
 /**
  * Image view with a shadow just above the tab bar
  */
-@property (nonatomic,retain) UIImageView *shadowView;
+@property (nonatomic,retain) UIImageView *bottomShadowView;
+
+/**
+ * Tab bar object for managing for the buttons and their states
+ */
+@property (nonatomic,retain) DWTabBar *tabBar;
 
 /**
  * Controllers added to the tab bar 
