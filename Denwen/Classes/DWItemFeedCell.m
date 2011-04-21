@@ -254,7 +254,7 @@
 		
 		
 		placeButton						= [[[UIButton alloc] init] autorelease];
-		//placeButton.backgroundColor		= [UIColor greenColor];
+        //placeButton.backgroundColor		= [UIColor greenColor];
 		
 		[placeButton addTarget:self
 						action:@selector(didTouchDownOnPlaceButton:) 
@@ -300,10 +300,10 @@
 		
 		shareButton						= [[[UIButton alloc] init] autorelease];
 		//shareButton.backgroundColor		= [UIColor greenColor];
-		shareButton.frame				= CGRectMake(shareImageLayer.frame.origin.x - 4,
-													 shareImageLayer.frame.origin.y - 4,
-													 shareImageLayer.frame.size.width + 8,
-													 shareImageLayer.frame.size.height + 8);
+		shareButton.frame				= CGRectMake(shareImageLayer.frame.origin.x - 7,
+													 shareImageLayer.frame.origin.y - 6,
+													 shareImageLayer.frame.size.width + 11,
+													 shareImageLayer.frame.size.height + 11);
 		
 		[shareButton addTarget:self
 					   action:@selector(didTouchUpOnShareButton:) 
@@ -388,15 +388,15 @@
 
 	 
 	
-	userButton.frame			= CGRectMake(_userNameRect.origin.x-3,
-											 _userNameRect.origin.y-2,
-											 _userNameRect.size.width+6,
-											 _userNameRect.size.height+4);
+	userButton.frame			= CGRectMake(_userNameRect.origin.x-4,
+											 _userNameRect.origin.y-5,
+											 _userNameRect.size.width+7,
+											 _userNameRect.size.height+7);
 	
-	placeButton.frame			= CGRectMake(_placeNameRect.origin.x-3,
-											 _placeNameRect.origin.y-2,
-											 _placeNameRect.size.width+6,
-											 _placeNameRect.size.height+4);
+	placeButton.frame			= CGRectMake(_placeNameRect.origin.x-4,
+											 _placeNameRect.origin.y-5,
+											 _placeNameRect.size.width+7,
+											 _placeNameRect.size.height+7);
 	
 	
 	[CATransaction begin];
