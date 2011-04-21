@@ -6,7 +6,11 @@
 #import "DWPostProgressView.h"
 #import "DWConstants.h"
 
-static const float kMinimumProgress = 0.001;
+static float const kMinimumProgress     = 0.001;
+static NSString* const kImgDelete       = @"post_cancel.png";
+static NSString* const kImgRetry        = @"post_retry.png";
+static NSString* const kImgProgress     = @"loading_bar.png";
+static NSString* const kImgBackground   = @"loading_bar_fail.png";
 
 
 
@@ -22,20 +26,37 @@ static const float kMinimumProgress = 0.001;
     self = [super initWithFrame:frame];
     
 	if (self) {
-		statusLabel					= [[[UILabel alloc] initWithFrame:CGRectMake(25,5,200,20)] autorelease];
-		statusLabel.font			= [UIFont fontWithName:@"HelveticaNeue" size:13];
+        self.backgroundColor        = [UIColor clearColor];
+        
+        CALayer *backgroundLayer        = [CALayer layer];
+        backgroundLayer.frame           = frame;
+        backgroundLayer.contents        = (id)[UIImage imageNamed:kImgBackground].CGImage;
+        [self.layer addSublayer:backgroundLayer];
+        
+        progressLayer                   = [CALayer layer];
+        progressLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           [NSNull null], @"hidden",
+                                           nil];
+        progressLayer.contents          = (id)[UIImage imageNamed:kImgProgress].CGImage;
+        [self.layer addSublayer:progressLayer];
+        
+        
+        
+		statusLabel					= [[[UILabel alloc] initWithFrame:CGRectMake(0,12,self.frame.size.width,20)] autorelease];
+        statusLabel.text            = @"Posting...";
+		statusLabel.font			= [UIFont fontWithName:@"HelveticaNeue" size:15];
 		statusLabel.textColor		= [UIColor whiteColor];
 		statusLabel.backgroundColor	= [UIColor clearColor];
 		statusLabel.textAlignment	= UITextAlignmentCenter;
 		[self addSubview:statusLabel];
 		
-		progressView = [[[UIProgressView alloc] initWithFrame:CGRectMake(25,30,200,10)] autorelease];
-		[self addSubview:progressView];
-		
-		deleteButton					= [UIButton buttonWithType:UIButtonTypeRoundedRect];
-		deleteButton.frame				= CGRectMake(0,20,55,20);
+		deleteButton					= [UIButton buttonWithType:UIButtonTypeCustom];
+		deleteButton.frame				= CGRectMake(21,13,13,15);
 		deleteButton.hidden				= YES;
 		
+        [deleteButton setBackgroundImage:[UIImage imageNamed:kImgDelete]
+                                forState:UIControlStateNormal];
+        
 		[deleteButton setTitle:@"Delete"
 					  forState:UIControlStateNormal];
 		
@@ -47,9 +68,12 @@ static const float kMinimumProgress = 0.001;
 		[self addSubview:deleteButton];
 		
 		
-		retryButton						= [UIButton buttonWithType:UIButtonTypeRoundedRect];
-		retryButton.frame				= CGRectMake(60,20,55,20);
+		retryButton						= [UIButton buttonWithType:UIButtonTypeCustom];
+		retryButton.frame				= CGRectMake(166,13,13,15);
 		retryButton.hidden				= YES;
+        
+        [retryButton setBackgroundImage:[UIImage imageNamed:kImgRetry]
+                               forState:UIControlStateNormal];
 		
 		[retryButton setTitle:@"Retry"
 					 forState:UIControlStateNormal];
@@ -70,30 +94,45 @@ static const float kMinimumProgress = 0.001;
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)updateProgressBar:(float)progress 
+            withAnimation:(BOOL)animation {
+    
+    [CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:animation && progress > kMinimumProgress ? 0.3f : 0.0f] 
+					 forKey:kCATransactionAnimationDuration];
+    
+    progressLayer.frame = CGRectMake(0,0,self.frame.size.width*progress,self.frame.size.height);
+    
+    [CATransaction commit];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)updateDisplayWithTotalActive:(NSInteger)totalActive
 						 totalFailed:(NSInteger)totalFailed 
 					   totalProgress:(float)totalProgress {
 	
 	if(totalActive) {
+        statusLabel.alpha       = 1.0;
 		deleteButton.hidden		= YES;
 		retryButton.hidden		= YES;
-		progressView.hidden		= NO;
+		progressLayer.hidden	= NO;
 		
-		[progressView setProgress:totalProgress];
+        [self updateProgressBar:totalProgress
+                  withAnimation:YES];
 		
 		if(totalActive == 1 && totalProgress < kMinimumProgress) {
-			statusLabel.text = @"Connecting..";
+			statusLabel.text = @"Connecting...";
 		}
 		else if(totalActive == 1)
 			statusLabel.text = @"Posting...";
 		else {
 			statusLabel.text = [NSString stringWithFormat:@"Posting %d of %d",totalActive,totalActive];
 		}
-
 	}
 	else if(totalFailed) {
-		statusLabel.text		= [NSString stringWithFormat:@"%d Failed",totalFailed];
-		progressView.hidden		= YES;
+        statusLabel.alpha       = 0.5;
+		statusLabel.text		= [NSString stringWithFormat:@"%d failed",totalFailed];
+		progressLayer.hidden	= YES;
 		deleteButton.hidden		= NO;
 		retryButton.hidden		= NO;
 	}
@@ -106,11 +145,15 @@ static const float kMinimumProgress = 0.001;
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapRetryButton:(UIButton*)button {
-	progressView.progress	= 0.0;
+    
+    [self updateProgressBar:0
+              withAnimation:NO];    
+    
+    statusLabel.alpha       = 1.0;
 	statusLabel.text		= kEmptyString;
 	deleteButton.hidden		= YES;
 	retryButton.hidden		= YES;
-	progressView.hidden		= NO;
+	progressLayer.hidden	= NO;
 	
 	[_delegate retryButtonPressed];
 }

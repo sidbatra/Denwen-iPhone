@@ -4,6 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @protocol DWPostProgressViewDelegate;
 
@@ -13,9 +14,9 @@
  */
 @interface DWPostProgressView : UIView {
 	UILabel			*statusLabel;
-	UIProgressView	*progressView;
 	UIButton		*deleteButton;
 	UIButton		*retryButton;
+    CALayer         *progressLayer;
 	
 	id<DWPostProgressViewDelegate> _delegate;
 }
