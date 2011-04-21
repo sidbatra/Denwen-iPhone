@@ -50,6 +50,17 @@
 	   withTabBarFrame:(CGRect)tabBarFrame
 		 andTabBarInfo:(NSArray*)tabBarInfo;
 
+/**
+ * Disables full screen for selected controller
+ */
+- (void)disableFullScreen;
+
+/**
+ * Enables full screen view for selected controller 
+ */
+- (void)enableFullScreen;
+    
+
 @end
 
 /**

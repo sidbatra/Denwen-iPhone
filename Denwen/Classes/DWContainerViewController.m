@@ -4,6 +4,7 @@
 //
 
 #import "DWContainerViewController.h"
+#import "DWTabBarController.h"
 #import "DWUserViewController.h"
 #import "DWPlaceViewController.h"
 #import "DWImageViewController.h"
@@ -58,7 +59,7 @@
 
 //----------------------------------------------------------------------------------------------------
 - (BOOL)isSelectedTab {
-	return self.navigationController.tabBarController.selectedViewController == self.navigationController;
+    return [(DWTabBarController*)customTabBarController getSelectedController] == self.navigationController;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -161,25 +162,24 @@
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UINavigationControllerDelegate
-
 //----------------------------------------------------------------------------------------------------
 - (void)navigationController:(UINavigationController *)navigationController 
 	  willShowViewController:(UIViewController *)viewController
 					animated:(BOOL)animated {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNViewControllerPushedOnNav 
-                                                        object:nil
-                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                viewController,kKeyViewController,
-                                                                nil]];
+    if ([viewController respondsToSelector:@selector(willShowOnNav)])
+        [viewController performSelector:@selector(willShowOnNav)];
+    
+    if ([previousControllerOnNav respondsToSelector:@selector(willHideFromNav)])
+        [previousControllerOnNav performSelector:@selector(willHideFromNav)];
+    
     
     if ([viewController respondsToSelector:@selector(requiresFullScreenMode)])
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNEnableFullScreen 
-                                                            object:nil];
+        [(DWTabBarController*)customTabBarController enableFullScreen];
     else
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNDisableFullScreen 
-                                                            object:nil];
-                                            
+        [(DWTabBarController*)customTabBarController disableFullScreen];
+    
+    previousControllerOnNav = viewController;
 }
 
 @end

@@ -78,11 +78,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 												 selector:@selector(followingError:)
 													 name:kNFollowingDestroyError
 												   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(viewControllerPushedOnNav:)
-													 name:kNViewControllerPushedOnNav
-												   object:nil];
 	}
 	
 	return self;
@@ -270,23 +265,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	}
 }
 
-//----------------------------------------------------------------------------------------------------
-- (void)viewControllerPushedOnNav:(NSNotification*)notification {
-	UIViewController *viewController = (UIViewController*)[(NSDictionary*)[notification userInfo] 
-                                                           objectForKey:kKeyViewController];
-	if (viewController == self) {
-        
-        if (!self.followPlaceView)
-            self.followPlaceView = [[[DWFollowPlaceView alloc] 
-                                     initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
-                                                              kFollowPlaceViewWidth,
-                                                              kFollowPlaceViewHeight) andDelegate:self] autorelease];
-        [self.navigationController.navigationBar addSubview:self.followPlaceView];  
-    }
-    else
-        [self.followPlaceView removeFromSuperview];
-}
-
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -386,6 +364,26 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 																  withData:data 
 																	sentTo:sentTo];
 }
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Nav Stack Selectors
+//----------------------------------------------------------------------------------------------------
+- (void)willShowOnNav {
+    if (!self.followPlaceView)
+        self.followPlaceView = [[[DWFollowPlaceView alloc] 
+                                 initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
+                                                          kFollowPlaceViewWidth,
+                                                          kFollowPlaceViewHeight) andDelegate:self] autorelease];
+    [self.navigationController.navigationBar addSubview:self.followPlaceView];  
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)willHideFromNav {
+    [self.followPlaceView removeFromSuperview];
+}
+
 
 @end
 
