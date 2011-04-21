@@ -11,7 +11,6 @@
 #import "DWFollowedPlacesViewController.h"
 
 //Cells
-#import "DWUserCell.h"
 #import "DWItemFeedCell.h"
 #import "DWMessageCell.h"
 
@@ -21,7 +20,7 @@ static float	 const kPullToRefreshBackgroundRedValue		= 0.6156;
 static float	 const kPullToRefreshBackgroundGreenValue	= 0.6666;
 static float	 const kPullToRefreshBackgroundBlueValue	= 0.7372;
 static float	 const kPullToRefreshBackgroundAlphaValue	= 1.0;
-static NSInteger const kNewItemRowInTableView				= 1;
+static NSInteger const kNewItemRowInTableView				= 0;
 static NSString* const kMsgCurrentUserNoItems				= @"Everything you post shows up here";
 static NSString* const kMsgImageUploadErrorTitle			= @"Error";
 static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. Please try again";
@@ -47,7 +46,6 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	if (self) {
 		
 		self.user		= theUser;
-		_tableViewUsage = kTableViewAsData;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newItemParsed:) 
@@ -101,13 +99,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	
 	self.mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.navigationController.view] autorelease];
 	[self.navigationController.view addSubview:self.mbProgressIndicator];
-	
-	[self.refreshHeaderView applyBackgroundImage:nil 
-								   withFadeImage:[UIImage imageNamed:kImgPullToRefreshBackground]
-							 withBackgroundColor:[UIColor colorWithRed:kPullToRefreshBackgroundRedValue
-																 green:kPullToRefreshBackgroundGreenValue
-																  blue:kPullToRefreshBackgroundBlueValue
-																 alpha:kPullToRefreshBackgroundAlphaValue]];
+    
 	self.title = [self.user fullName];
 
 	if(!_isLoadedOnce)
@@ -176,11 +168,11 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	}
 	
 	
-	NSIndexPath *userIndexPath = [NSIndexPath indexPathForRow:0
-													inSection:0];
+	//NSIndexPath *userIndexPath = [NSIndexPath indexPathForRow:0
+	//												inSection:0];
 	
-	DWUserCell *cell = (DWUserCell*)[self.tableView cellForRowAtIndexPath:userIndexPath];
-	[cell setMediumPreviewUserImage:[info objectForKey:kKeyImage]];
+	//DWUserCell *cell = (DWUserCell*)[self.tableView cellForRowAtIndexPath:userIndexPath];
+	//[cell setMediumPreviewUserImage:[info objectForKey:kKeyImage]];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -206,7 +198,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 		NSArray *items		= [body objectForKey:kKeyItems];
 		
 		[self.itemManager populateItems:items
-							 withBuffer:(_currentPage==kPagInitialPage)
+							 withBuffer:NO
 							  withClear:_isReloading];
 		
 		[self.user update:[body objectForKey:kKeyUser]];
@@ -297,22 +289,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UITableViewDataSource
-
-//----------------------------------------------------------------------------------------------------
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	CGFloat height = 0;
-	
-	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == kTableViewAsProfileMessage) && 
-		indexPath.row == 0)
-		
-		height = kUserViewCellHeight;
-	else
-		height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
-	
-	
-	return height;
-}
-
+/*
 //----------------------------------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
@@ -350,7 +327,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	}
 	
 	return cell;
-}
+}*/
 
 
 //----------------------------------------------------------------------------------------------------
@@ -371,7 +348,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UITableViewDelegate
-
+/*
 //----------------------------------------------------------------------------------------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if((_tableViewUsage == kTableViewAsData || _tableViewUsage == kTableViewAsProfileMessage) && 
@@ -385,17 +362,15 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	else {
 		[super tableView:tableView didSelectRowAtIndexPath:indexPath];
 	}
-}
+}*/
 
+/*
 //----------------------------------------------------------------------------------------------------
 - (void)didTapUserMediumImage:(id)sender event:(id)event {	
-	/**
-	 * Display editing options only if the user view belongs to the current users
-	 */
 	if([self.user isCurrentUser]) {
         [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];  
 	}
-}
+}*/
 
 
 //----------------------------------------------------------------------------------------------------
