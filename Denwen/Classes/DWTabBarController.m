@@ -9,6 +9,9 @@
 #define kApplicationFrame	CGRectMake(0,20,320,460)
 #define kResetFrameDelay	0.3
 
+static NSString* const kImgBottomShadow = @"shadow_bottom.png";
+
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -16,6 +19,7 @@
 @implementation DWTabBarController
 
 @synthesize tabBar				= _tabBar;
+@synthesize shadowView          = _shadowView;
 @synthesize subControllers		= _subControllers;
 
 //----------------------------------------------------------------------------------------------------
@@ -27,10 +31,14 @@
 	
 	if(self) {
 		
-		_delegate	= theDelegate;
-		self.tabBar = [[[DWTabBar alloc] initWithFrame:tabBarFrame
-											  withInfo:tabBarInfo 
-										  andDelegate:self] autorelease];
+		_delegate               = theDelegate;
+		self.tabBar             = [[[DWTabBar alloc] initWithFrame:tabBarFrame
+                                                          withInfo:tabBarInfo 
+                                                       andDelegate:self] autorelease];
+        
+        self.shadowView         = [[[UIImageView alloc] initWithImage:
+                                    [UIImage imageNamed:kImgBottomShadow]] autorelease];
+        self.shadowView.frame   = CGRectMake(0,self.tabBar.frame.origin.y-5,320,5);
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(playbackDidFinish:) 
@@ -46,6 +54,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	self.tabBar			= nil;
+    self.shadowView     = nil;
 	self.subControllers	= nil;
 	
     [super dealloc];
@@ -54,7 +63,8 @@
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+
+	[self.view addSubview:self.shadowView];
 	[self.view addSubview:self.tabBar];
 	[self addViewAtIndex:self.tabBar.selectedIndex];
 }
@@ -88,7 +98,7 @@
 									   self.view.frame.size.width,
 									   460-self.tabBar.frame.size.height);
 	
-	[self.view insertSubview:controller.view belowSubview:self.tabBar];
+	[self.view insertSubview:controller.view belowSubview:self.shadowView];
 }
 
 //----------------------------------------------------------------------------------------------------
