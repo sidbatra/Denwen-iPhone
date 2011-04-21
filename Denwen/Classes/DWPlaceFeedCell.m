@@ -27,16 +27,16 @@ static NSString* const kImgChevron		= @"chevron.png";
 	
 	
 	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-	CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+	//CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
 	 
 	
-	[placeCell.placeName drawInRect:CGRectMake(7,24,293,23) 
-						   withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18]
+	[placeCell.placeName drawInRect:CGRectMake(20,21,280,28) 
+						   withFont:[UIFont fontWithName:@"HelveticaNeue" size:22]
 					  lineBreakMode:UILineBreakModeTailTruncation
 						  alignment:UITextAlignmentLeft];
 	 
-	[placeCell.placeDetails drawInRect:CGRectMake(7,48,293,23)
-							  withFont:[UIFont fontWithName:@"HelveticaNeue" size:14] 
+	[placeCell.placeDetails drawInRect:CGRectMake(20,49,280,20)
+							  withFont:[UIFont fontWithName:@"HelveticaNeue" size:15] 
 						 lineBreakMode:UILineBreakModeTailTruncation
 							 alignment:UITextAlignmentLeft];
 	
@@ -87,7 +87,7 @@ static NSString* const kImgChevron		= @"chevron.png";
         [[self layer] addSublayer:drawingLayer];
 		
 		CALayer *chevronLayer			= [CALayer layer];
-		chevronLayer.frame				= CGRectMake(304,38,9,14);
+		chevronLayer.frame				= CGRectMake(307,41,6,11);
 		chevronLayer.contentsScale		= [[UIScreen mainScreen] scale];
 		chevronLayer.contents			= (id)[UIImage imageNamed:kImgChevron].CGImage;
 		[[self layer] addSublayer:chevronLayer];

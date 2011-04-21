@@ -7,6 +7,8 @@
 #import "DWPopularPlacesViewController.h"
 #import "DWSearchPlacesViewController.h"
 #import "DWNearbyPlacesViewController.h"
+#import "DWPlaceDetailsViewController.h"
+#import "DWTabBarController.h"
 #import "DWSegmentedControl.h"
 #import "DWSession.h"
 
@@ -170,13 +172,12 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 - (void)navigationController:(UINavigationController *)navigationController 
 	  willShowViewController:(UIViewController *)viewController
 					animated:(BOOL)animated {
-	self.segmentedControl.hidden = viewController != self;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNViewControllerPushedOnNav 
-                                                        object:nil
-                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                viewController,kKeyViewController,
-                                                                nil]];
+    self.segmentedControl.hidden = viewController != self;
+    
+    [super navigationController:navigationController 
+         willShowViewController:viewController 
+                       animated:animated];
 }
 
 

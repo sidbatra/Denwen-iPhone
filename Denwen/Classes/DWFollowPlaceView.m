@@ -40,7 +40,9 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
 #pragma mark Private Methods
 //----------------------------------------------------------------------------------------------------
 - (void)createFollowButton {    
-    UIButton *followButton  = [UIButton buttonWithType:UIButtonTypeCustom];
+    followButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    followButton.enabled    = NO;
     followButton.frame      = CGRectMake(0, 0, 200, 44);
     
     [followButton setBackgroundImage:[UIImage imageNamed:kImgFollowButton]
@@ -116,6 +118,7 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
     
     followLabel.text            = title;
     followingCountLabel.text    = subtitle;
+    followButton.enabled        = YES;
     _isFollowing                = isFollowing;
 }
 

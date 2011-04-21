@@ -166,6 +166,20 @@
 - (void)navigationController:(UINavigationController *)navigationController 
 	  willShowViewController:(UIViewController *)viewController
 					animated:(BOOL)animated {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNViewControllerPushedOnNav 
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                viewController,kKeyViewController,
+                                                                nil]];
+    
+    if ([viewController respondsToSelector:@selector(requiresFullScreenMode)])
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNEnableFullScreen 
+                                                            object:nil];
+    else
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNDisableFullScreen 
+                                                            object:nil];
+                                            
 }
 
 @end

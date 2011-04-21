@@ -4,9 +4,12 @@
 //
 
 #import "DWTabBarController.h"
+#import "DWConstants.h"
 #import "DWTabBar.h"
 
 #define kApplicationFrame	CGRectMake(0,20,320,460)
+#define kNormalScreenFrame	CGRectMake(0,0,320,460)
+#define kFullScreenFrame	CGRectMake(0,0,320,480)
 #define kResetFrameDelay    0.3
 
 static NSString* const kImgTopShadow        = @"shadow_top.png";
@@ -50,6 +53,16 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(playbackDidFinish:) 
 													 name:MPMoviePlayerPlaybackDidFinishNotification 
+												   object:nil];
+         
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(enableFullScreen:) 
+													 name:kNEnableFullScreen
+												   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(disableFullScreen:) 
+													 name:kNDisableFullScreen
 												   object:nil];
 	}
 	
@@ -147,6 +160,22 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 	[self performSelector:@selector(resetFrame)
 			   withObject:nil 
 			   afterDelay:kResetFrameDelay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)enableFullScreen:(NSNotification*)notification {
+	self.tabBar.hidden                      = YES;
+    self.bottomShadowView.hidden            = YES;
+    
+    [self getSelectedController].view.frame = kFullScreenFrame;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)disableFullScreen:(NSNotification*)notification {
+	self.tabBar.hidden                      = NO;
+    self.bottomShadowView.hidden            = NO;
+    
+    [self getSelectedController].view.frame = kNormalScreenFrame;
 }
 
 @end

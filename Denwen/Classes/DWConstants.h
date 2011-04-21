@@ -176,6 +176,8 @@ extern NSString* const kNCreationQueueItemProcessed;
 extern NSString* const kNQueueItemProgressUpdated;
 extern NSString* const kNCreationQueueUpdated;
 extern NSString* const kNViewControllerPushedOnNav;
+extern NSString* const kNEnableFullScreen;
+extern NSString* const kNDisableFullScreen;
 
 
 

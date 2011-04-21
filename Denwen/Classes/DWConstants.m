@@ -181,6 +181,8 @@ NSString* const kNCreationQueueItemProcessed	= @"NCreationQueueItemProcessed";
 NSString* const kNQueueItemProgressUpdated		= @"NQueueItemProgressUpdated";
 NSString* const kNCreationQueueUpdated			= @"NCreationQueueUpdated";
 NSString* const kNViewControllerPushedOnNav		= @"NViewControllerPushedOnNav";
+NSString* const kNEnableFullScreen              = @"NEnableFullScreen";
+NSString* const kNDisableFullScreen             = @"NDisableFullScreen";
 
 
 

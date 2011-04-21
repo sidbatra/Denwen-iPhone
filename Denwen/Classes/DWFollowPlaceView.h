@@ -14,6 +14,7 @@
 @interface DWFollowPlaceView : UIView {
     UILabel     *followLabel;
     UILabel     *followingCountLabel;
+    UIButton    *followButton;
     
     BOOL        _isFollowing;
     

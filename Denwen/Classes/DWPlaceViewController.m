@@ -274,13 +274,15 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 - (void)viewControllerPushedOnNav:(NSNotification*)notification {
 	UIViewController *viewController = (UIViewController*)[(NSDictionary*)[notification userInfo] 
                                                            objectForKey:kKeyViewController];
-    if (!self.followPlaceView)
-        self.followPlaceView = [[[DWFollowPlaceView alloc] 
-                                 initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
-                                                          kFollowPlaceViewWidth,
-                                                          kFollowPlaceViewHeight) andDelegate:self] autorelease];
-	if (viewController == self)
+	if (viewController == self) {
+        
+        if (!self.followPlaceView)
+            self.followPlaceView = [[[DWFollowPlaceView alloc] 
+                                     initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
+                                                              kFollowPlaceViewWidth,
+                                                              kFollowPlaceViewHeight) andDelegate:self] autorelease];
         [self.navigationController.navigationBar addSubview:self.followPlaceView];  
+    }
     else
         [self.followPlaceView removeFromSuperview];
 }
