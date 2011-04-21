@@ -59,6 +59,12 @@
  * Enables full screen view for selected controller 
  */
 - (void)enableFullScreen;
+
+/**
+ * Returns the subController corresponding to the
+ * currently selected tab bar button
+ */
+- (UIViewController*)getSelectedController;
     
 
 @end
@@ -85,9 +91,4 @@
  */
 - (void)addViewAtIndex:(NSInteger)index;
 
-/**
- * Returns the subController corresponding to the
- * currently selected tab bar button
- */
-- (UIViewController*)getSelectedController;
 @end

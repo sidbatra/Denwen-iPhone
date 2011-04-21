@@ -7,7 +7,6 @@
 #import "DWTabBar.h"
 
 #define kApplicationFrame	CGRectMake(0,20,320,460)
-#define kNormalScreenFrame	CGRectMake(0,0,320,460)
 #define kFullScreenFrame	CGRectMake(0,0,320,480)
 #define kResetFrameDelay    0.3
 
@@ -131,7 +130,9 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 	self.tabBar.hidden                      = NO;
     self.bottomShadowView.hidden            = NO;
     
-    [self getSelectedController].view.frame = kNormalScreenFrame;
+    [self getSelectedController].view.frame = CGRectMake(0,0,
+                                                         self.view.frame.size.width,
+                                                         460-self.tabBar.frame.size.height);
 }
 
 
