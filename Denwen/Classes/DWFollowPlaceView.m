@@ -112,6 +112,8 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Update View Methods
+
+//----------------------------------------------------------------------------------------------------
 - (void)updateTitle:(NSString *)title 
         andSubtitle:(NSString *)subtitle 
      andIsFollowing:(BOOL)isFollowing {
