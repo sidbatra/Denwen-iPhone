@@ -105,8 +105,8 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 		nearbyViewController = [[DWNearbyPlacesViewController alloc] initWithDelegate:self];
 	[self.view addSubview:nearbyViewController.view];
 		
-
-	[self loadSelectedView:kSelectedIndex];
+    
+	[self loadSelectedView:self.segmentedControl.selectedIndex];
 }
 
 //----------------------------------------------------------------------------------------------------

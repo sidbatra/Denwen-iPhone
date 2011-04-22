@@ -12,7 +12,8 @@
 //----------------------------------------------------------------------------------------------------
 @implementation DWSegmentedControl
 
-@synthesize buttons = _buttons;
+@synthesize buttons         =   _buttons;
+@synthesize selectedIndex   =   _selectedIndex;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithFrame:(CGRect)frame 

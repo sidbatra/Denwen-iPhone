@@ -23,6 +23,11 @@
 @property (nonatomic,retain) NSMutableArray *buttons;
 
 /**
+ * Selected segment index
+ */
+@property (nonatomic,readonly) NSInteger selectedIndex;
+
+/**
  * Init with a frame, delegate to receive index change events
  * and an array of dictionaries to provide width, selection
  * status, state images and other properties of each segment

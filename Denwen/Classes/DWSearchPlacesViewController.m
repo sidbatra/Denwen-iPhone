@@ -31,6 +31,9 @@ static NSInteger const kPlacesIndex					= 0;
 						 andDelegate:delegate];
 	
 	if (self) {
+        
+        _tableViewUsage					= kTableViewAsMessage;
+        self.messageCellText			= kMsgInitial;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(searchPlacesLoaded:) 
@@ -50,24 +53,24 @@ static NSInteger const kPlacesIndex					= 0;
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	searchBar					= [[[UISearchBar alloc] initWithFrame:CGRectMake(0,0,self.tableView.frame.size.width,0)] autorelease];
-	searchBar.delegate			= self;
-	searchBar.placeholder		= kSearchBarText;
-	searchBar.backgroundColor	= [UIColor colorWithRed:0.1294 green:0.1294 blue:0.1294 alpha:1.0];
-	[searchBar sizeToFit];	
+    if(!searchBar) {
+        searchBar					= [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,self.tableView.frame.size.width,0)];
+        searchBar.delegate			= self;
+        searchBar.placeholder		= kSearchBarText;
+        searchBar.backgroundColor	= [UIColor colorWithRed:0.1294 green:0.1294 blue:0.1294 alpha:1.0];
+        [searchBar sizeToFit];	
+        
+        
+        for (UIView *subview in searchBar.subviews) {
+            if ([subview isKindOfClass:NSClassFromString(kSearchBarBackgroundClass)]) {
+                [subview removeFromSuperview];
+                break;
+            }
+        }
+    }
 	
-	
-	for (UIView *subview in searchBar.subviews) {
-		if ([subview isKindOfClass:NSClassFromString(kSearchBarBackgroundClass)]) {
-			[subview removeFromSuperview];
-			break;
-		}
-	}
-	
-	self.tableView.tableHeaderView = searchBar;
-	
-	_tableViewUsage					= kTableViewAsMessage;
-	self.messageCellText			= kMsgInitial;
+    self.tableView.tableHeaderView  = searchBar;
+
 	
 	[self.refreshHeaderView applyBackgroundImage:nil 
 								   withFadeImage:nil
@@ -176,6 +179,9 @@ static NSInteger const kPlacesIndex					= 0;
 	textDidChange:(NSString *)searchText {
 	
 	if([searchText isEqualToString:kEmptyString]) {
+        _tableViewUsage					= kTableViewAsMessage;
+        self.messageCellText			= kMsgInitial;
+        
 		[_placeManager clearPlaces];
 		[self.tableView reloadData];
 	}
