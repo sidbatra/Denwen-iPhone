@@ -190,6 +190,8 @@ static NSInteger const kPlacesPerPage				= 20;
 
 //----------------------------------------------------------------------------------------------------
 - (void)hardRefresh {
+    [self resetPagination];
+    
 	_isReloading	= YES;
 	_tableViewUsage = kTableViewAsSpinner;
 	

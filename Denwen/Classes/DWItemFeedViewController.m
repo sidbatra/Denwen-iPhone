@@ -138,6 +138,8 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 								   
 //----------------------------------------------------------------------------------------------------
 - (void)hardRefresh {
+    [self resetPagination];
+    
    _isReloading		= YES;
    _tableViewUsage	= kTableViewAsSpinner;
 	
