@@ -77,13 +77,14 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 								 kImgSegmentedViewNearbyOff		,kKeyNormalImageName,
 								 nil],
 								nil];
+    
+    
+    if(!self.segmentedControl)
+        self.segmentedControl = [[[DWSegmentedControl alloc] initWithFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight)
+                                                          withSegmentsInfo:segmentsInfo
+                                                               andDelegate:self] autorelease];
 
-	self.segmentedControl = [[[DWSegmentedControl alloc] initWithFrame:CGRectMake(0,0,kSegmentedPlacesViewWidth,kSegmentedPlacesViewHeight)
-													  withSegmentsInfo:segmentsInfo
-														   andDelegate:self] autorelease];
-
-	
-	[self.navigationController.navigationBar addSubview:self.segmentedControl];
+    [self.navigationController.navigationBar addSubview:self.segmentedControl];
 
 	self.navigationItem.titleView = nil;
 	
@@ -111,7 +112,8 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidUnload {	
 	NSLog(@"%@",kMsgUnload);	
-	self.segmentedControl = nil;
+    
+    [self.segmentedControl removeFromSuperview];
 }
 
 
