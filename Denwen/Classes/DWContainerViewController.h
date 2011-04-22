@@ -15,7 +15,6 @@
  */
 @interface DWContainerViewController : UIViewController <UINavigationControllerDelegate,DWItemFeedViewControllerDelegate,DWPlaceListViewControllerDelegate> {
 	UIViewController *customTabBarController;
-    UIViewController *previousControllerOnNav;
 }
 
 /**

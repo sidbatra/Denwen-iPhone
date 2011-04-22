@@ -497,7 +497,6 @@ replacementString:(NSString *)string {
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark DWChooseLocationViewControllerDeleagate
-
 //----------------------------------------------------------------------------------------------------
 - (void)chooseLocationFinishedWithLocation:(CLLocation*)location {
 	self.newPlaceLocation = location;

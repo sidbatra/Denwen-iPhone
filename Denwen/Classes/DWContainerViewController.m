@@ -167,8 +167,10 @@
 	  willShowViewController:(UIViewController *)viewController
 					animated:(BOOL)animated {
     
-    if ([previousControllerOnNav respondsToSelector:@selector(willHideFromNav)])
-        [previousControllerOnNav performSelector:@selector(willHideFromNav)];
+	for (UIView *view in [self.navigationController.navigationBar subviews]) 
+		if ([view respondsToSelector:@selector(shouldBeRemovedFromNav)]) 
+            [view removeFromSuperview];
+    
     
     if ([viewController respondsToSelector:@selector(willShowOnNav)])
         [viewController performSelector:@selector(willShowOnNav)];
@@ -177,8 +179,6 @@
         [(DWTabBarController*)customTabBarController enableFullScreen];
     else
         [(DWTabBarController*)customTabBarController disableFullScreen];
-    
-    previousControllerOnNav = viewController;
 }
 
 @end

@@ -379,11 +379,5 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
     [self.navigationController.navigationBar addSubview:self.followPlaceView];  
 }
 
-//----------------------------------------------------------------------------------------------------
-- (void)willHideFromNav {
-    [self.followPlaceView removeFromSuperview];
-}
-
-
 @end
 
