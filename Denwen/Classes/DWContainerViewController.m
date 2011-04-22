@@ -167,12 +167,11 @@
 	  willShowViewController:(UIViewController *)viewController
 					animated:(BOOL)animated {
     
-    if ([viewController respondsToSelector:@selector(willShowOnNav)])
-        [viewController performSelector:@selector(willShowOnNav)];
-    
     if ([previousControllerOnNav respondsToSelector:@selector(willHideFromNav)])
         [previousControllerOnNav performSelector:@selector(willHideFromNav)];
     
+    if ([viewController respondsToSelector:@selector(willShowOnNav)])
+        [viewController performSelector:@selector(willShowOnNav)];
     
     if ([viewController respondsToSelector:@selector(requiresFullScreenMode)])
         [(DWTabBarController*)customTabBarController enableFullScreen];
