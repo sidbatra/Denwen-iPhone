@@ -208,7 +208,7 @@ static NSString* const kImgSelectPhoto          = @"select_photo.png";
         _isRecording = YES;
         self.cameraCaptureModeButton.enabled    = NO;
         self.toggleCameraButton.hidden          = YES;
-        self.photoLibraryButton.enabled         = NO;
+        self.photoLibraryButton.hidden          = YES;
         [_overlayDelegate startRecording];
     }
     else {
