@@ -41,10 +41,13 @@
  * Delegate protocol for the custom tab bar
  */
 @protocol DWTabBarDelegate
+
 /**
- *
+ * Fired when current tab changes.
+ * navReset - Pops the selected nav to root view controller
  */
 - (void)selectedTabWithSpecialTab:(BOOL)isSpecial
 					 modifiedFrom:(NSInteger)oldSelectedIndex 
-							   to:(NSInteger)newSelectedIndex;
+							   to:(NSInteger)newSelectedIndex
+                     withNavReset:(BOOL)navReset;
 @end

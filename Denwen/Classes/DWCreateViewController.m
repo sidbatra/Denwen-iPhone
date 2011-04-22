@@ -407,6 +407,7 @@ replacementString:(NSString *)string {
 															object:nil
 														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																	[NSNumber numberWithInt:kTabBarFeedIndex],kKeyTabIndex,
+                                                                    [NSNumber numberWithBool:YES],kKeyPopAll,
 																	nil]];
 	}
 	

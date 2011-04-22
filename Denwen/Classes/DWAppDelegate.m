@@ -60,11 +60,6 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 												 name:kNUserLogsIn
 											   object:nil];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(requestTabBarIndexChange:) 
-												 name:kNRequestTabBarIndexChange
-											   object:nil];
-	
 	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
 
     return YES;
@@ -241,11 +236,6 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 	//if(![[UIApplication sharedApplication] enabledRemoteNotificationTypes])
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
-}	
-
-//----------------------------------------------------------------------------------------------------
-- (void)requestTabBarIndexChange:(NSNotification*)notification {
-	//[self displayNewTab:[[[notification userInfo] objectForKey:kKeyTabIndex] integerValue]];
 }
 
 

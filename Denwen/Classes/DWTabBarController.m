@@ -4,7 +4,9 @@
 //
 
 #import "DWTabBarController.h"
+#import "DWCreateViewController.h"
 #import "DWTabBar.h"
+#import "DWConstants.h"
 
 #define kApplicationFrame	CGRectMake(0,20,320,460)
 #define kFullScreenFrame	CGRectMake(0,0,320,480)
@@ -144,12 +146,16 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 //----------------------------------------------------------------------------------------------------
 - (void)selectedTabWithSpecialTab:(BOOL)isSpecial
 					 modifiedFrom:(NSInteger)oldSelectedIndex 
-							   to:(NSInteger)newSelectedIndex {
+							   to:(NSInteger)newSelectedIndex 
+                     withNavReset:(BOOL)navReset {
 	
 	if(!isSpecial) {
 		[self removeViewAtIndex:oldSelectedIndex];
 		[self addViewAtIndex:newSelectedIndex];
 	}
+    
+    if(navReset)
+       [(UINavigationController*)[self getSelectedController] popToRootViewControllerAnimated:YES];
 	
 	[_delegate selectedTabModifiedFrom:oldSelectedIndex
 									to:newSelectedIndex];
@@ -167,6 +173,5 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 			   withObject:nil 
 			   afterDelay:kResetFrameDelay];
 }
-
 
 @end

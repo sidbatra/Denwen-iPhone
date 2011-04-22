@@ -79,6 +79,11 @@
 			
 			index++;
 		}
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(requestTabBarIndexChange:) 
+                                                     name:kNRequestTabBarIndexChange
+                                                   object:nil];
     }
 	
     return self;
@@ -120,17 +125,25 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)didTouchDownOnButton:(UIButton*)button {
-	
+- (void)buttonPressed:(UIButton*)button 
+         withNavReset:(BOOL)navReset {
+    
 	NSInteger oldIndex	= _selectedIndex;
 	_selectedIndex		= [self selectButton:button];
 	
 	[_delegate selectedTabWithSpecialTab:button.tag == kTabBarSpecialTag
 							modifiedFrom:oldIndex
-									  to:_selectedIndex];
+									  to:_selectedIndex
+                            withNavReset:navReset];
 	
 	if(button.tag == kTabBarSpecialTag)
 		_selectedIndex = oldIndex;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTouchDownOnButton:(UIButton*)button {
+    [self buttonPressed:button 
+           withNavReset:NO];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -141,6 +154,23 @@
 //----------------------------------------------------------------------------------------------------
 - (void)didOtherTouchesToButton:(UIButton*)button {
 	[self selectButton:button];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
+//----------------------------------------------------------------------------------------------------
+- (void)requestTabBarIndexChange:(NSNotification*)notification {
+    
+    NSDictionary    *userInfo   =   [notification userInfo];
+    NSInteger       newIndex    =   [[userInfo objectForKey:kKeyTabIndex] integerValue];
+    BOOL            navReset    =   [[userInfo objectForKey:kKeyPopAll] boolValue];
+    
+    [self buttonPressed:[self.buttons objectAtIndex:newIndex]
+           withNavReset:navReset];
 }
 
 
