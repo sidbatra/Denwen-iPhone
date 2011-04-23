@@ -33,6 +33,7 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 @synthesize encryptedPassword	= _encryptedPassword;
 @synthesize smallURL			= _smallURL;
 @synthesize mediumURL			= _mediumURL;
+@synthesize largeURL			= _largeURL;
 @synthesize smallPreviewImage	= _smallPreviewImage;
 @synthesize	mediumPreviewImage	= _mediumPreviewImage;
 @synthesize	hasPhoto			= _hasPhoto;
@@ -93,6 +94,7 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 	if(_hasPhoto) {
 		self.smallURL			= nil;
 		self.mediumURL			= nil;		
+        self.largeURL           = nil;
 		self.smallPreviewImage	= nil;
 		self.mediumPreviewImage = nil;
 	}
@@ -147,7 +149,8 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
         
         _hasPhoto               = YES;
 		self.smallURL			= [photo	objectForKey:kKeySmallURL];
-		self.mediumURL			= [photo	objectForKey:kKeyMediumURL];
+		//self.mediumURL			= [photo	objectForKey:kKeyMediumURL];
+        self.largeURL           = [photo objectForKey:kKeyActualURL];
 		_isProcessed			= [[photo	objectForKey:kKeyIsProcessed] boolValue];
 	}
 	
@@ -168,7 +171,8 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
         
         if(![self.smallURL isEqualToString:newSmallURL]) {
             self.smallURL		= newSmallURL;
-            self.mediumURL		= [photo objectForKey:kKeyMediumURL];
+            self.largeURL       = [photo objectForKey:kKeyActualURL];
+            //self.mediumURL		= [photo objectForKey:kKeyMediumURL];
             
             _isProcessed		= [[photo objectForKey:kKeyIsProcessed] boolValue];
             

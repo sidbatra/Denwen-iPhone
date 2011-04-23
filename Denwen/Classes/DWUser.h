@@ -17,6 +17,7 @@
 	NSString	*_encryptedPassword;
 	NSString	*_smallURL;
 	NSString	*_mediumURL;
+    NSString	*_largeURL;
 	NSString	*_twitterOAuthData;
 	NSString	*_facebookAccessToken;
 	
@@ -58,6 +59,11 @@
  * URL of the medium sized profile image
  */
 @property (nonatomic,copy) NSString *mediumURL;
+
+/**
+ * URL of the large sized profile image
+ */
+@property (nonatomic,copy) NSString *largeURL;
 
 /**
  * Twitter OAuth data obtained after twitter connect.
