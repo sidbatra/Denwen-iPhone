@@ -49,9 +49,10 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)hideLabelsAndStartSpinner {
+- (void)hideLabelsAndStartSpinner {    
     titleLabel.hidden           = YES;
     subtitleLabel.hidden        = YES;
+    underlayButton.enabled      = NO;    
     
     spinner.hidden              = NO;
     [spinner startAnimating];
