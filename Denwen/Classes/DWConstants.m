@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -139,6 +139,8 @@ NSString* const kNUserUpdateError				= @"NUserUpdateError";
 NSString* const kNUserLogsIn					= @"NUserLogsIn";
 NSString* const kNFollowedItemsLoaded			= @"NFollowedItemsLoaded";
 NSString* const kNFollowedItemsError			= @"NFollowedItemsError";
+NSString* const kNTouchesLoaded                 = @"NTouchesLoaded";
+NSString* const kNTouchesError                  = @"NTouchesError";
 NSString* const kNNewItemCreated				= @"NNewItemCreated";
 NSString* const kNNewItemError					= @"NNewItemError";
 NSString* const kNNewItemParsed					= @"NNewItemParsed";

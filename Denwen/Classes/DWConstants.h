@@ -134,6 +134,8 @@ extern NSString* const kNUserUpdateError;
 extern NSString* const kNUserLogsIn;
 extern NSString* const kNFollowedItemsLoaded;
 extern NSString* const kNFollowedItemsError;
+extern NSString* const kNTouchesLoaded;
+extern NSString* const kNTouchesError;
 extern NSString* const kNNewItemCreated;
 extern NSString* const kNNewItemError;
 extern NSString* const kNNewItemParsed;

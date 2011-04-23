@@ -81,6 +81,11 @@
 - (void)createTouch:(NSInteger)itemID;
 
 /**
+ * Retrieve touches on items of the current user
+ */
+- (void)getTouchesForCurrentUser:(NSInteger)page;
+
+/**
  * User profile with page representing items pagination
  */
 - (void)getUserWithID:(NSInteger)userID
