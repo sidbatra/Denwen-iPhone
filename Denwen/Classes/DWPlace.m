@@ -79,8 +79,9 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 	_followersCount			= [[place objectForKey:kKeyFollowingsCount] integerValue];
 	
     
-	self.location = [[[CLLocation alloc] initWithLatitude:[[place objectForKey:kKeyLatitude]  floatValue] 
-												longitude:[[place objectForKey:kKeyLongitude] floatValue]] autorelease];
+    if([place objectForKey:kKeyLatitude])
+        self.location = [[[CLLocation alloc] initWithLatitude:[[place objectForKey:kKeyLatitude]  floatValue] 
+                                                    longitude:[[place objectForKey:kKeyLongitude] floatValue]] autorelease];
 	
     
 	NSDictionary *address = [place objectForKey:kKeyAddress];
@@ -115,6 +116,10 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
         self.hashedID = newHashedID;
     
     _followersCount		= [[place objectForKey:kKeyFollowingsCount] integerValue];
+    
+    if([place objectForKey:kKeyLatitude])
+        self.location = [[[CLLocation alloc] initWithLatitude:[[place objectForKey:kKeyLatitude]  floatValue] 
+                                                    longitude:[[place objectForKey:kKeyLongitude] floatValue]] autorelease];
     
     NSDictionary *address = [place objectForKey:kKeyAddress];
     

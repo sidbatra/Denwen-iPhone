@@ -126,7 +126,7 @@
 	_touchesCount			= [[item objectForKey:kKeyTouchesCount] integerValue];
 	_isTouched				= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
 	_createdAtTimestamp		= [[item objectForKey:kKeyCreatedAt] doubleValue];
-	self.data				= [item objectForKey:kKeyCondensedData];
+	self.data				= [item objectForKey:kKeyData];
     
 	
 	self.place = (DWPlace*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[item objectForKey:kKeyPlace] 

@@ -45,9 +45,6 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 	
 	if(self != nil) {
 		
-		_isSmallDownloading		= NO;
-		_isMediumDownloading	= NO;		
-		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(smallImageLoaded:) 
 													 name:kNImgSmallUserLoaded
@@ -140,14 +137,15 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 	[super populate:user];
 	
 	_databaseID			= [[user objectForKey:kKeyID] integerValue];
-	_hasPhoto			= [[user objectForKey:kKeyHasPhoto] boolValue];
 	
 	self.firstName		= [user objectForKey:kKeyFirstName];
 	self.lastName		= [user objectForKey:kKeyLastName];
 	self.email			= [user objectForKey:kKeyEmail];
 	
-	if(_hasPhoto) {
+	if([user objectForKey:kKeyPhoto]) {
 		NSDictionary *photo		= [user		objectForKey:kKeyPhoto];
+        
+        _hasPhoto               = YES;
 		self.smallURL			= [photo	objectForKey:kKeySmallURL];
 		self.mediumURL			= [photo	objectForKey:kKeyMediumURL];
 		_isProcessed			= [[photo	objectForKey:kKeyIsProcessed] boolValue];
@@ -160,11 +158,13 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
     if(![super update:user])
         return NO;
 		
-    _hasPhoto = [[user objectForKey:kKeyHasPhoto] boolValue];
+    self.email			= [user objectForKey:kKeyEmail];
     
-    if(_hasPhoto) {
+    if([user objectForKey:kKeyPhoto]) {
         NSDictionary *photo		= [user objectForKey:kKeyPhoto];
         NSString *newSmallURL	= [photo objectForKey:kKeySmallURL]; 
+        
+        _hasPhoto               = YES;
         
         if(![self.smallURL isEqualToString:newSmallURL]) {
             self.smallURL		= newSmallURL;
