@@ -4,13 +4,16 @@
 //
 
 #import "DWItemsContainerViewController.h"
+#import "DWNotificationsViewController.h"
 #import "DWCreationQueue.h"
 #import "DWPostProgressView.h"
 #import "DWNotificationsHelper.h"
 #import "DWSession.h"
 
-static NSString* const kTabTitle		= @"Feed";
-static NSString* const kMsgUnload		= @"Unload called on items container";
+static NSString* const kTabTitle                = @"Feed";
+static NSString* const kMsgUnload               = @"Unload called on items container";
+static NSString* const kImgNotificationsButton  = @"button_notifications.png";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -61,6 +64,18 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 		postProgressView			= [[DWPostProgressView alloc] initWithFrame:CGRectMake(0,0,200,42)];
 		postProgressView.delegate	= self;
 	}
+    
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setBackgroundImage:[UIImage imageNamed:kImgNotificationsButton] forState:UIControlStateNormal];
+
+	[button addTarget:self action:@selector(didTapNotificationsButton:) 
+     forControlEvents:UIControlEventTouchUpInside];
+    
+	[button setFrame:CGRectMake(0,0,60,44)];
+	
+    self.navigationItem.leftBarButtonItem   = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+
     			
 	/**
 	 * Add subview
@@ -201,14 +216,12 @@ static NSString* const kMsgUnload		= @"Unload called on items container";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UINavigationControllerDelegate
-/*
-//----------------------------------------------------------------------------------------------------
-- (void)navigationController:(UINavigationController *)navigationController 
-	  willShowViewController:(UIViewController *)viewController
-					animated:(BOOL)animated {
-    
+#pragma mark UITouchEvents
+
+- (void)didTapNotificationsButton:(UIButton*)button {
+    DWNotificationsViewController *notificationsView = [[DWNotificationsViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self.navigationController pushViewController:notificationsView animated:YES];
+    [notificationsView release];
 }
-*/
 
 @end
