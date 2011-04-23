@@ -156,31 +156,28 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)update:(NSDictionary*)user {
-	
-	float interval = -[self.updatedAt timeIntervalSinceNow];
-	
-	if(interval > kMPObjectUpdateInterval) {
+- (BOOL)update:(NSDictionary*)user {
+    if(![super update:user])
+        return NO;
 		
-		_hasPhoto = [[user objectForKey:kKeyHasPhoto] boolValue];
-		
-		if(_hasPhoto) {
-			NSDictionary *photo		= [user objectForKey:kKeyPhoto];
-			NSString *newSmallURL	= [photo objectForKey:kKeySmallURL]; 
-			
-			if(![self.smallURL isEqualToString:newSmallURL]) {
-				self.smallURL		= newSmallURL;
-				self.mediumURL		= [photo objectForKey:kKeyMediumURL];
-				
-				_isProcessed		= [[photo objectForKey:kKeyIsProcessed] boolValue];
-				
-				self.smallPreviewImage	= nil;
-				self.mediumPreviewImage = nil;
-			}
-		}
-		
-		[self refreshUpdatedAt];
-	}
+    _hasPhoto = [[user objectForKey:kKeyHasPhoto] boolValue];
+    
+    if(_hasPhoto) {
+        NSDictionary *photo		= [user objectForKey:kKeyPhoto];
+        NSString *newSmallURL	= [photo objectForKey:kKeySmallURL]; 
+        
+        if(![self.smallURL isEqualToString:newSmallURL]) {
+            self.smallURL		= newSmallURL;
+            self.mediumURL		= [photo objectForKey:kKeyMediumURL];
+            
+            _isProcessed		= [[photo objectForKey:kKeyIsProcessed] boolValue];
+            
+            self.smallPreviewImage	= nil;
+            self.mediumPreviewImage = nil;
+        }
+    }
+    
+    return YES;
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -43,8 +43,9 @@
 /**
  * Stub method overriden by the children classes
  * to update their contens via a JSON dictionary
+ * Returns whether an updated was made or not
  */
-- (void)update:(NSDictionary*)objectJSON;
+- (BOOL)update:(NSDictionary*)objectJSON;
 
 /**
  * Called by the child classes to refresh the udpated

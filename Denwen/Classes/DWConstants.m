@@ -242,12 +242,14 @@ NSInteger const kLocNearbyRadius			= 1200;
 NSInteger const kPagInitialPage		= 0;
 
 //----------------------------------------------------------------------------------------------------
-NSInteger const kMPTotalClasses			= 3;
-NSInteger const kMPItemsIndex			= 0;
-NSInteger const kMPPlacesIndex			= 1;
-NSInteger const kMPUsersIndex			= 2;
-NSInteger const kMPObjectUpdateInterval = 5;
-NSInteger const kMPDefaultDatabaseID	= -1;
+NSInteger const kMPTotalClasses             = 5;
+NSInteger const kMPItemsIndex               = 0;
+NSInteger const kMPPlacesIndex              = 1;
+NSInteger const kMPUsersIndex               = 2;
+NSInteger const kMPAttachmentsIndex         = 3;
+NSInteger const kMPAttachmentSlicesIndex    = 4;
+NSInteger const kMPObjectUpdateInterval     = 5;
+NSInteger const kMPDefaultDatabaseID        = -1;
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kMsgNoPlacesNearby				= @"No places nearby";

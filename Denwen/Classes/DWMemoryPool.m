@@ -63,7 +63,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWMemoryPool);
 			new_object = [[DWPlace alloc] init];
 		else if(row == kMPUsersIndex)
 			new_object = [[DWUser alloc] init];
-		
+        else if(row == kMPAttachmentsIndex || row ==  kMPAttachmentSlicesIndex)
+            new_object  = [[DWAttachment alloc] init];
+        
 		
 		if(objectJSON)
 			[new_object populate:objectJSON];

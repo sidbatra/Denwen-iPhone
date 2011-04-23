@@ -146,23 +146,20 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)update:(NSDictionary*)item {
-
-	float interval = -[self.updatedAt timeIntervalSinceNow];
-	
-	if(interval > kMPObjectUpdateInterval) {
+- (BOOL)update:(NSDictionary*)item {
+    if(![super update:item])
+        return NO;
 		
-		_touchesCount	= [[item objectForKey:kKeyTouchesCount] integerValue];
-		_isTouched		= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
-		
-		[_place update:[item objectForKey:kKeyPlace]];
-		[_user	update:[item objectForKey:kKeyUser]];
-				
-		if([self hasAttachment])
-			[_attachment update:[item objectForKey:kKeyAttachment]];
-		
-		[self refreshUpdatedAt];
-	}
+    _touchesCount	= [[item objectForKey:kKeyTouchesCount] integerValue];
+    _isTouched		= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
+    
+    [_place update:[item objectForKey:kKeyPlace]];
+    [_user	update:[item objectForKey:kKeyUser]];
+            
+    if([self hasAttachment])
+        [_attachment update:[item objectForKey:kKeyAttachment]];
+    
+    return YES;
 }
 
 //----------------------------------------------------------------------------------------------------

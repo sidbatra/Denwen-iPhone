@@ -46,7 +46,17 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)update:(NSDictionary*)objectJSON {
+- (BOOL)update:(NSDictionary*)objectJSON {
+    
+	float   interval        =   -[self.updatedAt timeIntervalSinceNow];
+    BOOL    updateNeeded    =   YES;
+	
+	if(interval <= kMPObjectUpdateInterval)
+        updateNeeded = NO;
+    else
+        [self refreshUpdatedAt];
+    
+    return updateNeeded;
 }
 
 //----------------------------------------------------------------------------------------------------

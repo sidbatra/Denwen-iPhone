@@ -5,18 +5,19 @@
 
 #import <Foundation/Foundation.h>
 
+#import "DWPoolObject.h"
+
 /**
  * Attachment model represents media entities attached to
  * a post - as defined in the database
  */
-@interface DWAttachment : NSObject {
+@interface DWAttachment : DWPoolObject {
 	NSString		*_previewURL;
 	NSString		*_sliceURL;
 	NSString		*_fileURL;
 	NSString		*_orientation;
 	NSURL			*_videoURL;
 	
-	NSInteger		_databaseID;
 	NSInteger		_fileType;
 	
 	BOOL			_isProcessed;
@@ -26,11 +27,6 @@
 	UIImage			*_previewImage;
 	UIImage			*_sliceImage;
 }
-
-/**
- * Primary key value in the database
- */
-@property (nonatomic,readonly) NSInteger databaseID;
 
 /**
  * Filetype for the attachment - image or video
@@ -74,15 +70,7 @@
  */
 @property (nonatomic,retain) UIImage *sliceImage;
 
-/**
- * Populate the object using a JSON dictionary
- */
-- (void)populate:(NSDictionary*)attacment;
 
-/**
- * Update the object using a JSON dictionary
- */
-- (void)update:(NSDictionary*)attachment;
 
 /**
  * Start downloading the image at previewURL
@@ -104,10 +92,6 @@
  */
 - (BOOL)isImage;
 
-/**
- * Free non critical objects
- */
-- (void)freeMemory;
 
 @end
 

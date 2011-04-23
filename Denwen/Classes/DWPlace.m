@@ -101,59 +101,55 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)update:(NSDictionary*)place {
-	
-	float interval = -[self.updatedAt timeIntervalSinceNow];
-	
-	if(interval > kMPObjectUpdateInterval) {
-		
-		NSString *newName = [place objectForKey:kKeyName];
-		 
-		 if(![self.name isEqualToString:newName])
-			 self.name = newName;
-		
-		NSString *newHashedID = [place objectForKey:kKeyHashedID];
-		
-		if(![self.hashedID isEqualToString:newHashedID])
-			self.hashedID = newHashedID;
-		
-		_followersCount		= [[place objectForKey:kKeyFollowingsCount] integerValue];
-		
-		NSDictionary *address = [place objectForKey:kKeyAddress];
-		
-		if(!_hasAddress && address) {
-			_hasAddress		= YES;
-			
-			self.town		= [address objectForKey:kKeyShortTown];
-			self.state		= [address objectForKey:kKeyShortState];
-			self.country	= [address objectForKey:kKeyShortCountry];		
-		}
-		
-		NSDictionary *item = [place objectForKey:kKeyItem];
-		
-		if(item) {
-			NSInteger newItemDatabaseID	= [[item objectForKey:kKeyID] integerValue];
-	
-			if(newItemDatabaseID != _lastItemDatabaseID) {
-				
-				_lastItemDatabaseID	= newItemDatabaseID;
-				self.lastItemData	= [item objectForKey:kKeyData];
-				
-				
-				NSDictionary *itemAttachment = [item objectForKey:kKeyAttachment];	
-				
-				if(itemAttachment) {
-					self.attachment = [[[DWAttachment alloc] init] autorelease];
-					[self.attachment populate:itemAttachment];
-				}
-				else
-					self.attachment = nil;
-			}
-		}
-		
-		[self refreshUpdatedAt];
-	}
-	
+- (BOOL)update:(NSDictionary*)place {
+    if(![super update:place])
+        return NO;
+    		
+    NSString *newName = [place objectForKey:kKeyName];
+     
+     if(![self.name isEqualToString:newName])
+         self.name = newName;
+    
+    NSString *newHashedID = [place objectForKey:kKeyHashedID];
+    
+    if(![self.hashedID isEqualToString:newHashedID])
+        self.hashedID = newHashedID;
+    
+    _followersCount		= [[place objectForKey:kKeyFollowingsCount] integerValue];
+    
+    NSDictionary *address = [place objectForKey:kKeyAddress];
+    
+    if(!_hasAddress && address) {
+        _hasAddress		= YES;
+        
+        self.town		= [address objectForKey:kKeyShortTown];
+        self.state		= [address objectForKey:kKeyShortState];
+        self.country	= [address objectForKey:kKeyShortCountry];		
+    }
+    
+    NSDictionary *item = [place objectForKey:kKeyItem];
+    
+    if(item) {
+        NSInteger newItemDatabaseID	= [[item objectForKey:kKeyID] integerValue];
+
+        if(newItemDatabaseID != _lastItemDatabaseID) {
+            
+            _lastItemDatabaseID	= newItemDatabaseID;
+            self.lastItemData	= [item objectForKey:kKeyData];
+            
+            
+            NSDictionary *itemAttachment = [item objectForKey:kKeyAttachment];	
+            
+            if(itemAttachment) {
+                self.attachment = [[[DWAttachment alloc] init] autorelease];
+                [self.attachment populate:itemAttachment];
+            }
+            else
+                self.attachment = nil;
+        }
+    }
+    
+    return YES;
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -21,7 +21,6 @@ static float	 const kSliceHeight						= 92;
 //----------------------------------------------------------------------------------------------------
 @implementation DWAttachment
 
-@synthesize databaseID		= _databaseID;
 @synthesize fileType		= _fileType;
 @synthesize fileURL			= _fileURL;
 @synthesize previewURL		= _previewURL;
@@ -83,7 +82,9 @@ static float	 const kSliceHeight						= 92;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)populate:(NSDictionary*)attachment {	
+- (void)populate:(NSDictionary*)attachment {
+	[super populate:attachment];
+    
 	_fileType			= [[attachment objectForKey:kKeyFileType] integerValue];
 	_databaseID			= [[attachment objectForKey:kKeyID] integerValue];
 	_isProcessed		= [[attachment objectForKey:kKeyIsProcessed] boolValue];
@@ -94,7 +95,9 @@ static float	 const kSliceHeight						= 92;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)update:(NSDictionary*)attachment {
+- (BOOL)update:(NSDictionary*)attachment {
+    if(![super update:attachment])
+        return NO;
 	
 	if(!_isProcessed) {
 		_isProcessed			= [[attachment objectForKey:kKeyIsProcessed] boolValue];
@@ -106,6 +109,8 @@ static float	 const kSliceHeight						= 92;
 			self.sliceImage		= nil;
 		}
 	}
+    
+    return YES;
 }
 
 //----------------------------------------------------------------------------------------------------							  
@@ -180,6 +185,7 @@ static float	 const kSliceHeight						= 92;
 		}
 	}
 }
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
