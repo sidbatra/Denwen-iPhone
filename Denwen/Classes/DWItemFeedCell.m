@@ -333,6 +333,24 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)resetItemDetailsPosition {
+    CGSize detailsSize			= [self.itemDetails sizeWithFont:kFontItemCreatedAt];
+	
+	_detailsRect				= CGRectMake(kDetailsX,
+											 kDetailsY,
+											 detailsSize.width,
+											 detailsSize.height);
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)resetTouchImageIconPosition {
+    touchIconImageLayer.frame	= CGRectMake(_detailsRect.origin.x+_detailsRect.size.width+kTouchesIconXOffset,
+											 kTouchesIconY,
+											 touchIconImageLayer.frame.size.width, 
+											 touchIconImageLayer.frame.size.height);
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)reset {
 	_highlighted				= NO;
 	_placeButtonPressed			= NO;
@@ -379,12 +397,7 @@
 	
 	
 	
-	CGSize detailsSize			= [self.itemDetails sizeWithFont:kFontItemCreatedAt];
-	
-	_detailsRect				= CGRectMake(kDetailsX,
-											 kDetailsY,
-											 detailsSize.width,
-											 detailsSize.height);
+	[self resetItemDetailsPosition];
 
 	 
 	
@@ -414,10 +427,8 @@
 	touchIconImageLayer.hidden		= NO;
 	touchIconImageLayer.contents	= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgTouchIcon230 : kImgTouchIcon].CGImage;
 	
-	touchIconImageLayer.frame	= CGRectMake(_detailsRect.origin.x+_detailsRect.size.width+kTouchesIconXOffset,
-											 kTouchesIconY,
-											 touchIconImageLayer.frame.size.width, 
-											 touchIconImageLayer.frame.size.height);
+	[self resetTouchImageIconPosition];
+    
 	[CATransaction commit];
 	
 	
@@ -480,7 +491,6 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)touchCell {
-	
 	_itemTouchesCount++;
 	[self createItemDetails];
 	
@@ -488,6 +498,9 @@
 	[CATransaction setValue:[NSNumber numberWithFloat:0.5f] 
 					 forKey:kCATransactionAnimationDuration];
 	
+    [self resetItemDetailsPosition];
+    [self resetTouchImageIconPosition];
+    
 	touchedImageLayer.hidden = NO;
 	
 	[CATransaction commit];
