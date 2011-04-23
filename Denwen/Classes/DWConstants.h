@@ -177,6 +177,12 @@ extern NSString* const kNQueueItemProgressUpdated;
 extern NSString* const kNCreationQueueUpdated;
 
 /**
+ * Nav bar button types
+ */
+extern NSInteger const kDWButtonTypeStatic;
+extern NSInteger const kDWButtonTypeDynamic;
+
+/**
  * Nav bar titleview types
  */
 extern NSInteger const kNavStandaloneTitleMode;

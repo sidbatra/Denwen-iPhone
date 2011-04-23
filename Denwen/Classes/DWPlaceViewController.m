@@ -363,8 +363,9 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
         self.placeTitleView = [[[DWPlaceTitleView alloc] 
                                 initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
                                                          kFollowPlaceViewWidth,kFollowPlaceViewHeight) 
-                                  andDelegate:self 
-                                      andMode:kNavTitleAndSubtitleMode] autorelease];
+                                     delegate:self 
+                                    titleMode:kNavTitleAndSubtitleMode 
+                                andButtonType:kDWButtonTypeDynamic] autorelease];
     
     [self.navigationController.navigationBar addSubview:self.placeTitleView];  
 }

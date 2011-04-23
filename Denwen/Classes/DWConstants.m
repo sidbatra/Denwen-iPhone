@@ -181,6 +181,9 @@ NSString* const kNCreationQueueItemProcessed	= @"NCreationQueueItemProcessed";
 NSString* const kNQueueItemProgressUpdated		= @"NQueueItemProgressUpdated";
 NSString* const kNCreationQueueUpdated			= @"NCreationQueueUpdated";
 
+//----------------------------------------------------------------------------------------------------
+NSInteger const kDWButtonTypeStatic             = 0;
+NSInteger const kDWButtonTypeDynamic            = 1;
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kNavStandaloneTitleMode            = 0;

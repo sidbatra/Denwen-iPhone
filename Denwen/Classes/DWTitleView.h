@@ -24,7 +24,10 @@
  * Init with appropriate title view mode and delegate to to 
  * fire events when the titleView button is tapped
  */
-- (id)initWithFrame:(CGRect)frame andDelegate:(id)delegate andMode:(NSInteger)titleViewMode;
+- (id)initWithFrame:(CGRect)frame 
+           delegate:(id)delegate 
+          titleMode:(NSInteger)titleViewMode 
+      andButtonType:(NSInteger)buttonType;
 
 
 /** 
@@ -40,7 +43,7 @@
  */
 @interface DWTitleView (Private)
 
-- (void)createUnderlayButton;
+- (void)createUnderlayButtonWithType:(NSInteger)buttonType;
 - (void)createTitleLabel;
 - (void)createSubtitleLabel;
 - (void)createStandaloneTitleLabel;

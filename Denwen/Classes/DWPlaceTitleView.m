@@ -12,8 +12,15 @@
 @implementation DWPlaceTitleView
 
 //----------------------------------------------------------------------------------------------------
-- (id)initWithFrame:(CGRect)frame andDelegate:(id)delegate andMode:(NSInteger)titleViewMode {
-    self =  [super initWithFrame:frame andDelegate:delegate andMode:titleViewMode];
+- (id)initWithFrame:(CGRect)frame 
+           delegate:(id)delegate 
+          titleMode:(NSInteger)titleViewMode 
+      andButtonType:(NSInteger)buttonType {
+    
+    self =  [super initWithFrame:frame 
+                        delegate:delegate 
+                       titleMode:titleViewMode 
+                   andButtonType:buttonType];
     
     if(self) {
         [self createSpinner];

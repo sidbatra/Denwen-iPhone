@@ -6,8 +6,10 @@
 #import "DWTitleView.h"
 #import "DWConstants.h"
 
-static NSString* const kImgFollowButton                 = @"button_follow.png";
-static NSString* const kImgFollowButtonActive           = @"button_follow_active.png";
+static NSString* const kImgStaticButton                 = @"button_follow.png";
+static NSString* const kImgStaticButtonActive           = @"button_follow_active.png";
+static NSString* const kImgDynamicButton                = @"button_follow.png";
+static NSString* const kImgDynamicButtonActive          = @"button_follow_active.png";
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -16,10 +18,15 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
 
 
 //----------------------------------------------------------------------------------------------------
-- (id)initWithFrame:(CGRect)frame andDelegate:(id)delegate andMode:(NSInteger)titleViewMode {
+- (id)initWithFrame:(CGRect)frame 
+           delegate:(id)delegate 
+          titleMode:(NSInteger)titleViewMode 
+      andButtonType:(NSInteger)buttonType {
+    
     self = [super initWithFrame:frame];
+    
     if (self) {
-        [self createUnderlayButton];
+        [self createUnderlayButtonWithType:buttonType];
         
         if (titleViewMode == kNavTitleAndSubtitleMode) {
             [self createTitleLabel];
@@ -45,17 +52,26 @@ static NSString* const kImgFollowButtonActive           = @"button_follow_active
 #pragma mark -
 #pragma mark Private Methods
 //----------------------------------------------------------------------------------------------------
-- (void)createUnderlayButton {    
+- (void)createUnderlayButtonWithType:(NSInteger)buttonType {    
     underlayButton              = [UIButton buttonWithType:UIButtonTypeCustom];
     
     underlayButton.enabled      = NO;
     underlayButton.frame        = CGRectMake(0, 0, 200, 44);
     
-    [underlayButton setBackgroundImage:[UIImage imageNamed:kImgFollowButton]
-                              forState:UIControlStateNormal];
+    if (buttonType == kDWButtonTypeDynamic) {
+        [underlayButton setBackgroundImage:[UIImage imageNamed:kImgDynamicButton]
+                                  forState:UIControlStateNormal];
     
-    [underlayButton setBackgroundImage:[UIImage imageNamed:kImgFollowButtonActive]
-                              forState:UIControlStateHighlighted];
+        [underlayButton setBackgroundImage:[UIImage imageNamed:kImgDynamicButtonActive]
+                                  forState:UIControlStateHighlighted];
+    }
+    else {
+        [underlayButton setBackgroundImage:[UIImage imageNamed:kImgStaticButton]
+                                  forState:UIControlStateNormal];
+        
+        [underlayButton setBackgroundImage:[UIImage imageNamed:kImgStaticButtonActive]
+                                  forState:UIControlStateHighlighted];
+    }
     
     [underlayButton addTarget:self 
                        action:@selector(didTouchDownOnButton:) 
