@@ -6,6 +6,7 @@
 #import "DWPlace.h"
 #import "DWAttachment.h"
 #import "DWRequestsManager.h"
+#import "DWMemoryPool.h"
 #import "UIImage+ImageProcessing.h"
 #import "DWConstants.h"
 
@@ -22,7 +23,6 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 
 @synthesize name				= _name;
 @synthesize hashedID			= _hashedID;
-@synthesize lastItemData		= _lastItemData;
 @synthesize location			= _location;
 @synthesize attachment			= _attachment;
 @synthesize	town				= _town;
@@ -33,7 +33,7 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 - (id)init {
 	self = [super init];
 	
-	if(self != nil) {
+	if(self) {
 	}
 	
 	return self;  
@@ -41,7 +41,6 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 
 //----------------------------------------------------------------------------------------------------
 - (void)freeMemory {
-	self.attachment.sliceImage = nil;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -52,12 +51,19 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 	
 	self.name					= nil;
 	self.hashedID				= nil;
-	self.lastItemData			= nil;
 	self.town					= nil;
 	self.state					= nil;
 	self.country				= nil;
 	self.location				= nil;
-	self.attachment				= nil;
+    
+    
+    if(self.attachment) {
+        
+        [[DWMemoryPool sharedDWMemoryPool]  removeObject:self.attachment 
+                                                   atRow:kMPAttachmentSlicesIndex];
+        
+        self.attachment = nil;
+    }
 	
 	[super dealloc];
 }
@@ -72,9 +78,11 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 	self.hashedID			= [place objectForKey:kKeyHashedID];
 	_followersCount			= [[place objectForKey:kKeyFollowingsCount] integerValue];
 	
+    
 	self.location = [[[CLLocation alloc] initWithLatitude:[[place objectForKey:kKeyLatitude]  floatValue] 
 												longitude:[[place objectForKey:kKeyLongitude] floatValue]] autorelease];
 	
+    
 	NSDictionary *address = [place objectForKey:kKeyAddress];
 	
 	if (address) {
@@ -84,20 +92,11 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 		self.state		= [address objectForKey:kKeyShortState];
 		self.country	= [address objectForKey:kKeyShortCountry];
 	}
-	
-	NSDictionary *item = [place objectForKey:kKeyItem];
-	
-	if(item) {
-		_lastItemDatabaseID	= [[item objectForKey:kKeyID] integerValue];
-		self.lastItemData	= [item objectForKey:kKeyData];
-				
-		NSDictionary *itemAttachment = [item objectForKey:kKeyAttachment];	
-		
-		if(itemAttachment) {
-			self.attachment = [[[DWAttachment alloc] init] autorelease];
-			[self.attachment populate:itemAttachment];
-		}
-	}
+    
+    
+	if([place objectForKey:kKeyAttachment])
+        self.attachment = (DWAttachment*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[place objectForKey:kKeyAttachment] 
+                                                                                      atRow:kMPAttachmentSlicesIndex];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -127,26 +126,13 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
         self.country	= [address objectForKey:kKeyShortCountry];		
     }
     
-    NSDictionary *item = [place objectForKey:kKeyItem];
-    
-    if(item) {
-        NSInteger newItemDatabaseID	= [[item objectForKey:kKeyID] integerValue];
-
-        if(newItemDatabaseID != _lastItemDatabaseID) {
-            
-            _lastItemDatabaseID	= newItemDatabaseID;
-            self.lastItemData	= [item objectForKey:kKeyData];
-            
-            
-            NSDictionary *itemAttachment = [item objectForKey:kKeyAttachment];	
-            
-            if(itemAttachment) {
-                self.attachment = [[[DWAttachment alloc] init] autorelease];
-                [self.attachment populate:itemAttachment];
-            }
-            else
-                self.attachment = nil;
-        }
+    if([place objectForKey:kKeyAttachment]) {
+        
+        if(self.attachment)
+            [self.attachment update:[place objectForKey:kKeyAttachment]];
+        else
+            self.attachment = (DWAttachment*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[place objectForKey:kKeyAttachment] 
+                                                                                          atRow:kMPAttachmentSlicesIndex];
     }
     
     return YES;
@@ -179,11 +165,6 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (NSString*)sliceText {
-	return [self.lastItemData substringToIndex:MIN(20,self.lastItemData.length)];
-}
-
-//----------------------------------------------------------------------------------------------------
 - (void)updateFollowerCount:(NSInteger)delta {
 	_followersCount += delta;
 }
@@ -193,13 +174,5 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 	if(self.attachment)
 		[self.attachment startSliceDownload];
 }
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Notifications
-
-
 
 @end

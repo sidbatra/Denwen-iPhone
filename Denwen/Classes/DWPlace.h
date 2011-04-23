@@ -17,8 +17,6 @@
 @interface DWPlace : DWPoolObject {
 	NSString		*_name;
 	NSString		*_hashedID;
-	NSString		*_lastItemData;
-	NSInteger		_lastItemDatabaseID;
 	
 	NSString		*_town;
 	NSString		*_state;
@@ -44,11 +42,6 @@
 @property (nonatomic,copy) NSString *hashedID;
 
 /**
- * Data entered with the last item created at the place
- */
-@property (nonatomic,copy) NSString *lastItemData;
-
-/**
  * Town in which the place is located
  */
 @property (nonatomic,copy) NSString *town;
@@ -66,12 +59,13 @@
 /**
  * Geo location of the place
  */
-@property (nonatomic,copy) CLLocation *location;
+@property (nonatomic,retain) CLLocation *location;
 
 /**
  * Optional attachment of the last item posted at the place
  */
 @property (nonatomic,retain) DWAttachment *attachment;
+
 
 
 /**
@@ -93,11 +87,6 @@
  * Title text generated from the place's followers
  */
 - (NSString*)titleText;
-
-/**
- * Slice text used to preview the last item data
- */
-- (NSString*)sliceText;
 
 @end
 

@@ -69,7 +69,7 @@ static float	 const kSliceHeight						= 92;
 //----------------------------------------------------------------------------------------------------
 -(void)dealloc{
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-    	
+        
 	self.fileURL		= nil;
 	self.previewURL		= nil;
 	self.sliceURL		= nil;
@@ -98,7 +98,7 @@ static float	 const kSliceHeight						= 92;
 - (BOOL)update:(NSDictionary*)attachment {
     if(![super update:attachment])
         return NO;
-    	
+        	
 	if(!_isProcessed) {
 		_isProcessed			= [[attachment objectForKey:kKeyIsProcessed] boolValue];
 		

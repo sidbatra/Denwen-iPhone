@@ -430,8 +430,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         }	
 		
 				
-		if(!place.attachment)
-			cell.placeData = [place sliceText];
+		//if(!place.attachment)
+		//	cell.placeData = [place sliceText];
 
 				
 		[cell redisplay];
