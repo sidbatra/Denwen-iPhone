@@ -249,12 +249,9 @@
 		[self primaryUploadFinished];
 
 		
-		BOOL isNewPlace = [[body objectForKey:kKeyNewPlace] boolValue];
-				
 		
 		DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool] getOrSetObject:[body objectForKey:kKeyItem]
 																			atRow:kMPItemsIndex];
-		item.fromFollowedPlace = isNewPlace ? YES : [[DWPlacesCache sharedDWPlacesCache] isFollowedPlace:item.place];
 		item.pointerCount--;
 				
 		[[NSNotificationCenter defaultCenter] postNotificationName:kNNewItemParsed 
@@ -262,7 +259,7 @@
 														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																	item,kKeyItem,
 																	nil]];
-		if(isNewPlace) {
+		if([[body objectForKey:kKeyNewPlace] boolValue]) {
 			[[NSNotificationCenter defaultCenter] postNotificationName:kNNewPlaceParsed 
 																object:nil
 															  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:

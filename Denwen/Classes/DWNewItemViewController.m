@@ -236,7 +236,6 @@
 		
 		DWItem *item = [[DWItem alloc] init];
 		[item populate:[body objectForKey:ITEM_JSON_KEY]];
-		item.fromFollowedPlace = [[body objectForKey:FOLLOWING_JSON_KEY] boolValue];
 		
 		[[DWMemoryPool sharedDWMemoryPool]  setObject:item atRow:kMPItemsIndex];
 		item.pointerCount--;

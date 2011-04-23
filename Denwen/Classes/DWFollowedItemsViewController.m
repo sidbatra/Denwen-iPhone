@@ -107,7 +107,7 @@
 - (void)newItemParsed:(NSNotification*)notification {
 	DWItem *item = (DWItem*)[(NSDictionary*)[notification userInfo] objectForKey:kKeyItem];
 	
-	if(_isLoadedOnce) // && item.fromFollowedPlace)
+	if(_isLoadedOnce)
 		[self addNewItem:item atIndex:0];
 }
 

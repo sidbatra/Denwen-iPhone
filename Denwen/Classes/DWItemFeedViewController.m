@@ -332,7 +332,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 			[item startRemoteImagesDownload];
 
         
-        if ([item hasAttachment]) {
+        if (item.attachment) {
 			[cell setItemImage:item.attachment.previewImage];
 			
 			if([item.attachment isVideo])

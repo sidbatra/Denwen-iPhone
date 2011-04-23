@@ -19,8 +19,6 @@
 @synthesize attachment			= _attachment;
 @synthesize place				= _place;
 @synthesize user				= _user;
-@synthesize urls				= _urls;
-@synthesize fromFollowedPlace	= _fromFollowedPlace;
 @synthesize usesMemoryPool		= _usesMemoryPool;
 @synthesize isTouched			= _isTouched;
 
@@ -28,8 +26,7 @@
 - (id)init {
 	self = [super init];
 	
-	if(self != nil) {
-		_fromFollowedPlace	= NO;
+	if(self) {
 		_usesMemoryPool		= YES;
 	}
 	
@@ -38,7 +35,6 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)freeMemory {
-	[self.attachment freeMemory];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -47,13 +43,21 @@
 	//NSLog(@"item being removed - %d",_databaseID);
 	
 	self.data		= nil;
-	self.urls		= nil;
-	self.attachment = nil;
+    
+    if(self.attachment) {
+        
+        if(_usesMemoryPool)
+            [[DWMemoryPool sharedDWMemoryPool]  removeObject:_attachment 
+                                                       atRow:kMPAttachmentsIndex];
+        
+        self.attachment = nil;
+    }
 	
 	if(self.place) {
 		
 		if(_usesMemoryPool)
-			[[DWMemoryPool sharedDWMemoryPool]  removeObject:_place atRow:kMPPlacesIndex];
+			[[DWMemoryPool sharedDWMemoryPool]  removeObject:_place
+                                                       atRow:kMPPlacesIndex];
 		
 		self.place = nil;
 	}
@@ -61,17 +65,13 @@
 	if(self.user) {
 		
 		if(_usesMemoryPool)
-			[[DWMemoryPool sharedDWMemoryPool]  removeObject:_user atRow:kMPUsersIndex];
+			[[DWMemoryPool sharedDWMemoryPool]  removeObject:_user 
+                                                       atRow:kMPUsersIndex];
 		
 		self.user = nil;
 	}
 	
 	[super dealloc];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (BOOL)hasAttachment {
-	return self.attachment != nil;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -127,36 +127,32 @@
 	_isTouched				= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
 	_createdAtTimestamp		= [[item objectForKey:kKeyCreatedAt] doubleValue];
 	self.data				= [item objectForKey:kKeyCondensedData];
-		
-	if ([item objectForKey:kKeyAttachment]) {
-		self.attachment = [[[DWAttachment alloc] init] autorelease];
-		[self.attachment populate:[item objectForKey:kKeyAttachment]];
-	}
+    
 	
 	self.place = (DWPlace*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[item objectForKey:kKeyPlace] 
-												  atRow:kMPPlacesIndex];
+                                                                        atRow:kMPPlacesIndex];
 
 	self.user = (DWUser*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[item objectForKey:kKeyUser]
-												atRow:kMPUsersIndex];
-	
-	NSArray *urlsArray = [item objectForKey:kKeyURLs];
-	
-	if ([urlsArray count])
-		self.urls = urlsArray;
+                                                                      atRow:kMPUsersIndex];
+    
+    if ([item objectForKey:kKeyAttachment])
+        self.attachment = (DWAttachment*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[item objectForKey:kKeyAttachment] 
+                                                                                      atRow:kMPAttachmentsIndex];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (BOOL)update:(NSDictionary*)item {
     if(![super update:item])
         return NO;
-		
+    		
     _touchesCount	= [[item objectForKey:kKeyTouchesCount] integerValue];
     _isTouched		= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
     
-    [_place update:[item objectForKey:kKeyPlace]];
-    [_user	update:[item objectForKey:kKeyUser]];
+    
+    [self.place update:[item objectForKey:kKeyPlace]];
+    [self.user	update:[item objectForKey:kKeyUser]];
             
-    if([self hasAttachment])
+    if(self.attachment)
         [_attachment update:[item objectForKey:kKeyAttachment]];
     
     return YES;
@@ -166,9 +162,6 @@
 - (void)startRemoteImagesDownload {
 	if (self.attachment)
 		[self.attachment startPreviewDownload];
-	
-	/*if(self.user)
-		[self.user startSmallPreviewDownload];*/
 }
 
 @end

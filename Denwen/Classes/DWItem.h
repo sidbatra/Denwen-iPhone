@@ -17,7 +17,6 @@
  */
 @interface DWItem : DWPoolObject {	
 	NSString		*_data;
-	NSArray			*_urls;
 	
 	NSInteger		_touchesCount;
 	
@@ -25,7 +24,6 @@
 	DWPlace			*_place;
 	DWUser			*_user;
 	
-	BOOL			_fromFollowedPlace; 
 	BOOL			_usesMemoryPool;
 	BOOL			_isTouched;
 	
@@ -37,11 +35,6 @@
  * where URLs have been shortened
  */
 @property (nonatomic,copy) NSString *data;
-
-/**
- * Array of urls in the item data
- */
-@property (nonatomic,copy) NSArray *urls;
 
 /**
  * Total touches on the item
@@ -64,12 +57,6 @@
 @property (nonatomic,retain) DWUser *user;
 
 /**
- * Only used in a freshly created item to indiciate
- * whether it is posted to a place followed by a user or not
- */
-@property (nonatomic,assign) BOOL fromFollowedPlace;
-
-/**
  * Indicates whether the item relies on the memory pool
  * for its members
  */
@@ -80,10 +67,7 @@
  */
 @property (nonatomic,assign) BOOL isTouched;
 
-/**
- * Does the item have a media attachment
- */
-- (BOOL)hasAttachment;
+
 
 /**
  * Add the given delta to the touches count
