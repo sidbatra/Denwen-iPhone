@@ -44,6 +44,18 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)freeAttachment {
+    
+    
+    if(self.attachment) {
+        [[DWMemoryPool sharedDWMemoryPool]  removeObject:self.attachment 
+                                                   atRow:kMPAttachmentSlicesIndex];
+        
+        self.attachment = nil;
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
 -(void)dealloc{
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
@@ -56,16 +68,15 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 	self.country				= nil;
 	self.location				= nil;
     
-    
-    if(self.attachment) {
-        
-        [[DWMemoryPool sharedDWMemoryPool]  removeObject:self.attachment 
-                                                   atRow:kMPAttachmentSlicesIndex];
-        
-        self.attachment = nil;
-    }
+    [self freeAttachment];
 	
 	[super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)populateAttachment:(NSDictionary*)attachment {
+    self.attachment = (DWAttachment*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:attachment 
+                                                                                  atRow:kMPAttachmentSlicesIndex];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -96,8 +107,7 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
     
     
 	if([place objectForKey:kKeyAttachment])
-        self.attachment = (DWAttachment*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[place objectForKey:kKeyAttachment] 
-                                                                                      atRow:kMPAttachmentSlicesIndex];
+        [self populateAttachment:[place objectForKey:kKeyAttachment]];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -131,13 +141,20 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
         self.country	= [address objectForKey:kKeyShortCountry];		
     }
     
+    
     if([place objectForKey:kKeyAttachment]) {
+       
+        NSDictionary *attachment = [place objectForKey:kKeyAttachment];
         
-        if(self.attachment)
-            [self.attachment update:[place objectForKey:kKeyAttachment]];
+        if(self.attachment) {
+            
+            if([[attachment objectForKey:kKeyID] integerValue] != self.attachment.databaseID) {
+                [self freeAttachment];
+                [self populateAttachment:attachment];
+            }
+        }
         else
-            self.attachment = (DWAttachment*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[place objectForKey:kKeyAttachment] 
-                                                                                          atRow:kMPAttachmentSlicesIndex];
+            [self populateAttachment:attachment];
     }
     
     return YES;
