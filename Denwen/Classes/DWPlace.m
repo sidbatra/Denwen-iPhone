@@ -151,17 +151,13 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (NSString*)titleText {
-	NSString *text = nil;
-	
-	if(_followersCount == 0)
-		text = [NSString stringWithFormat:@"%@",_name];
-	else if(_followersCount == 1)
-		text = [NSString stringWithFormat:@"%d is following",_followersCount];
-	else
-		text = [NSString stringWithFormat:@"%d are following",_followersCount];
-	
-	return text;
+- (NSString*)sliceText {
+	return [self.lastItemData substringToIndex:MIN(20,self.lastItemData.length)];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)followersCount {
+    return _followersCount;
 }
 
 //----------------------------------------------------------------------------------------------------

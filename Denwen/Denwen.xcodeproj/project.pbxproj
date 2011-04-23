@@ -10,6 +10,7 @@
 		1D3623260D0F684500981E51 /* DWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* DWAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		26000219130DFB0100366CE3 /* KTTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26000218130DFB0100366CE3 /* KTTextView.m */; };
+		2612D6261362556E005AE9E5 /* DWPlaceTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2612D6251362556E005AE9E5 /* DWPlaceTitleView.m */; };
 		261C905312FBA43600D16F72 /* DWLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 261C905212FBA43600D16F72 /* DWLoadingCell.m */; };
 		261C90CC12FBB7BC00D16F72 /* DWMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 261C90CB12FBB7BC00D16F72 /* DWMessageCell.m */; };
 		26254CF613029E6F00D83345 /* button_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 26254CD013029E6F00D83345 /* button_bg.png */; };
@@ -174,7 +175,7 @@
 		BB33138912F26A1B00B713F9 /* DWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33138812F26A1B00B713F9 /* DWImageViewController.m */; };
 		BB3313E912F282BF00B713F9 /* DWImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3313E812F282BF00B713F9 /* DWImageViewController.xib */; };
 		BB33CB6B135FA91700BDBE98 /* DWItemFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33CB6A135FA91700BDBE98 /* DWItemFeedViewController.m */; };
-		BB33CB70135FA93C00BDBE98 /* DWFollowPlaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33CB6F135FA93C00BDBE98 /* DWFollowPlaceView.m */; };
+		BB33CB70135FA93C00BDBE98 /* DWTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33CB6F135FA93C00BDBE98 /* DWTitleView.m */; };
 		BB33CB8C135FAED700BDBE98 /* DWNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33CB8B135FAED700BDBE98 /* DWNavigationBar.m */; };
 		BB379DCE12ED50CE0071CE08 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB379DCD12ED50CE0071CE08 /* CoreGraphics.framework */; };
 		BB379DD412ED50EB0071CE08 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB379DD312ED50EB0071CE08 /* CoreLocation.framework */; };
@@ -430,6 +431,8 @@
 		1D6058910D05DD3D006BFB54 /* Eenwen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eenwen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26000217130DFB0100366CE3 /* KTTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTTextView.h; sourceTree = "<group>"; };
 		26000218130DFB0100366CE3 /* KTTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTTextView.m; sourceTree = "<group>"; };
+		2612D6241362556D005AE9E5 /* DWPlaceTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceTitleView.h; path = Classes/DWPlaceTitleView.h; sourceTree = "<group>"; };
+		2612D6251362556E005AE9E5 /* DWPlaceTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlaceTitleView.m; path = Classes/DWPlaceTitleView.m; sourceTree = "<group>"; };
 		261C905112FBA43600D16F72 /* DWLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWLoadingCell.h; path = Classes/DWLoadingCell.h; sourceTree = "<group>"; };
 		261C905212FBA43600D16F72 /* DWLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWLoadingCell.m; path = Classes/DWLoadingCell.m; sourceTree = "<group>"; };
 		261C90CA12FBB7BC00D16F72 /* DWMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWMessageCell.h; path = Classes/DWMessageCell.h; sourceTree = "<group>"; };
@@ -624,8 +627,8 @@
 		BB3313E812F282BF00B713F9 /* DWImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWImageViewController.xib; path = Classes/DWImageViewController.xib; sourceTree = "<group>"; };
 		BB33CB69135FA91700BDBE98 /* DWItemFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWItemFeedViewController.h; path = Classes/DWItemFeedViewController.h; sourceTree = "<group>"; };
 		BB33CB6A135FA91700BDBE98 /* DWItemFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItemFeedViewController.m; path = Classes/DWItemFeedViewController.m; sourceTree = "<group>"; };
-		BB33CB6E135FA93C00BDBE98 /* DWFollowPlaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFollowPlaceView.h; path = Classes/DWFollowPlaceView.h; sourceTree = "<group>"; };
-		BB33CB6F135FA93C00BDBE98 /* DWFollowPlaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowPlaceView.m; path = Classes/DWFollowPlaceView.m; sourceTree = "<group>"; };
+		BB33CB6E135FA93C00BDBE98 /* DWTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTitleView.h; path = Classes/DWTitleView.h; sourceTree = "<group>"; };
+		BB33CB6F135FA93C00BDBE98 /* DWTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTitleView.m; path = Classes/DWTitleView.m; sourceTree = "<group>"; };
 		BB33CB8A135FAED700BDBE98 /* DWNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNavigationBar.h; path = Classes/DWNavigationBar.h; sourceTree = "<group>"; };
 		BB33CB8B135FAED700BDBE98 /* DWNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNavigationBar.m; path = Classes/DWNavigationBar.m; sourceTree = "<group>"; };
 		BB379DCD12ED50CE0071CE08 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1314,8 +1317,10 @@
 			children = (
 				BB33CB8A135FAED700BDBE98 /* DWNavigationBar.h */,
 				BB33CB8B135FAED700BDBE98 /* DWNavigationBar.m */,
-				BB33CB6E135FA93C00BDBE98 /* DWFollowPlaceView.h */,
-				BB33CB6F135FA93C00BDBE98 /* DWFollowPlaceView.m */,
+				BB33CB6E135FA93C00BDBE98 /* DWTitleView.h */,
+				BB33CB6F135FA93C00BDBE98 /* DWTitleView.m */,
+				2612D6241362556D005AE9E5 /* DWPlaceTitleView.h */,
+				2612D6251362556E005AE9E5 /* DWPlaceTitleView.m */,
 				BB9EC27513542DF000D6BBF6 /* DWTabBarController.h */,
 				BB9EC27613542DF000D6BBF6 /* DWTabBarController.m */,
 				BB9EC16C13541A8E00D6BBF6 /* DWTabBar.h */,
@@ -2383,8 +2388,9 @@
 				BB0C7FE7135811F20007D6A9 /* DWSearchPlacesViewController.m in Sources */,
 				BBE70D9F135D10C2001D83CC /* DWPostProgressView.m in Sources */,
 				BB33CB6B135FA91700BDBE98 /* DWItemFeedViewController.m in Sources */,
-				BB33CB70135FA93C00BDBE98 /* DWFollowPlaceView.m in Sources */,
+				BB33CB70135FA93C00BDBE98 /* DWTitleView.m in Sources */,
 				BB33CB8C135FAED700BDBE98 /* DWNavigationBar.m in Sources */,
+				2612D6261362556E005AE9E5 /* DWPlaceTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

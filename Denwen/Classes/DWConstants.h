@@ -176,6 +176,11 @@ extern NSString* const kNCreationQueueItemProcessed;
 extern NSString* const kNQueueItemProgressUpdated;
 extern NSString* const kNCreationQueueUpdated;
 
+/**
+ * Nav bar titleview types
+ */
+extern NSInteger const kNavStandaloneTitleMode;
+extern NSInteger const kNavTitleAndSubtitleMode;
 
 /**
  * Push notifcation types

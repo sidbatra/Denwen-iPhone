@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 
 #import "DWItemFeedViewController.h"
-#import "DWFollowPlaceView.h"
+#import "DWPlaceTitleView.h"
 #import "DWFollowing.h"
 
 #import "MBProgressHUD.h"
@@ -18,8 +18,7 @@
 @interface DWPlaceViewController : DWItemFeedViewController<UIActionSheetDelegate> {
 	DWPlace             *_place;
 	DWFollowing         *_following;
-	MBProgressHUD		*_mbProgressIndicator;
-    DWFollowPlaceView   *_followPlaceView;
+    DWPlaceTitleView    *_placeTitleView;
 	
 	NSInteger			_uploadID;
 }
@@ -36,14 +35,9 @@
 @property (nonatomic,retain) DWFollowing *following;
 
 /**
- * Subview for displaying progress
- */
-@property (nonatomic,retain) MBProgressHUD *mbProgressIndicator;
-
-/**
  * Subview for displaying follow button and following count
  */
-@property (nonatomic,retain) DWFollowPlaceView *followPlaceView;
+@property (nonatomic,retain) DWPlaceTitleView *placeTitleView;
 
 /**
  * Init with place and item feed delegate to receive navigation

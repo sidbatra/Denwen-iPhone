@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-//#define PRODUCTION 1 
+#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -182,6 +182,9 @@ NSString* const kNQueueItemProgressUpdated		= @"NQueueItemProgressUpdated";
 NSString* const kNCreationQueueUpdated			= @"NCreationQueueUpdated";
 
 
+//----------------------------------------------------------------------------------------------------
+NSInteger const kNavStandaloneTitleMode            = 0;
+NSInteger const kNavTitleAndSubtitleMode           = 1;
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kPNLive			= 0;

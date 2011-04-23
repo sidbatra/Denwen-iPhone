@@ -11,7 +11,6 @@
 #import "DWPlaceCell.h"
 #import "DWItemFeedCell.h"
 #import "DWSession.h"
-#import "DWFollowPlaceView.h"
 
 static NSInteger const kNewItemRowInTableView				= 0;
 static NSInteger const kFollowPlaceViewX                    = 60;
@@ -30,8 +29,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 
 @synthesize place                   = _place;
 @synthesize following               = _following;
-@synthesize mbProgressIndicator     = _mbProgressIndicator;
-@synthesize followPlaceView         = _followPlaceView;
+@synthesize placeTitleView          = _placeTitleView;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -94,17 +92,19 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
     
 	self.place						= nil;
 	self.following					= nil;
-	self.mbProgressIndicator		= nil;
-    self.followPlaceView            = nil;
+    self.placeTitleView             = nil;
 	
     [super dealloc];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)updateFollowView {
-	[self.followPlaceView updateTitle:self.following ? @"Following" : @"Follow" 
-                          andSubtitle:[self.place titleText] 
-                       andIsFollowing:self.following != nil] ;
+    if (self.following) 
+        [self.placeTitleView showFollowedStateFor:self.place.name 
+                                andFollowingCount:[self.place followersCount]];
+    else
+        [self.placeTitleView showUnfollowedStateFor:self.place.name 
+                                  andFollowingCount:[self.place followersCount]];    
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -114,10 +114,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
     self.navigationItem.rightBarButtonItem  = [DWGUIManager placeDetailsButton:self];
     self.navigationItem.titleView           = nil;
-        	
-	self.mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.navigationController.view] autorelease];
-	[self.navigationController.view addSubview:self.mbProgressIndicator];
-	
+        		
 	[self updateFollowView];
 	
 	if(!_isLoadedOnce)
@@ -148,17 +145,11 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 
 //----------------------------------------------------------------------------------------------------
 - (void)sendFollowRequest {
-	self.mbProgressIndicator.labelText = @"Following";
-	[self.mbProgressIndicator showUsingAnimation:YES];
-	
 	[[DWRequestsManager sharedDWRequestsManager] createFollowing:self.place.databaseID];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)sendUnfollowRequest {
-	self.mbProgressIndicator.labelText = @"Unfollowing";
-	[self.mbProgressIndicator showUsingAnimation:YES];
-	
 	[[DWRequestsManager sharedDWRequestsManager] destroyFollowing:self.following.databaseID
 													ofPlaceWithID:self.place.databaseID];
 }
@@ -223,8 +214,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		
 		[self updateFollowView];
 	}
-	
-	[self.mbProgressIndicator hideUsingAnimation:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -241,8 +230,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		
 		[self updateFollowView];
 	}
-	
-	[self.mbProgressIndicator hideUsingAnimation:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -251,8 +238,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	
 	if([[info objectForKey:kKeyResourceID] integerValue] != self.place.databaseID)
 		return;
-	
-	[self.mbProgressIndicator hideUsingAnimation:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -316,19 +301,20 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 #pragma mark -
 #pragma mark FollowPlaceViewDelegate
 //----------------------------------------------------------------------------------------------------
-- (void)didTapFollow {
-	[self sendFollowRequest];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)didTapUnfollow {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
-															 delegate:self 
-													cancelButtonTitle:kMsgActionSheetCancel
-											   destructiveButtonTitle:kMsgActionSheetUnfollow
-													otherButtonTitles:nil];
-	[actionSheet showInView:[_delegate requestCustomTabBarController].view];
-	[actionSheet release];
+- (void)didTapTitleView {
+    if (self.following) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
+                                                                 delegate:self 
+                                                        cancelButtonTitle:kMsgActionSheetCancel
+                                                   destructiveButtonTitle:kMsgActionSheetUnfollow
+                                                        otherButtonTitles:nil];
+        [actionSheet showInView:[_delegate requestCustomTabBarController].view];
+        [actionSheet release];    
+    }
+    else {
+        [self.placeTitleView showProcessingState];
+        [self sendFollowRequest];
+    }
 }
 
 
@@ -339,8 +325,10 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
 	
-	if (buttonIndex == 0)
+	if (buttonIndex == 0) {
+        [self.placeTitleView showProcessingState];
 		[self sendUnfollowRequest];
+    }
 }
 
 
@@ -371,12 +359,14 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 #pragma mark Nav Stack Selectors
 //----------------------------------------------------------------------------------------------------
 - (void)willShowOnNav {
-    if (!self.followPlaceView)
-        self.followPlaceView = [[[DWFollowPlaceView alloc] 
-                                 initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
-                                                          kFollowPlaceViewWidth,
-                                                          kFollowPlaceViewHeight) andDelegate:self] autorelease];
-    [self.navigationController.navigationBar addSubview:self.followPlaceView];  
+    if (!self.placeTitleView)
+        self.placeTitleView = [[[DWPlaceTitleView alloc] 
+                                initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
+                                                         kFollowPlaceViewWidth,kFollowPlaceViewHeight) 
+                                  andDelegate:self 
+                                      andMode:kNavTitleAndSubtitleMode] autorelease];
+    
+    [self.navigationController.navigationBar addSubview:self.placeTitleView];  
 }
 
 @end

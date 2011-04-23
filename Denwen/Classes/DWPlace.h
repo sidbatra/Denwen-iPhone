@@ -84,9 +84,9 @@
 - (NSString*)displayAddress;
 
 /**
- * Title text generated from the place's followers
+ * Number of followers for the place
  */
-- (NSString*)titleText;
+- (NSInteger)followersCount;
 
 @end
 
