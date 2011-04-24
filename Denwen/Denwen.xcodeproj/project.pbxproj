@@ -353,6 +353,7 @@
 		BBD0D2141340576A003E5E7D /* DWS3Request.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D2131340576A003E5E7D /* DWS3Request.m */; };
 		BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */; };
 		BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */; };
+		BBD8374A1363BD3C00326E1F /* DWTouchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD837491363BD3B00326E1F /* DWTouchCell.m */; };
 		BBDB664512EF92D50051A45C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB664412EF92D50051A45C /* MapKit.framework */; };
 		BBDB66A312EF9A0F0051A45C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */; };
 		BBE24F7E13562E4700A90B44 /* nav_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24F7C13562E4700A90B44 /* nav_bar.png */; };
@@ -921,6 +922,8 @@
 		BBD1EAD212EC1218003C1BC7 /* DWSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSignupViewController.h; path = Classes/DWSignupViewController.h; sourceTree = "<group>"; };
 		BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSignupViewController.m; path = Classes/DWSignupViewController.m; sourceTree = "<group>"; };
 		BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWSignupViewController.xib; path = Classes/DWSignupViewController.xib; sourceTree = "<group>"; };
+		BBD837481363BD3B00326E1F /* DWTouchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTouchCell.h; path = Classes/DWTouchCell.h; sourceTree = "<group>"; };
+		BBD837491363BD3B00326E1F /* DWTouchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTouchCell.m; path = Classes/DWTouchCell.m; sourceTree = "<group>"; };
 		BBDB664412EF92D50051A45C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BBE24F7C13562E4700A90B44 /* nav_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nav_bar.png; path = resources/nav_bar.png; sourceTree = "<group>"; };
@@ -1325,6 +1328,7 @@
 		26EF03AD12E77BCB00E7BA76 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BBD837471363BCFD00326E1F /* Table  */,
 				BB3BE0B2133A9CE70055FED0 /* Misc */,
 				BB3311F412F24A2600B713F9 /* Users */,
 				BBC2FA4212F234E1001BF5D6 /* Places */,
@@ -1804,6 +1808,8 @@
 				26B973CB12F0BED9000F8F1F /* DWItemFeedCell.m */,
 				26B9789812F180C8000F8F1F /* DWPlaceFeedCell.h */,
 				26B9789912F180C8000F8F1F /* DWPlaceFeedCell.m */,
+				BBD837481363BD3B00326E1F /* DWTouchCell.h */,
+				BBD837491363BD3B00326E1F /* DWTouchCell.m */,
 				BB641EF4134D97BB002A2325 /* DWPlaceSearchResultCell.h */,
 				BB641EF5134D97BB002A2325 /* DWPlaceSearchResultCell.m */,
 				261C905112FBA43600D16F72 /* DWLoadingCell.h */,
@@ -1948,6 +1954,17 @@
 				BBD0D0631340026C003E5E7D /* UIImage+ImageProcessing.m */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		BBD837471363BCFD00326E1F /* Table  */ = {
+			isa = PBXGroup;
+			children = (
+				BBD8372E1363991A00326E1F /* DWNotificationsViewController.h */,
+				BBD8372F1363991A00326E1F /* DWNotificationsViewController.m */,
+				BBD8373B1363AF4200326E1F /* DWTableViewController.h */,
+				BBD8373C1363AF4200326E1F /* DWTableViewController.m */,
+			);
+			name = "Table ";
 			sourceTree = "<group>";
 		};
 		BBF891B2134ECD8F00B332CA /* Creation Queue */ = {
@@ -2429,6 +2446,7 @@
 				26D3CB231363C656007CE094 /* DWTableViewController.m in Sources */,
 				26D3CB261363C671007CE094 /* DWTouchesManager.m in Sources */,
 				26D3CB291363C6A4007CE094 /* DWTouch.m in Sources */,
+				BBD8374A1363BD3C00326E1F /* DWTouchCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

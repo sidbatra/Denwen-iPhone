@@ -8,12 +8,15 @@
 #import "DWTouch.h"
 #import "DWRequestsManager.h"
 #import "DWItemFeedViewController.h"
+#import "DWTouchCell.h"
 #import "EGORefreshTableHeaderView.h"
 #import "DWGUIManager.h"
 
-static NSInteger const kTouchesPerPage      = 20;
-static NSInteger const kTouchCellHeight     = 80;
-static NSString* const kMsgNoItemsTouched   = @"No one has touched your items";
+static NSInteger const kTouchesPerPage          = 20;
+static NSInteger const kTouchCellHeight         = 60;
+static NSString* const kMsgNoItemsTouched       = @"No one has touched your items";
+static NSString* const kTouchCellIdentifier		= @"TouchCell";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -49,6 +52,11 @@ static NSString* const kMsgNoItemsTouched   = @"No one has touched your items";
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(attachmentImageLoaded:) 
 													 name:kNImgSliceAttachmentFinalized
+												   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userImageLoaded:) 
+													 name:kNImgSmallUserLoaded
 												   object:nil];
 	}
 	
@@ -152,23 +160,43 @@ static NSString* const kMsgNoItemsTouched   = @"No one has touched your items";
         DWTouch *touch = [self.touchesManager getTouch:indexPath.row];
 		
 		if(touch.attachment.databaseID == resourceID) {
-			/*
-            DWPlaceFeedCell *cell = nil;
-            cell = (DWPlaceFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+			
+            DWTouchCell *cell = nil;
+            cell = (DWTouchCell*)[self.tableView cellForRowAtIndexPath:indexPath];
             
-			[cell setPlaceImage:[info objectForKey:kKeyImage]];
+            [cell setAttachmentImage:[info objectForKey:kKeyImage]];
 			[cell redisplay];
-             */
 		}
 	}	
 	
 }
 
-
 //----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Notifications
+- (void)userImageLoaded:(NSNotification*)notification {
+	
+	if(_tableViewUsage != kTableViewAsData)
+		return;
+	
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+    
+	NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+	
+	for (NSIndexPath *indexPath in visiblePaths) {            
+        DWTouch *touch = [self.touchesManager getTouch:indexPath.row];
+		
+		if(touch.user.databaseID == resourceID) {
+			
+            DWTouchCell *cell = nil;
+            cell = (DWTouchCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+            
+            [cell setUserImage:[info objectForKey:kKeyImage]];
+			[cell redisplay];
+		}
+	}	
+	
+}
 
 //----------------------------------------------------------------------------------------------------
 - (void)touchesLoaded:(NSNotification*)notification {
@@ -211,53 +239,35 @@ static NSString* const kMsgNoItemsTouched   = @"No one has touched your items";
     
 	if(_tableViewUsage == kTableViewAsData && [self totalRows]) {
            
-        DWTouch *touch = [self.touchesManager getTouch:indexPath.row];
+        DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
+           
+        DWTouchCell *cell   = (DWTouchCell*)[tableView dequeueReusableCellWithIdentifier:kTouchCellIdentifier];
 
-            /*
-           
-           DWPlaceFeedCell *cell = (DWPlaceFeedCell*)[tableView dequeueReusableCellWithIdentifier:kPlaceFeedCellIdentifier];
-           
-           if (!cell) 
-               cell = [[[DWPlaceFeedCell alloc] initWithStyle:UITableViewCellStyleDefault 
-                                              reuseIdentifier:kPlaceFeedCellIdentifier] autorelease];
-           
-           [cell reset];
-           cell.placeName  = place.name;
-           cell.placeDetails = [place displayAddress];
-           
-           //if (!tableView.dragging && !tableView.decelerating)
-           //	[place startPreviewDownload];
-           
-           if (place.attachment && place.attachment.sliceImage)
-               [cell setPlaceImage:place.attachment.sliceImage];
-           else{
-               [cell setPlaceImage:nil];
-               [place startPreviewDownload];
-           }	
-           
-           
-           //if(!place.attachment)
-           //	cell.placeData = [place sliceText];
-           
-           
-           [cell redisplay];
-           
-           return cell;
-             */
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTVDefaultCellIdentifier];
-		
-		if (!cell) 
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
-										   reuseIdentifier:kTVDefaultCellIdentifier] autorelease];
-		
-		cell.selectionStyle					= UITableViewCellSelectionStyleNone;
-		cell.contentView.backgroundColor	= [UIColor blackColor];
-        cell.textLabel.textColor            = [UIColor whiteColor];
-        cell.textLabel.text                 = [touch displayText];
-		
-		return cell;
+        if (!cell) 
+           cell = [[[DWTouchCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                          reuseIdentifier:kTouchCellIdentifier] autorelease];
 
-       }
+        [cell reset];
+     
+        cell.itemData   = [touch displayText];
+        
+        if (!tableView.dragging && !tableView.decelerating)
+            [touch startDownloadingImages];
+
+        if (touch.attachment && touch.attachment.sliceImage)
+            [cell setAttachmentImage:touch.attachment.sliceImage];
+        else
+           [cell setAttachmentImage:nil];
+
+        if(touch.user.smallPreviewImage)
+            [cell setUserImage:touch.user.smallPreviewImage];
+        else
+            [cell setUserImage:nil];
+      
+        [cell redisplay];
+
+        return cell;
+    }
 	else {
         cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     }
@@ -273,6 +283,8 @@ static NSString* const kMsgNoItemsTouched   = @"No one has touched your items";
 
 //----------------------------------------------------------------------------------------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
+    [_delegate userSelected:touch.user];
 }
 
 @end
