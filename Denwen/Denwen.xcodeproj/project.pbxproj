@@ -1510,10 +1510,6 @@
 		BB3BE0B2133A9CE70055FED0 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				26D3CB211363C656007CE094 /* DWTableViewController.h */,
-				26D3CB221363C656007CE094 /* DWTableViewController.m */,
-				26D3CB1E1363C617007CE094 /* DWNotificationsViewController.h */,
-				26D3CB1F1363C617007CE094 /* DWNotificationsViewController.m */,
 				BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */,
 				BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */,
 				BB17BAE312EA3A3F00DD42FC /* DWLoginViewController.h */,
@@ -1976,6 +1972,10 @@
 		BBD837471363BCFD00326E1F /* Table  */ = {
 			isa = PBXGroup;
 			children = (
+				26D3CB211363C656007CE094 /* DWTableViewController.h */,
+				26D3CB221363C656007CE094 /* DWTableViewController.m */,
+				26D3CB1E1363C617007CE094 /* DWNotificationsViewController.h */,
+				26D3CB1F1363C617007CE094 /* DWNotificationsViewController.m */,
 			);
 			name = "Table ";
 			sourceTree = "<group>";

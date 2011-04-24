@@ -233,11 +233,11 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
 #pragma mark UITableViewDataSource
 
 //----------------------------------------------------------------------------------------------------
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     UITableViewCell *cell = nil;
     
-	if(_tableViewUsage == kTableViewAsData && [self totalRows]) {
+	if(_tableViewUsage == kTableViewAsData && indexPath.row < [self totalRows]) {
            
         DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
            
@@ -283,8 +283,13 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
-    [_delegate userSelected:touch.user];
+    
+    if(indexPath.row < [self totalRows]) {
+        DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
+        [_delegate userSelected:touch.user];
+    }
+    else
+        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
 }
 
 @end
