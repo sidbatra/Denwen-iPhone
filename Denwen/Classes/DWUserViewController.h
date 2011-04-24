@@ -8,6 +8,7 @@
 #import "DWItemFeedViewController.h"
 #import "DWMediaPickerController.h"
 #import "DWUserTitleView.h"
+#import "DWSmallProfilePicView.h"
 #import "DWUser.h"
 
 
@@ -17,10 +18,11 @@
  * Display details about a user and the items posted by them
  */
 @interface DWUserViewController : DWItemFeedViewController {
-	DWUser              *_user;
-    DWUserTitleView     *_userTitleView;
+	DWUser                  *_user;
+    DWUserTitleView         *_userTitleView;
+    DWSmallProfilePicView   *_smallProfilePicView;
     
-    NSInteger           _uploadID;
+    NSInteger               _uploadID;
 }
 
 /**
@@ -32,6 +34,11 @@
  * Subview for displaying username and following count
  */
 @property (nonatomic,retain) DWUserTitleView *userTitleView;
+
+/**
+ * Subview for displaying small profile picture
+ */
+@property (nonatomic,retain) DWSmallProfilePicView *smallProfilePicView;
 
 /**
  * Init with user whose view is being displayed and delegate

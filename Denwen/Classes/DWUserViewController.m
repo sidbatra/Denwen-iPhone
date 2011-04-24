@@ -34,9 +34,9 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 //----------------------------------------------------------------------------------------------------
 @implementation DWUserViewController
 
-@synthesize user				= _user;
-@synthesize userTitleView       = _userTitleView;
-
+@synthesize user                    = _user;
+@synthesize userTitleView           = _userTitleView;
+@synthesize smallProfilePicView     = _smallProfilePicView;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithUser:(DWUser*)theUser 
@@ -98,8 +98,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 
 //----------------------------------------------------------------------------------------------------
 - (void)setSmallUserImage:(UIImage*)smallUserImage {
-    self.navigationItem.rightBarButtonItem  = [DWGUIManager profilePicButton:self 
-                                                         withBackgroundImage:smallUserImage];
+    [self.smallProfilePicView setProfilePicButtonBackgroundImage:smallUserImage];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -123,6 +122,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	[super viewDidLoad];
 	
 	self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
+    self.navigationItem.rightBarButtonItem  = nil;
     self.navigationItem.titleView           = nil;
                 
 	if(!_isLoadedOnce)
@@ -311,6 +311,15 @@ static NSInteger const kActionSheetCancelIndex				= 2;
                                andButtonType:kDWButtonTypeStatic] autorelease];
     
     [self.navigationController.navigationBar addSubview:self.userTitleView];
+    
+    if (!self.smallProfilePicView)
+        self.smallProfilePicView = [[[DWSmallProfilePicView alloc] 
+                                    initWithFrame:CGRectMake(260, 0, 
+                                                             kNavTitleViewWidth,kNavTitleViewHeight) 
+                                     andTarget:self] autorelease];
+    
+    [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
+    
     [self updateUserTitleView];
 }
 

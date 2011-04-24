@@ -80,22 +80,6 @@ static NSString* const kImgPlaceDetailsButtonActive     = @"button_map.png";
 	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
 }
 
-// User profile pic navigation bar button
-//
-+ (UIBarButtonItem*)profilePicButton:(id)target withBackgroundImage:(UIImage*)image {
-	UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [button setBackgroundImage:image 
-                      forState:UIControlStateNormal];
-    
-	[button addTarget:target 
-               action:@selector(didTapSmallUserImage:event:) 
-     forControlEvents:UIControlEventTouchUpInside];
-	
-    [button setFrame:CGRectMake(5, 0, 55, 44)];
-	
-	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
-}
 
 #pragma mark -
 #pragma mark Spinner

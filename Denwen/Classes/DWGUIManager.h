@@ -22,7 +22,6 @@
 
 + (UIBarButtonItem*)customBackButton:(id)target;
 + (UIBarButtonItem*)placeDetailsButton:(id)target;
-+ (UIBarButtonItem*)profilePicButton:(id)target withBackgroundImage:(UIImage*)image;
 
 
 //Spinner methods
