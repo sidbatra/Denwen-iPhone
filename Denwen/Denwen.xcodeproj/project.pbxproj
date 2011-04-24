@@ -137,6 +137,10 @@
 		26D29FD51303C100002E37FE /* camera_button@2x_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D29FD11303C100002E37FE /* camera_button@2x_round.png */; };
 		26D29FD61303C100002E37FE /* profile_button_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D29FD21303C100002E37FE /* profile_button_round.png */; };
 		26D29FD71303C100002E37FE /* profile_button@2x_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D29FD31303C100002E37FE /* profile_button@2x_round.png */; };
+		26D3CB201363C617007CE094 /* DWNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D3CB1F1363C617007CE094 /* DWNotificationsViewController.m */; };
+		26D3CB231363C656007CE094 /* DWTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D3CB221363C656007CE094 /* DWTableViewController.m */; };
+		26D3CB261363C671007CE094 /* DWTouchesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D3CB251363C671007CE094 /* DWTouchesManager.m */; };
+		26D3CB291363C6A4007CE094 /* DWTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D3CB281363C6A4007CE094 /* DWTouch.m */; };
 		26DB36F0131B57A1004EC153 /* keyboard_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 26DB36EE131B57A1004EC153 /* keyboard_bg.png */; };
 		26DB36F1131B57A1004EC153 /* keyboard_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26DB36EF131B57A1004EC153 /* keyboard_bg@2x.png */; };
 		26DC2E62130A877A00FC1F3A /* DWPlaceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DC2E60130A877A00FC1F3A /* DWPlaceDetailsViewController.m */; };
@@ -349,12 +353,6 @@
 		BBD0D2141340576A003E5E7D /* DWS3Request.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D2131340576A003E5E7D /* DWS3Request.m */; };
 		BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */; };
 		BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */; };
-		BBD837301363991A00326E1F /* DWNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD8372F1363991A00326E1F /* DWNotificationsViewController.m */; };
-		BBD8373313639B5500326E1F /* button_notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD8373113639B5500326E1F /* button_notifications.png */; };
-		BBD8373413639B5500326E1F /* button_notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD8373213639B5500326E1F /* button_notifications@2x.png */; };
-		BBD8373713639F3600326E1F /* DWTouchesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD8373613639F3600326E1F /* DWTouchesManager.m */; };
-		BBD8373D1363AF4200326E1F /* DWTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD8373C1363AF4200326E1F /* DWTableViewController.m */; };
-		BBD837401363BC0400326E1F /* DWTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD8373F1363BC0400326E1F /* DWTouch.m */; };
 		BBDB664512EF92D50051A45C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB664412EF92D50051A45C /* MapKit.framework */; };
 		BBDB66A312EF9A0F0051A45C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */; };
 		BBE24F7E13562E4700A90B44 /* nav_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24F7C13562E4700A90B44 /* nav_bar.png */; };
@@ -582,6 +580,14 @@
 		26D29FD11303C100002E37FE /* camera_button@2x_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_button@2x_round.png"; path = "resources/camera_button@2x_round.png"; sourceTree = "<group>"; };
 		26D29FD21303C100002E37FE /* profile_button_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile_button_round.png; path = resources/profile_button_round.png; sourceTree = "<group>"; };
 		26D29FD31303C100002E37FE /* profile_button@2x_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "profile_button@2x_round.png"; path = "resources/profile_button@2x_round.png"; sourceTree = "<group>"; };
+		26D3CB1E1363C617007CE094 /* DWNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNotificationsViewController.h; path = Classes/DWNotificationsViewController.h; sourceTree = "<group>"; };
+		26D3CB1F1363C617007CE094 /* DWNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNotificationsViewController.m; path = Classes/DWNotificationsViewController.m; sourceTree = "<group>"; };
+		26D3CB211363C656007CE094 /* DWTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTableViewController.h; path = Classes/DWTableViewController.h; sourceTree = "<group>"; };
+		26D3CB221363C656007CE094 /* DWTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTableViewController.m; path = Classes/DWTableViewController.m; sourceTree = "<group>"; };
+		26D3CB241363C671007CE094 /* DWTouchesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTouchesManager.h; path = Classes/DWTouchesManager.h; sourceTree = "<group>"; };
+		26D3CB251363C671007CE094 /* DWTouchesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTouchesManager.m; path = Classes/DWTouchesManager.m; sourceTree = "<group>"; };
+		26D3CB271363C6A4007CE094 /* DWTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTouch.h; path = Classes/DWTouch.h; sourceTree = "<group>"; };
+		26D3CB281363C6A4007CE094 /* DWTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTouch.m; path = Classes/DWTouch.m; sourceTree = "<group>"; };
 		26DB36EE131B57A1004EC153 /* keyboard_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = keyboard_bg.png; path = resources/keyboard_bg.png; sourceTree = "<group>"; };
 		26DB36EF131B57A1004EC153 /* keyboard_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "keyboard_bg@2x.png"; path = "resources/keyboard_bg@2x.png"; sourceTree = "<group>"; };
 		26DC2E5F130A877A00FC1F3A /* DWPlaceDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceDetailsViewController.h; path = Classes/DWPlaceDetailsViewController.h; sourceTree = "<group>"; };
@@ -915,16 +921,6 @@
 		BBD1EAD212EC1218003C1BC7 /* DWSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSignupViewController.h; path = Classes/DWSignupViewController.h; sourceTree = "<group>"; };
 		BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSignupViewController.m; path = Classes/DWSignupViewController.m; sourceTree = "<group>"; };
 		BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWSignupViewController.xib; path = Classes/DWSignupViewController.xib; sourceTree = "<group>"; };
-		BBD8372E1363991A00326E1F /* DWNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNotificationsViewController.h; path = Classes/DWNotificationsViewController.h; sourceTree = "<group>"; };
-		BBD8372F1363991A00326E1F /* DWNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNotificationsViewController.m; path = Classes/DWNotificationsViewController.m; sourceTree = "<group>"; };
-		BBD8373113639B5500326E1F /* button_notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_notifications.png; path = resources/button_notifications.png; sourceTree = "<group>"; };
-		BBD8373213639B5500326E1F /* button_notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_notifications@2x.png"; path = "resources/button_notifications@2x.png"; sourceTree = "<group>"; };
-		BBD8373513639F3600326E1F /* DWTouchesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTouchesManager.h; path = Classes/DWTouchesManager.h; sourceTree = "<group>"; };
-		BBD8373613639F3600326E1F /* DWTouchesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTouchesManager.m; path = Classes/DWTouchesManager.m; sourceTree = "<group>"; };
-		BBD8373B1363AF4200326E1F /* DWTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTableViewController.h; path = Classes/DWTableViewController.h; sourceTree = "<group>"; };
-		BBD8373C1363AF4200326E1F /* DWTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTableViewController.m; path = Classes/DWTableViewController.m; sourceTree = "<group>"; };
-		BBD8373E1363BC0400326E1F /* DWTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTouch.h; path = Classes/DWTouch.h; sourceTree = "<group>"; };
-		BBD8373F1363BC0400326E1F /* DWTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTouch.m; path = Classes/DWTouch.m; sourceTree = "<group>"; };
 		BBDB664412EF92D50051A45C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BBE24F7C13562E4700A90B44 /* nav_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nav_bar.png; path = resources/nav_bar.png; sourceTree = "<group>"; };
@@ -1365,6 +1361,8 @@
 		26EF03B012E77CD600E7BA76 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				26D3CB271363C6A4007CE094 /* DWTouch.h */,
+				26D3CB281363C6A4007CE094 /* DWTouch.m */,
 				BBB519F212F9FAC10024086F /* DWPoolObject.h */,
 				BBB519F312F9FAC10024086F /* DWPoolObject.m */,
 				26EF044C12E7A45000E7BA76 /* DWItem.h */,
@@ -1377,8 +1375,6 @@
 				26EF048512E7AC1700E7BA76 /* DWUser.m */,
 				BBE52FE512F4078600A4F935 /* DWFollowing.h */,
 				BBE52FE612F4078600A4F935 /* DWFollowing.m */,
-				BBD8373E1363BC0400326E1F /* DWTouch.h */,
-				BBD8373F1363BC0400326E1F /* DWTouch.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1493,6 +1489,10 @@
 		BB3BE0B2133A9CE70055FED0 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				26D3CB211363C656007CE094 /* DWTableViewController.h */,
+				26D3CB221363C656007CE094 /* DWTableViewController.m */,
+				26D3CB1E1363C617007CE094 /* DWNotificationsViewController.h */,
+				26D3CB1F1363C617007CE094 /* DWNotificationsViewController.m */,
 				BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */,
 				BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */,
 				BB17BAE312EA3A3F00DD42FC /* DWLoginViewController.h */,
@@ -1509,10 +1509,6 @@
 				BB6419AB134BAE93002A2325 /* DWCreateViewController.m */,
 				BBF899C813510E7800B332CA /* DWChooseLocationViewController.h */,
 				BBF899C913510E7800B332CA /* DWChooseLocationViewController.m */,
-				BBD8372E1363991A00326E1F /* DWNotificationsViewController.h */,
-				BBD8372F1363991A00326E1F /* DWNotificationsViewController.m */,
-				BBD8373B1363AF4200326E1F /* DWTableViewController.h */,
-				BBD8373C1363AF4200326E1F /* DWTableViewController.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1842,12 +1838,12 @@
 		BBB51A0812F9FB490024086F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				26D3CB241363C671007CE094 /* DWTouchesManager.h */,
+				26D3CB251363C671007CE094 /* DWTouchesManager.m */,
 				BB641D5A134D3E20002A2325 /* DWItemsManager.h */,
 				BB641D5B134D3E20002A2325 /* DWItemsManager.m */,
 				BB641C58134D33B3002A2325 /* DWPlacesManager.h */,
 				BB641C59134D33B3002A2325 /* DWPlacesManager.m */,
-				BBD8373513639F3600326E1F /* DWTouchesManager.h */,
-				BBD8373613639F3600326E1F /* DWTouchesManager.m */,
 				BB33134112F2628F00B713F9 /* DWGUIManager.h */,
 				BB33134212F2628F00B713F9 /* DWGUIManager.m */,
 			);
@@ -2429,6 +2425,10 @@
 				BB33CB8C135FAED700BDBE98 /* DWNavigationBar.m in Sources */,
 				2612D6261362556E005AE9E5 /* DWPlaceTitleView.m in Sources */,
 				2612D62913637E46005AE9E5 /* DWUserTitleView.m in Sources */,
+				26D3CB201363C617007CE094 /* DWNotificationsViewController.m in Sources */,
+				26D3CB231363C656007CE094 /* DWTableViewController.m in Sources */,
+				26D3CB261363C671007CE094 /* DWTouchesManager.m in Sources */,
+				26D3CB291363C6A4007CE094 /* DWTouch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
