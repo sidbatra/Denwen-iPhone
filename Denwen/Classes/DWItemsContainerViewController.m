@@ -218,8 +218,9 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 #pragma mark -
 #pragma mark UITouchEvents
 
+//----------------------------------------------------------------------------------------------------
 - (void)didTapNotificationsButton:(UIButton*)button {
-    DWNotificationsViewController *notificationsView = [[DWNotificationsViewController alloc] initWithStyle:UITableViewStylePlain];
+    DWNotificationsViewController *notificationsView = [[DWNotificationsViewController alloc] initWithDelegate:self];
     [self.navigationController pushViewController:notificationsView animated:YES];
     [notificationsView release];
 }

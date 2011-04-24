@@ -4,154 +4,275 @@
 //
 
 #import "DWNotificationsViewController.h"
+#import "DWTouchesManager.h"
+#import "DWTouch.h"
+#import "DWRequestsManager.h"
+#import "DWItemFeedViewController.h"
+#import "EGORefreshTableHeaderView.h"
 #import "DWGUIManager.h"
 
+static NSInteger const kTouchesPerPage      = 20;
+static NSInteger const kTouchCellHeight     = 80;
+static NSString* const kMsgNoItemsTouched   = @"No one has touched your items";
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWNotificationsViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+@synthesize touchesManager      = _touchesManager;
+
+//----------------------------------------------------------------------------------------------------
+- (id)initWithDelegate:(id)delegate {
+    
+	self = [super init];
+	
+	if (self) {
+		
+		_delegate       = delegate;
+        _rowsPerPage    = kTouchesPerPage;
+		
+		self.touchesManager     = [[[DWTouchesManager alloc] init] autorelease];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(touchesLoaded:) 
+													 name:kNTouchesLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(touchesError:) 
+													 name:kNTouchesError
+												   object:nil];
+
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(attachmentImageLoaded:) 
+													 name:kNImgSliceAttachmentFinalized
+												   object:nil];
+	}
+	
+	return self;
 }
 
-- (void)dealloc
-{
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    self.touchesManager     = nil;
+    
     [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:nil];
+    self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
+    
+    [self loadData];
 }
 
-- (void)viewDidUnload
-{
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+//----------------------------------------------------------------------------------------------------
+- (void)addNewTouch:(DWTouch*)touch {
+	
+	if(_tableViewUsage != kTableViewAsData) {
+		_tableViewUsage = kTableViewAsData;
+		[self.tableView reloadData];
+	}
+	
+	[self.touchesManager addTouch:touch
+                          atIndex:0];
+	
+	NSIndexPath *touchIndexPath = [NSIndexPath indexPathForRow:0
+													 inSection:0];
+	NSArray *indexPaths			= [NSArray arrayWithObjects:touchIndexPath,nil];
+	
+	[self.tableView insertRowsAtIndexPaths:indexPaths
+						  withRowAnimation:UITableViewRowAnimationRight];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)totalRows {
+    return [self.touchesManager totalTouches];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)dataCellHeight {
+    return kTouchCellHeight;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
+//----------------------------------------------------------------------------------------------------
+- (void)loadImagesForOnscreenRows {
+	NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+	
+	for (NSIndexPath *indexPath in visiblePaths) { 
+		DWTouch *touch = [self.touchesManager getTouch:indexPath.row];
+		
+		[touch startDownloadingImages];
+	}
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+//----------------------------------------------------------------------------------------------------
+- (void)loadData {
+    [super loadData];
+    
+    [[DWRequestsManager sharedDWRequestsManager] getTouchesForCurrentUser:_currentPage];
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
+//----------------------------------------------------------------------------------------------------
+- (void)attachmentImageLoaded:(NSNotification*)notification {
+	
+	if(_tableViewUsage != kTableViewAsData)
+		return;
+	
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+    
+	NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+	
+	for (NSIndexPath *indexPath in visiblePaths) {            
+        DWTouch *touch = [self.touchesManager getTouch:indexPath.row];
+		
+		if(touch.attachment.databaseID == resourceID) {
+			/*
+            DWPlaceFeedCell *cell = nil;
+            cell = (DWPlaceFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+            
+			[cell setPlaceImage:[info objectForKey:kKeyImage]];
+			[cell redisplay];
+             */
+		}
+	}	
+	
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
 
-    // Return the number of rows in the section.
-    return 1;
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
+//----------------------------------------------------------------------------------------------------
+- (void)touchesLoaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
+		NSArray *touches = [[info objectForKey:kKeyBody] objectForKey:kKeyTouches];
+		        
+        [_touchesManager populateTouches:touches
+                         withClearStatus:_isReloading];
+        		
+        if([self totalRows])
+            _tableViewUsage = kTableViewAsData;
+        else {
+            _tableViewUsage         = kTableViewAsMessage;
+            self.messageCellText    = kMsgNoItemsTouched;
+        }
+	}
+	
+	[self finishedLoading];
+	[self.tableView reloadData];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)touchesError:(NSNotification*)notification {
+	[self finishedLoading];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+//----------------------------------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = nil;
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+	if(_tableViewUsage == kTableViewAsData && [self totalRows]) {
+           
+        DWTouch *touch = [self.touchesManager getTouch:indexPath.row];
+
+            /*
+           
+           DWPlaceFeedCell *cell = (DWPlaceFeedCell*)[tableView dequeueReusableCellWithIdentifier:kPlaceFeedCellIdentifier];
+           
+           if (!cell) 
+               cell = [[[DWPlaceFeedCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                              reuseIdentifier:kPlaceFeedCellIdentifier] autorelease];
+           
+           [cell reset];
+           cell.placeName  = place.name;
+           cell.placeDetails = [place displayAddress];
+           
+           //if (!tableView.dragging && !tableView.decelerating)
+           //	[place startPreviewDownload];
+           
+           if (place.attachment && place.attachment.sliceImage)
+               [cell setPlaceImage:place.attachment.sliceImage];
+           else{
+               [cell setPlaceImage:nil];
+               [place startPreviewDownload];
+           }	
+           
+           
+           //if(!place.attachment)
+           //	cell.placeData = [place sliceText];
+           
+           
+           [cell redisplay];
+           
+           return cell;
+             */
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTVDefaultCellIdentifier];
+		
+		if (!cell) 
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+										   reuseIdentifier:kTVDefaultCellIdentifier] autorelease];
+		
+		cell.selectionStyle					= UITableViewCellSelectionStyleNone;
+		cell.contentView.backgroundColor	= [UIColor blackColor];
+        cell.textLabel.textColor            = [UIColor whiteColor];
+        cell.textLabel.text                 = [touch displayText];
+		
+		return cell;
+
+       }
+	else {
+        cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     }
     
-    // Configure the cell...
-    
-    return cell;
+	return cell;	
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITableViewDelegate
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+//----------------------------------------------------------------------------------------------------
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 @end

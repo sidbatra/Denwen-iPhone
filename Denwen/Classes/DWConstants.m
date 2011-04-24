@@ -91,6 +91,7 @@ NSString* const kKeyFileType				= @"filetype";
 NSString* const kKeyActualURL				= @"actual_url";
 NSString* const kKeyCreatedAt				= @"created_at_timestamp";
 NSString* const kKeyCondensedData			= @"condensed_data";
+NSString* const kKeyTouches                 = @"touches";
 NSString* const kKeyTouchesCount			= @"touches_count";
 NSString* const kKeyTouchID					= @"touch_id";
 NSString* const kKeyData					= @"data";
