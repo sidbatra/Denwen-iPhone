@@ -29,10 +29,11 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
         [profilePicButton setFrame:CGRectMake(0, -7, 60, 60)];
         [self addSubview:profilePicButton];
         
-        UIImageView *profilePicOverlay = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        profilePicOverlay = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
         
         profilePicOverlay.image                     = [UIImage imageNamed:kImgOverlayImage];
         profilePicOverlay.userInteractionEnabled    = NO;
+        profilePicOverlay.hidden                    = YES;
         
         [self addSubview:profilePicOverlay];
         [profilePicOverlay release];
@@ -47,6 +48,7 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
 
 //----------------------------------------------------------------------------------------------------
 -(void)setProfilePicButtonBackgroundImage:(UIImage*)image {
+    profilePicOverlay.hidden = NO;
     [profilePicButton setBackgroundImage:image 
                                 forState:UIControlStateNormal];
 }

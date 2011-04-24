@@ -10,7 +10,8 @@
  * Custom small user image view for userviewcontroller nav bar
  */
 @interface DWSmallProfilePicView : UIView {
-    UIButton *profilePicButton;
+    UIButton        *profilePicButton;
+    UIImageView     *profilePicOverlay;
 }
 
 
