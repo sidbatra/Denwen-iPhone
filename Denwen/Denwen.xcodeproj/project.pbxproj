@@ -112,7 +112,6 @@
 		2661B1A31319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2661B1A11319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png */; };
 		266BBFCD1363D5EF00EBF1AD /* user_photo_gloss.png in Resources */ = {isa = PBXBuildFile; fileRef = 266BBFCB1363D5EF00EBF1AD /* user_photo_gloss.png */; };
 		266BBFCE1363D5EF00EBF1AD /* user_photo_gloss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 266BBFCC1363D5EF00EBF1AD /* user_photo_gloss@2x.png */; };
-		266BBFD71363D77800EBF1AD /* DWSmallProfilePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 266BBFD61363D77800EBF1AD /* DWSmallProfilePicView.m */; };
 		2672240D131B3F9600654D88 /* modalview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2672240B131B3F9600654D88 /* modalview_bg.png */; };
 		2672240E131B3F9600654D88 /* modalview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2672240C131B3F9600654D88 /* modalview_bg@2x.png */; };
 		268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B56811356682800BB43DC /* DWCameraOverlayViewController.m */; };
@@ -357,6 +356,9 @@
 		BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */; };
 		BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */; };
 		BBD8374A1363BD3C00326E1F /* DWTouchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD837491363BD3B00326E1F /* DWTouchCell.m */; };
+		BBD837641363D86C00326E1F /* DWSmallProfilePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBD837631363D86C00326E1F /* DWSmallProfilePicView.m */; };
+		BBD837671363D88700326E1F /* button_notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD837651363D88700326E1F /* button_notifications.png */; };
+		BBD837681363D88700326E1F /* button_notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD837661363D88700326E1F /* button_notifications@2x.png */; };
 		BBDB664512EF92D50051A45C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB664412EF92D50051A45C /* MapKit.framework */; };
 		BBDB66A312EF9A0F0051A45C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */; };
 		BBE24F7E13562E4700A90B44 /* nav_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24F7C13562E4700A90B44 /* nav_bar.png */; };
@@ -548,8 +550,6 @@
 		2661B1A11319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mediabar_keyboard_bg@2x.png"; path = "resources/mediabar_keyboard_bg@2x.png"; sourceTree = "<group>"; };
 		266BBFCB1363D5EF00EBF1AD /* user_photo_gloss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user_photo_gloss.png; path = resources/user_photo_gloss.png; sourceTree = "<group>"; };
 		266BBFCC1363D5EF00EBF1AD /* user_photo_gloss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user_photo_gloss@2x.png"; path = "resources/user_photo_gloss@2x.png"; sourceTree = "<group>"; };
-		266BBFD51363D77800EBF1AD /* DWSmallProfilePicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSmallProfilePicView.h; path = Classes/DWSmallProfilePicView.h; sourceTree = "<group>"; };
-		266BBFD61363D77800EBF1AD /* DWSmallProfilePicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSmallProfilePicView.m; path = Classes/DWSmallProfilePicView.m; sourceTree = "<group>"; };
 		2672240B131B3F9600654D88 /* modalview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = modalview_bg.png; path = resources/modalview_bg.png; sourceTree = "<group>"; };
 		2672240C131B3F9600654D88 /* modalview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modalview_bg@2x.png"; path = "resources/modalview_bg@2x.png"; sourceTree = "<group>"; };
 		268B56801356682800BB43DC /* DWCameraOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCameraOverlayViewController.h; path = Classes/DWCameraOverlayViewController.h; sourceTree = "<group>"; };
@@ -931,6 +931,10 @@
 		BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWSignupViewController.xib; path = Classes/DWSignupViewController.xib; sourceTree = "<group>"; };
 		BBD837481363BD3B00326E1F /* DWTouchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTouchCell.h; path = Classes/DWTouchCell.h; sourceTree = "<group>"; };
 		BBD837491363BD3B00326E1F /* DWTouchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTouchCell.m; path = Classes/DWTouchCell.m; sourceTree = "<group>"; };
+		BBD837621363D86C00326E1F /* DWSmallProfilePicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSmallProfilePicView.h; path = Classes/DWSmallProfilePicView.h; sourceTree = "<group>"; };
+		BBD837631363D86C00326E1F /* DWSmallProfilePicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSmallProfilePicView.m; path = Classes/DWSmallProfilePicView.m; sourceTree = "<group>"; };
+		BBD837651363D88700326E1F /* button_notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_notifications.png; path = resources/button_notifications.png; sourceTree = "<group>"; };
+		BBD837661363D88700326E1F /* button_notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_notifications@2x.png"; path = "resources/button_notifications@2x.png"; sourceTree = "<group>"; };
 		BBDB664412EF92D50051A45C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BBDB66A212EF9A0F0051A45C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BBE24F7C13562E4700A90B44 /* nav_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nav_bar.png; path = resources/nav_bar.png; sourceTree = "<group>"; };
@@ -1080,6 +1084,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBD837651363D88700326E1F /* button_notifications.png */,
+				BBD837661363D88700326E1F /* button_notifications@2x.png */,
 				266BBFCB1363D5EF00EBF1AD /* user_photo_gloss.png */,
 				266BBFCC1363D5EF00EBF1AD /* user_photo_gloss@2x.png */,
 				2612D62A13639610005AE9E5 /* static_button_active.png */,
@@ -1349,8 +1355,8 @@
 		26EF03AF12E77CAD00E7BA76 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				266BBFD51363D77800EBF1AD /* DWSmallProfilePicView.h */,
-				266BBFD61363D77800EBF1AD /* DWSmallProfilePicView.m */,
+				BBD837621363D86C00326E1F /* DWSmallProfilePicView.h */,
+				BBD837631363D86C00326E1F /* DWSmallProfilePicView.m */,
 				BB33CB8A135FAED700BDBE98 /* DWNavigationBar.h */,
 				BB33CB8B135FAED700BDBE98 /* DWNavigationBar.m */,
 				BB33CB6E135FA93C00BDBE98 /* DWTitleView.h */,
@@ -2321,6 +2327,8 @@
 				2612D62D13639610005AE9E5 /* static_button_active@2x.png in Resources */,
 				266BBFCD1363D5EF00EBF1AD /* user_photo_gloss.png in Resources */,
 				266BBFCE1363D5EF00EBF1AD /* user_photo_gloss@2x.png in Resources */,
+				BBD837671363D88700326E1F /* button_notifications.png in Resources */,
+				BBD837681363D88700326E1F /* button_notifications@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2456,7 +2464,7 @@
 				26D3CB261363C671007CE094 /* DWTouchesManager.m in Sources */,
 				26D3CB291363C6A4007CE094 /* DWTouch.m in Sources */,
 				BBD8374A1363BD3C00326E1F /* DWTouchCell.m in Sources */,
-				266BBFD71363D77800EBF1AD /* DWSmallProfilePicView.m in Sources */,
+				BBD837641363D86C00326E1F /* DWSmallProfilePicView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
