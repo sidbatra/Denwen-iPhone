@@ -41,9 +41,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 - (void)handleLiveNotificationWithUserInfo:(NSDictionary*)userInfo {
 	
 	NSDictionary *aps		= (NSDictionary*)[userInfo objectForKey:kKeyAPS];
-	NSString *badgeString	= [aps objectForKey:kKeyBadge];
-	NSString *alertString	= [aps objectForKey:kKeyAlert];
-	
+	//NSString *badgeString	= [aps objectForKey:kKeyBadge];
+	NSDictionary *alert     = [aps objectForKey:kKeyAlert];
+    
+	/*
 	if(badgeString) {
 		self.unreadItems = [badgeString integerValue];
 		[[UIApplication sharedApplication] setApplicationIconBadgeNumber:self.unreadItems];
@@ -56,21 +57,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 															object:nil
 														  userInfo:userInfo];
 	}
-	
-	if(alertString && [UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-		 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kAlertTitle
-														 message:alertString 
-														delegate:nil 
-											   cancelButtonTitle:kCancelTitle
-											   otherButtonTitles: nil];
-		 [alert show];
-		 [alert release];
+	*/
+    
+	if(alert && [UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+		 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:kAlertTitle
+                                                             message:[alert objectForKey:kKeyBody] 
+                                                            delegate:nil 
+                                                   cancelButtonTitle:kCancelTitle
+                                                   otherButtonTitles: nil];
+		 [alertView show];
+		 [alertView release];
 	}
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)handleBackgroundNotification {
-	self.unreadItems = [UIApplication sharedApplication].applicationIconBadgeNumber;
+	/*
+    self.unreadItems = [UIApplication sharedApplication].applicationIconBadgeNumber;
 	
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
 							  [NSNumber numberWithInt:kPNBackground],kKeyNotificationType,
@@ -79,6 +82,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNNewApplicationBadge 
 														object:nil
 													  userInfo:userInfo];
+     */
 }
 
 //----------------------------------------------------------------------------------------------------
