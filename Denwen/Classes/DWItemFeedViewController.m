@@ -48,11 +48,6 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 												 selector:@selector(mediumAttachmentLoaded:) 
 													 name:kNImgMediumAttachmentLoaded
 												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(smallUserImageLoaded:) 
-													 name:kNImgSmallUserLoaded
-												   object:nil];
 	}
 	return self;
 }
@@ -196,28 +191,6 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
-
-//----------------------------------------------------------------------------------------------------
-- (void)smallUserImageLoaded:(NSNotification*)notification {
-	/*
-	if(_tableViewUsage != kTableViewAsData || ![_itemManager totalItems])
-		return;
-	
-	NSDictionary *info		= [notification userInfo];
-	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
-	
-	NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
-	
-	for (NSIndexPath *indexPath in visiblePaths) {            
-		DWItem *item = [_itemManager getItem:indexPath.row];
-		
-		if(item.user.databaseID == resourceID) {
-			DWItemFeedCell *cell = (DWItemFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-			cell.userImage.image = [info objectForKey:kKeyImage];
-		}
-	}*/
-}
-
 //----------------------------------------------------------------------------------------------------
 - (void)mediumAttachmentLoaded:(NSNotification*)notification {
 	
@@ -234,7 +207,6 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		
 		if(item.attachment.databaseID == resourceID) {
 			DWItemFeedCell *cell = (DWItemFeedCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-			//[cell.attachmentImage setBackgroundImage:[info objectForKey:kKeyImage] forState:UIControlStateNormal];	
             [cell setItemImage:[info objectForKey:kKeyImage]];
             [cell redisplay];
 		}

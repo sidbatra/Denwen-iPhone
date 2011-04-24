@@ -185,6 +185,11 @@ NSString* const kNQueueItemProgressUpdated		= @"NQueueItemProgressUpdated";
 NSString* const kNCreationQueueUpdated			= @"NCreationQueueUpdated";
 
 //----------------------------------------------------------------------------------------------------
+NSInteger const kNavTitleViewX                  = 60;
+NSInteger const kNavTitleViewWidth              = 200;
+NSInteger const kNavTitleViewHeight             = 44;
+
+//----------------------------------------------------------------------------------------------------
 NSInteger const kDWButtonTypeStatic             = 0;
 NSInteger const kDWButtonTypeDynamic            = 1;
 

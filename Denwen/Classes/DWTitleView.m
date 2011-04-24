@@ -6,8 +6,8 @@
 #import "DWTitleView.h"
 #import "DWConstants.h"
 
-static NSString* const kImgStaticButton                 = @"button_follow.png";
-static NSString* const kImgStaticButtonActive           = @"button_follow_active.png";
+static NSString* const kImgStaticButton                 = @"loading_bar_fail.png";
+static NSString* const kImgStaticButtonActive           = @"static_button_active.png";
 static NSString* const kImgDynamicButton                = @"button_follow.png";
 static NSString* const kImgDynamicButtonActive          = @"button_follow_active.png";
 
@@ -98,14 +98,14 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
 
 //----------------------------------------------------------------------------------------------------
 - (void)createTitleLabel {
-    titleLabel                              = [[UILabel alloc] initWithFrame:CGRectMake(0, 6, 200, 18)];
+    titleLabel                              = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 180, 18)];
     
     titleLabel.userInteractionEnabled       = NO;
     titleLabel.textColor                    = [UIColor whiteColor];
     titleLabel.textAlignment                = UITextAlignmentCenter;
     titleLabel.backgroundColor              = [UIColor clearColor];
     titleLabel.font                         = [UIFont fontWithName:@"HelveticaNeue-Bold" 
-                                                              size:16];
+                                                              size:15];
     
     [self addSubview:titleLabel];
     [titleLabel release];
@@ -113,7 +113,7 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
 
 //----------------------------------------------------------------------------------------------------
 - (void)createSubtitleLabel {
-    subtitleLabel                           = [[UILabel alloc] initWithFrame:CGRectMake(0, 23, 200, 18)];
+    subtitleLabel                           = [[UILabel alloc] initWithFrame:CGRectMake(10, 22, 180, 18)];
     
     subtitleLabel.userInteractionEnabled    = NO;
     subtitleLabel.textColor                 = [UIColor colorWithRed:255
@@ -133,14 +133,14 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
 //----------------------------------------------------------------------------------------------------
 - (void)createStandaloneTitleLabel {
     standaloneTitleLabel                                = [[UILabel alloc] 
-                                                           initWithFrame:CGRectMake(0, 6, 200, 18)];
+                                                           initWithFrame:CGRectMake(10, 5, 180, 18)];
     
     standaloneTitleLabel.userInteractionEnabled         = NO;
     standaloneTitleLabel.textColor                      = [UIColor whiteColor];
     standaloneTitleLabel.textAlignment                  = UITextAlignmentCenter;
     standaloneTitleLabel.backgroundColor                = [UIColor clearColor];
     standaloneTitleLabel.font                           = [UIFont fontWithName:@"HelveticaNeue-Bold" 
-                                                                          size:16];
+                                                                          size:15];
     
     [self addSubview:standaloneTitleLabel];
     [standaloneTitleLabel release];

@@ -180,6 +180,13 @@ extern NSString* const kNQueueItemProgressUpdated;
 extern NSString* const kNCreationQueueUpdated;
 
 /**
+ * Nav bar title view dimensions
+ */
+extern NSInteger const kNavTitleViewX;
+extern NSInteger const kNavTitleViewWidth;
+extern NSInteger const kNavTitleViewHeight;
+
+/**
  * Nav bar button types
  */
 extern NSInteger const kDWButtonTypeStatic;

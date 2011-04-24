@@ -11,11 +11,9 @@
 #import "DWPlaceCell.h"
 #import "DWItemFeedCell.h"
 #import "DWSession.h"
+#import "DWConstants.h"
 
 static NSInteger const kNewItemRowInTableView				= 0;
-static NSInteger const kFollowPlaceViewX                    = 60;
-static NSInteger const kFollowPlaceViewWidth				= 200;
-static NSInteger const kFollowPlaceViewHeight				= 44;
 static NSString* const kPlaceViewCellIdentifier				= @"PlaceViewCell";
 static NSString* const kImgPullToRefreshBackground			= @"refreshfade.png";
 static NSString* const kMsgActionSheetCancel				= @"Cancel";
@@ -98,7 +96,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)updateFollowView {
+- (void)updatePlaceTitleView {
     if (self.following) 
         [self.placeTitleView showFollowedStateFor:self.place.name 
                                 andFollowingCount:[self.place followersCount]];
@@ -114,9 +112,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
     self.navigationItem.rightBarButtonItem  = [DWGUIManager placeDetailsButton:self];
     self.navigationItem.titleView           = nil;
-        		
-	[self updateFollowView];
-	
+        			
 	if(!_isLoadedOnce)
 		[self loadItems];
 }
@@ -180,7 +176,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 
 		[self updateFollowing:[body objectForKey:kKeyFollowing]];
 		
-		[self updateFollowView];
+		[self updatePlaceTitleView];
 		
 		_tableViewUsage = kTableViewAsData;			
 		_isLoadedOnce	= YES;
@@ -212,7 +208,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		[self updateFollowing:[info objectForKey:kKeyBody]];
 		[self.place updateFollowerCount:1];
 		
-		[self updateFollowView];
+		[self updatePlaceTitleView];
 	}
 }
 
@@ -228,7 +224,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 		self.following = nil;
 		[self.place updateFollowerCount:-1];
 		
-		[self updateFollowView];
+		[self updatePlaceTitleView];
 	}
 }
 
@@ -299,7 +295,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark FollowPlaceViewDelegate
+#pragma mark PlaceTitleViewDelegate
 //----------------------------------------------------------------------------------------------------
 - (void)didTapTitleView {
     if (self.following) {
@@ -361,8 +357,8 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 - (void)willShowOnNav {
     if (!self.placeTitleView)
         self.placeTitleView = [[[DWPlaceTitleView alloc] 
-                                initWithFrame:CGRectMake(kFollowPlaceViewX, 0,
-                                                         kFollowPlaceViewWidth,kFollowPlaceViewHeight) 
+                                initWithFrame:CGRectMake(kNavTitleViewX, 0,
+                                                         kNavTitleViewWidth,kNavTitleViewHeight) 
                                      delegate:self 
                                     titleMode:kNavTitleAndSubtitleMode 
                                 andButtonType:kDWButtonTypeDynamic] autorelease];

@@ -23,6 +23,8 @@
 	
 	UIImage		*_smallPreviewImage;
 	UIImage		*_mediumPreviewImage;
+    
+    NSInteger   _followingCount;
 	
 	BOOL		_isSmallDownloading;
 	BOOL		_isMediumDownloading;
@@ -149,6 +151,11 @@
  * Returns the full name of the user
  */
 - (NSString*)fullName;
+
+/**
+ * Returns the number of following places for the user
+ */
+- (NSInteger)followingCount;
 
 @end
 

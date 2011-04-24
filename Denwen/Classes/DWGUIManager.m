@@ -63,12 +63,36 @@ static NSString* const kImgPlaceDetailsButtonActive     = @"button_map.png";
 // Place details navigation bar button
 //
 + (UIBarButtonItem*)placeDetailsButton:(id)target {
-	UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundImage:[UIImage imageNamed:kImgPlaceDetailsButton] forState:UIControlStateNormal];
-    [button setBackgroundImage:[UIImage imageNamed:kImgPlaceDetailsButtonActive] forState:UIControlStateHighlighted];
-	[button addTarget:target action:@selector(didTapPlaceDetailsButton:event:) 
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setBackgroundImage:[UIImage imageNamed:kImgPlaceDetailsButton] 
+                      forState:UIControlStateNormal];
+    
+    [button setBackgroundImage:[UIImage imageNamed:kImgPlaceDetailsButtonActive] 
+                      forState:UIControlStateHighlighted];
+    
+	[button addTarget:target 
+               action:@selector(didTapPlaceDetailsButton:event:) 
      forControlEvents:UIControlEventTouchUpInside];
+    
 	[button setFrame:CGRectMake(0, 0, 55, 44)];
+	
+	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+}
+
+// User profile pic navigation bar button
+//
++ (UIBarButtonItem*)profilePicButton:(id)target withBackgroundImage:(UIImage*)image {
+	UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setBackgroundImage:image 
+                      forState:UIControlStateNormal];
+    
+	[button addTarget:target 
+               action:@selector(didTapSmallUserImage:event:) 
+     forControlEvents:UIControlEventTouchUpInside];
+	
+    [button setFrame:CGRectMake(5, 0, 55, 44)];
 	
 	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
 }

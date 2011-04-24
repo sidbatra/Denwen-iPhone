@@ -7,19 +7,20 @@
 
 #import "DWItemFeedViewController.h"
 #import "DWMediaPickerController.h"
+#import "DWUserTitleView.h"
 #import "DWUser.h"
 
-#import "MBProgressHUD.h"
 
 @protocol DWMediaPickerControllerDelegate;
 
 /**
  * Display details about a user and the items posted by them
  */
-@interface DWUserViewController : DWItemFeedViewController <UIActionSheetDelegate,DWMediaPickerControllerDelegate> {
-	DWUser			*_user;
-	NSInteger		_uploadID;
-	MBProgressHUD	*_mbProgressIndicator;
+@interface DWUserViewController : DWItemFeedViewController {
+	DWUser              *_user;
+    DWUserTitleView     *_userTitleView;
+    
+    NSInteger           _uploadID;
 }
 
 /**
@@ -28,9 +29,9 @@
 @property (nonatomic,retain) DWUser *user;
 
 /**
- * Progress indicator for displaying spinners 
+ * Subview for displaying username and following count
  */
-@property (nonatomic,retain) MBProgressHUD *mbProgressIndicator;
+@property (nonatomic,retain) DWUserTitleView *userTitleView;
 
 /**
  * Init with user whose view is being displayed and delegate
