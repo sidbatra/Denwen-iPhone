@@ -9,7 +9,7 @@
 #import "DWConstants.h"
 
 #define kApplicationFrame	CGRectMake(0,20,320,460)
-#define kFullScreenFrame	CGRectMake(0,0,320,480)
+#define kFullScreenFrame	CGRectMake(0,0,320,460)
 #define kResetFrameDelay    0.3
 
 static NSString* const kImgTopShadow        = @"shadow_top.png";
