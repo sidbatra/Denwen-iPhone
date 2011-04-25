@@ -26,7 +26,7 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
                              action:@selector(didTapSmallUserImage:event:) 
                    forControlEvents:UIControlEventTouchUpInside];
         
-        [profilePicButton setFrame:CGRectMake(0, -7, 60, 60)];
+        [profilePicButton setFrame:CGRectMake(0, -8, 60, 60)];
         [self addSubview:profilePicButton];
         
         profilePicOverlay = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];

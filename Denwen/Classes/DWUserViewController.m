@@ -205,10 +205,13 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 		
 		[self.user update:[body objectForKey:kKeyUser]];
         [self.user startSmallPreviewDownload];
+        
+        if (self.user.smallPreviewImage) 
+            [self setSmallUserImage:self.user.smallPreviewImage];
 
 		_isLoadedOnce = YES;
 		
-		if([self.itemManager totalItems]==1 && [self.user isCurrentUser]) {
+		if([self.itemManager totalItems]==0 && [self.user isCurrentUser]) {
 			self.messageCellText	= kMsgCurrentUserNoItems;
 			_tableViewUsage			= kTableViewAsProfileMessage;
 		}
@@ -273,7 +276,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 														message:kMsgImageUploadErrorText
 													   delegate:nil 
 											  cancelButtonTitle:kMsgImageUploadErrorCancelButton 
-											  otherButtonTitles: nil];
+											  otherButtonTitles:nil];
 		[alert show];
 		[alert release];
 	}

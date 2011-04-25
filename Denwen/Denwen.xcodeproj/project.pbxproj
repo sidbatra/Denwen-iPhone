@@ -108,6 +108,7 @@
 		2640A40F130A2A5700E0AEAF /* arrow_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2640A40D130A2A5700E0AEAF /* arrow_button@2x.png */; };
 		265C6B0B135D082500331AD0 /* timer.png in Resources */ = {isa = PBXBuildFile; fileRef = 265C6B09135D082500331AD0 /* timer.png */; };
 		265C6B0C135D082500331AD0 /* timer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 265C6B0A135D082500331AD0 /* timer@2x.png */; };
+		265CBE1A1363DDBC00CC2C83 /* DWProfilePicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265CBE191363DDBC00CC2C83 /* DWProfilePicViewController.m */; };
 		2661B1A21319F7BD00A89D13 /* mediabar_keyboard_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2661B1A01319F7BD00A89D13 /* mediabar_keyboard_bg.png */; };
 		2661B1A31319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2661B1A11319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png */; };
 		266BBFCD1363D5EF00EBF1AD /* user_photo_gloss.png in Resources */ = {isa = PBXBuildFile; fileRef = 266BBFCB1363D5EF00EBF1AD /* user_photo_gloss.png */; };
@@ -546,6 +547,8 @@
 		2640A40D130A2A5700E0AEAF /* arrow_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow_button@2x.png"; path = "resources/arrow_button@2x.png"; sourceTree = "<group>"; };
 		265C6B09135D082500331AD0 /* timer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timer.png; path = resources/timer.png; sourceTree = "<group>"; };
 		265C6B0A135D082500331AD0 /* timer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "timer@2x.png"; path = "resources/timer@2x.png"; sourceTree = "<group>"; };
+		265CBE181363DDBC00CC2C83 /* DWProfilePicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWProfilePicViewController.h; path = Classes/DWProfilePicViewController.h; sourceTree = "<group>"; };
+		265CBE191363DDBC00CC2C83 /* DWProfilePicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWProfilePicViewController.m; path = Classes/DWProfilePicViewController.m; sourceTree = "<group>"; };
 		2661B1A01319F7BD00A89D13 /* mediabar_keyboard_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mediabar_keyboard_bg.png; path = resources/mediabar_keyboard_bg.png; sourceTree = "<group>"; };
 		2661B1A11319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mediabar_keyboard_bg@2x.png"; path = "resources/mediabar_keyboard_bg@2x.png"; sourceTree = "<group>"; };
 		266BBFCB1363D5EF00EBF1AD /* user_photo_gloss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user_photo_gloss.png; path = resources/user_photo_gloss.png; sourceTree = "<group>"; };
@@ -1503,6 +1506,8 @@
 			children = (
 				BB3311F512F24A4100B713F9 /* DWUserViewController.h */,
 				BB3311F612F24A4100B713F9 /* DWUserViewController.m */,
+				265CBE181363DDBC00CC2C83 /* DWProfilePicViewController.h */,
+				265CBE191363DDBC00CC2C83 /* DWProfilePicViewController.m */,
 			);
 			name = Users;
 			sourceTree = "<group>";
@@ -2465,6 +2470,7 @@
 				26D3CB291363C6A4007CE094 /* DWTouch.m in Sources */,
 				BBD8374A1363BD3C00326E1F /* DWTouchCell.m in Sources */,
 				BBD837641363D86C00326E1F /* DWSmallProfilePicView.m in Sources */,
+				265CBE1A1363DDBC00CC2C83 /* DWProfilePicViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
