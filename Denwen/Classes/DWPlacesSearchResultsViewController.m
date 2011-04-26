@@ -11,8 +11,8 @@
 #import "DWConstants.h"
 
 static NSInteger const kSectionCount						= 1;
-static NSInteger const kSpinnerCellIndex					= 1;
-static NSInteger const kLoadingCellCount					= 3;
+static NSInteger const kSpinnerCellIndex					= 0;
+static NSInteger const kLoadingCellCount					= 1;
 static NSInteger const kNewPlaceCellBufferCount				= 1;
 static NSInteger const kRowHeight							= 44;
 static NSString* const kPlaceSearchResultCellIdentifier		= @"PlaceSearchResultCell";
@@ -70,7 +70,6 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.tableView.rowHeight		= kRowHeight;
 	self.tableView.separatorStyle	= UITableViewCellSeparatorStyleNone;
 }
 
@@ -131,6 +130,18 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 //----------------------------------------------------------------------------------------------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return kSectionCount;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height = 0;
+	
+	if(_tableViewUsage == kTableViewAsSpinner)
+		height = self.tableView.frame.size.height;
+	else if(_tableViewUsage == kTableViewAsData)
+		height = kRowHeight;
+	
+    return height;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -199,7 +210,7 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
 										   reuseIdentifier:kTVDefaultCellIdentifier] autorelease];
 		
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.selectionStyle                 = UITableViewCellSelectionStyleNone;
 	}
 
 	
