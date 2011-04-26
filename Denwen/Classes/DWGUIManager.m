@@ -12,6 +12,8 @@ static NSString* const kImgBackButton                   = @"button_back.png";
 static NSString* const kImgBackButtonActive             = @"button_back.png";
 static NSString* const kImgPlaceDetailsButton           = @"button_map.png";
 static NSString* const kImgPlaceDetailsButtonActive     = @"button_map.png";
+static NSString* const kImgCameraButton                 = @"button_camera.png";
+static NSString* const kImgCameraButtonActive           = @"button_camera.png";
 
 @implementation DWGUIManager
 
@@ -47,8 +49,7 @@ static NSString* const kImgPlaceDetailsButtonActive     = @"button_map.png";
 	return [UIApplication sharedApplication].statusBarOrientation;
 }
 
-// Custom back button for the app
-//
+//----------------------------------------------------------------------------------------------------
 + (UIBarButtonItem*)customBackButton:(id)target {
 	UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[UIImage imageNamed:kImgBackButton] forState:UIControlStateNormal];
@@ -60,8 +61,7 @@ static NSString* const kImgPlaceDetailsButtonActive     = @"button_map.png";
 	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
 }
 
-// Place details navigation bar button
-//
+//----------------------------------------------------------------------------------------------------
 + (UIBarButtonItem*)placeDetailsButton:(id)target {
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -73,6 +73,25 @@ static NSString* const kImgPlaceDetailsButtonActive     = @"button_map.png";
     
 	[button addTarget:target 
                action:@selector(didTapPlaceDetailsButton:event:) 
+     forControlEvents:UIControlEventTouchUpInside];
+    
+	[button setFrame:CGRectMake(0, 0, 55, 44)];
+	
+	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+}
+
+//----------------------------------------------------------------------------------------------------
++ (UIBarButtonItem*)cameraButton:(id)target {
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setBackgroundImage:[UIImage imageNamed:kImgCameraButton] 
+                      forState:UIControlStateNormal];
+    
+    [button setBackgroundImage:[UIImage imageNamed:kImgCameraButtonActive] 
+                      forState:UIControlStateHighlighted];
+    
+	[button addTarget:target 
+               action:@selector(didTapCameraButton:event:) 
      forControlEvents:UIControlEventTouchUpInside];
     
 	[button setFrame:CGRectMake(0, 0, 55, 44)];

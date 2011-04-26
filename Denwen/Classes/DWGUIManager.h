@@ -22,6 +22,7 @@
 
 + (UIBarButtonItem*)customBackButton:(id)target;
 + (UIBarButtonItem*)placeDetailsButton:(id)target;
++ (UIBarButtonItem*)cameraButton:(id)target;
 
 
 //Spinner methods

@@ -140,7 +140,7 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
     standaloneTitleLabel.textAlignment                  = UITextAlignmentCenter;
     standaloneTitleLabel.backgroundColor                = [UIColor clearColor];
     standaloneTitleLabel.font                           = [UIFont fontWithName:@"HelveticaNeue-Bold" 
-                                                                          size:15];
+                                                                          size:17];
     
     [self addSubview:standaloneTitleLabel];
     [standaloneTitleLabel release];

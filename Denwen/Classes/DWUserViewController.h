@@ -21,8 +21,6 @@
 	DWUser                  *_user;
     DWUserTitleView         *_userTitleView;
     DWSmallProfilePicView   *_smallProfilePicView;
-    
-    NSInteger               _uploadID;
 }
 
 /**

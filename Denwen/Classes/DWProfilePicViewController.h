@@ -7,16 +7,20 @@
 
 #import "DWUser.h"
 #import "DWUserProfileTitleView.h"
+#import "DWMediaPickerController.h"
+#import "DWItemFeedViewController.h"
 
 /**
  * Controller for viewing/changing user picture 
  */
-@interface DWProfilePicViewController : UIViewController<UIScrollViewDelegate> {
+@interface DWProfilePicViewController : UIViewController<UIScrollViewDelegate,DWMediaPickerControllerDelegate> {
     DWUser                      *_user;
     DWUserProfileTitleView      *_userProfileTitleView;
     
-    NSInteger           _key;
-    id                  _delegate;
+    NSInteger                   _key;
+    NSInteger                   _uploadID;
+    
+    id <DWItemFeedViewControllerDelegate>       _delegate;
 }
 
 /**

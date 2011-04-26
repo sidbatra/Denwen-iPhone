@@ -7,7 +7,12 @@
 #import "DWImageView.h"
 #import "DWConstants.h"
 #import "DWGUIManager.h"
+#import "DWMemoryPool.h"
 #import "DWRequestsManager.h"
+
+static NSString* const kMsgImageUploadErrorTitle			= @"Error";
+static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. Please try again";
+static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -35,6 +40,26 @@
 												 selector:@selector(imageError:) 
 													 name:kNImgActualUserImageError
 												   object:nil];
+        
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userUpdated:) 
+													 name:kNUserUpdated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userUpdateError:) 
+													 name:kNUserUpdateError
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadDone:) 
+													 name:kNS3UploadDone
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageUploadError:) 
+													 name:kNS3UploadError
+												   object:nil];	
 	}
     return self;
 }
@@ -42,9 +67,30 @@
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	self.user = nil;
+	self.user                       = nil;
+    self.userProfileTitleView       = nil;
 	
     [super dealloc];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Private Methods
+//----------------------------------------------------------------------------------------------------
+-(void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode {
+    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
+    
+    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
+    [picker prepareForImageWithPickerMode:pickerMode];
+    [[_delegate requestCustomTabBarController] presentModalViewController:picker animated:NO];   
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)sendUpdateUserRequest:(NSString*)userPhotoFilename {
+	[[DWRequestsManager sharedDWRequestsManager] updatePhotoForUserWithID:self.user.databaseID
+														withPhotoFilename:userPhotoFilename];
 }
 
 
@@ -60,15 +106,24 @@
 											 withResourceID:_key
 										successNotification:kNImgActualUserImageLoaded
 										  errorNotification:kNImgActualUserImageError];
-	
+    
+    self.navigationItem.titleView           = nil;   	
 	self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
-    self.navigationItem.rightBarButtonItem  = nil;
-    self.navigationItem.titleView           = nil;    
+    
+    if ([self.user isCurrentUser])
+        self.navigationItem.rightBarButtonItem  = [DWGUIManager cameraButton:self];
+    else
+        self.navigationItem.rightBarButtonItem  = nil;
 }
 
 //----------------------------------------------------------------------------------------------------
 -(UIView *)viewForZoomingInScrollView:(UIScrollView*)scrollView {
 	return ((DWImageView*)self.view).imageView;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTapCameraButton:(id)sender event:(id)event {
+    [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];    
 }
 
 
@@ -98,6 +153,88 @@
         [self.userProfileTitleView showUserStateFor:[self.user fullName] 
                                    andIsCurrentUser:[self.user isCurrentUser]];
 	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)userUpdated:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
+		return;
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {		
+		[self.user update:[[info objectForKey:kKeyBody] objectForKey:kKeyUser]];
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)userUpdateError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
+		return;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)imageUploadDone:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		[self sendUpdateUserRequest:[info objectForKey:kKeyFilename]];
+	}
+    [self.userProfileTitleView showNormalState];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)imageUploadError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgImageUploadErrorTitle
+														message:kMsgImageUploadErrorText
+													   delegate:nil 
+											  cancelButtonTitle:kMsgImageUploadErrorCancelButton 
+											  otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWMediaPickerControllerDelegate
+//----------------------------------------------------------------------------------------------------
+- (void)didFinishPickingImage:(UIImage*)originalImage 
+				  andEditedTo:(UIImage*)editedImage {
+	
+	[[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];
+    
+	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
+                                                                        toFolder:kS3UsersFolder
+                                                              withUploadDelegate:nil];
+    [self.userProfileTitleView showProcessingState];
+	[self.user updatePreviewImages:editedImage];
+	[(DWImageView*)self.view setupImageView:editedImage];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode {    
+    [[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];  
+    
+    if (imagePickerMode == kMediaPickerLibraryMode)
+        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)photoLibraryModeSelected {
+    [[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];
+    [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode];
 }
 
 

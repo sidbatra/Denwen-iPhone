@@ -24,9 +24,6 @@ static float	 const kPullToRefreshBackgroundBlueValue	= 0.7372;
 static float	 const kPullToRefreshBackgroundAlphaValue	= 1.0;
 static NSInteger const kNewItemRowInTableView				= 0;
 static NSString* const kMsgCurrentUserNoItems				= @"Everything you post shows up here";
-static NSString* const kMsgImageUploadErrorTitle			= @"Error";
-static NSString* const kMsgImageUploadErrorText				= @"Image uploading failed. Please try again";
-static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 static NSInteger const kActionSheetCancelIndex				= 2;
 
@@ -63,32 +60,12 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(userError:) 
 													 name:kNUserError
-												   object:nil];		
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(userUpdated:) 
-													 name:kNUserUpdated
 												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(userUpdateError:) 
-													 name:kNUserUpdateError
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(imageUploadDone:) 
-													 name:kNS3UploadDone
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(imageUploadError:) 
-													 name:kNS3UploadError
-												   object:nil];	
-		
+        
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(smallUserImageLoaded:) 
 													 name:kNImgSmallUserLoaded
-												   object:nil];
+												   object:nil];          
 	}
 	return self;
 }
@@ -154,6 +131,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	self.user.smallPreviewImage     = nil;
 	self.user						= nil;
     self.userTitleView              = nil;
+    self.smallProfilePicView        = nil;
 	
     [super dealloc];
 }
@@ -163,12 +141,6 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	[super loadItems];	
 	[[DWRequestsManager sharedDWRequestsManager] getUserWithID:self.user.databaseID
 														atPage:_currentPage];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)sendUpdateUserRequest:(NSString*)userPhotoFilename {
-	[[DWRequestsManager sharedDWRequestsManager] updatePhotoForUserWithID:self.user.databaseID
-														withPhotoFilename:userPhotoFilename];
 }
 
 
@@ -241,55 +213,6 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	[self finishedLoadingItems];
 }	
 
-//----------------------------------------------------------------------------------------------------
-- (void)userUpdated:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
-		return;
-	
-	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		
-		[self.user update:[[info objectForKey:kKeyBody] objectForKey:kKeyUser]];
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)userUpdateError:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
-		return;
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)imageUploadDone:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(_uploadID == resourceID) {
-		[self sendUpdateUserRequest:[info objectForKey:kKeyFilename]];
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)imageUploadError:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(_uploadID == resourceID) {		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgImageUploadErrorTitle
-														message:kMsgImageUploadErrorText
-													   delegate:nil 
-											  cancelButtonTitle:kMsgImageUploadErrorCancelButton 
-											  otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-	}
-}
-
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -317,8 +240,8 @@ static NSInteger const kActionSheetCancelIndex				= 2;
         self.userTitleView = [[[DWUserTitleView alloc] 
                                initWithFrame:CGRectMake(kNavTitleViewX, 0,
                                                         kNavTitleViewWidth,kNavTitleViewHeight) 
-                               delegate:self 
-                               titleMode:kNavTitleAndSubtitleMode 
+                                    delegate:self 
+                                   titleMode:kNavTitleAndSubtitleMode 
                                andButtonType:kDWButtonTypeStatic] autorelease];
     
     [self.navigationController.navigationBar addSubview:self.userTitleView];
@@ -327,68 +250,11 @@ static NSInteger const kActionSheetCancelIndex				= 2;
         self.smallProfilePicView = [[[DWSmallProfilePicView alloc] 
                                     initWithFrame:CGRectMake(260, 0, 
                                                              kNavTitleViewWidth,kNavTitleViewHeight) 
-                                     andTarget:self] autorelease];
+                                        andTarget:self] autorelease];
     
     [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
-    
     [self updateUserTitleView];
 }
-
-
-/*
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Private Methods
-//----------------------------------------------------------------------------------------------------
--(void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode {
-    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
-    
-    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
-    [picker prepareForImageWithPickerMode:pickerMode];
-    [[_delegate requestCustomTabBarController] presentModalViewController:picker animated:NO];   
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)didTapUserMediumImage:(id)sender event:(id)event {	
-	if([self.user isCurrentUser]) {
-        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];  
-	}
-}
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark DWMediaPickerControllerDelegate
-
-//----------------------------------------------------------------------------------------------------
-- (void)didFinishPickingImage:(UIImage*)originalImage 
-				  andEditedTo:(UIImage*)editedImage {
-	
-	[[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];
-    
-	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
-                                                                        toFolder:kS3UsersFolder
-                                                              withUploadDelegate:nil];
-	
-	[self.user updatePreviewImages:editedImage];	
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode {    
-    [[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];  
-    
-    if (imagePickerMode == kMediaPickerLibraryMode)
-        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)photoLibraryModeSelected {
-    [[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];
-    [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode];
-}*/
-
 
 @end
 
