@@ -11,7 +11,7 @@
  * Custom place title view for placeviewcontroller nav bar
  */
 @interface DWPlaceTitleView : DWTitleView {
-    UIActivityIndicatorView *spinner;
+
 }
 
 /**
@@ -20,7 +20,7 @@
 - (void)showFollowedStateFor:(NSString*)placeName andFollowingCount:(NSInteger)followingCount;
 
 /**
- * Display followed state
+ * Display unfollowed state
  */
 - (void)showUnfollowedStateFor:(NSString*)placeName andFollowingCount:(NSInteger)followingCount;
 
@@ -28,15 +28,5 @@
  * Display processing state
  */
 - (void)showProcessingState;
-
-@end
-
-
-/**
- * Declarations for private methods
- */
-@interface DWPlaceTitleView (Private)
-
-- (void)createSpinner;
 
 @end

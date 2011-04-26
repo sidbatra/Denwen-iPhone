@@ -35,17 +35,6 @@
 #pragma mark -
 #pragma mark Private Methods
 //----------------------------------------------------------------------------------------------------
-- (void)createSpinner {
-	spinner			= [[UIActivityIndicatorView alloc] 
-                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-	spinner.frame	= CGRectMake(90,12,20,20);
-    spinner.hidden  = YES;    
-	
-	[self addSubview:spinner];	
-    [spinner release];
-}
-
-//----------------------------------------------------------------------------------------------------
 - (void)showLabelsAndStopSpinner {
     titleLabel.hidden           = NO;
     subtitleLabel.hidden        = NO;
@@ -79,6 +68,14 @@
     subtitleLabel.text = text;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)showProcessedStateFor:(NSString*)placeName andFollowingCount:(NSInteger)followingCount {
+    [self showLabelsAndStopSpinner];
+    
+    [self setSubTitleTextFor:placeName 
+           andFollowersCount:followingCount];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -86,26 +83,21 @@
 #pragma mark Update View Methods
 //----------------------------------------------------------------------------------------------------
 - (void)showFollowedStateFor:(NSString*)placeName andFollowingCount:(NSInteger)followingCount {
-    [self showLabelsAndStopSpinner];
-    
     titleLabel.text = @"Following";
-    [self setSubTitleTextFor:placeName 
-           andFollowersCount:followingCount];
+    [self showProcessedStateFor:placeName 
+              andFollowingCount:followingCount];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)showUnfollowedStateFor:(NSString*)placeName andFollowingCount:(NSInteger)followingCount {
-    [self showLabelsAndStopSpinner];
-    
+- (void)showUnfollowedStateFor:(NSString*)placeName andFollowingCount:(NSInteger)followingCount {    
     titleLabel.text = @"Follow";
-    [self setSubTitleTextFor:placeName 
-           andFollowersCount:followingCount];
+    [self showProcessedStateFor:placeName 
+              andFollowingCount:followingCount];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)showProcessingState {
     [self hideLabelsAndStartSpinner];
-    [spinner startAnimating];
 }
 
 @end

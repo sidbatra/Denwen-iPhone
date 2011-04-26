@@ -9,6 +9,8 @@
 #import "DWMemoryPool.h"
 #import "DWSession.h"
 #import "DWFollowedPlacesViewController.h"
+#import "DWProfilePicViewController.h"
+#import "DWImageViewController.h"
 
 //Cells
 #import "DWItemFeedCell.h"
@@ -109,7 +111,13 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapSmallUserImage:(id)sender event:(id)event {
+    DWProfilePicViewController *profilePicViewController = [[DWProfilePicViewController alloc] 
+                                                            initWithUser:self.user 
+                                                             andDelegate:_delegate];
     
+    [self.navigationController pushViewController:profilePicViewController 
+                                         animated:YES];
+    [profilePicViewController release];
 }
 
 

@@ -12,10 +12,11 @@
  * Generic title view for the navigation bar
  */
 @interface DWTitleView : UIView {
-    UILabel     *titleLabel;
-    UILabel     *subtitleLabel;
-    UILabel     *standaloneTitleLabel;
-    UIButton    *underlayButton;
+    UILabel                     *titleLabel;
+    UILabel                     *subtitleLabel;
+    UILabel                     *standaloneTitleLabel;
+    UIButton                    *underlayButton;
+    UIActivityIndicatorView     *spinner;
     
     id <DWTitleViewDelegate>  _delegate;
 }
@@ -47,6 +48,7 @@
 - (void)createTitleLabel;
 - (void)createSubtitleLabel;
 - (void)createStandaloneTitleLabel;
+- (void)createSpinner;
 
 @end
 

@@ -133,7 +133,7 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
 //----------------------------------------------------------------------------------------------------
 - (void)createStandaloneTitleLabel {
     standaloneTitleLabel                                = [[UILabel alloc] 
-                                                           initWithFrame:CGRectMake(10, 5, 180, 18)];
+                                                           initWithFrame:CGRectMake(10, 12, 180, 18)];
     
     standaloneTitleLabel.userInteractionEnabled         = NO;
     standaloneTitleLabel.textColor                      = [UIColor whiteColor];
@@ -144,6 +144,17 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
     
     [self addSubview:standaloneTitleLabel];
     [standaloneTitleLabel release];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)createSpinner {
+	spinner			= [[UIActivityIndicatorView alloc] 
+                       initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+	spinner.frame	= CGRectMake(90,12,20,20);
+    spinner.hidden  = YES;    
+	
+	[self addSubview:spinner];	
+    [spinner release];
 }
 
 

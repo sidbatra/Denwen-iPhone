@@ -1,66 +1,132 @@
 //
 //  DWProfilePicViewController.m
-//  Denwen
-//
-//  Created by Deepak Rao on 4/23/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWProfilePicViewController.h"
+#import "DWImageView.h"
+#import "DWConstants.h"
+#import "DWGUIManager.h"
+#import "DWRequestsManager.h"
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWProfilePicViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
+@synthesize user                    = _user;
+@synthesize userProfileTitleView    = _userProfileTitleView;
+
+//----------------------------------------------------------------------------------------------------
+- (id)initWithUser:(DWUser*)user andDelegate:(id)delegate {
+    self = [super init];
+    
+	if (self) {
+		self.user           = user;
+		_key                = [[NSDate date] timeIntervalSince1970];
+        _delegate           = delegate;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageLoaded:) 
+													 name:kNImgActualUserImageLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageError:) 
+													 name:kNImgActualUserImageError
+												   object:nil];
+	}
     return self;
 }
 
-- (void)dealloc
-{
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	self.user = nil;
+	
     [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark View Lifecycle
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidLoad {
+	[super viewDidLoad];
     
-    // Release any cached data, images, etc that aren't in use.
+	[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.user.largeURL
+											 withResourceID:_key
+										successNotification:kNImgActualUserImageLoaded
+										  errorNotification:kNImgActualUserImageError];
+	
+	self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
+    self.navigationItem.rightBarButtonItem  = nil;
+    self.navigationItem.titleView           = nil;    
 }
 
-#pragma mark - View lifecycle
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-*/
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+//----------------------------------------------------------------------------------------------------
+-(UIView *)viewForZoomingInScrollView:(UIScrollView*)scrollView {
+	return ((DWImageView*)self.view).imageView;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+//----------------------------------------------------------------------------------------------------
+- (void)imageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+    
+	if(resourceID == _key) {
+		[(DWImageView*)self.view setupImageView:(UIImage*)[info objectForKey:kKeyImage]];
+        
+        [self.userProfileTitleView showUserStateFor:[self.user fullName] 
+                                   andIsCurrentUser:[self.user isCurrentUser]];
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)imageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+    
+	if(resourceID == _key) {
+        [self.userProfileTitleView showUserStateFor:[self.user fullName] 
+                                   andIsCurrentUser:[self.user isCurrentUser]];
+	}
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark FullScreenMode
+//----------------------------------------------------------------------------------------------------
+- (void)requiresFullScreenMode {
+    
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Nav Stack Selectors
+//----------------------------------------------------------------------------------------------------
+- (void)willShowOnNav {
+    if (!self.userProfileTitleView ) 
+        self.userProfileTitleView = [[[DWUserProfileTitleView alloc] 
+                                      initWithFrame:CGRectMake(kNavTitleViewX, 0,
+                                                               kNavTitleViewWidth,kNavTitleViewHeight) 
+                                           delegate:self 
+                                          titleMode:kNavStandaloneTitleMode 
+                                      andButtonType:kDWButtonTypeStatic] autorelease];
+    
+    [self.navigationController.navigationBar addSubview:self.userProfileTitleView];  
+    [self.userProfileTitleView showProcessingState];
 }
 
 @end

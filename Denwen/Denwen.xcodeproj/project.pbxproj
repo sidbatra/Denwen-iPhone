@@ -109,6 +109,7 @@
 		265C6B0B135D082500331AD0 /* timer.png in Resources */ = {isa = PBXBuildFile; fileRef = 265C6B09135D082500331AD0 /* timer.png */; };
 		265C6B0C135D082500331AD0 /* timer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 265C6B0A135D082500331AD0 /* timer@2x.png */; };
 		265CBE1A1363DDBC00CC2C83 /* DWProfilePicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 265CBE191363DDBC00CC2C83 /* DWProfilePicViewController.m */; };
+		265CBE1E136632DE00CC2C83 /* DWUserProfileTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 265CBE1D136632DE00CC2C83 /* DWUserProfileTitleView.m */; };
 		2661B1A21319F7BD00A89D13 /* mediabar_keyboard_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2661B1A01319F7BD00A89D13 /* mediabar_keyboard_bg.png */; };
 		2661B1A31319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2661B1A11319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png */; };
 		266BBFCD1363D5EF00EBF1AD /* user_photo_gloss.png in Resources */ = {isa = PBXBuildFile; fileRef = 266BBFCB1363D5EF00EBF1AD /* user_photo_gloss.png */; };
@@ -183,7 +184,7 @@
 		BB33130712F25F3E00B713F9 /* DWImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33130612F25F3E00B713F9 /* DWImageView.m */; };
 		BB33134312F2628F00B713F9 /* DWGUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33134212F2628F00B713F9 /* DWGUIManager.m */; };
 		BB33138912F26A1B00B713F9 /* DWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33138812F26A1B00B713F9 /* DWImageViewController.m */; };
-		BB3313E912F282BF00B713F9 /* DWImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3313E812F282BF00B713F9 /* DWImageViewController.xib */; };
+		BB3313E912F282BF00B713F9 /* DWProfilePicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3313E812F282BF00B713F9 /* DWProfilePicViewController.xib */; };
 		BB33CB6B135FA91700BDBE98 /* DWItemFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33CB6A135FA91700BDBE98 /* DWItemFeedViewController.m */; };
 		BB33CB70135FA93C00BDBE98 /* DWTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33CB6F135FA93C00BDBE98 /* DWTitleView.m */; };
 		BB33CB8C135FAED700BDBE98 /* DWNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33CB8B135FAED700BDBE98 /* DWNavigationBar.m */; };
@@ -549,6 +550,8 @@
 		265C6B0A135D082500331AD0 /* timer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "timer@2x.png"; path = "resources/timer@2x.png"; sourceTree = "<group>"; };
 		265CBE181363DDBC00CC2C83 /* DWProfilePicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWProfilePicViewController.h; path = Classes/DWProfilePicViewController.h; sourceTree = "<group>"; };
 		265CBE191363DDBC00CC2C83 /* DWProfilePicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWProfilePicViewController.m; path = Classes/DWProfilePicViewController.m; sourceTree = "<group>"; };
+		265CBE1C136632DE00CC2C83 /* DWUserProfileTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWUserProfileTitleView.h; path = Classes/DWUserProfileTitleView.h; sourceTree = "<group>"; };
+		265CBE1D136632DE00CC2C83 /* DWUserProfileTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWUserProfileTitleView.m; path = Classes/DWUserProfileTitleView.m; sourceTree = "<group>"; };
 		2661B1A01319F7BD00A89D13 /* mediabar_keyboard_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mediabar_keyboard_bg.png; path = resources/mediabar_keyboard_bg.png; sourceTree = "<group>"; };
 		2661B1A11319F7BD00A89D13 /* mediabar_keyboard_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mediabar_keyboard_bg@2x.png"; path = "resources/mediabar_keyboard_bg@2x.png"; sourceTree = "<group>"; };
 		266BBFCB1363D5EF00EBF1AD /* user_photo_gloss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user_photo_gloss.png; path = resources/user_photo_gloss.png; sourceTree = "<group>"; };
@@ -654,7 +657,7 @@
 		BB33134212F2628F00B713F9 /* DWGUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWGUIManager.m; path = Classes/DWGUIManager.m; sourceTree = "<group>"; };
 		BB33138712F26A1B00B713F9 /* DWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWImageViewController.h; path = Classes/DWImageViewController.h; sourceTree = "<group>"; };
 		BB33138812F26A1B00B713F9 /* DWImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWImageViewController.m; path = Classes/DWImageViewController.m; sourceTree = "<group>"; };
-		BB3313E812F282BF00B713F9 /* DWImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWImageViewController.xib; path = Classes/DWImageViewController.xib; sourceTree = "<group>"; };
+		BB3313E812F282BF00B713F9 /* DWProfilePicViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWProfilePicViewController.xib; path = Classes/DWProfilePicViewController.xib; sourceTree = "<group>"; };
 		BB33CB69135FA91700BDBE98 /* DWItemFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWItemFeedViewController.h; path = Classes/DWItemFeedViewController.h; sourceTree = "<group>"; };
 		BB33CB6A135FA91700BDBE98 /* DWItemFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItemFeedViewController.m; path = Classes/DWItemFeedViewController.m; sourceTree = "<group>"; };
 		BB33CB6E135FA93C00BDBE98 /* DWTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTitleView.h; path = Classes/DWTitleView.h; sourceTree = "<group>"; };
@@ -1084,6 +1087,21 @@
 			path = External/KTTEXTVIEW;
 			sourceTree = "<group>";
 		};
+		265CBE1B1366324E00CC2C83 /* Title Views */ = {
+			isa = PBXGroup;
+			children = (
+				BB33CB6E135FA93C00BDBE98 /* DWTitleView.h */,
+				BB33CB6F135FA93C00BDBE98 /* DWTitleView.m */,
+				2612D6241362556D005AE9E5 /* DWPlaceTitleView.h */,
+				2612D6251362556E005AE9E5 /* DWPlaceTitleView.m */,
+				2612D62713637E43005AE9E5 /* DWUserTitleView.h */,
+				2612D62813637E44005AE9E5 /* DWUserTitleView.m */,
+				265CBE1C136632DE00CC2C83 /* DWUserProfileTitleView.h */,
+				265CBE1D136632DE00CC2C83 /* DWUserProfileTitleView.m */,
+			);
+			name = "Title Views";
+			sourceTree = "<group>";
+		};
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1362,12 +1380,6 @@
 				BBD837631363D86C00326E1F /* DWSmallProfilePicView.m */,
 				BB33CB8A135FAED700BDBE98 /* DWNavigationBar.h */,
 				BB33CB8B135FAED700BDBE98 /* DWNavigationBar.m */,
-				BB33CB6E135FA93C00BDBE98 /* DWTitleView.h */,
-				BB33CB6F135FA93C00BDBE98 /* DWTitleView.m */,
-				2612D6241362556D005AE9E5 /* DWPlaceTitleView.h */,
-				2612D6251362556E005AE9E5 /* DWPlaceTitleView.m */,
-				2612D62713637E43005AE9E5 /* DWUserTitleView.h */,
-				2612D62813637E44005AE9E5 /* DWUserTitleView.m */,
 				BB9EC27513542DF000D6BBF6 /* DWTabBarController.h */,
 				BB9EC27613542DF000D6BBF6 /* DWTabBarController.m */,
 				BB9EC16C13541A8E00D6BBF6 /* DWTabBar.h */,
@@ -1417,6 +1429,7 @@
 				BBB51A0812F9FB490024086F /* Managers */,
 				BBB51A0712F9FB080024086F /* Networking */,
 				BB9EBFFE1353F5C400D6BBF6 /* Table View Cells */,
+				265CBE1B1366324E00CC2C83 /* Title Views */,
 				26EF03AF12E77CAD00E7BA76 /* Views */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1443,6 +1456,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BB3313E812F282BF00B713F9 /* DWProfilePicViewController.xib */,
 				268B56821356682800BB43DC /* DWCameraOverlayViewController.xib */,
 				BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */,
 				BB3311F712F24A4100B713F9 /* DWUserViewController.xib */,
@@ -1460,7 +1474,6 @@
 				26DC2E61130A877A00FC1F3A /* DWPlaceDetailsViewController.xib */,
 				BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */,
 				BB17BAE512EA3A3F00DD42FC /* DWLoginViewController.xib */,
-				BB3313E812F282BF00B713F9 /* DWImageViewController.xib */,
 				26CF62D512F3E92200505A37 /* DWWebViewController.xib */,
 				BB6EBB871311D8A9009D2DAF /* DWShareViewController.xib */,
 				BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */,
@@ -2062,7 +2075,7 @@
 				BB4051DB12F237AD00916688 /* DWPopularPlacesViewController.xib in Resources */,
 				BB40522D12F23BB900916688 /* DWFollowedItemsViewController.xib in Resources */,
 				BB3311F912F24A4100B713F9 /* DWUserViewController.xib in Resources */,
-				BB3313E912F282BF00B713F9 /* DWImageViewController.xib in Resources */,
+				BB3313E912F282BF00B713F9 /* DWProfilePicViewController.xib in Resources */,
 				26CF62D712F3E92200505A37 /* DWWebViewController.xib in Resources */,
 				BBC0C6E012F4C56000291C33 /* blackArrow.png in Resources */,
 				BBC0C6E112F4C56000291C33 /* blackArrow@2x.png in Resources */,
@@ -2471,6 +2484,7 @@
 				BBD8374A1363BD3C00326E1F /* DWTouchCell.m in Sources */,
 				BBD837641363D86C00326E1F /* DWSmallProfilePicView.m in Sources */,
 				265CBE1A1363DDBC00CC2C83 /* DWProfilePicViewController.m in Sources */,
+				265CBE1E136632DE00CC2C83 /* DWUserProfileTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

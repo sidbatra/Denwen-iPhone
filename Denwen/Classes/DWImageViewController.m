@@ -32,12 +32,12 @@
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(imageLoaded:) 
-													 name:kNImgActualAttachmentLoaded
+													 name:kNImgActualUserImageLoaded
 												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(imageError:) 
-													 name:kNImgActualAttachmentError
+													 name:kNImgActualUserImageError
 												   object:nil];
 	}
     
@@ -51,8 +51,8 @@
 	[DWGUIManager showSpinnerInNav:self];
 	[[DWRequestsManager sharedDWRequestsManager] getImageAt:url 
 											 withResourceID:key
-										successNotification:kNImgActualAttachmentLoaded
-										  errorNotification:kNImgActualAttachmentError];
+										successNotification:kNImgActualUserImageLoaded
+										  errorNotification:kNImgActualUserImageError];
 	 
 }
 
