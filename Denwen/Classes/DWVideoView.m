@@ -7,7 +7,8 @@
 #import "DWGUIManager.h"
 #import "DWConstants.h"
 
-static NSInteger const kSpinnerSide		= 25;
+static NSInteger const kSpinnerSide                         = 25;
+static MPMoviePlayerController* sharedMoviePlayerController = nil;
 
 
 
@@ -28,17 +29,20 @@ static NSInteger const kSpinnerSide		= 25;
         self.hidden                                         = YES;
         self.backgroundColor                                = [UIColor clearColor];
     
+        if(!sharedMoviePlayerController) {
+            sharedMoviePlayerController                                = [[MPMoviePlayerController alloc] init];
+            sharedMoviePlayerController.movieSourceType                = MPMovieSourceTypeFile;
+            sharedMoviePlayerController.backgroundView.backgroundColor = [UIColor clearColor];
+            sharedMoviePlayerController.view.backgroundColor           = [UIColor clearColor];
+            sharedMoviePlayerController.view.frame                     = CGRectMake(0,-80,320,480);
+            sharedMoviePlayerController.controlStyle                   = MPMovieControlStyleNone;
+            sharedMoviePlayerController.scalingMode                    = MPMovieScalingModeAspectFill;
+            sharedMoviePlayerController.shouldAutoplay                 = YES;
+            sharedMoviePlayerController.fullscreen                     = NO;
+        }
         
-        self.movieController                                = [[[MPMoviePlayerController alloc] init] autorelease];
-        self.movieController.movieSourceType                = MPMovieSourceTypeFile;
-        self.movieController.backgroundView.backgroundColor = [UIColor clearColor];
-        self.movieController.view.backgroundColor           = [UIColor clearColor];
-        self.movieController.view.frame                     = CGRectMake(0,-80,320,480);
-        self.movieController.controlStyle                   = MPMovieControlStyleNone;
-        self.movieController.scalingMode                    = MPMovieScalingModeAspectFill;
-        self.movieController.shouldAutoplay                 = YES;
-        self.movieController.fullscreen                     = NO;
-        [self addSubview:self.movieController.view];
+        self.movieController = sharedMoviePlayerController;
+            
         
         
         self.spinner = [[[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((frame.size.width  - kSpinnerSide) / 2,
@@ -74,6 +78,7 @@ static NSInteger const kSpinnerSide		= 25;
 
 //----------------------------------------------------------------------------------------------------
 - (void)displayLoadingUI {
+    [self addSubview:self.movieController.view];
     [self.spinner startAnimating];
     self.hidden                         = NO;
 }
@@ -85,6 +90,7 @@ static NSInteger const kSpinnerSide		= 25;
 
 //----------------------------------------------------------------------------------------------------
 - (void)displayFinishedUI {
+    [self.movieController.view removeFromSuperview];
     self.hidden                         = YES;
 }
 
