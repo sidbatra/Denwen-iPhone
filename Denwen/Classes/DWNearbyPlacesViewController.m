@@ -10,7 +10,6 @@
 #import "DWConstants.h"
 
 static NSInteger const kPlacesIndex			= 0;
-static NSString* const kSearchBarText		= @"Search Nearby Places";
 
 
 
@@ -42,13 +41,11 @@ static NSString* const kSearchBarText		= @"Search Nearby Places";
 	[super viewDidLoad];
 
 	self.view.hidden	= YES;
-	
-	self.searchDisplayController.searchBar.placeholder = kSearchBarText;
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)displayPlaces {
-	if(_isLoadedOnce && [DWPlacesCache sharedDWPlacesCache].nearbyPlacesReady) {
+	if([DWPlacesCache sharedDWPlacesCache].nearbyPlacesReady) {
 		
 		[_placeManager populatePreParsedPlaces:[[DWPlacesCache sharedDWPlacesCache] getNearbyPlaces]
 									   atIndex:kPlacesIndex

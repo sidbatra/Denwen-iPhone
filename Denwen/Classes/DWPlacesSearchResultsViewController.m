@@ -90,8 +90,7 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 		return;
 	}
 	
-	if([DWPlacesCache sharedDWPlacesCache].nearbyPlacesReady &&
-	   [DWPlacesCache sharedDWPlacesCache].followedPlacesReady) {
+	if([DWPlacesCache sharedDWPlacesCache].nearbyPlacesReady) {
 		
 		_tableViewUsage = kTableViewAsData;
 		
