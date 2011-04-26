@@ -196,7 +196,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 			cell = [[DWPaginationCell alloc] initWithStyle:UITableViewStylePlain 
 										   reuseIdentifier:kTVPaginationCellIdentifier];
 		
-		[cell displaySteadyState];
+        [cell displayProcessingState];
+        [self loadNextPage];
 		
 		return cell;
 	}
@@ -240,29 +241,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	return cell;	
 }
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark UITableViewDelegate
-
-//----------------------------------------------------------------------------------------------------
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if(indexPath.row == [self totalRows]) {
-        [self.tableView deselectRowAtIndexPath:indexPath
-									  animated:YES];
-        
-		DWPaginationCell *cell = (DWPaginationCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-		
-		if(!cell.isInLoadingState) {
-			[cell displayProcessingState];
-			[self loadNextPage];
-		}
-    }
-}
-
 
 
 //----------------------------------------------------------------------------------------------------

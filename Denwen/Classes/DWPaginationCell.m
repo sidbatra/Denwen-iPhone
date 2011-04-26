@@ -11,14 +11,11 @@
 @interface DWPaginationCell() 
 
 - (void) createSpinner;
-- (void) createMessageLabel;
 - (void) drawCellItems;
 
 @end
 
 @implementation DWPaginationCell
-
-@synthesize isInLoadingState=_isInLoadingState;
 
 
 #pragma mark -
@@ -32,7 +29,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self drawCellItems];
-		_isInLoadingState = NO;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -54,48 +51,17 @@
 	[spinner release];
 }
 
-
-// Creates a message for the Pagination text
-//
-- (void) createMessageLabel {
-	CGRect rect = CGRectMake(112, 18, 120, 22);
-	messageLabel = [[UILabel alloc] initWithFrame:rect];	
-	messageLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];	
-	messageLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:0.098 green:0.333 blue:0.559 alpha:1.0];
-	messageLabel.highlightedTextColor = [UIColor whiteColor];
-	messageLabel.textAlignment = UITextAlignmentLeft;
-	messageLabel.backgroundColor = [UIColor clearColor];
-	
-	[self.contentView addSubview:messageLabel];
-	[messageLabel release];
-}
-
-
 // Create a customized wireframe of the loading cell.
 //
 - (void) drawCellItems {
-	[self createMessageLabel];
 	[self createSpinner];	
-}
-
-
-// Display the steady state showing a message asking user to click
-//
-- (void)displaySteadyState {
-	_isInLoadingState = NO;
-	spinner.hidden = YES;
-	[spinner stopAnimating];
-	messageLabel.text = PAGINATION_CELL_MSG;
 }
 
 
 // Display the spinner and hide the message
 //
 - (void)displayProcessingState {
-	_isInLoadingState = YES;
 	[spinner startAnimating];
-	spinner.hidden = NO;
-	messageLabel.text = @"";
 }
 
 

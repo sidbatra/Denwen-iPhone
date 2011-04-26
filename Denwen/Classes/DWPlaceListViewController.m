@@ -447,7 +447,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 			cell = [[DWPaginationCell alloc] initWithStyle:UITableViewStylePlain 
 										   reuseIdentifier:kTVPaginationCellIdentifier];
 		
-		[cell displaySteadyState];
+        [cell displayProcessingState];
+        [self loadNextPageOfPlaces];
 		
 		return cell;
 	}
@@ -559,19 +560,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 				deselectRowAtIndexPath:[self.searchDisplayController.searchResultsTableView indexPathForSelectedRow] animated:YES];
 		else
 			[self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-	}
-	else if(_tableViewUsage == kTableViewAsData && 
-			!self.searchDisplayController.isActive && 
-			indexPath.row == [_placeManager totalPlacesAtRow:indexPath.section]) {
-		
-		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-		
-		DWPaginationCell *cell = (DWPaginationCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-		
-		if(!cell.isInLoadingState) {
-			[cell displayProcessingState];
-			[self loadNextPageOfPlaces];
-		}
 	}
 }
 

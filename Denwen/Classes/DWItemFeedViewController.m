@@ -330,8 +330,9 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 			cell = [[DWPaginationCell alloc] initWithStyle:UITableViewStylePlain
 										   reuseIdentifier:kTVPaginationCellIdentifier];
 		
-		[cell displaySteadyState];
-		
+        [cell displayProcessingState];
+        [self loadNextPageOfItems];
+
 		return cell;
 	}
 	else if(_tableViewUsage == kTableViewAsSpinner && indexPath.row == kSpinnerCellIndex) {
@@ -395,32 +396,6 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	if(_tableViewUsage == kTableViewAsData)
 		[self loadImagesForOnscreenRows];
-}
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark UITableViewDelegate
-
-//----------------------------------------------------------------------------------------------------
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	/**
-	 * Launch pagination when load more cell is clicked
-	 */
-	if(_tableViewUsage == kTableViewAsData && indexPath.row == [_itemManager totalItems]) {
-		
-		[self.tableView deselectRowAtIndexPath:indexPath
-									  animated:YES];
-
-		DWPaginationCell *cell = (DWPaginationCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-		
-		if(!cell.isInLoadingState) {
-			[cell displayProcessingState];
-			[self loadNextPageOfItems];
-		}
-	}
 }
 
 

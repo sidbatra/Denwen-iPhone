@@ -11,13 +11,9 @@
 
 @interface DWPaginationCell : UITableViewCell {
 	UIActivityIndicatorView *spinner;
-	UILabel *messageLabel;
-	BOOL _isInLoadingState;
 }
 
 - (void)displayProcessingState;
-- (void)displaySteadyState;
 		
-@property (readonly) BOOL isInLoadingState;
 
 @end
