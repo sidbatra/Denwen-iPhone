@@ -29,6 +29,7 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 @synthesize searchText		= _searchText;
 @synthesize delegate		= _delegate;
 
+//----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
@@ -111,13 +112,13 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)nearbyPlacesCacheUpdated:(NSNotification*)notification {
-	if(!_newPlaceMode)
+	if(![_delegate isNewPlaceMode] && ![_delegate isPlaceSelected])
 		[self filterPlacesBySearchText];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)followedPlacesCacheUpdated:(NSNotification*)notification {
-	if(!_newPlaceMode)
+	if(![_delegate isNewPlaceMode] && ![_delegate isPlaceSelected])
 		[self filterPlacesBySearchText];
 }
 
@@ -223,7 +224,6 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 	}
 	else if(_tableViewUsage == kTableViewAsData && indexPath.row == [self.placesManager totalFilteredPlaces]) {
 		[_delegate newPlaceSelected];
-		_newPlaceMode = YES;
 		self.view.hidden = YES;
 	}
 }

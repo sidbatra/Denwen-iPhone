@@ -272,6 +272,16 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	self.mapButton.hidden	= NO;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (BOOL)isNewPlaceMode {
+    return _newPlaceMode;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)isPlaceSelected {
+    return self.selectedPlace ? YES : NO;
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -417,15 +427,17 @@ replacementString:(NSString *)string {
 //----------------------------------------------------------------------------------------------------
 - (IBAction)placeNameTextFieldEditingChanged:(id)sender {
 	
-	if(!_newPlaceMode) {
+	if(_newPlaceMode)
+        return;
+    
+    self.selectedPlace = nil;
 		
-		if(_isMediaSelected)
-			self.placeNameTextField.text.length > 0 ? [self displayNormalUI] : [self displayMediaUI];
-		
-		
-		self.searchResults.searchText = self.placeNameTextField.text;
-		[self.searchResults filterPlacesBySearchText];
-	}
+    if(_isMediaSelected)
+        self.placeNameTextField.text.length > 0 ? [self displayNormalUI] : [self displayMediaUI];
+    
+        
+    self.searchResults.searchText = self.placeNameTextField.text;
+    [self.searchResults filterPlacesBySearchText];
 }
 
 

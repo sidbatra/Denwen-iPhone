@@ -62,4 +62,15 @@
  */
 - (void)newPlaceSelected;
 
+/**
+ * Queries the parent class to check for new place mode
+ */
+- (BOOL)isNewPlaceMode;
+
+/**
+ * Queries the parent class to check is a place has been 
+ * selected
+ */
+- (BOOL)isPlaceSelected;
+
 @end
