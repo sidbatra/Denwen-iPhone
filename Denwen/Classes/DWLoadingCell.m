@@ -40,7 +40,7 @@ static NSString* const kImgBackground	= @"main_bg.png";
 //----------------------------------------------------------------------------------------------------
 - (void)createBackground {
 	
-	UIImageView *backgroundImageView	= [[[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,367)] autorelease];
+	backgroundImageView                 = [[[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,367)] autorelease];
 	backgroundImageView.image			= [UIImage imageNamed:kImgBackground];
 	backgroundImageView.contentMode		= UIViewContentModeScaleToFill;
 	
@@ -81,6 +81,18 @@ static NSString* const kImgBackground	= @"main_bg.png";
 		
 		_isShortMode			= YES;
 	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)defaultAppleMode {
+    backgroundImageView.hidden  = YES;
+    
+    messageLabel.textColor      = [UIColor colorWithRed:0.5294 green:0.5294 blue:0.5294 alpha:1.0];
+    messageLabel.frame          = CGRectMake(136,(44-20)/2,90,17);
+    
+    spinner.frame                       = CGRectMake(109,(44-20)/2,20,20);
+    spinner.activityIndicatorViewStyle  = UIActivityIndicatorViewStyleGray;
+    
 }
 
 @end

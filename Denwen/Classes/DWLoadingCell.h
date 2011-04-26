@@ -11,6 +11,7 @@
 @interface DWLoadingCell : UITableViewCell {
 	UIActivityIndicatorView		*spinner;
 	UILabel						*messageLabel;
+    UIImageView                 *backgroundImageView;
 	
 	BOOL						_isShortMode;
 }
@@ -24,6 +25,12 @@
  * Adjusts the cell to accomodate a shorter container
  */
 - (void)shorterCellMode;
+
+/**
+ * Revamp the cell to display a classic short height grey on black a
+ *a pple loading cell
+ */
+- (void)defaultAppleMode;
 
 @end
 

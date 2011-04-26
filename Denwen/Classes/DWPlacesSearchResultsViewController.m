@@ -187,6 +187,7 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 										 reuseIdentifier:kTVLoadingCellIdentifier] autorelease];
 		
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;	
+        [cell defaultAppleMode];
 		[cell.spinner startAnimating];
 		
 		return cell;
