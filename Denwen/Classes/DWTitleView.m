@@ -133,7 +133,7 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
 //----------------------------------------------------------------------------------------------------
 - (void)createStandaloneTitleLabel {
     standaloneTitleLabel                                = [[UILabel alloc] 
-                                                           initWithFrame:CGRectMake(10, 12, 180, 18)];
+                                                           initWithFrame:CGRectMake(10, 1, 180, 18)];
     
     standaloneTitleLabel.userInteractionEnabled         = NO;
     standaloneTitleLabel.textColor                      = [UIColor whiteColor];

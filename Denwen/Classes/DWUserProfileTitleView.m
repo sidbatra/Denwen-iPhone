@@ -1,9 +1,6 @@
 //
-//  DWUserProfileTitleView.m
-//  Denwen
-//
-//  Created by Deepak Rao on 4/25/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  DWUserProfileTitleView.h
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWUserProfileTitleView.h"
