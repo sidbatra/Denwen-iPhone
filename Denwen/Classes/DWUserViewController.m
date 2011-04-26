@@ -190,9 +190,6 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 		
 		[self.user update:[body objectForKey:kKeyUser]];
         [self.user startSmallPreviewDownload];
-        
-        if (self.user.smallPreviewImage) 
-            [self setSmallUserImage:self.user.smallPreviewImage];
 
 		_isLoadedOnce = YES;
 		
@@ -259,6 +256,9 @@ static NSInteger const kActionSheetCancelIndex				= 2;
     
     [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
     [self updateUserTitleView];
+    
+    if (self.user.smallPreviewImage) 
+        [self setSmallUserImage:self.user.smallPreviewImage];
 }
 
 @end

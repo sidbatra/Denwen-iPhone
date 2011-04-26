@@ -111,7 +111,7 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 	self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
     
     if ([self.user isCurrentUser])
-        self.navigationItem.rightBarButtonItem  = [DWGUIManager cameraButton:self];
+        self.navigationItem.rightBarButtonItem  = [DWGUIManager cameraNavButton:self];
     else
         self.navigationItem.rightBarButtonItem  = nil;
 }

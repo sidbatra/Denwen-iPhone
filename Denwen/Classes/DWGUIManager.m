@@ -81,7 +81,7 @@ static NSString* const kImgCameraButtonActive           = @"button_camera.png";
 }
 
 //----------------------------------------------------------------------------------------------------
-+ (UIBarButtonItem*)cameraButton:(id)target {
++ (UIBarButtonItem*)cameraNavButton:(id)target {
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [button setBackgroundImage:[UIImage imageNamed:kImgCameraButton] 

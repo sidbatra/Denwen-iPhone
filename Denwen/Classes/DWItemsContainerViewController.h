@@ -8,6 +8,7 @@
 
 #import "DWFollowedItemsViewController.h"
 #import "DWContainerViewController.h"
+#import "DWSmallProfilePicView.h"
 #import "DWPostProgressView.h"
 
 /**
@@ -17,7 +18,13 @@
 @interface DWItemsContainerViewController : DWContainerViewController<DWPostProgressViewDelegate> {
 	DWFollowedItemsViewController	*followedViewController;
 	DWPostProgressView				*postProgressView;
+    DWSmallProfilePicView           *_smallProfilePicView;
 }
+
+/**
+ * Subview for displaying small profile picture
+ */
+@property (nonatomic,retain) DWSmallProfilePicView *smallProfilePicView;
 
 @end
 

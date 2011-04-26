@@ -7,6 +7,7 @@
 #import "DWNotificationsViewController.h"
 #import "DWCreationQueue.h"
 #import "DWPostProgressView.h"
+#import "DWProfilePicViewController.h"
 #import "DWNotificationsHelper.h"
 #import "DWSession.h"
 
@@ -20,6 +21,8 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 @implementation DWItemsContainerViewController
+
+@synthesize smallProfilePicView = _smallProfilePicView;
 
 //----------------------------------------------------------------------------------------------------
 - (void)awakeFromNib {
@@ -46,6 +49,11 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 											 selector:@selector(creationQueueUpdated:) 
 												 name:kNCreationQueueUpdated
 											   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(smallUserImageLoaded:) 
+                                                 name:kNImgSmallUserLoaded
+                                               object:nil];  
 	
 	if (&UIApplicationDidEnterBackgroundNotification != NULL) {
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -65,9 +73,9 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 		postProgressView.delegate	= self;
 	}
     
-    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [button setBackgroundImage:[UIImage imageNamed:kImgNotificationsButton] forState:UIControlStateNormal];
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];    
+    [button setBackgroundImage:[UIImage imageNamed:kImgNotificationsButton] 
+                      forState:UIControlStateNormal];
 
 	[button addTarget:self action:@selector(didTapNotificationsButton:) 
      forControlEvents:UIControlEventTouchUpInside];
@@ -75,7 +83,8 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	[button setFrame:CGRectMake(0,0,60,44)];
 	
     self.navigationItem.leftBarButtonItem   = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
-
+    
+    [[DWSession sharedDWSession].currentUser startSmallPreviewDownload];
     			
 	/**
 	 * Add subview
@@ -99,6 +108,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.smallProfilePicView = nil;
 
 	[followedViewController release];
 	[postProgressView release];
@@ -111,7 +121,6 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Private
-
 //----------------------------------------------------------------------------------------------------
 - (void)updateBadgeValueOnTabItem {
 
@@ -134,8 +143,27 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Notifications
+#pragma mark Nav-Bar Methods
+//----------------------------------------------------------------------------------------------------
+- (void)setSmallUserImage:(UIImage*)smallUserImage {
+    [self.smallProfilePicView setProfilePicButtonBackgroundImage:smallUserImage];
+}
 
+//----------------------------------------------------------------------------------------------------
+- (void)didTapSmallUserImage:(id)sender event:(id)event {
+    DWProfilePicViewController *profilePicViewController = [[DWProfilePicViewController alloc] 
+                                                            initWithUser:[DWSession sharedDWSession].currentUser 
+                                                             andDelegate:self];
+    
+    [self.navigationController pushViewController:profilePicViewController 
+                                         animated:YES];
+    [profilePicViewController release];
+}
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
 //----------------------------------------------------------------------------------------------------
 - (void)newApplicationBadge:(NSNotification*)notification {
 	NSInteger notificationType = [[(NSDictionary*)[notification userInfo] objectForKey:kKeyNotificationType] integerValue];
@@ -156,7 +184,6 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 		[followedViewController scrollToTop];
 	}
 }
-
 
 //----------------------------------------------------------------------------------------------------
 - (void)followedItemsLoaded:(NSNotification*)notification {
@@ -194,12 +221,21 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)smallUserImageLoaded:(NSNotification*)notification {
+	NSDictionary *info	= [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != [DWSession sharedDWSession].currentUser.databaseID)
+		return;
+    
+    [self setSmallUserImage:[info objectForKey:kKeyImage]];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark DWPostProgressViewDelegate
-
 //----------------------------------------------------------------------------------------------------
 - (void)deleteButtonPressed {
 	self.navigationItem.titleView = nil;
@@ -223,6 +259,24 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
     DWNotificationsViewController *notificationsView = [[DWNotificationsViewController alloc] initWithDelegate:self];
     [self.navigationController pushViewController:notificationsView animated:YES];
     [notificationsView release];
+}
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Nav Stack Selectors
+//----------------------------------------------------------------------------------------------------
+- (void)willShowOnNav {    
+    if (!self.smallProfilePicView)
+        self.smallProfilePicView = [[[DWSmallProfilePicView alloc] 
+                                     initWithFrame:CGRectMake(260, 0, 
+                                                              kNavTitleViewWidth,kNavTitleViewHeight) 
+                                     andTarget:self] autorelease];
+    
+    [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
+    
+    if ([DWSession sharedDWSession].currentUser.smallPreviewImage) 
+        [self setSmallUserImage:[DWSession sharedDWSession].currentUser.smallPreviewImage];
 }
 
 @end

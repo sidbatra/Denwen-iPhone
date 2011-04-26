@@ -17,6 +17,8 @@ static NSString* const kDiskKeySignedInUser				= @"signedin_user_";
 static NSString* const kDiskKeyID						= @"signedin_user__id";
 static NSString* const kDiskKeyEmail					= @"signedin_user__email";
 static NSString* const kDiskKeyPassword					= @"signedin_user__password";
+static NSString* const kDiskKeySmallUrl					= @"signedin_user__smallurl";
+static NSString* const kDiskKeyLargeUrl					= @"signedin_user__largeurl";
 static NSString* const kDiskKeyTwitterData				= @"signedin_user__twitterOAuthData";
 static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken";
 
@@ -271,6 +273,8 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 		[standardUserDefaults setInteger:_databaseID			forKey:kDiskKeyID];
 		[standardUserDefaults setObject:self.email				forKey:kDiskKeyEmail];
 		[standardUserDefaults setObject:self.encryptedPassword	forKey:kDiskKeyPassword];
+        [standardUserDefaults setObject:self.smallURL           forKey:kDiskKeySmallUrl];
+        [standardUserDefaults setObject:self.largeURL           forKey:kDiskKeyLargeUrl];
 		
 		[standardUserDefaults synchronize];
 	}
@@ -288,8 +292,12 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 			_databaseID					= [standardUserDefaults	integerForKey:kDiskKeyID];
 			self.email					= [standardUserDefaults	objectForKey:kDiskKeyEmail];
 			self.encryptedPassword		= [standardUserDefaults objectForKey:kDiskKeyPassword];
+            self.smallURL               = [standardUserDefaults objectForKey:kDiskKeySmallUrl];
+            self.largeURL               = [standardUserDefaults objectForKey:kDiskKeyLargeUrl];
 			self.twitterOAuthData		= [standardUserDefaults objectForKey:kDiskKeyTwitterData];
 			self.facebookAccessToken	= [standardUserDefaults objectForKey:kDiskKeyFacebookData];
+            
+            _hasPhoto                   = self.smallURL ? YES : NO;
 						
 			[standardUserDefaults synchronize];
 		}
@@ -303,7 +311,6 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	
 	if (standardUserDefaults) {
-		
 		/**
 		 * Removing the signed in user flag disables other methods from accessing the different stored fields
 		 */
