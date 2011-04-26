@@ -56,6 +56,7 @@ static NSInteger const kPlacesPerPage				= 20;
 		_isLocalSearch			= localSearchFlag;
 		_isReloading			= NO;
 		_isLoadedOnce			= NO;
+        _isLoadingPage          = NO;
 		
 		[self resetPagination];
 				
@@ -208,6 +209,7 @@ static NSInteger const kPlacesPerPage				= 20;
 - (void)loadNextPageOfPlaces {
 	_prePaginationCellCount = [_placeManager totalPlacesAtRow:kDefaultPlacesRow];
 	_currentPage++;
+    _isLoadingPage = YES;
 	
 	[self loadPlaces];
 }
@@ -234,6 +236,8 @@ static NSInteger const kPlacesPerPage				= 20;
 		[self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 		_isReloading = NO;
 	}
+    
+    _isLoadingPage = NO;
 }
 
 
@@ -448,7 +452,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 										   reuseIdentifier:kTVPaginationCellIdentifier];
 		
         [cell displayProcessingState];
-        [self loadNextPageOfPlaces];
+        
+        if(!_isLoadingPage)
+            [self loadNextPageOfPlaces];
 		
 		return cell;
 	}

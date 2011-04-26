@@ -27,6 +27,7 @@
 	
 	BOOL			_isReloading;
 	BOOL			_isLoadedOnce;
+    BOOL            _isLoadingPage;
 	
 	NSDate			*_lastDataRefresh;
 	NSString		*_messageCellText;

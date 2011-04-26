@@ -30,6 +30,7 @@
 	BOOL			_isReloading;
 	BOOL			_isLocalSearch;
 	BOOL			_isLoadedOnce;
+    BOOL            _isLoadingPage;
 
 	EGORefreshTableHeaderView				*_refreshHeaderView;
 	id <DWPlaceListViewControllerDelegate>	_delegate;

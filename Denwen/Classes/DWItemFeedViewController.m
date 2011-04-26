@@ -39,6 +39,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		self.itemManager	= [[[DWItemsManager alloc] init] autorelease];
 		_isReloading		= NO;
 		_isLoadedOnce		= NO;
+        _isLoadingPage      = NO;
 		_tableViewUsage		= kTableViewAsSpinner;
 		_delegate			= delegate;
 		
@@ -149,9 +150,11 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 
 //----------------------------------------------------------------------------------------------------
 - (void)loadNextPageOfItems {
-   _prePaginationCellCount = [_itemManager totalItems];
-   _currentPage++;
-   [self loadItems];
+    _prePaginationCellCount = [_itemManager totalItems];
+    _currentPage++;
+    _isLoadingPage = YES;
+    
+    [self loadItems];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -163,7 +166,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 		!_isReloading)) { 
 	   
 	   /**
-		* Mark end of pagination is no new items were found
+		* Mark end of pagination if no new items were found
 		*/
 	   _prePaginationCellCount = 0;
 	   [self markEndOfPagination];
@@ -173,7 +176,7 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	   [self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 	   _isReloading = NO;
    }
-   
+   _isLoadingPage = NO;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -331,7 +334,9 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 										   reuseIdentifier:kTVPaginationCellIdentifier];
 		
         [cell displayProcessingState];
-        [self loadNextPageOfItems];
+        
+        if (!_isLoadingPage) 
+            [self loadNextPageOfItems];
 
 		return cell;
 	}

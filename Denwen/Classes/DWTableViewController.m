@@ -30,6 +30,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
     if (self) {
         _tableViewUsage			= kTableViewAsSpinner;
 		_isReloading			= NO;
+        _isLoadingPage          = NO;
 		
 		[self resetPagination];
     }
@@ -116,6 +117,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
 - (void)loadNextPage {
 	_prePaginationCellCount = [self totalRows];
 	_currentPage++;
+    _isLoadingPage = YES;
 	
 	[self loadData];
 }
@@ -139,6 +141,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
 		[self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 		_isReloading = NO;
 	}
+    _isLoadingPage = NO;
 }
 
 
@@ -166,8 +169,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (CGFloat)tableView:(UITableView *)tableView 
-heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	CGFloat height = 0;
 	
@@ -197,7 +199,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 										   reuseIdentifier:kTVPaginationCellIdentifier];
 		
         [cell displayProcessingState];
-        [self loadNextPage];
+        if (!_isLoadingPage) 
+            [self loadNextPage];
 		
 		return cell;
 	}

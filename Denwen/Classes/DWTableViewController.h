@@ -19,6 +19,7 @@
     NSInteger           _rowsPerPage;
     
     BOOL                _isReloading;
+    BOOL                _isLoadingPage;
     
     NSString            *_messageCellText;
 	
