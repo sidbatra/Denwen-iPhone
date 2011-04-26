@@ -6,6 +6,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+@class DWVideoView;
 @class DWItemFeedCell;
 @protocol DWItemFeedCellDelegate;
 
@@ -71,6 +72,8 @@
 	UIButton						*placeButton;
 	UIButton						*userButton;
 	UIButton						*shareButton;
+    
+    DWVideoView                     *videoView;
 	
 	id<DWItemFeedCellDelegate>		_delegate;
 }
@@ -144,4 +147,5 @@
 - (void)placeSelectedForItemID:(NSInteger)itemID;
 - (void)userSelectedForItemID:(NSInteger)itemID;
 - (void)shareSelectedForItemID:(NSInteger)itemID;
+- (NSString*)getVideoAttachmentURLForItemID:(NSInteger)itemID;
 @end

@@ -478,6 +478,14 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSString*)getVideoAttachmentURLForItemID:(NSInteger)itemID {
+    DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:itemID
+																	atRow:kMPItemsIndex];
+	
+    return item.attachment.fileURL;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (UIViewController*)requestCustomTabBarController {
 	return [_delegate requestCustomTabBarController];
 }

@@ -62,7 +62,7 @@ static NSInteger const kPlacesIndex				= 0;
 //----------------------------------------------------------------------------------------------------
 - (void)loadPlaces {
 	[super loadPlaces];
-	[[DWRequestsManager sharedDWRequestsManager] getPopularPlaces:_currentPage];
+	//[[DWRequestsManager sharedDWRequestsManager] getPopularPlaces:_currentPage];
 }
 
 

@@ -9,7 +9,6 @@
 #import "DWPlaceViewController.h"
 #import "DWImageViewController.h"
 #import "DWWebViewController.h"
-#import "DWVideoViewController.h"
 #import "NSString+Helpers.h"
 
 
@@ -114,18 +113,22 @@
 - (void)attachmentSelected:(NSString*)url withIsImageType:(BOOL)isImage {
 	
 	if(isImage) {
+        /*
 		DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:url];
 		imageView.hidesBottomBarWhenPushed = YES;
 		
 		[self.navigationController pushViewController:imageView 
 											 animated:YES];
 		[imageView release];
+         */
 	}
 	else {
+        /*
 		DWVideoViewController *videoView = [[DWVideoViewController alloc] initWithMediaURL:url];
 		videoView.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
 		[customTabBarController presentMoviePlayerViewControllerAnimated:videoView];
 		[videoView release];
+         */
 	}
 }
 

@@ -48,12 +48,6 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
         self.bottomShadowView           = [[[UIImageView alloc] initWithImage:
                                             [UIImage imageNamed:kImgBottomShadow]] autorelease];
         self.bottomShadowView.frame     = CGRectMake(0,self.tabBar.frame.origin.y-5,320,5);
-        
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(playbackDidFinish:) 
-													 name:MPMoviePlayerPlaybackDidFinishNotification 
-												   object:nil];
 	}
 	
 	return self;
@@ -161,17 +155,5 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 									to:newSelectedIndex];
 }
 
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Notifications
-
-//----------------------------------------------------------------------------------------------------
-- (void)playbackDidFinish:(NSNotification*)notification {
-	[self performSelector:@selector(resetFrame)
-			   withObject:nil 
-			   afterDelay:kResetFrameDelay];
-}
 
 @end

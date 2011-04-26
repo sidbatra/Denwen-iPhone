@@ -4,6 +4,7 @@
 //
 
 #import "DWItemFeedCell.h"
+#import "DWVideoView.h"
 #import "DWConstants.h"
 
 #define kImgTouchIcon				@"hand.png"
@@ -311,6 +312,9 @@
 		
 		[self.contentView addSubview:shareButton];
 		
+        
+        videoView       = [[[DWVideoView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height)] autorelease];
+        [self addSubview:videoView];
 										   
 		
 		self.selectionStyle				= UITableViewCellSelectionStyleNone;
@@ -431,7 +435,7 @@
     
 	[CATransaction commit];
 	
-	
+	[videoView stopPlayingVideo];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -442,6 +446,9 @@
 		[self highlightCell];
 	}
 	else if(!highlighted && _highlighted) {
+        
+        if(_attachmentType == kAttachmentVideo)
+            [videoView stopPlayingVideo];
 		
 		if(fabs([self.highlightedAt timeIntervalSinceNow]) > kTouchInterval && 
 				[_delegate shouldTouchItemWithID:_itemID]) {
@@ -537,10 +544,14 @@
 	[self redisplay];
 
 	[CATransaction commit];
+    
+    if(_attachmentType == kAttachmentVideo)
+        [videoView startPlayingVideoAtURL:[_delegate getVideoAttachmentURLForItemID:_itemID]];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)fadeCell {
+        
 	_highlighted				= NO;
 	
 	[CATransaction begin];

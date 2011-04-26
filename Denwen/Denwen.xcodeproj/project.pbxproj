@@ -241,7 +241,6 @@
 		BB4051DB12F237AD00916688 /* DWPopularPlacesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB4051D912F237AD00916688 /* DWPopularPlacesViewController.xib */; };
 		BB40522C12F23BB900916688 /* DWFollowedItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */; };
 		BB40522D12F23BB900916688 /* DWFollowedItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB40522B12F23BB800916688 /* DWFollowedItemsViewController.xib */; };
-		BB537BD5132C55E50018B942 /* DWVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB537BD4132C55E50018B942 /* DWVideoViewController.m */; };
 		BB537BDA132C560E0018B942 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB537BD9132C560E0018B942 /* MediaPlayer.framework */; };
 		BB5E67D1133182C3006D0C66 /* video_attach.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5E67CF133182C3006D0C66 /* video_attach.png */; };
 		BB5E67D2133182C3006D0C66 /* video_attach@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5E67D0133182C3006D0C66 /* video_attach@2x.png */; };
@@ -344,6 +343,7 @@
 		BBC0C6E612F4C56000291C33 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC0C6DE12F4C56000291C33 /* whiteArrow.png */; };
 		BBC0C6E712F4C56000291C33 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC0C6DF12F4C56000291C33 /* whiteArrow@2x.png */; };
 		BBC0C6EB12F4C57800291C33 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC0C6EA12F4C57800291C33 /* EGORefreshTableHeaderView.m */; };
+		BBC7CCCB13664BF80003CE02 /* DWVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC7CCCA13664BF80003CE02 /* DWVideoView.m */; };
 		BBCE3A65131CC38D008BDA82 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCE3A63131CC38D008BDA82 /* Default.png */; };
 		BBCE3A66131CC38D008BDA82 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCE3A64131CC38D008BDA82 /* Default@2x.png */; };
 		BBCE3A86131CC6AF008BDA82 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = BBCE3A85131CC6AF008BDA82 /* iTunesArtwork */; };
@@ -761,8 +761,6 @@
 		BB40522912F23BB800916688 /* DWFollowedItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFollowedItemsViewController.h; path = Classes/DWFollowedItemsViewController.h; sourceTree = "<group>"; };
 		BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowedItemsViewController.m; path = Classes/DWFollowedItemsViewController.m; sourceTree = "<group>"; };
 		BB40522B12F23BB800916688 /* DWFollowedItemsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWFollowedItemsViewController.xib; path = Classes/DWFollowedItemsViewController.xib; sourceTree = "<group>"; };
-		BB537BD3132C55E50018B942 /* DWVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWVideoViewController.h; path = Classes/DWVideoViewController.h; sourceTree = "<group>"; };
-		BB537BD4132C55E50018B942 /* DWVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWVideoViewController.m; path = Classes/DWVideoViewController.m; sourceTree = "<group>"; };
 		BB537BD9132C560E0018B942 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB5E67CF133182C3006D0C66 /* video_attach.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_attach.png; path = resources/video_attach.png; sourceTree = "<group>"; };
 		BB5E67D0133182C3006D0C66 /* video_attach@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "video_attach@2x.png"; path = "resources/video_attach@2x.png"; sourceTree = "<group>"; };
@@ -913,6 +911,8 @@
 		BBC0C6DF12F4C56000291C33 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		BBC0C6E912F4C57800291C33 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		BBC0C6EA12F4C57800291C33 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		BBC7CCC913664BF80003CE02 /* DWVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWVideoView.h; path = Classes/DWVideoView.h; sourceTree = "<group>"; };
+		BBC7CCCA13664BF80003CE02 /* DWVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWVideoView.m; path = Classes/DWVideoView.m; sourceTree = "<group>"; };
 		BBCE3A63131CC38D008BDA82 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = resources/Default.png; sourceTree = "<group>"; };
 		BBCE3A64131CC38D008BDA82 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "resources/Default@2x.png"; sourceTree = "<group>"; };
 		BBCE3A85131CC6AF008BDA82 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = resources/iTunesArtwork; sourceTree = "<group>"; };
@@ -1376,6 +1376,8 @@
 		26EF03AF12E77CAD00E7BA76 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BBC7CCC913664BF80003CE02 /* DWVideoView.h */,
+				BBC7CCCA13664BF80003CE02 /* DWVideoView.m */,
 				BBD837621363D86C00326E1F /* DWSmallProfilePicView.h */,
 				BBD837631363D86C00326E1F /* DWSmallProfilePicView.m */,
 				BB33CB8A135FAED700BDBE98 /* DWNavigationBar.h */,
@@ -1536,8 +1538,6 @@
 				BBD1EAD312EC1218003C1BC7 /* DWSignupViewController.m */,
 				26CF62D312F3E92200505A37 /* DWWebViewController.h */,
 				26CF62D412F3E92200505A37 /* DWWebViewController.m */,
-				BB537BD3132C55E50018B942 /* DWVideoViewController.h */,
-				BB537BD4132C55E50018B942 /* DWVideoViewController.m */,
 				BB6EBB851311D8A9009D2DAF /* DWShareViewController.h */,
 				BB6EBB861311D8A9009D2DAF /* DWShareViewController.m */,
 				BB6419AA134BAE93002A2325 /* DWCreateViewController.h */,
@@ -2426,7 +2426,6 @@
 				BB40089313123696000BDE4D /* FBLoginDialog.m in Sources */,
 				BB40089413123696000BDE4D /* FBRequest.m in Sources */,
 				BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */,
-				BB537BD5132C55E50018B942 /* DWVideoViewController.m in Sources */,
 				BB3BE0B5133A9D940055FED0 /* DWRequestsManager.m in Sources */,
 				BB3BE173133AB49A0055FED0 /* DWDenwenRequest.m in Sources */,
 				BB3BE1CE133AB65F0055FED0 /* ASIAuthenticationDialog.m in Sources */,
@@ -2485,6 +2484,7 @@
 				BBD837641363D86C00326E1F /* DWSmallProfilePicView.m in Sources */,
 				265CBE1A1363DDBC00CC2C83 /* DWProfilePicViewController.m in Sources */,
 				265CBE1E136632DE00CC2C83 /* DWUserProfileTitleView.m in Sources */,
+				BBC7CCCB13664BF80003CE02 /* DWVideoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
