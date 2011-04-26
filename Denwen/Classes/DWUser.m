@@ -164,7 +164,8 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
     if(![super update:user])
         return NO;
 		
-    self.email			= [user objectForKey:kKeyEmail];
+    if([user objectForKey:kKeyEmail])
+        self.email              = [user objectForKey:kKeyEmail];
     
     if([user objectForKey:kKeyPhoto]) {
         NSDictionary *photo		= [user objectForKey:kKeyPhoto];

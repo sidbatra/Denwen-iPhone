@@ -125,7 +125,8 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
     if(![self.hashedID isEqualToString:newHashedID])
         self.hashedID = newHashedID;
     
-    _followersCount		= [[place objectForKey:kKeyFollowingsCount] integerValue];
+    if([place objectForKey:kKeyFollowingsCount])
+        _followersCount	= [[place objectForKey:kKeyFollowingsCount] integerValue];
     
     if([place objectForKey:kKeyLatitude])
         self.location = [[[CLLocation alloc] initWithLatitude:[[place objectForKey:kKeyLatitude]  floatValue] 
