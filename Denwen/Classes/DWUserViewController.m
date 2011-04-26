@@ -74,7 +74,6 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Nav-Bar Methods
-
 //----------------------------------------------------------------------------------------------------
 - (void)setSmallUserImage:(UIImage*)smallUserImage {
     [self.smallProfilePicView setProfilePicButtonBackgroundImage:smallUserImage];
@@ -143,12 +142,18 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 														atPage:_currentPage];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)userSelectedForItemID:(NSInteger)itemID {
+    /**
+     * Override to prevent recursion
+     */
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
-
 //----------------------------------------------------------------------------------------------------
 - (void)smallUserImageLoaded:(NSNotification*)notification {
 	NSDictionary *info	= [notification userInfo];

@@ -251,19 +251,11 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark CLick events from across the view
-
 //----------------------------------------------------------------------------------------------------
-- (void)didTapPlaceName:(id)sender event:(id)event {
-	/**
-	 * Override clicks on Place Name to prevent recursive navigation
-	 */
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)didTapPlaceImage:(id)sender event:(id)event {
-	/**
-	 * Override clicks on Place Name to prevent recursive navigation
-	 */
+- (void)placeSelectedForItemID:(NSInteger)itemID {
+    /**
+     * Override to prevent recursion
+     */
 }
 
 
