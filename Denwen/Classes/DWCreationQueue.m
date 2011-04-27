@@ -5,6 +5,7 @@
 
 #import "DWCreationQueue.h"
 #import "DWNewPostQueueItem.h"
+#import "DWNewUserPhotoQueueItem.h"
 #import "DWRequestsManager.h"
 #import "DWConstants.h"
 
@@ -141,6 +142,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 				 andOrientation:orientation 
 					toPlaceName:name
 					 atLocation:location];	
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)addNewUpdateUserPhotoToQueueWithUserID:(NSInteger)userID
+                                      andImage:(UIImage*)theImage {
+    
+    DWNewUserPhotoQueueItem *queueItem = [[[DWNewUserPhotoQueueItem alloc] init] autorelease];
+    
+    [self.queue addObject:queueItem];
+    
+    [queueItem updatePhotoForUserWithID:userID
+                               toImage:theImage];
 }
 
 //----------------------------------------------------------------------------------------------------

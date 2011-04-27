@@ -304,6 +304,7 @@
 		BB8618AF13689E6200CD95E1 /* hand_230@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8618AB13689E6200CD95E1 /* hand_230@2x.png */; };
 		BB8618B013689E6200CD95E1 /* touched.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8618AC13689E6200CD95E1 /* touched.png */; };
 		BB8618B113689E6200CD95E1 /* touched@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8618AD13689E6200CD95E1 /* touched@2x.png */; };
+		BB8618BC1368BF8200CD95E1 /* DWNewUserPhotoQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8618BB1368BF8100CD95E1 /* DWNewUserPhotoQueueItem.m */; };
 		BB89EB24133163FC001F6611 /* trans40.png in Resources */ = {isa = PBXBuildFile; fileRef = BB89EB23133163FC001F6611 /* trans40.png */; };
 		BB8B8E951352EB1C00C8CB76 /* tab_create_on.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8B8E8B1352EB1C00C8CB76 /* tab_create_on.png */; };
 		BB8B8E961352EB1C00C8CB76 /* tab_create_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8B8E8C1352EB1C00C8CB76 /* tab_create_on@2x.png */; };
@@ -874,6 +875,8 @@
 		BB8618AB13689E6200CD95E1 /* hand_230@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hand_230@2x.png"; path = "resources/hand_230@2x.png"; sourceTree = "<group>"; };
 		BB8618AC13689E6200CD95E1 /* touched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = touched.png; path = resources/touched.png; sourceTree = "<group>"; };
 		BB8618AD13689E6200CD95E1 /* touched@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "touched@2x.png"; path = "resources/touched@2x.png"; sourceTree = "<group>"; };
+		BB8618BA1368BF8100CD95E1 /* DWNewUserPhotoQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewUserPhotoQueueItem.h; path = Classes/DWNewUserPhotoQueueItem.h; sourceTree = "<group>"; };
+		BB8618BB1368BF8100CD95E1 /* DWNewUserPhotoQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewUserPhotoQueueItem.m; path = Classes/DWNewUserPhotoQueueItem.m; sourceTree = "<group>"; };
 		BB89EB23133163FC001F6611 /* trans40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trans40.png; path = resources/trans40.png; sourceTree = "<group>"; };
 		BB8B8E8B1352EB1C00C8CB76 /* tab_create_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_create_on.png; path = resources/tab_create_on.png; sourceTree = "<group>"; };
 		BB8B8E8C1352EB1C00C8CB76 /* tab_create_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab_create_on@2x.png"; path = "resources/tab_create_on@2x.png"; sourceTree = "<group>"; };
@@ -2031,6 +2034,8 @@
 				BBF891B4134ECDAB00B332CA /* DWCreationQueueItem.m */,
 				BBF891B6134ECE1900B332CA /* DWNewPostQueueItem.h */,
 				BBF891B7134ECE1900B332CA /* DWNewPostQueueItem.m */,
+				BB8618BA1368BF8100CD95E1 /* DWNewUserPhotoQueueItem.h */,
+				BB8618BB1368BF8100CD95E1 /* DWNewUserPhotoQueueItem.m */,
 			);
 			name = "Creation Queue";
 			sourceTree = "<group>";
@@ -2517,6 +2522,7 @@
 				265CBE1A1363DDBC00CC2C83 /* DWProfilePicViewController.m in Sources */,
 				265CBE1E136632DE00CC2C83 /* DWUserProfileTitleView.m in Sources */,
 				BBC7CCCB13664BF80003CE02 /* DWVideoView.m in Sources */,
+				BB8618BC1368BF8200CD95E1 /* DWNewUserPhotoQueueItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

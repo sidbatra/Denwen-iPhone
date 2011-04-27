@@ -310,18 +310,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)updatePhotoForUserWithID:(NSInteger)userID
+- (NSInteger)updatePhotoForUserWithID:(NSInteger)userID
 			   withPhotoFilename:(NSString*)photoFilename {
 	
 	NSString *localRequestURL = [NSString stringWithFormat:kUserUpdatePhotoURI,
 									 userID,
 									 photoFilename];
 	
-	[self createDenwenRequest:localRequestURL 
-		  successNotification:kNUserUpdated
-			errorNotification:kNUserUpdateError
-				requestMethod:kPut
-				   resourceID:userID];
+    DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:[self createDenwenRequestURL:localRequestURL]
+												  successNotification:kNUserUpdated
+													errorNotification:kNUserUpdateError];
+	[request setDelegate:self];
+	[request setRequestMethod:kPut];
+	[request generateResourceID];
+	[request setShouldContinueWhenAppEntersBackground:YES];
+	[request startAsynchronous];
+	
+	return request.resourceID;
 }
 
 //----------------------------------------------------------------------------------------------------

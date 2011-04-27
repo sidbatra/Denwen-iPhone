@@ -207,7 +207,6 @@
 - (void)mediaUploadFinished:(NSString*)theFilename {
 	[super mediaUploadFinished:theFilename];
 		
-	self.filename			= theFilename;
 	self.item.attachment	= nil;
 		
 	[self startPrimaryUpload];

@@ -19,6 +19,8 @@
 	NSInteger	_primaryUploadRetries;
 	
 	NSInteger	_state;
+    
+    BOOL        _isSilent;
 	
 	NSString	*_filename;
 	NSString	*_errorMessage;

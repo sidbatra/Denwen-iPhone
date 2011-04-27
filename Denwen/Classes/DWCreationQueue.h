@@ -59,6 +59,12 @@
 					   atLocation:(CLLocation*)location;
 
 /**
+ * Update the profile photo of the current user
+ */
+- (void)addNewUpdateUserPhotoToQueueWithUserID:(NSInteger)userID
+                                      andImage:(UIImage*)theImage;
+
+/**
  * Delete all failed requests from the queue
  */
 - (void)deleteRequests;

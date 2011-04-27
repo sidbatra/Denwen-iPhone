@@ -94,8 +94,8 @@
 /**
  * Update the display picture for a user
  */
-- (void)updatePhotoForUserWithID:(NSInteger)userID
-			   withPhotoFilename:(NSString*)photoFilename;
+- (NSInteger)updatePhotoForUserWithID:(NSInteger)userID
+                    withPhotoFilename:(NSString*)photoFilename;
 
 /**
  * Update twitter access token for the logged in user

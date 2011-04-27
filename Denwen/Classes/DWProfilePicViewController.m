@@ -4,6 +4,7 @@
 //
 
 #import "DWProfilePicViewController.h"
+#import "DWCreationQueue.h"
 #import "DWImageView.h"
 #import "DWConstants.h"
 #import "DWGUIManager.h"
@@ -41,27 +42,8 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 												 selector:@selector(imageError:) 
 													 name:kNImgActualUserImageError
 												   object:nil];
-        
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(userUpdated:) 
-													 name:kNUserUpdated
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(userUpdateError:) 
-													 name:kNUserUpdateError
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(imageUploadDone:) 
-													 name:kNS3UploadDone
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(imageUploadError:) 
-													 name:kNS3UploadError
-												   object:nil];	
-	}
+    }
+    
     return self;
 }
 
@@ -156,59 +138,6 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 	}
 }
 
-//----------------------------------------------------------------------------------------------------
-- (void)userUpdated:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
-		return;
-	
-	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {		
-		[self.user update:[[info objectForKey:kKeyBody] objectForKey:kKeyUser]];
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)userUpdateError:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
-		return;
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)imageUploadDone:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(_uploadID == resourceID) {
-		[self sendUpdateUserRequest:[info objectForKey:kKeyFilename]];
-	}
-    
-    //save the updated picture information to disk
-    [self.user savePicturesToDisk];
-    
-    [self.userProfileTitleView showNormalState];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)imageUploadError:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(_uploadID == resourceID) {		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgImageUploadErrorTitle
-														message:kMsgImageUploadErrorText
-													   delegate:nil 
-											  cancelButtonTitle:kMsgImageUploadErrorCancelButton 
-											  otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-	}
-}
-
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -220,10 +149,10 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 	
 	[[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];
     
-	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
-                                                                        toFolder:kS3UsersFolder
-                                                              withUploadDelegate:nil];
-    [self.userProfileTitleView showProcessingState];
+    
+    [[DWCreationQueue sharedDWCreationQueue] addNewUpdateUserPhotoToQueueWithUserID:self.user.databaseID
+                                                                           andImage:editedImage];
+    
 	[self.user updatePreviewImages:editedImage];
 	[(DWImageView*)self.view setupImageView:editedImage];
 }

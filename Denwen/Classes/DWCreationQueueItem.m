@@ -59,7 +59,7 @@ static float	 const kMediaProgressFactor		= 0.9;
 
 //----------------------------------------------------------------------------------------------------
 - (BOOL)isActive {
-	return _state == kStateMediaUploading || _state == kStatePrimaryUploading;
+	return (_state == kStateMediaUploading || _state == kStatePrimaryUploading) && !_isSilent;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -69,9 +69,10 @@ static float	 const kMediaProgressFactor		= 0.9;
 
 //----------------------------------------------------------------------------------------------------
 - (void)postUpdate {
-	[[NSNotificationCenter defaultCenter] postNotificationName:kNQueueItemProgressUpdated 
-														object:nil
-													  userInfo:nil];
+    if(!_isSilent) 
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNQueueItemProgressUpdated 
+                                                            object:nil
+                                                          userInfo:nil];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -94,6 +95,7 @@ static float	 const kMediaProgressFactor		= 0.9;
 
 //----------------------------------------------------------------------------------------------------
 - (void)mediaUploadFinished:(NSString*)theFilename {
+    self.filename  = theFilename;
 }
 
 //----------------------------------------------------------------------------------------------------
