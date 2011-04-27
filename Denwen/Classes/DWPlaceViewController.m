@@ -167,13 +167,13 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
 		NSDictionary *body = [info objectForKey:kKeyBody];
-		
+	
+        [self.place update:[body objectForKey:kKeyPlace]];
+
 		[self.itemManager populateItems:[body objectForKey:kKeyItems]
 							 withBuffer:NO
 							  withClear:_isReloading];
-		
-		[self.place update:[body objectForKey:kKeyPlace]];
-
+    
 		[self updateFollowing:[body objectForKey:kKeyFollowing]];
 		
 		[self updatePlaceTitleView];

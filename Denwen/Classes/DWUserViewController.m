@@ -184,12 +184,12 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 		NSDictionary *body	= [info objectForKey:kKeyBody];
 		NSArray *items		= [body objectForKey:kKeyItems];
         
+        [self.user update:[body objectForKey:kKeyUser]];
+
 		[self.itemManager populateItems:items
 							 withBuffer:NO
 							  withClear:_isReloading];
-		
-		[self.user update:[body objectForKey:kKeyUser]];
-        
+		                
         [self updateUserTitleView];
         
         if (!self.user.smallPreviewImage) 

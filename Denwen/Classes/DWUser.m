@@ -183,7 +183,6 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
         self.lastName           = newLastName;
     
     
-    
     if([user objectForKey:kKeyFollowingsCount])
         _followingCount         = [[user objectForKey:kKeyFollowingsCount] integerValue];
     
