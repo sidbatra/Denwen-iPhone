@@ -80,7 +80,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	[button addTarget:self action:@selector(didTapNotificationsButton:) 
      forControlEvents:UIControlEventTouchUpInside];
     
-	[button setFrame:CGRectMake(0,0,60,44)];
+	[button setFrame:CGRectMake(0,0,55,44)];
     
     self.navigationItem.leftBarButtonItem   = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
         			

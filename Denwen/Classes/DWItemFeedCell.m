@@ -48,7 +48,7 @@
 #define kAfterTouchFadeInerval		1.0
 #define kNormalFadeInterval			0.5
 #define kNoAnimationDuration		0.0
-#define kCellAnimationDuration		0.65
+#define kCellAnimationDuration		0.25
 
 
 //----------------------------------------------------------------------------------------------------
@@ -168,6 +168,14 @@
     
 	if (self) {
 		CGRect frame = CGRectMake(0,0,320,320);
+        
+        
+        UITapGestureRecognizer *singleTap   = [[[UITapGestureRecognizer alloc] initWithTarget:self 
+                                                                                       action:@selector(handleTapGesture:)] autorelease];
+        singleTap.numberOfTapsRequired      = 1;
+        [self addGestureRecognizer:singleTap];
+        
+        
                                   
 		itemImageLayer					= [CALayer layer];
 		itemImageLayer.frame			= frame;
@@ -470,7 +478,7 @@
 //----------------------------------------------------------------------------------------------------
 - (void)setHighlighted:(BOOL)highlighted 
 			  animated:(BOOL)animated {
-	
+	/*
 	if(highlighted && !_highlighted) {
         _highlighted = YES;
         
@@ -481,6 +489,7 @@
 	else if(!highlighted && _highlighted) {
             _highlighted = _isTouching;
     }
+     */
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -564,8 +573,8 @@
     
     if(_attachmentType == kAttachmentVideo)
         [videoView startPlayingVideoAtURL:[_delegate getVideoAttachmentURLForItemID:_itemID]];
-    else
-        [self conditionalFadeWithDuration:2.0];
+    //else
+    //    [self conditionalFadeWithDuration:2.0];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -687,8 +696,21 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)playbackFinished {
-    if(_isTouching)
-        [self conditionalFadeWithDuration:0.0];
+    //if(_isTouching)
+    
+    //   [self conditionalFadeWithDuration:0.0];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)handleTapGesture:(UIPanGestureRecognizer*)sender {    
+    _highlighted = !_highlighted;
+
+    if(!_highlighted)
+        [self fadeCell];
+    else
+        [self highlightCell];
+    
+    
 }
 
 @end
