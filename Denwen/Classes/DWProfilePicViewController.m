@@ -187,7 +187,7 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 	}
     
     //save the updated picture information to disk
-    //[[DWSession sharedDWSession].currentUser savePicturesToDisk];
+    [self.user savePicturesToDisk];
     
     [self.userProfileTitleView showNormalState];
 }

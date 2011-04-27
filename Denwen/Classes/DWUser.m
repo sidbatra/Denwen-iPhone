@@ -18,6 +18,7 @@ static NSString* const kDiskKeyID						= @"signedin_user__id";
 static NSString* const kDiskKeyEmail					= @"signedin_user__email";
 static NSString* const kDiskKeyPassword					= @"signedin_user__password";
 static NSString* const kDiskKeySmallUrl					= @"signedin_user__smallurl";
+static NSString* const kDiskKeyMediumUrl				= @"signedin_user__mediumurl";
 static NSString* const kDiskKeyLargeUrl					= @"signedin_user__largeurl";
 static NSString* const kDiskKeyTwitterData				= @"signedin_user__twitterOAuthData";
 static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken";
@@ -153,11 +154,10 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
         
         _hasPhoto               = YES;
 		self.smallURL			= [photo	objectForKey:kKeySmallURL];
-		//self.mediumURL			= [photo	objectForKey:kKeyMediumURL];
-        self.largeURL           = [photo objectForKey:kKeyActualURL];
+		self.mediumURL			= [photo	objectForKey:kKeyMediumURL];
+        self.largeURL           = [photo    objectForKey:kKeyActualURL];
 		_isProcessed			= [[photo	objectForKey:kKeyIsProcessed] boolValue];
 	}
-	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
         if(![self.smallURL isEqualToString:newSmallURL]) {
             self.smallURL		= newSmallURL;
             self.largeURL       = [photo objectForKey:kKeyActualURL];
-            //self.mediumURL		= [photo objectForKey:kKeyMediumURL];
+            self.mediumURL		= [photo objectForKey:kKeyMediumURL];
             
             _isProcessed		= [[photo objectForKey:kKeyIsProcessed] boolValue];
             
@@ -287,6 +287,7 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
     
     if (standardUserDefaults) {
         [standardUserDefaults setObject:self.smallURL           forKey:kDiskKeySmallUrl];
+        [standardUserDefaults setObject:self.mediumURL          forKey:kDiskKeyMediumUrl];
         [standardUserDefaults setObject:self.largeURL           forKey:kDiskKeyLargeUrl];
 		[standardUserDefaults synchronize];        
     }
@@ -320,6 +321,7 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 			self.email					= [standardUserDefaults	objectForKey:kDiskKeyEmail];
 			self.encryptedPassword		= [standardUserDefaults objectForKey:kDiskKeyPassword];
             self.smallURL               = [standardUserDefaults objectForKey:kDiskKeySmallUrl];
+            self.mediumURL              = [standardUserDefaults objectForKey:kDiskKeyMediumUrl];
             self.largeURL               = [standardUserDefaults objectForKey:kDiskKeyLargeUrl];
 			self.twitterOAuthData		= [standardUserDefaults objectForKey:kDiskKeyTwitterData];
 			self.facebookAccessToken	= [standardUserDefaults objectForKey:kDiskKeyFacebookData];
