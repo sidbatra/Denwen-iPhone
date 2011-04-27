@@ -275,11 +275,16 @@
 	NSDictionary *body = [info objectForKey:kKeyBody];
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		NSDictionary *userJSON = [body objectForKey:USER_JSON_KEY];
+		//NSDictionary *userJSON = [body objectForKey:USER_JSON_KEY];
 		
-		DWUser *user = [[DWUser alloc] init];
-		[user populate:userJSON];
-		user.encryptedPassword = self.password;
+        DWUser *user            = (DWUser*)[[DWMemoryPool sharedDWMemoryPool] getOrSetObject:[body objectForKey:kKeyUser]
+                                                                                       atRow:kMPUsersIndex];
+        
+        user.encryptedPassword  = self.password;
+        
+		//DWUser *user = [[DWUser alloc] init];
+		//[user populate:userJSON];
+		
 		
 		[[DWSession sharedDWSession] create:user];
 		[_delegate signupSuccessful];		

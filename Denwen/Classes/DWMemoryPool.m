@@ -100,6 +100,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWMemoryPool);
 					 forKey:[NSString stringWithFormat:@"%d",poolObject.databaseID]];
 	
 	poolObject.pointerCount++;
+    
+    [poolObject refreshUpdatedAt];
 }
 
 //----------------------------------------------------------------------------------------------------

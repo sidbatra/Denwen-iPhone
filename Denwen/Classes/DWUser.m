@@ -164,9 +164,25 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 - (BOOL)update:(NSDictionary*)user {
     if(![super update:user])
         return NO;
-		
-    if([user objectForKey:kKeyEmail])
-        self.email              = [user objectForKey:kKeyEmail];
+	
+	NSString *newEmail          = [user objectForKey:kKeyEmail];
+    
+    if(newEmail && ![self.email isEqualToString:newEmail])
+        self.email              = newEmail;
+    
+    
+    NSString *newFirstName      = [user objectForKey:kKeyFirstName];
+    
+    if(newFirstName && ![self.firstName isEqualToString:newFirstName])
+        self.firstName           = newFirstName;
+        
+
+    NSString *newLastName       = [user objectForKey:kKeyLastName];
+    
+    if(newLastName && ![self.lastName isEqualToString:newLastName])
+        self.lastName           = newLastName;
+    
+    
     
     if([user objectForKey:kKeyFollowingsCount])
         _followingCount         = [[user objectForKey:kKeyFollowingsCount] integerValue];

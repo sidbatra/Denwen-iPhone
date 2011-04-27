@@ -274,7 +274,7 @@ extern NSInteger const kMPPlacesIndex;
 extern NSInteger const kMPUsersIndex;
 extern NSInteger const kMPAttachmentsIndex;
 extern NSInteger const kMPAttachmentSlicesIndex;
-extern NSInteger const kMPObjectUpdateInterval;
+extern float     const kMPObjectUpdateInterval;
 extern NSInteger const kMPDefaultDatabaseID;
 
 

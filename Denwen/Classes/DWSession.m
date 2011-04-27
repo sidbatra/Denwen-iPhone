@@ -5,6 +5,7 @@
 
 #import "DWSession.h"
 #import "DWRequestsManager.h"
+#import "DWMemoryPool.h"
 #import "DWConstants.h"
 
 #import "SynthesizeSingleton.h"
@@ -63,11 +64,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	
 	if([user readFromDisk]) {
 		self.currentUser = user;
+        
+        [[DWMemoryPool sharedDWMemoryPool] setObject:self.currentUser
+                                               atRow:kMPUsersIndex];
 	}
 	else {
 		[user release];
 	}
-	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -79,6 +82,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 //----------------------------------------------------------------------------------------------------
 - (void)destroy {
 	[self.currentUser removeFromDisk];
+    
+    [[DWMemoryPool sharedDWMemoryPool] removeObject:self.currentUser
+                                              atRow:kMPUsersIndex];
 	self.currentUser = nil;
 }
 

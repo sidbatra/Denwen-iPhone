@@ -7,6 +7,7 @@
 //
 
 #import "DWLoginViewController.h"
+#import "DWMemoryPool.h"
 #import "DWConstants.h"
 
 //Declarations for private methods
@@ -165,13 +166,15 @@
 	NSDictionary *body = [info objectForKey:kKeyBody];
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		DWUser *user = [[DWUser alloc] init];
-		[user populate:[body objectForKey:USER_JSON_KEY]];
-		user.encryptedPassword = self.password;
+
+        DWUser *user            = (DWUser*)[[DWMemoryPool sharedDWMemoryPool] getOrSetObject:[body objectForKey:kKeyUser]
+                                                                                       atRow:kMPUsersIndex];
+		user.encryptedPassword  = self.password;
 		[[DWSession sharedDWSession] create:user];
 		
 		[_delegate loginSuccessful];
-		[[NSNotificationCenter defaultCenter] postNotificationName:kNUserLogsIn object:user];
+		[[NSNotificationCenter defaultCenter] postNotificationName:kNUserLogsIn 
+                                                            object:user];
 	}
 	else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
