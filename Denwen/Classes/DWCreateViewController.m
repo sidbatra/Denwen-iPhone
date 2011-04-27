@@ -430,7 +430,8 @@ replacementString:(NSString *)string {
 	if(_newPlaceMode)
         return;
     
-    self.selectedPlace = nil;
+    if(self.selectedPlace && ![self.selectedPlace.name isEqualToString:self.placeNameTextField.text])
+        self.selectedPlace = nil;
 		
     if(_isMediaSelected)
         self.placeNameTextField.text.length > 0 ? [self displayNormalUI] : [self displayMediaUI];
