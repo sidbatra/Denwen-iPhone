@@ -80,9 +80,9 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
     
+    self.navigationItem.titleView           = [DWGUIManager customTitleWithText:@"Notifications"];
+    self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
     [self loadData];
 }
 

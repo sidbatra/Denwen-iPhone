@@ -62,6 +62,19 @@ static NSString* const kImgCameraButtonActive           = @"button_camera.png";
 }
 
 //----------------------------------------------------------------------------------------------------
++ (UILabel*)customTitleWithText:(NSString*)text {
+    UILabel *titleLabel                     = [[UILabel alloc] initWithFrame:CGRectMake(10, 4, 180, 18)];
+    titleLabel.textColor                    = [UIColor whiteColor];
+    titleLabel.textAlignment                = UITextAlignmentCenter;
+    titleLabel.backgroundColor              = [UIColor clearColor];
+    titleLabel.font                         = [UIFont fontWithName:@"HelveticaNeue-Bold" 
+                                                              size:17];
+    titleLabel.text                         = text;
+    
+    return [titleLabel autorelease];
+}
+
+//----------------------------------------------------------------------------------------------------
 + (UIBarButtonItem*)placeDetailsButton:(id)target {
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     

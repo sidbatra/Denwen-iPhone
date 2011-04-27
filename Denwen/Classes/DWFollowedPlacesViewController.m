@@ -53,15 +53,15 @@ static NSInteger const kCapacity					= 1;
 	[super viewDidLoad];
 	
 	self.view.hidden	= NO;
-	self.title			=  (NSString*)([self.user isCurrentUser] ? 
-										kCurrentUserTitle :
-										[NSString stringWithFormat:kNormalUserTitle,self.user.firstName]);
-	
+
+    self.navigationItem.leftBarButtonItem = [DWGUIManager customBackButton:_delegate];
+    self.navigationItem.titleView         = [DWGUIManager customTitleWithText:(NSString*)([self.user isCurrentUser] ? 
+                                                                                          kCurrentUserTitle :
+                                                                                          [NSString stringWithFormat:kNormalUserTitle,
+                                                                                           self.user.firstName])];
+
 	self.searchDisplayController.searchBar.placeholder = [NSString stringWithFormat:kSearchString,
-														  self.title];
-	
-	self.navigationItem.leftBarButtonItem = [DWGUIManager customBackButton:_delegate];
-	
+														  self.title];	
 	
 	_tableViewUsage = kTableViewAsSpinner;
 	[self.tableView reloadData];

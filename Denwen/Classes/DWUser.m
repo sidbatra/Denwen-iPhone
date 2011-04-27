@@ -22,6 +22,9 @@ static NSString* const kDiskKeyMediumUrl				= @"signedin_user__mediumurl";
 static NSString* const kDiskKeyLargeUrl					= @"signedin_user__largeurl";
 static NSString* const kDiskKeyTwitterData				= @"signedin_user__twitterOAuthData";
 static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken";
+static NSString* const kDiskKeyFirstName				= @"signedin_user__firstName";
+static NSString* const kDiskKeyLastName                 = @"signedin_user__lastName";
+static NSString* const kDiskKeyFollowingCount           = @"signedin_user__followingCount";
 
 
 
@@ -302,6 +305,8 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 		[standardUserDefaults setInteger:_databaseID			forKey:kDiskKeyID];
 		[standardUserDefaults setObject:self.email				forKey:kDiskKeyEmail];
 		[standardUserDefaults setObject:self.encryptedPassword	forKey:kDiskKeyPassword];
+        [standardUserDefaults setObject:self.firstName          forKey:kDiskKeyFirstName];
+        [standardUserDefaults setObject:self.lastName           forKey:kDiskKeyLastName];
 		[standardUserDefaults synchronize];
         
         [self savePicturesToDisk];
@@ -320,6 +325,10 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 			_databaseID					= [standardUserDefaults	integerForKey:kDiskKeyID];
 			self.email					= [standardUserDefaults	objectForKey:kDiskKeyEmail];
 			self.encryptedPassword		= [standardUserDefaults objectForKey:kDiskKeyPassword];
+            self.firstName              = [standardUserDefaults objectForKey:kDiskKeyFirstName];
+            self.lastName               = [standardUserDefaults objectForKey:kDiskKeyLastName];
+            _followingCount             = [standardUserDefaults objectForKey:kDiskKeyLastName];
+            
             self.smallURL               = [standardUserDefaults objectForKey:kDiskKeySmallUrl];
             self.mediumURL              = [standardUserDefaults objectForKey:kDiskKeyMediumUrl];
             self.largeURL               = [standardUserDefaults objectForKey:kDiskKeyLargeUrl];

@@ -10,6 +10,7 @@
 #import "DWContainerViewController.h"
 #import "DWSmallProfilePicView.h"
 #import "DWPostProgressView.h"
+#import "DWUserTitleView.h"
 
 /**
  * Primary view for the Feed tab and container for followed 
@@ -19,12 +20,19 @@
 	DWFollowedItemsViewController	*followedViewController;
 	DWPostProgressView				*postProgressView;
     DWSmallProfilePicView           *_smallProfilePicView;
+    DWUserTitleView                 *_userTitleView;
 }
 
 /**
  * Subview for displaying small profile picture
  */
 @property (nonatomic,retain) DWSmallProfilePicView *smallProfilePicView;
+
+/**
+ * Subview for displaying username and following count
+ */
+@property (nonatomic,retain) DWUserTitleView *userTitleView;
+
 
 @end
 

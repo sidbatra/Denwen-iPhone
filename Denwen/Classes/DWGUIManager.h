@@ -23,6 +23,7 @@
 + (UIBarButtonItem*)customBackButton:(id)target;
 + (UIBarButtonItem*)placeDetailsButton:(id)target;
 + (UIBarButtonItem*)cameraNavButton:(id)target;
++ (UILabel*)customTitleWithText:(NSString*)text;
 
 
 //Spinner methods
