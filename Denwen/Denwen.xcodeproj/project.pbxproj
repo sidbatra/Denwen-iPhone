@@ -118,6 +118,8 @@
 		266BBFCE1363D5EF00EBF1AD /* user_photo_gloss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 266BBFCC1363D5EF00EBF1AD /* user_photo_gloss@2x.png */; };
 		2672240D131B3F9600654D88 /* modalview_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2672240B131B3F9600654D88 /* modalview_bg.png */; };
 		2672240E131B3F9600654D88 /* modalview_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2672240C131B3F9600654D88 /* modalview_bg@2x.png */; };
+		26885A821367A46900C3511F /* profile_pic_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 26885A801367A46900C3511F /* profile_pic_placeholder.png */; };
+		26885A831367A46900C3511F /* profile_pic_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26885A811367A46900C3511F /* profile_pic_placeholder@2x.png */; };
 		268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B56811356682800BB43DC /* DWCameraOverlayViewController.m */; };
 		268B56841356682800BB43DC /* DWCameraOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 268B56821356682800BB43DC /* DWCameraOverlayViewController.xib */; };
 		26B973CC12F0BED9000F8F1F /* DWItemFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B973CB12F0BED9000F8F1F /* DWItemFeedCell.m */; };
@@ -562,6 +564,8 @@
 		266BBFCC1363D5EF00EBF1AD /* user_photo_gloss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user_photo_gloss@2x.png"; path = "resources/user_photo_gloss@2x.png"; sourceTree = "<group>"; };
 		2672240B131B3F9600654D88 /* modalview_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = modalview_bg.png; path = resources/modalview_bg.png; sourceTree = "<group>"; };
 		2672240C131B3F9600654D88 /* modalview_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modalview_bg@2x.png"; path = "resources/modalview_bg@2x.png"; sourceTree = "<group>"; };
+		26885A801367A46900C3511F /* profile_pic_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile_pic_placeholder.png; path = resources/profile_pic_placeholder.png; sourceTree = "<group>"; };
+		26885A811367A46900C3511F /* profile_pic_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "profile_pic_placeholder@2x.png"; path = "resources/profile_pic_placeholder@2x.png"; sourceTree = "<group>"; };
 		268B56801356682800BB43DC /* DWCameraOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCameraOverlayViewController.h; path = Classes/DWCameraOverlayViewController.h; sourceTree = "<group>"; };
 		268B56811356682800BB43DC /* DWCameraOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCameraOverlayViewController.m; path = Classes/DWCameraOverlayViewController.m; sourceTree = "<group>"; };
 		268B56821356682800BB43DC /* DWCameraOverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DWCameraOverlayViewController.xib; path = Classes/DWCameraOverlayViewController.xib; sourceTree = "<group>"; };
@@ -1109,6 +1113,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				26885A801367A46900C3511F /* profile_pic_placeholder.png */,
+				26885A811367A46900C3511F /* profile_pic_placeholder@2x.png */,
 				265CBE1F13665B0900CC2C83 /* button_camera.png */,
 				265CBE2013665B0900CC2C83 /* button_camera@2x.png */,
 				BBD837651363D88700326E1F /* button_notifications.png */,
@@ -2355,6 +2361,8 @@
 				BBD837681363D88700326E1F /* button_notifications@2x.png in Resources */,
 				265CBE2113665B0900CC2C83 /* button_camera.png in Resources */,
 				265CBE2213665B0900CC2C83 /* button_camera@2x.png in Resources */,
+				26885A821367A46900C3511F /* profile_pic_placeholder.png in Resources */,
+				26885A831367A46900C3511F /* profile_pic_placeholder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

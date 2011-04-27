@@ -132,6 +132,12 @@
 - (void)saveToDisk;
 
 /**
+ * Save picture information about the user to disk - used
+ * for updating the images when the user changes his profile pic
+ */
+- (void)savePicturesToDisk;
+
+/**
  * Read current user information from the disk in a cookie-esque 
  * fashion to maintain the session
  */

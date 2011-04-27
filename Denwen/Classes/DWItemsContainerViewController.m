@@ -83,9 +83,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	[button setFrame:CGRectMake(0,0,60,44)];
 	
     self.navigationItem.leftBarButtonItem   = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
-    
-    [[DWSession sharedDWSession].currentUser startSmallPreviewDownload];
-    			
+        			
 	/**
 	 * Add subview
 	 */
@@ -275,7 +273,9 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
     
     [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
     
-    if ([DWSession sharedDWSession].currentUser.smallPreviewImage) 
+    if (![DWSession sharedDWSession].currentUser.smallPreviewImage)
+        [[DWSession sharedDWSession].currentUser startSmallPreviewDownload];
+    else
         [self setSmallUserImage:[DWSession sharedDWSession].currentUser.smallPreviewImage];
 }
 

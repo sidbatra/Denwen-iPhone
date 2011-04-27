@@ -8,6 +8,7 @@
 #import "DWConstants.h"
 #import "DWGUIManager.h"
 #import "DWMemoryPool.h"
+#import "DWSession.h"
 #import "DWRequestsManager.h"
 
 static NSString* const kMsgImageUploadErrorTitle			= @"Error";
@@ -184,6 +185,10 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 	if(_uploadID == resourceID) {
 		[self sendUpdateUserRequest:[info objectForKey:kKeyFilename]];
 	}
+    
+    //save the updated picture information to disk
+    //[[DWSession sharedDWSession].currentUser savePicturesToDisk];
+    
     [self.userProfileTitleView showNormalState];
 }
 

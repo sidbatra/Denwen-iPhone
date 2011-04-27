@@ -183,13 +183,19 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		NSDictionary *body	= [info objectForKey:kKeyBody];
 		NSArray *items		= [body objectForKey:kKeyItems];
-		
+        
 		[self.itemManager populateItems:items
 							 withBuffer:NO
 							  withClear:_isReloading];
 		
 		[self.user update:[body objectForKey:kKeyUser]];
-        [self.user startSmallPreviewDownload];
+        
+        [self updateUserTitleView];
+        
+        if (!self.user.smallPreviewImage) 
+            [self.user startSmallPreviewDownload];
+        else
+            [self setSmallUserImage:self.user.smallPreviewImage];
 
 		_isLoadedOnce = YES;
 		
@@ -255,10 +261,6 @@ static NSInteger const kActionSheetCancelIndex				= 2;
                                         andTarget:self] autorelease];
     
     [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
-    [self updateUserTitleView];
-    
-    if (self.user.smallPreviewImage) 
-        [self setSmallUserImage:self.user.smallPreviewImage];
 }
 
 @end

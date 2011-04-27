@@ -10,7 +10,7 @@
 #import "NSString+Helpers.h"
 #import "DWConstants.h"
 
-static NSString* const kImgSmallPlaceHolder				= @"user_small_placeholder.png";
+static NSString* const kImgProfilePicPlaceHolder		= @"profile_pic_placeholder.png";
 static NSString* const kImgMediumPlaceHolder			= @"user_medium_placeholder.png";
 static NSString* const kImgSignedInMediumPlaceHolder	= @"profile_button.png";
 static NSString* const kDiskKeySignedInUser				= @"signedin_user_";
@@ -209,7 +209,7 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 											  errorNotification:kNImgSmallUserError];
 	}
 	else if(!_hasPhoto){ 
-		[self applyNewSmallImage:[UIImage imageNamed:kImgSmallPlaceHolder]];
+		[self applyNewSmallImage:[UIImage imageNamed:kImgProfilePicPlaceHolder]];
 	}
 }
 
@@ -267,6 +267,17 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)savePicturesToDisk {
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];    
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setObject:self.smallURL           forKey:kDiskKeySmallUrl];
+        [standardUserDefaults setObject:self.largeURL           forKey:kDiskKeyLargeUrl];
+		[standardUserDefaults synchronize];        
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)saveToDisk {	
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	
@@ -275,10 +286,9 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 		[standardUserDefaults setInteger:_databaseID			forKey:kDiskKeyID];
 		[standardUserDefaults setObject:self.email				forKey:kDiskKeyEmail];
 		[standardUserDefaults setObject:self.encryptedPassword	forKey:kDiskKeyPassword];
-        [standardUserDefaults setObject:self.smallURL           forKey:kDiskKeySmallUrl];
-        [standardUserDefaults setObject:self.largeURL           forKey:kDiskKeyLargeUrl];
-		
 		[standardUserDefaults synchronize];
+        
+        [self savePicturesToDisk];
 	}
 }
 
