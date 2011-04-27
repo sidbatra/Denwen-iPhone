@@ -45,6 +45,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 @synthesize	hasPhoto			= _hasPhoto;
 @synthesize twitterOAuthData	= _twitterOAuthData;
 @synthesize	facebookAccessToken = _facebookAccessToken;
+@synthesize followingCount      = _followingCount;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -252,6 +253,10 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 	}
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)updateFollowingCount:(NSInteger)delta {
+	_followingCount += delta;
+}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -285,6 +290,17 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)saveFollowingCountToDisk {
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];    
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setObject:[NSNumber numberWithInt:_followingCount]  
+                                 forKey:kDiskKeyFollowingCount];
+		[standardUserDefaults synchronize];        
+    } 
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)savePicturesToDisk {
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];    
     
@@ -310,6 +326,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 		[standardUserDefaults synchronize];
         
         [self savePicturesToDisk];
+        [self saveFollowingCountToDisk];
 	}
 }
 
@@ -327,7 +344,6 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 			self.encryptedPassword		= [standardUserDefaults objectForKey:kDiskKeyPassword];
             self.firstName              = [standardUserDefaults objectForKey:kDiskKeyFirstName];
             self.lastName               = [standardUserDefaults objectForKey:kDiskKeyLastName];
-            _followingCount             = [standardUserDefaults objectForKey:kDiskKeyLastName];
             
             self.smallURL               = [standardUserDefaults objectForKey:kDiskKeySmallUrl];
             self.mediumURL              = [standardUserDefaults objectForKey:kDiskKeyMediumUrl];
@@ -336,6 +352,8 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 			self.facebookAccessToken	= [standardUserDefaults objectForKey:kDiskKeyFacebookData];
             
             _hasPhoto                   = self.smallURL ? YES : NO;
+            _followingCount             = [[standardUserDefaults objectForKey:kDiskKeyFollowingCount] 
+                                           integerValue];            
 						
 			[standardUserDefaults synchronize];
 		}
@@ -361,11 +379,6 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 //----------------------------------------------------------------------------------------------------
 - (NSString*)fullName {
 	return [NSString stringWithFormat:@"%@ %@",self.firstName,self.lastName];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (NSInteger)followingCount {
-	return _followingCount;
 }
 
 

@@ -97,6 +97,11 @@
 @property (nonatomic,readonly) BOOL hasPhoto;
 
 /**
+ * Number of places followed by the user
+ */
+@property (nonatomic,readonly) NSInteger followingCount;
+
+/**
  * Update both the small and medium preview images
  */
 - (void)updatePreviewImages:(UIImage*)image;
@@ -112,6 +117,11 @@
  * placeholder. Image downloads are alerted via notifications
  */
 - (void)startMediumPreviewDownload;
+
+/**
+ * Update user following count
+ */
+- (void)updateFollowingCount:(NSInteger)delta;
 
 /**
  * Store twitter oauth data obtained after twitter connect
@@ -138,6 +148,12 @@
 - (void)savePicturesToDisk;
 
 /**
+ * Save following count for the users places to disk -used
+ * for showing the follow places count in feed view
+ */
+- (void)saveFollowingCountToDisk;
+
+/**
  * Read current user information from the disk in a cookie-esque 
  * fashion to maintain the session
  */
@@ -157,11 +173,6 @@
  * Returns the full name of the user
  */
 - (NSString*)fullName;
-
-/**
- * Returns the number of following places for the user
- */
-- (NSInteger)followingCount;
 
 @end
 

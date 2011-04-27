@@ -150,6 +150,12 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 													ofPlaceWithID:self.place.databaseID];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)saveAndUpdateUserFollowingCountBy:(NSInteger)delta {    
+    DWUser *user = [[DWSession sharedDWSession] currentUser];
+    [user updateFollowingCount:delta];
+    [user saveFollowingCountToDisk];
+}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -207,7 +213,8 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		[self updateFollowing:[info objectForKey:kKeyBody]];
 		[self.place updateFollowerCount:1];
-		
+        [self saveAndUpdateUserFollowingCountBy:1];
+        
 		[self updatePlaceTitleView];
 	}
 }
@@ -223,6 +230,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		self.following = nil;
 		[self.place updateFollowerCount:-1];
+        [self saveAndUpdateUserFollowingCountBy:-1];        
 		
 		[self updatePlaceTitleView];
 	}

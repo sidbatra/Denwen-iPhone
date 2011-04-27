@@ -8,6 +8,7 @@
 #import "DWCreationQueue.h"
 #import "DWPostProgressView.h"
 #import "DWProfilePicViewController.h"
+#import "DWFollowedPlacesViewController.h"
 #import "DWNotificationsHelper.h"
 #import "DWSession.h"
 
@@ -66,7 +67,6 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
 	
 	if(!postProgressView) {
 		postProgressView			= [[DWPostProgressView alloc] initWithFrame:CGRectMake(0,0,200,42)];
@@ -162,7 +162,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 //----------------------------------------------------------------------------------------------------
 - (void)updateUserTitleView {
     [self.userTitleView showUserStateFor:[DWSession sharedDWSession].currentUser.firstName
-                       andFollowingCount:0];
+                       andFollowingCount:[DWSession sharedDWSession].currentUser.followingCount];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -258,13 +258,24 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark UITouchEvents
-
 //----------------------------------------------------------------------------------------------------
 - (void)didTapNotificationsButton:(UIButton*)button {
     DWNotificationsViewController *notificationsView = [[DWNotificationsViewController alloc] initWithDelegate:self];
     [self.navigationController pushViewController:notificationsView animated:YES];
     [notificationsView release];
 }
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTapTitleView {
+    DWFollowedPlacesViewController *followedView = [[DWFollowedPlacesViewController alloc] 
+                                                    initWithDelegate:self
+                                                    withUser:[DWSession sharedDWSession].currentUser];
+    
+    [self.navigationController pushViewController:followedView 
+                                         animated:YES];
+    [followedView release]; 
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

@@ -82,7 +82,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 //----------------------------------------------------------------------------------------------------
 - (void)updateUserTitleView {
     [self.userTitleView showUserStateFor:[self.user fullName] 
-                       andFollowingCount:[self.user followingCount]];
+                       andFollowingCount:self.user.followingCount];
 }
 
 //----------------------------------------------------------------------------------------------------
