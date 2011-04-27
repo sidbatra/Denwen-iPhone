@@ -6,6 +6,8 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+@protocol  DWVideoViewDelegate;
+
 /**
  * Custom video playing view for playing videos with
  * table view cells
@@ -13,6 +15,8 @@
 @interface DWVideoView : UIView {
     MPMoviePlayerController     *_movieController;
 	UIActivityIndicatorView		*_spinner;
+    
+    id<DWVideoViewDelegate>     id;
 }
 
 /**
@@ -25,6 +29,11 @@
  */
 @property (nonatomic,retain) UIActivityIndicatorView *spinner;
 
+/**
+ * Reference to the delegate
+ */
+@property (nonatomic,assign) id<DWVideoViewDelegate> delegate;
+
 
 /**
  * Start playing the video located at the given URL
@@ -36,4 +45,12 @@
  */
 - (void)stopPlayingVideo;
 
+@end
+
+
+/**
+ * Fires events about the video state 
+ */
+@protocol DWVideoViewDelegate
+- (void)playbackFinished;
 @end

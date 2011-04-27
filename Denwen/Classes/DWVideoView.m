@@ -19,6 +19,7 @@ static MPMoviePlayerController* sharedMoviePlayerController = nil;
 
 @synthesize movieController     = _movieController;
 @synthesize spinner             = _spinner;
+@synthesize delegate            = _delegate;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithFrame:(CGRect)frame {
@@ -129,6 +130,7 @@ static MPMoviePlayerController* sharedMoviePlayerController = nil;
 //----------------------------------------------------------------------------------------------------
 - (void)playbackDidFinish:(NSNotification*)notification {
     [self displayFinishedUI];
+    [_delegate playbackFinished];
 }
 
 @end

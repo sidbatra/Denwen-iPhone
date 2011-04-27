@@ -6,7 +6,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@class DWVideoView;
+#import "DWVideoView.h"
+
 @class DWItemFeedCell;
 @protocol DWItemFeedCellDelegate;
 
@@ -35,7 +36,7 @@
 /**
  * Cell used in item feed view controller
  */
-@interface DWItemFeedCell : UITableViewCell {
+@interface DWItemFeedCell : UITableViewCell<DWVideoViewDelegate> {
 	
 	CALayer							*itemImageLayer;
 	CALayer							*touchIconImageLayer;
@@ -47,6 +48,7 @@
 
 	
 	BOOL							_highlighted;
+    BOOL                            _isTouching;
 	BOOL							_placeButtonPressed;
 	BOOL							_userButtonPressed;
 	

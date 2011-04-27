@@ -9,7 +9,7 @@
 
 #define kImgTouchIcon				@"hand.png"
 #define kImgTouchIcon230			@"hand_230.png"
-#define kImgTouched					@"chevron.png"
+#define kImgTouched					@"touched.png"
 #define kImgPlay					@"play.png"
 #define kImgShare					@"share.png"
 #define kImgShare230				@"share_230.png"
@@ -194,7 +194,7 @@
 		
 		
 		touchedImageLayer				= [CALayer layer];
-		touchedImageLayer.frame			= CGRectMake(160-9,20,9,14);
+		touchedImageLayer.frame			= CGRectMake(127,127,65,65);
 		touchedImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		touchedImageLayer.contents		= (id)[UIImage imageNamed:kImgTouched].CGImage;
 		touchedImageLayer.hidden		= YES;
@@ -313,7 +313,8 @@
 		[self.contentView addSubview:shareButton];
 		
         
-        videoView       = [[[DWVideoView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height)] autorelease];
+        videoView           = [[[DWVideoView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height)] autorelease];
+        videoView.delegate  = self;
         [self addSubview:videoView];
 										   
 		
@@ -357,6 +358,7 @@
 //----------------------------------------------------------------------------------------------------
 - (void)reset {
 	_highlighted				= NO;
+    _isTouching                 = NO;
 	_placeButtonPressed			= NO;
 	_userButtonPressed			= NO;
 	
@@ -439,28 +441,46 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (BOOL)shouldTouch {
+    return [_delegate shouldTouchItemWithID:_itemID];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)testTouch {
+    if(_highlighted) {
+        _isTouching = YES;
+        [self highlightCell];
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)conditionalFadeWithDuration:(CGFloat)duration  {
+    if([self shouldTouch]) {
+        [self performSelector:@selector(touchCell) 
+                   withObject:nil
+                   afterDelay:duration];
+    }
+    else    {
+        [self performSelector:@selector(fadeCell) 
+                   withObject:nil
+                   afterDelay:duration];
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)setHighlighted:(BOOL)highlighted 
 			  animated:(BOOL)animated {
 	
 	if(highlighted && !_highlighted) {
-		[self highlightCell];
+        _highlighted = YES;
+        
+        [self performSelector:@selector(testTouch)
+                   withObject:nil 
+                   afterDelay:kTouchInterval];
 	}
 	else if(!highlighted && _highlighted) {
-        
-        if(_attachmentType == kAttachmentVideo)
-            [videoView stopPlayingVideo];
-		
-		if(fabs([self.highlightedAt timeIntervalSinceNow]) > kTouchInterval && 
-				[_delegate shouldTouchItemWithID:_itemID]) {
-			
-			[self touchCell];
-		}
-		else {
-			[self performSelector:@selector(fadeCell)
-					   withObject:nil 
-					   afterDelay:kNormalFadeInterval];
-		}
-	}
+            _highlighted = _isTouching;
+    }
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -520,14 +540,11 @@
 //----------------------------------------------------------------------------------------------------
 - (void)finishTouchCell {
 	[self fadeCell];
-	[_delegate cellTouched:_itemID];
+    [_delegate cellTouched:_itemID];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)highlightCell {
-	_highlighted				= YES;
-	self.highlightedAt			= [NSDate dateWithTimeIntervalSinceNow:0];
-	
+- (void)highlightCell {	
 	
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
@@ -547,13 +564,17 @@
     
     if(_attachmentType == kAttachmentVideo)
         [videoView startPlayingVideoAtURL:[_delegate getVideoAttachmentURLForItemID:_itemID]];
+    else
+        [self conditionalFadeWithDuration:2.0];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)fadeCell {
-        
-	_highlighted				= NO;
-	
+    
+    _highlighted				= NO;
+    _isTouching                 = NO;
+    
+        	
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
 					 forKey:kCATransactionAnimationDuration];
@@ -656,6 +677,18 @@
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchUpOnShareButton:(UIButton*)button {
 	[_delegate shareSelectedForItemID:_itemID];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWVideoViewDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)playbackFinished {
+    if(_isTouching)
+        [self conditionalFadeWithDuration:0.0];
 }
 
 @end
