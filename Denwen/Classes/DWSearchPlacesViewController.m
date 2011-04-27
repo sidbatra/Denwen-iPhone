@@ -57,7 +57,10 @@ static NSInteger const kPlacesIndex					= 0;
         searchBar					= [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,self.tableView.frame.size.width,0)];
         searchBar.delegate			= self;
         searchBar.placeholder		= kSearchBarText;
-        searchBar.backgroundColor	= [UIColor colorWithRed:0.1294 green:0.1294 blue:0.1294 alpha:1.0];
+        searchBar.backgroundColor	= [UIColor colorWithRed:0.1764 
+                                                      green:0.1764
+                                                       blue:0.1764
+                                                      alpha:1.0];
         [searchBar sizeToFit];	
         
         
@@ -70,11 +73,14 @@ static NSInteger const kPlacesIndex					= 0;
     }
 	
     self.tableView.tableHeaderView  = searchBar;
-
+    
 	
 	[self.refreshHeaderView applyBackgroundImage:nil 
 								   withFadeImage:nil
-							 withBackgroundColor:[UIColor colorWithRed:0.1294 green:0.1294 blue:0.1294 alpha:1.0]];
+							 withBackgroundColor:[UIColor colorWithRed:0.1764
+                                                                 green:0.1764 
+                                                                  blue:0.1764
+                                                                 alpha:1.0]];
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -146,8 +146,7 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 	self.lastName		= [user objectForKey:kKeyLastName];
 	self.email			= [user objectForKey:kKeyEmail];
     
-    //TODO populate correct value
-    _followingCount     = arc4random() % 10;
+    _followingCount     = [[user objectForKey:kKeyFollowingsCount] integerValue];
 	
 	if([user objectForKey:kKeyPhoto]) {
 		NSDictionary *photo		= [user		objectForKey:kKeyPhoto];
@@ -168,6 +167,9 @@ static NSString* const kDiskKeyFacebookData				= @"signedin_user__facebookToken"
 		
     if([user objectForKey:kKeyEmail])
         self.email              = [user objectForKey:kKeyEmail];
+    
+    if([user objectForKey:kKeyFollowingsCount])
+        _followingCount         = [[user objectForKey:kKeyFollowingsCount] integerValue];
     
     if([user objectForKey:kKeyPhoto]) {
         NSDictionary *photo		= [user objectForKey:kKeyPhoto];
