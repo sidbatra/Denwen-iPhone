@@ -77,13 +77,13 @@
 - (void)drawInContext:(CGContextRef)context {
 	
 	UIGraphicsPushContext(context);
+    
+    CGColorRef textColor = itemCell.attachmentType == kAttachmentNone ? 
+    [UIColor colorWithRed:0.9019 green:0.9019 blue:0.9019 alpha:1.0].CGColor :
+    [UIColor whiteColor].CGColor;
 	
-	if(![itemCell isHighlighted]) {
+	if(YES || ![itemCell isHighlighted]) {
 		
-		
-		CGColorRef textColor = itemCell.attachmentType == kAttachmentNone ? 
-								[UIColor colorWithRed:0.9019 green:0.9019 blue:0.9019 alpha:1.0].CGColor :
-								[UIColor whiteColor].CGColor;
 		//----------------------------------
 		CGContextSetFillColorWithColor(context,textColor);
 		
@@ -129,13 +129,16 @@
 		
 		//----------------------------------	
 		CGContextSetFillColorWithColor(context,textColor);
-		
-        [itemCell.itemTouchesCountString drawInRect:itemCell.touchesCountRect
-                                           withFont:kFontItemTouchesCount];
         
 		[itemCell.itemCreatedAt drawInRect:itemCell.createdAtRect 
                                   withFont:kFontItemCreatedAt];
 	}
+    
+    CGContextSetFillColorWithColor(context,textColor);
+    
+    if(![itemCell isHighlighted] || itemCell.isTouching)
+        [itemCell.itemTouchesCountString drawInRect:itemCell.touchesCountRect
+                                           withFont:kFontItemTouchesCount];
 
 	
 	UIGraphicsPopContext();
@@ -153,6 +156,7 @@
 @synthesize itemID					= _itemID;
 @synthesize placeButtonPressed		= _placeButtonPressed;
 @synthesize userButtonPressed		= _userButtonPressed;
+@synthesize isTouching              = _isTouching;
 @synthesize itemData				= _itemData;
 @synthesize itemPlaceName			= _itemPlaceName;
 @synthesize itemUserName			= _itemUserName;
@@ -294,7 +298,7 @@
 						action:@selector(didDragInsidePlaceButton:) 
 			  forControlEvents:UIControlEventTouchDragInside];
 		
-		[self.contentView addSubview:placeButton];
+		[self addSubview:placeButton];
 		
 		
 		
@@ -317,7 +321,7 @@
 					   action:@selector(didDragInsideUserButton:) 
 			 forControlEvents:UIControlEventTouchDragInside];
 		
-		[self.contentView addSubview:userButton];
+		[self addSubview:userButton];
 		
 		
 		shareButton						= [[[UIButton alloc] init] autorelease];
@@ -331,7 +335,8 @@
 					   action:@selector(didTouchUpOnShareButton:) 
 			 forControlEvents:UIControlEventTouchUpInside];
 		
-		[self.contentView addSubview:shareButton];
+        self.contentView.backgroundColor = [UIColor clearColor];
+		[self addSubview:shareButton];
 		
         
         videoView           = [[[DWVideoView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height)] autorelease];
@@ -490,28 +495,6 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)testTouch {
-    if(_highlighted) {
-        _isTouching = YES;
-        [self highlightCell];
-    }
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)conditionalFadeWithDuration:(CGFloat)duration  {
-    if([self shouldTouch]) {
-        [self performSelector:@selector(touchCell) 
-                   withObject:nil
-                   afterDelay:duration];
-    }
-    else    {
-        [self performSelector:@selector(fadeCell) 
-                   withObject:nil
-                   afterDelay:duration];
-    }
-}
-
-//----------------------------------------------------------------------------------------------------
 - (void)setHighlighted:(BOOL)highlighted 
 			  animated:(BOOL)animated {
 	/*
@@ -554,19 +537,20 @@
 //----------------------------------------------------------------------------------------------------
 - (void)touchCell {
 	_itemTouchesCount++;
+    _isTouching = YES;
 	
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:0.5f] 
 					 forKey:kCATransactionAnimationDuration];
 	
+    touchIconImageLayer.hidden = NO;
     [self resetItemDetailsPosition];
     [self resetTouchImageIconPosition];
     [self resetCreatedAtPosition];
-    
-	touchedImageLayer.hidden = NO;
-	
+    [self redisplay];
+    	
 	[CATransaction commit];
-	
+    
 	[self performSelector:@selector(finishTouchCell) 
 			   withObject:nil
 			   afterDelay:1.0];
@@ -574,18 +558,29 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)finishTouchCell {
-	[self fadeCell];
-    [_delegate cellTouched:_itemID];
+    _isTouching = NO;
+    
+    [CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:0.5f] 
+					 forKey:kCATransactionAnimationDuration];
+    
+    [self redisplay];
+	touchIconImageLayer.hidden = YES;
+	
+	[CATransaction commit];	
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)highlightCell {	
+    
+    if([self shouldTouch])
+        _isTouching = YES;
 	
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
 					 forKey:kCATransactionAnimationDuration];
 	
-	touchIconImageLayer.hidden	= YES;
+	touchIconImageLayer.hidden	= !_isTouching;
 	itemImageLayer.opacity		= kHighlightAlpha;
 	
 	//if(_attachmentType == kAttachmentVideo)
@@ -599,15 +594,17 @@
     
     if(_attachmentType == kAttachmentVideo)
         [videoView startPlayingVideoAtURL:[_delegate getVideoAttachmentURLForItemID:_itemID]];
-    //else
-    //    [self conditionalFadeWithDuration:2.0];
+    
+    if([self shouldTouch]) {
+        [_delegate cellTouched:_itemID];
+        [self touchCell];
+    }
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)fadeCell {
     
     _highlighted				= NO;
-    _isTouching                 = NO;
     
         	
 	[CATransaction begin];
@@ -723,12 +720,10 @@
 //----------------------------------------------------------------------------------------------------
 - (void)playbackFinished {
     [self fadeCell];
-    //if(_isTouching)
-    //   [self conditionalFadeWithDuration:0.0];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)handleTapGesture:(UIPanGestureRecognizer*)sender {    
+- (void)handleTapGesture:(UITapGestureRecognizer*)sender {    
     _highlighted = !_highlighted;
     
     if(!_highlighted) {

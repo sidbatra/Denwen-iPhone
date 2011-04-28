@@ -88,6 +88,7 @@
 
 @property (nonatomic,readonly) BOOL placeButtonPressed;
 @property (nonatomic,readonly) BOOL userButtonPressed;
+@property (nonatomic,readonly) BOOL isTouching;
 
 @property (nonatomic,copy) NSString* itemData;
 @property (nonatomic,copy) NSString* itemPlaceName;
