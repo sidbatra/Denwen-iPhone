@@ -112,6 +112,14 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 	self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
     self.navigationItem.rightBarButtonItem  = [DWGUIManager placeDetailsButton:self];
     self.navigationItem.titleView           = nil;
+    
+    if (!self.placeTitleView)
+        self.placeTitleView = [[[DWPlaceTitleView alloc] 
+                                initWithFrame:CGRectMake(kNavTitleViewX, 0,
+                                                         kNavTitleViewWidth,kNavTitleViewHeight) 
+                                delegate:self 
+                                titleMode:kNavTitleAndSubtitleMode 
+                                andButtonType:kDWButtonTypeDynamic] autorelease];
         			
 	if(!_isLoadedOnce)
 		[self loadItems];
@@ -355,14 +363,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 #pragma mark Nav Stack Selectors
 //----------------------------------------------------------------------------------------------------
 - (void)willShowOnNav {
-    if (!self.placeTitleView)
-        self.placeTitleView = [[[DWPlaceTitleView alloc] 
-                                initWithFrame:CGRectMake(kNavTitleViewX, 0,
-                                                         kNavTitleViewWidth,kNavTitleViewHeight) 
-                                     delegate:self 
-                                    titleMode:kNavTitleAndSubtitleMode 
-                                andButtonType:kDWButtonTypeDynamic] autorelease];
-    
     [self.navigationController.navigationBar addSubview:self.placeTitleView];  
 }
 

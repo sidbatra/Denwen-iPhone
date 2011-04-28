@@ -108,6 +108,21 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
     self.navigationItem.rightBarButtonItem  = nil;
     self.navigationItem.titleView           = nil;
+    
+    if (!self.userTitleView)
+        self.userTitleView = [[[DWUserTitleView alloc] 
+                               initWithFrame:CGRectMake(kNavTitleViewX, 0,
+                                                        kNavTitleViewWidth,kNavTitleViewHeight) 
+                               delegate:self 
+                               titleMode:kNavTitleAndSubtitleMode 
+                               andButtonType:kDWButtonTypeStatic] autorelease];
+    
+    
+    if (!self.smallProfilePicView)
+        self.smallProfilePicView = [[[DWSmallProfilePicView alloc] 
+                                     initWithFrame:CGRectMake(260, 0, 
+                                                              kNavTitleViewWidth,kNavTitleViewHeight) 
+                                     andTarget:self] autorelease];
                 
 	if(!_isLoadedOnce)
 		[self loadItems];
@@ -244,22 +259,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 #pragma mark Nav Stack Selectors
 //----------------------------------------------------------------------------------------------------
 - (void)willShowOnNav {
-    if (!self.userTitleView)
-        self.userTitleView = [[[DWUserTitleView alloc] 
-                               initWithFrame:CGRectMake(kNavTitleViewX, 0,
-                                                        kNavTitleViewWidth,kNavTitleViewHeight) 
-                                    delegate:self 
-                                   titleMode:kNavTitleAndSubtitleMode 
-                               andButtonType:kDWButtonTypeStatic] autorelease];
-    
     [self.navigationController.navigationBar addSubview:self.userTitleView];
-    
-    if (!self.smallProfilePicView)
-        self.smallProfilePicView = [[[DWSmallProfilePicView alloc] 
-                                    initWithFrame:CGRectMake(260, 0, 
-                                                             kNavTitleViewWidth,kNavTitleViewHeight) 
-                                        andTarget:self] autorelease];
-    
     [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
 }
 

@@ -174,10 +174,10 @@
 		CGRect frame = CGRectMake(0,0,320,320);
         
         
-        UITapGestureRecognizer *singleTap   = [[[UITapGestureRecognizer alloc] initWithTarget:self 
+        /*UITapGestureRecognizer *singleTap   = [[[UITapGestureRecognizer alloc] initWithTarget:self 
                                                                                        action:@selector(handleTapGesture:)] autorelease];
         singleTap.numberOfTapsRequired      = 1;
-        [self addGestureRecognizer:singleTap];
+        [self addGestureRecognizer:singleTap];*/
         
         
                                   

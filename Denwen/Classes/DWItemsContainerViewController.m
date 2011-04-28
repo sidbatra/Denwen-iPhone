@@ -64,6 +64,39 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	}	
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Nav-Bar Methods
+//----------------------------------------------------------------------------------------------------
+- (void)setSmallUserImage:(UIImage*)smallUserImage {
+    [self.smallProfilePicView setProfilePicButtonBackgroundImage:smallUserImage];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTapSmallUserImage:(id)sender event:(id)event {
+    DWProfilePicViewController *profilePicViewController = [[DWProfilePicViewController alloc] 
+                                                            initWithUser:[DWSession sharedDWSession].currentUser 
+                                                            andDelegate:self];
+    
+    [self.navigationController pushViewController:profilePicViewController 
+                                         animated:YES];
+    [profilePicViewController release];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)updateUserTitleView {
+    [self.userTitleView showUserStateFor:[DWSession sharedDWSession].currentUser.firstName
+                       andFollowingCount:[DWSession sharedDWSession].currentUser.followingCount];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark View Lifecycle
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -85,13 +118,31 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	[button setFrame:CGRectMake(0,0,55,44)];
     
     self.navigationItem.leftBarButtonItem   = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
-        			
-	/**
-	 * Add subview
-	 */
+
 	if(!followedViewController)
 		followedViewController = [[DWFollowedItemsViewController alloc] initWithDelegate:self];
 	[self.view addSubview:followedViewController.view];
+    
+    
+    if (!self.userTitleView)
+        self.userTitleView = [[[DWUserTitleView alloc] 
+                               initWithFrame:CGRectMake(kNavTitleViewX, 0,
+                                                        kNavTitleViewWidth,kNavTitleViewHeight) 
+                               delegate:self 
+                               titleMode:kNavTitleAndSubtitleMode 
+                               andButtonType:kDWButtonTypeStatic] autorelease];
+    [self updateUserTitleView];
+    
+    if (!self.smallProfilePicView)
+        self.smallProfilePicView = [[[DWSmallProfilePicView alloc] 
+                                     initWithFrame:CGRectMake(260, 0, 
+                                                              kNavTitleViewWidth,kNavTitleViewHeight) 
+                                     andTarget:self] autorelease];
+    
+    if (![DWSession sharedDWSession].currentUser.smallPreviewImage)
+        [[DWSession sharedDWSession].currentUser startSmallPreviewDownload];
+    else
+        [self setSmallUserImage:[DWSession sharedDWSession].currentUser.smallPreviewImage];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -140,32 +191,6 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	[followedViewController followedItemsRead];
 }
 
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Nav-Bar Methods
-//----------------------------------------------------------------------------------------------------
-- (void)setSmallUserImage:(UIImage*)smallUserImage {
-    [self.smallProfilePicView setProfilePicButtonBackgroundImage:smallUserImage];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)didTapSmallUserImage:(id)sender event:(id)event {
-    DWProfilePicViewController *profilePicViewController = [[DWProfilePicViewController alloc] 
-                                                            initWithUser:[DWSession sharedDWSession].currentUser 
-                                                             andDelegate:self];
-    
-    [self.navigationController pushViewController:profilePicViewController 
-                                         animated:YES];
-    [profilePicViewController release];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)updateUserTitleView {
-    [self.userTitleView showUserStateFor:[DWSession sharedDWSession].currentUser.firstName
-                       andFollowingCount:[DWSession sharedDWSession].currentUser.followingCount];
-}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -285,29 +310,8 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 #pragma mark Nav Stack Selectors
 //----------------------------------------------------------------------------------------------------
 - (void)willShowOnNav {
-    if (!self.userTitleView)
-        self.userTitleView = [[[DWUserTitleView alloc] 
-                               initWithFrame:CGRectMake(kNavTitleViewX, 0,
-                                                        kNavTitleViewWidth,kNavTitleViewHeight) 
-                               delegate:self 
-                               titleMode:kNavTitleAndSubtitleMode 
-                               andButtonType:kDWButtonTypeStatic] autorelease];
-    
     //[self.navigationController.navigationBar addSubview:self.userTitleView];
-    [self updateUserTitleView];
-    
-    if (!self.smallProfilePicView)
-        self.smallProfilePicView = [[[DWSmallProfilePicView alloc] 
-                                     initWithFrame:CGRectMake(260, 0, 
-                                                              kNavTitleViewWidth,kNavTitleViewHeight) 
-                                     andTarget:self] autorelease];
-    
     [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
-    
-    if (![DWSession sharedDWSession].currentUser.smallPreviewImage)
-        [[DWSession sharedDWSession].currentUser startSmallPreviewDownload];
-    else
-        [self setSmallUserImage:[DWSession sharedDWSession].currentUser.smallPreviewImage];
 }
 
 @end

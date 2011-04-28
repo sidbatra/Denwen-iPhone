@@ -226,7 +226,6 @@ static NSString* const kImgSelectPhoto          = @"select_photo.png";
         _cameraCaptureMode              = kCameraCaptureModeVideo;
         self.recordButton.hidden        = NO;
         self.cameraButton.hidden        = YES;
-        self.letterBoxImage.hidden      = YES;
         
         [self.cameraCaptureModeButton 
                 setBackgroundImage:[UIImage imageNamed:kImgSelectVideo] 
@@ -239,7 +238,6 @@ static NSString* const kImgSelectPhoto          = @"select_photo.png";
         _cameraCaptureMode              = kCameraCaptureModePhoto;
         self.recordButton.hidden        = YES;
         self.cameraButton.hidden        = NO;
-        self.letterBoxImage.hidden      = NO;
         
         [self.cameraCaptureModeButton 
                 setBackgroundImage:[UIImage imageNamed:kImgSelectPhoto] 
