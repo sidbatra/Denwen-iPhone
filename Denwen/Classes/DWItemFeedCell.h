@@ -42,7 +42,6 @@
 	CALayer							*touchIconImageLayer;
 	CALayer							*playImageLayer;
 	CALayer							*shareImageLayer;
-    CALayer                         *haloImageLayer;
     
 
 	DWItemFeedCellDrawingLayer		*drawingLayer;

@@ -266,24 +266,7 @@
 											   nil];
 		[[self layer] addSublayer:shareImageLayer];
         
-        haloImageLayer						= [CALayer layer];
-        haloImageLayer.opacity              = 0.45;
-        haloImageLayer.frame                = CGRectMake(200, 200, 150, 150);
-        haloImageLayer.contents             = (id)[UIImage imageNamed:kImgHalo].CGImage;
-		haloImageLayer.contentsScale		= [[UIScreen mainScreen] scale];
-		haloImageLayer.actions				= [NSMutableDictionary dictionaryWithObjectsAndKeys:
-											   [NSNull null], @"contents",
-                                               [NSNull null], @"frame",
-                                               [NSNull null], @"position",
-                                               [NSNull null], @"hidden",
-                                               [NSNull null], @"bounds",
-                                               [NSNull null], @"opacity",
-                                               [NSNull null], @"onOrderIn",
-                                               [NSNull null], @"onOrderOut",
-											   nil];
-		[[self layer] addSublayer:haloImageLayer];
-		
-		
+        
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
 		drawingLayer.disableAnimation	= YES;
 		drawingLayer.itemCell			= self;
@@ -502,7 +485,6 @@
 	itemImageLayer.backgroundColor	= _attachmentType == kAttachmentNone ? kColorNoAttachmentBg : kColorAttachmentBg;
 	//playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
     
-    haloImageLayer.hidden           = YES;
 	
 	shareImageLayer.hidden			= NO;
 	shareImageLayer.contents		= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgShare230 : kImgShare].CGImage;
@@ -763,22 +745,10 @@
 #pragma mark -
 #pragma mark UIGestureRecognizer
 
-- (void)hideHalo {
-    haloImageLayer.hidden = YES;
-}
-
 //----------------------------------------------------------------------------------------------------
 - (void)handleTapGesture:(UITapGestureRecognizer*)sender {    
     
-    CGPoint location             = [sender locationInView:self];
-    
-    haloImageLayer.frame         = CGRectMake(location.x - 75,
-                                              location.y - 75, 150, 150);
-    haloImageLayer.hidden        = NO;
-    
-    [self performSelector:@selector(hideHalo)
-               withObject:nil
-               afterDelay:0.05];
+    //CGPoint location             = [sender locationInView:self];
     
     _highlighted = !_highlighted;
     
