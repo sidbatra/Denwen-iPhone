@@ -40,9 +40,10 @@
 	
 	CALayer							*itemImageLayer;
 	CALayer							*touchIconImageLayer;
-	CALayer							*touchedImageLayer;
 	CALayer							*playImageLayer;
 	CALayer							*shareImageLayer;
+    CALayer                         *haloImageLayer;
+    
 
 	DWItemFeedCellDrawingLayer		*drawingLayer;
 

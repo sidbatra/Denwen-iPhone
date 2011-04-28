@@ -387,6 +387,8 @@
 		BBE3A9031330ABB100AE585A /* userprofilefade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE3A9011330ABB100AE585A /* userprofilefade@2x.png */; };
 		BBE52FE712F4078600A4F935 /* DWFollowing.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE52FE612F4078600A4F935 /* DWFollowing.m */; };
 		BBE70D9F135D10C2001D83CC /* DWPostProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE70D9E135D10C2001D83CC /* DWPostProgressView.m */; };
+		BBEA39C1136A06400021619A /* halo.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEA39BF136A06400021619A /* halo.png */; };
+		BBEA39C2136A06400021619A /* halo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEA39C0136A06400021619A /* halo@2x.png */; };
 		BBEB947C133AEA9C005AEA64 /* DWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEB947B133AEA9C005AEA64 /* DWRequest.m */; };
 		BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */; };
 		BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */; };
@@ -980,6 +982,8 @@
 		BBE52FE612F4078600A4F935 /* DWFollowing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowing.m; path = Classes/DWFollowing.m; sourceTree = "<group>"; };
 		BBE70D9D135D10C2001D83CC /* DWPostProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPostProgressView.h; path = Classes/DWPostProgressView.h; sourceTree = "<group>"; };
 		BBE70D9E135D10C2001D83CC /* DWPostProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPostProgressView.m; path = Classes/DWPostProgressView.m; sourceTree = "<group>"; };
+		BBEA39BF136A06400021619A /* halo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = halo.png; path = resources/halo.png; sourceTree = "<group>"; };
+		BBEA39C0136A06400021619A /* halo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "halo@2x.png"; path = "resources/halo@2x.png"; sourceTree = "<group>"; };
 		BBEB947A133AEA9C005AEA64 /* DWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWRequest.h; path = Classes/DWRequest.h; sourceTree = "<group>"; };
 		BBEB947B133AEA9C005AEA64 /* DWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequest.m; path = Classes/DWRequest.m; sourceTree = "<group>"; };
 		BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceViewController.h; path = Classes/DWPlaceViewController.h; sourceTree = "<group>"; };
@@ -1124,6 +1128,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBEA39BF136A06400021619A /* halo.png */,
+				BBEA39C0136A06400021619A /* halo@2x.png */,
 				BB8618AA13689E6200CD95E1 /* hand_230.png */,
 				BB8618AB13689E6200CD95E1 /* hand_230@2x.png */,
 				BB8618AC13689E6200CD95E1 /* touched.png */,
@@ -2384,6 +2390,8 @@
 				BB8618AF13689E6200CD95E1 /* hand_230@2x.png in Resources */,
 				BB8618B013689E6200CD95E1 /* touched.png in Resources */,
 				BB8618B113689E6200CD95E1 /* touched@2x.png in Resources */,
+				BBEA39C1136A06400021619A /* halo.png in Resources */,
+				BBEA39C2136A06400021619A /* halo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

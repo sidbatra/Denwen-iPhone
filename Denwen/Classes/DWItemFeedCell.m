@@ -13,6 +13,7 @@
 #define kImgPlay                            @"play.png"
 #define kImgShare                           @"share.png"
 #define kImgShare230                        @"share_230.png"
+#define kImgHalo                            @"halo.png"
 #define kImgSeparator                       @"hr_place_list.png"
 #define kColorAttachmentBg                  [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
 #define kColorNoAttachmentBg                [UIColor colorWithRed:0.3490 green:0.3490 blue:0.3490 alpha:1.0].CGColor
@@ -242,20 +243,6 @@
 		[[self layer] addSublayer:touchIconImageLayer];
 		
 		
-		touchedImageLayer				= [CALayer layer];
-		touchedImageLayer.frame			= CGRectMake(127,127,65,65);
-		touchedImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
-		touchedImageLayer.contents		= (id)[UIImage imageNamed:kImgTouched].CGImage;
-		touchedImageLayer.hidden		= YES;
-		touchedImageLayer.actions		= [NSMutableDictionary dictionaryWithObjectsAndKeys:
-											[NSNull null], @"onOrderIn",
-											[NSNull null], @"onOrderOut",
-											[NSNull null], @"sublayers",
-											[NSNull null], @"contents",
-											[NSNull null], @"bounds",
-											nil];
-		[[self layer] addSublayer:touchedImageLayer];
-		
 		
 		playImageLayer					= [CALayer layer];
 		playImageLayer.frame			= CGRectMake(7,320-20,20,20);
@@ -278,6 +265,23 @@
 											   [NSNull null], @"contents",
 											   nil];
 		[[self layer] addSublayer:shareImageLayer];
+        
+        haloImageLayer						= [CALayer layer];
+        haloImageLayer.opacity              = 0.45;
+        haloImageLayer.frame                = CGRectMake(200, 200, 150, 150);
+        haloImageLayer.contents             = (id)[UIImage imageNamed:kImgHalo].CGImage;
+		haloImageLayer.contentsScale		= [[UIScreen mainScreen] scale];
+		haloImageLayer.actions				= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+											   [NSNull null], @"contents",
+                                               [NSNull null], @"frame",
+                                               [NSNull null], @"position",
+                                               [NSNull null], @"hidden",
+                                               [NSNull null], @"bounds",
+                                               [NSNull null], @"opacity",
+                                               [NSNull null], @"onOrderIn",
+                                               [NSNull null], @"onOrderOut",
+											   nil];
+		[[self layer] addSublayer:haloImageLayer];
 		
 		
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
@@ -497,7 +501,8 @@
 	itemImageLayer.opacity			= _attachmentType == kAttachmentNone ? kNoAttachmentAlpha : kNormalAlpha;	
 	itemImageLayer.backgroundColor	= _attachmentType == kAttachmentNone ? kColorNoAttachmentBg : kColorAttachmentBg;
 	//playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
-	touchedImageLayer.hidden		= YES;
+    
+    haloImageLayer.hidden           = YES;
 	
 	shareImageLayer.hidden			= NO;
 	shareImageLayer.contents		= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgShare230 : kImgShare].CGImage;
@@ -644,7 +649,6 @@
 	touchIconImageLayer.hidden      = NO;
 	itemImageLayer.opacity          = kNormalAlpha;
     itemImageLayer.opacity          = isTextOnly ? kNoAttachmentAlpha : kNormalAlpha;
-	touchedImageLayer.hidden        = YES;
     itemImageLayer.backgroundColor  = isTextOnly ? kColorNoAttachmentBg : kColorAttachmentBg;
 	
 	//if(_attachmentType == kAttachmentVideo)
@@ -759,8 +763,23 @@
 #pragma mark -
 #pragma mark UIGestureRecognizer
 
+- (void)hideHalo {
+    haloImageLayer.hidden = YES;
+}
+
 //----------------------------------------------------------------------------------------------------
 - (void)handleTapGesture:(UITapGestureRecognizer*)sender {    
+    
+    CGPoint location             = [sender locationInView:self];
+    
+    haloImageLayer.frame         = CGRectMake(location.x - 75,
+                                              location.y - 75, 150, 150);
+    haloImageLayer.hidden        = NO;
+    
+    [self performSelector:@selector(hideHalo)
+               withObject:nil
+               afterDelay:0.05];
+    
     _highlighted = !_highlighted;
     
     if(!_highlighted) {
