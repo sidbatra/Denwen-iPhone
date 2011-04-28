@@ -15,7 +15,8 @@
 #define kImgShare230                        @"share_230.png"
 #define kImgSeparator                       @"hr_place_list.png"
 #define kColorAttachmentBg                  [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
-#define kColorNoAttachmentBg                [UIColor colorWithRed:0.3490 green:0.3490 blue: 0.3490 alpha:1.0].CGColor
+#define kColorNoAttachmentBg                [UIColor colorWithRed:0.3490 green:0.3490 blue:0.3490 alpha:1.0].CGColor
+#define kColorNoAttachmentHighlightBg       [UIColor colorWithRed:0.5450 green:0.5450 blue:0.5450 alpha:1.0].CGColor
 #define kFontItemUserName                   [UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
 #define kFontAt                             [UIFont fontWithName:@"HelveticaNeue" size:15]
 #define kFontItemPlaceName                  [UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
@@ -78,11 +79,30 @@
 	
 	UIGraphicsPushContext(context);
     
-    CGColorRef textColor = itemCell.attachmentType == kAttachmentNone ? 
-    [UIColor colorWithRed:0.9019 green:0.9019 blue:0.9019 alpha:1.0].CGColor :
-    [UIColor whiteColor].CGColor;
+    BOOL isTextOnly = [itemCell attachmentType] == kAttachmentNone;
+    
+    //CGColorRef textColor = isTextOnly ? 
+    //[UIColor colorWithRed:0.9019 green:0.9019 blue:0.9019 alpha:1.0].CGColor :
+    //[UIColor whiteColor].CGColor;
+    
+    CGColorRef textColor = nil;
+    
+    if(isTextOnly && ![itemCell isHighlighted])
+        textColor = [UIColor colorWithRed:0.9019 
+                                    green:0.9019
+                                     blue:0.9019
+                                    alpha:1.0].CGColor;
+    else if(isTextOnly && [itemCell isHighlighted])
+        textColor = [UIColor colorWithRed:1.0
+                                    green:1.0
+                                     blue:1.0
+                                    alpha:1.0].CGColor;
+    else
+        textColor = [UIColor whiteColor].CGColor;
+        
+    
 	
-	if(YES || ![itemCell isHighlighted]) {
+	if(![itemCell isHighlighted]) {
 		
 		//----------------------------------
 		CGContextSetFillColorWithColor(context,textColor);
@@ -116,15 +136,6 @@
 											 itemCell.placeNameRect.size.width,
 											 kUnderlineHeight));
 		
-		
-		//----------------------------------	
-		CGContextSetFillColorWithColor(context,textColor);
-		
-		
-		[itemCell.itemData drawInRect:itemCell.dataRect 
-							   withFont:kFontItemData
-						  lineBreakMode:UILineBreakModeWordWrap
-							  alignment:UITextAlignmentLeft];
 
 		
 		//----------------------------------	
@@ -134,12 +145,25 @@
                                   withFont:kFontItemCreatedAt];
 	}
     
-    CGContextSetFillColorWithColor(context,textColor);
     
-    if(![itemCell isHighlighted] || itemCell.isTouching)
+    //----------------------------------
+    if(![itemCell isHighlighted] || isTextOnly) {
+        CGContextSetFillColorWithColor(context,textColor);
+        
+        [itemCell.itemData drawInRect:itemCell.dataRect 
+                             withFont:kFontItemData
+                        lineBreakMode:UILineBreakModeWordWrap
+                            alignment:UITextAlignmentLeft];
+    }
+    
+    
+    //----------------------------------
+    if(![itemCell isHighlighted] || itemCell.isTouching) {
+        CGContextSetFillColorWithColor(context,textColor);
+        
         [itemCell.itemTouchesCountString drawInRect:itemCell.touchesCountRect
                                            withFont:kFontItemTouchesCount];
-
+    }
 	
 	UIGraphicsPopContext();
 }
@@ -560,18 +584,22 @@
 - (void)finishTouchCell {
     _isTouching = NO;
     
-    [CATransaction begin];
-	[CATransaction setValue:[NSNumber numberWithFloat:0.5f] 
-					 forKey:kCATransactionAnimationDuration];
-    
-    [self redisplay];
-	touchIconImageLayer.hidden = YES;
-	
-	[CATransaction commit];	
+   // if(_attachmentType != kAttachmentNone) {
+        [CATransaction begin];
+        [CATransaction setValue:[NSNumber numberWithFloat:0.5f] 
+                         forKey:kCATransactionAnimationDuration];
+        
+        [self redisplay];
+        touchIconImageLayer.hidden = _highlighted;
+        
+        [CATransaction commit];	
+   // }
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)highlightCell {	
+    
+    BOOL isTextOnly = _attachmentType == kAttachmentNone;
     
     if([self shouldTouch])
         _isTouching = YES;
@@ -580,13 +608,14 @@
 	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
 					 forKey:kCATransactionAnimationDuration];
 	
-	touchIconImageLayer.hidden	= !_isTouching;
-	itemImageLayer.opacity		= kHighlightAlpha;
+	touchIconImageLayer.hidden      = !_isTouching;// && !isTextOnly;
+	itemImageLayer.opacity          = isTextOnly ? kNoAttachmentAlpha : kHighlightAlpha;
+    itemImageLayer.backgroundColor  = isTextOnly ? kColorNoAttachmentHighlightBg : kColorAttachmentBg;
 	
 	//if(_attachmentType == kAttachmentVideo)
 	//	playImageLayer.hidden	= YES;
 	
-	shareImageLayer.hidden		= YES;
+	shareImageLayer.hidden		= YES;//!isTextOnly;
 	
 	[self redisplay];
 
@@ -604,6 +633,7 @@
 //----------------------------------------------------------------------------------------------------
 - (void)fadeCell {
     
+    BOOL isTextOnly             = _attachmentType == kAttachmentNone;
     _highlighted				= NO;
     
         	
@@ -611,9 +641,11 @@
 	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
 					 forKey:kCATransactionAnimationDuration];
 	
-	touchIconImageLayer.hidden	= NO;
-	itemImageLayer.opacity		= kNormalAlpha;
-	touchedImageLayer.hidden	= YES;
+	touchIconImageLayer.hidden      = NO;
+	itemImageLayer.opacity          = kNormalAlpha;
+    itemImageLayer.opacity          = isTextOnly ? kNoAttachmentAlpha : kNormalAlpha;
+	touchedImageLayer.hidden        = YES;
+    itemImageLayer.backgroundColor  = isTextOnly ? kColorNoAttachmentBg : kColorAttachmentBg;
 	
 	//if(_attachmentType == kAttachmentVideo)
 	//	playImageLayer.hidden	= NO;
@@ -721,6 +753,11 @@
 - (void)playbackFinished {
     [self fadeCell];
 }
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIGestureRecognizer
 
 //----------------------------------------------------------------------------------------------------
 - (void)handleTapGesture:(UITapGestureRecognizer*)sender {    
