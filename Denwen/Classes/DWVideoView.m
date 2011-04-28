@@ -27,19 +27,22 @@ static MPMoviePlayerController* sharedMoviePlayerController = nil;
     
     if(self) {
         self.clipsToBounds                                  = YES;
+        self.userInteractionEnabled                         = NO;
         self.hidden                                         = YES;
         self.backgroundColor                                = [UIColor clearColor];
     
         if(!sharedMoviePlayerController) {
-            sharedMoviePlayerController                                = [[MPMoviePlayerController alloc] init];
-            sharedMoviePlayerController.movieSourceType                = MPMovieSourceTypeFile;
-            sharedMoviePlayerController.backgroundView.backgroundColor = [UIColor clearColor];
-            sharedMoviePlayerController.view.backgroundColor           = [UIColor clearColor];
-            sharedMoviePlayerController.view.frame                     = CGRectMake(0,-80,320,480);
-            sharedMoviePlayerController.controlStyle                   = MPMovieControlStyleNone;
-            sharedMoviePlayerController.scalingMode                    = MPMovieScalingModeAspectFill;
-            sharedMoviePlayerController.shouldAutoplay                 = YES;
-            sharedMoviePlayerController.fullscreen                     = NO;
+            sharedMoviePlayerController                                 = [[MPMoviePlayerController alloc] init];
+            sharedMoviePlayerController.movieSourceType                 = MPMovieSourceTypeFile;
+            sharedMoviePlayerController.backgroundView.backgroundColor  = [UIColor clearColor];
+            sharedMoviePlayerController.view.backgroundColor            = [UIColor clearColor];
+            sharedMoviePlayerController.view.frame                      = CGRectMake(0,-80,320,480);
+            sharedMoviePlayerController.controlStyle                    = MPMovieControlStyleNone;
+            sharedMoviePlayerController.scalingMode                     = MPMovieScalingModeAspectFill;
+            sharedMoviePlayerController.shouldAutoplay                  = YES;
+            sharedMoviePlayerController.fullscreen                      = NO;
+            sharedMoviePlayerController.view.clipsToBounds              = YES;
+            sharedMoviePlayerController.backgroundView.clipsToBounds    = YES;
         }
         
         self.movieController = sharedMoviePlayerController;

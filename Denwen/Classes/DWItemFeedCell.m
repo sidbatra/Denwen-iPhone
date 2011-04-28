@@ -48,7 +48,8 @@
 #define kAfterTouchFadeInerval		1.0
 #define kNormalFadeInterval			0.5
 #define kNoAnimationDuration		0.0
-#define kCellAnimationDuration		0.25
+#define kCellAnimationDuration		0.12
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -167,6 +168,9 @@
 				reuseIdentifier:reuseIdentifier];
     
 	if (self) {
+        
+        self.clipsToBounds  = YES;
+        
 		CGRect frame = CGRectMake(0,0,320,320);
         
         
@@ -403,11 +407,18 @@
 											constrainedToSize:CGSizeMake(kItemDataWidth,kItemDataHeight)
 												lineBreakMode:UILineBreakModeWordWrap];
 	
-
-	_dataRect					= CGRectMake(kItemDataX,
-											 kItemDataY + (kItemDataHeight - dataSize.height) / 2 - kItemDataYOffset,
-											 dataSize.width,
-											 dataSize.height);
+    if(dataSize.height <= 56) {
+        _dataRect                   = CGRectMake(kItemDataX-10,
+                                                 320 - 55 - dataSize.height,
+                                                 dataSize.width,
+                                                 dataSize.height);
+    }
+    else {
+        _dataRect					= CGRectMake(kItemDataX,
+                                                 kItemDataY + (kItemDataHeight - dataSize.height) / 2 - kItemDataYOffset,
+                                                 dataSize.width,
+                                                 dataSize.height);
+    }
 	
 	
 	
@@ -432,7 +443,7 @@
 
 	itemImageLayer.opacity			= _attachmentType == kAttachmentNone ? kNoAttachmentAlpha : kNormalAlpha;	
 	itemImageLayer.backgroundColor	= _attachmentType == kAttachmentNone ? kColorNoAttachmentBg : kColorAttachmentBg;
-	playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
+	//playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
 	touchedImageLayer.hidden		= YES;
 	
 	shareImageLayer.hidden			= NO;
@@ -562,8 +573,8 @@
 	touchIconImageLayer.hidden	= YES;
 	itemImageLayer.opacity		= kHighlightAlpha;
 	
-	if(_attachmentType == kAttachmentVideo)
-		playImageLayer.hidden	= YES;
+	//if(_attachmentType == kAttachmentVideo)
+	//	playImageLayer.hidden	= YES;
 	
 	shareImageLayer.hidden		= YES;
 	
@@ -592,8 +603,8 @@
 	itemImageLayer.opacity		= kNormalAlpha;
 	touchedImageLayer.hidden	= YES;
 	
-	if(_attachmentType == kAttachmentVideo)
-		playImageLayer.hidden	= NO;
+	//if(_attachmentType == kAttachmentVideo)
+	//	playImageLayer.hidden	= NO;
 	
 	shareImageLayer.hidden		= NO;
 	
@@ -696,21 +707,21 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)playbackFinished {
+    [self fadeCell];
     //if(_isTouching)
-    
     //   [self conditionalFadeWithDuration:0.0];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)handleTapGesture:(UIPanGestureRecognizer*)sender {    
     _highlighted = !_highlighted;
-
-    if(!_highlighted)
+    
+    if(!_highlighted) {
+        [videoView stopPlayingVideo];
         [self fadeCell];
+    }
     else
-        [self highlightCell];
-    
-    
+        [self highlightCell];    
 }
 
 @end
