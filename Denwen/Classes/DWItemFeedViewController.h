@@ -16,7 +16,7 @@
 /**
  * Base class for views that display a feed of items
  */
-@interface DWItemFeedViewController : UITableViewController<EGORefreshTableHeaderDelegate,DWItemFeedCellDelegate> {
+@interface DWItemFeedViewController : UITableViewController<EGORefreshTableHeaderDelegate,DWItemFeedCellDelegate,UIActionSheetDelegate> {
 	
 	DWItemsManager	*_itemManager;
 

@@ -18,6 +18,8 @@ static NSInteger const kMessageCellIndex			= 2;
 static NSInteger const kMaxFeedCellHeight			= 2000;
 static NSInteger const kItemFeedCellHeight			= 320;
 static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
+static NSString* const kMsgActionSheetCancel        = @"Cancel";
+static NSString* const kMsgActionSheetDelete		= @"Delete";
 
 
 
@@ -76,6 +78,22 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 							 withBackgroundColor:[UIColor blackColor]];
 
 	[self.tableView addSubview:self.refreshHeaderView];	
+    
+    
+    UISwipeGestureRecognizer *swipeRight = [[[UISwipeGestureRecognizer alloc] initWithTarget:self 
+                                                                                      action:@selector(handleSwipeGesture:)] 
+                                            autorelease];
+    
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.tableView addGestureRecognizer:swipeRight];
+    
+    
+    UISwipeGestureRecognizer *swipeLeft = [[[UISwipeGestureRecognizer alloc] initWithTarget:self 
+                                                                                     action:@selector(handleSwipeGesture:)] 
+                                           autorelease];
+    
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.tableView addGestureRecognizer:swipeLeft];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -190,7 +208,39 @@ static NSString* const kItemFeedCellIdentifier		= @"ItemFeedCell";
 	}
 }
 
-								   
+//----------------------------------------------------------------------------------------------------
+-(void)handleSwipeGesture:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        CGPoint swipeLocation = [gestureRecognizer locationInView:self.tableView];
+        NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:swipeLocation];
+        
+        if ([[_itemManager getItem:swipedIndexPath.row].user isCurrentUser]) {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
+                                                                     delegate:self 
+                                                            cancelButtonTitle:kMsgActionSheetCancel
+                                                       destructiveButtonTitle:kMsgActionSheetDelete
+                                                            otherButtonTitles:nil];
+            
+            [actionSheet showInView:[_delegate requestCustomTabBarController].view];
+            actionSheet.tag = swipedIndexPath.row;
+            [actionSheet release];    
+        }
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIActionSheet Delegate
+//----------------------------------------------------------------------------------------------------
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
+	if (buttonIndex == 0) {
+        NSLog(@"deleted cell %d",actionSheet.tag);
+    }
+}
+
+
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
