@@ -36,7 +36,7 @@
 /**
  * Cell used in item feed view controller
  */
-@interface DWItemFeedCell : UITableViewCell<DWVideoViewDelegate> {
+@interface DWItemFeedCell : UITableViewCell<DWVideoViewDelegate,UIGestureRecognizerDelegate> {
 	
 	CALayer							*itemImageLayer;
 	CALayer							*touchIconImageLayer;

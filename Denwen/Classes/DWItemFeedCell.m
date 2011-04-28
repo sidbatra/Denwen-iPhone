@@ -215,6 +215,7 @@
         UITapGestureRecognizer *singleTap   = [[[UITapGestureRecognizer alloc] initWithTarget:self 
                                                                                        action:@selector(handleTapGesture:)] autorelease];
         singleTap.numberOfTapsRequired      = 1;
+        singleTap.delegate                  = self;
         [self addGestureRecognizer:singleTap];
         
         
@@ -743,12 +744,19 @@
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UIGestureRecognizer
+#pragma mark UIGestureRecognizerDelegate
 
 //----------------------------------------------------------------------------------------------------
-- (void)handleTapGesture:(UITapGestureRecognizer*)sender {    
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)recognizer 
+       shouldReceiveTouch:(UITouch *)touch {
     
-    //CGPoint location             = [sender locationInView:self];
+    return ![touch.view isKindOfClass:[UIButton class]];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)handleTapGesture:(UITapGestureRecognizer*)recognizer {    
+    
+    //CGPoint location             = [recognizer locationInView:self];
     
     _highlighted = !_highlighted;
     
