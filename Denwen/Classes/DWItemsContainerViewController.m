@@ -310,7 +310,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 #pragma mark Nav Stack Selectors
 //----------------------------------------------------------------------------------------------------
 - (void)willShowOnNav {
-    //[self.navigationController.navigationBar addSubview:self.userTitleView];
+    [self.navigationController.navigationBar addSubview:self.userTitleView];
     [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
 }
 

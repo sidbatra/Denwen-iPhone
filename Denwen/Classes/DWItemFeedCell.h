@@ -61,6 +61,7 @@
 	NSString						*_itemUserName;
 	NSString						*_itemCreatedAt;
 	NSString						*_itemDetails;
+    NSString                        *_itemTouchesCountString;
 	
 	NSDate							*_highlightedAt;
 
@@ -68,7 +69,8 @@
 	CGRect							_atRect;
 	CGRect							_placeNameRect;
 	CGRect							_dataRect;
-	CGRect							_detailsRect;
+    CGRect                          _touchesCountRect;
+    CGRect                          _createdAtRect;
 
 	
 	UIButton						*placeButton;
@@ -92,6 +94,7 @@
 @property (nonatomic,copy) NSString* itemUserName;
 @property (nonatomic,copy) NSString* itemCreatedAt;
 @property (nonatomic,copy) NSString* itemDetails;
+@property (nonatomic,copy) NSString* itemTouchesCountString;
 
 @property (nonatomic,retain) NSDate* highlightedAt;
 
@@ -99,7 +102,9 @@
 @property (nonatomic,readonly) CGRect atRect;
 @property (nonatomic,readonly) CGRect placeNameRect;
 @property (nonatomic,readonly) CGRect dataRect;
-@property (nonatomic,readonly) CGRect detailsRect;
+@property (nonatomic,readonly) CGRect touchesCountRect;
+@property (nonatomic,readonly) CGRect createdAtRect;
+
 
 
 @property (nonatomic,assign) id<DWItemFeedCellDelegate> delegate;

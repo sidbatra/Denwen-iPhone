@@ -7,48 +7,52 @@
 #import "DWVideoView.h"
 #import "DWConstants.h"
 
-#define kImgTouchIcon				@"hand.png"
-#define kImgTouchIcon230			@"hand_230.png"
-#define kImgTouched					@"touched.png"
-#define kImgPlay					@"play.png"
-#define kImgShare					@"share.png"
-#define kImgShare230				@"share_230.png"
-#define kImgSeparator				@"hr_place_list.png"
-#define kColorAttachmentBg			[UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
-#define kColorNoAttachmentBg		[UIColor colorWithRed:0.3490 green:0.3490 blue: 0.3490 alpha:1.0].CGColor
-#define kFontItemUserName			[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
-#define kFontAt						[UIFont fontWithName:@"HelveticaNeue" size:15]
-#define kFontItemPlaceName			[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
-#define kFontItemData				[UIFont fontWithName:@"HelveticaNeue" size:23]
-#define kFontItemCreatedAt			[UIFont fontWithName:@"HelveticaNeue" size:15]
-#define kFontItemTouchesCount		[UIFont fontWithName:@"HelveticaNeue" size:15]
-#define kItemUserNameX				20
-#define kItemUserNameY				13
-#define kUnderlineYOffset			17
-#define kUnderlineHeight			0.75
-#define kAtXOffset					5
-#define kAtWidth					13
-#define kPlaceNameXOffset			5
-#define kMaxPlaceNameWidth			305
-#define kItemDataX					30
-#define kItemDataY					40
-#define kItemDataYOffset			2
-#define kItemDataWidth				270
-#define kItemDataHeight				240
-#define kDetailsX					20
-#define kDetailsY					285
-#define kTouchesIconXOffset			4
-#define kTouchesIconY				287
-#define kDefaultTextHeight			20
-#define kNormalAlpha				0.60
-#define kHighlightAlpha				1.0
-#define kNoAttachmentAlpha			1.0
-#define kSelectionDelay				0.45
-#define kTouchInterval				0.6
-#define kAfterTouchFadeInerval		1.0
-#define kNormalFadeInterval			0.5
-#define kNoAnimationDuration		0.0
-#define kCellAnimationDuration		0.12
+#define kImgTouchIcon                       @"hand.png"
+#define kImgTouchIcon230                    @"hand_230.png"
+#define kImgTouched                         @"touched.png"
+#define kImgPlay                            @"play.png"
+#define kImgShare                           @"share.png"
+#define kImgShare230                        @"share_230.png"
+#define kImgSeparator                       @"hr_place_list.png"
+#define kColorAttachmentBg                  [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
+#define kColorNoAttachmentBg                [UIColor colorWithRed:0.3490 green:0.3490 blue: 0.3490 alpha:1.0].CGColor
+#define kFontItemUserName                   [UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+#define kFontAt                             [UIFont fontWithName:@"HelveticaNeue" size:15]
+#define kFontItemPlaceName                  [UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+#define kFontItemData                       [UIFont fontWithName:@"HelveticaNeue" size:23]
+#define kFontItemCreatedAt                  [UIFont fontWithName:@"HelveticaNeue" size:15]
+#define kFontItemTouchesCount               [UIFont fontWithName:@"HelveticaNeue" size:15]
+#define kItemUserNameX                      20
+#define kItemUserNameY                      13
+#define kUnderlineYOffset                   17
+#define kUnderlineHeight                    0.75
+#define kAtXOffset                          5
+#define kAtWidth                            13
+#define kPlaceNameXOffset                   5
+#define kMaxPlaceNameWidth                  305
+#define kItemDataX                          30
+#define kItemDataXSubTitleOffset            10
+#define kItemDataY                          40
+#define kItemDataYOffset                    2
+#define kItemDataYSubtitleOffset            55
+#define kItemDataWidth                      270
+#define kItemDataHeight                     240
+#define kItemDataSubtitleHeightThreshold    56
+#define kDetailsX                           20
+#define kDetailsY                           285
+#define kTouchesIconXOffset                 4
+#define kTouchesIconY                       287
+#define kTouchesIconWidth                   13
+#define kDefaultTextHeight                  20
+#define kNormalAlpha                        0.60
+#define kHighlightAlpha                     1.0
+#define kNoAttachmentAlpha                  1.0
+#define kSelectionDelay                     0.45
+#define kTouchInterval                      0.6
+#define kAfterTouchFadeInerval              1.0
+#define kNormalFadeInterval                 0.5
+#define kNoAnimationDuration                0.0
+#define kCellAnimationDuration              0.12
 
 
 
@@ -126,8 +130,11 @@
 		//----------------------------------	
 		CGContextSetFillColorWithColor(context,textColor);
 		
-		[itemCell.itemDetails drawInRect:itemCell.detailsRect 
-								withFont:kFontItemCreatedAt];
+        [itemCell.itemTouchesCountString drawInRect:itemCell.touchesCountRect
+                                           withFont:kFontItemTouchesCount];
+        
+		[itemCell.itemCreatedAt drawInRect:itemCell.createdAtRect 
+                                  withFont:kFontItemCreatedAt];
 	}
 
 	
@@ -151,12 +158,14 @@
 @synthesize itemUserName			= _itemUserName;
 @synthesize itemCreatedAt			= _itemCreatedAt;
 @synthesize itemDetails				= _itemDetails;
+@synthesize itemTouchesCountString  = _itemTouchesCountString;
 @synthesize highlightedAt			= _highlightedAt;
 @synthesize userNameRect			= _userNameRect;
 @synthesize atRect					= _atRect;
 @synthesize placeNameRect			= _placeNameRect;
 @synthesize dataRect				= _dataRect;
-@synthesize detailsRect				= _detailsRect;
+@synthesize touchesCountRect        = _touchesCountRect;
+@synthesize createdAtRect           = _createdAtRect;
 @synthesize delegate				= _delegate;
 @synthesize attachmentType			= _attachmentType;
 
@@ -193,7 +202,7 @@
 		[[self layer] addSublayer:itemImageLayer];
 		
 		touchIconImageLayer					= [CALayer layer];
-		touchIconImageLayer.frame			= CGRectMake(295,292,13,15);
+		touchIconImageLayer.frame			= CGRectMake(295,292,kTouchesIconWidth,15);
 		touchIconImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		touchIconImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 											   [NSNull null], @"onOrderIn",
@@ -339,32 +348,47 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {	
-	self.itemData			= nil;
-	self.itemPlaceName		= nil;
-	self.itemUserName		= nil;
-	self.itemCreatedAt		= nil;
-	self.itemDetails		= nil;
-	self.highlightedAt		= nil;
+	self.itemData               = nil;
+	self.itemPlaceName          = nil;
+	self.itemUserName           = nil;
+	self.itemCreatedAt          = nil;
+	self.itemDetails            = nil;
+	self.highlightedAt          = nil;
+    self.itemTouchesCountString = nil;
 	
     [super dealloc];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)resetItemDetailsPosition {
-    CGSize detailsSize			= [self.itemDetails sizeWithFont:kFontItemCreatedAt];
-	
-	_detailsRect				= CGRectMake(kDetailsX,
-											 kDetailsY,
-											 detailsSize.width,
-											 detailsSize.height);
+    
+    self.itemTouchesCountString     = _itemTouchesCount ? [NSString stringWithFormat:@"%d",_itemTouchesCount] : @"";
+    
+    
+    CGSize touchesCountSize         = [self.itemTouchesCountString sizeWithFont:kFontItemTouchesCount];
+    
+    _touchesCountRect               = CGRectMake(kDetailsX,
+                                                 kDetailsY,
+                                                 touchesCountSize.width,
+                                                 touchesCountSize.height);
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)resetTouchImageIconPosition {
-    touchIconImageLayer.frame	= CGRectMake(_detailsRect.origin.x+_detailsRect.size.width+kTouchesIconXOffset,
+    touchIconImageLayer.frame	= CGRectMake(_touchesCountRect.origin.x+_touchesCountRect.size.width+kTouchesIconXOffset,
 											 kTouchesIconY,
 											 touchIconImageLayer.frame.size.width, 
 											 touchIconImageLayer.frame.size.height);
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)resetCreatedAtPosition {
+    CGSize createdAtSize            = [self.itemCreatedAt sizeWithFont:kFontItemCreatedAt];
+    
+    _createdAtRect                  = CGRectMake(touchIconImageLayer.frame.origin.x+touchIconImageLayer.frame.size.width,
+                                                 kDetailsY,
+                                                 createdAtSize.width,
+                                                 createdAtSize.height);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -407,9 +431,9 @@
 											constrainedToSize:CGSizeMake(kItemDataWidth,kItemDataHeight)
 												lineBreakMode:UILineBreakModeWordWrap];
 	
-    if(dataSize.height <= 56) {
-        _dataRect                   = CGRectMake(kItemDataX-10,
-                                                 320 - 55 - dataSize.height,
+    if(dataSize.height <= kItemDataSubtitleHeightThreshold) {
+        _dataRect                   = CGRectMake(kItemDataX-kItemDataXSubTitleOffset,
+                                                 320 - kItemDataYSubtitleOffset - dataSize.height,
                                                  dataSize.width,
                                                  dataSize.height);
     }
@@ -453,6 +477,7 @@
 	touchIconImageLayer.contents	= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgTouchIcon230 : kImgTouchIcon].CGImage;
 	
 	[self resetTouchImageIconPosition];
+    [self resetCreatedAtPosition];
     
 	[CATransaction commit];
 	
@@ -509,14 +534,6 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)createItemDetails {
-	if(_itemTouchesCount)
-		self.itemDetails = [NSString stringWithFormat:@"%@  |  %d",self.itemCreatedAt,_itemTouchesCount];
-	else
-		self.itemDetails = [NSString stringWithFormat:@"%@  |  ",self.itemCreatedAt];
-}
-
-//----------------------------------------------------------------------------------------------------
 - (void)setItemImage:(UIImage*)itemImage {
 	itemImageLayer.contents = (id)itemImage.CGImage;
 }
@@ -525,10 +542,8 @@
 - (void)setDetails:(NSInteger)touchesCount 
 	  andCreatedAt:(NSString*)createdAt {
 	
-	_itemTouchesCount	= touchesCount;
-	self.itemCreatedAt	= createdAt;
-	
-	[self createItemDetails];
+	_itemTouchesCount               = touchesCount;
+	self.itemCreatedAt              = [NSString stringWithFormat:@"  |  %@",createdAt];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -539,7 +554,6 @@
 //----------------------------------------------------------------------------------------------------
 - (void)touchCell {
 	_itemTouchesCount++;
-	[self createItemDetails];
 	
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:0.5f] 
@@ -547,6 +561,7 @@
 	
     [self resetItemDetailsPosition];
     [self resetTouchImageIconPosition];
+    [self resetCreatedAtPosition];
     
 	touchedImageLayer.hidden = NO;
 	
