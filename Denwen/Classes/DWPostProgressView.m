@@ -39,7 +39,8 @@ static NSString* const kImgBackground   = @"loading_bar_fail.png";
                                            nil];
         progressLayer.contents          = (id)[UIImage imageNamed:kImgProgress].CGImage;
         [self.layer addSublayer:progressLayer];
-        
+        //progressLayer.frame = CGRectMake(0,0,self.frame.size.width,self.frame.size.height);
+            
         
         
 		statusLabel					= [[[UILabel alloc] initWithFrame:CGRectMake(0,12,self.frame.size.width,20)] autorelease];
@@ -164,8 +165,8 @@ static NSString* const kImgBackground   = @"loading_bar_fail.png";
 #pragma mark -
 #pragma mark Nav Stack Selectors
 //----------------------------------------------------------------------------------------------------
-- (void)shouldBeRemovedFromNav {
-    
-}
+//- (void)shouldBeRemovedFromNav {
+//   
+//}
 
 @end

@@ -73,6 +73,8 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 		postProgressView.delegate	= self;
 	}
     
+    //self.navigationItem.titleView = postProgressView;
+    
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];    
     [button setBackgroundImage:[UIImage imageNamed:kImgNotificationsButton] 
                       forState:UIControlStateNormal];
@@ -291,7 +293,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
                                titleMode:kNavTitleAndSubtitleMode 
                                andButtonType:kDWButtonTypeStatic] autorelease];
     
-    [self.navigationController.navigationBar addSubview:self.userTitleView];
+    //[self.navigationController.navigationBar addSubview:self.userTitleView];
     [self updateUserTitleView];
     
     if (!self.smallProfilePicView)
