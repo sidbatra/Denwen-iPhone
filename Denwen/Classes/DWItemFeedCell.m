@@ -64,14 +64,13 @@
 @implementation DWItemFeedCellDrawingLayer
 
 @synthesize itemCell;
-@synthesize disableAnimation = _disableAnimation;
 
 //----------------------------------------------------------------------------------------------------
 - (id<CAAction>)actionForKey:(NSString *)key {
 	
-	//if([key isEqualToString:@"contents"] && _disableAnimation)
-	//	return (id)[NSNull null];		
-			
+	if([key isEqualToString:@"contents"] && (itemCell.userButtonPressed || itemCell.placeButtonPressed))
+        return nil;
+    
 	return [super actionForKey:key];
 }
 
@@ -82,31 +81,23 @@
     
     BOOL isTextOnly = [itemCell attachmentType] == kAttachmentNone;
     
-    //CGColorRef textColor = isTextOnly ? 
-    //[UIColor colorWithRed:0.9019 green:0.9019 blue:0.9019 alpha:1.0].CGColor :
-    //[UIColor whiteColor].CGColor;
-    
-    CGColorRef textColor = nil;
-    
-    if(isTextOnly && ![itemCell isHighlighted])
-        textColor = [UIColor colorWithRed:0.9019 
-                                    green:0.9019
-                                     blue:0.9019
-                                    alpha:1.0].CGColor;
-    else if(isTextOnly && [itemCell isHighlighted])
-        textColor = [UIColor colorWithRed:1.0
-                                    green:1.0
-                                     blue:1.0
-                                    alpha:1.0].CGColor;
-    else
-        textColor = [UIColor whiteColor].CGColor;
-        
+    CGColorRef textColor = [UIColor colorWithRed:1.0
+                                           green:1.0
+                                            blue:1.0
+                                           alpha:1.0].CGColor;
     
 	
 	if(![itemCell isHighlighted]) {
 		
 		//----------------------------------
-		CGContextSetFillColorWithColor(context,textColor);
+        CGColorRef userColor = itemCell.userButtonPressed ? 
+                                [UIColor colorWithRed:0.8 
+                                                green:0.8 
+                                                 blue:0.8
+                                                alpha:1.0].CGColor : 
+                                textColor;
+        
+		CGContextSetFillColorWithColor(context,userColor);
 		
 		[itemCell.itemUserName drawInRect:itemCell.userNameRect 
 								 withFont:kFontItemUserName];
@@ -125,7 +116,14 @@
 		
 		
 		//----------------------------------	
-		CGContextSetFillColorWithColor(context,textColor);
+        CGColorRef placeColor = itemCell.placeButtonPressed ? 
+                                [UIColor colorWithRed:0.8
+                                                green:0.8
+                                                 blue:0.8
+                                                alpha:1.0].CGColor : 
+                                textColor;
+        
+		CGContextSetFillColorWithColor(context,placeColor);
 		
 		
 		[itemCell.itemPlaceName drawInRect:itemCell.placeNameRect
@@ -149,7 +147,12 @@
     
     //----------------------------------
     if(![itemCell isHighlighted] || isTextOnly) {
-        CGContextSetFillColorWithColor(context,textColor);
+        
+        CGColorRef dataColor = isTextOnly && ![itemCell isHighlighted] ? 
+                                [UIColor colorWithRed:0.9019 green:0.9019 blue:0.9019 alpha:1.0].CGColor :
+                                textColor;
+
+        CGContextSetFillColorWithColor(context,dataColor);
         
         [itemCell.itemData drawInRect:itemCell.dataRect 
                              withFont:kFontItemData
@@ -269,7 +272,6 @@
         
         
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
-		drawingLayer.disableAnimation	= YES;
 		drawingLayer.itemCell			= self;
 		drawingLayer.frame				= frame;
 		drawingLayer.contentsScale		= [[UIScreen mainScreen] scale];
