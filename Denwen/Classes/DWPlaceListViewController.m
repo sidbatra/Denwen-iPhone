@@ -500,19 +500,20 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	return cell;	
 }
-/*
+
 -(void)tableView:(UITableView*)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"swipe");
 }
 
+/*
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"editing style");
     return UITableViewCellEditingStyleDelete;
-}
+}*/
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"commit editing style");
-}*/
+}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
