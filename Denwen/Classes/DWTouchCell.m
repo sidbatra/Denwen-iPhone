@@ -11,8 +11,13 @@ static NSString* const kImgChevron		= @"chevron.png";
 #define kAnimationDuration          0.25
 #define kNoAnimationDuration		0.0
 #define kFadeDelay                  0.75
-#define kNormalAlpha                0.55
-#define kHighlightAlpha             0.35
+#define kNormalAlpha                0.35
+#define kNoAttachmentAlpha          1.0
+#define kHighlightAlpha             0.15
+#define kColorNormalBg              [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
+#define kColorNoAttachmentBg        [UIColor colorWithRed:0.3490 green:0.3490 blue:0.3490 alpha:1.0].CGColor
+#define kColorTextNormal            [UIColor whiteColor].CGColor
+#define kColorTextNoAttachment      [UIColor colorWithRed:0.9019 green:0.9019 blue:0.9019 alpha:1.0].CGColor
 
 
 
@@ -29,10 +34,9 @@ static NSString* const kImgChevron		= @"chevron.png";
 	UIGraphicsPushContext(context);
 	
 	
-	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-	//CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
+	CGContextSetFillColorWithColor(context,touchCell.hasAttachment ? kColorTextNormal : kColorTextNoAttachment);
     
-    [touchCell.itemData  drawInRect:CGRectMake(65,5,220,50) 
+    [touchCell.itemData  drawInRect:CGRectMake(75,12,225,50) 
                            withFont:[UIFont fontWithName:@"HelveticaNeue" size:13]
                       lineBreakMode:UILineBreakModeWordWrap
                           alignment:UITextAlignmentLeft];
@@ -50,6 +54,7 @@ static NSString* const kImgChevron		= @"chevron.png";
 @implementation DWTouchCell
 
 @synthesize itemData			= _itemData;
+@synthesize hasAttachment       = _hasAttachment;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithStyle:(UITableViewCellStyle)style
@@ -60,12 +65,12 @@ static NSString* const kImgChevron		= @"chevron.png";
     
 	if (self) {
         
-		CGRect frame = CGRectMake(0,0,320,60);
+        self.clipsToBounds  = YES;
+		CGRect frame        = CGRectMake(0,0,320,60);
         
         attachmentImageLayer                    = [CALayer layer];
-		attachmentImageLayer.frame              = frame;
+		attachmentImageLayer.frame              = CGRectMake(0,-16,320,92);
 		attachmentImageLayer.contentsScale      = [[UIScreen mainScreen] scale];
-		attachmentImageLayer.backgroundColor	= [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor;
 		attachmentImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                    [NSNull null], @"contents",
                                                    nil];
@@ -90,7 +95,7 @@ static NSString* const kImgChevron		= @"chevron.png";
         [[self layer] addSublayer:drawingLayer];
 		
 		CALayer *chevronLayer			= [CALayer layer];
-		chevronLayer.frame				= CGRectMake(307,31,6,11);
+		chevronLayer.frame				= CGRectMake(308,24,6,11);
 		chevronLayer.contentsScale		= [[UIScreen mainScreen] scale];
 		chevronLayer.contents			= (id)[UIImage imageNamed:kImgChevron].CGImage;
 		[[self layer] addSublayer:chevronLayer];
@@ -124,9 +129,11 @@ static NSString* const kImgChevron		= @"chevron.png";
     [CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kNoAnimationDuration]
 					 forKey:kCATransactionAnimationDuration];		
-	attachmentImageLayer.opacity    = kNormalAlpha;
+    
+	attachmentImageLayer.opacity            = _hasAttachment ? kNormalAlpha : kNoAttachmentAlpha;
+    attachmentImageLayer.backgroundColor	= _hasAttachment ? kColorNormalBg : kColorNoAttachmentBg;
+    
 	[CATransaction commit];
-
 }
 
 //----------------------------------------------------------------------------------------------------

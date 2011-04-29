@@ -34,6 +34,7 @@
 	DWTouchCellDrawingLayer         *drawingLayer;
 	
 	BOOL							_highlighted;
+    BOOL                            _hasAttachment;
 	
 	NSString						*_itemData;
 }
@@ -42,6 +43,11 @@
  * Item data
  */
 @property (nonatomic,copy) NSString* itemData;
+
+/**
+ * Indicates presence of attachment
+ */
+@property (nonatomic,assign) BOOL hasAttachment;
 
 
 /**

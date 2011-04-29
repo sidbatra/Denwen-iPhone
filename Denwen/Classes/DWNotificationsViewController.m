@@ -246,10 +246,10 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
         if (!cell) 
            cell = [[[DWTouchCell alloc] initWithStyle:UITableViewCellStyleDefault 
                                           reuseIdentifier:kTouchCellIdentifier] autorelease];
-
-        [cell reset];
-     
-        cell.itemData   = [touch displayText];
+        
+        cell.itemData       = [touch displayText];
+        cell.hasAttachment  = touch.attachment ? YES : NO;
+    
         
         if (!tableView.dragging && !tableView.decelerating)
             [touch startDownloadingImages];
@@ -264,6 +264,7 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
         else
             [cell setUserImage:nil];
       
+        [cell reset];
         [cell redisplay];
 
         return cell;
