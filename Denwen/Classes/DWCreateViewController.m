@@ -318,7 +318,7 @@ replacementString:(NSString *)string {
  replacementText:(NSString *)text{
 	
 	NSUInteger newLength = [self.dataTextView.text length] + [text length] - range.length;
-    return (newLength > kMaxPostLength) ? NO : YES;
+    return (newLength > kMaxPostLength) || [text isEqualToString:@"\n"] ? NO : YES;
 }
 
 
