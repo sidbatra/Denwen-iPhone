@@ -59,7 +59,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(userFollowingCountUpdated:) 
                                                  name:kNUserFollowingCountUpdated
-                                               object:nil];  
+                                               object:nil];
     
 	
 	if (&UIApplicationDidEnterBackgroundNotification != NULL) {
@@ -195,6 +195,15 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	[followedViewController followedItemsRead];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)displayNotificationsView {
+    DWNotificationsViewController *notificationsView = [[DWNotificationsViewController alloc] initWithDelegate:self];
+    
+    [self.navigationController pushViewController:notificationsView 
+                                         animated:YES];
+    [notificationsView release];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -213,12 +222,22 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	
 	NSDictionary *info = [notification userInfo];
 	
-	if([[info objectForKey:kKeySelectedIndex] integerValue] == kTabBarFeedIndex && 
-		[DWNotificationsHelper sharedDWNotificationsHelper].unreadItems) {
+	if([[info objectForKey:kKeySelectedIndex] integerValue] == kTabBarFeedIndex)  {
 		
-		[self.navigationController popToRootViewControllerAnimated:NO];
-		[followedViewController scrollToTop];
-	}
+        /*
+        if([DWNotificationsHelper sharedDWNotificationsHelper].unreadItems) {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            [followedViewController scrollToTop];
+        }
+         */
+        
+        if([DWNotificationsHelper sharedDWNotificationsHelper].unreadNotifications) {
+            if([self.navigationController.topViewController isKindOfClass:[DWNotificationsViewController class]])
+                [(DWNotificationsViewController*)self.navigationController.topViewController requestHardRefresh];
+            else   
+                [self displayNotificationsView];
+        }
+    }
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -300,9 +319,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 #pragma mark UITouchEvents
 //----------------------------------------------------------------------------------------------------
 - (void)didTapNotificationsButton:(UIButton*)button {
-    DWNotificationsViewController *notificationsView = [[DWNotificationsViewController alloc] initWithDelegate:self];
-    [self.navigationController pushViewController:notificationsView animated:YES];
-    [notificationsView release];
+    [self displayNotificationsView];
 }
 
 //----------------------------------------------------------------------------------------------------

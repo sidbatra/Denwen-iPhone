@@ -61,6 +61,8 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 											   object:nil];
 	
 	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
+    
+    //NSLog(@"remote notification data --- %@",[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]);
 
     return YES;
 }
@@ -353,20 +355,9 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 - (void)selectedTabModifiedFrom:(NSInteger)oldSelectedIndex 
 							 to:(NSInteger)newSelectedIndex {
 		
-	if(oldSelectedIndex == newSelectedIndex) {
-		[(UINavigationController*)[self.tabBarController getSelectedController] popToRootViewControllerAnimated:YES];
-	}
-	else if(newSelectedIndex == kTabBarCreateIndex) {
+	if(newSelectedIndex == kTabBarCreateIndex) {
 		DWCreateViewController *createView	= [[[DWCreateViewController alloc] init] autorelease];
 		[self.tabBarController presentModalViewController:createView animated:NO];
-	}
-	else {
-		[[NSNotificationCenter defaultCenter] postNotificationName:kNTabSelectionChanged
-															object:nil
-														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																	[NSNumber numberWithInt:oldSelectedIndex],kKeyOldSelectedIndex,
-																	[NSNumber numberWithInt:newSelectedIndex],kKeySelectedIndex,
-																	nil]];
 	}
 }
 

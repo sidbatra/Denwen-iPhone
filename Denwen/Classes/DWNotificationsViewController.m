@@ -9,7 +9,7 @@
 #import "DWRequestsManager.h"
 #import "DWItemFeedViewController.h"
 #import "DWTouchCell.h"
-#import "EGORefreshTableHeaderView.h"
+#import "DWNotificationsHelper.h"
 #import "DWGUIManager.h"
 
 static NSInteger const kTouchesPerPage          = 20;
@@ -138,6 +138,11 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
     [[DWRequestsManager sharedDWRequestsManager] getTouchesForCurrentUser:_currentPage];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)requestHardRefresh {
+    [self hardRefresh];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -219,6 +224,8 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
 	
 	[self finishedLoading];
 	[self.tableView reloadData];
+    
+    [DWNotificationsHelper sharedDWNotificationsHelper].unreadNotifications = NO;
 }
 
 //----------------------------------------------------------------------------------------------------

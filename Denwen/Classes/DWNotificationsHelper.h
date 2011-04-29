@@ -9,7 +9,8 @@
  * Handle the notifications flow of the app
  */
 @interface DWNotificationsHelper : NSObject {
-	NSInteger _unreadItems;
+	NSInteger   _unreadItems;
+    BOOL        _unreadNotifications;
 }
 
 /**
@@ -21,6 +22,11 @@
  * Total unread items on the feed page
  */
 @property (nonatomic,assign) NSInteger unreadItems;
+
+/**
+ * Flags the presence of unread notifications
+ */
+@property (nonatomic,assign) BOOL unreadNotifications;
 
 /**
  * Handle push notifications when the app is open
@@ -38,4 +44,11 @@
  */
 - (void)resetUnreadCount;
 
+@end
+
+/**
+ * Declarations for private methods
+ */
+@interface DWNotificationsHelper(Private)
+- (void)displayNotifications;
 @end

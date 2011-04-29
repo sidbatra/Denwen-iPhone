@@ -10,12 +10,13 @@
 #import "SynthesizeSingleton.h"
 
 
-static NSString* const kKeyAPS		= @"aps";
-static NSString* const kKeyBadge	= @"badge";
-static NSString* const kKeyAlert	= @"alert";
-static NSString* const kAlertTitle	= @"Denwen";
-static NSString* const kCancelTitle	= @"OK";
-
+static NSString* const kKeyAPS              = @"aps";
+static NSString* const kKeyBadge            = @"badge";
+static NSString* const kKeyAlert            = @"alert";
+static NSString* const kAlertTitle          = @"Denwen";
+static NSString* const kCancelTitle         = @"OK";
+static NSString* const kActionTitle         = @"View";
+static NSInteger const kActionButtonIndex   = 1;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -23,7 +24,8 @@ static NSString* const kCancelTitle	= @"OK";
 //----------------------------------------------------------------------------------------------------
 @implementation DWNotificationsHelper
 
-@synthesize unreadItems = _unreadItems;
+@synthesize unreadItems             = _unreadItems;
+@synthesize unreadNotifications     = _unreadNotifications;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 
@@ -59,15 +61,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 	}
 	*/
     
+    
 	if(alert && [UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
 		 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:kAlertTitle
                                                              message:[alert objectForKey:kKeyBody] 
-                                                            delegate:nil 
+                                                            delegate:self 
                                                    cancelButtonTitle:kCancelTitle
-                                                   otherButtonTitles: nil];
+                                                   otherButtonTitles:kActionTitle,nil];
 		 [alertView show];
 		 [alertView release];
 	}
+    else if(alert) {
+        [self displayNotifications];
+    }
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -93,6 +99,30 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 		[[DWRequestsManager sharedDWRequestsManager] updateUnreadCountForCurrentUserBy:self.unreadItems];
 	
 	self.unreadItems = 0;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)displayNotifications {
+    _unreadNotifications    = YES;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNRequestTabBarIndexChange
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                [NSNumber numberWithInt:kTabBarFeedIndex],kKeyTabIndex,
+                                                                [NSNumber numberWithBool:NO],kKeyPopAll,
+                                                                nil]];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIAlertViewDelegate
+//----------------------------------------------------------------------------------------------------
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	    
+	if (buttonIndex == kActionButtonIndex)
+        [self displayNotifications];
 }
 
 @end

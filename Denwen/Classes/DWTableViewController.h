@@ -72,6 +72,17 @@
 - (void)loadImagesForOnscreenRows;
 
 /**
+ * Perform a full refresh of the table view - reset pagination, go to loading state
+ * load new data
+ */
+- (void)hardRefresh;
+
+/**
+ * External interface to requesting a hard refresh
+ */
+- (void)requestHardRefresh;
+
+/**
  * Overriden in the child class to return the total 
  * number of rows in the table
  */

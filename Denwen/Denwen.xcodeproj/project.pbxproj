@@ -1415,8 +1415,6 @@
 				BBD837631363D86C00326E1F /* DWSmallProfilePicView.m */,
 				BB33CB8A135FAED700BDBE98 /* DWNavigationBar.h */,
 				BB33CB8B135FAED700BDBE98 /* DWNavigationBar.m */,
-				BB9EC27513542DF000D6BBF6 /* DWTabBarController.h */,
-				BB9EC27613542DF000D6BBF6 /* DWTabBarController.m */,
 				BB9EC16C13541A8E00D6BBF6 /* DWTabBar.h */,
 				BB9EC16D13541A8E00D6BBF6 /* DWTabBar.m */,
 				BB9EC00D1353F64F00D6BBF6 /* DWSegmentedControl.h */,
@@ -1563,6 +1561,8 @@
 		BB3BE0B2133A9CE70055FED0 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				BB9EC27513542DF000D6BBF6 /* DWTabBarController.h */,
+				BB9EC27613542DF000D6BBF6 /* DWTabBarController.m */,
 				BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */,
 				BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */,
 				BB17BAE312EA3A3F00DD42FC /* DWLoginViewController.h */,

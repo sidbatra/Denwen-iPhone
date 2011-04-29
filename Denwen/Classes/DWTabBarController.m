@@ -153,6 +153,14 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 	
 	[_delegate selectedTabModifiedFrom:oldSelectedIndex
 									to:newSelectedIndex];
+    
+    if(!isSpecial)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNTabSelectionChanged
+															object:nil
+														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+																	[NSNumber numberWithInt:oldSelectedIndex],kKeyOldSelectedIndex,
+																	[NSNumber numberWithInt:newSelectedIndex],kKeySelectedIndex,
+																	nil]];
 }
 
 

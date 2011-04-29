@@ -126,7 +126,8 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)buttonPressed:(UIButton*)button 
-         withNavReset:(BOOL)navReset {
+         withNavReset:(BOOL)navReset
+           isExternal:(BOOL)isExternal {
     
 	NSInteger oldIndex	= _selectedIndex;
 	_selectedIndex		= [self selectButton:button];
@@ -134,7 +135,7 @@
 	[_delegate selectedTabWithSpecialTab:button.tag == kTabBarSpecialTag
 							modifiedFrom:oldIndex
 									  to:_selectedIndex
-                            withNavReset:navReset];
+                            withNavReset:isExternal ? navReset : _selectedIndex == oldIndex];
 	
 	if(button.tag == kTabBarSpecialTag)
 		_selectedIndex = oldIndex;
@@ -143,7 +144,8 @@
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchDownOnButton:(UIButton*)button {
     [self buttonPressed:button 
-           withNavReset:NO];
+           withNavReset:NO
+             isExternal:NO];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -170,7 +172,8 @@
     BOOL            navReset    =   [[userInfo objectForKey:kKeyPopAll] boolValue];
     
     [self buttonPressed:[self.buttons objectAtIndex:newIndex]
-           withNavReset:navReset];
+           withNavReset:navReset
+             isExternal:YES];
 }
 
 
