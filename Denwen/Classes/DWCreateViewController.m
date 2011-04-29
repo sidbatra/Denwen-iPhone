@@ -193,6 +193,19 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)enterNewPlaceMode {
+    _newPlaceMode			= YES;
+	self.mapButton.hidden	= NO;   
+    self.selectedPlace      = nil;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)exitNewPlaceMode {
+    _newPlaceMode			= NO;
+	self.mapButton.hidden	= YES;
+}
+
+//----------------------------------------------------------------------------------------------------
 -(BOOL)isValidPost {
 	
 	BOOL status = YES;
@@ -245,13 +258,11 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 
 //----------------------------------------------------------------------------------------------------
 - (void)newPlaceSelected {
-	self.selectedPlace		= nil;
 	
 	if(_isMediaSelected)
 		[self displayMediaUI];
 	
-	_newPlaceMode			= YES;
-	self.mapButton.hidden	= NO;
+	[self enterNewPlaceMode];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -409,7 +420,9 @@ replacementString:(NSString *)string {
 //----------------------------------------------------------------------------------------------------
 - (IBAction)placeNameTextFieldEditingChanged:(id)sender {
 	
-	if(_newPlaceMode)
+	if(_newPlaceMode && [self.placeNameTextField.text isEqualToString:kEmptyString])
+        [self exitNewPlaceMode];
+    else if(_newPlaceMode)
         return;
     
     if(self.selectedPlace && ![self.selectedPlace.name isEqualToString:self.placeNameTextField.text])
