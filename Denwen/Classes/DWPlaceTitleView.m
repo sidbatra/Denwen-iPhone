@@ -62,15 +62,15 @@
 	NSString *text = nil;
 	
 	if(followersCount == 0)
-		text = [NSString stringWithFormat:@"..."];
+		text = [NSString stringWithString:@"No one following"];
 	else if(followersCount == 1 && isFollower)
 		text = [NSString stringWithFormat:@"You are following"];
-    else if(followersCount == 1)
-        text = [NSString stringWithFormat:@"1 follower"];
+    else if(followersCount == 2 && isFollower)
+		text = [NSString stringWithFormat:@"You + %d other following",followersCount-1];
     else if(isFollower)
-        text = [NSString stringWithFormat:@"You and %d following",followersCount-1];
+        text = [NSString stringWithFormat:@"You + %d others following",followersCount-1];
 	else
-		text = [NSString stringWithFormat:@"%d are following",followersCount];
+		text = [NSString stringWithFormat:@"%d following",followersCount];
 	
     subtitleLabel.text = text;
 }
