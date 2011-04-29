@@ -26,6 +26,7 @@ static NSInteger const kActionButtonIndex   = 1;
 
 @synthesize unreadItems             = _unreadItems;
 @synthesize unreadNotifications     = _unreadNotifications;
+@synthesize backgroundRemoteInfo    = _backgroundRemoteInfo;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 
@@ -37,6 +38,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 	}
 	
 	return self;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+    self.backgroundRemoteInfo   = nil;
+    
+    [super dealloc];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -78,6 +86,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 
 //----------------------------------------------------------------------------------------------------
 - (void)handleBackgroundNotification {
+    
+    if(self.backgroundRemoteInfo) {
+        [self displayNotifications];
+        self.backgroundRemoteInfo = nil;
+    }
 	/*
     self.unreadItems = [UIApplication sharedApplication].applicationIconBadgeNumber;
 	

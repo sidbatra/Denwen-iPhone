@@ -9,8 +9,9 @@
  * Handle the notifications flow of the app
  */
 @interface DWNotificationsHelper : NSObject {
-	NSInteger   _unreadItems;
-    BOOL        _unreadNotifications;
+	NSInteger       _unreadItems;
+    BOOL            _unreadNotifications;
+    NSDictionary    *_backgroundRemoteInfo;
 }
 
 /**
@@ -27,6 +28,13 @@
  * Flags the presence of unread notifications
  */
 @property (nonatomic,assign) BOOL unreadNotifications;
+
+/**
+ * Dictionary with the remote notification info obtained when the
+ * app was closed
+ */
+@property (nonatomic,retain) NSDictionary *backgroundRemoteInfo;
+
 
 /**
  * Handle push notifications when the app is open

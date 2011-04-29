@@ -54,6 +54,9 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 	//[[ASIDownloadCache sharedCache] clearCachedResponsesForStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
 	
 	[DWPlacesCache sharedDWPlacesCache];
+    
+    [DWNotificationsHelper sharedDWNotificationsHelper].backgroundRemoteInfo = [launchOptions objectForKey:
+                                                                                    UIApplicationLaunchOptionsRemoteNotificationKey];
 		
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(userLogsIn:) 
@@ -61,8 +64,6 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 											   object:nil];
 	
 	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
-    
-    //NSLog(@"remote notification data --- %@",[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]);
 
     return YES;
 }
