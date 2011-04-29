@@ -8,9 +8,9 @@
 static NSString* const kImgSeparator	= @"hr_place_list.png";
 static NSString* const kImgChevron		= @"chevron.png";
 
-#define kAnimationDuration          0.25
+#define kAnimationDuration          0.05
 #define kNoAnimationDuration		0.0
-#define kFadeDelay                  0.75
+#define kFadeDelay                  0.3
 #define kNormalAlpha                0.65
 #define kHighlightAlpha             0.45
 

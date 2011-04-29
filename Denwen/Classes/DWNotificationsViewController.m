@@ -247,11 +247,14 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
            cell = [[[DWTouchCell alloc] initWithStyle:UITableViewCellStyleDefault 
                                           reuseIdentifier:kTouchCellIdentifier] autorelease];
         
-        cell.itemData       = [touch displayText];
+        cell.userName       = touch.user.firstName;
+        cell.itemData       = touch.itemData;
         cell.hasAttachment  = touch.attachment ? YES : NO;
-    
         
-        if (!tableView.dragging && !tableView.decelerating)
+        [cell setPlaceName:touch.placeName
+               andItemData:touch.itemData];
+        
+        //if (!tableView.dragging && !tableView.decelerating)
             [touch startDownloadingImages];
 
         if (touch.attachment && touch.attachment.sliceImage)

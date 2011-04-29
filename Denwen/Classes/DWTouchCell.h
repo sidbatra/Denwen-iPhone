@@ -35,19 +35,50 @@
 	
 	BOOL							_highlighted;
     BOOL                            _hasAttachment;
+    BOOL                            _hasQuote;
+    
+    CGRect                          _userRect;
+    CGRect                          _dataRect;
+    CGRect                          _placeRect;
+    CGRect                          _quoteRect;
 	
-	NSString						*_itemData;
+	NSString						*_userName;
+    NSString                        *_itemData;
+    NSString                        *_placeData;
 }
 
 /**
- * Item data
+ * Name of the person touching the post
+ */
+@property (nonatomic,copy) NSString* userName;
+
+/**
+ * Data associated with the item touched
  */
 @property (nonatomic,copy) NSString* itemData;
+
+/**
+ * Name of the place where the touched item was posted
+ */
+@property (nonatomic,copy) NSString* placeData;
 
 /**
  * Indicates presence of attachment
  */
 @property (nonatomic,assign) BOOL hasAttachment;
+
+/**
+ * Flags whether the quote to end a sentence is needed or not
+ */
+@property (nonatomic,readonly) BOOL hasQuote;
+
+/**
+ * CGRect's for all the individual text elements
+ */
+@property (nonatomic,readonly) CGRect userRect;
+@property (nonatomic,readonly) CGRect dataRect;
+@property (nonatomic,readonly) CGRect placeRect;
+@property (nonatomic,readonly) CGRect quoteRect;
 
 
 /**
@@ -64,6 +95,12 @@
  * Set the user image via the userImageLayer
  */
 - (void)setUserImage:(UIImage*)userImage;
+
+/**
+ * Takes the place name and item data to generate display string
+ */
+- (void)setPlaceName:(NSString*)placeName 
+         andItemData:(NSString*)theItemData;
 
 /**
  * Mark layers for redisplay
