@@ -85,6 +85,7 @@
 	NSDate *createdDate = [NSDate dateWithTimeIntervalSince1970:_createdAtTimestamp];
     NSDate *todayDate	= [NSDate date];
     NSInteger ti		= [todayDate timeIntervalSinceDate:createdDate];
+    int diff;
     	
 	if (ti < 60) {
 		if (ti <= 1) 
@@ -93,7 +94,7 @@
         return [NSString stringWithFormat:@"%d seconds ago", ti];
     } 
 	else if (ti < 3600) {
-        int diff = round(ti / 60);
+        diff = round(ti / 60);
 		
 		if (diff == 1)
 			return @"1 minute ago";	
@@ -101,13 +102,21 @@
         return [NSString stringWithFormat:@"%d minutes ago", diff];
     } 
 	else if (ti < 86400) {
-        int diff = round(ti / 60 / 60);
+        diff = round(ti / 60 / 60);
 		
 		if (diff == 1) 
 			return @"1 hour ago";
         
 		return [NSString stringWithFormat:@"%d hours ago", diff];
     } 
+    else if (ti < 518400) {
+        diff = round(ti / 60 / 60 / 24);
+        
+        if (diff == 1) 
+			return @"1 day ago";
+        
+        return [NSString stringWithFormat:@"%d days ago", diff];
+    }
 	else {
 		NSDateFormatter *outputFormatter = [[[NSDateFormatter alloc] init] autorelease];
 		[outputFormatter setDateFormat:@"d MMM"];

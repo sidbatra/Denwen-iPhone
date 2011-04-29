@@ -354,7 +354,7 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
 			andCreatedAt:[item createdTimeAgoInWords]];
 			
 		
-		if (!tableView.dragging && !tableView.decelerating)
+		//if (!tableView.dragging && !tableView.decelerating)
 			[item startRemoteImagesDownload];
 
         
