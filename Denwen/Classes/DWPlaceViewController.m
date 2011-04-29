@@ -57,18 +57,13 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(followingCreated:) 
-													 name:kNNewFollowingCreated
+												 selector:@selector(placeFollowersUpdated:) 
+													 name:kNPlaceFollowersUpdated
 												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(followingError:)
 													 name:kNNewFollowingError
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(followingDestroyed:) 
-													 name:kNFollowingDestroyed
 												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -222,35 +217,14 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)followingCreated:(NSNotification*)notification {
+- (void)placeFollowersUpdated:(NSNotification*)notification {
 	NSDictionary *info = [notification userInfo];
 	
 	if([[info objectForKey:kKeyResourceID] integerValue] != self.place.databaseID)
 		return;
 	
-	
-	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		[self updateFollowing:[info objectForKey:kKeyBody]];
-		[self.place updateFollowerCount:1];
-        
-		[self updatePlaceTitleView];
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)followingDestroyed:(NSNotification*)notification {
-	NSDictionary *info = [notification userInfo];
-	
-	if([[info objectForKey:kKeyResourceID] integerValue] != self.place.databaseID)
-		return;
-	
-	
-	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		self.following = nil;
-		[self.place updateFollowerCount:-1];   
-		
-		[self updatePlaceTitleView];
-	}
+    [self updateFollowing:[info objectForKey:kKeyBody]];
+    [self updatePlaceTitleView];
 }
 
 //----------------------------------------------------------------------------------------------------

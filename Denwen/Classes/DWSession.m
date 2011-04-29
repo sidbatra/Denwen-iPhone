@@ -6,6 +6,7 @@
 #import "DWSession.h"
 #import "DWRequestsManager.h"
 #import "DWMemoryPool.h"
+#import "DWPlace.h"
 #import "DWConstants.h"
 
 #import "SynthesizeSingleton.h"
@@ -129,6 +130,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
     [self.currentUser saveFollowingCountToDisk];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)pushNotificationAndUpdatePlaceFollowersBy:(NSInteger)delta withPlaceInfo:(NSDictionary*)info {
+    NSInteger placeID = [[info objectForKey:kKeyResourceID] integerValue];
+    
+    DWPlace *place = (DWPlace*)[[DWMemoryPool sharedDWMemoryPool] getObject:placeID atRow:kMPPlacesIndex];
+    [place updateFollowerCount:delta];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNPlaceFollowersUpdated
+                                                        object:nil
+                                                      userInfo:info];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -161,6 +174,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 		
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
         [self pushNotificationAndUpdateUserFollowingCountBy:1];
+        [self pushNotificationAndUpdatePlaceFollowersBy:1 withPlaceInfo:info];
     }
 }
 
@@ -170,6 +184,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
     
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
         [self pushNotificationAndUpdateUserFollowingCountBy:-1];
+        [self pushNotificationAndUpdatePlaceFollowersBy:-1 withPlaceInfo:info];        
     }
 }
 
