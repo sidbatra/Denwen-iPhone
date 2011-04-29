@@ -9,8 +9,9 @@
 static float const kMinimumProgress     = 0.001;
 static NSString* const kImgDelete       = @"post_cancel.png";
 static NSString* const kImgRetry        = @"post_retry.png";
-static NSString* const kImgProgress     = @"loading_bar.png";
+static NSString* const kImgProgress     = @"button_follow.png";
 static NSString* const kImgBackground   = @"loading_bar_fail.png";
+
 
 
 
@@ -26,10 +27,10 @@ static NSString* const kImgBackground   = @"loading_bar_fail.png";
     self = [super initWithFrame:frame];
     
 	if (self) {
-        self.backgroundColor        = [UIColor clearColor];
+        self.backgroundColor            = [UIColor clearColor];
         
         CALayer *backgroundLayer        = [CALayer layer];
-        backgroundLayer.frame           = frame;
+        backgroundLayer.frame           = CGRectMake(0,0,self.frame.size.width,self.frame.size.height);
         backgroundLayer.contents        = (id)[UIImage imageNamed:kImgBackground].CGImage;
         [self.layer addSublayer:backgroundLayer];
         
@@ -38,9 +39,7 @@ static NSString* const kImgBackground   = @"loading_bar_fail.png";
                                            [NSNull null], @"hidden",
                                            nil];
         progressLayer.contents          = (id)[UIImage imageNamed:kImgProgress].CGImage;
-        [self.layer addSublayer:progressLayer];
-        //progressLayer.frame = CGRectMake(0,0,self.frame.size.width,self.frame.size.height);
-            
+        [self.layer addSublayer:progressLayer];            
         
         
 		statusLabel					= [[[UILabel alloc] initWithFrame:CGRectMake(0,12,self.frame.size.width,20)] autorelease];
@@ -165,8 +164,8 @@ static NSString* const kImgBackground   = @"loading_bar_fail.png";
 #pragma mark -
 #pragma mark Nav Stack Selectors
 //----------------------------------------------------------------------------------------------------
-//- (void)shouldBeRemovedFromNav {
-//   
-//}
+- (void)shouldBeRemovedFromNav {
+   
+}
 
 @end

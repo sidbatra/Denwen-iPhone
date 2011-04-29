@@ -21,6 +21,8 @@
 	DWPostProgressView				*postProgressView;
     DWSmallProfilePicView           *_smallProfilePicView;
     DWUserTitleView                 *_userTitleView;
+    
+    BOOL                            _isProgressBarActive;
 }
 
 /**

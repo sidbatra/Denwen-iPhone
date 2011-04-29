@@ -108,11 +108,9 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	[super viewDidLoad];
 	
 	if(!postProgressView) {
-		postProgressView			= [[DWPostProgressView alloc] initWithFrame:CGRectMake(0,0,200,42)];
+		postProgressView			= [[DWPostProgressView alloc] initWithFrame:CGRectMake(60,0,200,44)];
 		postProgressView.delegate	= self;
 	}
-    
-    //self.navigationItem.titleView = postProgressView;
     
     UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];    
     [button setBackgroundImage:[UIImage imageNamed:kImgNotificationsButton] 
@@ -246,17 +244,23 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	
 	if(totalActive || totalFailed) {
 		
-		if(!self.navigationItem.titleView)
-			self.navigationItem.titleView = postProgressView;
+        if(!_isProgressBarActive) {
+            _isProgressBarActive = YES;
+            [self.navigationController.navigationBar addSubview:postProgressView];
+            [self.userTitleView removeFromSuperview];
+        }
 		
 		[postProgressView updateDisplayWithTotalActive:totalActive
 										   totalFailed:totalFailed
 										 totalProgress:totalProgress];
 	}
 	else {
-		self.navigationItem.titleView = nil;
+        if(_isProgressBarActive) {
+            _isProgressBarActive = NO;
+            [self.navigationController.navigationBar addSubview:self.userTitleView];
+            [postProgressView removeFromSuperview];
+        }        
 	}
-
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -281,8 +285,6 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 #pragma mark DWPostProgressViewDelegate
 //----------------------------------------------------------------------------------------------------
 - (void)deleteButtonPressed {
-	self.navigationItem.titleView = nil;
-	
 	[[DWCreationQueue sharedDWCreationQueue] deleteRequests];
 }
 
@@ -321,7 +323,12 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 #pragma mark Nav Stack Selectors
 //----------------------------------------------------------------------------------------------------
 - (void)willShowOnNav {
-    [self.navigationController.navigationBar addSubview:self.userTitleView];
+    
+    if(_isProgressBarActive)
+        [self.navigationController.navigationBar addSubview:postProgressView];
+    else
+        [self.navigationController.navigationBar addSubview:self.userTitleView];
+    
     [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
 }
 

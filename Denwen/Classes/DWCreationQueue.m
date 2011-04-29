@@ -171,6 +171,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 		if([item isFailed])
 			[self.queue removeObject:item];
 	}
+    
+    [self postUpdate];
 }
 
 
