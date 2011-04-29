@@ -18,6 +18,7 @@ static NSString* const kPlaceViewCellIdentifier				= @"PlaceViewCell";
 static NSString* const kImgPullToRefreshBackground			= @"refreshfade.png";
 static NSString* const kMsgActionSheetCancel				= @"Cancel";
 static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
+static NSInteger const kTagUnfollowActionSheet              = -1;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -322,6 +323,7 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
                                                         cancelButtonTitle:kMsgActionSheetCancel
                                                    destructiveButtonTitle:kMsgActionSheetUnfollow
                                                         otherButtonTitles:nil];
+        actionSheet.tag  = kTagUnfollowActionSheet;
         [actionSheet showInView:[_delegate requestCustomTabBarController].view];
         [actionSheet release];    
     }
@@ -339,10 +341,12 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
 	
-	if (buttonIndex == 0) {
+	if (buttonIndex == 0 && actionSheet.tag == kTagUnfollowActionSheet) {
         [self.placeTitleView showProcessingState];
 		[self sendUnfollowRequest];
     }
+    else
+        [super actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
 }
 
 
