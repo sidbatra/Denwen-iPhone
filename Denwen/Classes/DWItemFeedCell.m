@@ -19,8 +19,10 @@
 #define kColorNoAttachmentBg                [UIColor colorWithRed:0.3490 green:0.3490 blue:0.3490 alpha:1.0].CGColor
 #define kColorNoAttachmentHighlightBg       [UIColor colorWithRed:0.5450 green:0.5450 blue:0.5450 alpha:1.0].CGColor
 #define kFontItemUserName                   [UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+#define kFontItemUserNameDisabled           [UIFont fontWithName:@"HelveticaNeue" size:15]
 #define kFontAt                             [UIFont fontWithName:@"HelveticaNeue" size:15]
 #define kFontItemPlaceName                  [UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+#define kFontItemPlaceNameDisabled          [UIFont fontWithName:@"HelveticaNeue" size:15]
 #define kFontItemData                       [UIFont fontWithName:@"HelveticaNeue" size:23]
 #define kFontItemCreatedAt                  [UIFont fontWithName:@"HelveticaNeue" size:15]
 #define kFontItemTouchesCount               [UIFont fontWithName:@"HelveticaNeue" size:15]
@@ -100,12 +102,13 @@
 		CGContextSetFillColorWithColor(context,userColor);
 		
 		[itemCell.itemUserName drawInRect:itemCell.userNameRect 
-								 withFont:kFontItemUserName];
+								 withFont:itemCell.userButtonDisabled ? kFontItemUserNameDisabled : kFontItemUserName];
 		
-		CGContextFillRect(context,CGRectMake(itemCell.userNameRect.origin.x,
-											 itemCell.userNameRect.origin.y+kUnderlineYOffset,
-											 itemCell.userNameRect.size.width,
-											 kUnderlineHeight));
+        if(![itemCell userButtonDisabled])
+            CGContextFillRect(context,CGRectMake(itemCell.userNameRect.origin.x,
+                                                 itemCell.userNameRect.origin.y+kUnderlineYOffset,
+                                                 itemCell.userNameRect.size.width,
+                                                 kUnderlineHeight));
 		
 		
 		//----------------------------------
@@ -127,13 +130,14 @@
 		
 		
 		[itemCell.itemPlaceName drawInRect:itemCell.placeNameRect
-								  withFont:kFontItemPlaceName
+								  withFont:itemCell.placeButtonDisabled ? kFontItemPlaceNameDisabled : kFontItemPlaceName
 							 lineBreakMode:UILineBreakModeTailTruncation];
 		
-		CGContextFillRect(context,CGRectMake(itemCell.placeNameRect.origin.x,
-											 itemCell.placeNameRect.origin.y+kUnderlineYOffset,
-											 itemCell.placeNameRect.size.width,
-											 kUnderlineHeight));
+        if(![itemCell placeButtonDisabled])
+            CGContextFillRect(context,CGRectMake(itemCell.placeNameRect.origin.x,
+                                                 itemCell.placeNameRect.origin.y+kUnderlineYOffset,
+                                                 itemCell.placeNameRect.size.width,
+                                                 kUnderlineHeight));
 		
 
 		
@@ -185,6 +189,8 @@
 @synthesize placeButtonPressed		= _placeButtonPressed;
 @synthesize userButtonPressed		= _userButtonPressed;
 @synthesize isTouching              = _isTouching;
+@synthesize placeButtonDisabled     = _placeButtonDisabled;
+@synthesize userButtonDisabled      = _userButtonDisabled;
 @synthesize itemData				= _itemData;
 @synthesize itemPlaceName			= _itemPlaceName;
 @synthesize itemUserName			= _itemUserName;
@@ -379,6 +385,35 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)resetItemNavigation {
+    CGSize userNameSize			= [self.itemUserName sizeWithFont:_userButtonDisabled ? kFontItemUserNameDisabled : kFontItemUserName];
+	
+	_userNameRect				= CGRectMake(kItemUserNameX,
+											 kItemUserNameY,
+											 userNameSize.width,
+											 userNameSize.height);
+	
+	
+	_atRect						= CGRectMake(_userNameRect.origin.x + _userNameRect.size.width + kAtXOffset,
+											 kItemUserNameY,
+											 kAtWidth,
+											 kDefaultTextHeight);
+    
+	
+	
+	CGSize placeNameSize		= [self.itemPlaceName sizeWithFont:_placeButtonDisabled ? kFontItemPlaceNameDisabled : kFontItemPlaceName
+										   constrainedToSize:CGSizeMake(kMaxPlaceNameWidth-(_atRect.origin.x + _atRect.size.width),
+																		kDefaultTextHeight)
+											   lineBreakMode:UILineBreakModeTailTruncation];
+	
+	_placeNameRect				= CGRectMake(_atRect.origin.x + _atRect.size.width + kPlaceNameXOffset,
+											 kItemUserNameY,
+											 placeNameSize.width,
+											 placeNameSize.height);
+
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)resetItemDetailsPosition {
     
     self.itemTouchesCountString     = _itemTouchesCount ? [NSString stringWithFormat:@"%d",_itemTouchesCount] : @"";
@@ -416,34 +451,11 @@
     _isTouching                 = NO;
 	_placeButtonPressed			= NO;
 	_userButtonPressed			= NO;
-	
-	
-	CGSize userNameSize			= [self.itemUserName sizeWithFont:kFontItemUserName];
-	
-	_userNameRect				= CGRectMake(kItemUserNameX,
-											 kItemUserNameY,
-											 userNameSize.width,
-											 userNameSize.height);
-	
-	
-	_atRect						= CGRectMake(_userNameRect.origin.x + _userNameRect.size.width + kAtXOffset,
-											 kItemUserNameY,
-											 kAtWidth,
-											 kDefaultTextHeight);
-
-	
-	
-	CGSize placeNameSize		= [self.itemPlaceName sizeWithFont:kFontItemPlaceName
-										   constrainedToSize:CGSizeMake(kMaxPlaceNameWidth-(_atRect.origin.x + _atRect.size.width),
-																		kDefaultTextHeight)
-											   lineBreakMode:UILineBreakModeTailTruncation];
-	
-	_placeNameRect				= CGRectMake(_atRect.origin.x + _atRect.size.width + kPlaceNameXOffset,
-											 kItemUserNameY,
-											 placeNameSize.width,
-											 placeNameSize.height);
+    _placeButtonDisabled        = NO;
+    _userButtonDisabled         = NO;
+    
 		
-	
+	[self resetItemNavigation];	
 	
 	
 	CGSize dataSize				= [self.itemData sizeWithFont:kFontItemData
@@ -473,11 +485,13 @@
 											 _userNameRect.origin.y-5,
 											 _userNameRect.size.width+7,
 											 _userNameRect.size.height+7);
+    userButton.enabled          = YES;
 	
 	placeButton.frame			= CGRectMake(_placeNameRect.origin.x-4,
 											 _placeNameRect.origin.y-5,
 											 _placeNameRect.size.width+7,
 											 _placeNameRect.size.height+7);
+    placeButton.enabled         = YES;
 	
 	
 	[CATransaction begin];
@@ -544,6 +558,22 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)setPlaceButtonAsDisabled {
+    _placeButtonDisabled    = YES;
+    placeButton.enabled     = NO;
+    
+    [self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setUserButtonAsDisabled {
+    _userButtonDisabled     = YES;
+    userButton.enabled      = NO;
+    
+    [self redisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)redisplay {
 	[drawingLayer setNeedsDisplay];
 }
@@ -598,14 +628,14 @@
 	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
 					 forKey:kCATransactionAnimationDuration];
 	
-	touchIconImageLayer.hidden      = !_isTouching;// && !isTextOnly;
+	touchIconImageLayer.hidden      = !_isTouching;
 	itemImageLayer.opacity          = isTextOnly ? kNoAttachmentAlpha : kHighlightAlpha;
     itemImageLayer.backgroundColor  = isTextOnly ? kColorNoAttachmentHighlightBg : kColorAttachmentBg;
 	
 	//if(_attachmentType == kAttachmentVideo)
 	//	playImageLayer.hidden	= YES;
 	
-	shareImageLayer.hidden		= YES;//!isTextOnly;
+	shareImageLayer.hidden		= YES;
 	
 	[self redisplay];
 

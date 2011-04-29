@@ -45,6 +45,8 @@
     BOOL                            _isTouching;
 	BOOL							_placeButtonPressed;
 	BOOL							_userButtonPressed;
+    BOOL                            _placeButtonDisabled;
+    BOOL                            _userButtonDisabled;
 	
 	NSInteger						_itemID;
 	NSInteger						_itemTouchesCount;
@@ -83,6 +85,9 @@
 @property (nonatomic,readonly) BOOL placeButtonPressed;
 @property (nonatomic,readonly) BOOL userButtonPressed;
 @property (nonatomic,readonly) BOOL isTouching;
+@property (nonatomic,readonly) BOOL placeButtonDisabled;
+@property (nonatomic,readonly) BOOL userButtonDisabled;
+
 
 @property (nonatomic,copy) NSString* itemData;
 @property (nonatomic,copy) NSString* itemPlaceName;
@@ -120,6 +125,16 @@
  */
 - (void)setDetails:(NSInteger)touchesCount 
 	  andCreatedAt:(NSString*)createdAt;
+
+/**
+ * Display the UI and events for the user button
+ */
+- (void)setUserButtonAsDisabled;
+
+/**
+ * Display the UI and events for the place button
+ */
+- (void)setPlaceButtonAsDisabled;
 
 /**
  * Sets the cell to be rerendered

@@ -157,11 +157,20 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 														atPage:_currentPage];
 }
 
+
 //----------------------------------------------------------------------------------------------------
-- (void)userSelectedForItemID:(NSInteger)itemID {
-    /**
-     * Override to prevent recursion
-     */
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+//----------------------------------------------------------------------------------------------------
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    if([cell isKindOfClass:[DWItemFeedCell class]])
+        [(DWItemFeedCell*)cell setUserButtonAsDisabled]; 
+    
+    return cell;
 }
 
 
@@ -169,6 +178,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
+    
 //----------------------------------------------------------------------------------------------------
 - (void)smallUserImageLoaded:(NSNotification*)notification {
 	NSDictionary *info	= [notification userInfo];

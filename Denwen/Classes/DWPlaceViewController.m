@@ -165,6 +165,23 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
     [user saveFollowingCountToDisk];
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+//----------------------------------------------------------------------------------------------------
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    if([cell isKindOfClass:[DWItemFeedCell class]])
+        [(DWItemFeedCell*)cell setPlaceButtonAsDisabled]; 
+    
+    return cell;
+}
+
+
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
@@ -267,13 +284,6 @@ static NSString* const kMsgActionSheetUnfollow				= @"Unfollow";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark CLick events from across the view
-//----------------------------------------------------------------------------------------------------
-- (void)placeSelectedForItemID:(NSInteger)itemID {
-    /**
-     * Override to prevent recursion
-     */
-}
-
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapShareButton:(id)sender event:(id)event {
