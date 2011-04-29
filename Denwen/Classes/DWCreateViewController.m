@@ -12,7 +12,7 @@
 
 static NSString* const kTabTitle							= @"Create";
 static NSString* const kImgTab								= @"profile.png";
-static NSString* const kMsgDataTextViewPlaceholder			= @"What's going on?";
+static NSString* const kMsgDataTextViewPlaceholder			= @"What's the latest?";
 static NSInteger const kTableViewX							= 0;
 static NSInteger const kTableViewY							= 44;
 static NSInteger const kTableViewWidth						= 320;
@@ -172,22 +172,8 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	
 	
 	self.placeNameTextField.textColor				= [UIColor whiteColor];
-	self.placeNameTextField.layer.shadowOpacity		= 1.0;   
-	self.placeNameTextField.layer.shadowRadius		= 0.0;
-	self.placeNameTextField.layer.shadowColor		= [UIColor blackColor].CGColor;
-	self.placeNameTextField.layer.shadowOffset		= CGSizeMake(0.0, -1.0);
-	
 	self.dataTextView.textColor						= [UIColor whiteColor];
-	self.dataTextView.layer.shadowOpacity			= 1.0;   
-	self.dataTextView.layer.shadowRadius			= 0.0;
-	self.dataTextView.layer.shadowColor				= [UIColor blackColor].CGColor;
-	self.dataTextView.layer.shadowOffset			= CGSizeMake(0.0, -1.0);
-	
 	self.atLabel.textColor							= [UIColor whiteColor];
-	self.atLabel.layer.shadowOpacity				= 1.0;   
-	self.atLabel.layer.shadowRadius					= 0.0;
-	self.atLabel.layer.shadowColor					= [UIColor blackColor].CGColor;
-	self.atLabel.layer.shadowOffset					= CGSizeMake(0.0, -1.0);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -202,12 +188,8 @@ static NSString* const kMsgDataMissing						= @"Write a post or attach an image 
 	[self.mapButton setBackgroundImage:[UIImage imageNamed:kImgDarkMapButton]
 							  forState:UIControlStateNormal];
 	
-	self.placeNameTextField.textColor				= [UIColor colorWithRed:.498 green:.498 blue:.498 alpha:1.0];	
-	self.placeNameTextField.layer.shadowOpacity		= 0.0;   
-
-	
+	self.placeNameTextField.textColor	= [UIColor colorWithRed:.498 green:.498 blue:.498 alpha:1.0];		
 	self.atLabel.textColor				= [UIColor colorWithRed:0.7019 green:0.7019 blue:0.7019 alpha:1.0];
-	self.atLabel.layer.shadowOpacity	= 0.0;
 }
 
 //----------------------------------------------------------------------------------------------------
