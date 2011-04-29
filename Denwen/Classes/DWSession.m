@@ -38,6 +38,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 												 selector:@selector(userLogsIn:) 
 													 name:kNUserLogsIn
 												   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingCreated:) 
+													 name:kNNewFollowingCreated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(followingDestroyed:) 
+													 name:kNFollowingDestroyed
+												   object:nil];
+        
 		
 		if (&UIApplicationWillEnterForegroundNotification != NULL) {
 			[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -103,6 +114,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	[[DWRequestsManager sharedDWRequestsManager] createVisit];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)pushNotificationAndUpdateUserFollowingCountBy:(NSInteger)delta {
+    
+    [self.currentUser updateFollowingCount:delta];
+    
+    NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+                           [NSNumber numberWithInt:self.currentUser.databaseID]	,kKeyResourceID,
+                           nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNUserFollowingCountUpdated
+                                                        object:nil
+                                                      userInfo:info];
+    [self.currentUser saveFollowingCountToDisk];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -127,6 +153,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 //----------------------------------------------------------------------------------------------------
 - (void)applicationEnteringForeground:(NSNotification*)notification {
 	[self createVisit];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)followingCreated:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+		
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+        [self pushNotificationAndUpdateUserFollowingCountBy:1];
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)followingDestroyed:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+    
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+        [self pushNotificationAndUpdateUserFollowingCountBy:-1];
+    }
 }
 
 

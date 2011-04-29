@@ -183,6 +183,7 @@ NSString* const kNFollowedPlacesCacheUpdated	= @"NFollowedPlacesCacheUpdated";
 NSString* const kNCreationQueueItemProcessed	= @"NCreationQueueItemProcessed";
 NSString* const kNQueueItemProgressUpdated		= @"NQueueItemProgressUpdated";
 NSString* const kNCreationQueueUpdated			= @"NCreationQueueUpdated";
+NSString* const kNUserFollowingCountUpdated     = @"NUserFollowingCountUpdated";
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kNavTitleViewX                  = 60;

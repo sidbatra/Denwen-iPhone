@@ -65,7 +65,12 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(smallUserImageLoaded:) 
 													 name:kNImgSmallUserLoaded
-												   object:nil];          
+												   object:nil];  
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userFollowingCountUpdated:) 
+													 name:kNUserFollowingCountUpdated
+												   object:nil];  
 	}
 	return self;
 }
@@ -244,6 +249,16 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 		return;
 	
 	[self finishedLoadingItems];
+}	
+
+//----------------------------------------------------------------------------------------------------
+- (void)userFollowingCountUpdated:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	
+	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
+		return;
+	
+    [self updateUserTitleView];
 }	
 
 

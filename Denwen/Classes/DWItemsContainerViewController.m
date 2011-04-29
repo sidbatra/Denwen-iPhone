@@ -55,6 +55,12 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
                                              selector:@selector(smallUserImageLoaded:) 
                                                  name:kNImgSmallUserLoaded
                                                object:nil];  
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(userFollowingCountUpdated:) 
+                                                 name:kNUserFollowingCountUpdated
+                                               object:nil];  
+    
 	
 	if (&UIApplicationDidEnterBackgroundNotification != NULL) {
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -261,6 +267,11 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 		return;
     
     [self setSmallUserImage:[info objectForKey:kKeyImage]];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)userFollowingCountUpdated:(NSNotification*)notification {
+    [self updateUserTitleView];
 }
 
 
