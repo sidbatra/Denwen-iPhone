@@ -562,6 +562,8 @@
     _placeButtonDisabled    = YES;
     placeButton.enabled     = NO;
     
+    [self resetItemNavigation];
+    
     [self redisplay];
 }
 
@@ -569,6 +571,8 @@
 - (void)setUserButtonAsDisabled {
     _userButtonDisabled     = YES;
     userButton.enabled      = NO;
+    
+    [self resetItemNavigation];
     
     [self redisplay];
 }

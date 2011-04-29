@@ -55,13 +55,20 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)setSubTitleTextFor:(NSString*)placeName andFollowersCount:(NSInteger)followersCount {
+- (void)setSubTitleTextFor:(NSString*)placeName
+         andFollowersCount:(NSInteger)followersCount
+                asFollower:(BOOL)isFollower {
+    
 	NSString *text = nil;
 	
 	if(followersCount == 0)
-		text = [NSString stringWithFormat:@"%@",placeName];
-	else if(followersCount == 1)
-		text = [NSString stringWithFormat:@"%d is following",followersCount];
+		text = [NSString stringWithFormat:@"..."];
+	else if(followersCount == 1 && isFollower)
+		text = [NSString stringWithFormat:@"You are following"];
+    else if(followersCount == 1)
+        text = [NSString stringWithFormat:@"1 follower"];
+    else if(isFollower)
+        text = [NSString stringWithFormat:@"You and %d following",followersCount-1];
 	else
 		text = [NSString stringWithFormat:@"%d are following",followersCount];
 	
@@ -69,11 +76,15 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)showProcessedStateFor:(NSString*)placeName andFollowingCount:(NSInteger)followingCount {
+- (void)showProcessedStateFor:(NSString*)placeName 
+            andFollowingCount:(NSInteger)followingCount
+                   asFollower:(BOOL)isFollower {
+    
     [self showLabelsAndStopSpinner];
     
     [self setSubTitleTextFor:placeName 
-           andFollowersCount:followingCount];
+           andFollowersCount:followingCount
+                  asFollower:isFollower];
 }
 
 
@@ -82,17 +93,25 @@
 #pragma mark -
 #pragma mark Update View Methods
 //----------------------------------------------------------------------------------------------------
-- (void)showFollowedStateFor:(NSString*)placeName andFollowingCount:(NSInteger)followingCount {
-    titleLabel.text = @"Following";
+- (void)showFollowedStateFor:(NSString*)placeName
+           andFollowingCount:(NSInteger)followingCount {
+    
+    titleLabel.text = [NSString stringWithFormat:@"%@",placeName];
+    
     [self showProcessedStateFor:placeName 
-              andFollowingCount:followingCount];
+              andFollowingCount:followingCount
+                     asFollower:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)showUnfollowedStateFor:(NSString*)placeName andFollowingCount:(NSInteger)followingCount {    
-    titleLabel.text = @"Follow";
+- (void)showUnfollowedStateFor:(NSString*)placeName
+             andFollowingCount:(NSInteger)followingCount {    
+    
+    titleLabel.text = [NSString stringWithFormat:@"Follow %@",placeName];
+    
     [self showProcessedStateFor:placeName 
-              andFollowingCount:followingCount];
+              andFollowingCount:followingCount
+                     asFollower:NO];
 }
 
 //----------------------------------------------------------------------------------------------------

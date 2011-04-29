@@ -104,6 +104,7 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
     titleLabel.textColor                    = [UIColor whiteColor];
     titleLabel.textAlignment                = UITextAlignmentCenter;
     titleLabel.backgroundColor              = [UIColor clearColor];
+    titleLabel.lineBreakMode                = UILineBreakModeTailTruncation;
     titleLabel.font                         = [UIFont fontWithName:@"HelveticaNeue-Bold" 
                                                               size:15];
     
@@ -122,6 +123,7 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
                                                               alpha:0.5];
     
     subtitleLabel.textAlignment             = UITextAlignmentCenter;
+    subtitleLabel.lineBreakMode             = UILineBreakModeTailTruncation;
     subtitleLabel.backgroundColor           = [UIColor clearColor];
     subtitleLabel.font                      = [UIFont fontWithName:@"HelveticaNeue" 
                                                               size:13];
