@@ -10,14 +10,15 @@
 #import "SynthesizeSingleton.h"
 
 
-static NSString* const kKeyAPS              = @"aps";
-static NSString* const kKeyBadge            = @"badge";
-static NSString* const kKeyAlert            = @"alert";
-static NSString* const kAlertTitle          = @"Denwen";
-static NSString* const kCancelTitle         = @"OK";
-static NSString* const kActionTitle         = @"View";
-static NSInteger const kActionButtonIndex   = 1;
-
+static NSString* const kKeyAPS                  = @"aps";
+static NSString* const kKeyBadge                = @"badge";
+static NSString* const kKeyAlert                = @"alert";
+static NSString* const kAlertTitle              = @"Denwen";
+static NSString* const kCancelTitle             = @"OK";
+static NSString* const kActionTitle             = @"View";
+static NSInteger const kActionButtonIndex       = 1;
+static NSInteger const kNotificationTypeTouch   = 1;
+static NSInteger const kNotificationTypeItem    = 2;
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -51,37 +52,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
 - (void)handleLiveNotificationWithUserInfo:(NSDictionary*)userInfo {
 	
 	NSDictionary *aps		= (NSDictionary*)[userInfo objectForKey:kKeyAPS];
-	//NSString *badgeString	= [aps objectForKey:kKeyBadge];
 	NSDictionary *alert     = [aps objectForKey:kKeyAlert];
     
-	/*
-	if(badgeString) {
-		self.unreadItems = [badgeString integerValue];
-		[[UIApplication sharedApplication] setApplicationIconBadgeNumber:self.unreadItems];
-		
-		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-									[NSNumber numberWithInt:kPNLive],kKeyNotificationType,
-									nil];
-		
-		[[NSNotificationCenter defaultCenter] postNotificationName:kNNewApplicationBadge 
-															object:nil
-														  userInfo:userInfo];
+	if(alert) {
+        NSInteger type       = [[alert objectForKey:kKeyType] integerValue];
+        
+        if(type == kNotificationTypeTouch && [UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:kAlertTitle
+                                                                 message:[alert objectForKey:kKeyBody] 
+                                                                delegate:self 
+                                                       cancelButtonTitle:kCancelTitle
+                                                       otherButtonTitles:kActionTitle,nil];
+             [alertView show];
+             [alertView release];
+        }
+        else if(type == kNotificationTypeTouch)
+            [self displayNotifications];
 	}
-	*/
-    
-    
-	if(alert && [UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-		 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:kAlertTitle
-                                                             message:[alert objectForKey:kKeyBody] 
-                                                            delegate:self 
-                                                   cancelButtonTitle:kCancelTitle
-                                                   otherButtonTitles:kActionTitle,nil];
-		 [alertView show];
-		 [alertView release];
-	}
-    else if(alert) {
-        [self displayNotifications];
-    }
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -91,17 +78,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
         [self displayNotifications];
         self.backgroundRemoteInfo = nil;
     }
-	/*
-    self.unreadItems = [UIApplication sharedApplication].applicationIconBadgeNumber;
-	
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-							  [NSNumber numberWithInt:kPNBackground],kKeyNotificationType,
-							  nil];
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:kNNewApplicationBadge 
-														object:nil
-													  userInfo:userInfo];
-     */
 }
 
 //----------------------------------------------------------------------------------------------------

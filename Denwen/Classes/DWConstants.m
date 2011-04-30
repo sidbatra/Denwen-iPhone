@@ -111,6 +111,7 @@ NSString* const kKeyTotalActive				= @"total_active";
 NSString* const kKeyTotalFailed				= @"total_failed";
 NSString* const kKeyTotalProgress			= @"total_progress";
 NSString* const kKeyPopAll                  = @"pop_all";
+NSString* const kKeyType                    = @"type";
 
 
 //----------------------------------------------------------------------------------------------------
