@@ -29,4 +29,9 @@
  */
 - (void)followedItemsRead;
 
+/**
+ * Load new items
+ */
+- (void)loadNewItems;
+
 @end

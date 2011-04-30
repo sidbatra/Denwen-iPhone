@@ -69,6 +69,13 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 													 name:UIApplicationDidEnterBackgroundNotification
 												   object:nil];
 	}	
+    
+    if(&UIApplicationWillEnterForegroundNotification != NULL) {
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(applicationEnteringForeground:) 
+                                                     name:UIApplicationWillEnterForegroundNotification
+                                                   object:nil];
+    }
 }
 
 
@@ -254,9 +261,15 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)applicationEnteringBackground:(NSNotification *)aNotification {
+- (void)applicationEnteringBackground:(NSNotification*)notification {
 	if([self isSelectedTab])
 		[self resetBadgeValue];
+}
+
+//----------------------------------------------------------------------------------------------------                                       
+- (void)applicationEnteringForeground:(NSNotification*)notification {
+    if(followedViewController)
+        [followedViewController loadNewItems];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -317,7 +330,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)photoPicked:(UIImage*)editedImage {
-    //NOTHING
+    //Stub
 }
 
 //----------------------------------------------------------------------------------------------------
