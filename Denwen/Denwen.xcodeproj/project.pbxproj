@@ -153,6 +153,7 @@
 		26DB36F1131B57A1004EC153 /* keyboard_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26DB36EF131B57A1004EC153 /* keyboard_bg@2x.png */; };
 		26DC2E62130A877A00FC1F3A /* DWPlaceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DC2E60130A877A00FC1F3A /* DWPlaceDetailsViewController.m */; };
 		26DC2E63130A877A00FC1F3A /* DWPlaceDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DC2E61130A877A00FC1F3A /* DWPlaceDetailsViewController.xib */; };
+		26EB0730136B7B71003FB186 /* DWProfilePicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EB072F136B7B71003FB186 /* DWProfilePicManager.m */; };
 		26EF044E12E7A45000E7BA76 /* DWItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF044D12E7A45000E7BA76 /* DWItem.m */; };
 		26EF045112E7A46800E7BA76 /* DWAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF045012E7A46800E7BA76 /* DWAttachment.m */; };
 		26EF045712E7A4A000E7BA76 /* DWPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF045612E7A4A000E7BA76 /* DWPlace.m */; };
@@ -622,6 +623,8 @@
 		26DC2E5F130A877A00FC1F3A /* DWPlaceDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceDetailsViewController.h; path = Classes/DWPlaceDetailsViewController.h; sourceTree = "<group>"; };
 		26DC2E60130A877A00FC1F3A /* DWPlaceDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlaceDetailsViewController.m; path = Classes/DWPlaceDetailsViewController.m; sourceTree = "<group>"; };
 		26DC2E61130A877A00FC1F3A /* DWPlaceDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWPlaceDetailsViewController.xib; path = Classes/DWPlaceDetailsViewController.xib; sourceTree = "<group>"; };
+		26EB072E136B7B71003FB186 /* DWProfilePicManager.h */ = {isa = PBXFileReference; fileEncoding = 4; name = DWProfilePicManager.h; path = Classes/DWProfilePicManager.h; sourceTree = "<group>"; };
+		26EB072F136B7B71003FB186 /* DWProfilePicManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWProfilePicManager.m; path = Classes/DWProfilePicManager.m; sourceTree = "<group>"; };
 		26EF044C12E7A45000E7BA76 /* DWItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWItem.h; path = Classes/DWItem.h; sourceTree = "<group>"; };
 		26EF044D12E7A45000E7BA76 /* DWItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItem.m; path = Classes/DWItem.m; sourceTree = "<group>"; };
 		26EF044F12E7A46800E7BA76 /* DWAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWAttachment.h; path = Classes/DWAttachment.h; sourceTree = "<group>"; };
@@ -1908,6 +1911,8 @@
 		BBB51A0812F9FB490024086F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				26EB072E136B7B71003FB186 /* DWProfilePicManager.h */,
+				26EB072F136B7B71003FB186 /* DWProfilePicManager.m */,
 				26D3CB241363C671007CE094 /* DWTouchesManager.h */,
 				26D3CB251363C671007CE094 /* DWTouchesManager.m */,
 				BB641D5A134D3E20002A2325 /* DWItemsManager.h */,
@@ -2531,6 +2536,7 @@
 				265CBE1E136632DE00CC2C83 /* DWUserProfileTitleView.m in Sources */,
 				BBC7CCCB13664BF80003CE02 /* DWVideoView.m in Sources */,
 				BB8618BC1368BF8200CD95E1 /* DWNewUserPhotoQueueItem.m in Sources */,
+				26EB0730136B7B71003FB186 /* DWProfilePicManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

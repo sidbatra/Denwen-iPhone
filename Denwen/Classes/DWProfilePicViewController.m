@@ -23,6 +23,7 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 
 @synthesize user                    = _user;
 @synthesize userProfileTitleView    = _userProfileTitleView;
+@synthesize profilePicManager       = _profilePicManager;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithUser:(DWUser*)user andDelegate:(id)delegate {
@@ -52,28 +53,9 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	self.user                       = nil;
     self.userProfileTitleView       = nil;
+    self.profilePicManager          = nil;
 	
     [super dealloc];
-}
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Private Methods
-//----------------------------------------------------------------------------------------------------
--(void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode {
-    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
-    
-    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
-    [picker prepareForImageWithPickerMode:pickerMode];
-    [[_delegate requestCustomTabBarController] presentModalViewController:picker animated:NO];   
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)sendUpdateUserRequest:(NSString*)userPhotoFilename {
-	[[DWRequestsManager sharedDWRequestsManager] updatePhotoForUserWithID:self.user.databaseID
-														withPhotoFilename:userPhotoFilename];
 }
 
 
@@ -105,8 +87,11 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)didTapCameraButton:(id)sender event:(id)event {
-    [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];    
+- (void)didTapCameraButton:(id)sender event:(id)event {    
+    if(!self.profilePicManager)
+        self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self] autorelease];
+    
+    [self.profilePicManager presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode]; 
 }
 
 
@@ -142,33 +127,15 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark DWMediaPickerControllerDelegate
+#pragma mark DWProfilePicManagerDelegate
 //----------------------------------------------------------------------------------------------------
-- (void)didFinishPickingImage:(UIImage*)originalImage 
-				  andEditedTo:(UIImage*)editedImage {
-	
-	[[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];
-    
-    
-    [[DWCreationQueue sharedDWCreationQueue] addNewUpdateUserPhotoToQueueWithUserID:self.user.databaseID
-                                                                           andImage:editedImage];
-    
-	[self.user updatePreviewImages:editedImage];
-	[(DWImageView*)self.view setupImageView:editedImage];
+- (UIViewController*)requestController {
+    return [_delegate requestCustomTabBarController];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode {    
-    [[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];  
-    
-    if (imagePickerMode == kMediaPickerLibraryMode)
-        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)photoLibraryModeSelected {
-    [[_delegate requestCustomTabBarController] dismissModalViewControllerAnimated:NO];
-    [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode];
+- (void)photoPicked:(UIImage*)editedImage {
+    [(DWImageView*)self.view setupImageView:editedImage];
 }
 
 

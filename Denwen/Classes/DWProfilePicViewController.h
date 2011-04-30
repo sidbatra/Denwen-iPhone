@@ -7,21 +7,28 @@
 
 #import "DWUser.h"
 #import "DWUserProfileTitleView.h"
-#import "DWMediaPickerController.h"
 #import "DWItemFeedViewController.h"
+#import "DWProfilePicManager.h"
 
 /**
  * Controller for viewing/changing user picture 
  */
-@interface DWProfilePicViewController : UIViewController<UIScrollViewDelegate,DWMediaPickerControllerDelegate> {
+@interface DWProfilePicViewController : UIViewController<UIScrollViewDelegate,DWProfilePicManagerDelegate> {
+    
     DWUser                      *_user;
     DWUserProfileTitleView      *_userProfileTitleView;
+    DWProfilePicManager         *_profilePicManager;
     
     NSInteger                   _key;
-    NSInteger                   _uploadID;
     
     id <DWItemFeedViewControllerDelegate>       _delegate;
 }
+
+/**
+ * Initialize with images url and current
+ */
+- (id)initWithUser:(DWUser*)user andDelegate:(id)delegate;
+
 
 /**
  * User object whose view is being displayed
@@ -34,8 +41,9 @@
 @property (nonatomic,retain) DWUserProfileTitleView *userProfileTitleView;
 
 /**
- * Initialize with images url and current
+ * Profile pic manager for handling all the DWMediaPicker Events
  */
-- (id)initWithUser:(DWUser*)user andDelegate:(id)delegate;
+@property (nonatomic,retain) DWProfilePicManager *profilePicManager;
+
 
 @end

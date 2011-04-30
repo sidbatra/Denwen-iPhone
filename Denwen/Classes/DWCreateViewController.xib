@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J3210</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">301</string>
@@ -224,7 +224,7 @@
 					<object class="IBUIButton" id="215997632">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{7, 207}, {60, 30}}</string>
+						<string key="NSFrame">{{7, 205}, {62, 32}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="195178794"/>
@@ -256,7 +256,7 @@
 					<object class="IBUIButton" id="655487943">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{253, 207}, {60, 30}}</string>
+						<string key="NSFrame">{{251, 205}, {62, 32}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="827716666"/>
@@ -281,7 +281,7 @@
 					<object class="IBUIButton" id="195178794">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{137, 201}, {45, 36}}</string>
+						<string key="NSFrame">{{137, 200}, {47, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="655487943"/>
@@ -950,11 +950,11 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{62, 32}</string>
 				<string>{60, 30}</string>
+				<string>{62, 32}</string>
 				<string>{60, 30}</string>
-				<string>{60, 30}</string>
-				<string>{60, 30}</string>
-				<string>{45, 37}</string>
+				<string>{47, 37}</string>
 				<string>{320, 1}</string>
 				<string>{60, 30}</string>
 				<string>{1, 1}</string>

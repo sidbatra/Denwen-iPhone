@@ -25,6 +25,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 
 @synthesize smallProfilePicView     = _smallProfilePicView;
 @synthesize userTitleView           = _userTitleView;
+@synthesize profilePicManager       = _profilePicManager;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -83,13 +84,20 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapSmallUserImage:(id)sender event:(id)event {
-    DWProfilePicViewController *profilePicViewController = [[DWProfilePicViewController alloc] 
-                                                            initWithUser:[DWSession sharedDWSession].currentUser 
-                                                            andDelegate:self];
-    
-    [self.navigationController pushViewController:profilePicViewController 
-                                         animated:YES];
-    [profilePicViewController release];
+    if ([DWSession sharedDWSession].currentUser.hasPhoto) {
+        DWProfilePicViewController *profilePicViewController = [[DWProfilePicViewController alloc] 
+                                                                initWithUser:[DWSession sharedDWSession].currentUser 
+                                                                andDelegate:self];
+        
+        [self.navigationController pushViewController:profilePicViewController animated:YES];
+        [profilePicViewController release];
+    }
+    else {
+        if(!self.profilePicManager)
+            self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self] autorelease];
+        
+        [self.profilePicManager presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
+    }
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -297,6 +305,20 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
     [self updateUserTitleView];
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWProfilePicManagerDelegate
+//----------------------------------------------------------------------------------------------------
+- (UIViewController*)requestController {
+    return [self customTabBarController];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)photoPicked:(UIImage*)editedImage {
+    //NOTHING
+}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
