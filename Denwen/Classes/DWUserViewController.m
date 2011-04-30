@@ -99,9 +99,9 @@ static NSInteger const kActionSheetCancelIndex				= 2;
                                                                  andDelegate:_delegate];
     
         [self.navigationController pushViewController:profilePicViewController animated:YES];
-        [profilePicViewController release];
+        [profilePicViewController release]; 
     }
-    else {
+    else if ([self.user isCurrentUser]) {
         if(!self.profilePicManager)
             self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self] autorelease];
     

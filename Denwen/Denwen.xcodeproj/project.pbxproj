@@ -154,6 +154,8 @@
 		26DC2E62130A877A00FC1F3A /* DWPlaceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DC2E60130A877A00FC1F3A /* DWPlaceDetailsViewController.m */; };
 		26DC2E63130A877A00FC1F3A /* DWPlaceDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DC2E61130A877A00FC1F3A /* DWPlaceDetailsViewController.xib */; };
 		26EB0730136B7B71003FB186 /* DWProfilePicManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EB072F136B7B71003FB186 /* DWProfilePicManager.m */; };
+		26ECECBA136B9CFF00019A5D /* navbar_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 26ECECB8136B9CFF00019A5D /* navbar_transparent.png */; };
+		26ECECBB136B9CFF00019A5D /* navbar_transparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26ECECB9136B9CFF00019A5D /* navbar_transparent@2x.png */; };
 		26EF044E12E7A45000E7BA76 /* DWItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF044D12E7A45000E7BA76 /* DWItem.m */; };
 		26EF045112E7A46800E7BA76 /* DWAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF045012E7A46800E7BA76 /* DWAttachment.m */; };
 		26EF045712E7A4A000E7BA76 /* DWPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF045612E7A4A000E7BA76 /* DWPlace.m */; };
@@ -623,8 +625,10 @@
 		26DC2E5F130A877A00FC1F3A /* DWPlaceDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceDetailsViewController.h; path = Classes/DWPlaceDetailsViewController.h; sourceTree = "<group>"; };
 		26DC2E60130A877A00FC1F3A /* DWPlaceDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlaceDetailsViewController.m; path = Classes/DWPlaceDetailsViewController.m; sourceTree = "<group>"; };
 		26DC2E61130A877A00FC1F3A /* DWPlaceDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWPlaceDetailsViewController.xib; path = Classes/DWPlaceDetailsViewController.xib; sourceTree = "<group>"; };
-		26EB072E136B7B71003FB186 /* DWProfilePicManager.h */ = {isa = PBXFileReference; fileEncoding = 4; name = DWProfilePicManager.h; path = Classes/DWProfilePicManager.h; sourceTree = "<group>"; };
+		26EB072E136B7B71003FB186 /* DWProfilePicManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWProfilePicManager.h; path = Classes/DWProfilePicManager.h; sourceTree = "<group>"; };
 		26EB072F136B7B71003FB186 /* DWProfilePicManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWProfilePicManager.m; path = Classes/DWProfilePicManager.m; sourceTree = "<group>"; };
+		26ECECB8136B9CFF00019A5D /* navbar_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbar_transparent.png; path = resources/navbar_transparent.png; sourceTree = "<group>"; };
+		26ECECB9136B9CFF00019A5D /* navbar_transparent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navbar_transparent@2x.png"; path = "resources/navbar_transparent@2x.png"; sourceTree = "<group>"; };
 		26EF044C12E7A45000E7BA76 /* DWItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWItem.h; path = Classes/DWItem.h; sourceTree = "<group>"; };
 		26EF044D12E7A45000E7BA76 /* DWItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItem.m; path = Classes/DWItem.m; sourceTree = "<group>"; };
 		26EF044F12E7A46800E7BA76 /* DWAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWAttachment.h; path = Classes/DWAttachment.h; sourceTree = "<group>"; };
@@ -1131,6 +1135,8 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				26ECECB8136B9CFF00019A5D /* navbar_transparent.png */,
+				26ECECB9136B9CFF00019A5D /* navbar_transparent@2x.png */,
 				BBEA39BF136A06400021619A /* halo.png */,
 				BBEA39C0136A06400021619A /* halo@2x.png */,
 				BB8618AA13689E6200CD95E1 /* hand_230.png */,
@@ -2397,6 +2403,8 @@
 				BB8618B113689E6200CD95E1 /* touched@2x.png in Resources */,
 				BBEA39C1136A06400021619A /* halo.png in Resources */,
 				BBEA39C2136A06400021619A /* halo@2x.png in Resources */,
+				26ECECBA136B9CFF00019A5D /* navbar_transparent.png in Resources */,
+				26ECECBB136B9CFF00019A5D /* navbar_transparent@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
