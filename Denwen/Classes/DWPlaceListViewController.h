@@ -6,7 +6,6 @@
 #import <UIKit/UIKit.h>
 
 #import "DWTableViewController.h"
-#import "DWPlaceViewController.h"
 #import "DWPlacesManager.h"
 
 

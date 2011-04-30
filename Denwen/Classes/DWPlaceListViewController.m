@@ -4,6 +4,7 @@
 //
 
 #import "DWPlaceListViewController.h"
+#import "DWPlaceViewController.h"
 #import "DWConstants.h"
 
 //Cells

@@ -136,8 +136,6 @@
 		26CAF7BB12F21E110058C01E /* DWPlacesContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CAF7B112F21E110058C01E /* DWPlacesContainerViewController.xib */; };
 		26CF62D612F3E92200505A37 /* DWWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CF62D412F3E92200505A37 /* DWWebViewController.m */; };
 		26CF62D712F3E92200505A37 /* DWWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CF62D512F3E92200505A37 /* DWWebViewController.xib */; };
-		26CF62DC12F3E96100505A37 /* DWPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CF62D912F3E96100505A37 /* DWPlaceCell.m */; };
-		26CF62DD12F3E96100505A37 /* DWUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CF62DB12F3E96100505A37 /* DWUserCell.m */; };
 		26D29FD41303C100002E37FE /* camera_button_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D29FD01303C100002E37FE /* camera_button_round.png */; };
 		26D29FD51303C100002E37FE /* camera_button@2x_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D29FD11303C100002E37FE /* camera_button@2x_round.png */; };
 		26D29FD61303C100002E37FE /* profile_button_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D29FD21303C100002E37FE /* profile_button_round.png */; };
@@ -172,7 +170,6 @@
 		BB05BB22131B30E50068331E /* segmented_view_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB05BB20131B30E50068331E /* segmented_view_bg@2x.png */; };
 		BB0C7FE7135811F20007D6A9 /* DWSearchPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C7FE6135811F20007D6A9 /* DWSearchPlacesViewController.m */; };
 		BB0CFCFC1302261400F38552 /* DWPaginationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0CFCFB1302261400F38552 /* DWPaginationCell.m */; };
-		BB17B8DB12EA11AF00DD42FC /* DWItemFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17B8D912EA11AF00DD42FC /* DWItemFeedViewController.xib */; };
 		BB17BAE612EA3A3F00DD42FC /* DWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB17BAE412EA3A3F00DD42FC /* DWLoginViewController.m */; };
 		BB17BAE712EA3A3F00DD42FC /* DWLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB17BAE512EA3A3F00DD42FC /* DWLoginViewController.xib */; };
 		BB28E013135FF30600FF4566 /* post_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = BB28E00F135FF30600FF4566 /* post_cancel.png */; };
@@ -187,7 +184,6 @@
 		BB3311F912F24A4100B713F9 /* DWUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3311F712F24A4100B713F9 /* DWUserViewController.xib */; };
 		BB33130712F25F3E00B713F9 /* DWImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33130612F25F3E00B713F9 /* DWImageView.m */; };
 		BB33134312F2628F00B713F9 /* DWGUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33134212F2628F00B713F9 /* DWGUIManager.m */; };
-		BB33138912F26A1B00B713F9 /* DWImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33138812F26A1B00B713F9 /* DWImageViewController.m */; };
 		BB3313E912F282BF00B713F9 /* DWProfilePicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3313E812F282BF00B713F9 /* DWProfilePicViewController.xib */; };
 		BB33CB6B135FA91700BDBE98 /* DWItemFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33CB6A135FA91700BDBE98 /* DWItemFeedViewController.m */; };
 		BB33CB70135FA93C00BDBE98 /* DWTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33CB6F135FA93C00BDBE98 /* DWTitleView.m */; };
@@ -243,7 +239,6 @@
 		BB4051D212F2377500916688 /* RKLMatchEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4051BC12F2377500916688 /* RKLMatchEnumerator.m */; };
 		BB4051DA12F237AD00916688 /* DWPopularPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4051D812F237AD00916688 /* DWPopularPlacesViewController.m */; };
 		BB40522C12F23BB900916688 /* DWFollowedItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */; };
-		BB40522D12F23BB900916688 /* DWFollowedItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB40522B12F23BB800916688 /* DWFollowedItemsViewController.xib */; };
 		BB537BDA132C560E0018B942 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB537BD9132C560E0018B942 /* MediaPlayer.framework */; };
 		BB5E67D1133182C3006D0C66 /* video_attach.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5E67CF133182C3006D0C66 /* video_attach.png */; };
 		BB5E67D2133182C3006D0C66 /* video_attach@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5E67D0133182C3006D0C66 /* video_attach@2x.png */; };
@@ -379,9 +374,6 @@
 		BBE24FD513563C5100A90B44 /* button_gray_dark_cancel_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FCF13563C5100A90B44 /* button_gray_dark_cancel_active@2x.png */; };
 		BBE24FD613563C5100A90B44 /* button_gray_light_cancel_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FD013563C5100A90B44 /* button_gray_light_cancel_active.png */; };
 		BBE24FD713563C5100A90B44 /* button_gray_light_cancel_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE24FD113563C5100A90B44 /* button_gray_light_cancel_active@2x.png */; };
-		BBE326EF12EE83B000657024 /* DWNewItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE326ED12EE83B000657024 /* DWNewItemViewController.m */; };
-		BBE326F012EE83B000657024 /* DWNewItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */; };
-		BBE327EC12EEAD8300657024 /* DWNewPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE327EA12EEAD8300657024 /* DWNewPlaceViewController.xib */; };
 		BBE3A9021330ABB100AE585A /* userprofilefade.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE3A9001330ABB100AE585A /* userprofilefade.png */; };
 		BBE3A9031330ABB100AE585A /* userprofilefade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE3A9011330ABB100AE585A /* userprofilefade@2x.png */; };
 		BBE52FE712F4078600A4F935 /* DWFollowing.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE52FE612F4078600A4F935 /* DWFollowing.m */; };
@@ -597,10 +589,6 @@
 		26CF62D312F3E92200505A37 /* DWWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWWebViewController.h; path = Classes/DWWebViewController.h; sourceTree = "<group>"; };
 		26CF62D412F3E92200505A37 /* DWWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWWebViewController.m; path = Classes/DWWebViewController.m; sourceTree = "<group>"; };
 		26CF62D512F3E92200505A37 /* DWWebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWWebViewController.xib; path = Classes/DWWebViewController.xib; sourceTree = "<group>"; };
-		26CF62D812F3E96100505A37 /* DWPlaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceCell.h; path = Classes/DWPlaceCell.h; sourceTree = "<group>"; };
-		26CF62D912F3E96100505A37 /* DWPlaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlaceCell.m; path = Classes/DWPlaceCell.m; sourceTree = "<group>"; };
-		26CF62DA12F3E96100505A37 /* DWUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWUserCell.h; path = Classes/DWUserCell.h; sourceTree = "<group>"; };
-		26CF62DB12F3E96100505A37 /* DWUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWUserCell.m; path = Classes/DWUserCell.m; sourceTree = "<group>"; };
 		26D29FD01303C100002E37FE /* camera_button_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera_button_round.png; path = resources/camera_button_round.png; sourceTree = "<group>"; };
 		26D29FD11303C100002E37FE /* camera_button@2x_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_button@2x_round.png"; path = "resources/camera_button@2x_round.png"; sourceTree = "<group>"; };
 		26D29FD21303C100002E37FE /* profile_button_round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile_button_round.png; path = resources/profile_button_round.png; sourceTree = "<group>"; };
@@ -651,7 +639,6 @@
 		BB0CFCFA1302261400F38552 /* DWPaginationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPaginationCell.h; path = Classes/DWPaginationCell.h; sourceTree = "<group>"; };
 		BB0CFCFB1302261400F38552 /* DWPaginationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPaginationCell.m; path = Classes/DWPaginationCell.m; sourceTree = "<group>"; };
 		BB0CFE721302703A00F38552 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = resources/Entitlements.plist; sourceTree = "<group>"; };
-		BB17B8D912EA11AF00DD42FC /* DWItemFeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWItemFeedViewController.xib; path = Classes/DWItemFeedViewController.xib; sourceTree = "<group>"; };
 		BB17BAE312EA3A3F00DD42FC /* DWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWLoginViewController.h; path = Classes/DWLoginViewController.h; sourceTree = "<group>"; };
 		BB17BAE412EA3A3F00DD42FC /* DWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWLoginViewController.m; path = Classes/DWLoginViewController.m; sourceTree = "<group>"; };
 		BB17BAE512EA3A3F00DD42FC /* DWLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWLoginViewController.xib; path = Classes/DWLoginViewController.xib; sourceTree = "<group>"; };
@@ -670,8 +657,6 @@
 		BB33130612F25F3E00B713F9 /* DWImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWImageView.m; path = Classes/DWImageView.m; sourceTree = "<group>"; };
 		BB33134112F2628F00B713F9 /* DWGUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWGUIManager.h; path = Classes/DWGUIManager.h; sourceTree = "<group>"; };
 		BB33134212F2628F00B713F9 /* DWGUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWGUIManager.m; path = Classes/DWGUIManager.m; sourceTree = "<group>"; };
-		BB33138712F26A1B00B713F9 /* DWImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWImageViewController.h; path = Classes/DWImageViewController.h; sourceTree = "<group>"; };
-		BB33138812F26A1B00B713F9 /* DWImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWImageViewController.m; path = Classes/DWImageViewController.m; sourceTree = "<group>"; };
 		BB3313E812F282BF00B713F9 /* DWProfilePicViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWProfilePicViewController.xib; path = Classes/DWProfilePicViewController.xib; sourceTree = "<group>"; };
 		BB33CB69135FA91700BDBE98 /* DWItemFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWItemFeedViewController.h; path = Classes/DWItemFeedViewController.h; sourceTree = "<group>"; };
 		BB33CB6A135FA91700BDBE98 /* DWItemFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItemFeedViewController.m; path = Classes/DWItemFeedViewController.m; sourceTree = "<group>"; };
@@ -774,7 +759,6 @@
 		BB4051D812F237AD00916688 /* DWPopularPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPopularPlacesViewController.m; path = Classes/DWPopularPlacesViewController.m; sourceTree = "<group>"; };
 		BB40522912F23BB800916688 /* DWFollowedItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFollowedItemsViewController.h; path = Classes/DWFollowedItemsViewController.h; sourceTree = "<group>"; };
 		BB40522A12F23BB800916688 /* DWFollowedItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowedItemsViewController.m; path = Classes/DWFollowedItemsViewController.m; sourceTree = "<group>"; };
-		BB40522B12F23BB800916688 /* DWFollowedItemsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWFollowedItemsViewController.xib; path = Classes/DWFollowedItemsViewController.xib; sourceTree = "<group>"; };
 		BB537BD9132C560E0018B942 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB5E67CF133182C3006D0C66 /* video_attach.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video_attach.png; path = resources/video_attach.png; sourceTree = "<group>"; };
 		BB5E67D0133182C3006D0C66 /* video_attach@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "video_attach@2x.png"; path = "resources/video_attach@2x.png"; sourceTree = "<group>"; };
@@ -971,10 +955,6 @@
 		BBE24FCF13563C5100A90B44 /* button_gray_dark_cancel_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_dark_cancel_active@2x.png"; path = "resources/button_gray_dark_cancel_active@2x.png"; sourceTree = "<group>"; };
 		BBE24FD013563C5100A90B44 /* button_gray_light_cancel_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_gray_light_cancel_active.png; path = resources/button_gray_light_cancel_active.png; sourceTree = "<group>"; };
 		BBE24FD113563C5100A90B44 /* button_gray_light_cancel_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_gray_light_cancel_active@2x.png"; path = "resources/button_gray_light_cancel_active@2x.png"; sourceTree = "<group>"; };
-		BBE326EC12EE83B000657024 /* DWNewItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewItemViewController.h; path = Classes/DWNewItemViewController.h; sourceTree = "<group>"; };
-		BBE326ED12EE83B000657024 /* DWNewItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewItemViewController.m; path = Classes/DWNewItemViewController.m; sourceTree = "<group>"; };
-		BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWNewItemViewController.xib; path = Classes/DWNewItemViewController.xib; sourceTree = "<group>"; };
-		BBE327EA12EEAD8300657024 /* DWNewPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWNewPlaceViewController.xib; path = Classes/DWNewPlaceViewController.xib; sourceTree = "<group>"; };
 		BBE3A9001330ABB100AE585A /* userprofilefade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = userprofilefade.png; path = resources/userprofilefade.png; sourceTree = "<group>"; };
 		BBE3A9011330ABB100AE585A /* userprofilefade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "userprofilefade@2x.png"; path = "resources/userprofilefade@2x.png"; sourceTree = "<group>"; };
 		BBE52FE512F4078600A4F935 /* DWFollowing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFollowing.h; path = Classes/DWFollowing.h; sourceTree = "<group>"; };
@@ -1495,11 +1475,7 @@
 				BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */,
 				BB3311F712F24A4100B713F9 /* DWUserViewController.xib */,
 				26CAF7A812F21E110058C01E /* DWItemsContainerViewController.xib */,
-				BB17B8D912EA11AF00DD42FC /* DWItemFeedViewController.xib */,
-				BB40522B12F23BB800916688 /* DWFollowedItemsViewController.xib */,
-				BBE326EE12EE83B000657024 /* DWNewItemViewController.xib */,
 				26CAF7B112F21E110058C01E /* DWPlacesContainerViewController.xib */,
-				BBE327EA12EEAD8300657024 /* DWNewPlaceViewController.xib */,
 				BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */,
 				26DC2E61130A877A00FC1F3A /* DWPlaceDetailsViewController.xib */,
 				BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */,
@@ -1994,14 +1970,6 @@
 		BBD0C2E01346C3A000BCFB96 /* Deprecated */ = {
 			isa = PBXGroup;
 			children = (
-				BB33138712F26A1B00B713F9 /* DWImageViewController.h */,
-				BB33138812F26A1B00B713F9 /* DWImageViewController.m */,
-				BBE326EC12EE83B000657024 /* DWNewItemViewController.h */,
-				BBE326ED12EE83B000657024 /* DWNewItemViewController.m */,
-				26CF62D812F3E96100505A37 /* DWPlaceCell.h */,
-				26CF62D912F3E96100505A37 /* DWPlaceCell.m */,
-				26CF62DA12F3E96100505A37 /* DWUserCell.h */,
-				26CF62DB12F3E96100505A37 /* DWUserCell.m */,
 			);
 			name = Deprecated;
 			sourceTree = "<group>";
@@ -2095,15 +2063,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				BB17B8DB12EA11AF00DD42FC /* DWItemFeedViewController.xib in Resources */,
 				BB17BAE712EA3A3F00DD42FC /* DWLoginViewController.xib in Resources */,
 				BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */,
 				BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */,
-				BBE326F012EE83B000657024 /* DWNewItemViewController.xib in Resources */,
-				BBE327EC12EEAD8300657024 /* DWNewPlaceViewController.xib in Resources */,
 				26CAF7B512F21E110058C01E /* DWItemsContainerViewController.xib in Resources */,
 				26CAF7BB12F21E110058C01E /* DWPlacesContainerViewController.xib in Resources */,
-				BB40522D12F23BB900916688 /* DWFollowedItemsViewController.xib in Resources */,
 				BB3311F912F24A4100B713F9 /* DWUserViewController.xib in Resources */,
 				BB3313E912F282BF00B713F9 /* DWProfilePicViewController.xib in Resources */,
 				26CF62D712F3E92200505A37 /* DWWebViewController.xib in Resources */,
@@ -2408,7 +2372,6 @@
 				BB17BAE612EA3A3F00DD42FC /* DWLoginViewController.m in Sources */,
 				BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */,
 				BBD1EAD512EC1218003C1BC7 /* DWSignupViewController.m in Sources */,
-				BBE326EF12EE83B000657024 /* DWNewItemViewController.m in Sources */,
 				26B973CC12F0BED9000F8F1F /* DWItemFeedCell.m in Sources */,
 				26B9789A12F180C8000F8F1F /* DWPlaceFeedCell.m in Sources */,
 				26CAF7B212F21E110058C01E /* DWFollowedPlacesViewController.m in Sources */,
@@ -2433,10 +2396,7 @@
 				BB3311F812F24A4100B713F9 /* DWUserViewController.m in Sources */,
 				BB33130712F25F3E00B713F9 /* DWImageView.m in Sources */,
 				BB33134312F2628F00B713F9 /* DWGUIManager.m in Sources */,
-				BB33138912F26A1B00B713F9 /* DWImageViewController.m in Sources */,
 				26CF62D612F3E92200505A37 /* DWWebViewController.m in Sources */,
-				26CF62DC12F3E96100505A37 /* DWPlaceCell.m in Sources */,
-				26CF62DD12F3E96100505A37 /* DWUserCell.m in Sources */,
 				BBE52FE712F4078600A4F935 /* DWFollowing.m in Sources */,
 				BBC0C6EB12F4C57800291C33 /* EGORefreshTableHeaderView.m in Sources */,
 				BB3CCBC512F936E200ADFCD7 /* DWMemoryPool.m in Sources */,
