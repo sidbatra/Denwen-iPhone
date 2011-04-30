@@ -26,9 +26,8 @@ static NSInteger const kPlacesIndex					= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)delegate {
-	self = [super initWithSearchType:NO 
-						withCapacity:kCapacity 
-						 andDelegate:delegate];
+	self = [super initWithCapacity:kCapacity 
+                       andDelegate:delegate];
 	
 	if (self) {
         
@@ -54,7 +53,10 @@ static NSInteger const kPlacesIndex					= 0;
 	[super viewDidLoad];
 	
     if(!searchBar) {
-        searchBar					= [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,self.tableView.frame.size.width,0)];
+        searchBar					= [[UISearchBar alloc] initWithFrame:CGRectMake(0,
+                                                                                    0,
+                                                                                    self.tableView.frame.size.width,
+                                                                                    0)];
         searchBar.delegate			= self;
         searchBar.placeholder		= kSearchBarText;
         searchBar.backgroundColor	= [UIColor colorWithRed:0.1764 
@@ -89,9 +91,9 @@ static NSInteger const kPlacesIndex					= 0;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
+- (void)dealloc {	
+    [searchBar release];
+    
     [super dealloc];
 }
 
@@ -107,20 +109,6 @@ static NSInteger const kPlacesIndex					= 0;
 	[super viewIsDeselected];
 	
 	[searchBar resignFirstResponder];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)loadPlaces {
-	[super loadPlaces];
-	
-	if(_isLoadedOnce && searchBar.text.length >= kMinimumQueryLength) {
-		[[DWRequestsManager sharedDWRequestsManager] getSearchPlaces:searchBar.text];
-	}
-	else {
-		[super performSelector:@selector(finishedLoadingPlaces) 
-					withObject:nil
-					afterDelay:0.5];
-	}
 }
 
 
@@ -146,17 +134,16 @@ static NSInteger const kPlacesIndex					= 0;
 			_tableViewUsage			= kTableViewAsMessage;
 			self.messageCellText	= [NSString stringWithFormat:kMsgNotFound,searchBar.text];
 		}
-
-		
-		[self markEndOfPagination];
-		[self.tableView reloadData];
 	}
-	
-	[super finishedLoadingPlaces];
+    
+    [super finishedLoading];
+    [self markEndOfPagination];
+    [self.tableView reloadData];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)searchPlacesError:(NSNotification*)notification {
+    [super finishedLoading];
 }
 
 
@@ -175,7 +162,7 @@ static NSInteger const kPlacesIndex					= 0;
 		
 		[searchBar resignFirstResponder];
 		
-		[self loadPlaces];
+		[_dataSourceDelegate loadData];
 	}
 	
 }
@@ -204,14 +191,33 @@ static NSInteger const kPlacesIndex					= 0;
 	
 	UITableViewCell *cell = [super tableView:theTableView cellForRowAtIndexPath:indexPath];
 	
-	if(_tableViewUsage == kTableViewAsSpinner) {
+	if([cell isKindOfClass:[DWLoadingCell class]]) {
 		[((DWLoadingCell*)cell) shorterCellMode];
 	}
-	else if(_tableViewUsage == kTableViewAsMessage) {
+	else if([cell isKindOfClass:[DWMessageCell class]]) {
 		[((DWMessageCell*)cell) shorterCellMode];
 	}
-
+    
 	return cell;
+}
+
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWTableViewDataSourceDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadData {
+    if(_isLoadedOnce && searchBar.text.length >= kMinimumQueryLength) {
+		[[DWRequestsManager sharedDWRequestsManager] getSearchPlaces:searchBar.text];
+	}
+	else {
+		[super performSelector:@selector(finishedLoading) 
+					withObject:nil
+					afterDelay:0.5];
+	}
 }
 
 @end

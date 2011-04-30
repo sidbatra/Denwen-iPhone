@@ -11,6 +11,7 @@ static NSString* const kCurrentUserTitle			= @"Your Places";
 static NSString* const kNormalUserTitle				= @"%@'s Places";
 static NSString* const kSearchString				= @"Search %@";
 static NSInteger const kCapacity					= 1;
+static NSInteger const kPlacesIndex					= 0;
 
 
 
@@ -25,8 +26,7 @@ static NSInteger const kCapacity					= 1;
 - (id)initWithDelegate:(id)delegate 
 			  withUser:(DWUser*)user {
 	
-	self = [super initWithSearchType:YES
-					 withCapacity:kCapacity
+	self = [super initWithCapacity:kCapacity
 					  andDelegate:delegate];
 	
 	if (self) {
@@ -43,7 +43,6 @@ static NSInteger const kCapacity					= 1;
 													 name:kNUserPlacesError
 												   object:nil];
 	}
-	
 		
 	return self;
 }
@@ -51,30 +50,16 @@ static NSInteger const kCapacity					= 1;
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	self.view.hidden	= NO;
-
+    
+    self.view.hidden = NO;
+    
     self.navigationItem.leftBarButtonItem = [DWGUIManager customBackButton:_delegate];
     self.navigationItem.titleView         = [DWGUIManager customTitleWithText:(NSString*)([self.user isCurrentUser] ? 
                                                                                           kCurrentUserTitle :
                                                                                           [NSString stringWithFormat:kNormalUserTitle,
                                                                                            self.user.firstName])];
-
-	self.searchDisplayController.searchBar.placeholder = [NSString stringWithFormat:kSearchString,
-														  self.title];	
 	
-	_tableViewUsage = kTableViewAsSpinner;
-	[self.tableView reloadData];
-	
-	[self loadPlaces];	
-}
-
-
-//----------------------------------------------------------------------------------------------------
-- (void)loadPlaces {
-	[super loadPlaces];
-	
-	[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:self.user.databaseID];	
+	[_dataSourceDelegate loadData];	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -83,9 +68,7 @@ static NSInteger const kCapacity					= 1;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
+- (void)dealloc {	
 	self.user = nil;
 	
     [super dealloc];
@@ -107,10 +90,12 @@ static NSInteger const kCapacity					= 1;
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
 		NSArray *places = [[info objectForKey:kKeyBody] objectForKey:kKeyPlaces];
-		[_placeManager populatePlaces:places atIndex:kCapacity-1];
+        
+		[_placeManager populatePlaces:places 
+                              atIndex:kPlacesIndex];
 		
-		
-		if([_placeManager totalPlacesAtRow:kCapacity-1]) {
+
+		if([_placeManager totalPlacesAtRow:kPlacesIndex]) {
 			_tableViewUsage = kTableViewAsData;	
 			_isLoadedOnce = YES;
 		}
@@ -122,12 +107,11 @@ static NSInteger const kCapacity					= 1;
 			
 			_tableViewUsage = kTableViewAsMessage;
 		}
-		
-		[self markEndOfPagination];
-		[self.tableView reloadData];
 	}
 	
-	[self finishedLoadingPlaces];
+	[self finishedLoading];
+    [self markEndOfPagination];
+    [self.tableView reloadData];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -137,8 +121,21 @@ static NSInteger const kCapacity					= 1;
 	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
 		return;
 	
-	[self finishedLoadingPlaces];
+	[self finishedLoading];
 }
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWTableViewDataSourceDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadData {
+	[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:self.user.databaseID];	
+}
+
+
 
 
 @end

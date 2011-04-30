@@ -10,7 +10,7 @@
 /**
  * Display search results for places
  */
-@interface DWSearchPlacesViewController : DWPlaceListViewController {
+@interface DWSearchPlacesViewController : DWPlaceListViewController<UISearchBarDelegate> {
 	UISearchBar *searchBar;
 }
 

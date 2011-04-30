@@ -9,7 +9,8 @@
 #import "DWSession.h"
 #import "DWConstants.h"
 
-static NSInteger const kPlacesIndex			= 0;
+static NSInteger const kCapacity					= 1;
+static NSInteger const kPlacesIndex					= 0;
 
 
 
@@ -21,8 +22,7 @@ static NSInteger const kPlacesIndex			= 0;
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)delegate {
 	
-	self = [super initWithSearchType:YES
-						withCapacity:kPlacesIndex + 1
+	self = [super initWithCapacity:kCapacity
 						 andDelegate:delegate];
 	
 	if (self) {		
@@ -58,26 +58,9 @@ static NSInteger const kPlacesIndex			= 0;
 			_tableViewUsage			= kTableViewAsMessage;
 		}
 		
+        [self finishedLoading];
 		[self markEndOfPagination];
 		[self.tableView reloadData];
-		
-		[self finishedLoadingPlaces];
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)loadPlaces {
-	[super loadPlaces];
-		
-	if(!_isLoadedOnce) {
-		_isLoadedOnce = YES;
-		[self displayPlaces];
-	}
-	else if(_isReloading) {
-		/**
-		 * On pull to refresh fire the request and let places cache handle it
-		 */
-		[[DWRequestsManager sharedDWRequestsManager] getNearbyPlaces];
 	}
 }
 
@@ -88,8 +71,6 @@ static NSInteger const kPlacesIndex			= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
     [super dealloc];
 }
 
@@ -104,6 +85,26 @@ static NSInteger const kPlacesIndex			= 0;
 	[self displayPlaces];
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWTableViewDataSourceDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadData {
+	
+	if(!_isLoadedOnce) {
+		_isLoadedOnce = YES;
+		[self displayPlaces];
+	}
+	else if(_isReloading) {
+		/**
+		 * On pull to refresh fire the request and let places cache handle it
+		 */
+		[[DWRequestsManager sharedDWRequestsManager] getNearbyPlaces];
+	}
+}
 
 
 @end

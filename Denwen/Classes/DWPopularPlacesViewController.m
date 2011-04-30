@@ -7,8 +7,6 @@
 #import "DWRequestsManager.h"
 #import "DWConstants.h"
 
-static NSString* const kSearchBarText			= @"Search All Places";
-static NSInteger const kMinimumQueryLength		= 1;
 static NSInteger const kCapacity				= 1;
 static NSInteger const kPlacesIndex				= 0;
 
@@ -21,9 +19,8 @@ static NSInteger const kPlacesIndex				= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)delegate {
-	self = [super initWithSearchType:NO 
-					 withCapacity:kCapacity 
-					  andDelegate:delegate];
+	self = [super initWithCapacity:kCapacity 
+                       andDelegate:delegate];
 	
 	if (self) {
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -42,9 +39,7 @@ static NSInteger const kPlacesIndex				= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
-	[super viewDidLoad];
-		
-	self.searchDisplayController.searchBar.placeholder = kSearchBarText;
+	[super viewDidLoad];		
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -54,15 +49,7 @@ static NSInteger const kPlacesIndex				= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
     [super dealloc];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)loadPlaces {
-	[super loadPlaces];
-	[[DWRequestsManager sharedDWRequestsManager] getPopularPlaces:_currentPage];
 }
 
 
@@ -86,15 +73,26 @@ static NSInteger const kPlacesIndex				= 0;
 		_tableViewUsage = kTableViewAsData;
 	}
 	
-	[self finishedLoadingPlaces];
+	[self finishedLoading];
+    [self markEndOfPagination];
 	[self.tableView reloadData];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)popularPlacesError:(NSNotification*)notification {
-	[self finishedLoadingPlaces];
+	[self finishedLoading];
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWTableViewDataSourceDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadData {
+    [[DWRequestsManager sharedDWRequestsManager] getPopularPlaces:_currentPage];
+}
 
 
 @end

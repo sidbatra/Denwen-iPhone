@@ -62,6 +62,7 @@
 	NSInteger           _paginationCellStatus;
 	NSInteger           _prePaginationCellCount;
     
+    BOOL                _isLoadedOnce;
     BOOL                _isReloading;
     BOOL                _isLoadingPage;
     
