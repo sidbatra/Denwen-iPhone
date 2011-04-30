@@ -8,15 +8,59 @@
 #import "EGORefreshTableHeaderView.h"
 
 /**
+ * Data source delegate enables inheriting classes
+ * to provide critical information about the table view
+ */
+@protocol DWTableViewControllerDataSourceDelegate
+
+/**
+ * Total number of data rows - i.e. rows excluding loading,pagination
+ */
+- (NSInteger)numberOfDataRows;
+
+/**
+ * Number of rows per page
+ */
+- (NSInteger)numberOfDataRowsPerPage;
+
+/**
+ * Standard height of the data rows
+ */
+- (CGFloat)heightForDataRows;
+
+/**
+ * Load data from the remote server
+ */
+- (void)loadData;
+
+/**
+ * Lazy load call to load images for the given indexPath
+ */
+- (void)loadImagesForDataRowAtIndex:(NSIndexPath*)indexPath;
+
+/**
+ * Data row at the given index path
+ */
+- (UITableViewCell*)cellForDataRowAt:(NSIndexPath*)indexPath 
+                         inTableView:(UITableView*)tableView;
+
+/**
+ * Fired when a data row is selected
+ */
+- (void)didSelectDataRowAt:(NSIndexPath*)indexPath
+               inTableView:(UITableView*)tableView;
+@end
+
+
+/**
  * Encapsulates generic table view controller functionality like
  * pull to refresh and pagination
  */
-@interface DWTableViewController : UITableViewController<EGORefreshTableHeaderDelegate> {
+@interface DWTableViewController : UITableViewController<EGORefreshTableHeaderDelegate,DWTableViewControllerDataSourceDelegate> {
     NSInteger           _currentPage;
 	NSInteger           _tableViewUsage;
 	NSInteger           _paginationCellStatus;
 	NSInteger           _prePaginationCellCount;
-    NSInteger           _rowsPerPage;
     
     BOOL                _isReloading;
     BOOL                _isLoadingPage;
@@ -24,7 +68,8 @@
     NSString            *_messageCellText;
 	
     
-	EGORefreshTableHeaderView				*_refreshHeaderView;
+	EGORefreshTableHeaderView                       *_refreshHeaderView;
+    id<DWTableViewControllerDataSourceDelegate>     _dataSourceDelegate;
 }
 
 /**
@@ -50,12 +95,6 @@
 - (void)markEndOfPagination;
 
 /**
- * Load the data to populate the cells of the table view. Overriden
- * in the child class
- */
-- (void)loadData;
-
-/**
  * Uses the pagination framework to load the next page of data
  */
 - (void)loadNextPage;
@@ -67,39 +106,17 @@
 - (void)finishedLoading;
 
 /**
- * Start lazy loaded images for the currently visible cells
- */
-- (void)loadImagesForOnscreenRows;
-
-/**
  * Perform a full refresh of the table view - reset pagination, go to loading state
  * load new data
  */
 - (void)hardRefresh;
 
 /**
- * External interface to requesting a hard refresh
+ * Inserts a new at the given index assuming a new entry
+ * has been already added to the data source
  */
-- (void)requestHardRefresh;
-
-/**
- * Overriden in the child class to return the total 
- * number of rows in the table
- */
-- (NSInteger)totalRows;
-
-/**
- * Overriden in the child class to return the height of the
- * primary data cell
- */
-- (NSInteger)dataCellHeight;
+- (void)addNewDataRowAt:(NSInteger)index;
 
 @end
 
 
-/**
- * Declarations for select private methods
- */
-@interface DWTableViewController(Private)
-- (void)resetPagination;
-@end

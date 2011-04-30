@@ -248,7 +248,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
         
         if([DWNotificationsHelper sharedDWNotificationsHelper].unreadNotifications) {
             if([self.navigationController.topViewController isKindOfClass:[DWNotificationsViewController class]])
-                [(DWNotificationsViewController*)self.navigationController.topViewController requestHardRefresh];
+                [(DWNotificationsViewController*)self.navigationController.topViewController hardRefresh];
             else   
                 [self displayNotificationsView];
         }

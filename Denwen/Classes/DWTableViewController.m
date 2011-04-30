@@ -28,6 +28,8 @@ static NSInteger const kSpinnerCellIndex			= 0;
     self = [super init];
     
     if (self) {
+        
+        _dataSourceDelegate     = self;
         _tableViewUsage			= kTableViewAsSpinner;
 		_isReloading			= NO;
         _isLoadingPage          = NO;
@@ -90,44 +92,28 @@ static NSInteger const kSpinnerCellIndex			= 0;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)loadData {
-}
-
-//----------------------------------------------------------------------------------------------------
 - (void)loadImagesForOnscreenRows {
-}
-
-//----------------------------------------------------------------------------------------------------
-- (NSInteger)totalRows {
-    /**
-     * Override in the child class to get the total number of rows in the table
-     */
-    return 0;
-}
-
-//----------------------------------------------------------------------------------------------------
-- (NSInteger)dataCellHeight {
-    /**
-    * Override in the child class to get the height of the data cells
-    */
-    return 0;
+    NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+	
+	for (NSIndexPath *indexPath in visiblePaths)
+        [_dataSourceDelegate loadImagesForDataRowAtIndex:indexPath];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)loadNextPage {
-	_prePaginationCellCount = [self totalRows];
+	_prePaginationCellCount = [_dataSourceDelegate numberOfDataRows];
 	_currentPage++;
     _isLoadingPage = YES;
 	
-	[self loadData];
+    [_dataSourceDelegate loadData];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)finishedLoading {
 	[self.refreshHeaderView refreshLastUpdatedDate];
 	
-	if([self totalRows] < _rowsPerPage || 
-	   ([self totalRows] - _prePaginationCellCount < _rowsPerPage &&
+	if([_dataSourceDelegate numberOfDataRows] < [_dataSourceDelegate numberOfDataRowsPerPage] || 
+	   ([_dataSourceDelegate numberOfDataRows] - _prePaginationCellCount < [_dataSourceDelegate numberOfDataRowsPerPage] &&
         !_isReloading)) { 
            
            /**
@@ -141,6 +127,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
 		[self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 		_isReloading = NO;
 	}
+    
     _isLoadingPage = NO;
 }
 
@@ -152,11 +139,23 @@ static NSInteger const kSpinnerCellIndex			= 0;
     _tableViewUsage     = kTableViewAsSpinner;
 	
     [self.tableView reloadData];
-    [self loadData];
+    [_dataSourceDelegate loadData];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)requestHardRefresh {
+- (void)addNewDataRowAt:(NSInteger)index {
+	
+	if(_tableViewUsage != kTableViewAsData) {
+		_tableViewUsage = kTableViewAsData;
+		[self.tableView reloadData];
+	}
+	
+	NSIndexPath *touchIndexPath = [NSIndexPath indexPathForRow:index
+													 inSection:0];
+	NSArray *indexPaths			= [NSArray arrayWithObjects:touchIndexPath,nil];
+	
+	[self.tableView insertRowsAtIndexPaths:indexPaths
+						  withRowAnimation:UITableViewRowAnimationRight];
 }
 
 
@@ -176,7 +175,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
 	NSInteger rows = 0;
 	
 	if(_tableViewUsage == kTableViewAsData)
-		rows = [self  totalRows] + _paginationCellStatus;
+		rows = [_dataSourceDelegate  numberOfDataRows] + _paginationCellStatus;
 	else
 		rows = kTVLoadingCellCount;
     
@@ -188,10 +187,10 @@ static NSInteger const kSpinnerCellIndex			= 0;
 	
 	CGFloat height = 0;
 	
-	if(_tableViewUsage == kTableViewAsData && indexPath.row < [self totalRows])
-		height = [self dataCellHeight];
+	if(_tableViewUsage == kTableViewAsData && indexPath.row < [_dataSourceDelegate numberOfDataRows])
+		height = [_dataSourceDelegate heightForDataRows];
 	
-	else if(_tableViewUsage == kTableViewAsData && indexPath.row == [self totalRows])
+	else if(_tableViewUsage == kTableViewAsData && indexPath.row == [_dataSourceDelegate numberOfDataRows])
 		height = kPaginationCellHeight;
 	else
 		height = kTVLoadingCellHeight;
@@ -199,13 +198,16 @@ static NSInteger const kSpinnerCellIndex			= 0;
 	return height;
 }
 
-
 //----------------------------------------------------------------------------------------------------
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     UITableViewCell *cell = nil;
     
-    if(_tableViewUsage == kTableViewAsData && indexPath.row == [self totalRows]) {
+    if(_tableViewUsage == kTableViewAsData && indexPath.row < [_dataSourceDelegate numberOfDataRows]) {
+        return  [_dataSourceDelegate cellForDataRowAt:indexPath
+                                          inTableView:tableView];
+    }
+    if(_tableViewUsage == kTableViewAsData && indexPath.row == [_dataSourceDelegate numberOfDataRows]) {
 		
 		DWPaginationCell *cell = (DWPaginationCell*)[tableView dequeueReusableCellWithIdentifier:kTVPaginationCellIdentifier];
 		
@@ -245,7 +247,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
 		return cell;
 	}
 	else {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTVDefaultCellIdentifier];
+        cell = [tableView dequeueReusableCellWithIdentifier:kTVDefaultCellIdentifier];
 		
 		if (!cell) 
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
@@ -258,6 +260,20 @@ static NSInteger const kSpinnerCellIndex			= 0;
 	}
 	
 	return cell;	
+}
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(indexPath.row < [_dataSourceDelegate numberOfDataRows]) {
+        [_dataSourceDelegate didSelectDataRowAt:indexPath
+                                    inTableView:tableView];
+    }
 }
 
 
@@ -297,7 +313,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
     [self resetPagination];
     
     _isReloading = YES;
-    [self loadData];
+    [_dataSourceDelegate loadData];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -310,5 +326,46 @@ static NSInteger const kSpinnerCellIndex			= 0;
 	return nil;
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWTableViewDataSourceDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)numberOfDataRows {
+    return 0;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)numberOfDataRowsPerPage {
+    return 0;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (CGFloat)heightForDataRows {
+    return 0;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadData {
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadImagesForDataRowAtIndex:(NSIndexPath *)indexPath {
+    
+}
+
+//----------------------------------------------------------------------------------------------------
+- (UITableViewCell*)cellForDataRowAt:(NSIndexPath *)indexPath
+                         inTableView:(UITableView*)tableView {
+    return nil;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didSelectDataRowAt:(NSIndexPath*)indexPath
+               inTableView:(UITableView*)tableView {
+    
+}
 
 @end

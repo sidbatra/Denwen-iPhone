@@ -16,6 +16,7 @@ static NSInteger const kTouchesPerPage          = 20;
 static NSInteger const kTouchCellHeight         = 60;
 static NSString* const kMsgNoItemsTouched       = @"No one has touched your items";
 static NSString* const kTouchCellIdentifier		= @"TouchCell";
+static NSString* const kTitleText               = @"Notifications";
 
 
 
@@ -33,8 +34,7 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
 	
 	if (self) {
 		
-		_delegate       = delegate;
-        _rowsPerPage    = kTouchesPerPage;
+		_delegate               = delegate;
 		
 		self.touchesManager     = [[[DWTouchesManager alloc] init] autorelease];
         
@@ -81,66 +81,15 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.titleView           = [DWGUIManager customTitleWithText:@"Notifications"];
+    self.navigationItem.titleView           = [DWGUIManager customTitleWithText:kTitleText];
     self.navigationItem.leftBarButtonItem   = [DWGUIManager customBackButton:_delegate];
-    [self loadData];
+    
+    [_dataSourceDelegate loadData];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidUnload {
     [super viewDidUnload];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)addNewTouch:(DWTouch*)touch {
-	
-	if(_tableViewUsage != kTableViewAsData) {
-		_tableViewUsage = kTableViewAsData;
-		[self.tableView reloadData];
-	}
-	
-	[self.touchesManager addTouch:touch
-                          atIndex:0];
-	
-	NSIndexPath *touchIndexPath = [NSIndexPath indexPathForRow:0
-													 inSection:0];
-	NSArray *indexPaths			= [NSArray arrayWithObjects:touchIndexPath,nil];
-	
-	[self.tableView insertRowsAtIndexPaths:indexPaths
-						  withRowAnimation:UITableViewRowAnimationRight];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (NSInteger)totalRows {
-    return [self.touchesManager totalTouches];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (NSInteger)dataCellHeight {
-    return kTouchCellHeight;
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)loadImagesForOnscreenRows {
-	NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
-	
-	for (NSIndexPath *indexPath in visiblePaths) { 
-		DWTouch *touch = [self.touchesManager getTouch:indexPath.row];
-		
-		[touch startDownloadingImages];
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)loadData {
-    [super loadData];
-    
-    [[DWRequestsManager sharedDWRequestsManager] getTouchesForCurrentUser:_currentPage];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)requestHardRefresh {
-    [self hardRefresh];
 }
 
 
@@ -166,8 +115,7 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
 		
 		if(touch.attachment.databaseID == resourceID) {
 			
-            DWTouchCell *cell = nil;
-            cell = (DWTouchCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+            DWTouchCell *cell = (DWTouchCell*)[self.tableView cellForRowAtIndexPath:indexPath];
             
             [cell setAttachmentImage:[info objectForKey:kKeyImage]];
 			[cell redisplay];
@@ -193,8 +141,7 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
 		
 		if(touch.user.databaseID == resourceID) {
 			
-            DWTouchCell *cell = nil;
-            cell = (DWTouchCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+            DWTouchCell *cell = (DWTouchCell*)[self.tableView cellForRowAtIndexPath:indexPath];
             
             [cell setUserImage:[info objectForKey:kKeyImage]];
 			[cell redisplay];
@@ -214,7 +161,7 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
         [_touchesManager populateTouches:touches
                          withClearStatus:_isReloading];
         		
-        if([self totalRows])
+        if([_dataSourceDelegate numberOfDataRows])
             _tableViewUsage = kTableViewAsData;
         else {
             _tableViewUsage         = kTableViewAsMessage;
@@ -237,70 +184,78 @@ static NSString* const kTouchCellIdentifier		= @"TouchCell";
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UITableViewDataSource
+#pragma mark DWTableViewDataSourceDelegate
 
 //----------------------------------------------------------------------------------------------------
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = nil;
-    
-	if(_tableViewUsage == kTableViewAsData && indexPath.row < [self totalRows]) {
-           
-        DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
-           
-        DWTouchCell *cell   = (DWTouchCell*)[tableView dequeueReusableCellWithIdentifier:kTouchCellIdentifier];
-
-        if (!cell) 
-           cell = [[[DWTouchCell alloc] initWithStyle:UITableViewCellStyleDefault 
-                                          reuseIdentifier:kTouchCellIdentifier] autorelease];
-        
-        cell.userName       = touch.user.firstName;
-        cell.itemData       = touch.itemData;
-        cell.hasAttachment  = touch.attachment ? YES : NO;
-        
-        [cell setPlaceName:touch.placeName
-               andItemData:touch.itemData];
-        
-        //if (!tableView.dragging && !tableView.decelerating)
-            [touch startDownloadingImages];
-
-        if (touch.attachment && touch.attachment.sliceImage)
-            [cell setAttachmentImage:touch.attachment.sliceImage];
-        else
-           [cell setAttachmentImage:nil];
-
-        if(touch.user.smallPreviewImage)
-            [cell setUserImage:touch.user.smallPreviewImage];
-        else
-            [cell setUserImage:nil];
-      
-        [cell reset];
-        [cell redisplay];
-
-        return cell;
-    }
-	else {
-        cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    }
-    
-	return cell;	
+- (NSInteger)numberOfDataRows {
+    return [self.touchesManager totalTouches];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)numberOfDataRowsPerPage {
+    return kTouchesPerPage;
+}
 
 //----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark UITableViewDelegate
+- (CGFloat)heightForDataRows {
+    return kTouchCellHeight;
+}
 
 //----------------------------------------------------------------------------------------------------
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)loadData {
+     [[DWRequestsManager sharedDWRequestsManager] getTouchesForCurrentUser:_currentPage];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadImagesForDataRowAtIndex:(NSIndexPath *)indexPath {
+    DWTouch *touch = [self.touchesManager getTouch:indexPath.row];
+    [touch startDownloadingImages];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (UITableViewCell*)cellForDataRowAt:(NSIndexPath *)indexPath
+                         inTableView:(UITableView*)tableView {
     
-    if(indexPath.row < [self totalRows]) {
-        DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
-        [_delegate userSelected:touch.user];
-    }
+    DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
+    
+    DWTouchCell *cell   = (DWTouchCell*)[tableView dequeueReusableCellWithIdentifier:kTouchCellIdentifier];
+    
+    if (!cell) 
+        cell = [[[DWTouchCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                   reuseIdentifier:kTouchCellIdentifier] autorelease];
+    
+    cell.userName       = touch.user.firstName;
+    cell.itemData       = touch.itemData;
+    cell.hasAttachment  = touch.attachment ? YES : NO;
+    
+    [cell setPlaceName:touch.placeName
+           andItemData:touch.itemData];
+    
+    //if (!tableView.dragging && !tableView.decelerating)
+        [touch startDownloadingImages];
+    
+    if (touch.attachment && touch.attachment.sliceImage)
+        [cell setAttachmentImage:touch.attachment.sliceImage];
     else
-        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+        [cell setAttachmentImage:nil];
+    
+    if(touch.user.smallPreviewImage)
+        [cell setUserImage:touch.user.smallPreviewImage];
+    else
+        [cell setUserImage:nil];
+    
+    [cell reset];
+    [cell redisplay];
+    
+    return cell;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didSelectDataRowAt:(NSIndexPath*)indexPath
+               inTableView:(UITableView*)tableView {
+    
+    DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
+    [_delegate userSelected:touch.user];
 }
 
 @end
