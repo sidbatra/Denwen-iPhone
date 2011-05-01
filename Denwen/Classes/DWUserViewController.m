@@ -189,7 +189,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 //----------------------------------------------------------------------------------------------------
 - (void)loadData {
     [[DWRequestsManager sharedDWRequestsManager] getUserWithID:self.user.databaseID
-														atPage:_currentPage];
+                                                fromLastItemID:_lastID];
 }
 
 

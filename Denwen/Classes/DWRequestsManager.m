@@ -31,7 +31,7 @@ static NSString* const kFollowingsURI			= @"/followings.json?place_id=%d";
 static NSString* const kFollowingsDestroyURI	= @"/followings/%d.json?ignore=1";
 static NSString* const kNewTouchURI				= @"/touches.json?item_id=%d";
 static NSString* const kTouchesURI				= @"/touches.json?last_id=%d";
-static NSString* const kUserURI					= @"/users/%d.json?page=%d";
+static NSString* const kUserURI					= @"/users/%d.json?last_id=%d";
 static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
 static NSString* const kUserUpdateTwitterURI	= @"/users/%d.json?twitter_data=%@";
 static NSString* const kUserUpdateFacebookURI	= @"/users/%d.json?facebook_data=%@";
@@ -296,11 +296,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 
 //----------------------------------------------------------------------------------------------------
 - (void)getUserWithID:(NSInteger)userID
-			   atPage:(NSInteger)page {
+       fromLastItemID:(NSInteger)lastID {
 	
 	NSString *localRequestURL = [NSString stringWithFormat:kUserURI,
 									userID,
-									page];
+									lastID];
 	
 	[self createDenwenRequest:localRequestURL 
 		  successNotification:kNUserLoaded

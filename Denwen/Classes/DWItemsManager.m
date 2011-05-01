@@ -48,6 +48,11 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSInteger)getIDForLastItem {
+    return [_items count] ? ((DWItem*)[_items lastObject]).databaseID : 0;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)clearAllItems {
 	for(DWItem *item in _items)
 		[[DWMemoryPool sharedDWMemoryPool]  removeObject:item 

@@ -252,6 +252,11 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSInteger)idForLastDataRow {
+    return [self.itemManager getIDForLastItem];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)loadImagesForDataRowAtIndex:(NSIndexPath *)indexPath {
     DWItem *item = [_itemManager getItem:indexPath.row];
     [item startRemoteImagesDownload];

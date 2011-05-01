@@ -89,7 +89,7 @@
  * User profile with page representing items pagination
  */
 - (void)getUserWithID:(NSInteger)userID
-			   atPage:(NSInteger)page;
+       fromLastItemID:(NSInteger)lastID;
 
 /**
  * Update the display picture for a user

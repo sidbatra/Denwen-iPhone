@@ -25,6 +25,11 @@
 - (DWItem*)getItem:(NSInteger)index;
 
 /**
+ * Returns the databaseID for the last item
+ */
+- (NSInteger)getIDForLastItem;
+
+/**
  * Add the given item at the given index
  */
 - (void)addItem:(DWItem*)item
