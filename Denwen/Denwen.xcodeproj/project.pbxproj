@@ -1535,6 +1535,8 @@
 				BB6419AB134BAE93002A2325 /* DWCreateViewController.m */,
 				BBF899C813510E7800B332CA /* DWChooseLocationViewController.h */,
 				BBF899C913510E7800B332CA /* DWChooseLocationViewController.m */,
+				26D3CB1E1363C617007CE094 /* DWNotificationsViewController.h */,
+				26D3CB1F1363C617007CE094 /* DWNotificationsViewController.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1977,8 +1979,6 @@
 			children = (
 				26D3CB211363C656007CE094 /* DWTableViewController.h */,
 				26D3CB221363C656007CE094 /* DWTableViewController.m */,
-				26D3CB1E1363C617007CE094 /* DWNotificationsViewController.h */,
-				26D3CB1F1363C617007CE094 /* DWNotificationsViewController.m */,
 			);
 			name = "Table ";
 			sourceTree = "<group>";

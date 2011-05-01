@@ -33,9 +33,9 @@ static NSString* const kImgCheckedLightVideoButton			= @"video_white_checked.png
 static NSString* const kImgCheckedBlueVideoButton			= @"video_blue_checked.png";
 static NSString* const kImgLightMapButton					= @"pointer_white.png";
 static NSString* const kImgDarkMapButton					= @"pointer_gray_light.png";
-static NSString* const kMsgMissingFieldsTitle				= @"Missing Fields";
-static NSString* const kMsgPlaceMissing						= @"Select an existing place or create a new one";
-static NSString* const kMsgDataMissing						= @"Write a post or attach an image or video";
+static NSString* const kMsgMissingFieldsTitle				= @"Incomplete";
+static NSString* const kMsgPlaceMissing						= @"Add where you are";
+static NSString* const kMsgDataMissing						= @"Add an update using text, photo and video";
 
 
 
