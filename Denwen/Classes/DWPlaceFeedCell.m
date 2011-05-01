@@ -8,11 +8,16 @@
 static NSString* const kImgSeparator	= @"hr_place_list.png";
 static NSString* const kImgChevron		= @"chevron.png";
 
-#define kAnimationDuration          0.05
-#define kNoAnimationDuration		0.0
-#define kFadeDelay                  0.3
-#define kNormalAlpha                0.65
-#define kHighlightAlpha             0.45
+#define kAnimationDuration              0.05
+#define kNoAnimationDuration            0.0
+#define kFadeDelay                      0.3
+#define kNormalAlpha                	0.65
+#define kNormalNoAttachmentAlpha        1.0
+#define kHighlightAlpha                 0.45
+#define kColorNormalBg                  [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
+#define kColorNoAttachmentBg            [UIColor colorWithRed:0.3490 green:0.3490 blue:0.3490 alpha:1.0].CGColor
+#define kColorNoAttachmentHighlightBg   [UIColor colorWithRed:0.2784 green:0.2784 blue:0.2784 alpha:1.0].CGColor
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -27,10 +32,13 @@ static NSString* const kImgChevron		= @"chevron.png";
 	
 	UIGraphicsPushContext(context);
 	
-	
-	CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);
-	//CGContextSetShadowWithColor(context,CGSizeMake(0.0f,-1.0f),0.0f,[UIColor blackColor].CGColor);
-	 
+	if([placeCell isHighlighted] && !placeCell.hasAttachment)
+        CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.9019
+                                                               green:0.9019 
+                                                                blue:0.9019
+                                                               alpha:1.0].CGColor);	 
+    else
+        CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);	 
 	
 	[placeCell.placeName drawInRect:CGRectMake(20,21,280,28) 
 						   withFont:[UIFont fontWithName:@"HelveticaNeue" size:22]
@@ -57,6 +65,7 @@ static NSString* const kImgChevron		= @"chevron.png";
 @synthesize placeName			= _placeName;
 @synthesize placeData			= _placeData;
 @synthesize placeDetails		= _placeDetails;
+@synthesize hasAttachment       = _hasAttachment;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithStyle:(UITableViewCellStyle)style
@@ -72,8 +81,6 @@ static NSString* const kImgChevron		= @"chevron.png";
 		placeImageLayer					= [CALayer layer];
 		placeImageLayer.frame			= frame;
 		placeImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
-		placeImageLayer.opacity			= kNormalAlpha;
-		placeImageLayer.backgroundColor	= [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor;
 		placeImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 										   [NSNull null], @"contents",
 										   nil];
@@ -124,7 +131,10 @@ static NSString* const kImgChevron		= @"chevron.png";
     [CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kNoAnimationDuration]
 					 forKey:kCATransactionAnimationDuration];		
-	placeImageLayer.opacity = kNormalAlpha;
+    
+	placeImageLayer.opacity         = _hasAttachment ? kNormalAlpha : kNormalNoAttachmentAlpha;
+    placeImageLayer.backgroundColor = _hasAttachment ? kColorNormalBg : kColorNoAttachmentBg;
+    
 	[CATransaction commit];
 }
 
@@ -166,7 +176,9 @@ static NSString* const kImgChevron		= @"chevron.png";
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kAnimationDuration]
 					 forKey:kCATransactionAnimationDuration];		
-	placeImageLayer.opacity = kHighlightAlpha;
+	placeImageLayer.opacity         = _hasAttachment ? kHighlightAlpha : kNormalNoAttachmentAlpha;
+    placeImageLayer.backgroundColor = _hasAttachment ? kColorNormalBg : kColorNoAttachmentHighlightBg;
+    [self redisplay];
 	[CATransaction commit];
 }
 
@@ -177,7 +189,9 @@ static NSString* const kImgChevron		= @"chevron.png";
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kAnimationDuration]
 					 forKey:kCATransactionAnimationDuration];		
-	placeImageLayer.opacity = kNormalAlpha;
+	placeImageLayer.opacity         = _hasAttachment ? kNormalAlpha : kNormalNoAttachmentAlpha;
+    placeImageLayer.backgroundColor = _hasAttachment ? kColorNormalBg : kColorNoAttachmentBg;
+    [self redisplay];
 	[CATransaction commit];
 }
 

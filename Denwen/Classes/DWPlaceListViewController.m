@@ -170,6 +170,7 @@ static NSInteger const kDefaultSection              = 0;
 
     cell.placeName      = place.name;
     cell.placeDetails   = [place displayAddress];
+    cell.hasAttachment  = place.attachment ? YES : NO;
 
     if (place.attachment && place.attachment.sliceImage)
        [cell setPlaceImage:place.attachment.sliceImage];

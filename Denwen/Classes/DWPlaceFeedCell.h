@@ -33,6 +33,7 @@
 	DWPlaceFeedCellDrawingLayer		*drawingLayer;
 	
 	BOOL							_highlighted;
+    BOOL                            _hasAttachment;
 	
 	NSString						*_placeName;
 	NSString						*_placeData;
@@ -53,6 +54,12 @@
  * The address for the place
  */
 @property (nonatomic,copy) NSString* placeDetails;
+
+/**
+ * Flag for whether the last item at a place had an attachment
+ * or not
+ */
+@property (nonatomic,assign) BOOL hasAttachment;
 
 /**
  * Reset any variables that may not be refreshed 
