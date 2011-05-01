@@ -44,7 +44,7 @@
  */
 - (void)getPlaceWithHashedID:(NSString*)hashedID 
 			  withDatabaseID:(NSInteger)placeID
-					  atPage:(NSInteger)page;
+              withLastItemID:(NSInteger)lastID;
 
 /**
  * Update the background photo for a place

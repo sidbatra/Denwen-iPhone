@@ -170,7 +170,7 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 - (void)loadData {
     [[DWRequestsManager sharedDWRequestsManager] getPlaceWithHashedID:self.place.hashedID
 													   withDatabaseID:self.place.databaseID
-															   atPage:_currentPage];
+                                                       withLastItemID:_lastID];
 }
 
 

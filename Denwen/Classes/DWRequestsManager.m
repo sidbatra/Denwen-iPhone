@@ -23,7 +23,7 @@ static NSString* const kPopularPlacesURI		= @"/popular/places.json?page=%d";
 static NSString* const kNearbyPlacesURI			= @"/nearby/places.json?lat=%f&lon=%f";
 static NSString* const kUserPlacesURI			= @"/users/%d/places.json?ignore=1";
 static NSString* const kSearchPlacesURI			= @"/search/places.json?q=%@";
-static NSString* const kPlaceURI				= @"/p/%@.json?page=%d";
+static NSString* const kPlaceURI				= @"/p/%@.json?last_id=%d";
 static NSString* const kPlaceUpdatePhotoURI		= @"/places/%d.json?photo_filename=%@";
 static NSString* const kNewPlaceURI				= @"/places.json?place[name]=%@&place[lat]=%f&place[lon]=%f&place[photo_filename]=%@";
 static NSString* const kVisitsURI				= @"/visits.json?lat=%f&lon=%f";
@@ -185,11 +185,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 //----------------------------------------------------------------------------------------------------
 - (void)getPlaceWithHashedID:(NSString*)hashedID 
 				  withDatabaseID:(NSInteger)placeID
-						  atPage:(NSInteger)page {
+                  withLastItemID:(NSInteger)lastID {
 	
 	NSString *localRequestURL = [NSString stringWithFormat:kPlaceURI,
 									 hashedID,
-									 page];
+									 lastID];
 		
 	[self createDenwenRequest:localRequestURL 
 		  successNotification:kNPlaceLoaded 
