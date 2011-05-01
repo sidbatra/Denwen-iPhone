@@ -404,15 +404,14 @@ replacementString:(NSString *)string {
 																 atOrientation:self.videoOrientation
 																	 toPlaceID:self.selectedPlace.databaseID];
 		}
-
-		
-		[[NSNotificationCenter defaultCenter] postNotificationName:kNRequestTabBarIndexChange
-															object:nil
-														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-																	[NSNumber numberWithInt:kTabBarFeedIndex],kKeyTabIndex,
-                                                                    [NSNumber numberWithBool:YES],kKeyPopAll,
-																	nil]];
 	}
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNRequestTabBarIndexChange
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                [NSNumber numberWithInt:kTabBarFeedIndex],kKeyTabIndex,
+                                                                [NSNumber numberWithBool:YES],kKeyPopAll,
+                                                                nil]];
 	
 	[self.parentViewController dismissModalViewControllerAnimated:NO];
 }
