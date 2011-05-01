@@ -37,7 +37,7 @@ static NSString* const kUserUpdateTwitterURI	= @"/users/%d.json?twitter_data=%@"
 static NSString* const kUserUpdateFacebookURI	= @"/users/%d.json?facebook_data=%@";
 static NSString* const kUserUpdateDeviceURI		= @"/users/%d.json?iphone_device_id=%@";
 static NSString* const kUserUpdateSubtrahendURI	= @"/users/%d.json?unread_subtrahend=%d";
-static NSString* const kFollowedItemsURI		= @"/followed/items.json?page=%d";
+static NSString* const kFollowedItemsURI		= @"/followed/items.json?last_id=%d";
 static NSString* const kNewItemURI				= @"/items.json?item[data]=%@&item[place_id]=%d&attachment[filename]=%@";
 static NSString* const kNewItemWithPlaceURI		= @"/items.json?item[data]=%@&attachment[filename]=%@&place[name]=%@&place[lat]=%f&place[lon]=%f";
 static NSString* const kNewUserURI				= @"%@%@/users.json?user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile";
@@ -382,10 +382,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)getFollowedItemsAtPage:(NSInteger)page {
+- (void)getFollowedItemsFromLastID:(NSInteger)lastID {
 	
 	NSString *localRequestURL = [NSString stringWithFormat:kFollowedItemsURI,
-										page];
+										lastID];
 	
 	[self createDenwenRequest:localRequestURL 
 		  successNotification:kNFollowedItemsLoaded

@@ -120,9 +120,9 @@
 
 /**
  * Recent items from the places followed by the current user
- * page provides pagination
+ * lastID provides pagination
  */
-- (void)getFollowedItemsAtPage:(NSInteger)page;
+- (void)getFollowedItemsFromLastID:(NSInteger)lastID;
 
 /**
  * Create a new item

@@ -138,7 +138,7 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)loadData {
-	[[DWRequestsManager sharedDWRequestsManager] getFollowedItemsAtPage:_currentPage];
+	[[DWRequestsManager sharedDWRequestsManager] getFollowedItemsFromLastID:_lastID];
 }
 
 
