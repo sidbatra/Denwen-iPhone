@@ -25,11 +25,6 @@
 - (void)scrollToTop;
 
 /**
- * Refresh the UI when the new items have been read
- */
-- (void)followedItemsRead;
-
-/**
  * Load new items
  */
 - (void)loadNewItems;

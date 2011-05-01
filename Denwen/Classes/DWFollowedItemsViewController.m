@@ -28,11 +28,6 @@
 												   object:nil];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(newApplicationBadge:) 
-													 name:kNNewApplicationBadge
-												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(itemsLoaded:) 
 													 name:kNFollowedItemsLoaded
 												   object:nil];
@@ -60,7 +55,7 @@
 	[super viewDidLoad];
 	 
 	if(!_isLoadedOnce)
-        [self loadItems];
+        [_dataSourceDelegate loadData];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -68,11 +63,8 @@
     [super didReceiveMemoryWarning];  
 }
 
-
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
     [super dealloc];
 }
 
@@ -87,19 +79,8 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)loadItems {
-	[super loadItems];
-	[[DWRequestsManager sharedDWRequestsManager] getFollowedItemsAtPage:_currentPage];
-}
-
-//----------------------------------------------------------------------------------------------------
 - (void)loadNewItems {
     [self hardRefresh];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)followedItemsRead {
-	[self.tableView reloadData];
 }
 
 
@@ -114,27 +95,6 @@
 	
 	if(_isLoadedOnce)
 		[self addNewItem:item atIndex:0];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)newApplicationBadge:(NSNotification*)notification {
-	
-	NSInteger notificationType = [[(NSDictionary*)[notification userInfo] objectForKey:kKeyNotificationType] integerValue];
-	
-	if(_isLoadedOnce && [DWNotificationsHelper sharedDWNotificationsHelper].unreadItems) {
-		
-		/**
-		 * Perform a silent reload unless its a background push notification
-		 */
-		if(notificationType == kPNBackground) {
-			_tableViewUsage = kTableViewAsSpinner;
-			[self.tableView reloadData];
-		}
-		
-		[self resetPagination];
-		_isReloading = YES;
-		[self loadItems];
-	}
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -156,13 +116,13 @@
 		_isLoadedOnce = YES;
 	}
 	
-	[self finishedLoadingItems];
+	[self finishedLoading];
 	[self.tableView reloadData];
 }		
 
 //----------------------------------------------------------------------------------------------------
 - (void)itemsError:(NSNotification*)notification {
-	[self finishedLoadingItems];
+	[self finishedLoading];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -174,23 +134,14 @@
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UITableViewDataSource
+#pragma mark DWTableViewDataSourceDelegate
 
-
-// Override cellForRowAtIndexPath to highlight new items if any
-//
-- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [super tableView:theTableView cellForRowAtIndexPath:indexPath];
-	
-	if([cell isKindOfClass:[DWItemFeedCell class]] && 
-	   indexPath.row < [DWNotificationsHelper sharedDWNotificationsHelper].unreadItems) {
-		
-		//[(DWItemFeedCell*)cell displayNewCellState];
-	}
-		
-	
-	return cell;
+//----------------------------------------------------------------------------------------------------
+- (void)loadData {
+	[[DWRequestsManager sharedDWRequestsManager] getFollowedItemsAtPage:_currentPage];
 }
+
+
 
 @end
 

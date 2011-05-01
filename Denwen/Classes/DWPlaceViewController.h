@@ -6,10 +6,9 @@
 #import <UIKit/UIKit.h>
 
 #import "DWItemFeedViewController.h"
-#import "DWPlaceTitleView.h"
-#import "DWFollowing.h"
 
-#import "MBProgressHUD.h"
+@class DWFollowing;
+@class DWPlaceTitleView;
 
 /**
  * Place view with place info and all the items posted at
@@ -18,9 +17,7 @@
 @interface DWPlaceViewController : DWItemFeedViewController<UIActionSheetDelegate> {
 	DWPlace             *_place;
 	DWFollowing         *_following;
-    DWPlaceTitleView    *_placeTitleView;
-	
-	NSInteger			_uploadID;
+    DWPlaceTitleView    *_placeTitleView;	
 }
 
 /**

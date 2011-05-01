@@ -167,7 +167,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
-	[self resetBadgeValue];
+	//[self resetBadgeValue];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -205,9 +205,11 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)resetBadgeValue {
+    /*
 	self.tabBarItem.badgeValue = nil;
 	[[DWNotificationsHelper sharedDWNotificationsHelper] resetUnreadCount];
 	[followedViewController followedItemsRead];
+     */
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -262,8 +264,8 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)applicationEnteringBackground:(NSNotification*)notification {
-	if([self isSelectedTab])
-		[self resetBadgeValue];
+	//if([self isSelectedTab])
+	//	[self resetBadgeValue];
 }
 
 //----------------------------------------------------------------------------------------------------                                       

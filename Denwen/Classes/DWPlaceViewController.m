@@ -8,8 +8,9 @@
 #import "DWShareViewController.h"
 #import "DWRequestsManager.h"
 #import "DWGUIManager.h"
-#import "DWPlaceCell.h"
 #import "DWItemFeedCell.h"
+#import "DWPlaceTitleView.h"
+#import "DWFollowing.h"
 #import "DWSession.h"
 #import "DWConstants.h"
 
@@ -81,9 +82,7 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+- (void)dealloc {    
 	self.place						= nil;
 	self.following					= nil;
     self.placeTitleView             = nil;
@@ -118,7 +117,7 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
                                 andButtonType:kDWButtonTypeDynamic] autorelease];
         			
 	if(!_isLoadedOnce)
-		[self loadItems];
+		[_dataSourceDelegate loadData];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -132,15 +131,6 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 		self.following = nil;
 	}
 
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)loadItems {
-	[super loadItems];
-	
-	[[DWRequestsManager sharedDWRequestsManager] getPlaceWithHashedID:self.place.hashedID
-													   withDatabaseID:self.place.databaseID
-															   atPage:_currentPage];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -168,6 +158,19 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
         [(DWItemFeedCell*)cell setPlaceButtonAsDisabled]; 
     
     return cell;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWTableViewDataSourceDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadData {
+    [[DWRequestsManager sharedDWRequestsManager] getPlaceWithHashedID:self.place.hashedID
+													   withDatabaseID:self.place.databaseID
+															   atPage:_currentPage];
 }
 
 
@@ -202,7 +205,7 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 		_isLoadedOnce	= YES;
 	}
 	
-	[self finishedLoadingItems];
+	[self finishedLoading];
 	[self.tableView reloadData];
 }
 
@@ -213,7 +216,7 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 	if([[info objectForKey:kKeyResourceID] integerValue] != self.place.databaseID)
 		return;
 	
-	[self finishedLoadingItems];
+	[self finishedLoading];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -249,7 +252,7 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark CLick events from across the view
+#pragma mark Click events from across the view
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapShareButton:(id)sender event:(id)event {

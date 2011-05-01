@@ -4,14 +4,10 @@
 //
 
 #import "DWPlaceListViewController.h"
-#import "DWPlaceViewController.h"
-#import "DWConstants.h"
-
-//Cells
+#import "DWPlace.h"
+#import "DWAttachment.h"
 #import "DWPlaceFeedCell.h"
-#import "DWPaginationCell.h"
-#import "DWLoadingCell.h"
-#import "DWMessageCell.h"
+#import "DWConstants.h"
 
 static NSInteger const kPlaceFeedCellHeight			= 92;
 static NSString* const kPlaceFeedCellIdentifier		= @"PlaceFeedCell";

@@ -6,14 +6,10 @@
 #import <UIKit/UIKit.h>
 
 #import "DWItemFeedViewController.h"
-#import "DWMediaPickerController.h"
-#import "DWUserTitleView.h"
-#import "DWSmallProfilePicView.h"
 #import "DWProfilePicManager.h"
-#import "DWUser.h"
 
-
-@protocol DWMediaPickerControllerDelegate;
+@class DWUserTitleView;
+@class DWSmallProfilePicView;
 
 /**
  * Display details about a user and the items posted by them

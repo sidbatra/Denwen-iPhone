@@ -110,41 +110,6 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)attachmentSelected:(NSString*)url withIsImageType:(BOOL)isImage {
-	
-	if(isImage) {
-        /*
-		DWImageViewController *imageView = [[DWImageViewController alloc] initWithImageURL:url];
-		imageView.hidesBottomBarWhenPushed = YES;
-		
-		[self.navigationController pushViewController:imageView 
-											 animated:YES];
-		[imageView release];
-         */
-	}
-	else {
-        /*
-		DWVideoViewController *videoView = [[DWVideoViewController alloc] initWithMediaURL:url];
-		videoView.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-		[customTabBarController presentMoviePlayerViewControllerAnimated:videoView];
-		[videoView release];
-         */
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)urlSelected:(NSString *)url {
-	DWWebViewController *webViewController = [[DWWebViewController alloc] initWithWebPageURL:url]; 
-	webViewController.hidesBottomBarWhenPushed = YES;
-	
-	[self.navigationController pushViewController:webViewController 
-										 animated:YES];
-	
-	[webViewController release];
-}
-
-
-//----------------------------------------------------------------------------------------------------
 - (UIViewController*)requestCustomTabBarController {
     return customTabBarController;
 }

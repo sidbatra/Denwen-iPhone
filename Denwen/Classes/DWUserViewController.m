@@ -10,22 +10,16 @@
 #import "DWSession.h"
 #import "DWFollowedPlacesViewController.h"
 #import "DWProfilePicViewController.h"
-#import "DWImageViewController.h"
-
-//Cells
+#import "DWUserTitleView.h"
+#import "DWSmallProfilePicView.h"
+#import "DWUser.h"
 #import "DWItemFeedCell.h"
-#import "DWMessageCell.h"
 
-static NSInteger const kMessageCellIndex					= 2;
-static NSString* const kImgPullToRefreshBackground			= @"userprofilefade.png";
-static float	 const kPullToRefreshBackgroundRedValue		= 0.6156;
-static float	 const kPullToRefreshBackgroundGreenValue	= 0.6666;
-static float	 const kPullToRefreshBackgroundBlueValue	= 0.7372;
-static float	 const kPullToRefreshBackgroundAlphaValue	= 1.0;
 static NSInteger const kNewItemRowInTableView				= 0;
 static NSString* const kMsgCurrentUserNoItems				= @"Everything you post shows up here";
 static NSString* const kUserViewCellIdentifier				= @"UserViewCell";
 static NSInteger const kActionSheetCancelIndex				= 2;
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -73,6 +67,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 													 name:kNUserFollowingCountUpdated
 												   object:nil];  
 	}
+    
 	return self;
 }
 
@@ -101,7 +96,8 @@ static NSInteger const kActionSheetCancelIndex				= 2;
         [self.navigationController pushViewController:profilePicViewController animated:YES];
         [profilePicViewController release]; 
     }
-    else if ([self.user isCurrentUser]) {
+    else if([self.user isCurrentUser]) {
+        
         if(!self.profilePicManager)
             self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self] autorelease];
     
@@ -124,21 +120,25 @@ static NSInteger const kActionSheetCancelIndex				= 2;
     
     if (!self.userTitleView)
         self.userTitleView = [[[DWUserTitleView alloc] 
-                               initWithFrame:CGRectMake(kNavTitleViewX, 0,
-                                                        kNavTitleViewWidth,kNavTitleViewHeight) 
-                               delegate:self 
-                               titleMode:kNavTitleAndSubtitleMode 
+                               initWithFrame:CGRectMake(kNavTitleViewX,
+                                                        0,
+                                                        kNavTitleViewWidth,
+                                                        kNavTitleViewHeight) 
+                                    delegate:self 
+                                   titleMode:kNavTitleAndSubtitleMode 
                                andButtonType:kDWButtonTypeStatic] autorelease];
     
     
     if (!self.smallProfilePicView)
         self.smallProfilePicView = [[[DWSmallProfilePicView alloc] 
-                                     initWithFrame:CGRectMake(260, 0, 
-                                                              kNavTitleViewWidth,kNavTitleViewHeight) 
-                                     andTarget:self] autorelease];
+                                     initWithFrame:CGRectMake(260,
+                                                              0, 
+                                                              kNavTitleViewWidth,
+                                                              kNavTitleViewHeight) 
+                                         andTarget:self] autorelease];
                 
 	if(!_isLoadedOnce)
-		[self loadItems];
+		[_dataSourceDelegate loadData];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -164,13 +164,6 @@ static NSInteger const kActionSheetCancelIndex				= 2;
     [super dealloc];
 }
 
-//----------------------------------------------------------------------------------------------------
-- (void)loadItems {
-	[super loadItems];	
-	[[DWRequestsManager sharedDWRequestsManager] getUserWithID:self.user.databaseID
-														atPage:_currentPage];
-}
-
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -185,6 +178,18 @@ static NSInteger const kActionSheetCancelIndex				= 2;
         [(DWItemFeedCell*)cell setUserButtonAsDisabled]; 
     
     return cell;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWTableViewDataSourceDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)loadData {
+    [[DWRequestsManager sharedDWRequestsManager] getUserWithID:self.user.databaseID
+														atPage:_currentPage];
 }
 
 
@@ -246,7 +251,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 			_tableViewUsage = kTableViewAsData;			
 	}
 	
-	[self finishedLoadingItems];	
+	[self finishedLoading];	
 	[self.tableView reloadData]; 
 }
 
@@ -257,7 +262,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
 		return;
 	
-	[self finishedLoadingItems];
+	[self finishedLoading];
 }	
 
 //----------------------------------------------------------------------------------------------------
@@ -282,7 +287,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 
 //----------------------------------------------------------------------------------------------------
 - (void)photoPicked:(UIImage*)editedImage {
-    //NOTHING
+    //Stub
 }
 
 
