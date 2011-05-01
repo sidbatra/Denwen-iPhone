@@ -29,7 +29,7 @@
 
 #define TEXT_COLOR	 [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0]
 #define FLIP_ANIMATION_DURATION 0.18f
-#define PULL_OFFSET -20.0f
+#define PULL_OFFSET -35.0f
 
 @interface EGORefreshTableHeaderView (Private)
 - (void)setState:(EGOPullRefreshState)aState;
@@ -41,7 +41,10 @@
 
 
 - (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+    
+    self = [super initWithFrame:frame];
+    
+    if (self) {
 		self.clipsToBounds = YES; //Clip the background image view
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -60,7 +63,7 @@
 		[self addSubview:_transparentImageView];
 		[_transparentImageView release];
 
-		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 30.0f, self.frame.size.width, 20.0f)];
+		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 45.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		label.font = [UIFont fontWithName:@"Helvetica" size:12];
 		label.textColor = TEXT_COLOR;
@@ -72,14 +75,15 @@
 		_lastUpdatedLabel=label;
 		[label release];
 		
-		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 27.0f, self.frame.size.width, 20.0f)];
+		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 39.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		label.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
 		label.textColor = TEXT_COLOR;
-		label.shadowColor = [UIColor whiteColor];
-		label.shadowOffset = CGSizeMake(0.0f, 0.5f);
+		//label.shadowColor = [UIColor whiteColor];
+		//label.shadowOffset = CGSizeMake(0.0f, 0.5f);
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = UITextAlignmentCenter;
+        label.alpha = 0.75;
 		[self addSubview:label];
 		_statusLabel=label;
 		[label release];
@@ -99,9 +103,10 @@
 		//_arrowImage=layer;
 		
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		view.frame = CGRectMake(frame.size.width / 2 - 10.0f, frame.size.height - 27.0f, 20.0f, 20.0f);
+		view.frame = CGRectMake(frame.size.width / 2 - 10.0f, frame.size.height - 39.0f, 20.0f, 20.0f);
 		[self addSubview:view];
 		_activityView = view;
+        _activityView.alpha = 0.5;
 		[view release];
 		
 		
@@ -128,8 +133,8 @@
 	self.backgroundColor = backColor;
 	
 	_statusLabel.textColor = [UIColor whiteColor];
-	_statusLabel.shadowColor = [UIColor blackColor];
-	_statusLabel.shadowOffset = CGSizeMake(0.0f, -0.5f);
+	//_statusLabel.shadowColor = [UIColor blackColor];
+	//_statusLabel.shadowOffset = CGSizeMake(0.0f, -0.5f);
 	
 	_activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 }
@@ -178,7 +183,7 @@
 			//[UIView setAnimationDelegate:self];
 			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 			[UIView setAnimationDuration:0.6];
-			[_statusLabel setAlpha:1];
+			[_statusLabel setAlpha:0.75];
 			[UIView commitAnimations];
 			
 			
@@ -205,7 +210,7 @@
 			//[UIView 
 			
 			if(_state != EGOOPullRefreshLoading) {
-			_statusLabel.alpha = 1.0;
+			_statusLabel.alpha = 0.75;
 			[UIView beginAnimations:nil context:NULL];
 			//[UIView setAnimationDelegate:self];
 			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];

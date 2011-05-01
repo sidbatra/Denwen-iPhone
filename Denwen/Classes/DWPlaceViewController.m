@@ -291,7 +291,7 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
                                                         cancelButtonTitle:kMsgActionSheetCancel
                                                    destructiveButtonTitle:kMsgActionSheetUnfollow
                                                         otherButtonTitles:nil];
-        actionSheet.tag  = kTagUnfollowActionSheet;
+        actionSheet.tag                 = kTagUnfollowActionSheet;
         [actionSheet showInView:[_delegate requestCustomTabBarController].view];
         [actionSheet release];    
     }

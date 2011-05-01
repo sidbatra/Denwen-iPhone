@@ -59,12 +59,15 @@ static NSInteger const kSpinnerCellIndex			= 0;
 																						  self.view.frame.size.width,
 																						  self.tableView.bounds.size.height)] autorelease];
 	self.refreshHeaderView.delegate = self;
-	
+    
+    
 	[self.refreshHeaderView applyBackgroundImage:nil 
 								   withFadeImage:nil
-							 withBackgroundColor:[UIColor blackColor]];
+							 withBackgroundColor:[UIColor colorWithRed:0.1764
+                                                                 green:0.1764 
+                                                                  blue:0.1764
+                                                                 alpha:1.0]];
     
-	
 	[self.tableView addSubview:self.refreshHeaderView];
 }
 

@@ -120,7 +120,7 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
                                                             otherButtonTitles:nil];
             
             [actionSheet showInView:[_delegate requestCustomTabBarController].view];
-            actionSheet.tag = swipedIndexPath.row;
+            actionSheet.tag                 = swipedIndexPath.row;
             [actionSheet release];    
         }
     }

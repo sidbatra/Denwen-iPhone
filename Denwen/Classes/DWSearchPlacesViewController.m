@@ -75,14 +75,6 @@ static NSInteger const kPlacesIndex					= 0;
     }
 	
     self.tableView.tableHeaderView  = searchBar;
-    
-	
-	[self.refreshHeaderView applyBackgroundImage:nil 
-								   withFadeImage:nil
-							 withBackgroundColor:[UIColor colorWithRed:0.1764
-                                                                 green:0.1764 
-                                                                  blue:0.1764
-                                                                 alpha:1.0]];
 }
 
 //----------------------------------------------------------------------------------------------------
