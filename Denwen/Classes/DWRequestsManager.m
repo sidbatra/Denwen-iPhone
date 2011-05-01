@@ -30,7 +30,7 @@ static NSString* const kVisitsURI				= @"/visits.json?lat=%f&lon=%f";
 static NSString* const kFollowingsURI			= @"/followings.json?place_id=%d";
 static NSString* const kFollowingsDestroyURI	= @"/followings/%d.json?ignore=1";
 static NSString* const kNewTouchURI				= @"/touches.json?item_id=%d";
-static NSString* const kTouchesURI				= @"/touches.json?page=%d";
+static NSString* const kTouchesURI				= @"/touches.json?last_id=%d";
 static NSString* const kUserURI					= @"/users/%d.json?page=%d";
 static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
 static NSString* const kUserUpdateTwitterURI	= @"/users/%d.json?twitter_data=%@";
@@ -284,9 +284,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)getTouchesForCurrentUser:(NSInteger)page {
+- (void)getTouchesForCurrentUser:(NSInteger)lastID {
     NSString *localRequestURL = [NSString stringWithFormat:kTouchesURI,
-                                 page];
+                                 lastID];
 	
 	[self createDenwenRequest:localRequestURL 
 		  successNotification:kNTouchesLoaded

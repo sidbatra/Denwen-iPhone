@@ -23,6 +23,11 @@
 }
 
 /**
+ * DatabaseID for the touch object
+ */
+@property (nonatomic,readonly) NSInteger databaseID;
+
+/**
  * Data of the item touched
  */
 @property (nonatomic,copy) NSString* itemData;

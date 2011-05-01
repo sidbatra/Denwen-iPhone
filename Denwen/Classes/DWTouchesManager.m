@@ -42,6 +42,11 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSInteger)getIDForLastTouch {
+    return [_touches count] ? ((DWTouch*)[_touches lastObject]).databaseID : 0;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)addTouch:(DWTouch*)touch
          atIndex:(NSInteger)index {
     

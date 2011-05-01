@@ -16,6 +16,7 @@ static NSInteger const kItemDataSummaryLength   = 15;
 //----------------------------------------------------------------------------------------------------
 @implementation DWTouch
 
+@synthesize databaseID  = _databaseID;
 @synthesize itemData    = _itemData;
 @synthesize placeName   = _placeName;
 @synthesize attachment  = _attachment;

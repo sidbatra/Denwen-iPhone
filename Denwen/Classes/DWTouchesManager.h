@@ -26,6 +26,12 @@
 - (DWTouch*)getTouch:(NSInteger)index;
 
 /**
+ * Returns the ID for the last touch 
+ * or zero if no touches are present
+ */
+- (NSInteger)getIDForLastTouch;
+
+/**
  * Add the given touch at the given index
  */
 - (void)addTouch:(DWTouch*)touch

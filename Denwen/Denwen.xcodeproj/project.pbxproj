@@ -1874,14 +1874,14 @@
 		BBB51A0812F9FB490024086F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				26EB072E136B7B71003FB186 /* DWProfilePicManager.h */,
-				26EB072F136B7B71003FB186 /* DWProfilePicManager.m */,
 				26D3CB241363C671007CE094 /* DWTouchesManager.h */,
 				26D3CB251363C671007CE094 /* DWTouchesManager.m */,
 				BB641D5A134D3E20002A2325 /* DWItemsManager.h */,
 				BB641D5B134D3E20002A2325 /* DWItemsManager.m */,
 				BB641C58134D33B3002A2325 /* DWPlacesManager.h */,
 				BB641C59134D33B3002A2325 /* DWPlacesManager.m */,
+				26EB072E136B7B71003FB186 /* DWProfilePicManager.h */,
+				26EB072F136B7B71003FB186 /* DWProfilePicManager.m */,
 				BB33134112F2628F00B713F9 /* DWGUIManager.h */,
 				BB33134212F2628F00B713F9 /* DWGUIManager.m */,
 			);

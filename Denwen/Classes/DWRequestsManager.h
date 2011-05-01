@@ -83,7 +83,7 @@
 /**
  * Retrieve touches on items of the current user
  */
-- (void)getTouchesForCurrentUser:(NSInteger)page;
+- (void)getTouchesForCurrentUser:(NSInteger)lastID;
 
 /**
  * User profile with page representing items pagination

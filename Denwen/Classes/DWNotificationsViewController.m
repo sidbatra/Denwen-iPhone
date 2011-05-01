@@ -203,7 +203,12 @@ static NSString* const kTitleText               = @"Notifications";
 
 //----------------------------------------------------------------------------------------------------
 - (void)loadData {
-     [[DWRequestsManager sharedDWRequestsManager] getTouchesForCurrentUser:_currentPage];
+     [[DWRequestsManager sharedDWRequestsManager] getTouchesForCurrentUser:_lastID];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)idForLastDataRow {
+    return [self.touchesManager getIDForLastTouch];
 }
 
 //----------------------------------------------------------------------------------------------------

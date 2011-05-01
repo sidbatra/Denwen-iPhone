@@ -34,6 +34,11 @@
 - (void)loadData;
 
 /**
+ * database id for the last data row
+ */
+- (NSInteger)idForLastDataRow;
+
+/**
  * Lazy load call to load images for the given indexPath
  */
 - (void)loadImagesForDataRowAtIndex:(NSIndexPath*)indexPath;
@@ -57,6 +62,7 @@
  * pull to refresh and pagination
  */
 @interface DWTableViewController : UITableViewController<EGORefreshTableHeaderDelegate,DWTableViewControllerDataSourceDelegate> {
+    NSInteger           _lastID;
     NSInteger           _currentPage;
 	NSInteger           _tableViewUsage;
 	NSInteger           _paginationCellStatus;

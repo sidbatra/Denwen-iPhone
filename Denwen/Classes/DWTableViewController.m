@@ -12,7 +12,7 @@
 static NSInteger const kDefaultSections				= 1;
 static NSInteger const kMessageCellIndex			= 0;
 static NSInteger const kSpinnerCellIndex			= 0;
-
+static NSInteger const kInitialLastID               = 0;
 
 
 //----------------------------------------------------------------------------------------------------
@@ -33,6 +33,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
         _tableViewUsage			= kTableViewAsSpinner;
 		_isReloading			= NO;
         _isLoadingPage          = NO;
+        _lastID                 = kInitialLastID;
 		
 		[self resetPagination];
     }
@@ -86,6 +87,7 @@ static NSInteger const kSpinnerCellIndex			= 0;
 //----------------------------------------------------------------------------------------------------
 - (void)resetPagination {
 	_currentPage            = kPagInitialPage;
+    _lastID                 = kInitialLastID;
 	_paginationCellStatus   = 1;
 }
 
@@ -105,8 +107,9 @@ static NSInteger const kSpinnerCellIndex			= 0;
 //----------------------------------------------------------------------------------------------------
 - (void)loadNextPage {
 	_prePaginationCellCount = [_dataSourceDelegate numberOfDataRows];
-	_currentPage++;
-    _isLoadingPage = YES;
+    _lastID                 = [_dataSourceDelegate idForLastDataRow];
+    _isLoadingPage          = YES;
+    _currentPage++;
 	
     [_dataSourceDelegate loadData];
 }
@@ -353,6 +356,11 @@ static NSInteger const kSpinnerCellIndex			= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)loadData {
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSInteger)idForLastDataRow {
+    return 0;
 }
 
 //----------------------------------------------------------------------------------------------------
