@@ -6,11 +6,6 @@
 #import "DWTitleView.h"
 #import "DWConstants.h"
 
-static NSString* const kImgStaticButton                 = @"loading_bar_fail.png";
-static NSString* const kImgStaticButtonActive           = @"static_button_active.png";
-static NSString* const kImgDynamicButton                = @"button_follow.png";
-static NSString* const kImgDynamicButtonActive          = @"button_follow_active.png";
-
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -58,20 +53,19 @@ static NSString* const kImgDynamicButtonActive          = @"button_follow_active
     underlayButton.enabled      = NO;
     underlayButton.frame        = CGRectMake(0, 0, 200, 44);
     
-    if (buttonType == kDWButtonTypeDynamic) {
+    /*if (buttonType == kDWButtonTypeDynamic) {
         [underlayButton setBackgroundImage:[UIImage imageNamed:kImgDynamicButton]
                                   forState:UIControlStateNormal];
     
         [underlayButton setBackgroundImage:[UIImage imageNamed:kImgDynamicButtonActive]
                                   forState:UIControlStateHighlighted];
-    }
-    else {
-        [underlayButton setBackgroundImage:[UIImage imageNamed:kImgStaticButton]
-                                  forState:UIControlStateNormal];
+    }*/
+
+    [underlayButton setBackgroundImage:[UIImage imageNamed:kImgStaticButton]
+                              forState:UIControlStateNormal];
         
-        [underlayButton setBackgroundImage:[UIImage imageNamed:kImgStaticButtonActive]
-                                  forState:UIControlStateHighlighted];
-    }
+    [underlayButton setBackgroundImage:[UIImage imageNamed:kImgStaticButtonActive]
+                              forState:UIControlStateHighlighted];
     
     [underlayButton addTarget:self 
                        action:@selector(didTouchDownOnButton:) 

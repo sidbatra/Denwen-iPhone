@@ -189,6 +189,16 @@ extern NSInteger const kNavTitleViewX;
 extern NSInteger const kNavTitleViewWidth;
 extern NSInteger const kNavTitleViewHeight;
 
+
+/**
+ * Nav bar title button images
+ */
+extern NSString* const kImgStaticButton;
+extern NSString* const kImgStaticButtonActive;
+extern NSString* const kImgDynamicButton;
+extern NSString* const kImgDynamicButtonActive;
+
+
 /**
  * Nav bar button types
  */

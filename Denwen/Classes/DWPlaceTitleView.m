@@ -4,7 +4,7 @@
 //
 
 #import "DWPlaceTitleView.h"
-
+#import "DWConstants.h"
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -98,6 +98,12 @@
     
     titleLabel.text = [NSString stringWithFormat:@"%@",placeName];
     
+    [underlayButton setBackgroundImage:[UIImage imageNamed:kImgStaticButton]  
+                              forState:UIControlStateNormal];
+    
+    [underlayButton setBackgroundImage:[UIImage imageNamed:kImgStaticButtonActive]  
+                              forState:UIControlStateHighlighted];
+    
     [self showProcessedStateFor:placeName 
               andFollowingCount:followingCount
                      asFollower:YES];
@@ -108,6 +114,12 @@
              andFollowingCount:(NSInteger)followingCount {    
     
     titleLabel.text = [NSString stringWithFormat:@"Follow %@",placeName];
+    
+    [underlayButton setBackgroundImage:[UIImage imageNamed:kImgDynamicButton]  
+                              forState:UIControlStateNormal];
+    
+    [underlayButton setBackgroundImage:[UIImage imageNamed:kImgDynamicButtonActive]  
+                              forState:UIControlStateHighlighted];
     
     [self showProcessedStateFor:placeName 
               andFollowingCount:followingCount

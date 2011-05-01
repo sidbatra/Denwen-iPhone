@@ -197,6 +197,12 @@ NSInteger const kDWButtonTypeStatic             = 0;
 NSInteger const kDWButtonTypeDynamic            = 1;
 
 //----------------------------------------------------------------------------------------------------
+NSString* const kImgStaticButton                 = @"loading_bar_fail.png";
+NSString* const kImgStaticButtonActive           = @"static_button_active.png";
+NSString* const kImgDynamicButton                = @"button_follow.png";
+NSString* const kImgDynamicButtonActive          = @"button_follow_active.png";
+
+//----------------------------------------------------------------------------------------------------
 NSInteger const kNavStandaloneTitleMode            = 0;
 NSInteger const kNavTitleAndSubtitleMode           = 1;
 
