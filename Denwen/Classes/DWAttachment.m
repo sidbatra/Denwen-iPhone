@@ -166,7 +166,7 @@ static float	 const kSliceHeight						= 92;
 			
 		}
 		else {
-			[self appplyNewPreviewImage:[UIImage imageNamed:kImgVideoPreviewPlaceholder]];
+			//[self appplyNewPreviewImage:[UIImage imageNamed:kImgVideoPreviewPlaceholder]];
 		}
 
 	}

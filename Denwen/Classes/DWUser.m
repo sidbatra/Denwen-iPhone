@@ -11,6 +11,7 @@
 #import "DWConstants.h"
 
 static NSString* const kImgProfilePicPlaceHolder		= @"profile_pic_placeholder.png";
+static NSString* const kImgAddProfilePicPlaceHolder		= @"add_profile_pic_placeholder.png";
 static NSString* const kImgMediumPlaceHolder			= @"user_medium_placeholder.png";
 static NSString* const kImgSignedInMediumPlaceHolder	= @"profile_button.png";
 static NSString* const kDiskKeySignedInUser				= @"signedin_user_";
@@ -219,6 +220,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 
 //----------------------------------------------------------------------------------------------------
 - (void)startSmallPreviewDownload {
+    
 	if(_hasPhoto && !_isSmallDownloading && !self.smallPreviewImage) {
 		_isSmallDownloading = YES;
 		
@@ -228,10 +230,9 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 											  errorNotification:kNImgSmallUserError];
 	}
 	else if(!_hasPhoto){ 
-		[self applyNewSmallImage:[UIImage imageNamed:kImgProfilePicPlaceHolder]];
+        self.smallPreviewImage = [UIImage imageNamed:kImgProfilePicPlaceHolder];
 	}
 }
-
 
 //----------------------------------------------------------------------------------------------------
 - (void)startMediumPreviewDownload {
@@ -244,13 +245,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 											  errorNotification:kNImgMediumUserError];
 	}
 	else if(!_hasPhoto){ 
-		if([self isCurrentUser]) {
-			[self applyNewMediumImage:[UIImage imageNamed:kImgSignedInMediumPlaceHolder]];
-		}
-		else {
-			[self applyNewMediumImage:[UIImage imageNamed:kImgMediumPlaceHolder]];
-		}
-	}
+    }
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -356,6 +351,9 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
                                            integerValue];            
 						
 			[standardUserDefaults synchronize];
+            
+            if(!_hasPhoto)
+                self.smallPreviewImage = [UIImage imageNamed:kImgAddProfilePicPlaceHolder];
 		}
 	}
 	

@@ -215,7 +215,7 @@ static NSString* const kTitleText               = @"Notifications";
 //----------------------------------------------------------------------------------------------------
 - (UITableViewCell*)cellForDataRowAt:(NSIndexPath *)indexPath
                          inTableView:(UITableView*)tableView {
-    
+        
     DWTouch *touch      = [self.touchesManager getTouch:indexPath.row];
     
     DWTouchCell *cell   = (DWTouchCell*)[tableView dequeueReusableCellWithIdentifier:kTouchCellIdentifier];
@@ -246,6 +246,7 @@ static NSString* const kTitleText               = @"Notifications";
     
     [cell reset];
     [cell redisplay];
+    
     
     return cell;
 }
