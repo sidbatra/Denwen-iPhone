@@ -129,11 +129,9 @@
 		26B97C0E1318DD4700454624 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 26B97C0D1318DD4700454624 /* navbar.png */; };
 		26CAF7B212F21E110058C01E /* DWFollowedPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CAF7A412F21E110058C01E /* DWFollowedPlacesViewController.m */; };
 		26CAF7B412F21E110058C01E /* DWItemsContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CAF7A712F21E110058C01E /* DWItemsContainerViewController.m */; };
-		26CAF7B512F21E110058C01E /* DWItemsContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CAF7A812F21E110058C01E /* DWItemsContainerViewController.xib */; };
 		26CAF7B612F21E110058C01E /* DWNearbyPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CAF7AA12F21E110058C01E /* DWNearbyPlacesViewController.m */; };
 		26CAF7B812F21E110058C01E /* DWPlaceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CAF7AD12F21E110058C01E /* DWPlaceListViewController.m */; };
 		26CAF7BA12F21E110058C01E /* DWPlacesContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CAF7B012F21E110058C01E /* DWPlacesContainerViewController.m */; };
-		26CAF7BB12F21E110058C01E /* DWPlacesContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CAF7B112F21E110058C01E /* DWPlacesContainerViewController.xib */; };
 		26CF62D612F3E92200505A37 /* DWWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CF62D412F3E92200505A37 /* DWWebViewController.m */; };
 		26CF62D712F3E92200505A37 /* DWWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CF62D512F3E92200505A37 /* DWWebViewController.xib */; };
 		26D29FD41303C100002E37FE /* camera_button_round.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D29FD01303C100002E37FE /* camera_button_round.png */; };
@@ -181,7 +179,6 @@
 		BB28E01D1360093000FF4566 /* loading_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = BB28E0191360093000FF4566 /* loading_bar.png */; };
 		BB28E01E1360093000FF4566 /* loading_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB28E01A1360093000FF4566 /* loading_bar@2x.png */; };
 		BB3311F812F24A4100B713F9 /* DWUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3311F612F24A4100B713F9 /* DWUserViewController.m */; };
-		BB3311F912F24A4100B713F9 /* DWUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3311F712F24A4100B713F9 /* DWUserViewController.xib */; };
 		BB33130712F25F3E00B713F9 /* DWImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33130612F25F3E00B713F9 /* DWImageView.m */; };
 		BB33134312F2628F00B713F9 /* DWGUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB33134212F2628F00B713F9 /* DWGUIManager.m */; };
 		BB3313E912F282BF00B713F9 /* DWProfilePicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB3313E812F282BF00B713F9 /* DWProfilePicViewController.xib */; };
@@ -382,7 +379,6 @@
 		BBEA39C2136A06400021619A /* halo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEA39C0136A06400021619A /* halo@2x.png */; };
 		BBEB947C133AEA9C005AEA64 /* DWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEB947B133AEA9C005AEA64 /* DWRequest.m */; };
 		BBEFA04712EAA4FF004EC06A /* DWPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */; };
-		BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */; };
 		BBF890E9134E53D500B332CA /* DWNewPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF890E8134E53D500B332CA /* DWNewPlaceCell.m */; };
 		BBF8913A134E885B00B332CA /* DWCreationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF89139134E885B00B332CA /* DWCreationQueue.m */; };
 		BBF891B5134ECDAB00B332CA /* DWCreationQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF891B4134ECDAB00B332CA /* DWCreationQueueItem.m */; };
@@ -439,7 +435,6 @@
 		BBF89D4F1352CB5400B332CA /* chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89D4D1352CB5400B332CA /* chevron.png */; };
 		BBF89D501352CB5400B332CA /* chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89D4E1352CB5400B332CA /* chevron@2x.png */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
-		BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -578,14 +573,12 @@
 		26CAF7A412F21E110058C01E /* DWFollowedPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFollowedPlacesViewController.m; path = Classes/DWFollowedPlacesViewController.m; sourceTree = "<group>"; };
 		26CAF7A612F21E110058C01E /* DWItemsContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWItemsContainerViewController.h; path = Classes/DWItemsContainerViewController.h; sourceTree = "<group>"; };
 		26CAF7A712F21E110058C01E /* DWItemsContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWItemsContainerViewController.m; path = Classes/DWItemsContainerViewController.m; sourceTree = "<group>"; };
-		26CAF7A812F21E110058C01E /* DWItemsContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWItemsContainerViewController.xib; path = Classes/DWItemsContainerViewController.xib; sourceTree = "<group>"; };
 		26CAF7A912F21E110058C01E /* DWNearbyPlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNearbyPlacesViewController.h; path = Classes/DWNearbyPlacesViewController.h; sourceTree = "<group>"; };
 		26CAF7AA12F21E110058C01E /* DWNearbyPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNearbyPlacesViewController.m; path = Classes/DWNearbyPlacesViewController.m; sourceTree = "<group>"; };
 		26CAF7AC12F21E110058C01E /* DWPlaceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceListViewController.h; path = Classes/DWPlaceListViewController.h; sourceTree = "<group>"; };
 		26CAF7AD12F21E110058C01E /* DWPlaceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlaceListViewController.m; path = Classes/DWPlaceListViewController.m; sourceTree = "<group>"; };
 		26CAF7AF12F21E110058C01E /* DWPlacesContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlacesContainerViewController.h; path = Classes/DWPlacesContainerViewController.h; sourceTree = "<group>"; };
 		26CAF7B012F21E110058C01E /* DWPlacesContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlacesContainerViewController.m; path = Classes/DWPlacesContainerViewController.m; sourceTree = "<group>"; };
-		26CAF7B112F21E110058C01E /* DWPlacesContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWPlacesContainerViewController.xib; path = Classes/DWPlacesContainerViewController.xib; sourceTree = "<group>"; };
 		26CF62D312F3E92200505A37 /* DWWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWWebViewController.h; path = Classes/DWWebViewController.h; sourceTree = "<group>"; };
 		26CF62D412F3E92200505A37 /* DWWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWWebViewController.m; path = Classes/DWWebViewController.m; sourceTree = "<group>"; };
 		26CF62D512F3E92200505A37 /* DWWebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWWebViewController.xib; path = Classes/DWWebViewController.xib; sourceTree = "<group>"; };
@@ -652,7 +645,6 @@
 		BB28E01A1360093000FF4566 /* loading_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading_bar@2x.png"; path = "resources/loading_bar@2x.png"; sourceTree = "<group>"; };
 		BB3311F512F24A4100B713F9 /* DWUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWUserViewController.h; path = Classes/DWUserViewController.h; sourceTree = "<group>"; };
 		BB3311F612F24A4100B713F9 /* DWUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWUserViewController.m; path = Classes/DWUserViewController.m; sourceTree = "<group>"; };
-		BB3311F712F24A4100B713F9 /* DWUserViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWUserViewController.xib; path = Classes/DWUserViewController.xib; sourceTree = "<group>"; };
 		BB33130512F25F3E00B713F9 /* DWImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWImageView.h; path = Classes/DWImageView.h; sourceTree = "<group>"; };
 		BB33130612F25F3E00B713F9 /* DWImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWImageView.m; path = Classes/DWImageView.m; sourceTree = "<group>"; };
 		BB33134112F2628F00B713F9 /* DWGUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWGUIManager.h; path = Classes/DWGUIManager.h; sourceTree = "<group>"; };
@@ -967,7 +959,6 @@
 		BBEB947B133AEA9C005AEA64 /* DWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWRequest.m; path = Classes/DWRequest.m; sourceTree = "<group>"; };
 		BBEFA04412EAA4FF004EC06A /* DWPlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceViewController.h; path = Classes/DWPlaceViewController.h; sourceTree = "<group>"; };
 		BBEFA04512EAA4FF004EC06A /* DWPlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWPlaceViewController.m; path = Classes/DWPlaceViewController.m; sourceTree = "<group>"; };
-		BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWPlaceViewController.xib; path = Classes/DWPlaceViewController.xib; sourceTree = "<group>"; };
 		BBF890E7134E53D500B332CA /* DWNewPlaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWNewPlaceCell.h; path = Classes/DWNewPlaceCell.h; sourceTree = "<group>"; };
 		BBF890E8134E53D500B332CA /* DWNewPlaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWNewPlaceCell.m; path = Classes/DWNewPlaceCell.m; sourceTree = "<group>"; };
 		BBF89138134E885B00B332CA /* DWCreationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCreationQueue.h; path = Classes/DWCreationQueue.h; sourceTree = "<group>"; };
@@ -1031,7 +1022,6 @@
 		BBF89D4E1352CB5400B332CA /* chevron@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chevron@2x.png"; path = "resources/chevron@2x.png"; sourceTree = "<group>"; };
 		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
 		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
-		BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DWContainerViewController.xib; path = Classes/DWContainerViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1472,11 +1462,6 @@
 			children = (
 				BB3313E812F282BF00B713F9 /* DWProfilePicViewController.xib */,
 				268B56821356682800BB43DC /* DWCameraOverlayViewController.xib */,
-				BBF91BED13274DC400AC3585 /* DWContainerViewController.xib */,
-				BB3311F712F24A4100B713F9 /* DWUserViewController.xib */,
-				26CAF7A812F21E110058C01E /* DWItemsContainerViewController.xib */,
-				26CAF7B112F21E110058C01E /* DWPlacesContainerViewController.xib */,
-				BBEFA04612EAA4FF004EC06A /* DWPlaceViewController.xib */,
 				26DC2E61130A877A00FC1F3A /* DWPlaceDetailsViewController.xib */,
 				BBD1EAD412EC1218003C1BC7 /* DWSignupViewController.xib */,
 				BB17BAE512EA3A3F00DD42FC /* DWLoginViewController.xib */,
@@ -2064,11 +2049,7 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				BB17BAE712EA3A3F00DD42FC /* DWLoginViewController.xib in Resources */,
-				BBEFA04812EAA4FF004EC06A /* DWPlaceViewController.xib in Resources */,
 				BBD1EAD612EC1218003C1BC7 /* DWSignupViewController.xib in Resources */,
-				26CAF7B512F21E110058C01E /* DWItemsContainerViewController.xib in Resources */,
-				26CAF7BB12F21E110058C01E /* DWPlacesContainerViewController.xib in Resources */,
-				BB3311F912F24A4100B713F9 /* DWUserViewController.xib in Resources */,
 				BB3313E912F282BF00B713F9 /* DWProfilePicViewController.xib in Resources */,
 				26CF62D712F3E92200505A37 /* DWWebViewController.xib in Resources */,
 				BBC0C6E012F4C56000291C33 /* blackArrow.png in Resources */,
@@ -2179,7 +2160,6 @@
 				BBCE3A65131CC38D008BDA82 /* Default.png in Resources */,
 				BBCE3A66131CC38D008BDA82 /* Default@2x.png in Resources */,
 				BBCE3A86131CC6AF008BDA82 /* iTunesArtwork in Resources */,
-				BBF91BEF13274DC400AC3585 /* DWContainerViewController.xib in Resources */,
 				BBBE3595132DA01700CE79E2 /* changeplacepic.png in Resources */,
 				BBBE3596132DA01700CE79E2 /* changeplacepic@2x.png in Resources */,
 				BBBE35CA132DA2F500CE79E2 /* arrow_place_button.png in Resources */,
