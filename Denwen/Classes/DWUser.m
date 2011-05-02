@@ -80,10 +80,8 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 
 //----------------------------------------------------------------------------------------------------
 - (void)freeMemory {
-	if(_hasPhoto) {
-		self.smallPreviewImage = nil;
-		self.mediumPreviewImage = nil;
-	}
+    self.smallPreviewImage = nil;
+    self.mediumPreviewImage = nil;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -103,9 +101,10 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 		self.smallURL			= nil;
 		self.mediumURL			= nil;		
         self.largeURL           = nil;
-		self.smallPreviewImage	= nil;
-		self.mediumPreviewImage = nil;
 	}
+    
+    self.smallPreviewImage      = nil;
+    self.mediumPreviewImage     = nil;
 	
 	[super dealloc];
 }
@@ -118,7 +117,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 
 //----------------------------------------------------------------------------------------------------
 - (void)applyNewSmallImage:(UIImage*)image {
-	
+    
 	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
 						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
 						   image										,kKeyImage,
@@ -131,7 +130,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 
 //----------------------------------------------------------------------------------------------------
 - (void)applyNewMediumImage:(UIImage*)image {
-	
+	    
 	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
 						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
 						   image										,kKeyImage,
@@ -229,10 +228,12 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 											successNotification:kNImgSmallUserLoaded
 											  errorNotification:kNImgSmallUserError];
 	}
-	else if(!_hasPhoto){ 
+	else if(!_hasPhoto && !self.smallPreviewImage){ 
+        
         [self applyNewSmallImage:[UIImage imageNamed:[self isCurrentUser] ? 
                                                      kImgAddProfilePicPlaceHolder : 
                                                      kImgProfilePicPlaceHolder]];
+         
 	}
 }
 
@@ -246,7 +247,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 		 									successNotification:kNImgMediumUserLoaded
 											  errorNotification:kNImgMediumUserError];
 	}
-	else if(!_hasPhoto){ 
+	else if(!_hasPhoto && !self.mediumPreviewImage){ 
     }
 }
 
@@ -393,7 +394,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 		return;
 
 	self.mediumPreviewImage = [info objectForKey:kKeyImage];		
-	_isMediumDownloading = NO;
+	_isMediumDownloading    = NO;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -415,8 +416,8 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 	if(resourceID != self.databaseID)
 		return;
 	
-	self.smallPreviewImage = [info objectForKey:kKeyImage];		
-	_isSmallDownloading = NO;
+	self.smallPreviewImage  = [info objectForKey:kKeyImage];		
+	_isSmallDownloading     = NO;
 }
 
 //----------------------------------------------------------------------------------------------------
