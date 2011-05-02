@@ -52,7 +52,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 - (id)init {
 	self = [super init];
 	
-	if(self != nil) {
+	if(self) {
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(smallImageLoaded:) 
@@ -230,7 +230,9 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 											  errorNotification:kNImgSmallUserError];
 	}
 	else if(!_hasPhoto){ 
-        self.smallPreviewImage = [UIImage imageNamed:kImgProfilePicPlaceHolder];
+        [self applyNewSmallImage:[UIImage imageNamed:[self isCurrentUser] ? 
+                                                     kImgAddProfilePicPlaceHolder : 
+                                                     kImgProfilePicPlaceHolder]];
 	}
 }
 
@@ -351,9 +353,6 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
                                            integerValue];            
 						
 			[standardUserDefaults synchronize];
-            
-            if(!_hasPhoto)
-                self.smallPreviewImage = [UIImage imageNamed:kImgAddProfilePicPlaceHolder];
 		}
 	}
 	
