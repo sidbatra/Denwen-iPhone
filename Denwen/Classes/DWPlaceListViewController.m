@@ -11,7 +11,7 @@
 
 static NSInteger const kPlaceFeedCellHeight			= 92;
 static NSString* const kPlaceFeedCellIdentifier		= @"PlaceFeedCell";
-static NSInteger const kPlacesPerPage				= 10;
+static NSInteger const kPlacesPerPage				= 15;
 static NSInteger const kDefaultSection              = 0;
 
 
