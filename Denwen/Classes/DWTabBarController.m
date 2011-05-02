@@ -141,15 +141,23 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 - (void)selectedTabWithSpecialTab:(BOOL)isSpecial
 					 modifiedFrom:(NSInteger)oldSelectedIndex 
 							   to:(NSInteger)newSelectedIndex 
-                     withNavReset:(BOOL)navReset {
+                    withResetType:(NSInteger)resetType {
 	
 	if(!isSpecial) {
 		[self removeViewAtIndex:oldSelectedIndex];
 		[self addViewAtIndex:newSelectedIndex];
 	}
     
-    if(navReset)
-       [(UINavigationController*)[self getSelectedController] popToRootViewControllerAnimated:YES];
+    if(resetType == kResetSoft) {
+        [(UINavigationController*)[self getSelectedController] popToRootViewControllerAnimated:YES];
+    }
+    else if(resetType == kResetHard) {
+        UINavigationController *selectedController = (UINavigationController*)[self getSelectedController];
+        [selectedController popToRootViewControllerAnimated:NO]; 
+       
+        if([[selectedController topViewController] respondsToSelector:@selector(scrollToTop)])
+            [[selectedController topViewController] performSelector:@selector(scrollToTop)];
+    }
 	
 	[_delegate selectedTabModifiedFrom:oldSelectedIndex
 									to:newSelectedIndex];

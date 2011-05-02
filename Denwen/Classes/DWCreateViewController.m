@@ -409,8 +409,8 @@ replacementString:(NSString *)string {
     [[NSNotificationCenter defaultCenter] postNotificationName:kNRequestTabBarIndexChange
                                                         object:nil
                                                       userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                [NSNumber numberWithInt:kTabBarFeedIndex],kKeyTabIndex,
-                                                                [NSNumber numberWithBool:YES],kKeyPopAll,
+                                                                [NSNumber numberWithInteger:kTabBarFeedIndex],kKeyTabIndex,
+                                                                [NSNumber numberWithInteger:kResetHard],kKeyResetType,
                                                                 nil]];
 	
 	[self.parentViewController dismissModalViewControllerAnimated:NO];

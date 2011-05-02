@@ -126,7 +126,7 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)buttonPressed:(UIButton*)button 
-         withNavReset:(BOOL)navReset
+        withResetType:(NSInteger)resetType
            isExternal:(BOOL)isExternal {
     
 	NSInteger oldIndex	= _selectedIndex;
@@ -135,7 +135,7 @@
 	[_delegate selectedTabWithSpecialTab:button.tag == kTabBarSpecialTag
 							modifiedFrom:oldIndex
 									  to:_selectedIndex
-                            withNavReset:isExternal ? navReset : _selectedIndex == oldIndex];
+                           withResetType:isExternal ? resetType : (_selectedIndex == oldIndex ? kResetSoft : kResetNone)];
 	
 	if(button.tag == kTabBarSpecialTag)
 		_selectedIndex = oldIndex;
@@ -144,7 +144,7 @@
 //----------------------------------------------------------------------------------------------------
 - (void)didTouchDownOnButton:(UIButton*)button {
     [self buttonPressed:button 
-           withNavReset:NO
+           withResetType:kResetNone
              isExternal:NO];
 }
 
@@ -169,10 +169,10 @@
     
     NSDictionary    *userInfo   =   [notification userInfo];
     NSInteger       newIndex    =   [[userInfo objectForKey:kKeyTabIndex] integerValue];
-    BOOL            navReset    =   [[userInfo objectForKey:kKeyPopAll] boolValue];
+    NSInteger       resetType   =   [[userInfo objectForKey:kKeyResetType] integerValue];
     
     [self buttonPressed:[self.buttons objectAtIndex:newIndex]
-           withNavReset:navReset
+          withResetType:resetType
              isExternal:YES];
 }
 

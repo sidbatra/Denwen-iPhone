@@ -39,6 +39,12 @@ NSInteger const kAttachmentImage		= 0;
 NSInteger const kAttachmentVideo		= 1;
 
 //----------------------------------------------------------------------------------------------------
+NSInteger const kResetNone              = -1;
+NSInteger const kResetHard              = 0;
+NSInteger const kResetSoft              = 1;
+
+
+//----------------------------------------------------------------------------------------------------
 NSInteger const kTabBarPlacesIndex		= 0;
 NSInteger const kTabBarCreateIndex		= 1;
 NSInteger const kTabBarFeedIndex		= 2;
@@ -110,7 +116,7 @@ NSString* const kKeyOldSelectedIndex		= @"old_selected_index";
 NSString* const kKeyTotalActive				= @"total_active";
 NSString* const kKeyTotalFailed				= @"total_failed";
 NSString* const kKeyTotalProgress			= @"total_progress";
-NSString* const kKeyPopAll                  = @"pop_all";
+NSString* const kKeyResetType               = @"reset_type";
 NSString* const kKeyType                    = @"type";
 
 

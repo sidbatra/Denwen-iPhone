@@ -49,5 +49,5 @@
 - (void)selectedTabWithSpecialTab:(BOOL)isSpecial
 					 modifiedFrom:(NSInteger)oldSelectedIndex 
 							   to:(NSInteger)newSelectedIndex
-                     withNavReset:(BOOL)navReset;
+                    withResetType:(NSInteger)resetType;
 @end

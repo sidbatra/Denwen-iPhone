@@ -97,8 +97,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWNotificationsHelper);
     [[NSNotificationCenter defaultCenter] postNotificationName:kNRequestTabBarIndexChange
                                                         object:nil
                                                       userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                [NSNumber numberWithInt:kTabBarFeedIndex],kKeyTabIndex,
-                                                                [NSNumber numberWithBool:NO],kKeyPopAll,
+                                                                [NSNumber numberWithInteger:kTabBarFeedIndex],kKeyTabIndex,
+                                                                [NSNumber numberWithInteger:kResetNone],kKeyResetType,
                                                                 nil]];
 }
 

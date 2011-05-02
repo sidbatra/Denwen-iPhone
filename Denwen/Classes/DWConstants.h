@@ -27,6 +27,13 @@ extern NSInteger const kAttachmentImage;
 extern NSInteger const kAttachmentVideo;
 
 /**
+ * Reset types
+ */
+extern NSInteger const kResetNone;
+extern NSInteger const kResetHard;
+extern NSInteger const kResetSoft;
+
+/**
  * Tab bar
  */ 
 extern NSInteger const kTabBarPlacesIndex;
@@ -104,7 +111,7 @@ extern NSString* const kKeyOldSelectedIndex;
 extern NSString* const kKeyTotalActive;
 extern NSString* const kKeyTotalFailed;
 extern NSString* const kKeyTotalProgress;
-extern NSString* const kKeyPopAll;
+extern NSString* const kKeyResetType;
 extern NSString* const kKeyType;
 
 /**
