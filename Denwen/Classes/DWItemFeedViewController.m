@@ -11,7 +11,7 @@
 #import "DWPaginationCell.h"
 #import "DWConstants.h"
 
-static NSInteger const kItemsPerPage				= 20;
+static NSInteger const kItemsPerPage				= 10;
 static NSInteger const kDefaultSections				= 1;
 static NSInteger const kSpinnerCellIndex			= 0;
 static NSInteger const kMessageCellIndex			= 2;

@@ -12,7 +12,7 @@
 #import "DWNotificationsHelper.h"
 #import "DWGUIManager.h"
 
-static NSInteger const kTouchesPerPage          = 20;
+static NSInteger const kTouchesPerPage          = 10;
 static NSInteger const kTouchCellHeight         = 60;
 static NSString* const kMsgNoItemsTouched       = @"No one has touched your items";
 static NSString* const kTouchCellIdentifier		= @"TouchCell";
