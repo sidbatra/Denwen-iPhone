@@ -77,13 +77,13 @@
 		
 		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 39.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+		label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
 		label.textColor = TEXT_COLOR;
 		//label.shadowColor = [UIColor whiteColor];
 		//label.shadowOffset = CGSizeMake(0.0f, 0.5f);
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = UITextAlignmentCenter;
-        label.alpha = 0.75;
+        label.alpha = 0.5;
 		[self addSubview:label];
 		_statusLabel=label;
 		[label release];
@@ -183,7 +183,7 @@
 			//[UIView setAnimationDelegate:self];
 			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 			[UIView setAnimationDuration:0.6];
-			[_statusLabel setAlpha:0.75];
+			[_statusLabel setAlpha:0.5];
 			[UIView commitAnimations];
 			
 			
@@ -210,7 +210,7 @@
 			//[UIView 
 			
 			if(_state != EGOOPullRefreshLoading) {
-			_statusLabel.alpha = 0.75;
+			_statusLabel.alpha = 0.5;
 			[UIView beginAnimations:nil context:NULL];
 			//[UIView setAnimationDelegate:self];
 			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
