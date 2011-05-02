@@ -52,7 +52,10 @@ static NSInteger const kInitialLastID               = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.backgroundColor          = [UIColor blackColor];
+    self.tableView.backgroundColor          = [UIColor colorWithRed:0.1764
+                                                              green:0.1764 
+                                                               blue:0.1764
+                                                              alpha:1.0];
 	self.tableView.separatorStyle           = UITableViewCellSeparatorStyleNone;
     
     self.refreshHeaderView = [[[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 

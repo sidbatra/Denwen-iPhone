@@ -216,7 +216,9 @@
     
 	if (self) {
         
-        self.clipsToBounds  = YES;
+        self.clipsToBounds                  = YES;
+        self.contentView.clipsToBounds      = YES;
+        self.contentView.backgroundColor    = [UIColor blackColor];
         
 		CGRect frame = CGRectMake(0,0,320,320);
         
@@ -238,7 +240,7 @@
 										   [NSNull null], @"sublayers",
 										   [NSNull null], @"contents",
 										   nil];
-		[[self layer] addSublayer:itemImageLayer];
+		[[self.contentView layer] addSublayer:itemImageLayer];
 		
 		touchIconImageLayer					= [CALayer layer];
 		touchIconImageLayer.frame			= CGRectMake(295,292,kTouchesIconWidth,15);
@@ -250,7 +252,7 @@
 											   [NSNull null], @"contents",
 											   [NSNull null], @"bounds",
 											   nil];
-		[[self layer] addSublayer:touchIconImageLayer];
+		[[self.contentView layer] addSublayer:touchIconImageLayer];
 		
 		
 		
@@ -266,7 +268,7 @@
 										   [NSNull null], @"contents",
 										   [NSNull null], @"bounds",
 										   nil];
-		[[self layer] addSublayer:playImageLayer];
+		[[self.contentView layer] addSublayer:playImageLayer];
 		
 		shareImageLayer						= [CALayer layer];
 		shareImageLayer.frame				= CGRectMake(280,281,24,19);
@@ -274,7 +276,7 @@
 		shareImageLayer.actions				= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 											   [NSNull null], @"contents",
 											   nil];
-		[[self layer] addSublayer:shareImageLayer];
+		[[self.contentView layer] addSublayer:shareImageLayer];
         
         
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
@@ -287,14 +289,14 @@
 											[NSNull null], @"sublayers",
 											[NSNull null], @"bounds",
 											nil];
-		[[self layer] addSublayer:drawingLayer];
+		[[self.contentView layer] addSublayer:drawingLayer];
 		
 		
 		CALayer *separatorLayer			= [CALayer layer];
 		separatorLayer.frame			= CGRectMake(0,319,320,1);
 		separatorLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		separatorLayer.contents			= (id)[UIImage imageNamed:kImgSeparator].CGImage;
-		[[self layer] addSublayer:separatorLayer];
+		[[self.contentView layer] addSublayer:separatorLayer];
 		
 		
 		
@@ -318,7 +320,7 @@
 						action:@selector(didDragInsidePlaceButton:) 
 			  forControlEvents:UIControlEventTouchDragInside];
 		
-		[self addSubview:placeButton];
+		[self.contentView addSubview:placeButton];
 		
 		
 		
@@ -341,7 +343,7 @@
 					   action:@selector(didDragInsideUserButton:) 
 			 forControlEvents:UIControlEventTouchDragInside];
 		
-		[self addSubview:userButton];
+		[self.contentView addSubview:userButton];
 		
 		
 		shareButton						= [[[UIButton alloc] init] autorelease];
@@ -354,14 +356,13 @@
 		[shareButton addTarget:self
 					   action:@selector(didTouchUpOnShareButton:) 
 			 forControlEvents:UIControlEventTouchUpInside];
-		
-        self.contentView.backgroundColor = [UIColor clearColor];
-		[self addSubview:shareButton];
+
+		[self.contentView addSubview:shareButton];
 		
         
         videoView           = [[[DWVideoView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height)] autorelease];
         videoView.delegate  = self;
-        [self addSubview:videoView];
+        [self.contentView addSubview:videoView];
 										   
 		
 		self.selectionStyle				= UITableViewCellSelectionStyleNone;
