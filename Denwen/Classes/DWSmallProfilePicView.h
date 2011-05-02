@@ -25,4 +25,10 @@
  */
 -(void)setProfilePicButtonBackgroundImage:(UIImage*)image;
 
+/**
+ * Enable the profile pic button when user is loaded and
+ * has a picture
+ */
+-(void)enableProfilePicButton;
+
 @end

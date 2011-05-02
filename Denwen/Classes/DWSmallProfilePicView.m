@@ -27,6 +27,7 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
                    forControlEvents:UIControlEventTouchUpInside];
         
         [profilePicButton setFrame:CGRectMake(0, -8, 60, 60)];
+        profilePicButton.enabled = NO;
         [self addSubview:profilePicButton];
         
         profilePicOverlay = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
@@ -51,6 +52,11 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
     profilePicOverlay.hidden = NO;
     [profilePicButton setBackgroundImage:image 
                                 forState:UIControlStateNormal];
+}
+
+//----------------------------------------------------------------------------------------------------
+-(void)enableProfilePicButton {
+    profilePicButton.enabled = YES;
 }
 
 

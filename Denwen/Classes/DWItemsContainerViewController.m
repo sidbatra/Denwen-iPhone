@@ -158,6 +158,8 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
                                                               kNavTitleViewWidth,kNavTitleViewHeight) 
                                      andTarget:self] autorelease];
     
+    [self.smallProfilePicView enableProfilePicButton];
+    
     if (![DWSession sharedDWSession].currentUser.smallPreviewImage)
         [[DWSession sharedDWSession].currentUser startSmallPreviewDownload];
     else
