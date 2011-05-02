@@ -151,22 +151,6 @@ static NSInteger const kInitialLastID               = 0;
     [_dataSourceDelegate loadData];
 }
 
-//----------------------------------------------------------------------------------------------------
-- (void)addNewDataRowAt:(NSInteger)index {
-	
-	if(_tableViewUsage != kTableViewAsData) {
-		_tableViewUsage = kTableViewAsData;
-		[self.tableView reloadData];
-	}
-	
-	NSIndexPath *touchIndexPath = [NSIndexPath indexPathForRow:index
-													 inSection:0];
-	NSArray *indexPaths			= [NSArray arrayWithObjects:touchIndexPath,nil];
-	
-	[self.tableView insertRowsAtIndexPaths:indexPaths
-						  withRowAnimation:UITableViewRowAnimationRight];
-}
-
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

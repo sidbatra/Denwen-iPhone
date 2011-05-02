@@ -118,11 +118,6 @@
  */
 - (void)hardRefresh;
 
-/**
- * Inserts a new at the given index assuming a new entry
- * has been already added to the data source
- */
-- (void)addNewDataRowAt:(NSInteger)index;
 
 @end
 

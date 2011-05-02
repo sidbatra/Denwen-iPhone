@@ -96,11 +96,21 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
 //----------------------------------------------------------------------------------------------------
 - (void)addNewItem:(DWItem *)item 
 		   atIndex:(NSInteger)index {
+        
+    if(_tableViewUsage != kTableViewAsData) {
+        _tableViewUsage = kTableViewAsData;
+        [self.tableView reloadData];
+    }
     
-	[_itemManager addItem:item 
+    [_itemManager addItem:item 
                   atIndex:index];
     
-	[self addNewDataRowAt:index];
+    NSIndexPath *touchIndexPath = [NSIndexPath indexPathForRow:index
+                                                     inSection:0];
+    NSArray *indexPaths			= [NSArray arrayWithObjects:touchIndexPath,nil];
+    
+    [self.tableView insertRowsAtIndexPaths:indexPaths
+                          withRowAnimation:UITableViewRowAnimationRight];
 }
 
 //----------------------------------------------------------------------------------------------------

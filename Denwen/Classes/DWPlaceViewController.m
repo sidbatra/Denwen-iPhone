@@ -192,7 +192,7 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 		NSDictionary *body = [info objectForKey:kKeyBody];
 	
         [self.place update:[body objectForKey:kKeyPlace]];
-
+        
 		[self.itemManager populateItems:[body objectForKey:kKeyItems]
 							 withBuffer:NO
 							  withClear:_isReloading];

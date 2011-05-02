@@ -94,7 +94,8 @@
 	DWItem *item = (DWItem*)[(NSDictionary*)[notification userInfo] objectForKey:kKeyItem];
 	
 	if(_isLoadedOnce)
-		[self addNewItem:item atIndex:0];
+		[self addNewItem:item 
+                 atIndex:0];
 }
 
 //----------------------------------------------------------------------------------------------------
