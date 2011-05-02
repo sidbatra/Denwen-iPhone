@@ -48,6 +48,7 @@
 //----------------------------------------------------------------------------------------------------
 - (BOOL)update:(NSDictionary*)objectJSON {
     
+    /*
 	float   interval        =   -[self.updatedAt timeIntervalSinceNow];
     BOOL    updateNeeded    =   YES;
 	
@@ -57,6 +58,9 @@
         [self refreshUpdatedAt];
     
     return updateNeeded;
+     */
+    
+    return YES;
 }
 
 //----------------------------------------------------------------------------------------------------
