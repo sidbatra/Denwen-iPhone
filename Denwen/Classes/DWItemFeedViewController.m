@@ -110,7 +110,7 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
     NSArray *indexPaths			= [NSArray arrayWithObjects:touchIndexPath,nil];
     
     [self.tableView insertRowsAtIndexPaths:indexPaths
-                          withRowAnimation:UITableViewRowAnimationRight];
+                          withRowAnimation:UITableViewRowAnimationTop];
 }
 
 //----------------------------------------------------------------------------------------------------

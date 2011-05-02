@@ -102,7 +102,7 @@
 		//[[self layer] addSublayer:layer];
 		//_arrowImage=layer;
 		
-		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 		view.frame = CGRectMake(frame.size.width / 2 - 10.0f, frame.size.height - 39.0f, 20.0f, 20.0f);
 		[self addSubview:view];
 		_activityView = view;

@@ -44,8 +44,8 @@
 - (void) createSpinner {
 	CGRect rect     = CGRectMake((self.contentView.frame.size.width - SPINNER_HEIGHT)/2, 
                                  (kPaginationCellHeight-SPINNER_HEIGHT)/2, SPINNER_HEIGHT, SPINNER_HEIGHT); 
-	spinner         = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    //spinner.alpha   = 0.5;
+	spinner         = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    spinner.alpha   = 0.5;
 	spinner.frame   = rect;
 	
 	[self.contentView addSubview:spinner];	

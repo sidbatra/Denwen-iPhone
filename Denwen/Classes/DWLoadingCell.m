@@ -49,7 +49,8 @@ static NSString* const kImgBackground	= @"main_bg.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)createSpinner {
-	spinner			= [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
+	spinner			= [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
+    spinner.alpha   = 0.5;
 	spinner.frame	= CGRectMake(109,167,20,20);
 	
 	[self.contentView addSubview:spinner];	
