@@ -44,6 +44,23 @@ static NSInteger const kPlacesIndex					= 0;
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)viewIsSelected {
+    [super viewIsSelected];
+    
+    [self displayPlaces];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];  
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+    [super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)displayPlaces {
 	if([DWPlacesCache sharedDWPlacesCache].nearbyPlacesReady && 
        !self.view.hidden && 
@@ -67,16 +84,6 @@ static NSInteger const kPlacesIndex					= 0;
 	}
 }
 
-//----------------------------------------------------------------------------------------------------
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];  
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)dealloc {
-    [super dealloc];
-}
-
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -96,12 +103,8 @@ static NSInteger const kPlacesIndex					= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)loadData {
-	
-	if(!_isLoadedOnce) {
-		_isLoadedOnce = YES;
-		[self displayPlaces];
-	}
-	else if(_isReloading) {
+    
+    if(_isReloading) {
 		/**
 		 * On pull to refresh fire the request and let places cache handle it
 		 */

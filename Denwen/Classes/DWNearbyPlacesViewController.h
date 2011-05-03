@@ -20,3 +20,16 @@
 - (id)initWithDelegate:(id)delegate;
 
 @end
+
+
+/**
+ * Private member declarations
+ */
+@interface DWNearbyPlacesViewController(Private)
+
+/**
+ * Displays places from the nearby places cache
+ */
+- (void)displayPlaces;
+
+@end
