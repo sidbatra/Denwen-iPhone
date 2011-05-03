@@ -13,7 +13,6 @@
  */
 @interface DWAppDelegate : NSObject <UIApplicationDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate> {
     UIWindow				*_window;
-	UIToolbar				*_signupToolbar;
 	
 	DWTabBarController		*_tabBarController;
 	
@@ -37,21 +36,12 @@
 /**
  * IBOutlet properties
  */
-
 @property (nonatomic,retain) IBOutlet UIWindow *window;
-@property (nonatomic,retain) IBOutlet UIToolbar *signupToolbar;
 @property (nonatomic,retain) IBOutlet UINavigationController *placesNavController;
 @property (nonatomic,retain) IBOutlet UINavigationController *itemsNavController;
 
-
-/**
- * IBAction events
- */
-
-- (IBAction)loginButtonClicked:(id)sender;
-- (IBAction)signupButtonClicked:(id)sender;
-
 @end
+
 
 /**
  * Declarations for select private methods

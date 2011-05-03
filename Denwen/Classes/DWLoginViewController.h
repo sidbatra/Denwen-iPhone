@@ -1,50 +1,45 @@
 //
 //  DWLoginViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "DWUser.h"
-#import "DWRequestsManager.h"
-#import "DWSession.h"
-#import "NSString+Helpers.h"
 #import "MBProgressHUD.h"
 
-@protocol DWLoginViewControllerDelegate;
-
-
+/**
+ * Login view for giving access to existing users
+ */
 @interface DWLoginViewController : UIViewController<UITextFieldDelegate> {
-	UIView *loginFieldsContainerView;
-	UITextField *emailTextField;
-	UITextField *passwordTextField;
-	UIBarButtonItem *doneButton;
+	UIView              *_loginFieldsContainerView;
+	UITextField         *_emailTextField;
+	UITextField         *_passwordTextField;
+	UIBarButtonItem     *_doneButton;
 	
-	NSString *_password;
+	NSString            *_password;
 	
-	MBProgressHUD *mbProgressIndicator;
-	id <DWLoginViewControllerDelegate> _delegate;
+	MBProgressHUD       *mbProgressIndicator;
 }
 
+/**
+ * Encrypted user password
+ */
+@property (nonatomic,copy) NSString *password;
+
+/**
+ * IBOutlets
+ */
 @property (nonatomic,retain) IBOutlet UIView *loginFieldsContainerView;
 @property (nonatomic,retain) IBOutlet UITextField *emailTextField;
 @property (nonatomic,retain) IBOutlet UITextField *passwordTextField;
 @property (nonatomic,retain) IBOutlet UIBarButtonItem *doneButton;
 
-@property (copy) NSString *password;
 
-
+/**
+ * IBAction methods
+ */
 - (IBAction)cancelButtonClicked:(id)sender;
 - (IBAction)doneButtonClicked:(id)sender;
 
-@end
-
-
-@protocol DWLoginViewControllerDelegate
-- (void)loginViewCancelButtonClicked;
-- (void)loginSuccessful;
 @end

@@ -1,39 +1,42 @@
 //
 //  DWLoginViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWLoginViewController.h"
 #import "DWMemoryPool.h"
+#import "DWUser.h"
+#import "DWRequestsManager.h"
+#import "DWSession.h"
+#import "NSString+Helpers.h"
 #import "DWConstants.h"
 
-//Declarations for private methods
-//
-@interface DWLoginViewController () 
-- (void)authenticateCredentials;
-- (void)freezeUI;
-- (void)unfreezeUI ;
-@end
+static NSString* const kMsgProgressIndicator    = @"Logging In";
+static NSString* const kMsgIncompleteTitle      = @"Incomplete";
+static NSString* const kMsgIncomplete           = @"Enter email and password";
+static NSString* const kMsgErrorTitle           = @"Error";
+static NSString* const kMsgErrorLogin           = @"Incorrect email or password";
+static NSString* const kMsgErrorNetwork         = @"Please make sure you have network connectivity and try again";
+static NSString* const kMsgCancelTitle          = @"OK";
 
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWLoginViewController
 
-@synthesize loginFieldsContainerView,emailTextField,passwordTextField,doneButton,password=_password;
+@synthesize password                    = _password;
+@synthesize loginFieldsContainerView    = _loginFieldsContainerView;
+@synthesize emailTextField              = _emailTextField;
+@synthesize passwordTextField           = _passwordTextField;
+@synthesize doneButton                  = _doneButton;
 
-#pragma mark -
-#pragma mark View lifecycle
-
-
-// Init the class and set the delegate member variable
-//
-- (id)initWithDelegate:(id)delegate {
+//----------------------------------------------------------------------------------------------------
+- (id)init {
 	self = [super init];
 	
-	if(self != nil) {
-		_delegate = delegate;
+	if(self) {
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(sessionCreated:) 
@@ -45,101 +48,72 @@
 													 name:kNNewSessionError
 												   object:nil];	
 	}
+    
 	return self;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	
+	self.password                   = nil;
+    
+    self.loginFieldsContainerView   = nil;
+	self.emailTextField             = nil;
+	self.passwordTextField          = nil;
+	self.doneButton                 = nil;
+	
+    [super dealloc];
+}
 
-// Additional UI configurations after the view has loaded
-//
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:MODALVIEW_BACKGROUND_IMAGE]];
+	[[self.loginFieldsContainerView layer] setCornerRadius:2.5f];
+	[[self.loginFieldsContainerView layer] setMasksToBounds:YES];
 	
-	//rounded corners and border customization
-	[[loginFieldsContainerView layer] setCornerRadius:2.5f];
-	//[[loginFieldsContainerView layer] setBorderWidth:1.0f];
-	[[loginFieldsContainerView layer] setMasksToBounds:YES];
-	//[[loginFieldsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
+	[self.emailTextField becomeFirstResponder];
 	
-	[emailTextField becomeFirstResponder];
-	
-	mbProgressIndicator = [[MBProgressHUD alloc] initWithView:self.view];
+    if(!mbProgressIndicator)
+        mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    
 	[self.view addSubview:mbProgressIndicator];
-	[mbProgressIndicator release];
-
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
 
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
 
-#pragma mark -
-#pragma mark UI management
-
-// Freezes the UI when the credentials are being evaluated on the server
-//
+//----------------------------------------------------------------------------------------------------
 - (void)freezeUI {
-	[emailTextField resignFirstResponder];
-	[passwordTextField resignFirstResponder];
+	[self.emailTextField resignFirstResponder];
+	[self.passwordTextField resignFirstResponder];
 	
-	mbProgressIndicator.labelText = @"Logging In";
+	mbProgressIndicator.labelText = kMsgProgressIndicator;
 	[mbProgressIndicator showUsingAnimation:YES];
 }
 
-
-// Restores the UI back to its normal state
-//
+//----------------------------------------------------------------------------------------------------
 - (void)unfreezeUI {
 	[mbProgressIndicator hideUsingAnimation:YES];
-	[emailTextField becomeFirstResponder];
+	[self.emailTextField becomeFirstResponder];
 }
 
-
-
-#pragma mark -
-#pragma mark IB Events
-
-// User clicks the signup button
-//
-- (void)cancelButtonClicked:(id)sender {
-	[_delegate loginViewCancelButtonClicked];
-}
-
-// User clicks the done button
-//
-- (void)doneButtonClicked:(id)sender {
-	[self authenticateCredentials];
-}
-
-
-// Handles return key on the keyboard
-//
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	
-	if(textField == emailTextField) {
-		[emailTextField resignFirstResponder];
-		[passwordTextField becomeFirstResponder];
-	}
-	else if(textField == passwordTextField) {
-		[self authenticateCredentials];
-	}
-
-	return YES;
-}
-
-
-
-#pragma mark -
-#pragma mark Server interaction method
-
-
-// Sends the credentials to the server to test if login information is valid
-//
+//----------------------------------------------------------------------------------------------------
 - (void)authenticateCredentials {
-	if (emailTextField.text.length == 0 || passwordTextField.text.length == 0) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Fields" 
-														message:EMPTY_LOGIN_FIELDS_MSG
+	if (self.emailTextField.text.length == 0 || self.passwordTextField.text.length == 0) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgIncompleteTitle
+														message:kMsgIncomplete
 													   delegate:nil 
-											  cancelButtonTitle:@"OK" 
+											  cancelButtonTitle:kMsgCancelTitle
 											  otherButtonTitles: nil];
 		[alert show];
 		[alert release];
@@ -147,19 +121,50 @@
 	else {
 		[self freezeUI];
 		
-		self.password = [passwordTextField.text isEqualToString:@""] ? passwordTextField.text : 
-						[[passwordTextField.text encrypt] stringByEncodingHTMLCharacters];
-		
-		[[DWRequestsManager sharedDWRequestsManager] createSessionWithEmail:emailTextField.text 
+		self.password = [[self.passwordTextField.text encrypt] stringByEncodingHTMLCharacters];
+        
+		[[DWRequestsManager sharedDWRequestsManager] createSessionWithEmail:self.emailTextField.text 
 															   withPassword:self.password];
 	}
 }
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark IBActions
 
+//----------------------------------------------------------------------------------------------------
+- (void)cancelButtonClicked:(id)sender {
+	[self.parentViewController dismissModalViewControllerAnimated:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)doneButtonClicked:(id)sender {
+	[self authenticateCredentials];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	
+	if(textField == self.emailTextField) {
+		[self.emailTextField resignFirstResponder];
+		[self.passwordTextField becomeFirstResponder];
+	}
+	else if(textField == self.passwordTextField) {
+		[self authenticateCredentials];
+	}
+
+	return YES;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
 
+//----------------------------------------------------------------------------------------------------
 - (void)sessionCreated:(NSNotification*)notification {
 	
 	NSDictionary *info = [notification userInfo];
@@ -172,67 +177,34 @@
 		user.encryptedPassword  = self.password;
 		[[DWSession sharedDWSession] create:user];
 		
-		[_delegate loginSuccessful];
 		[[NSNotificationCenter defaultCenter] postNotificationName:kNUserLogsIn 
                                                             object:user];
 	}
 	else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-														message:@"Username or passoword incorrect"
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorTitle
+														message:kMsgErrorLogin
 													   delegate:nil 
-											  cancelButtonTitle:@"OK" 
+											  cancelButtonTitle:kMsgCancelTitle
 											  otherButtonTitles: nil];
 		[alert show];
 		[alert release];
 		
 		[self unfreezeUI];
 	}
-	
-	
 }
 
-
+//----------------------------------------------------------------------------------------------------
 - (void)sessionError:(NSNotification*)notification {
 	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"Problem connecting to the server, please try again"
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorTitle
+													message:kMsgErrorNetwork
 												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
+										  cancelButtonTitle:kMsgCancelTitle
 										  otherButtonTitles: nil];
 	[alert show];
 	[alert release];
 	
 	[self unfreezeUI];
 }
-
-
-
-#pragma mark -
-#pragma mark Memory management
-
-
-// The usual memory warning
-//
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-
-// The usual memory cleanup
-//
-- (void)dealloc {	
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	_delegate = nil;
-	
-	self.password = nil;
-		
-	[emailTextField release];
-	[passwordTextField release];
-	[doneButton release];
-	
-    [super dealloc];
-}
-
 
 @end

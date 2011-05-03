@@ -37,5 +37,6 @@
  * Declaration for select private methods
  */
 @interface DWPlacesContainerViewController (Private)
+- (void)displaySignedOutState;
 - (void)loadSelectedView:(NSInteger)currentSelectedIndex;	
 @end

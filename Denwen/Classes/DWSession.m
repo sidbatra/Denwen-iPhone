@@ -202,8 +202,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 
 //----------------------------------------------------------------------------------------------------
 - (void)userLogsIn:(NSNotification*)notification {
-	_firstVisitRecorded = YES;
-	[self createVisit];
+	//_firstVisitRecorded = YES;
+	//[self createVisit];
 }
 
 //----------------------------------------------------------------------------------------------------

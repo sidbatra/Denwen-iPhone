@@ -8,6 +8,7 @@
 #import "DWSearchPlacesViewController.h"
 #import "DWNearbyPlacesViewController.h"
 #import "DWPlaceDetailsViewController.h"
+#import "DWSplashScreenViewController.h"
 #import "DWTabBarController.h"
 #import "DWSegmentedControl.h"
 #import "DWSession.h"
@@ -40,6 +41,11 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 //----------------------------------------------------------------------------------------------------
 - (void)awakeFromNib {
 	[super awakeFromNib];	
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(userLogsIn:) 
+												 name:kNUserLogsIn
+											   object:nil];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -107,6 +113,11 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 		
     
 	[self loadSelectedView:self.segmentedControl.selectedIndex];
+    
+    
+    
+    if(![[DWSession sharedDWSession] isActive])
+        [self displaySignedOutState];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -114,6 +125,15 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 	NSLog(@"%@",kMsgUnload);	
     
     [self.segmentedControl removeFromSuperview];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)displaySignedOutState {
+    DWSplashScreenViewController *splashView    = [[[DWSplashScreenViewController alloc] init] autorelease];
+    splashView.modalPresentationStyle           = UIModalTransitionStyleCoverVertical;
+    
+    [self.customTabBarController presentModalViewController:splashView
+                                                   animated:NO];
 }
 
 
@@ -182,5 +202,15 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
                        animated:animated];
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UINavigationControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)userLogsIn:(NSNotification*)notification {
+    [self.customTabBarController dismissModalViewControllerAnimated:YES];
+}
 
 @end
