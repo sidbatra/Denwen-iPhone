@@ -30,6 +30,12 @@
 - (NSInteger)getIDForLastItem;
 
 /**
+ * Finds any new items not created by the given user ID
+ */
+- (NSInteger)getItemIDNotByUserID:(NSInteger)userID
+                greaterThanItemID:(NSInteger)pivotItemID;
+
+/**
  * Add the given item at the given index
  */
 - (void)addItem:(DWItem*)item

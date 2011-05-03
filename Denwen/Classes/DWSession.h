@@ -15,6 +15,7 @@
 	DWUser			*_currentUser;
 	CLLocation		*_location;
 	BOOL			_firstVisitRecorded;
+    NSInteger       _lastReadItemID;
 }
 
 /**
@@ -33,6 +34,13 @@
 @property (nonatomic,retain) CLLocation *location;
 
 /**
+ * Database ID of the last item read by the user in the feed
+ * that was not the user's own item
+ */
+@property (nonatomic,readonly) NSInteger lastReadItemID;
+
+
+/**
  * Read the user session from disk using NSUserDefaults
  */
 - (void)read;
@@ -46,6 +54,16 @@
  * Destroy the user session
  */
 - (void)destroy;
+
+/**
+ * Populate the _lastReadItemID from disk
+ */
+- (void)readLastReadItemID;
+    
+/**
+ * Update the _lastReadItemID in memory and on disk 
+ */
+- (void)updateLastReadItemID:(NSInteger)lastItemID;
 
 /**
  * Test whether a user is currently signed in

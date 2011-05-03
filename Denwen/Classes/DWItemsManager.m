@@ -53,6 +53,22 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSInteger)getItemIDNotByUserID:(NSInteger)userID
+                greaterThanItemID:(NSInteger)pivotItemID {
+    
+    NSInteger itemID = 0;
+    
+    for(DWItem *item in _items) {
+        if(item.user.databaseID != userID && item.databaseID > pivotItemID) {
+            itemID = item.databaseID;
+            break;
+        }
+    }
+    
+    return itemID;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)clearAllItems {
 	for(DWItem *item in _items)
 		[[DWMemoryPool sharedDWMemoryPool]  removeObject:item 

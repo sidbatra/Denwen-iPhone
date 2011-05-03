@@ -62,6 +62,16 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 											 selector:@selector(userLogsIn:) 
 												 name:kNUserLogsIn
 											   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(newFeedItemsLoaded:) 
+												 name:kNNewFeedItemsLoaded
+											   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(newFeedItemsRead:) 
+												 name:kNNewFeedItemsRead
+											   object:nil];
 	
 	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
 
@@ -241,6 +251,16 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 	//if(![[UIApplication sharedApplication] enabledRemoteNotificationTypes])
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)newFeedItemsLoaded:(NSNotification*)notification {
+    
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)newFeedItemsRead:(NSNotification*)notification {
+    
 }
 
 

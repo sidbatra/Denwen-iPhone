@@ -192,6 +192,8 @@ NSString* const kNQueueItemProgressUpdated		= @"NQueueItemProgressUpdated";
 NSString* const kNCreationQueueUpdated			= @"NCreationQueueUpdated";
 NSString* const kNUserFollowingCountUpdated     = @"NUserFollowingCountUpdated";
 NSString* const kNPlaceFollowersUpdated         = @"NPlaceFollowersUpdated";
+NSString* const kNNewFeedItemsLoaded            = @"NNewFeedItemsLoaded";
+NSString* const kNNewFeedItemsRead              = @"NNewFeedItemsRead";
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kNavTitleViewX                  = 60;

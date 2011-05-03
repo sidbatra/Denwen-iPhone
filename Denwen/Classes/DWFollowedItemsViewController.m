@@ -21,6 +21,8 @@
 	self = [super initWithDelegate:delegate];
 	
 	if (self) {
+        
+        _isReloading = YES;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newItemParsed:) 
@@ -105,17 +107,37 @@
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
 		NSArray *items = [[info objectForKey:kKeyBody] objectForKey:kKeyItems];
-		[_itemManager populateItems:items withBuffer:NO withClear:_isReloading];
+        
+		[_itemManager populateItems:items
+                         withBuffer:NO
+                          withClear:_isReloading];
 		
 		if(![_itemManager totalItems]) {
-			_tableViewUsage = kTableViewAsMessage;
-			self.messageCellText = kMsgNoFollowPlacesCurrentUser;
+			_tableViewUsage         = kTableViewAsMessage;
+			self.messageCellText    = kMsgNoFollowPlacesCurrentUser;
 		}
 		else
 			_tableViewUsage = kTableViewAsData;
 		
 		_isLoadedOnce = YES;
 	}
+    
+    
+    /**
+     * Search for new unread items
+     */
+    if(_isReloading) {
+       NSInteger newItemID = [_itemManager getItemIDNotByUserID:[DWSession sharedDWSession].currentUser.databaseID
+                                              greaterThanItemID:[DWSession sharedDWSession].lastReadItemID];
+       
+       if(newItemID) {           
+           [[DWSession sharedDWSession] updateLastReadItemID:newItemID];
+           
+           [[NSNotificationCenter defaultCenter] postNotificationName:kNNewFeedItemsLoaded
+                                                               object:nil];
+       }
+    }
+       
 	
 	[self finishedLoading];
 	[self.tableView reloadData];

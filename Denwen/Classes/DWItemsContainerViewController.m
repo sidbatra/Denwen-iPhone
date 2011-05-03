@@ -244,9 +244,13 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 //----------------------------------------------------------------------------------------------------
 - (void)tabSelectionChanged:(NSNotification*)notification {
 	
-	NSDictionary *info = [notification userInfo];
+	NSDictionary *info      = [notification userInfo];
 	
-	if([[info objectForKey:kKeySelectedIndex] integerValue] == kTabBarFeedIndex)  {
+    NSInteger selectedIndex     = [[info objectForKey:kKeySelectedIndex] integerValue];
+    NSInteger oldSelectedIndex  = [[info objectForKey:kKeyOldSelectedIndex] integerValue];
+    
+    
+	if(selectedIndex == kTabBarFeedIndex)  {
 		
         /*
         if([DWNotificationsHelper sharedDWNotificationsHelper].unreadItems) {
@@ -261,6 +265,10 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
             else   
                 [self displayNotificationsView];
         }
+    }
+    else if(oldSelectedIndex == kTabBarFeedIndex && selectedIndex != kTabBarFeedIndex) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNNewFeedItemsRead
+                                                            object:nil];
     }
 }
 

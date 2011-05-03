@@ -11,6 +11,8 @@
 
 #import "SynthesizeSingleton.h"
 
+static NSString* const kDiskKeyLastReadItemID   = @"last_read_item_id";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -20,6 +22,7 @@
 
 @synthesize currentUser				= _currentUser;
 @synthesize location				= _location;
+@synthesize lastReadItemID          = _lastReadItemID;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 
@@ -29,6 +32,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	
 	if(self) {
 		[self read];
+        [self readLastReadItemID];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newLocationAvailable:) 
@@ -50,8 +54,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 													 name:kNFollowingDestroyed
 												   object:nil];
         
-		
-		if (&UIApplicationWillEnterForegroundNotification != NULL) {
+        if (&UIApplicationWillEnterForegroundNotification != NULL) {
 			[[NSNotificationCenter defaultCenter] addObserver:self 
 													 selector:@selector(applicationEnteringForeground:) 
 														 name:UIApplicationWillEnterForegroundNotification
@@ -98,6 +101,30 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
     [[DWMemoryPool sharedDWMemoryPool] removeObject:self.currentUser
                                               atRow:kMPUsersIndex];
 	self.currentUser = nil;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)readLastReadItemID {
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+	
+	if (standardUserDefaults) {
+        _lastReadItemID = [standardUserDefaults	integerForKey:kDiskKeyLastReadItemID];
+        [standardUserDefaults synchronize];
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)updateLastReadItemID:(NSInteger)lastItemID {
+    
+    _lastReadItemID = lastItemID;
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+	
+	if (standardUserDefaults) {
+        [standardUserDefaults setInteger:_lastReadItemID 
+                                  forKey:kDiskKeyLastReadItemID];
+        [standardUserDefaults synchronize];
+	}
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -188,6 +188,8 @@ extern NSString* const kNQueueItemProgressUpdated;
 extern NSString* const kNCreationQueueUpdated;
 extern NSString* const kNUserFollowingCountUpdated;
 extern NSString* const kNPlaceFollowersUpdated;
+extern NSString* const kNNewFeedItemsLoaded;
+extern NSString* const kNNewFeedItemsRead;
 
 /**
  * Nav bar title view dimensions
