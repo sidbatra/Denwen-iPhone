@@ -14,13 +14,21 @@
  * Queue item for creating a new post
  */
 @interface DWNewPostQueueItem : DWCreationQueueItem {
-	DWItem *_item;
+	DWItem      *_item;
+    UIImage     *_previewImage;
 }
 
 /**
  * The item object being posted
  */
 @property (nonatomic,retain) DWItem *item;
+
+/**
+ * Preview image to be hooked to the attachment of
+ * the final parsed DWItem object
+ */
+@property (nonatomic,retain) UIImage *previewImage;
+
 
 /**
  * Post item with optional image to an existing place
@@ -35,6 +43,7 @@
  */
 - (void)postWithItemData:(NSString*)data
 			withVideoURL:(NSURL*)url
+        withVideoPreview:(UIImage*)videoPreviewImage
 		  andOrientation:(NSString*)orientation 
 			   toPlaceID:(NSInteger)placeID;
 
@@ -52,6 +61,7 @@
  */
 - (void)postWithItemData:(NSString*)data
 			withVideoURL:(NSURL*)url
+        withVideoPreview:(UIImage*)videoPreviewImage
 		  andOrientation:(NSString*)orientation
 			 toPlaceName:(NSString*)name
 			  atLocation:(CLLocation*)location;

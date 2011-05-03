@@ -37,6 +37,7 @@
  */
 - (void)addNewPostToQueueWithData:(NSString*)data
 					 withVideoURL:(NSURL*)url
+                 withVideoPreview:(UIImage*)videoPreviewImage
 					atOrientation:(NSString*)orientation
 						toPlaceID:(NSInteger)placeID;
 
@@ -54,6 +55,7 @@
  */
 - (void)addNewPostToQueueWithData:(NSString*)data
 					 withVideoURL:(NSURL*)url
+                 withVideoPreview:(UIImage*)videoPreviewImage
 					atOrientation:(NSString*)orientation
 					  toPlaceName:(NSString*)name
 					   atLocation:(CLLocation*)location;

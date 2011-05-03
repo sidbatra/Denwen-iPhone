@@ -384,6 +384,7 @@ replacementString:(NSString *)string {
 			
 			[[DWCreationQueue sharedDWCreationQueue] addNewPostToQueueWithData:self.dataTextView.text
 																  withVideoURL:self.videoURL
+                                                              withVideoPreview:self.previewImageView.image
 																 atOrientation:self.videoOrientation
 																   toPlaceName:self.placeNameTextField.text
 																	atLocation:self.newPlaceLocation];
@@ -401,6 +402,7 @@ replacementString:(NSString *)string {
 			
 			[[DWCreationQueue sharedDWCreationQueue] addNewPostToQueueWithData:self.dataTextView.text
 																  withVideoURL:self.videoURL
+                                                              withVideoPreview:self.previewImageView.image
 																 atOrientation:self.videoOrientation
 																	 toPlaceID:self.selectedPlace.databaseID];
 		}

@@ -97,6 +97,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 //----------------------------------------------------------------------------------------------------
 - (void)addNewPostToQueueWithData:(NSString*)data
 					 withVideoURL:(NSURL*)url
+                 withVideoPreview:(UIImage*)videoPreviewImage
 					atOrientation:(NSString*)orientation
 						toPlaceID:(NSInteger)placeID {
 	
@@ -106,6 +107,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 
 	[queueItem postWithItemData:data 
 				   withVideoURL:url
+               withVideoPreview:videoPreviewImage
 				 andOrientation:orientation
 					  toPlaceID:placeID];	
 }
@@ -129,6 +131,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 //----------------------------------------------------------------------------------------------------
 - (void)addNewPostToQueueWithData:(NSString*)data
 					 withVideoURL:(NSURL*)url
+                 withVideoPreview:(UIImage*)videoPreviewImage
 					atOrientation:(NSString*)orientation
 					  toPlaceName:(NSString*)name
 					   atLocation:(CLLocation*)location {
@@ -139,6 +142,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWCreationQueue);
 
 	[queueItem postWithItemData:data 
 				   withVideoURL:url
+               withVideoPreview:videoPreviewImage
 				 andOrientation:orientation 
 					toPlaceName:name
 					 atLocation:location];	

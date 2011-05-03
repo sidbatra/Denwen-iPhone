@@ -17,7 +17,8 @@
 //----------------------------------------------------------------------------------------------------
 @implementation DWNewPostQueueItem
 
-@synthesize item = _item;
+@synthesize item            = _item;
+@synthesize previewImage    = _previewImage;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -41,8 +42,9 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
-	self.item = nil;
-		
+	self.item           = nil;
+    self.previewImage   = nil;
+        
 	[super dealloc];
 }
 
@@ -83,10 +85,13 @@
 	attachment.previewImage		= image;
 	
 	self.item.attachment		= attachment;
+    
+    self.previewImage           = image;
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)createAttachmentWithVideoURL:(NSURL*)url 
+                    withVideoPreview:(UIImage*)videoPreviewImage
 					  andOrientation:(NSString*)orientation {
 	
 	if(!url)
@@ -98,6 +103,8 @@
 	attachment.videoURL			= url;
 	
 	self.item.attachment		= attachment;
+    
+    self.previewImage           = videoPreviewImage;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -115,12 +122,14 @@
 //----------------------------------------------------------------------------------------------------
 - (void)postWithItemData:(NSString*)data
 			withVideoURL:(NSURL*)url
+        withVideoPreview:(UIImage*)videoPreviewImage
 		  andOrientation:(NSString*)orientation 
 			   toPlaceID:(NSInteger)placeID {
 		
 	[self createItemWithData:data];
 	[self createPlaceWithID:placeID];
 	[self createAttachmentWithVideoURL:url
+                      withVideoPreview:videoPreviewImage
 						andOrientation:orientation];
 	
 	[self start];
@@ -143,6 +152,7 @@
 //----------------------------------------------------------------------------------------------------
 - (void)postWithItemData:(NSString*)data
 			withVideoURL:(NSURL*)url
+        withVideoPreview:(UIImage*)videoPreviewImage
 		  andOrientation:(NSString*)orientation
 			 toPlaceName:(NSString*)name
 			  atLocation:(CLLocation*)location {
@@ -151,6 +161,7 @@
 	[self createPlaceWithName:name
 				   atLocation:location];
 	[self createAttachmentWithVideoURL:url
+                      withVideoPreview:videoPreviewImage
 						andOrientation:orientation];
 	
 	[self start];
@@ -245,13 +256,16 @@
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
 		
-		[self primaryUploadFinished];
 
-		
-		
 		DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool] getOrSetObject:[body objectForKey:kKeyItem]
 																			atRow:kMPItemsIndex];
 		item.pointerCount--;
+        
+        
+        if(item.attachment)
+            item.attachment.previewImage = self.previewImage;
+        
+        
 				
 		[[NSNotificationCenter defaultCenter] postNotificationName:kNNewItemParsed 
 															object:nil
@@ -264,7 +278,9 @@
 															  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 																		item.place,kKeyPlace,
 																		nil]];
-		}		
+		}	
+        
+        [self primaryUploadFinished];
 	}
 	else {
 		self.errorMessage = [[body objectForKey:kKeyItem] objectForKey:kKeyErrorMessages];

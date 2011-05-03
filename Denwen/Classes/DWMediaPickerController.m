@@ -86,43 +86,29 @@ static float     const kCroppedImageDimension   = 320.0;
 	
 	
 	UIImage				*result				= nil;
-	UIImageOrientation	imageOrientation	= UIImageOrientationUp;
 	
 	if(!err) {
+        
 		if([orientation isEqualToString:kRot0]) {
-			
 			result = [UIImage imageWithCGImage:imgRef];
 		}
 		else if([orientation isEqualToString:kRot90]) {
-			
-			result = [UIImage imageWithCGImage:imgRef 
-										 scale:1.0
-								   orientation:UIImageOrientationRight];
-			
-			imageOrientation = UIImageOrientationRight;
+            result = [[UIImage imageWithCGImage:imgRef] rotateTo:UIImageOrientationRight];
 		}
 		else if([orientation isEqualToString:kRot180]) {
-			
-			result = [UIImage imageWithCGImage:imgRef 
-										 scale:1.0
-								   orientation:UIImageOrientationDown];
-			
-			imageOrientation = UIImageOrientationDown;
+            result = [[UIImage imageWithCGImage:imgRef] rotateTo:UIImageOrientationDown];
 		}
 		else if([orientation isEqualToString:kRot270]) {
-			
-			result = [UIImage imageWithCGImage:imgRef 
-										 scale:1.0
-								   orientation:UIImageOrientationLeft];
-			
-			imageOrientation = UIImageOrientationLeft;
+            result = [[UIImage imageWithCGImage:imgRef] rotateTo:UIImageOrientationLeft];
 		}
+        
 	}
-	
-	return [result cropToRect:CGRectMake(0,(result.size.height - result.size.width)/2,
+    
+	return [result cropToRect:CGRectMake(0,
+                                         (result.size.height - result.size.width)/2,
 										 result.size.width,
 										 result.size.width)
-			  withOrientation:imageOrientation];
+			  withOrientation:UIImageOrientationUp];
 }
 
 //----------------------------------------------------------------------------------------------------
