@@ -76,8 +76,7 @@ static NSString* const kMsgCancelTitle          = @"OK";
 	
 	[self.emailTextField becomeFirstResponder];
 	
-    if(!mbProgressIndicator)
-        mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
     
 	[self.view addSubview:mbProgressIndicator];
 }

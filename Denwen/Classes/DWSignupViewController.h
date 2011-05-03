@@ -1,48 +1,51 @@
 //
 //  DWSignupViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/22/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "DWUser.h";
-#import "DWRequestsManager.h"
-#import "NSString+Helpers.h"
-#import "DWSession.h"
-#import "DWMemoryPool.h"
 #import "DWMediaPickerController.h"
-#import "UIImage+ImageProcessing.h"
-
 #import "MBProgressHUD.h"
 
-@protocol DWSignupViewControllerDelegate;
-
-@interface DWSignupViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
+/**
+ * Signup view for providing access to new users
+ */
+@interface DWSignupViewController : UIViewController<UITextFieldDelegate,DWMediaPickerControllerDelegate> {
 	
-	UIView *signupFieldsContainerView;
-	UITextField *fullNameTextField;
-	UITextField *emailTextField;
-	UITextField *passwordTextField;
-	UIBarButtonItem *doneButton;
-	UIButton *imagePickerButton;
+	UIView              *_signupFieldsContainerView;
+	UITextField         *_fullNameTextField;
+	UITextField         *_emailTextField;
+	UITextField         *_passwordTextField;
+	UIBarButtonItem     *_doneButton;
+	UIButton            *_imagePickerButton;
 											
-	MBProgressHUD *mbProgressIndicator;
+	MBProgressHUD       *mbProgressIndicator;
 											
-	NSString *_photoFilename;										
-	NSString *_password;
+	NSString            *_photoFilename;										
+	NSString            *_password;
 	
-	BOOL _isUploading;
-	BOOL _signupInitiated;
-	NSInteger _uploadID;
-	
-	
-	id <DWSignupViewControllerDelegate> _delegate;
+	BOOL                _isUploading;
+	BOOL                _signupInitiated;
+    
+	NSInteger           _uploadID;
 }
 
+/**
+ * Filename of the user photo
+ */
+@property (nonatomic,copy) NSString *photoFilename;
+
+/**
+ * Encrypted password for the current user
+ */
+@property (nonatomic,copy) NSString *password;
+
+
+/**
+ * IBOutlet properties
+ */
 @property (nonatomic, retain) IBOutlet UIView *signupFieldsContainerView;
 @property (nonatomic, retain) IBOutlet UITextField *fullNameTextField;
 @property (nonatomic, retain) IBOutlet UITextField *emailTextField;
@@ -50,19 +53,12 @@
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, retain) IBOutlet UIButton *imagePickerButton;
 
-@property (copy) NSString *photoFilename;
-@property (copy) NSString *password;
 
-
+/**
+ * IBAction methods
+ */
 - (IBAction)cancelButtonClicked:(id)sender;
 - (IBAction)doneButtonClicked:(id)sender;
 - (IBAction)selectPhotoButtonClicked:(id)sender;
 
-@end
-
-
-@protocol DWSignupViewControllerDelegate
-- (void)signupViewLoaded;
-- (void)signupViewCancelButtonClicked;
-- (void)signupSuccessful;
 @end

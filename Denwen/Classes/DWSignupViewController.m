@@ -1,47 +1,49 @@
 //
 //  DWSignupViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/22/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWSignupViewController.h"
+#import "DWUser.h"
+#import "DWRequestsManager.h"
+#import "NSString+Helpers.h"
+#import "DWSession.h"
+#import "DWMemoryPool.h"
+#import "UIImage+ImageProcessing.h"
 #import "DWConstants.h"
 
-//Declarations for private methods
-//
-@interface DWSignupViewController () 
-- (void)createNewUser;
-- (void)freezeUI;
-- (void)unfreezeUI ;
-@end
+static NSString* const kMsgProgressIndicator    = @"Signing Up";
+static NSString* const kMsgIncompleteTitle      = @"Incomplete";
+static NSString* const kMsgIncomplete           = @"Enter first name, last name, email and password";
+static NSString* const kMsgErrorTitle           = @"Error";
+static NSString* const kMsgErrorNetwork         = @"Please make sure you have network connectivity and try again";
+static NSString* const kMsgCancelTitle          = @"OK";
+static NSInteger const kPreviewSize             = 75;
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWSignupViewController
 
-@synthesize signupFieldsContainerView,fullNameTextField,emailTextField,passwordTextField,doneButton,imagePickerButton,
-				password=_password,photoFilename=_photoFilename;
+@synthesize password                    = _password;
+@synthesize photoFilename               = _photoFilename;
 
+@synthesize signupFieldsContainerView   = _signupFieldsContainerView;
+@synthesize fullNameTextField           = _fullNameTextField;
+@synthesize emailTextField              = _emailTextField;
+@synthesize passwordTextField           = _passwordTextField;
+@synthesize doneButton                  = _doneButton;
+@synthesize imagePickerButton           = _imagePickerButton;
 
-
-#pragma mark -
-#pragma mark View lifecycle
-
-
-// Init the class and set the delegate member variable
-//
-- (id)initWithDelegate:(id)delegate {
+//----------------------------------------------------------------------------------------------------
+- (id)init {
 	self = [super init];
 	
-	if(self != nil) {
-		_delegate = delegate;
+	if(self) {
+        
+		self.photoFilename  = [NSString stringWithFormat:@""];
 		
-		
-		self.photoFilename = [NSString stringWithFormat:@""];
-		
-		_signupInitiated = NO;
-		_isUploading = NO;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(userCreated:) 
@@ -64,66 +66,102 @@
 												   object:nil];		
 			
 	}
+    
 	return self;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	self.password                   = nil;
+	self.photoFilename              = nil;
+    
+    self.signupFieldsContainerView  = nil;
+	self.fullNameTextField          = nil;
+	self.emailTextField             = nil;
+	self.passwordTextField          = nil;
+	self.doneButton                 = nil;
+	self.imagePickerButton          = nil;
+	
+    [super dealloc];
+}
 
-// Additional UI configurations after the view has loaded
-//
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:MODALVIEW_BACKGROUND_IMAGE]];
+	[[self.signupFieldsContainerView layer] setCornerRadius:2.5f];
+	[[self.signupFieldsContainerView layer] setMasksToBounds:YES];
+	[[self.signupFieldsContainerView layer] setBorderColor:[[UIColor whiteColor] CGColor]];
 	
-	//rounded corners and border customization
-	[[signupFieldsContainerView layer] setCornerRadius:2.5f];
-	//[[signupFieldsContainerView layer] setBorderWidth:1.0f];
-	[[signupFieldsContainerView layer] setMasksToBounds:YES];
-	//[[signupFieldsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
-	[[signupFieldsContainerView layer] setBorderColor:[[UIColor whiteColor] CGColor]];
+	[[self.imagePickerButton layer] setCornerRadius:2.5f];
+	[[self.imagePickerButton layer] setMasksToBounds:YES];
 	
-	[[imagePickerButton layer] setCornerRadius:2.5f];
-	//[[imagePickerButton layer] setBorderWidth:1.0f];
-	[[imagePickerButton layer] setMasksToBounds:YES];
-	//[[imagePickerButton layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
+	[self.fullNameTextField becomeFirstResponder];
 	
-	[fullNameTextField becomeFirstResponder];
-	
-	mbProgressIndicator = [[MBProgressHUD alloc] initWithView:self.view];
+    mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    
 	[self.view addSubview:mbProgressIndicator];
-	[mbProgressIndicator release];
 }
 
-
-// Message the delegate that the view has appeared. Used to hide the
-// signup toolbar to allow the uiimagepicker to not be blocked
-//
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	[_delegate signupViewLoaded];
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidUnload {
+    [super viewDidUnload];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+    //[super didReceiveMemoryWarning];
+}
 
-#pragma mark -
-#pragma mark UI management
-
-// Freezes the UI when the credentials are being evaluated on the server
-//
+//----------------------------------------------------------------------------------------------------
 - (void)freezeUI {
-	[fullNameTextField resignFirstResponder];
-	[emailTextField resignFirstResponder];
-	[passwordTextField resignFirstResponder];
+	[self.fullNameTextField resignFirstResponder];
+	[self.emailTextField resignFirstResponder];
+	[self.passwordTextField resignFirstResponder];
 	
-	mbProgressIndicator.labelText = @"Signing Up";
+	mbProgressIndicator.labelText = kMsgProgressIndicator;
 	[mbProgressIndicator showUsingAnimation:YES];
 }
 
-
-// Restores the UI back to its normal state
+//----------------------------------------------------------------------------------------------------
 - (void)unfreezeUI {
-	[fullNameTextField becomeFirstResponder];
+	[self.fullNameTextField becomeFirstResponder];
 	
 	[mbProgressIndicator hideUsingAnimation:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)createNewUser {
+	
+	if (self.emailTextField.text.length == 0 || self.fullNameTextField.text.length == 0 || self.passwordTextField.text.length == 0) {
+        
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgIncompleteTitle
+														message:kMsgIncomplete
+													   delegate:nil 
+											  cancelButtonTitle:kMsgCancelTitle
+											  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	}
+	else {			
+		if(!_signupInitiated)
+			[self freezeUI];
+		
+		if(!_isUploading) {
+			
+			_signupInitiated    = NO;
+			self.password       = [[self.passwordTextField.text encrypt] stringByEncodingHTMLCharacters];
+			
+			[[DWRequestsManager sharedDWRequestsManager] createUserWithName:self.fullNameTextField.text 
+																  withEmail:self.emailTextField.text
+															   withPassword:self.password
+														  withPhotoFilename:self.photoFilename];
+		}
+		else
+			_signupInitiated = YES;
+	}
 }
 
 
@@ -137,94 +175,49 @@
     
     DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
     [picker prepareForImageWithPickerMode:pickerMode];
-    [self presentModalViewController:picker animated:NO];   
+    
+    [self presentModalViewController:picker 
+                            animated:NO];   
 }
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark IB Events
+#pragma mark IBAction methods
 
-
-// User clicks the cancel button
-//
+//----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClicked:(id)sender {
-	[_delegate signupViewCancelButtonClicked];
+	[self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
-
-// User clicks the done button
-//
+//----------------------------------------------------------------------------------------------------
 - (void)doneButtonClicked:(id)sender {
 	[self createNewUser];
 }
 
-
-// User wants to select  profile picture
-//
-- (IBAction)selectPhotoButtonClicked:(id)sender {
+//----------------------------------------------------------------------------------------------------
+- (void)selectPhotoButtonClicked:(id)sender {
 	[self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
 }
 
-
-// Handles return key on the keyboard
-//
+//----------------------------------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
-	if(textField == fullNameTextField) {
-		[fullNameTextField resignFirstResponder];
-		[emailTextField becomeFirstResponder];
+	if(textField == self.fullNameTextField) {
+		[self.fullNameTextField resignFirstResponder];
+		[self.emailTextField becomeFirstResponder];
 	}
-	if(textField == emailTextField) {
-		[emailTextField resignFirstResponder];
-		[passwordTextField becomeFirstResponder];
+	if(textField == self.emailTextField) {
+		[self.emailTextField resignFirstResponder];
+		[self.passwordTextField becomeFirstResponder];
 	}
-	else if(textField == passwordTextField) {
+	else if(textField == self.passwordTextField) {
 		[self createNewUser];
 	}
 	
 	return YES;
 }
-
-
-
-#pragma mark -
-#pragma mark Server interaction methods
-
-
-// POST the user's signup information to creat a new account
-//
-- (void)createNewUser {
-	
-	if (emailTextField.text.length == 0 || fullNameTextField.text.length == 0 || passwordTextField.text.length == 0) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Fields" 
-														message:EMPTY_LOGIN_FIELDS_MSG
-													   delegate:nil 
-											  cancelButtonTitle:@"OK" 
-											  otherButtonTitles: nil];
-		[alert show];
-		[alert release];
-	}
-	else {			
-		if(!_signupInitiated)
-			[self freezeUI];
-		
-		if(!_isUploading) {
-			
-			_signupInitiated = NO;
-				
-			self.password = [passwordTextField.text isEqualToString:@""] ? passwordTextField.text : 
-							[[passwordTextField.text encrypt] stringByEncodingHTMLCharacters];
-			
-			[[DWRequestsManager sharedDWRequestsManager] createUserWithName:fullNameTextField.text 
-																  withEmail:emailTextField.text
-															   withPassword:self.password
-														  withPhotoFilename:self.photoFilename];
-		}
-		else
-			_signupInitiated = YES;
-	}
-}
-
 
 
 //----------------------------------------------------------------------------------------------------
@@ -237,17 +230,17 @@
 				  andEditedTo:(UIImage*)editedImage {
 	
 	[self dismissModalViewControllerAnimated:NO];
-    _isUploading = YES;
-	
-	_uploadID = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
-                                                                        toFolder:kS3UsersFolder
-                                                              withUploadDelegate:nil];
-	
-    UIImage *resizedImage = [editedImage resizeTo:CGSizeMake(SIZE_USER_PRE_UPLOAD_IMAGE,
-                                                             SIZE_USER_PRE_UPLOAD_IMAGE)];
     
-	[imagePickerButton setBackgroundImage:resizedImage 
-                                 forState:UIControlStateNormal];	
+    _isUploading                = YES;
+	
+	_uploadID                   = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
+                                                                                          toFolder:kS3UsersFolder
+                                                                                withUploadDelegate:nil];
+	
+    UIImage *resizedImage       = [editedImage resizeTo:CGSizeMake(kPreviewSize,kPreviewSize)];
+    
+	[self.imagePickerButton setBackgroundImage:resizedImage 
+                                      forState:UIControlStateNormal];	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -265,36 +258,34 @@
 }
 
 
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
 
+//----------------------------------------------------------------------------------------------------
 - (void)userCreated:(NSNotification*)notification {
 	
 	NSDictionary *info = [notification userInfo];
 	NSDictionary *body = [info objectForKey:kKeyBody];
 	
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
-		//NSDictionary *userJSON = [body objectForKey:USER_JSON_KEY];
 		
         DWUser *user            = (DWUser*)[[DWMemoryPool sharedDWMemoryPool] getOrSetObject:[body objectForKey:kKeyUser]
-                                                                                       atRow:kMPUsersIndex];
-        
+                                                                                       atRow:kMPUsersIndex];        
         user.encryptedPassword  = self.password;
-        
-		//DWUser *user = [[DWUser alloc] init];
-		//[user populate:userJSON];
-		
+
 		
 		[[DWSession sharedDWSession] create:user];
-		[_delegate signupSuccessful];		
-		[[NSNotificationCenter defaultCenter] postNotificationName:kNUserLogsIn object:user];
+        
+		[[NSNotificationCenter defaultCenter] postNotificationName:kNUserLogsIn 
+                                                            object:user];
 	}
 	else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-														message:[[body objectForKey:USER_JSON_KEY] objectForKey:ERROR_MESSAGES_JSON_KEY]
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorTitle
+														message:[[body objectForKey:kKeyUser] objectForKey:kKeyErrorMessages]
 													   delegate:nil 
-											  cancelButtonTitle:@"OK" 
+											  cancelButtonTitle:kMsgCancelTitle
 											  otherButtonTitles: nil];
 		[alert show];
 		[alert release];
@@ -304,11 +295,12 @@
 	
 }
 
+//----------------------------------------------------------------------------------------------------
 - (void)userError:(NSNotification*)notification {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"Problem connecting to the server, please try again"
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorTitle
+													message:kMsgErrorNetwork
 												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
+										  cancelButtonTitle:kMsgCancelTitle
 										  otherButtonTitles: nil];
 	[alert show];
 	[alert release];
@@ -316,76 +308,43 @@
 	[self unfreezeUI];	
 }
 
+//----------------------------------------------------------------------------------------------------
 - (void)imageUploadDone:(NSNotification*)notification {
 	
-	NSDictionary *info = [notification userInfo];
-	
-	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	NSDictionary *info      = [notification userInfo];
+	NSInteger resourceID    = [[info objectForKey:kKeyResourceID] integerValue];
 	
 	if(_uploadID == resourceID) {
-		_isUploading = NO;
 		
-		self.photoFilename = [info objectForKey:kKeyFilename];
+        _isUploading        = NO;
+		self.photoFilename  = [info objectForKey:kKeyFilename];
 		
 		if(_signupInitiated)
 			[self createNewUser];		
 	}
 }
 
-
+//----------------------------------------------------------------------------------------------------
 - (void)imageUploadError:(NSNotification*)notification {
 	
-	NSDictionary *info = [notification userInfo];
-	
-	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	NSDictionary *info      = [notification userInfo];
+	NSInteger resourceID    = [[info objectForKey:kKeyResourceID] integerValue];
 	
 	if(_uploadID == resourceID) {
-		_isUploading = NO;
-		_signupInitiated = NO;
+        
+		_isUploading        = NO;
+		_signupInitiated    = NO;
 		
 		[self unfreezeUI];
 		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-														message:@"There was an error uploading your image. Please try again."
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorTitle
+														message:kMsgErrorNetwork
 													   delegate:nil 
-											  cancelButtonTitle:@"OK" 
+											  cancelButtonTitle:kMsgCancelTitle
 											  otherButtonTitles: nil];
 		[alert show];
 		[alert release];		
 	}
-}
-
-
-#pragma mark -
-#pragma mark Memory management
-
-
-// The usual memory warning
-//
-- (void)didReceiveMemoryWarning {
-	// Comment to preserve UIView elements in a 
-	// low memory warning
-    //[super didReceiveMemoryWarning];
-}
-
-
-// The usual memory cleanup
-//
-- (void)dealloc {	
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	_delegate = nil;
-	
-	self.password = nil;
-	self.photoFilename = nil;
-		
-	[fullNameTextField release];
-	[emailTextField release];
-	[passwordTextField release];
-	[doneButton release];
-	[imagePickerButton release];
-	
-    [super dealloc];
 }
 
 

@@ -14,7 +14,7 @@
 /**
  * Facilitates creation of items and places
  */
-@interface DWCreateViewController : UIViewController<UIActionSheetDelegate,DWMediaPickerControllerDelegate,DWPlacesSearchResultsViewControllerDelegate> {
+@interface DWCreateViewController : UIViewController<DWMediaPickerControllerDelegate,DWPlacesSearchResultsViewControllerDelegate> {
 	
 	UILabel					*_atLabel;
 	UIImageView				*_previewImageView;
