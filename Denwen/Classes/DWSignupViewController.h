@@ -15,7 +15,8 @@
 @interface DWSignupViewController : UIViewController<UITextFieldDelegate,DWMediaPickerControllerDelegate> {
 	
 	UIView              *_signupFieldsContainerView;
-	UITextField         *_fullNameTextField;
+	UITextField         *_firstNameTextField;
+    UITextField         *_lastNameTextField;
 	UITextField         *_emailTextField;
 	UITextField         *_passwordTextField;
 	UIBarButtonItem     *_doneButton;
@@ -47,7 +48,8 @@
  * IBOutlet properties
  */
 @property (nonatomic, retain) IBOutlet UIView *signupFieldsContainerView;
-@property (nonatomic, retain) IBOutlet UITextField *fullNameTextField;
+@property (nonatomic, retain) IBOutlet UITextField *firstNameTextField;
+@property (nonatomic, retain) IBOutlet UITextField *lastNameTextField;
 @property (nonatomic, retain) IBOutlet UITextField *emailTextField;
 @property (nonatomic, retain) IBOutlet UITextField *passwordTextField;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;

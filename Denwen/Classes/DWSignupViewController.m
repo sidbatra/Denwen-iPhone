@@ -30,7 +30,8 @@ static NSInteger const kPreviewSize             = 75;
 @synthesize photoFilename               = _photoFilename;
 
 @synthesize signupFieldsContainerView   = _signupFieldsContainerView;
-@synthesize fullNameTextField           = _fullNameTextField;
+@synthesize firstNameTextField          = _firstNameTextField;
+@synthesize lastNameTextField           = _lastNameTextField;
 @synthesize emailTextField              = _emailTextField;
 @synthesize passwordTextField           = _passwordTextField;
 @synthesize doneButton                  = _doneButton;
@@ -78,7 +79,8 @@ static NSInteger const kPreviewSize             = 75;
 	self.photoFilename              = nil;
     
     self.signupFieldsContainerView  = nil;
-	self.fullNameTextField          = nil;
+	self.firstNameTextField         = nil;
+    self.lastNameTextField          = nil;
 	self.emailTextField             = nil;
 	self.passwordTextField          = nil;
 	self.doneButton                 = nil;
@@ -98,7 +100,7 @@ static NSInteger const kPreviewSize             = 75;
 	[[self.imagePickerButton layer] setCornerRadius:2.5f];
 	[[self.imagePickerButton layer] setMasksToBounds:YES];
 	
-	[self.fullNameTextField becomeFirstResponder];
+	[self.firstNameTextField becomeFirstResponder];
 	
     mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
     
@@ -117,7 +119,8 @@ static NSInteger const kPreviewSize             = 75;
 
 //----------------------------------------------------------------------------------------------------
 - (void)freezeUI {
-	[self.fullNameTextField resignFirstResponder];
+	[self.firstNameTextField resignFirstResponder];
+    [self.lastNameTextField resignFirstResponder];
 	[self.emailTextField resignFirstResponder];
 	[self.passwordTextField resignFirstResponder];
 	
@@ -127,7 +130,7 @@ static NSInteger const kPreviewSize             = 75;
 
 //----------------------------------------------------------------------------------------------------
 - (void)unfreezeUI {
-	[self.fullNameTextField becomeFirstResponder];
+	[self.firstNameTextField becomeFirstResponder];
 	
 	[mbProgressIndicator hideUsingAnimation:YES];
 }
@@ -135,7 +138,10 @@ static NSInteger const kPreviewSize             = 75;
 //----------------------------------------------------------------------------------------------------
 - (void)createNewUser {
 	
-	if (self.emailTextField.text.length == 0 || self.fullNameTextField.text.length == 0 || self.passwordTextField.text.length == 0) {
+	if (self.emailTextField.text.length == 0 || 
+        self.firstNameTextField.text.length == 0 ||
+        self.lastNameTextField.text.length == 0 ||
+        self.passwordTextField.text.length == 0) {
         
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgIncompleteTitle
 														message:kMsgIncomplete
@@ -154,10 +160,12 @@ static NSInteger const kPreviewSize             = 75;
 			_signupInitiated    = NO;
 			self.password       = [[self.passwordTextField.text encrypt] stringByEncodingHTMLCharacters];
 			
-			[[DWRequestsManager sharedDWRequestsManager] createUserWithName:self.fullNameTextField.text 
-																  withEmail:self.emailTextField.text
-															   withPassword:self.password
-														  withPhotoFilename:self.photoFilename];
+            
+			[[DWRequestsManager sharedDWRequestsManager] createUserWithFirstName:self.firstNameTextField.text 
+                                                                    withLastName:self.lastNameTextField.text
+                                                                       withEmail:self.emailTextField.text
+                                                                    withPassword:self.password
+                                                               withPhotoFilename:self.photoFilename];
 		}
 		else
 			_signupInitiated = YES;
@@ -204,10 +212,14 @@ static NSInteger const kPreviewSize             = 75;
 //----------------------------------------------------------------------------------------------------
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
-	if(textField == self.fullNameTextField) {
-		[self.fullNameTextField resignFirstResponder];
-		[self.emailTextField becomeFirstResponder];
+	if(textField == self.firstNameTextField) {
+		[self.firstNameTextField resignFirstResponder];
+		[self.lastNameTextField becomeFirstResponder];
 	}
+    else if(textField == self.lastNameTextField) {
+        [self.lastNameTextField resignFirstResponder];
+        [self.emailTextField becomeFirstResponder];
+    }
 	if(textField == self.emailTextField) {
 		[self.emailTextField resignFirstResponder];
 		[self.passwordTextField becomeFirstResponder];

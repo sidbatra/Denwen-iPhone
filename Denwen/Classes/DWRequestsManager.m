@@ -41,7 +41,7 @@ static NSString* const kFollowedItemsURI		= @"/followed/items.json?last_id=%d";
 static NSString* const kNewItemURI				= @"/items.json?item[data]=%@&item[place_id]=%d&attachment[filename]=%@";
 static NSString* const kDeleteItemURI           = @"/items/%d.json?ignore=1";
 static NSString* const kNewItemWithPlaceURI		= @"/items.json?item[data]=%@&attachment[filename]=%@&place[name]=%@&place[lat]=%f&place[lon]=%f";
-static NSString* const kNewUserURI				= @"%@%@/users.json?user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile";
+static NSString* const kNewUserURI				= @"%@%@/users.json?user[first_name]=%@&user[last_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile";
 static NSString* const kNewSessionURI			= @"%@%@/session.json?email=%@&password=%@&ff=mobile";
 static NSString* const kNewShareURI				= @"/shares.json?data=%@&sent_to=%d&place_id=%d";
 
@@ -455,15 +455,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)createUserWithName:(NSString*)name
-				 withEmail:(NSString*)email
-			  withPassword:(NSString*)password
-		 withPhotoFilename:(NSString*)photoFilename {
+- (void)createUserWithFirstName:(NSString*)firstName
+                   withLastName:(NSString*)lastName
+                      withEmail:(NSString*)email
+                   withPassword:(NSString*)password
+              withPhotoFilename:(NSString*)photoFilename {
 	
 	NSString *requestURL  = [NSString stringWithFormat:kNewUserURI,
 								 kDenwenProtocol,
 								 kDenwenServer,
-								 [name stringByEncodingHTMLCharacters],
+								 [firstName stringByEncodingHTMLCharacters],
+                                 [lastName stringByEncodingHTMLCharacters],
 								 [email stringByEncodingHTMLCharacters],
 								 password,
 								 photoFilename];

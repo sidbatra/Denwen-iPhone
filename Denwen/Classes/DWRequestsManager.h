@@ -147,10 +147,11 @@
 /**
  * Create a new user
  */
-- (void)createUserWithName:(NSString*)name
-				 withEmail:(NSString*)email
-			  withPassword:(NSString*)password
-		 withPhotoFilename:(NSString*)photoFilename;
+- (void)createUserWithFirstName:(NSString*)firstName
+                   withLastName:(NSString*)lastName
+                      withEmail:(NSString*)email
+                   withPassword:(NSString*)password
+              withPhotoFilename:(NSString*)photoFilename;
 
 /**
  * Create a new session
