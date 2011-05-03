@@ -66,6 +66,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 														 name:UIApplicationWillEnterForegroundNotification
 													   object:nil];
 		}
+        
+        if (&UIApplicationDidEnterBackgroundNotification != NULL) {
+			[[NSNotificationCenter defaultCenter] addObserver:self 
+													 selector:@selector(applicationEnteringBackground:) 
+														 name:UIApplicationDidEnterBackgroundNotification
+													   object:nil];
+		}
 		
 	}
 	
@@ -187,10 +194,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 //----------------------------------------------------------------------------------------------------
 - (void)newLocationAvailable:(NSNotification*)notification {
 	
-	if(!_firstVisitRecorded && [self isActive]) {
-		[self createVisit];
-		_firstVisitRecorded = YES;
-	}
+	//if(!_firstVisitRecorded && [self isActive]) {
+		//[self createVisit];
+	//	_firstVisitRecorded = YES;
+	//}
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -198,7 +205,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	_firstVisitRecorded = YES;
 	[self createVisit];
 }
-
 
 //----------------------------------------------------------------------------------------------------
 - (void)tabSelectionChanged:(NSNotification*)notification {
@@ -210,8 +216,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)applicationEnteringBackground:(NSNotification*)notification {
+    [self createVisit];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)applicationEnteringForeground:(NSNotification*)notification {
-	[self createVisit];
 }
 
 //----------------------------------------------------------------------------------------------------

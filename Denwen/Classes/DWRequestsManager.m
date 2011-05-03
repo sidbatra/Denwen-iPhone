@@ -214,7 +214,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 				   resourceID:placeID];
 }
 
-
 //----------------------------------------------------------------------------------------------------
 - (void)createVisit {
 	
@@ -222,10 +221,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 									[DWSession sharedDWSession].location.coordinate.latitude,
 									[DWSession sharedDWSession].location.coordinate.longitude];
 	
-	[self createDenwenRequest:localRequestURL 
-		  successNotification:nil
-			errorNotification:nil
-				requestMethod:kPost];
+    
+    DWDenwenRequest *request = [DWDenwenRequest requestWithRequestURL:[self createDenwenRequestURL:localRequestURL]
+												  successNotification:nil
+													errorNotification:nil];
+	[request setDelegate:self];
+	[request setRequestMethod:kPost];
+	[request setShouldContinueWhenAppEntersBackground:YES];
+	[request startAsynchronous];
 }
 
 //----------------------------------------------------------------------------------------------------
