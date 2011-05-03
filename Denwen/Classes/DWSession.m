@@ -164,10 +164,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)pushNotificationAndUpdatePlaceFollowersBy:(NSInteger)delta withPlaceInfo:(NSDictionary*)info {
+- (void)pushNotificationAndUpdatePlaceFollowersBy:(NSInteger)delta
+                                    withPlaceInfo:(NSDictionary*)info {
+    
     NSInteger placeID = [[info objectForKey:kKeyResourceID] integerValue];
     
-    DWPlace *place = (DWPlace*)[[DWMemoryPool sharedDWMemoryPool] getObject:placeID atRow:kMPPlacesIndex];
+    DWPlace *place = (DWPlace*)[[DWMemoryPool sharedDWMemoryPool] getObject:placeID 
+                                                                      atRow:kMPPlacesIndex];
     [place updateFollowerCount:delta];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNPlaceFollowersUpdated
@@ -217,7 +220,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 		
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
         [self pushNotificationAndUpdateUserFollowingCountBy:1];
-        [self pushNotificationAndUpdatePlaceFollowersBy:1 withPlaceInfo:info];
+        [self pushNotificationAndUpdatePlaceFollowersBy:1 
+                                          withPlaceInfo:info];
     }
 }
 
@@ -227,7 +231,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
     
 	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
         [self pushNotificationAndUpdateUserFollowingCountBy:-1];
-        [self pushNotificationAndUpdatePlaceFollowersBy:-1 withPlaceInfo:info];        
+        [self pushNotificationAndUpdatePlaceFollowersBy:-1
+                                          withPlaceInfo:info];        
     }
 }
 
