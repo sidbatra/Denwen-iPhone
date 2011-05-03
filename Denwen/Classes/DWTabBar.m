@@ -6,6 +6,10 @@
 #import "DWTabBar.h"
 #import "DWConstants.h"
 
+static NSString* const kImgHighlight        = @"chevron.png";
+static NSInteger const kHighlightViewTag    = 3;
+
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -92,6 +96,33 @@
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
     [super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)highlightTabAtIndex:(NSInteger)index {
+    UIButton *button                    = (UIButton*)[self.buttons objectAtIndex:index];
+    
+    for (UIView *view in [button subviews]) 
+		if (view.tag == kHighlightViewTag)
+            return;
+    
+    UIImageView *imageView              = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:kImgHighlight]] autorelease];
+    imageView.tag                       = kHighlightViewTag;
+    imageView.frame                     = CGRectMake(10,10,10,10);
+    imageView.userInteractionEnabled    = NO;
+    
+    [button addSubview:imageView];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)dimTabAtIndex:(NSInteger)index {
+    UIButton *button                    = (UIButton*)[self.buttons objectAtIndex:index];
+    
+    for (UIView *view in [button subviews]) 
+		if (view.tag == kHighlightViewTag) {
+            [view removeFromSuperview];
+            break;
+        }
 }
 
 //----------------------------------------------------------------------------------------------------

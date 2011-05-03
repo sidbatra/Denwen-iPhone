@@ -35,6 +35,16 @@
 		   withInfo:(NSArray*)tabsInfo
 		andDelegate:(id)theDelegate;
 
+/**
+ * Highlights the tab at the given index
+ */
+- (void)highlightTabAtIndex:(NSInteger)index;
+
+/**
+ * Dims the tab at the given index
+ */
+- (void)dimTabAtIndex:(NSInteger)index;
+
 @end
 
 /**

@@ -255,12 +255,12 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)newFeedItemsLoaded:(NSNotification*)notification {
-    
+    [self.tabBarController highlightTabAtIndex:kTabBarFeedIndex];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)newFeedItemsRead:(NSNotification*)notification {
-    
+    [self.tabBarController dimTabAtIndex:kTabBarFeedIndex];
 }
 
 

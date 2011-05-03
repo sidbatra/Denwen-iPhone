@@ -65,7 +65,16 @@
  * currently selected tab bar button
  */
 - (UIViewController*)getSelectedController;
-    
+
+/**
+ * Highlight the tab at the given index
+ */
+- (void)highlightTabAtIndex:(NSInteger)index;
+
+/**
+ * Dim the tab at the given index
+ */
+- (void)dimTabAtIndex:(NSInteger)index;
 
 @end
 
