@@ -93,9 +93,7 @@ static NSString* const kNewPlaceCellIdentifier				= @"NewPlaceCell";
 	if([DWPlacesCache sharedDWPlacesCache].nearbyPlacesReady) {
 		
 		_tableViewUsage = kTableViewAsData;
-		
-		self.tableView.backgroundColor	= [UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0];
-		
+				
 		[self.placesManager filterPlacesForSearchText:self.searchText];
 		[self.tableView reloadData];
 	}

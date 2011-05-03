@@ -14,8 +14,11 @@
 @interface DWSession : NSObject {
 	DWUser			*_currentUser;
 	CLLocation		*_location;
+    
 	BOOL			_firstVisitRecorded;
+    
     NSInteger       _lastReadItemID;
+    NSInteger       _selectedTabIndex;
 }
 
 /**
@@ -38,6 +41,11 @@
  * that was not the user's own item
  */
 @property (nonatomic,readonly) NSInteger lastReadItemID;
+
+/**
+ * Index of the currently selected tab
+ */
+@property (nonatomic,readonly) NSInteger selectedTabIndex;
 
 
 /**

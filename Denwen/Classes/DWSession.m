@@ -23,6 +23,7 @@ static NSString* const kDiskKeyLastReadItemID   = @"last_read_item_id";
 @synthesize currentUser				= _currentUser;
 @synthesize location				= _location;
 @synthesize lastReadItemID          = _lastReadItemID;
+@synthesize selectedTabIndex        = _selectedTabIndex;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 
@@ -43,6 +44,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 												 selector:@selector(userLogsIn:) 
 													 name:kNUserLogsIn
 												   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(tabSelectionChanged:) 
+                                                     name:kNTabSelectionChanged
+                                                   object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(followingCreated:) 
@@ -188,6 +194,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 - (void)userLogsIn:(NSNotification*)notification {
 	_firstVisitRecorded = YES;
 	[self createVisit];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+- (void)tabSelectionChanged:(NSNotification*)notification {
+	
+	NSDictionary *info          = [notification userInfo];
+    NSInteger selectedIndex     = [[info objectForKey:kKeySelectedIndex] integerValue];
+    
+    _selectedTabIndex           = selectedIndex;
 }
 
 //----------------------------------------------------------------------------------------------------

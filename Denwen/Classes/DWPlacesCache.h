@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 #import "DWPlacesManager.h"
 
@@ -12,6 +13,9 @@
  */
 @interface DWPlacesCache : NSObject {
 	DWPlacesManager		*_placesManager;
+    
+    CLLocation          *_lastNearbyUpdateLocation;
+    
 	BOOL				_refreshNearbyPlacesOnNextLocationUpdate;
 	BOOL				_nearbyPlacesReady;
 	BOOL				_followedPlacesReady;
@@ -21,6 +25,11 @@
  * The sole shared instance of the class
  */
 + (DWPlacesCache *)sharedDWPlacesCache;
+
+/**
+ * Last user location when nearby places were updated
+ */
+@property (nonatomic,retain) CLLocation* lastNearbyUpdateLocation;
 
 /**
  * Indicates whether nearby places have been loaded once

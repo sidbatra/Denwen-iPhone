@@ -19,7 +19,7 @@
 #define kNavBarColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]
 
 static NSString* const kFacebookURLPrefix			= @"fb";
-static NSInteger const kLocationRefreshDistance		= 750;
+static NSInteger const kLocationRefreshDistance		= 500;
 static NSInteger const kLocationFreshnessThreshold	= 10;
 static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, memory pool free memory called";
 static NSInteger const kTabBarWidth					= 320;
@@ -169,7 +169,7 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 	self.locationManager					= [[[CLLocationManager alloc] init] autorelease];
 	self.locationManager.delegate			= self;
 	self.locationManager.desiredAccuracy	= kCLLocationAccuracyBest;
-	self.locationManager.distanceFilter		= kLocationRefreshDistance;	
+	self.locationManager.distanceFilter		= kLocationRefreshDistance;
 	
 	[self.locationManager startUpdatingLocation];
 }

@@ -11,9 +11,10 @@
 
 #import "SynthesizeSingleton.h"
 
-static NSInteger const kCapacity		= 2;
-static NSInteger const kNearbyIndex		= 0;
-static NSInteger const kFollowedIndex	= 1;
+static NSInteger const kCapacity                    = 2;
+static NSInteger const kNearbyIndex                 = 0;
+static NSInteger const kFollowedIndex               = 1;
+static NSInteger const kLocationRefreshDistance		= 500;
 
 
 
@@ -22,9 +23,10 @@ static NSInteger const kFollowedIndex	= 1;
 //----------------------------------------------------------------------------------------------------
 @implementation DWPlacesCache
 
-@synthesize placesManager			= _placesManager;
-@synthesize nearbyPlacesReady		= _nearbyPlacesReady;
-@synthesize followedPlacesReady		= _followedPlacesReady;
+@synthesize placesManager               = _placesManager;
+@synthesize lastNearbyUpdateLocation    = _lastNearbyUpdateLocation;
+@synthesize nearbyPlacesReady           = _nearbyPlacesReady;
+@synthesize followedPlacesReady         = _followedPlacesReady;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 
@@ -108,7 +110,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-	self.placesManager = nil;
+	self.placesManager              = nil;
+    self.lastNearbyUpdateLocation   = nil;
 	
 	[super dealloc];
 }
@@ -143,12 +146,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 //----------------------------------------------------------------------------------------------------
 - (void)loadNearbyPlaces {
 	[[DWRequestsManager sharedDWRequestsManager] getNearbyPlaces];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)loadFollowedPlaces {
-	//if([[DWSession sharedDWSession] isActive])
-	//	[[DWRequestsManager sharedDWRequestsManager] getUserPlaces:[DWSession sharedDWSession].currentUser.databaseID];
 }
 
 
@@ -205,10 +202,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
 
 //----------------------------------------------------------------------------------------------------
 - (void)newLocationAvailable:(NSNotification*)notification {
-	if(_refreshNearbyPlacesOnNextLocationUpdate) {
-		[self loadNearbyPlaces]; 
-		_refreshNearbyPlacesOnNextLocationUpdate = NO;
-	}
+    
+    CLLocation *newLocation = [DWSession sharedDWSession].location;
+        
+    if(_refreshNearbyPlacesOnNextLocationUpdate ||
+       [newLocation distanceFromLocation:self.lastNearbyUpdateLocation] > kLocationRefreshDistance) {
+        
+        _refreshNearbyPlacesOnNextLocationUpdate    = NO;
+        self.lastNearbyUpdateLocation               = newLocation;
+        
+        [self loadNearbyPlaces];
+    }
 }
 
 /*

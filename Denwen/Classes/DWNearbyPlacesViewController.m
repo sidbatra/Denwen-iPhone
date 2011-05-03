@@ -45,7 +45,10 @@ static NSInteger const kPlacesIndex					= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)displayPlaces {
-	if([DWPlacesCache sharedDWPlacesCache].nearbyPlacesReady) {
+	if([DWPlacesCache sharedDWPlacesCache].nearbyPlacesReady && 
+       !self.view.hidden && 
+       [DWSession sharedDWSession].selectedTabIndex == kTabBarPlacesIndex) {
+        
 		
 		[_placeManager populatePreParsedPlaces:[[DWPlacesCache sharedDWPlacesCache] getNearbyPlaces]
 									   atIndex:kPlacesIndex
