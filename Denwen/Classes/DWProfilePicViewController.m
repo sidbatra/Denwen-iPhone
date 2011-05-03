@@ -43,6 +43,11 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 												 selector:@selector(imageError:) 
 													 name:kNImgActualUserImageError
 												   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userProfilePicUpdated:) 
+													 name:kNUserProfilePicUpdated
+												   object:nil];
     }
     
     return self;
@@ -123,6 +128,20 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 	}
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)userProfilePicUpdated:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+    UIImage *image          = (UIImage*)[info objectForKey:kKeyUserImage];
+    
+    if(![self.user isCurrentUser])
+		return;
+    
+    if (image) 
+        [(DWImageView*)self.view setupImageView:image];
+    
+    [self.userProfileTitleView showNormalState];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -134,8 +153,8 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)photoPicked:(UIImage*)editedImage {
-    [(DWImageView*)self.view setupImageView:editedImage];
+- (void)photoPicked {
+    [self.userProfileTitleView showProcessingState];
 }
 
 

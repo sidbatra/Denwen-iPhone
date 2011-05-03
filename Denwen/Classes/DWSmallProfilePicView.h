@@ -10,8 +10,9 @@
  * Custom small user image view for userviewcontroller nav bar
  */
 @interface DWSmallProfilePicView : UIView {
-    UIButton        *profilePicButton;
-    UIImageView     *profilePicOverlay;
+    UIButton                    *profilePicButton;
+    UIImageView                 *profilePicOverlay;
+    UIActivityIndicatorView     *spinner;
 }
 
 
@@ -30,5 +31,15 @@
  * has a picture
  */
 -(void)enableProfilePicButton;
+
+/**
+ * Show the spinner when the image is being uploaded
+ */
+- (void)showProcessingState;
+
+/**
+ * Show the normal state on image upload
+ */
+- (void)showNormalState;
 
 @end

@@ -62,6 +62,11 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
                                                  name:kNUserFollowingCountUpdated
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(userProfilePicUpdated:) 
+                                                 name:kNUserProfilePicUpdated
+                                               object:nil];    
+    
 	
 	if (&UIApplicationDidEnterBackgroundNotification != NULL) {
 		[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -335,6 +340,11 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
     [self updateUserTitleView];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)userProfilePicUpdated:(NSNotification*)notification {    
+    [self.smallProfilePicView showNormalState];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -346,8 +356,8 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)photoPicked:(UIImage*)editedImage {
-    //Stub
+- (void)photoPicked {
+    [self.smallProfilePicView showProcessingState];
 }
 
 //----------------------------------------------------------------------------------------------------

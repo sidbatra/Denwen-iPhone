@@ -46,6 +46,6 @@
 /**
  * Fired when the user picks a photo
  */
-- (void)photoPicked:(UIImage*)editedImage;
+- (void)photoPicked;
 
 @end

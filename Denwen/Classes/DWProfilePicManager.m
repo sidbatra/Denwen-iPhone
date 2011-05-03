@@ -54,8 +54,7 @@
             addNewUpdateUserPhotoToQueueWithUserID:[DWSession sharedDWSession].currentUser.databaseID
                                           andImage:editedImage];
     
-	[[DWSession sharedDWSession].currentUser updatePreviewImages:editedImage];
-    [_delegate photoPicked:editedImage];
+    [_delegate photoPicked];
 }
 
 //----------------------------------------------------------------------------------------------------

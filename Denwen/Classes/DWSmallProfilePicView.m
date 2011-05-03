@@ -38,6 +38,14 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
         
         [self addSubview:profilePicOverlay];
         [profilePicOverlay release];
+        
+        spinner			= [[UIActivityIndicatorView alloc] 
+                           initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        spinner.frame	= CGRectMake(20,12,20,20);
+        spinner.hidden  = YES;    
+        
+        [self addSubview:spinner];	
+        [spinner release];
     }
     return self;
 }
@@ -59,6 +67,21 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
     profilePicButton.enabled = YES;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)showProcessingState {
+    profilePicButton.hidden     = YES;
+    profilePicOverlay.hidden    = YES;
+    spinner.hidden              = NO;
+    [spinner startAnimating];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)showNormalState {
+    profilePicButton.hidden     = NO;
+    profilePicOverlay.hidden    = NO;
+    spinner.hidden              = YES;
+    [spinner stopAnimating];
+}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

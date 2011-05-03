@@ -16,7 +16,8 @@
 //----------------------------------------------------------------------------------------------------
 @implementation DWNewUserPhotoQueueItem
 
-@synthesize image   = _image;
+@synthesize image           = _image;
+@synthesize imageClone      = _imageClone;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -42,17 +43,43 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
-	self.image  = nil;
+	self.image      = nil;
+    self.imageClone = nil;
         
 	[super dealloc];
 }
 
 //----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Private Methods
+//----------------------------------------------------------------------------------------------------
+- (void)sendUserProfilePicUpdatedNotification {
+    
+    if ([self isFailed])
+        self.imageClone = nil;
+    
+    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
+                          self.imageClone, kKeyUserImage,
+                          nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNUserProfilePicUpdated
+                                                        object:nil
+                                                      userInfo:info];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Profile Pic Upload/Update Methods
+//----------------------------------------------------------------------------------------------------
 - (void)updatePhotoForUserWithID:(NSInteger)userID
                          toImage:(UIImage*)theImage {
     
-    self.image  = theImage;
-    _userID     = userID;
+    self.image          = theImage;
+    self.imageClone     = theImage;
+    _userID             = userID;
     
     [self start];
 }
@@ -97,6 +124,9 @@
 //----------------------------------------------------------------------------------------------------
 - (void)mediaUploadError {
 	[super mediaUploadError];
+    
+    if ([self isFailed])
+        [self sendUserProfilePicUpdatedNotification];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -114,7 +144,6 @@
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
-
 //----------------------------------------------------------------------------------------------------
 - (void)userPhotoUpdated:(NSNotification*)notification {
     NSDictionary *info		= [notification userInfo];
@@ -129,12 +158,18 @@
         
         DWUser *user = [[DWSession sharedDWSession] currentUser];
         [user update:[body objectForKey:kKeyUser]];
+        
+        [user updatePreviewImages:self.imageClone];
         [user savePicturesToDisk];
         
+        [self sendUserProfilePicUpdatedNotification];
         [self primaryUploadFinished];
     }
     else {
         [self primaryUploadError];
+        
+        if ([self isFailed])
+            [self sendUserProfilePicUpdatedNotification];
     }
 }
 
@@ -147,6 +182,9 @@
 		return;
 	    
     [self primaryUploadError];
+    
+    if ([self isFailed])
+        [self sendUserProfilePicUpdatedNotification];
 }
 
 @end

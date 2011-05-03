@@ -12,6 +12,7 @@
  */
 @interface DWNewUserPhotoQueueItem : DWCreationQueueItem {
     UIImage         *_image;
+    UIImage         *_imageClone;
     NSInteger       _userID;
 }
 
@@ -19,6 +20,13 @@
  * The profile picture
  */
 @property (nonatomic,retain) UIImage *image;
+
+
+/**
+ * The profile picture clone for passing with
+ * the notifications
+ */
+@property (nonatomic,retain) UIImage *imageClone;
 
 
 /**

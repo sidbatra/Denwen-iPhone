@@ -65,7 +65,12 @@ static NSInteger const kActionSheetCancelIndex				= 2;
         [[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(userFollowingCountUpdated:) 
 													 name:kNUserFollowingCountUpdated
-												   object:nil];  
+												   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(userProfilePicUpdated:) 
+													 name:kNUserProfilePicUpdated
+												   object:nil];        
 	}
     
 	return self;
@@ -278,6 +283,13 @@ static NSInteger const kActionSheetCancelIndex				= 2;
     [self updateUserTitleView];
 }	
 
+//----------------------------------------------------------------------------------------------------
+- (void)userProfilePicUpdated:(NSNotification*)notification {    
+    if(![self.user isCurrentUser])
+		return;
+    
+    [self.smallProfilePicView showNormalState];
+}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -289,8 +301,8 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)photoPicked:(UIImage*)editedImage {
-    //Stub
+- (void)photoPicked {
+    [self.smallProfilePicView showProcessingState];
 }
 
 

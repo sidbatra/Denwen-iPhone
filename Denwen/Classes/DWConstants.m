@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -118,6 +118,7 @@ NSString* const kKeyTotalFailed				= @"total_failed";
 NSString* const kKeyTotalProgress			= @"total_progress";
 NSString* const kKeyResetType               = @"reset_type";
 NSString* const kKeyType                    = @"type";
+NSString* const kKeyUserImage               = @"user_image";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -195,6 +196,7 @@ NSString* const kNPlaceFollowersUpdated         = @"NPlaceFollowersUpdated";
 NSString* const kNItemDeleted                   = @"NItemDeleted";
 NSString* const kNNewFeedItemsLoaded            = @"NNewFeedItemsLoaded";
 NSString* const kNNewFeedItemsRead              = @"NNewFeedItemsRead";
+NSString* const kNUserProfilePicUpdated         = @"NUserProfilePicUpdated";
 
 
 //----------------------------------------------------------------------------------------------------

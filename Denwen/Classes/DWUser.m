@@ -214,7 +214,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 //----------------------------------------------------------------------------------------------------
 - (void)updatePreviewImages:(UIImage*)image {
 	[self applyNewSmallImage:image];
-	[self applyNewMediumImage:image];
+	//[self applyNewMediumImage:image];
 }
 
 //----------------------------------------------------------------------------------------------------
