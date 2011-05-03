@@ -146,6 +146,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 - (void)pushNotificationAndUpdateUserFollowingCountBy:(NSInteger)delta {
     
     [self.currentUser updateFollowingCount:delta];
+    [self.currentUser saveFollowingCountToDisk];
     
     NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
                            [NSNumber numberWithInt:self.currentUser.databaseID]	,kKeyResourceID,
@@ -154,7 +155,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
     [[NSNotificationCenter defaultCenter] postNotificationName:kNUserFollowingCountUpdated
                                                         object:nil
                                                       userInfo:info];
-    [self.currentUser saveFollowingCountToDisk];
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -94,6 +94,18 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)removeItemWithID:(NSInteger)itemID {
+    for(DWItem *item in _items) {
+        if(item.databaseID == itemID) {
+            [[DWMemoryPool sharedDWMemoryPool]  removeObject:item 
+                                                       atRow:kMPItemsIndex];
+            [_items removeObject:item];
+            break;
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
 -(void) populateItem:(NSDictionary*)item {
 	DWItem *new_item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:item 
 																			 atRow:kMPItemsIndex];

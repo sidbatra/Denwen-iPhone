@@ -125,6 +125,11 @@
 - (void)getFollowedItemsFromLastID:(NSInteger)lastID;
 
 /**
+ * Delete your item
+ */
+- (void)deleteItemWithID:(NSInteger)itemID;
+
+/**
  * Create a new item
  */
 - (NSInteger)createItemWithData:(NSString*)data 

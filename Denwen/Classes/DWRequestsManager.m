@@ -39,6 +39,7 @@ static NSString* const kUserUpdateDeviceURI		= @"/users/%d.json?iphone_device_id
 static NSString* const kUserUpdateSubtrahendURI	= @"/users/%d.json?unread_subtrahend=%d";
 static NSString* const kFollowedItemsURI		= @"/followed/items.json?last_id=%d";
 static NSString* const kNewItemURI				= @"/items.json?item[data]=%@&item[place_id]=%d&attachment[filename]=%@";
+static NSString* const kDeleteItemURI           = @"/items/%d.json?ignore=1";
 static NSString* const kNewItemWithPlaceURI		= @"/items.json?item[data]=%@&attachment[filename]=%@&place[name]=%@&place[lat]=%f&place[lon]=%f";
 static NSString* const kNewUserURI				= @"%@%@/users.json?user[full_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile";
 static NSString* const kNewSessionURI			= @"%@%@/session.json?email=%@&password=%@&ff=mobile";
@@ -391,6 +392,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 		  successNotification:kNFollowedItemsLoaded
 			errorNotification:kNFollowedItemsError
 				requestMethod:kGet];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)deleteItemWithID:(NSInteger)itemID  {
+	NSString *localRequestURL = [NSString stringWithFormat:kDeleteItemURI,itemID];
+	
+	[self createDenwenRequest:localRequestURL
+          successNotification:nil
+            errorNotification:nil
+                requestMethod:kDelete];
 }
 
 //----------------------------------------------------------------------------------------------------

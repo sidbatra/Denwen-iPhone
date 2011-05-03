@@ -43,6 +43,11 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
 												 selector:@selector(mediumAttachmentLoaded:) 
 													 name:kNImgMediumAttachmentLoaded
 												   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(itemDeleted:) 
+													 name:kNItemDeleted
+												   object:nil];
 	}
 	return self;
 }
@@ -114,6 +119,34 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)deleteItemWithID:(NSInteger)itemID {
+
+    NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+    BOOL itemDeletedFromPool = NO;
+    
+    for (NSIndexPath *indexPath in visiblePaths) { 
+		DWItem *item = [_itemManager getItem:indexPath.row];
+		
+		if(item.databaseID == itemID) {
+            NSIndexPath *deletedIndexPath   = [NSIndexPath indexPathForRow:indexPath.row 
+                                                                 inSection:0];
+            NSArray *deletedIndexPaths      = [NSArray arrayWithObjects:deletedIndexPath,nil];
+            
+            [_itemManager removeItemWithID:itemID];
+            itemDeletedFromPool = YES;
+            [self.tableView deleteRowsAtIndexPaths:deletedIndexPaths
+                                  withRowAnimation:UITableViewRowAnimationBottom];
+            break;
+		}
+	}
+    
+    if (!itemDeletedFromPool) {
+        [_itemManager removeItemWithID:itemID];
+        [self.tableView reloadData];
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
 -(void)handleSwipeGesture:(UIGestureRecognizer *)gestureRecognizer {
     
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
@@ -123,15 +156,16 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
         
         if ([[_itemManager getItem:swipedIndexPath.row].user isCurrentUser]) {
             
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil 
-                                                                     delegate:self 
-                                                            cancelButtonTitle:kMsgActionSheetCancel
-                                                       destructiveButtonTitle:kMsgActionSheetDelete
-                                                            otherButtonTitles:nil];
+            UIActionSheet *actionSheet  = [[UIActionSheet alloc] initWithTitle:nil 
+                                                                      delegate:self 
+                                                             cancelButtonTitle:kMsgActionSheetCancel
+                                                        destructiveButtonTitle:kMsgActionSheetDelete
+                                                             otherButtonTitles:nil];
+            
+            actionSheet.tag             = [_itemManager getItem:swipedIndexPath.row].databaseID;
             
             [actionSheet showInView:[_delegate requestCustomTabBarController].view];
-            actionSheet.tag                 = swipedIndexPath.row;
-            [actionSheet release];    
+            [actionSheet release];
         }
     }
 }
@@ -145,7 +179,16 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
 //----------------------------------------------------------------------------------------------------
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
 	if (buttonIndex == 0) {
-        NSLog(@"deleted cell %d",actionSheet.tag);
+        
+        [[DWRequestsManager sharedDWRequestsManager] deleteItemWithID:actionSheet.tag];        
+        
+        NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSNumber numberWithInt:actionSheet.tag]	,kKeyResourceID,
+                               nil];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNItemDeleted
+                                                            object:nil
+                                                          userInfo:info];
     }
 }
 
@@ -174,6 +217,19 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
             [cell redisplay];
 		}
 	}	
+}
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
+//----------------------------------------------------------------------------------------------------
+- (void)itemDeleted:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+    
+    [self deleteItemWithID:resourceID];
 }
 
 

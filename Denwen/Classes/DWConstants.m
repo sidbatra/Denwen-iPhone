@@ -3,7 +3,7 @@
 //  Copyright 2011 Denwen. All rights reserved.
 //	
 
-#define PRODUCTION 1 
+//#define PRODUCTION 1 
 
 
 #import "DWConstants.h"
@@ -192,8 +192,10 @@ NSString* const kNQueueItemProgressUpdated		= @"NQueueItemProgressUpdated";
 NSString* const kNCreationQueueUpdated			= @"NCreationQueueUpdated";
 NSString* const kNUserFollowingCountUpdated     = @"NUserFollowingCountUpdated";
 NSString* const kNPlaceFollowersUpdated         = @"NPlaceFollowersUpdated";
+NSString* const kNItemDeleted                   = @"NItemDeleted";
 NSString* const kNNewFeedItemsLoaded            = @"NNewFeedItemsLoaded";
 NSString* const kNNewFeedItemsRead              = @"NNewFeedItemsRead";
+
 
 //----------------------------------------------------------------------------------------------------
 NSInteger const kNavTitleViewX                  = 60;
@@ -304,7 +306,7 @@ NSString* const kImgGenericPlaceHolder			= @"generic_placeholder.png";
 /**
  * Denwen Twitter and Facebook apps made by sbat
  */
-NSString* const kTwitterOAuthConsumerKey			= @"Y8wcijb0orzZSbkd3fQ4g";
+NSString* const kTwitterOAuthConsumerKey		= @"Y8wcijb0orzZSbkd3fQ4g";
 NSString* const kTwitterOAuthConsumerSecret		= @"i7Oqqpy1I1ZycqRpJOSsBMylURsFlC2Qo7pQc0YbUzk";
 NSString* const kFacebookAppID					= @"127979053940843";
 
@@ -313,7 +315,7 @@ NSString* const kFacebookAppID					= @"127979053940843";
 /**
  * Tenwen Twitter and Facebook apps made by drao
  */
-NSString* const kTwitterOAuthConsumerKey			= @"kC2Kv9gsqYdZGwHHzx4bTQ";
+NSString* const kTwitterOAuthConsumerKey		= @"kC2Kv9gsqYdZGwHHzx4bTQ";
 NSString* const kTwitterOAuthConsumerSecret		= @"CO7MYDyF2TyzBAVPzARIWt7GI6SLSb1fgAcMPhLgE";
 NSString* const kFacebookAppID					= @"176869555684965";
 

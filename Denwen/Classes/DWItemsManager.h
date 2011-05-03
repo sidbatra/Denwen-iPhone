@@ -42,6 +42,11 @@
 		atIndex:(NSInteger)index;
 
 /**
+ * Remove the item with the given database id
+ */
+- (void)removeItemWithID:(NSInteger)itemID;
+
+/**
  * Call the overloaded populate items with
  * bufferStatus NO and clearItemsStatus NO
  */
