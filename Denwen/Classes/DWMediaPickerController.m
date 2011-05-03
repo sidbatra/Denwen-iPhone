@@ -70,13 +70,14 @@ static float     const kCroppedImageDimension   = 320.0;
 	 */
 	AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL
 												options:nil];
-	
+
 	AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
 	
 	[asset release];
+    
 	
 	NSError *err		= nil;
-	CMTime time			= CMTimeMake(kThumbnailTimestamp, 60);
+	CMTime time			= CMTimeMake([asset duration].value / ([asset duration].timescale*4.0) + 1, 60);
 	
 	CGImageRef imgRef	= [generate copyCGImageAtTime:time 
 										   actualTime:NULL
