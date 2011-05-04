@@ -29,6 +29,9 @@ static NSString* const kImgCreateOn					= @"tab_create_active.png";
 static NSString* const kImgCreateOff				= @"tab_create_on.png";
 static NSString* const kImgFeedOn					= @"tab_feed_on.png";
 static NSString* const kImgFeedOff					= @"tab_feed_off.png";
+static NSString* const kMsgLocErrorTitle            = @"Location Needed";
+static NSString* const kMsgLocError                 = @"To use Denwen, turn on location in your iPhone settings.";
+static NSString* const kMsgCustomButtonTitle        = @"OK";
 
 
  
@@ -280,6 +283,26 @@ static NSString* const kImgFeedOff					= @"tab_feed_off.png";
 
 //----------------------------------------------------------------------------------------------------
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    
+    if([error code] == kCLErrorDenied) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgLocErrorTitle
+														message:kMsgLocError
+													   delegate:self
+											  cancelButtonTitle:kMsgCustomButtonTitle
+											  otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+    }        
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIAlertViewDelegate
+//----------------------------------------------------------------------------------------------------
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    exit(0);
 }
 
 
