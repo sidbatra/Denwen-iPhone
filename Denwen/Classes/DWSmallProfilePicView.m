@@ -6,7 +6,9 @@
 #import "DWSmallProfilePicView.h"
 
 
-static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
+static NSString* const kImgOverlayImage         = @"user_photo_gloss.png";
+static CGFloat   const kProfileButtonAlpha      = 0.98;
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -14,13 +16,13 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
 //----------------------------------------------------------------------------------------------------
 @implementation DWSmallProfilePicView
 
-
 //----------------------------------------------------------------------------------------------------
 - (id)initWithFrame:(CGRect)frame andTarget:(id)target {
     self = [super initWithFrame:frame];
     
     if (self) {
-        profilePicButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        profilePicButton           = [UIButton buttonWithType:UIButtonTypeCustom];
+        profilePicButton.alpha     = kProfileButtonAlpha;
         
         [profilePicButton addTarget:target 
                              action:@selector(didTapSmallUserImage:event:) 
@@ -30,6 +32,7 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
         profilePicButton.enabled = NO;
         [self addSubview:profilePicButton];
         
+        
         profilePicOverlay = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
         
         profilePicOverlay.image                     = [UIImage imageNamed:kImgOverlayImage];
@@ -38,6 +41,7 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
         
         [self addSubview:profilePicOverlay];
         [profilePicOverlay release];
+        
         
         spinner			= [[UIActivityIndicatorView alloc] 
                            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -58,6 +62,7 @@ static NSString* const kImgOverlayImage = @"user_photo_gloss.png";
 //----------------------------------------------------------------------------------------------------
 -(void)setProfilePicButtonBackgroundImage:(UIImage*)image {
     profilePicOverlay.hidden = NO;
+    
     [profilePicButton setBackgroundImage:image 
                                 forState:UIControlStateNormal];
 }
