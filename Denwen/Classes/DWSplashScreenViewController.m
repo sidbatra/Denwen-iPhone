@@ -55,16 +55,16 @@
 - (void)loginButtonClicked:(id)sender {
     DWLoginViewController *loginView    = [[[DWLoginViewController alloc] init] autorelease];
     
-    [self presentModalViewController:loginView
-                            animated:YES];
+    [self.navigationController pushViewController:loginView
+										 animated:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)signupButtonClicked:(id)sender {
     DWSignupViewController *signupView  = [[[DWSignupViewController alloc] init] autorelease];
     
-    [self presentModalViewController:signupView
-                            animated:YES];
+    [self.navigationController pushViewController:signupView
+										 animated:YES];
 }
 
 

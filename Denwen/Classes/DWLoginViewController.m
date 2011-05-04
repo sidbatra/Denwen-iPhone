@@ -135,7 +135,7 @@ static NSString* const kMsgCancelTitle          = @"OK";
 
 //----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClicked:(id)sender {
-	[self.parentViewController dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //----------------------------------------------------------------------------------------------------

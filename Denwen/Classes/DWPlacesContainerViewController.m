@@ -130,9 +130,12 @@ static NSString* const kMsgUnload					= @"Unload called on places container";
 //----------------------------------------------------------------------------------------------------
 - (void)displaySignedOutState {
     DWSplashScreenViewController *splashView    = [[[DWSplashScreenViewController alloc] init] autorelease];
-    splashView.modalPresentationStyle           = UIModalTransitionStyleCoverVertical;
+    UINavigationController *splashNavigation    = [[[UINavigationController alloc] initWithRootViewController:splashView] autorelease];
     
-    [self.customTabBarController presentModalViewController:splashView
+    splashNavigation.navigationBarHidden        = YES;
+    splashNavigation.modalPresentationStyle     = UIModalTransitionStyleCoverVertical;
+    
+    [self.customTabBarController presentModalViewController:splashNavigation
                                                    animated:NO];
 }
 

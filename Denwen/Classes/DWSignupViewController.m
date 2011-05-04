@@ -196,7 +196,7 @@ static NSInteger const kPreviewSize             = 75;
 
 //----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClicked:(id)sender {
-	[self.parentViewController dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
