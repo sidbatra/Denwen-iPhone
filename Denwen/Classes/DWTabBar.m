@@ -6,7 +6,7 @@
 #import "DWTabBar.h"
 #import "DWConstants.h"
 
-static NSString* const kImgHighlight        = @"chevron.png";
+static NSString* const kImgHighlight        = @"new_item_triangle.png";
 static NSInteger const kHighlightViewTag    = 3;
 
 
@@ -108,7 +108,7 @@ static NSInteger const kHighlightViewTag    = 3;
     
     UIImageView *imageView              = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:kImgHighlight]] autorelease];
     imageView.tag                       = kHighlightViewTag;
-    imageView.frame                     = CGRectMake(10,10,10,10);
+    imageView.frame                     = CGRectMake(50,40,15,9);
     imageView.userInteractionEnabled    = NO;
     
     [button addSubview:imageView];
