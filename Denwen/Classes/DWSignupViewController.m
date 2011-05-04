@@ -9,8 +9,8 @@
 #import "NSString+Helpers.h"
 #import "DWSession.h"
 #import "DWMemoryPool.h"
-#import "UIImage+ImageProcessing.h"
 #import "DWConstants.h"
+#import "DWGUIManager.h"
 
 static NSString* const kMsgProgressIndicator    = @"Signing Up";
 static NSString* const kMsgIncompleteTitle      = @"Incomplete";
@@ -19,6 +19,7 @@ static NSString* const kMsgErrorTitle           = @"Error";
 static NSString* const kMsgErrorNetwork         = @"Please make sure you have network connectivity and try again";
 static NSString* const kMsgCancelTitle          = @"OK";
 static NSInteger const kPreviewSize             = 75;
+static NSString* const kSignUpText              = @"Sign Up";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -27,15 +28,15 @@ static NSInteger const kPreviewSize             = 75;
 @implementation DWSignupViewController
 
 @synthesize password                    = _password;
-@synthesize photoFilename               = _photoFilename;
 
 @synthesize signupFieldsContainerView   = _signupFieldsContainerView;
 @synthesize firstNameTextField          = _firstNameTextField;
 @synthesize lastNameTextField           = _lastNameTextField;
 @synthesize emailTextField              = _emailTextField;
 @synthesize passwordTextField           = _passwordTextField;
-@synthesize doneButton                  = _doneButton;
-@synthesize imagePickerButton           = _imagePickerButton;
+
+@synthesize customNavBar                = _customNavBar;
+@synthesize doneButtonView              = _doneButtonView;
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -43,9 +44,6 @@ static NSInteger const kPreviewSize             = 75;
 	
 	if(self) {
         
-		self.photoFilename  = [NSString stringWithFormat:@""];
-		
-		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(userCreated:) 
 													 name:kNNewUserCreated
@@ -54,18 +52,7 @@ static NSInteger const kPreviewSize             = 75;
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(userError:) 
 													 name:kNNewUserError
-												   object:nil];		
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(imageUploadDone:) 
-													 name:kNS3UploadDone
 												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(imageUploadError:) 
-													 name:kNS3UploadError
-												   object:nil];		
-			
 	}
     
 	return self;
@@ -76,15 +63,15 @@ static NSInteger const kPreviewSize             = 75;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	self.password                   = nil;
-	self.photoFilename              = nil;
     
     self.signupFieldsContainerView  = nil;
 	self.firstNameTextField         = nil;
     self.lastNameTextField          = nil;
 	self.emailTextField             = nil;
 	self.passwordTextField          = nil;
-	self.doneButton                 = nil;
-	self.imagePickerButton          = nil;
+    
+	self.doneButtonView             = nil;
+    self.customNavBar               = nil;
 	
     [super dealloc];
 }
@@ -92,13 +79,20 @@ static NSInteger const kPreviewSize             = 75;
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.customNavBar.topItem setLeftBarButtonItem:[DWGUIManager customBackButton:self]];
+    self.customNavBar.topItem.titleView = [DWGUIManager customTitleWithText:kSignUpText];
+    
+    if (!self.doneButtonView)
+        self.doneButtonView = [[[DWDoneButtonView alloc] 
+                                initWithFrame:CGRectMake(260,0,
+                                                         kNavTitleViewWidth,
+                                                         kNavTitleViewHeight) 
+                                andTarget:self] autorelease];
+    
+    [self.customNavBar addSubview:self.doneButtonView];
 	
 	[[self.signupFieldsContainerView layer] setCornerRadius:2.5f];
-	[[self.signupFieldsContainerView layer] setMasksToBounds:YES];
-	[[self.signupFieldsContainerView layer] setBorderColor:[[UIColor whiteColor] CGColor]];
-	
-	[[self.imagePickerButton layer] setCornerRadius:2.5f];
-	[[self.imagePickerButton layer] setMasksToBounds:YES];
 	
 	[self.firstNameTextField becomeFirstResponder];
 	
@@ -165,10 +159,10 @@ static NSInteger const kPreviewSize             = 75;
                                                                     withLastName:self.lastNameTextField.text
                                                                        withEmail:self.emailTextField.text
                                                                     withPassword:self.password
-                                                               withPhotoFilename:self.photoFilename];
+                                                               withPhotoFilename:kEmptyString];
 		}
 		else
-			_signupInitiated = YES;
+			_signupInitiated    = YES;
 	}
 }
 
@@ -176,37 +170,15 @@ static NSInteger const kPreviewSize             = 75;
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Private Methods
-//----------------------------------------------------------------------------------------------------
--(void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode {
-    [[DWMemoryPool sharedDWMemoryPool] freeMemory];
-    
-    DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
-    [picker prepareForImageWithPickerMode:pickerMode];
-    
-    [self presentModalViewController:picker 
-                            animated:NO];   
-}
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
 #pragma mark IBAction methods
-
 //----------------------------------------------------------------------------------------------------
-- (void)cancelButtonClicked:(id)sender {
+- (void)didTapBackButton:(id)sender event:(id)event {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)doneButtonClicked:(id)sender {
+- (void)didTapDoneButton:(id)sender event:(id)event {
 	[self createNewUser];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)selectPhotoButtonClicked:(id)sender {
-	[self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -235,46 +207,7 @@ static NSInteger const kPreviewSize             = 75;
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark DWMediaPickerControllerDelegate
-
-//----------------------------------------------------------------------------------------------------
-- (void)didFinishPickingImage:(UIImage*)originalImage 
-				  andEditedTo:(UIImage*)editedImage {
-	
-	[self dismissModalViewControllerAnimated:NO];
-    
-    _isUploading                = YES;
-	
-	_uploadID                   = [[DWRequestsManager sharedDWRequestsManager] createImageWithData:editedImage
-                                                                                          toFolder:kS3UsersFolder
-                                                                                withUploadDelegate:nil];
-	
-    UIImage *resizedImage       = [editedImage resizeTo:CGSizeMake(kPreviewSize,kPreviewSize)];
-    
-	[self.imagePickerButton setBackgroundImage:resizedImage 
-                                      forState:UIControlStateNormal];	
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode {    
-    [self dismissModalViewControllerAnimated:NO];  
-    
-    if (imagePickerMode == kMediaPickerLibraryMode)
-        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)photoLibraryModeSelected {
-    [self dismissModalViewControllerAnimated:NO];
-    [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode];
-}
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
 #pragma mark Notifications
-
 //----------------------------------------------------------------------------------------------------
 - (void)userCreated:(NSNotification*)notification {
 	
@@ -319,45 +252,5 @@ static NSInteger const kPreviewSize             = 75;
 	
 	[self unfreezeUI];	
 }
-
-//----------------------------------------------------------------------------------------------------
-- (void)imageUploadDone:(NSNotification*)notification {
-	
-	NSDictionary *info      = [notification userInfo];
-	NSInteger resourceID    = [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(_uploadID == resourceID) {
-		
-        _isUploading        = NO;
-		self.photoFilename  = [info objectForKey:kKeyFilename];
-		
-		if(_signupInitiated)
-			[self createNewUser];		
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)imageUploadError:(NSNotification*)notification {
-	
-	NSDictionary *info      = [notification userInfo];
-	NSInteger resourceID    = [[info objectForKey:kKeyResourceID] integerValue];
-	
-	if(_uploadID == resourceID) {
-        
-		_isUploading        = NO;
-		_signupInitiated    = NO;
-		
-		[self unfreezeUI];
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorTitle
-														message:kMsgErrorNetwork
-													   delegate:nil 
-											  cancelButtonTitle:kMsgCancelTitle
-											  otherButtonTitles: nil];
-		[alert show];
-		[alert release];		
-	}
-}
-
 
 @end

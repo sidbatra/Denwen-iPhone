@@ -8,6 +8,7 @@
 #import "DWUser.h"
 #import "DWRequestsManager.h"
 #import "DWSession.h"
+#import "DWGUIManager.h"
 #import "NSString+Helpers.h"
 #import "DWConstants.h"
 
@@ -18,6 +19,7 @@ static NSString* const kMsgErrorTitle           = @"Error";
 static NSString* const kMsgErrorLogin           = @"Incorrect email or password";
 static NSString* const kMsgErrorNetwork         = @"Please make sure you have network connectivity and try again";
 static NSString* const kMsgCancelTitle          = @"OK";
+static NSString* const kLoginText               = @"Log In";
 
 
 
@@ -27,10 +29,14 @@ static NSString* const kMsgCancelTitle          = @"OK";
 @implementation DWLoginViewController
 
 @synthesize password                    = _password;
+
 @synthesize loginFieldsContainerView    = _loginFieldsContainerView;
 @synthesize emailTextField              = _emailTextField;
 @synthesize passwordTextField           = _passwordTextField;
-@synthesize doneButton                  = _doneButton;
+
+@synthesize customNavBar                = _customNavBar;
+@synthesize doneButtonView              = _doneButtonView;
+
 
 //----------------------------------------------------------------------------------------------------
 - (id)init {
@@ -56,13 +62,14 @@ static NSString* const kMsgCancelTitle          = @"OK";
 - (void)dealloc {	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-	
 	self.password                   = nil;
     
     self.loginFieldsContainerView   = nil;
 	self.emailTextField             = nil;
 	self.passwordTextField          = nil;
-	self.doneButton                 = nil;
+    
+	self.doneButtonView             = nil;
+    self.customNavBar               = nil;
 	
     [super dealloc];
 }
@@ -70,9 +77,20 @@ static NSString* const kMsgCancelTitle          = @"OK";
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.customNavBar.topItem setLeftBarButtonItem:[DWGUIManager customBackButton:self]];
+    self.customNavBar.topItem.titleView = [DWGUIManager customTitleWithText:kLoginText];
+    
+    if (!self.doneButtonView)
+        self.doneButtonView = [[[DWDoneButtonView alloc] 
+                                initWithFrame:CGRectMake(260,0,
+                                                         kNavTitleViewWidth,
+                                                         kNavTitleViewHeight) 
+                                andTarget:self] autorelease];
+    
+    [self.customNavBar addSubview:self.doneButtonView];
 	
 	[[self.loginFieldsContainerView layer] setCornerRadius:2.5f];
-	[[self.loginFieldsContainerView layer] setMasksToBounds:YES];
 	
 	[self.emailTextField becomeFirstResponder];
 	
@@ -132,14 +150,13 @@ static NSString* const kMsgCancelTitle          = @"OK";
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark IBActions
-
 //----------------------------------------------------------------------------------------------------
-- (void)cancelButtonClicked:(id)sender {
+- (void)didTapBackButton:(id)sender event:(id)event {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)doneButtonClicked:(id)sender {
+- (void)didTapDoneButton:(id)sender event:(id)event {
 	[self authenticateCredentials];
 }
 
