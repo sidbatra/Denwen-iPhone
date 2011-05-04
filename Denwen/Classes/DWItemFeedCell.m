@@ -488,13 +488,13 @@
 	userButton.frame			= CGRectMake(_userNameRect.origin.x-4,
 											 _userNameRect.origin.y-11,
 											 _userNameRect.size.width+8,
-											 _userNameRect.size.height+9);
+											 _userNameRect.size.height+27);
     userButton.enabled          = YES;
 	
 	placeButton.frame			= CGRectMake(_placeNameRect.origin.x-4,
 											 _placeNameRect.origin.y-11,
 											 _placeNameRect.size.width+8,
-											 _placeNameRect.size.height+9);
+											 _placeNameRect.size.height+27);
     placeButton.enabled         = YES;
 	
 	
@@ -631,6 +631,10 @@
     
     if([self shouldTouch])
         _isTouching = YES;
+    
+    userButton.enabled      = NO;
+    placeButton.enabled     = NO;
+    
 	
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
@@ -682,6 +686,9 @@
 	[self redisplay];
 	
 	[CATransaction commit];
+    
+    userButton.enabled      = YES;
+    placeButton.enabled     = YES;
 }
 
 //----------------------------------------------------------------------------------------------------
