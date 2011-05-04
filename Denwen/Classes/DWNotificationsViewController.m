@@ -177,7 +177,7 @@ static NSString* const kTitleText               = @"Notifications";
 
 //----------------------------------------------------------------------------------------------------
 - (void)touchesError:(NSNotification*)notification {
-	[self finishedLoading];
+	[self finishedLoadingWithError];
 }
 
 

@@ -135,7 +135,7 @@ static NSInteger const kPlacesIndex					= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)searchPlacesError:(NSNotification*)notification {
-    [super finishedLoading];
+    [super finishedLoadingWithError];
 }
 
 

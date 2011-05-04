@@ -270,7 +270,7 @@ static NSInteger const kActionSheetCancelIndex				= 2;
 	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
 		return;
 	
-	[self finishedLoading];
+	[self finishedLoadingWithError];
 }	
 
 //----------------------------------------------------------------------------------------------------

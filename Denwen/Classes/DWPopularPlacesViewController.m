@@ -80,7 +80,7 @@ static NSInteger const kPlacesIndex				= 0;
 
 //----------------------------------------------------------------------------------------------------
 - (void)popularPlacesError:(NSNotification*)notification {
-	[self finishedLoading];
+	[self finishedLoadingWithError];
 }
 
 

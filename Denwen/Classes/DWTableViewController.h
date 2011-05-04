@@ -113,6 +113,11 @@
 - (void)finishedLoading;
 
 /**
+ * Cleanup after a data request has failed with an error.
+ */ 
+- (void)finishedLoadingWithError;
+
+/**
  * Perform a full refresh of the table view - reset pagination, go to loading state
  * load new data
  */

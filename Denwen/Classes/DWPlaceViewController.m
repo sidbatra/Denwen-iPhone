@@ -216,7 +216,7 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 	if([[info objectForKey:kKeyResourceID] integerValue] != self.place.databaseID)
 		return;
 	
-	[self finishedLoading];
+	[self finishedLoadingWithError];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -236,6 +236,8 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 	
 	if([[info objectForKey:kKeyResourceID] integerValue] != self.place.databaseID)
 		return;
+    
+    [self updatePlaceTitleView];
 }
 
 //----------------------------------------------------------------------------------------------------

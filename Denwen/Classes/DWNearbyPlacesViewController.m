@@ -31,6 +31,11 @@ static NSInteger const kPlacesIndex					= 0;
 												 selector:@selector(nearbyPlacesCacheUpdated:) 
 													 name:kNNearbyPlacesCacheUpdated
 												   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(nearbyPlacesError:) 
+													 name:kNNearbyPlacesError
+												   object:nil];	
 	}
 	
 	return self;
@@ -93,6 +98,11 @@ static NSInteger const kPlacesIndex					= 0;
 //----------------------------------------------------------------------------------------------------
 - (void)nearbyPlacesCacheUpdated:(NSNotification*)notification {
 	[self displayPlaces];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)nearbyPlacesError:(NSNotification*)notification {
+    [self finishedLoadingWithError];
 }
 
 

@@ -13,6 +13,8 @@ static NSInteger const kDefaultSections				= 1;
 static NSInteger const kMessageCellIndex			= 0;
 static NSInteger const kSpinnerCellIndex			= 0;
 static NSInteger const kInitialLastID               = 0;
+static NSString* const kMsgNetworkError             = @"No connection; pull to retry.";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -52,9 +54,9 @@ static NSInteger const kInitialLastID               = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.backgroundColor          = [UIColor colorWithRed:0.1764
-                                                              green:0.1764 
-                                                               blue:0.1764
+    self.tableView.backgroundColor          = [UIColor colorWithRed:0.2431
+                                                              green:0.2431 
+                                                               blue:0.2431
                                                               alpha:1.0];
 	self.tableView.separatorStyle           = UITableViewCellSeparatorStyleNone;
     
@@ -136,6 +138,23 @@ static NSInteger const kInitialLastID               = 0;
 		[self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 		_isReloading = NO;
 	}
+    
+    _isLoadingPage = NO;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)finishedLoadingWithError {
+    
+    if(_isReloading) {
+		[self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+		_isReloading = NO;
+	}
+    
+    if(_tableViewUsage == kTableViewAsSpinner) {
+        _tableViewUsage         = kTableViewAsMessage;
+        self.messageCellText    = kMsgNetworkError;
+        [self.tableView reloadData];
+    }
     
     _isLoadingPage = NO;
 }

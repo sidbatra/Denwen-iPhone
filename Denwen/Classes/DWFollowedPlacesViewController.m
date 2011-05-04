@@ -121,7 +121,7 @@ static NSInteger const kPlacesIndex					= 0;
 	if([[info objectForKey:kKeyResourceID] integerValue] != self.user.databaseID)
 		return;
 	
-	[self finishedLoading];
+	[self finishedLoadingWithError];
 }
 
 
