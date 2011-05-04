@@ -29,7 +29,7 @@
 
 #define TEXT_COLOR	 [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0]
 #define FLIP_ANIMATION_DURATION 0.18f
-
+#define PULL_OFFSET -35.0f
 
 @interface EGORefreshTableHeaderView (Private)
 - (void)setState:(EGOPullRefreshState)aState;
@@ -41,7 +41,10 @@
 
 
 - (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+    
+    self = [super initWithFrame:frame];
+    
+    if (self) {
 		self.clipsToBounds = YES; //Clip the background image view
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -60,7 +63,7 @@
 		[self addSubview:_transparentImageView];
 		[_transparentImageView release];
 
-		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 30.0f, self.frame.size.width, 20.0f)];
+		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 45.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		label.font = [UIFont fontWithName:@"Helvetica" size:12];
 		label.textColor = TEXT_COLOR;
@@ -72,14 +75,15 @@
 		_lastUpdatedLabel=label;
 		[label release];
 		
-		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 38.0f, self.frame.size.width, 20.0f)];
+		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 39.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
+		label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
 		label.textColor = TEXT_COLOR;
-		label.shadowColor = [UIColor whiteColor];
-		label.shadowOffset = CGSizeMake(0.0f, 0.5f);
+		//label.shadowColor = [UIColor whiteColor];
+		//label.shadowOffset = CGSizeMake(0.0f, 0.5f);
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = UITextAlignmentCenter;
+        label.alpha = 0.5;
 		[self addSubview:label];
 		_statusLabel=label;
 		[label release];
@@ -98,10 +102,11 @@
 		//[[self layer] addSublayer:layer];
 		//_arrowImage=layer;
 		
-		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		view.frame = CGRectMake(frame.size.width / 2 - 10.0f, frame.size.height - 38.0f, 20.0f, 20.0f);
+		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		view.frame = CGRectMake(frame.size.width / 2 - 10.0f, frame.size.height - 39.0f, 20.0f, 20.0f);
 		[self addSubview:view];
 		_activityView = view;
+        _activityView.alpha = 0.5;
 		[view release];
 		
 		
@@ -128,8 +133,8 @@
 	self.backgroundColor = backColor;
 	
 	_statusLabel.textColor = [UIColor whiteColor];
-	_statusLabel.shadowColor = [UIColor blackColor];
-	_statusLabel.shadowOffset = CGSizeMake(0.0f, -0.5f);
+	//_statusLabel.shadowColor = [UIColor blackColor];
+	//_statusLabel.shadowOffset = CGSizeMake(0.0f, -0.5f);
 	
 	_activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 }
@@ -170,7 +175,19 @@
 	switch (aState) {
 		case EGOOPullRefreshPulling:
 			
+			_statusLabel.alpha = 0.0;
 			_statusLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
+
+			//[UIView 
+			[UIView beginAnimations:nil context:NULL];
+			//[UIView setAnimationDelegate:self];
+			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+			[UIView setAnimationDuration:0.6];
+			[_statusLabel setAlpha:0.5];
+			[UIView commitAnimations];
+			
+			
+			
 			//[CATransaction begin];
 			//[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 			//_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
@@ -187,7 +204,25 @@
 			}
 			
 			_statusLabel.hidden = NO;
-			_statusLabel.text = NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
+			_statusLabel.text = @"";//NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
+			_statusLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
+			
+			//[UIView 
+			
+			if(_state != EGOOPullRefreshLoading) {
+			_statusLabel.alpha = 0.5;
+			[UIView beginAnimations:nil context:NULL];
+			//[UIView setAnimationDelegate:self];
+			//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+			[UIView setAnimationDuration:0.6];
+			[_statusLabel setAlpha:0];
+			[UIView commitAnimations];
+			}
+			else {
+				_statusLabel.alpha = 0.0;
+			}
+
+			
 			[_activityView stopAnimating];
 			//[CATransaction begin];
 			//[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
@@ -235,9 +270,9 @@
 			_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
 		}
 		
-		if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f && !_loading) {
+		if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y > PULL_OFFSET && scrollView.contentOffset.y < 0.0f && !_loading) {
 			[self setState:EGOOPullRefreshNormal];
-		} else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y < -65.0f && !_loading) {
+		} else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y < PULL_OFFSET && !_loading) {
 			[self setState:EGOOPullRefreshPulling];
 		}
 		
@@ -256,7 +291,7 @@
 		_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
 	}
 	
-	if (scrollView.contentOffset.y <= - 65.0f && !_loading) {
+	if (scrollView.contentOffset.y <= PULL_OFFSET && !_loading) {
 		
 		if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDidTriggerRefresh:)]) {
 			[_delegate egoRefreshTableHeaderDidTriggerRefresh:self];

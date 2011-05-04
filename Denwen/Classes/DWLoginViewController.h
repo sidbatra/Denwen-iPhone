@@ -1,52 +1,48 @@
 //
 //  DWLoginViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "DWUser.h";
-#import "DWRequestManager.h"
-#import "DWSessionManager.h"
-#import "DWCrypto.h"
-#import "DWURLHelper.h"
 #import "MBProgressHUD.h"
+#import "DWNavigationBar.h"
+#import "DWDoneButtonView.h"
 
-@protocol DWLoginViewControllerDelegate;
-
-
-@interface DWLoginViewController : UIViewController<UITextFieldDelegate,DWRequestManagerDelegate> {
-	UIView *loginFieldsContainerView;
-	UITextField *emailTextField;
-	UITextField *passwordTextField;
-	UIBarButtonItem *doneButton;
-	
-	DWRequestManager *_requestManager;
-	NSString *_password;
-	
-	MBProgressHUD *mbProgressIndicator;
-	id <DWLoginViewControllerDelegate> _delegate;
+/**
+ * Login view for giving access to existing users
+ */
+@interface DWLoginViewController : UIViewController<UITextFieldDelegate> {
+	UIView              *_loginFieldsContainerView;
+	UITextField         *_emailTextField;
+	UITextField         *_passwordTextField;
+    
+	NSString            *_password;
+    
+    DWNavigationBar     *_customNavBar;    	
+    DWDoneButtonView    *_doneButtonView;
+	MBProgressHUD       *mbProgressIndicator;
 }
 
-@property (nonatomic,retain) IBOutlet UIView *loginFieldsContainerView;
-@property (nonatomic,retain) IBOutlet UITextField *emailTextField;
-@property (nonatomic,retain) IBOutlet UITextField *passwordTextField;
-@property (nonatomic,retain) IBOutlet UIBarButtonItem *doneButton;
+/**
+ * Encrypted user password
+ */
+@property (nonatomic,copy) NSString *password;
 
-@property (copy) NSString *password;
-
-
-- (IBAction)cancelButtonClicked:(id)sender;
-- (IBAction)doneButtonClicked:(id)sender;
-
-@end
+/**
+ * Subview for displaying the done button
+ */
+@property (nonatomic,retain) DWDoneButtonView *doneButtonView;
 
 
-@protocol DWLoginViewControllerDelegate
-- (void)loginViewCancelButtonClicked;
-- (void)loginSuccessful;
+/**
+ * IBOutlets
+ */
+@property (nonatomic, retain) IBOutlet UIView *loginFieldsContainerView;
+@property (nonatomic, retain) IBOutlet UITextField *emailTextField;
+@property (nonatomic, retain) IBOutlet UITextField *passwordTextField;
+@property (nonatomic, retain) IBOutlet DWNavigationBar *customNavBar;
+
+
 @end

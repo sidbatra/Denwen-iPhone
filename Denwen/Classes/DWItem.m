@@ -1,188 +1,176 @@
 //
 //  DWItem.m
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWItem.h"
+#import "DWMemoryPool.h"
+#import "DWConstants.h"
 
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWItem
 
-@synthesize data=_data,attachment=_attachment,
-	place=_place,user=_user,urls = _urls,fromFollowedPlace=_fromFollowedPlace;
+@synthesize data				= _data;
+@synthesize touchesCount		= _touchesCount;
+@synthesize attachment			= _attachment;
+@synthesize place				= _place;
+@synthesize user				= _user;
+@synthesize usesMemoryPool		= _usesMemoryPool;
+@synthesize isTouched			= _isTouched;
 
-
-#pragma mark -
-#pragma mark Class Lifecycle methods
-
-
-// Init the class along with its member variables 
-//
+//----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
-	if(self != nil) {
-		_fromFollowedPlace = NO;
+	if(self) {
+		_usesMemoryPool		= YES;
 	}
 	
 	return self;  
 }
 
-
-
-#pragma mark -
-#pragma mark View Helper Methods
-
-
-// Returns whether the item has an attachment
-//
-- (BOOL)hasAttachment {
-	return self.attachment != nil;
-}
-
-
-// Returns Created Time Ago in words
-//
-- (NSString *)createdTimeAgoInWords {
-	
-	NSDate *createdDate = [NSDate dateWithTimeIntervalSince1970:_createdAtTimestamp];
-    NSDate *todayDate = [NSDate date];
-    NSInteger ti = [todayDate timeIntervalSinceDate:createdDate];
-    	
-	if (ti < 60) {
-		if (ti <= 1) 
-			return [[[NSString alloc] initWithString:@"1 second ago"] autorelease];
-		
-        return [[[NSString alloc] initWithFormat:@"%d seconds ago", ti] autorelease];
-    } 
-	else if (ti < 3600) {
-        int diff = round(ti / 60);
-		if (diff == 1)
-			return [[[NSString alloc] initWithString:@"1 minute ago"] autorelease];	
-        return [[[NSString alloc] initWithFormat:@"%d minutes ago", diff] autorelease];
-    } 
-	else if (ti < 86400) {
-        int diff = round(ti / 60 / 60);
-		if (diff == 1) 
-			return [[[NSString alloc] initWithString:@"1 hour ago"] autorelease];
-        return [[[NSString alloc] initWithFormat:@"%d hours ago", diff] autorelease];
-    } 
-	else {
-		NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-		[outputFormatter setDateFormat:@"d MMM"];
-		NSString *outputString = [[NSString alloc] initWithString:[outputFormatter stringFromDate:createdDate]];
-		[outputFormatter release];
-		
-		return [outputString autorelease];
-    }
-}
-
-
-
-#pragma mark -
-#pragma mark Server interaction methods
-
-
-// Populate the instance with JSON information parsed into
-// a NSDictionary object
-//
-- (void)populate:(NSDictionary*) result {
-	[super populate:result];
-
-	_databaseID = [[result objectForKey:@"id"] integerValue];
-	_createdAtTimestamp = [[result objectForKey:CREATED_AT_JSON_KEY] doubleValue];	
-	
-	self.data = [result objectForKey:CONDENSED_DATA_JSON_KEY];
-	
-	if ([result objectForKey:ATTACHMENT_JSON_KEY]) {
-		DWAttachment *tempAttachment = [[DWAttachment alloc] init];
-		self.attachment = tempAttachment;
-		[tempAttachment release];
-		
-		[self.attachment populate:[result objectForKey:ATTACHMENT_JSON_KEY]];
-	}
-	
-	/* Create or fetch the place from the memory pool*/
-	NSDictionary *placeJSON = [result objectForKey:PLACE_JSON_KEY];
-	_place = (DWPlace*)[DWMemoryPool getOrSetObject:placeJSON atRow:PLACES_INDEX];
-	
-	/* Create or fetch the user from the memory pool*/
-	NSDictionary *userJSON = [result objectForKey:USER_JSON_KEY];
-	_user = (DWUser*)[DWMemoryPool getOrSetObject:userJSON atRow:USERS_INDEX];
-	
-		
-	NSArray *temp = [result objectForKey:URLS_JSON_KEY];
-	if ([temp count])
-		self.urls = temp;
-}
-
-
-// Override the update method to check for changes to the place and user object
-//
-- (void)update:(NSDictionary*)objectJSON {
-
-	float interval = -[self.updatedAt timeIntervalSinceNow];
-	
-	if(interval > POOL_OBJECT_UPDATE_INTERVAL) {
-		[_place update:[objectJSON objectForKey:PLACE_JSON_KEY]];
-		[_user update:[objectJSON objectForKey:USER_JSON_KEY]];
-				
-		if([self hasAttachment])
-			[_attachment update:[objectJSON objectForKey:ATTACHMENT_JSON_KEY]];
-		
-		[self refreshUpdatedAt];
-	}
-		 
-}
-
-
-// Start the download for all remote preview images belonging to the current item
-// that have not been downloaded yet
-//
-- (void)startRemoteImagesDownload {
-	if (self.attachment)
-		[self.attachment startPreviewDownload];
-	if(_place)
-		[_place	startSmallPreviewDownload];
-	if(_user)
-		[_user startSmallPreviewDownload];
-}
-
-
-
-#pragma mark -
-#pragma mark Memory Management
-
-
-// Free attachment preview image
-//
+//----------------------------------------------------------------------------------------------------
 - (void)freeMemory {
-	[self.attachment freeMemory];
 }
 
-
-// dealloc cleanup
-// 
+//----------------------------------------------------------------------------------------------------
 - (void)dealloc {
 	
 	//NSLog(@"item being removed - %d",_databaseID);
+	
+	self.data		= nil;
+    
+    if(self.attachment) {
+        
+        if(_usesMemoryPool)
+            [[DWMemoryPool sharedDWMemoryPool]  removeObject:_attachment 
+                                                       atRow:kMPAttachmentsIndex];
+        
+        self.attachment = nil;
+    }
+	
+	if(self.place) {
 		
-	self.data = nil;
-	self.urls = nil;
+		if(_usesMemoryPool)
+			[[DWMemoryPool sharedDWMemoryPool]  removeObject:_place
+                                                       atRow:kMPPlacesIndex];
+		
+		self.place = nil;
+	}
 	
-	self.attachment = nil;
-	
-	if(_place)
-		[DWMemoryPool removeObject:_place atRow:PLACES_INDEX];
-	
-	if(_user)
-		[DWMemoryPool removeObject:_user atRow:USERS_INDEX];
+	if(self.user) {
+		
+		if(_usesMemoryPool)
+			[[DWMemoryPool sharedDWMemoryPool]  removeObject:_user 
+                                                       atRow:kMPUsersIndex];
+		
+		self.user = nil;
+	}
 	
 	[super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)touchesCountDelta:(NSInteger)delta {
+	_touchesCount += delta;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)createdTimeAgoInWords {
+	
+	NSDate *createdDate = [NSDate dateWithTimeIntervalSince1970:_createdAtTimestamp];
+    NSDate *todayDate	= [NSDate date];
+    NSInteger ti		= [todayDate timeIntervalSinceDate:createdDate];
+    int diff;
+    	
+	if (ti < 60) {
+		if (ti <= 1) 
+			return @"1 second ago";
+		
+        return [NSString stringWithFormat:@"%d seconds ago", ti];
+    } 
+	else if (ti < 3600) {
+        diff = round(ti / 60);
+		
+		if (diff == 1)
+			return @"1 minute ago";	
+		
+        return [NSString stringWithFormat:@"%d minutes ago", diff];
+    } 
+	else if (ti < 86400) {
+        diff = round(ti / 60 / 60);
+		
+		if (diff == 1) 
+			return @"1 hour ago";
+        
+		return [NSString stringWithFormat:@"%d hours ago", diff];
+    } 
+    else if (ti < 518400) {
+        diff = round(ti / 60 / 60 / 24);
+        
+        if (diff == 1) 
+			return @"1 day ago";
+        
+        return [NSString stringWithFormat:@"%d days ago", diff];
+    }
+	else {
+		NSDateFormatter *outputFormatter = [[[NSDateFormatter alloc] init] autorelease];
+		[outputFormatter setDateFormat:@"d MMM"];
+		
+		NSString *outputString = [NSString stringWithString:[outputFormatter stringFromDate:createdDate]];
+		
+		return outputString;
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)populate:(NSDictionary*)item {
+	[super populate:item];
+
+	_databaseID				= [[item objectForKey:kKeyID] integerValue];
+	_touchesCount			= [[item objectForKey:kKeyTouchesCount] integerValue];
+	_isTouched				= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
+	_createdAtTimestamp		= [[item objectForKey:kKeyCreatedAt] doubleValue];
+	self.data				= [item objectForKey:kKeyData];
+    
+	
+	self.place = (DWPlace*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[item objectForKey:kKeyPlace] 
+                                                                        atRow:kMPPlacesIndex];
+
+	self.user = (DWUser*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[item objectForKey:kKeyUser]
+                                                                      atRow:kMPUsersIndex];
+    
+    if ([item objectForKey:kKeyAttachment])
+        self.attachment = (DWAttachment*)[[DWMemoryPool sharedDWMemoryPool]  getOrSetObject:[item objectForKey:kKeyAttachment] 
+                                                                                      atRow:kMPAttachmentsIndex];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)update:(NSDictionary*)item {
+    if(![super update:item])
+        return NO;
+    		
+    _touchesCount	= [[item objectForKey:kKeyTouchesCount] integerValue];
+    _isTouched		= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
+    
+    
+    [self.place update:[item objectForKey:kKeyPlace]];
+    [self.user	update:[item objectForKey:kKeyUser]];
+            
+    if(self.attachment)
+        [_attachment update:[item objectForKey:kKeyAttachment]];
+    
+    return YES;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)startRemoteImagesDownload {
+	if (self.attachment)
+		[self.attachment startPreviewDownload];
 }
 
 @end

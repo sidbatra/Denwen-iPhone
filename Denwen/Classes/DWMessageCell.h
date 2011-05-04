@@ -1,19 +1,27 @@
 //
 //  DWMessageCell.h
-//  Denwen
-//
-//  Created by Deepak Rao on 2/3/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-
+/**
+ * Display a custom message
+ */
 @interface DWMessageCell : UITableViewCell {
-	UILabel *customTextLabel;
+	UILabel		*messageLabel;
+	
+	BOOL		_isShortMode;
 }
 
-@property (nonatomic, retain) UILabel *customTextLabel;
+/**
+ * Label used to display the message
+ */
+@property (nonatomic, retain) UILabel *messageLabel;
 
+/**
+ * Adjusts the cell to accomodate a shorter container
+ */
+- (void)shorterCellMode;
 
 @end

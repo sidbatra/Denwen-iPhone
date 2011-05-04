@@ -7,6 +7,7 @@
 //
 
 #import "DWNewItemViewController.h"
+#import "DWConstants.h"
 
 
 //Declarations for private methods
@@ -18,7 +19,8 @@
 @implementation DWNewItemViewController
 
 
-@synthesize textView,placeLabel,imagePickerButton,imagePlaceholder,navItem,imagePreview,placeName=_placeName,filename=_filename;
+@synthesize textView,placeLabel,imagePickerButton,imagePlaceholder,navItem,imagePreview,placeName=_placeName,filename=_filename,
+            imagePicker = _imagePicker;
 
 
 // Init the class and set the delegate member variable
@@ -34,13 +36,32 @@
 		
 		_placeID = placeID;
 		
-		_requestManager = [[DWRequestManager alloc] initWithDelegate:self];
-		_s3Uploader = [[DWS3Uploader alloc] initWithDelegate:self];
 		
 		_forcePost = forcePost; //_forcePost forces the user to create a post before exiting
 		_postInitiated = NO;
 		_isUploading = NO;
 		_isLoadedOnce = NO;
+        
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(itemCreated:) 
+													 name:kNNewItemCreated
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(itemError:) 
+													 name:kNNewItemError
+												   object:nil];		
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(mediaUploaded:) 
+													 name:kNS3UploadDone
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(mediaUploadError:) 
+													 name:kNS3UploadError
+												   object:nil];		
 	}
 	return self;
 }
@@ -94,8 +115,9 @@
 //
 - (BOOL)textView:(UITextView *)theTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
    
-	NSUInteger newLength = [theTextView.text length] + [text length] - range.length;
-    return (newLength > MAX_POST_DATA_LENGTH) ? NO : YES;
+	return YES;
+	//NSUInteger newLength = [theTextView.text length] + [text length] - range.length;
+    //return (newLength > MAX_POST_DATA_LENGTH) ? NO : YES;
 }
 
 
@@ -122,16 +144,10 @@
 		
 		if(!_isUploading) {
 			_postInitiated = NO;
-			NSString *postString = [[NSString alloc] initWithFormat:@"item[data]=%@&item[place_id]=%d&email=%@&password=%@&attachment[filename]=%@&ff=mobile",
-									[DWURLHelper encodeString:textView.text],
-									_placeID,
-									currentUser.email,
-									currentUser.encryptedPassword,
-									self.filename
-									];
 			
-			[_requestManager sendPostRequest:ITEMS_URI withParams:postString];
-			[postString release];
+			[[DWRequestsManager sharedDWRequestsManager] createItemWithData:textView.text 
+													 withAttachmentFilename:self.filename 
+															  atPlaceWithID:_placeID];
 		}
 		else
 			_postInitiated = YES;
@@ -161,8 +177,8 @@
 //
 - (void)selectPhotoButtonClicked:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self 
-													cancelButtonTitle:CANCEL_MEDIA_MSG	destructiveButtonTitle:nil
-													otherButtonTitles:TAKE_MEDIA_MSG,CHOOSE_MEDIA_MSG,nil];
+													cancelButtonTitle:kMsgCancelMedia	destructiveButtonTitle:nil
+													otherButtonTitles:kMsgTakeMedia,kMsgChooseMedia,nil];
 	[actionSheet showInView:self.view];	
 	[actionSheet release];	
 }
@@ -174,124 +190,58 @@
 	
 	//Ignore event for the cancel button
 	if(buttonIndex != 2) {
-		[DWMemoryPool freeMemory];
+		[[DWMemoryPool sharedDWMemoryPool]  freeMemory];
 		
-		UIImagePickerController *imagePickerController = imagePickerController = [[UIImagePickerController alloc] init];
-		imagePickerController.delegate = self;
-		imagePickerController.allowsEditing = YES;		
-		imagePickerController.sourceType = buttonIndex == 0 ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
-		imagePickerController.mediaTypes = [UIImagePickerController  availableMediaTypesForSourceType:imagePickerController.sourceType];   
-		imagePickerController.videoMaximumDuration = VIDEO_MAX_DURATION;
-		imagePickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
-		[self presentModalViewController:imagePickerController animated:YES];
-		[imagePickerController release];
+        //self.imagePicker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
+        //[self.imagePicker prepareForMedia:buttonIndex];
+		//[self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
 	}
 }	
 
 
 
 #pragma mark -
-#pragma mark UIImagePickerControllerDelegate
+#pragma mark DWMediaPickerController Delegate
 
 
-// Called when a user chooses a picture from the library of the camera
-//
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	
-	UIImage *previewImage = nil;
-	NSURL *mediaURL = (NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
-	BOOL isImageFile = mediaURL == nil;
-	
-	
-	if(isImageFile) {
-		UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
-		UIImage *originalImage = [info valueForKey:UIImagePickerControllerOriginalImage];
-		
-		previewImage = [DWImageHelper resizeImage:image 
-											  scaledToSize:CGSizeMake(SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE,SIZE_ATTACHMENT_PRE_UPLOAD_IMAGE)];
-		
-		[_s3Uploader uploadImage:image toFolder:S3_ITEMS_FOLDER];
-		
-		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
-			UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-	}
-	else {
-		NSString *orientation = [DWVideoHelper extractOrientationOfVideo:mediaURL];
-		NSData *videoData = [[NSData alloc] initWithContentsOfURL:mediaURL];
-		
-		previewImage = [UIImage imageNamed:VIDEO_TINY_PREVIEW_PLACEHOLDER_IMAGE_NAME];
-		
-		[_s3Uploader uploadVideo:videoData atOrientation:orientation toFolder:S3_ITEMS_FOLDER];
-		
-		if(picker.sourceType == UIImagePickerControllerSourceTypeCamera)
-			UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
-		
-		[videoData release];
-	}
-	
-	imagePlaceholder.hidden = NO;
+- (void)mediaPickedAndProcessedWithID:(NSInteger)uploadID andPreview:(UIImage*)previewImage {
+	/*imagePlaceholder.hidden = NO;
 	imagePreview.image = previewImage;
+    _uploadID = uploadID;
+    _isUploading = YES;
 
 	[self dismissModalViewControllerAnimated:YES];
-	_isUploading = YES;
-}
-
-
-// Called when user cancels the photo selection / creation process
-//
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-
-// Called when the image is saved to the disk
-//
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-	/* TODO
-	 UIAlertView *alert;
-	 
-	 // Unable to save the image  
-	 if (error) {
-	 alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-	 message:@"Unable to save image to Photo Album." 
-	 delegate:self cancelButtonTitle:@"Ok" 
-	 otherButtonTitles:nil];
-	 else 
-	 
-	 [alert show];
-	 [alert release]; 
+    self.imagePicker = nil;
 	 */
 }
 
 
-// Called when the video is saved to the disk
-//
-- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-	//NSLog(@"video saved %@",[error localizedDescription]);
-	// TODO: Record errors
+- (void)mediaCancelled {
+	/*
+	[self dismissModalViewControllerAnimated:YES];
+    self.imagePicker = nil;
+	 */
 }
 
 
 
 #pragma mark -
-#pragma mark DWRequestManagerDelegate
+#pragma mark Notifications
 
-
-// Fired when request manager has successfully parsed a request
-//
-- (void)didFinishRequest:(NSString*)status withBody:(NSDictionary*)body 
-			 withMessage:(NSString*)message withInstanceID:(int)instanceID {
-
-	if([status isEqualToString:SUCCESS_STATUS]) {
+- (void)itemCreated:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
+	NSDictionary *body = [info objectForKey:kKeyBody];
+	
+	if([[info objectForKey:kKeyStatus] isEqualToString:kKeySuccess]) {
+		
 		DWItem *item = [[DWItem alloc] init];
 		[item populate:[body objectForKey:ITEM_JSON_KEY]];
-		item.fromFollowedPlace = [[body objectForKey:FOLLOWING_JSON_KEY] boolValue];
 		
-		[DWMemoryPool setObject:item atRow:ITEMS_INDEX];
+		[[DWMemoryPool sharedDWMemoryPool]  setObject:item atRow:kMPItemsIndex];
 		item.pointerCount--;
 		[item release];
 		
-		[[NSNotificationCenter defaultCenter] postNotificationName:N_NEW_ITEM_CREATED object:item];
+		//[[NSNotificationCenter defaultCenter] postNotificationName:N_NEW_ITEM_CREATED object:item];
 		[_delegate newItemCreationFinished];
 	}
 	else {
@@ -305,13 +255,10 @@
 		
 		[self unfreezeUI];
 	}
+	
 }
 
-
-// Fired when an error happens during the request
-//
-- (void)errorWithRequest:(NSError*)error forInstanceID:(int)instanceID {
-	
+- (void)itemError:(NSNotification*)notification {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
 													message:@"Problem connecting to the server, please try again"
 												   delegate:nil 
@@ -323,41 +270,42 @@
 	[self unfreezeUI];
 }
 
-
-
-#pragma mark -
-#pragma mark DWS3UploaderDelegate
-
-
-// Media has been successfully uploaded to S3
-//
-- (void)finishedUploadingMedia:(NSString*)filename {
-	_isUploading = NO;
-		
-	self.filename = filename;
+- (void)mediaUploaded:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
 	
-	if(_postInitiated)
-		[self createNewItem];
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		_isUploading = NO;
+		
+		self.filename = [info objectForKey:kKeyFilename];
+		
+		if(_postInitiated)
+			[self createNewItem];
+	}
 }
 
-
-// An error happened while uploading media to S3
-//
-- (void)errorUploadingMedia:(NSError*)error {
-	_isUploading = NO;
-	_postInitiated = NO;
-	imagePreview.image = nil;
-	imagePlaceholder.hidden = YES;
+- (void)mediaUploadError:(NSNotification*)notification {
+	NSDictionary *info = [notification userInfo];
 	
-	[self unfreezeUI];
+	NSInteger resourceID = [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(_uploadID == resourceID) {
+		_isUploading = NO;
+		_postInitiated = NO;
+		imagePreview.image = nil;
+		imagePlaceholder.hidden = YES;
 		
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"There was an error uploading your file. Please try again."
-												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
-										  otherButtonTitles: nil];
-	[alert show];
-	[alert release];
+		[self unfreezeUI];
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
+														message:@"There was an error uploading your file. Please try again."
+													   delegate:nil 
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles: nil];
+		[alert show];
+		[alert release];
+	}
 }
 
 
@@ -386,10 +334,7 @@
 	
 	self.placeName = nil;
 	self.filename = nil;
-	
-	[_requestManager release];
-	[_s3Uploader release];
-	
+		
 	[textView release];
 	[placeLabel release];
 	[imagePickerButton release];

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "RKLMatchEnumerator.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 
 // NOTE: Yeah, it would make more sense to subclass UILabel to do this. But all the

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "Constants.h"
+#import "DWConstants.h"
 
 @interface DWUserCell : UITableViewCell {
 	id _eventTarget;

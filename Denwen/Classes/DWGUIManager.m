@@ -8,6 +8,12 @@
 
 #import "DWGUIManager.h"
 
+static NSString* const kImgBackButton                   = @"button_back.png";
+static NSString* const kImgBackButtonActive             = @"button_back.png";
+static NSString* const kImgPlaceDetailsButton           = @"button_map.png";
+static NSString* const kImgPlaceDetailsButtonActive     = @"button_map.png";
+static NSString* const kImgCameraButton                 = @"button_camera.png";
+static NSString* const kImgCameraButtonActive           = @"button_camera.png";
 
 @implementation DWGUIManager
 
@@ -37,12 +43,74 @@
 }
 
 
-//Gets the current status bar orientation
+// Gets the current status bar orientation
 //
 + (UIInterfaceOrientation)getCurrentOrientation {
 	return [UIApplication sharedApplication].statusBarOrientation;
 }
 
+//----------------------------------------------------------------------------------------------------
++ (UIBarButtonItem*)customBackButton:(id)target {
+	UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:kImgBackButton] forState:UIControlStateNormal];
+	 [button setBackgroundImage:[UIImage imageNamed:kImgBackButtonActive] forState:UIControlStateHighlighted];
+	[button addTarget:target action:@selector(didTapBackButton:event:) 
+		   forControlEvents:UIControlEventTouchUpInside];
+	[button setFrame:CGRectMake(0, 0, 55, 44)];
+	
+	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+}
+
+//----------------------------------------------------------------------------------------------------
++ (UILabel*)customTitleWithText:(NSString*)text {
+    UILabel *titleLabel                     = [[UILabel alloc] initWithFrame:CGRectMake(10, 4, 180, 18)];
+    titleLabel.textColor                    = [UIColor whiteColor];
+    titleLabel.textAlignment                = UITextAlignmentCenter;
+    titleLabel.backgroundColor              = [UIColor clearColor];
+    titleLabel.font                         = [UIFont fontWithName:@"HelveticaNeue-Bold" 
+                                                              size:17];
+    titleLabel.text                         = text;
+    
+    return [titleLabel autorelease];
+}
+
+//----------------------------------------------------------------------------------------------------
++ (UIBarButtonItem*)placeDetailsButton:(id)target {
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setBackgroundImage:[UIImage imageNamed:kImgPlaceDetailsButton] 
+                      forState:UIControlStateNormal];
+    
+    [button setBackgroundImage:[UIImage imageNamed:kImgPlaceDetailsButtonActive] 
+                      forState:UIControlStateHighlighted];
+    
+	[button addTarget:target 
+               action:@selector(didTapPlaceDetailsButton:event:) 
+     forControlEvents:UIControlEventTouchUpInside];
+    
+	[button setFrame:CGRectMake(0, 0, 55, 44)];
+	
+	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+}
+
+//----------------------------------------------------------------------------------------------------
++ (UIBarButtonItem*)cameraNavButton:(id)target {
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setBackgroundImage:[UIImage imageNamed:kImgCameraButton] 
+                      forState:UIControlStateNormal];
+    
+    [button setBackgroundImage:[UIImage imageNamed:kImgCameraButtonActive] 
+                      forState:UIControlStateHighlighted];
+    
+	[button addTarget:target 
+               action:@selector(didTapCameraButton:event:) 
+     forControlEvents:UIControlEventTouchUpInside];
+    
+	[button setFrame:CGRectMake(0, 0, 55, 44)];
+	
+	return [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+}
 
 
 #pragma mark -

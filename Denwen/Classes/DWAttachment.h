@@ -1,61 +1,96 @@
 //
 //  DWAttachment.h
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-#import "DWURLConnection.h"
-#import "DWImageHelper.h"
-#import "Constants.h"
+#import "DWPoolObject.h"
 
-
-
-@interface DWAttachment : NSObject <DWURLConnectionDelegate> {
-	NSString *_previewUrl;
-	NSString *_fileUrl;
+/**
+ * Attachment model represents media entities attached to
+ * a post - as defined in the database
+ */
+@interface DWAttachment : DWPoolObject {
+	NSString		*_previewURL;
+	NSString		*_sliceURL;
+	NSString		*_fileURL;
+	NSString		*_orientation;
+	NSURL			*_videoURL;
 	
-	NSInteger _databaseID;
-	NSInteger _fileType;
+	NSInteger		_fileType;
 	
-	BOOL _isProcessed;
-	BOOL _isDownloading;
+	BOOL			_isProcessed;
+	BOOL			_isDownloading;
+	BOOL			_isSliceDownloading;
 	
-	UIImage *_previewImage;
-	
-	DWURLConnection *_connection;
+	UIImage			*_previewImage;
+	UIImage			*_sliceImage;
 }
 
+/**
+ * Filetype for the attachment - image or video
+ */
+@property (nonatomic,assign) NSInteger fileType;
 
-//Initialization
+/**
+ * URL of the actual attachment
+ */
+@property (nonatomic,copy) NSString *fileURL;
 
-//Functions for handling server interactions 
-- (void)populate:(NSDictionary*)result;
-- (void)update:(NSDictionary*)objectJSON;
+/**
+ * URL of the slice preview image - used for 
+ * displaying places
+ */
+@property (nonatomic,copy) NSString *sliceURL;
+
+/**
+ * URL of the preview image - either a image preview
+ * or a video thumbnail
+ */
+@property (nonatomic,copy) NSString *previewURL;
+
+/**
+ * Orientation for a video attachment
+ */
+@property (nonatomic,copy) NSString* orientation;
+
+/**
+ * Media URL for a video attachment
+ */
+@property (nonatomic,retain) NSURL *videoURL;
+
+/**
+ * Preview image downloaded from previewURL
+ */
+@property (nonatomic,retain) UIImage *previewImage;
+
+/**
+ * Preview slice image downloaded from sliceURL
+ */
+@property (nonatomic,retain) UIImage *sliceImage;
+
+
+
+/**
+ * Start downloading the image at previewURL
+ */
 - (void)startPreviewDownload;
 
-//Caching helper functions
-- (NSString*)uniqueKey;
-- (NSString*)uniquePreviewKey;
+/**
+ * Start downloading the image at sliceURL
+ */
+- (void)startSliceDownload;
 
-//Preview deciding functions
-- (BOOL)hasRemoteImagePreview;
+/**
+ * Is the attachment a vide
+ */
 - (BOOL)isVideo;
+
+/**
+ * Is the attachment an image
+ */
 - (BOOL)isImage;
-
-
-//Memory management
-- (void)freeMemory;
-
-
-//Properties
-@property (retain) UIImage *previewImage;
-@property (retain) DWURLConnection *connection;
-@property (copy) NSString *fileUrl;
-@property (copy) NSString *previewUrl;
 
 
 @end

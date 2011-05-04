@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 
 #import "DWGUIManager.h"
-#import "Constants.h"
+#import "DWConstants.h"
 
 
 @interface DWImageView : UIScrollView <UIScrollViewDelegate> {
@@ -20,7 +20,7 @@
 
 @property (readonly) UIImageView* imageView;
 
--(void)setupImageView:(NSMutableData*)imageData;
+-(void)setupImageView:(UIImage*)image;
 -(void)fitImage:(UIInterfaceOrientation)toInterfaceOrientation;
 
 @end

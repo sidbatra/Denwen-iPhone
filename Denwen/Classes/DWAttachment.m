@@ -1,202 +1,265 @@
 //
 //  DWAttachment.m
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWAttachment.h"
+#import "DWRequestsManager.h"
+#import "UIImage+ImageProcessing.h"
+#import "DWConstants.h"
+
+static NSString* const kImgVideoPreviewPlaceholder		= @"video_placeholder.png";
+static NSInteger const kSliceX							= 0;
+static NSInteger const kSliceY							= 114;
+static NSInteger const kSliceWidth						= 320;
+static float	 const kSliceHeight						= 92;
 
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWAttachment
 
-@synthesize previewImage=_previewImage,connection=_connection,fileUrl=_fileUrl,previewUrl=_previewUrl;
+@synthesize fileType		= _fileType;
+@synthesize fileURL			= _fileURL;
+@synthesize previewURL		= _previewURL;
+@synthesize sliceURL		= _sliceURL;
+@synthesize orientation		= _orientation;
+@synthesize videoURL		= _videoURL;
+@synthesize previewImage	= _previewImage;
+@synthesize sliceImage		= _sliceImage;
 
-
-
-#pragma mark -
-#pragma mark Initialization logic
-
-
-// Init the class along with its member variables 
-//
+//----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
 	if(self != nil) {		
-		_isDownloading = NO;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(mediumImageLoaded:) 
+													 name:kNImgMediumAttachmentLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(mediumImageError:) 
+													 name:kNImgMediumAttachmentError
+													object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(sliceImageLoaded:) 
+													 name:kNImgSliceAttachmentLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(sliceImageError:) 
+													 name:kNImgSliceAttachmentError
+												   object:nil];
 	}
 	
-	return self;  
+	return self; 
 }
 
-
-
-#pragma mark -
-#pragma mark Server interaction methods
-
-
-// Populate attachment attributes from JSON object
-// parsed into a NSDictionary object
-//
-- (void)populate:(NSDictionary*)attachment {	
-	_fileType = [[attachment objectForKey:@"filetype"] integerValue];
-	_databaseID = [[attachment objectForKey:@"id"] integerValue];
-	_isProcessed = [[attachment objectForKey:@"is_processed"] boolValue];
-	
-	self.fileUrl = [attachment objectForKey:@"actual_url"];
-	self.previewUrl = [attachment objectForKey:@"large_url"];
+//----------------------------------------------------------------------------------------------------
+- (void)freeMemory {
+	self.previewImage	= nil;
+	self.sliceImage		= nil;
 }
 
-
-// Override the update method to check for changes to is_processed 
-//
-- (void)update:(NSDictionary*)objectJSON {
+//----------------------------------------------------------------------------------------------------
+-(void)dealloc{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+        
+	self.fileURL		= nil;
+	self.previewURL		= nil;
+	self.sliceURL		= nil;
+	self.orientation	= nil;
+	self.videoURL		= nil;
+	self.previewImage	= nil;
+	self.sliceImage		= nil;
 	
+	[super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)populate:(NSDictionary*)attachment {
+	[super populate:attachment];
+    
+	_fileType			= [[attachment objectForKey:kKeyFileType] integerValue];
+	_databaseID			= [[attachment objectForKey:kKeyID] integerValue];
+	_isProcessed		= [[attachment objectForKey:kKeyIsProcessed] boolValue];
+	
+	self.fileURL		= [attachment objectForKey:kKeyActualURL];
+	self.previewURL		= [attachment objectForKey:kKeyLargeURL];
+	self.sliceURL		= [attachment objectForKey:kKeySliceURL];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)update:(NSDictionary*)attachment {
+    if(![super update:attachment])
+        return NO;
+    
+    
+        	
 	if(!_isProcessed) {
-		_isProcessed = [[objectJSON objectForKey:@"is_processed"] boolValue];
+		_isProcessed			= [[attachment objectForKey:kKeyIsProcessed] boolValue];
 		
 		if(_isProcessed) {
-			self.previewUrl = [objectJSON objectForKey:@"large_url"];
-			self.previewImage = nil;
+			self.previewURL		= [attachment objectForKey:kKeyLargeURL];
+			self.sliceURL		= [attachment objectForKey:kKeySliceURL];
+			self.previewImage	= nil;
+			self.sliceImage		= nil;
 		}
 	}
+    
+    return YES;
+}
+
+//----------------------------------------------------------------------------------------------------							  
+- (BOOL)isVideo {
+	return _fileType == kAttachmentVideo;
 }
 
 
-//Start the attachment preview download
-//
+//----------------------------------------------------------------------------------------------------							  
+- (BOOL)isImage {
+	return _fileType == kAttachmentImage;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)appplyNewPreviewImage:(UIImage*)image {
+	
+	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+						   image										,kKeyImage,
+						   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgMediumAttachmentLoaded
+														object:nil
+													  userInfo:info];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)appplyNewSliceImage:(UIImage*)image {
+	
+	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+						   image										,kKeyImage,
+						   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgSliceAttachmentFinalized
+														object:nil
+													  userInfo:info];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)startPreviewDownload {
 	if(!_isDownloading && !self.previewImage) {
 		
 		if(_isProcessed || [self isImage]) {
 			 _isDownloading = YES;
 			
-			DWURLConnection *tempConnection = [[DWURLConnection alloc] initWithDelegate:self];
-			self.connection = tempConnection;
-			[tempConnection release];
+			[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.previewURL
+													 withResourceID:self.databaseID
+												successNotification:kNImgMediumAttachmentLoaded
+												  errorNotification:kNImgMediumAttachmentError];
 			
-			[self.connection fetchData:self.previewUrl withKey:[self uniquePreviewKey] withCache:YES];
 		}
 		else {
-			self.previewImage = [UIImage imageNamed:VIDEO_PREVIEW_PLACEHOLDER_IMAGE_NAME];
-			[[NSNotificationCenter defaultCenter] postNotificationName:N_ATTACHMENT_PREVIEW_DONE object:self];	
+			//[self appplyNewPreviewImage:[UIImage imageNamed:kImgVideoPreviewPlaceholder]];
 		}
-
 	}
-
 }
 
-
-
-#pragma mark -
-#pragma mark URLConnection delegate
-
-
-// Error while downloading data from the server. This also fires a delegate 
-// error method which is handled by DWItem. 
-//
-- (void)errorLoadingData:(NSError *)error forInstanceID:(NSInteger)instanceID {
-	self.connection = nil;
-	_isDownloading = NO;
-	//Handle or log error	
-}
-
-
-// If the data is successfully downloaded from the server. This also fires a 
-// delegate success method which is handled by DWItem.
-//
-- (void)finishedLoadingData:(NSMutableData *)data forInstanceID:(NSInteger)instanceID {	
-	
-	UIImage *image = [[UIImage alloc] initWithData:data];
-
-	self.previewImage = _isProcessed ? image : [DWImageHelper resizeImage:image 
-																 scaledToSize:CGSizeMake(SIZE_ATTACHMENT_IMAGE, SIZE_ATTACHMENT_IMAGE)];
-
-	[image release];
-	
-	_isDownloading = NO;
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:N_ATTACHMENT_PREVIEW_DONE object:self];	
-	self.connection = nil;
-}
-
-
-
-#pragma mark -
-#pragma mark Caching helper functions
-
-
-// Create and return a unique key for the primary file
-//
-- (NSString*)uniqueKey {
-	NSArray *listItems = [self.fileUrl componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
-}
-
-
-// Create and return a unique key for the preview of the file
-//
-- (NSString*)uniquePreviewKey {
-	NSArray *listItems = [self.previewUrl componentsSeparatedByString:@"/"];
-	return [[[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]] autorelease];
-}
-
-
-
-#pragma mark -
-#pragma mark Preview Deciding functions
-
-
-// Returns whether the upload requires an image preview from a
-// remote server
-//
-- (BOOL)hasRemoteImagePreview {
-	return _fileType == IMAGE || _fileType == VIDEO;
-}
-
-
-// Tests if the attachment is a video
-//																  
-- (BOOL)isVideo {
-	return _fileType == VIDEO;
-}
-						
-																  
-// Tests if the attachment is an image
-//																  
-- (BOOL)isImage {
-  return _fileType == IMAGE;
-}
-												
-
-
-#pragma mark -
-#pragma mark Memory Management
-
-
-// Release the preview image
-//
-- (void)freeMemory {
-	self.previewImage = nil;
-}
-
-
-// Usual Memory Cleanup
-// 
--(void)dealloc{
-	
-	if(self.connection) {
-		[self.connection cancel];
-		self.connection = nil;
-	}
+//----------------------------------------------------------------------------------------------------
+- (void)startSliceDownload {
+	if(!_isSliceDownloading && !self.sliceImage) {
 		
-	self.fileUrl = nil;
-	self.previewUrl = nil;
-	self.previewImage = nil;
+		if(_isProcessed || [self isImage]) {
+			_isSliceDownloading = YES;
+			
+			[[DWRequestsManager sharedDWRequestsManager] getImageAt:self.sliceURL
+													 withResourceID:self.databaseID
+												successNotification:kNImgSliceAttachmentLoaded
+												  errorNotification:kNImgSliceAttachmentError];
+		}
+	}
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark Notifications
+
+//----------------------------------------------------------------------------------------------------
+- (void)mediumImageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 	
-	[super dealloc];
+	if(resourceID != self.databaseID)
+		return;
+	
+	self.previewImage	= [info objectForKey:kKeyImage];		
+	_isDownloading		= NO;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)mediumImageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	_isDownloading		= NO;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)sliceImageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	_isSliceDownloading	= NO;
+	
+	
+	if(!_isProcessed) {
+		
+		self.sliceImage = [info objectForKey:kKeyImage];
+		
+		if(self.sliceImage.size.width != kSliceWidth) {
+			self.sliceImage = [self.sliceImage resizeTo:CGSizeMake(kSliceWidth,kSliceWidth)];
+		}
+		
+		self.sliceImage = [self.sliceImage cropToRect:CGRectMake(kSliceX,kSliceY,kSliceWidth,kSliceHeight)];
+	}
+	else {
+		self.sliceImage	= [info objectForKey:kKeyImage];
+	}
+	
+	
+	NSDictionary *userInfo	= [NSDictionary dictionaryWithObjectsAndKeys:
+							   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+							   self.sliceImage								,kKeyImage,
+							   nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgSliceAttachmentFinalized
+														object:nil
+													  userInfo:userInfo];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)sliceImageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+	
+	if(resourceID != self.databaseID)
+		return;
+	
+	_isSliceDownloading		= NO;
 }
 
 @end

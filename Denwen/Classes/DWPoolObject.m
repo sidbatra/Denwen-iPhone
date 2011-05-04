@@ -1,66 +1,71 @@
 //
 //  DWPoolObject.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 2/2/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWPoolObject.h"
+#import "DWConstants.h"
 
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWPoolObject
 
-@synthesize pointerCount=_pointerCount,databaseID=_databaseID,updatedAt=_updatedAt;
+@synthesize pointerCount	= _pointerCount;
+@synthesize databaseID		= _databaseID;
+@synthesize updatedAt		= _updatedAt;
 
-
-// Init the class along with its member variables 
-//
+//----------------------------------------------------------------------------------------------------
 - (id)init {
 	self = [super init];
 	
 	if(self != nil) {
-		_pointerCount = 0;
-		_databaseID = 0;
+		_pointerCount	= 0;
+		_databaseID		= kMPDefaultDatabaseID;
 	}
 	
 	return self;  
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)freeMemory {
+}
 
-// Set the updated at date if its nil
-//
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	self.updatedAt = nil;
+	
+	[super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)populate:(NSDictionary *)result {
 	if(!self.updatedAt)
 		[self refreshUpdatedAt];
 }
 
-
-// Stub
-//
-- (void)update:(NSDictionary*)objectJSON {
+//----------------------------------------------------------------------------------------------------
+- (BOOL)update:(NSDictionary*)objectJSON {
+    
+    /*
+	float   interval        =   -[self.updatedAt timeIntervalSinceNow];
+    BOOL    updateNeeded    =   YES;
+	
+	if(interval <= kMPObjectUpdateInterval)
+        updateNeeded = NO;
+    else
+        [self refreshUpdatedAt];
+    
+    return updateNeeded;
+     */
+    
+    return YES;
 }
 
-
-// Refresh the updated at date
-//
+//----------------------------------------------------------------------------------------------------
 - (void)refreshUpdatedAt {
 	self.updatedAt = [NSDate dateWithTimeIntervalSinceNow:0];
-}
-
-
-// Stub
-//
-- (void)freeMemory {
-}
-
-
-// dealloc cleanup
-// 
-- (void)dealloc {
-	self.updatedAt = nil;
-	
-	[super dealloc];
 }
 
 @end

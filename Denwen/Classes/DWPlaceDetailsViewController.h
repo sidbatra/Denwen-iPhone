@@ -1,27 +1,38 @@
 //
 //  DWPlaceDetailsViewController.h
-//  Denwen
-//
-//  Created by Deepak Rao on 2/15/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "Constants.h"
-#import "DDAnnotation.h"
+#import "DWPlace.h"
 
+/**
+ * Display detailed information about a place on a map
+ */
 @interface DWPlaceDetailsViewController : UIViewController<MKMapViewDelegate> {
-	MKMapView *mapView;	
-	NSString *_placeName;
-	NSString *_placeAddress;
-	CLLocation *_placeLocation;
+	DWPlace		*_place;
+	MKMapView	*_mapView;	
+    
+    id          _delegate;
 }
 
-@property (nonatomic, retain) IBOutlet MKMapView *mapView;
+/**
+ * The place object whose details are being displayed
+ */
+@property (nonatomic,retain) DWPlace *place;
 
-- (id)initWithPlaceName:(NSString *)placeName placeAddress:(NSString*)placeAddress andLocation:(CLLocation*)placeLocation;
+/**
+ * Map object setup in the nib
+ */
+@property (nonatomic,retain) IBOutlet MKMapView *mapView;
+
+/**
+ * Init with the place whose details are to be shown
+ * and delegate to catch the back button event
+ */
+- (id)initWithPlace:(DWPlace*)place andDelegate:(id)delegate;
 
 @end

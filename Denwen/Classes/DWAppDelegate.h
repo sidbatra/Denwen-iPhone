@@ -1,45 +1,63 @@
 //
 //  DWAppDelegate.h
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "DWItemsContainerViewController.h"
-#import "DWUserContainerViewController.h"
-#import "DWPlacesContainerViewController.h"
-#import "DWFollowedPlacesCache.h"
-#import "DWLoginViewController.h"
-#import "DWSignupViewController.h"
-#import "DWCache.h"
-#import "DWSessionManager.h"
-#import "DWMemoryPool.h"
-#import "DWUserLocation.h"
-#import "DWNotificationHelper.h"
-#import "DWURLHelper.h"
+@class DWTabBarController;
 
-
-
-@interface DWAppDelegate : NSObject <UIApplicationDelegate, UINavigationBarDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate> {
-    UIWindow *window;
-	UIToolbar *signupToolbar;
+/**
+ * Application delegate
+ */
+@interface DWAppDelegate : NSObject <UIApplicationDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate> {
+    UIWindow				*_window;
 	
-	UITabBarController *tabBarController;
+	DWTabBarController		*_tabBarController;
 	
-	CLLocationManager *_locationManager;
+	CLLocationManager		*_locationManager;
 	
-	BOOL _isVisitRecorded;
+	UINavigationController	*_placesNavController;
+	UINavigationController	*_itemsNavController;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UIToolbar *signupToolbar;
+/**
+ * Used tp obtain current location of the device
+ */
+@property (nonatomic,retain) CLLocationManager *locationManager;
 
-- (IBAction)loginButtonClicked:(id)sender;
-- (IBAction)signupButtonClicked:(id)sender;
+/**
+ * UI Properties
+ */
 
+@property (nonatomic,retain) DWTabBarController *tabBarController;
+
+/**
+ * IBOutlet properties
+ */
+@property (nonatomic,retain) IBOutlet UIWindow *window;
+@property (nonatomic,retain) IBOutlet UINavigationController *placesNavController;
+@property (nonatomic,retain) IBOutlet UINavigationController *itemsNavController;
+
+@end
+
+
+/**
+ * Declarations for select private methods
+ */
+@interface DWAppDelegate(Private)
+
+/**
+ * Init and position the UI elements that form the foundation
+ * of the application. Also start services like location tracking
+ */
+- (void)setupApplication;
+
+/**
+ * Switches tabs to dispay the given tab index or 
+ * pops controllers on an existing tab
+ */
+- (void)displayNewTab:(NSInteger)newTabIndex;
 @end
 

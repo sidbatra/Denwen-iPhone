@@ -1,102 +1,92 @@
 //
 //  DWPlace.h
-//  Denwen
-//
-//  Created by Deepak Rao on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-
 #import "DWPoolObject.h"
-#import "DWURLConnection.h"
-#import "DWImageHelper.h"
-#import "Constants.h"
 
+@class DWAttachment;
 
-@interface DWPlace : DWPoolObject <DWURLConnectionDelegate> {
-	NSString *_name;
-	NSString *_hashedId;
-	NSInteger _followersCount;
+/**
+ * Place model represents a place entity as defined
+ * in the database
+ */
+@interface DWPlace : DWPoolObject {
+	NSString		*_name;
+	NSString		*_hashedID;
 	
-	NSString *_town;
-	NSString *_state;
-	NSString *_country;
+	NSString		*_town;
+	NSString		*_state;
+	NSString		*_country;
 	
-	NSString *_smallURL;
-	NSString *_mediumURL;
-	NSString *_largeURL;
+	CLLocation		*_location;
 	
-	CLLocation *_location;
-
-	UIImage *_smallPreviewImage;
-	UIImage *_mediumPreviewImage;
-	UIImage *_largePreviewImage;
+	DWAttachment	*_attachment;
 	
-	BOOL _isSmallDownloading;
-	BOOL _isMediumDownloading;
-	BOOL _isLargeDownloading;
-
-	BOOL _forceSmallDownloading;
-	BOOL _forceMediumDownloading;
-	BOOL _forceLargeDownloading;
+	NSInteger		_followersCount;
 	
-	BOOL _hasPhoto;
-	BOOL _hasAddress;
-	BOOL _isProcessed;
-	
-	DWURLConnection *_smallConnection;
-	DWURLConnection *_mediumConnection;
-	DWURLConnection *_largeConnection;
-
+	BOOL			_hasAddress;
 }
 
-//Initialization
+/**
+ * Name of the place
+ */
+@property (nonatomic,copy) NSString *name;
 
-//Update 
-- (void)updatePreviewURLs:(NSDictionary*)place;
-- (void)updatePreviewImages:(UIImage*)image;
+/**
+ * Unique ID for the place used in obfuscated URLs
+ */
+@property (nonatomic,copy) NSString *hashedID;
+
+/**
+ * Town in which the place is located
+ */
+@property (nonatomic,copy) NSString *town;
+
+/**
+ * State in which the place is located
+ */
+@property (nonatomic,copy) NSString *state;
+
+/**
+ * Country in which the place is located
+ */
+@property (nonatomic,copy) NSString *country;
+
+/**
+ * Geo location of the place
+ */
+@property (nonatomic,retain) CLLocation *location;
+
+/**
+ * Optional attachment of the last item posted at the place
+ */
+@property (nonatomic,retain) DWAttachment *attachment;
+
+
+
+/**
+ * Update the follower count by the given delta
+ */
 - (void)updateFollowerCount:(NSInteger)delta;
+ 
+/**
+ * Start downloading any images attachmented to the last item
+ */
+- (void)startPreviewDownload;
 
-//Functions for handling server interactions 
-- (void)startSmallPreviewDownload;
-- (void)startMediumPreviewDownload;
-- (void)startLargePreviewDownload;
-
-
-//Caching helper functions
-- (NSString*)smallUniqueKey;
-- (NSString*)mediumUniqueKey;
-- (NSString*)largeUniqueKey;
-
+/**
+ * Generate the display address for a place
+ */
 - (NSString*)displayAddress;
-- (NSString*)titleText;
 
-@property (copy) NSString *name;
-@property (copy) NSString *hashedId;
-
-@property (copy) NSString *town;
-@property (copy) NSString *state;
-@property (copy) NSString *country;
-
-@property (copy) NSString *smallURL;
-@property (copy) NSString *mediumURL;
-@property (copy) NSString *largeURL;
-
-@property (copy) CLLocation *location;
-
-@property (retain) UIImage *smallPreviewImage;
-@property (retain) UIImage *mediumPreviewImage;
-@property (retain) UIImage *largePreviewImage;
-
-@property (retain) DWURLConnection *smallConnection;
-@property (retain) DWURLConnection *mediumConnection;
-@property (retain) DWURLConnection *largeConnection;
-
-
-@property (readonly) BOOL hasPhoto;
+/**
+ * Number of followers for the place
+ */
+- (NSInteger)followersCount;
 
 @end
 

@@ -1,257 +1,253 @@
 //
 //  DWShareViewController.m
-//  Denwen
-//
-//  Created by Siddharth Batra on 2/20/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWShareViewController.h"
+#import "DWRequestsManager.h"
+#import "DWSession.h"
+#import "DWConstants.h"
 
-@interface DWShareViewController()
-- (void)freezeUI;
-- (void)unfreezeUI;
+static NSInteger const kMaxShareDataLength	= 140;
+static NSString* const kMsgErrorAlertTitle	= @"Error";
+static NSString* const kMsgFacebookError	= @"Error connecting to Facebook, please try again";
+static NSString* const kMsgTwitterError		= @"Error connecting to Twitter, please try again";
 
-- (void)testEndOfSharing;
 
-- (void)twitterSwitchedOn;
-- (void)facebookSwitchedOn;
-- (void)updateUIState;
-@end
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWShareViewController
 
+@synthesize place							= _place;
 
-@synthesize twitterSwitch,facebookSwitch,textView,doneButton,sharingOptionsContainerView,backgroundImageView,navigationBar,hashedLink;
+@synthesize twitterEngine					= _twitterEngine;
+@synthesize facebook						= _facebook;
 
+@synthesize sharingOptionsContainerView		= _sharingOptionsContainerView;
+@synthesize twitterSwitch					= _twitterSwitch;
+@synthesize facebookSwitch					= _facebookSwitch;
+@synthesize textView						= _textView;
+@synthesize doneButton						= _doneButton;
+@synthesize backgroundImageView				= _backgroundImageView;
+@synthesize navigationBar					= _navigationBar;
+@synthesize hashedLink						= _hashedLink;
 
-//=============================================================================================================================
-#pragma mark -
-#pragma mark View lifecycle
+@synthesize mbProgressIndicator				= _mbProgressIndicator;
 
+//----------------------------------------------------------------------------------------------------
+- (id)initWithPlace:(DWPlace*)thePlace
+		andDelegate:(id)delegate {
 
-// Init the class and set the delegate member variable
-//
-- (id)initWithDelegate:(id)delegate andPlace:(DWPlace*)place {
 	self = [super init];
 	
-	if(self != nil) {
+	if(self) {
 		_delegate = delegate;
 	
-		_twitterEngine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
-		_twitterEngine.consumerKey    = TWITTER_OAUTH_CONSUMER_KEY;
-		_twitterEngine.consumerSecret = TWITTER_OAUTH_CONSUMER_SECRET;	
+		self.twitterEngine = [[[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self] autorelease];
+		self.twitterEngine.consumerKey    = kTwitterOAuthConsumerKey;
+		self.twitterEngine.consumerSecret = kTwitterOAuthConsumerSecret;	
 	
-		_facebook = [[Facebook alloc] initWithAppId:FACEBOOK_APP_ID];
-		
-		_place = place;
+		self.facebook	= [[[Facebook alloc] initWithAppId:kFacebookAppID] autorelease];
+		self.place		= thePlace;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(facebookURLOpened:) 
-													 name:N_FACEBOOK_URL_OPENED
+													 name:kNFacebookURLOpened
 												   object:nil];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(largePlacePreviewDone:) 
-													 name:N_LARGE_PLACE_PREVIEW_DONE
-												   object:nil];
-		
 	}
 	
 	return self;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-//
+//----------------------------------------------------------------------------------------------------
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	_delegate							= nil;
+	
+	self.place							= nil;
+	
+	self.twitterEngine					= nil;
+	self.facebook						= nil;
+	
+	self.sharingOptionsContainerView	= nil;
+	self.twitterSwitch					= nil;
+	self.facebookSwitch					= nil;
+	self.textView						= nil;
+	self.doneButton						= nil;
+	self.backgroundImageView			= nil;
+	self.navigationBar					= nil;
+	self.hashedLink						= nil;
+	
+	self.mbProgressIndicator			= nil;
+	
+    [super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)updateUIState {
+	if(self.twitterSwitch.on || self.facebookSwitch.on)
+		self.doneButton.enabled = YES;
+	else
+		self.doneButton.enabled = NO;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)twitterSwitchedOn {
+	UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:self.twitterEngine 
+																								   delegate:self];
+	if (controller)
+		[self presentModalViewController:controller animated:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)facebookSwitchedOn {
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.navigationBar.topItem.title = _place.name;
+	self.navigationBar.topItem.title = self.place.name;
+		
+	[[self.sharingOptionsContainerView layer] setCornerRadius:5.0f];
+	[[self.sharingOptionsContainerView layer] setBorderWidth:0.0f];
+	[[self.sharingOptionsContainerView layer] setMasksToBounds:YES];
+	[[self.sharingOptionsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
+		
+	self.backgroundImageView.image = [UIImage imageNamed:kImgGenericPlaceHolder];
 	
-	//rounded corners and border customization
-	[[sharingOptionsContainerView layer] setCornerRadius:5.0f];
-	[[sharingOptionsContainerView layer] setBorderWidth:0.0f];
-	[[sharingOptionsContainerView layer] setMasksToBounds:YES];
-	[[sharingOptionsContainerView layer] setBorderColor:[[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0] CGColor]];
+	self.mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+	[self.view addSubview:self.mbProgressIndicator];
 	
-	[_place startLargePreviewDownload];
+	self.textView.text	= [NSString stringWithFormat:@"This is %@ in %@ ",self.place.name,[self.place displayAddress]];
+	self.hashedLink.text = [NSString stringWithFormat:@"http://%@/p/%@",kDenwenServer,self.place.hashedID];
 	
-	if(_place.largePreviewImage)
-		backgroundImageView.image = _place.largePreviewImage;
-	else
-		backgroundImageView.image = [UIImage imageNamed:GENERIC_PLACEHOLDER_IMAGE_NAME];
+	[self.textView becomeFirstResponder];
 	
-	mbProgressIndicator = [[MBProgressHUD alloc] initWithView:self.view];
-	[self.view addSubview:mbProgressIndicator];
-	[mbProgressIndicator release];
-	
-	textView.text = [NSString stringWithFormat:@"This is %@ ",_place.name];
-	hashedLink.text = [NSString stringWithFormat:@"http://denwen.com/p/%@",_place.hashedId];
-	
-	[textView becomeFirstResponder];
-	
-	if(currentUser.twitterOAuthData) {
-		twitterSwitch.on = YES;
+	/**
+	 * Test if twitter connect has already been performed
+	 */
+	if([DWSession sharedDWSession].currentUser.twitterOAuthData) {
+		self.twitterSwitch.on = YES;
+		
 		[self twitterSwitchedOn];
 	}
 	
-	if(currentUser.facebookAccessToken) {
-		facebookSwitch.on = YES;
-		_facebook.accessToken = currentUser.facebookAccessToken;
-		_facebook.expirationDate = [NSDate distantFuture];
+	/**
+	 * Test if facebook connect has already been performed
+	 */
+	if([DWSession sharedDWSession].currentUser.facebookAccessToken) {
+		self.facebookSwitch.on				= YES;
+		self.facebook.accessToken		= [DWSession sharedDWSession].currentUser.facebookAccessToken;
+		self.facebook.expirationDate	= [NSDate distantFuture];
+		
 		[self facebookSwitchedOn];
 	}
 	
 	[self updateUIState];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
 
-// Limit the number of characters in the textView
-//
-- (BOOL)textView:(UITextView *)theTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+//----------------------------------------------------------------------------------------------------
+- (BOOL)textView:(UITextView *)theTextView shouldChangeTextInRange:(NSRange)range 
+												   replacementText:(NSString *)text {
 	
 	NSUInteger newLength = [theTextView.text length] + [text length] - range.length;
-    return (newLength > (MAX_SHARE_DATA_LENGTH - hashedLink.text.length)) ? NO : YES;
+    return (newLength > (kMaxShareDataLength - self.hashedLink.text.length)) ? NO : YES;
 }
 
-
-// Tests whether the delegate for finishing sharing should be fired
-//
+//----------------------------------------------------------------------------------------------------
 - (void)testEndOfSharing {
-	if( (!twitterSwitch.on || _twitterRequestDone) && (!facebookSwitch.on || _facebookRequestDone) ) {
-		NSInteger sentTo = twitterSwitch.on * pow(2,0) + facebookSwitch.on * pow(2,1);
-		[_delegate shareViewFinished:[NSString stringWithString:textView.text] sentTo:sentTo];
+	if( (!self.twitterSwitch.on || _twitterRequestDone) && (!self.facebookSwitch.on || _facebookRequestDone) ) {
+		NSInteger sentTo = self.twitterSwitch.on * pow(2,0) + self.facebookSwitch.on * pow(2,1);
+		
+		[_delegate shareViewFinished:[NSString stringWithString:self.textView.text] 
+							  sentTo:sentTo];
 	}
 }
-	   
-
-// Modifies the UI state on changes to switches
-//
-- (void)updateUIState {
-	if(twitterSwitch.on || facebookSwitch.on)
-		doneButton.enabled = YES;
-	else
-		doneButton.enabled = NO;
-}
 
 
-// Freeze the UI while sharing is underway
-//
+//----------------------------------------------------------------------------------------------------
 - (void)freezeUI {
-	[textView resignFirstResponder];
+	[self.textView resignFirstResponder];
 	
-	mbProgressIndicator.labelText = @"Posting...";
-	[mbProgressIndicator showUsingAnimation:YES];
+	self.mbProgressIndicator.labelText = @"Posting...";
+	[self.mbProgressIndicator showUsingAnimation:YES];
 }
 
-
-// Unfreeze the UI
-//
+//----------------------------------------------------------------------------------------------------
 - (void)unfreezeUI {	
-	[mbProgressIndicator hideUsingAnimation:YES];
+	[self.mbProgressIndicator hideUsingAnimation:YES];
 	
-	[textView becomeFirstResponder];
+	[self.textView becomeFirstResponder];
 }
 
 
-// Fired when twitter is switched on
-//
-- (void)twitterSwitchedOn {
-	UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_twitterEngine delegate:self];
-	
-	if (controller)
-		[self presentModalViewController:controller animated:YES];
-}
-
-
-// Fired when the Twitter Connect Modal view is cancelled
-//
-- (void)OAuthTwitterControllerCanceled:(id)sender {
-	twitterSwitch.on = NO;
-	[self updateUIState];
-}
-
-
-// Fired when user clicks the denied button
-//
-- (void)OAuthTwitterControllerFailed:(id)sender {
-	twitterSwitch.on = NO;
-	[self updateUIState];
-}
-
-
-// Fired when facebook is switched on
-//
-- (void)facebookSwitchedOn {
-}
-
-
-
-//=============================================================================================================================
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark IB Events
+#pragma mark IBActions
 
-
-// User clicks the cancel button
-//
+//----------------------------------------------------------------------------------------------------
 - (void)cancelButtonClicked:(id)sender {
 	[_delegate shareViewCancelled];
 }
 
-
-// User clicks the share button
-//
+//----------------------------------------------------------------------------------------------------
 - (void)doneButtonClicked:(id)sender {
 	
-	NSString *fullText = [[NSString alloc] initWithFormat:@"%@ %@",self.textView.text,self.hashedLink.text];
-	NSString *photoURL = [_place hasPhoto] ? _place.largeURL : @"";
-	NSString *placeTitle = [[NSString alloc] initWithFormat:@"This is %@",_place.name];
+	NSString *fullText		= [NSString stringWithFormat:@"%@ %@",self.textView.text,self.hashedLink.text];
+	NSString *photoURL		= @"";//[self.place hasPhoto] ? self.place.largeURL : @"";
+	NSString *placeTitle	= [NSString stringWithFormat:@"This is %@",self.place.name];
 	
-	if(twitterSwitch.on && currentUser.twitterOAuthData)
-		[_twitterEngine sendUpdate:fullText];
-	
-	
-	if(facebookSwitch.on && currentUser.facebookAccessToken) {
+	if(self.twitterSwitch.on && [DWSession sharedDWSession].currentUser.twitterOAuthData) {
+		[self.twitterEngine sendUpdate:fullText];
+	}
+
+	if(self.facebookSwitch.on && [DWSession sharedDWSession].currentUser.facebookAccessToken) {
 		NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									   fullText,@"message",
-									   placeTitle,@"name",
-									   @"  ", @"description",
-									   @"denwen.com", @"caption",
-									   self.hashedLink.text, @"link",
-									   photoURL, @"picture",
+									   fullText				,@"message",
+									   placeTitle			,@"name",
+									   @"  "				,@"description",
+									   @"denwen.com"		,@"caption",
+									   self.hashedLink.text	,@"link",
+									   photoURL				,@"picture",
 									   nil];
 		
-		[_facebook requestWithGraphPath:@"/me/feed"   // or use page ID instead of 'me'
+		[self.facebook requestWithGraphPath:@"/me/feed"   
 							  andParams:params
 						  andHttpMethod:@"POST"
 							andDelegate:self];
 	}
 	
-	[placeTitle release];
-	[fullText release];
-	
 	[self freezeUI];
 }
 
-
-// Fired when the value of the twitterSwitch changes
-//
+//----------------------------------------------------------------------------------------------------
 - (void)twitterSwitchValueChanged:(id)sender {
-	if(twitterSwitch.on)
+	if(self.twitterSwitch.on)
 		[self twitterSwitchedOn];
 	
 	[self updateUIState];
 }
 
-
-// Fired when the value of the facebookSwitch changes
-//
+//----------------------------------------------------------------------------------------------------
 - (void)facebookSwitchValueChanged:(id)sender {
-	if(facebookSwitch.on) {
-		if(!currentUser.facebookAccessToken) {
+	if(self.facebookSwitch.on) {
+		if(![DWSession sharedDWSession].currentUser.facebookAccessToken) {
 			[self.textView resignFirstResponder];
-			[_facebook authorize:[NSArray arrayWithObjects:@"offline_access", @"publish_stream",nil] delegate:self];
+			[self.facebook authorize:[NSArray arrayWithObjects:@"offline_access", @"publish_stream",nil] delegate:self];
 		}
 		
 		[self facebookSwitchedOn];
@@ -261,92 +257,78 @@
 }
 
 
-
-//=============================================================================================================================
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark Notification handlers
+#pragma mark Notifications
 
-
-// Fired when a URL matching the URL scheme is opened by the app
-//
+//----------------------------------------------------------------------------------------------------
 - (void)facebookURLOpened:(NSNotification*)notification {
-	[_facebook handleOpenURL:(NSURL*)[notification object]];
+	[self.facebook handleOpenURL:(NSURL*)[notification object]];
 }
 
 
-// Fired when a place has downloaded a large preview image
-//
-- (void)largePlacePreviewDone:(NSNotification*)notification {
-	
-	DWPlace *placeWithImage =  (DWPlace*)[notification object];
-	
-	if(_place == placeWithImage)
-		backgroundImageView.image = placeWithImage.largePreviewImage;
-}
-
-
-
-//=============================================================================================================================
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark FBSessionDelegate
 
-
-// Called when the user has logged into facebook successfully
-//
+//----------------------------------------------------------------------------------------------------
 - (void)fbDidLogin {
 	[self.textView becomeFirstResponder];
-	[currentUser storeFacebookToken:_facebook.accessToken];
+	[[DWSession sharedDWSession].currentUser storeFacebookToken:self.facebook.accessToken];
+	[[DWRequestsManager sharedDWRequestsManager] updateFacebookTokenForCurrentUser:self.facebook.accessToken];
 }
 
-
-// Called when the user cancelled the authorization dialog
-//
+//----------------------------------------------------------------------------------------------------
 -(void)fbDidNotLogin:(BOOL)cancelled {
 	[self.textView becomeFirstResponder];
-	facebookSwitch.on = NO;
+	self.facebookSwitch.on = NO;
 	[self updateUIState];
 }
 
 
-
-//=============================================================================================================================
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark FBReqestDelegate
 
-// Called when the Facebook API request has returned a response. This callback
-// gives you access to the raw response. It's called before
-// (void)request:(FBRequest *)request didLoad:(id)result,
-// which is passed the parsed response object.
-//
+//----------------------------------------------------------------------------------------------------
 - (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response {
+	/**
+	 * Called when the Facebook API request has returned a response. This callback
+	 * gives you access to the raw response. It's called before
+	 * (void)request:(FBRequest *)request didLoad:(id)result,
+	 * which is passed the parsed response object.
+	 */
 }
 
-// Called when a request returns and its response has been parsed into
-// an object. The resulting object may be a dictionary, an array, a string,
-// or a number, depending on the format of the API response. If you need access
-// to the raw response, use:
-//
-// (void)request:(FBRequest *)request
-//      didReceiveResponse:(NSURLResponse *)response
-//
+//----------------------------------------------------------------------------------------------------
 - (void)request:(FBRequest *)request didLoad:(id)result {
+	/** 
+	 * Called when a request returns and its response has been parsed into
+	 * an object. The resulting object may be a dictionary, an array, a string,
+	 * or a number, depending on the format of the API response. If you need access
+	 * to the raw response, use:
+	 *
+	 * (void)request:(FBRequest *)request
+	 *      didReceiveResponse:(NSURLResponse *)response
+	 */
+	
 	if ([result isKindOfClass:[NSArray class]]) {
 		result = [result objectAtIndex:0];
 	}
 	
 	_facebookRequestDone = YES;
 	[self testEndOfSharing];
-};
+}
 
 
-// Called when an error prevents the Facebook API request from completing
-// successfully.
-//
+//----------------------------------------------------------------------------------------------------
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
-	//[error localizedDescription]];
 	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"Problem connecting to Facebook, please try again"
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorAlertTitle
+													message:kMsgFacebookError
 												   delegate:nil 
 										  cancelButtonTitle:@"OK" 
 										  otherButtonTitles: nil];
@@ -355,48 +337,53 @@
 	
 	
 	[self unfreezeUI];
-	
 };
 
 
-
-//=============================================================================================================================
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark SA_OAuthTwitterEngineDelegate
 
-
-// Store the Twitter OAuth data as a member variable and on disk
-//
+//----------------------------------------------------------------------------------------------------
 - (void)storeCachedTwitterOAuthData:(NSString *) data forUsername:(NSString *)username {
-	[currentUser storeTwitterData:data];
+	[[DWSession sharedDWSession].currentUser storeTwitterData:data];
+	[[DWRequestsManager sharedDWRequestsManager] updateTwitterDataForCurrentUser:data];
 }
 
-
-// Return the twitterOAuthData member variable
-//
+//----------------------------------------------------------------------------------------------------
 - (NSString *)cachedTwitterOAuthDataForUsername:(NSString *) username {
-	return currentUser.twitterOAuthData;
+	return [DWSession sharedDWSession].currentUser.twitterOAuthData;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)OAuthTwitterControllerCanceled:(id)sender {
+	self.twitterSwitch.on = NO;
+	[self updateUIState];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)OAuthTwitterControllerFailed:(id)sender {
+	self.twitterSwitch.on = NO;
+	[self updateUIState];
 }
 
 
-//=============================================================================================================================
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark TwitterEngineDelegate
 
-
-// Fired when the twitterEngine request succeeds
-//
+//----------------------------------------------------------------------------------------------------
 - (void)requestSucceeded: (NSString *) requestIdentifier {
 	_twitterRequestDone = YES;
 	[self testEndOfSharing];
 }
 
-
-// Fired when there is an error in a twitterEngine request
-//
+//----------------------------------------------------------------------------------------------------
 - (void)requestFailed: (NSString *) requestIdentifier withError: (NSError *) error {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"Problem connecting to Twitter, please try again"
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorAlertTitle
+													message:kMsgTwitterError
 												   delegate:nil 
 										  cancelButtonTitle:@"OK" 
 										  otherButtonTitles: nil];
@@ -406,44 +393,5 @@
 	
 	[self unfreezeUI];
 }
-
-
-
-//=============================================================================================================================
-#pragma mark -
-#pragma mark Memory Management
-
-// The usual memory warning
-//
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-
-// The usual viewDidUnload
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
-
-// The usual dealloc
-//
-- (void)dealloc {
-	_delegate = nil;
-	
-	self.twitterSwitch = nil;
-	self.facebookSwitch = nil;
-	self.textView = nil;
-	self.doneButton = nil;
-	self.backgroundImageView = nil;
-	self.navigationBar = nil;
-	self.hashedLink = nil;
-	
-	[_twitterEngine release];
-	[_facebook release];
-	
-    [super dealloc];
-}
-
 
 @end

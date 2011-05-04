@@ -15,20 +15,17 @@
 #import "DDAnnotation.h"
 
 #import "DWPlace.h"
-#import "DWRequestManager.h"
-#import "DWS3Uploader.h"
-#import "DWCrypto.h"
+#import "DWRequestsManager.h"
 #import "MBProgressHUD.h"
-#import "DWSessionManager.h"
-#import "DWURLHelper.h"
+#import "DWSession.h"
+#import "NSString+Helpers.h"
 #import "DWMemoryPool.h"
-#import "DWImageHelper.h"
-#import "DWUserLocation.h"
-
+#import "UIImage+ImageProcessing.h"
+#import "DWMediaPickerController.h"
 
 @protocol DWNewPlaceViewControllerDelegate;
 
-@interface DWNewPlaceViewController : UIViewController<UITextFieldDelegate,DWRequestManagerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,DWS3UploaderDelegate,MKMapViewDelegate> {
+@interface DWNewPlaceViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,MKMapViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
 	
 	UIView *textFieldsContainerView;
 	UITextField *placeNameTextField;
@@ -43,8 +40,8 @@
 	BOOL _isUploading;
 	BOOL _createInitiated;
 	
-	DWS3Uploader *_s3Uploader;
-	DWRequestManager *_requestManager;
+	
+	NSInteger _uploadID;
 	
 	id <DWNewPlaceViewControllerDelegate> _delegate;
 }
@@ -70,5 +67,5 @@
 
 @protocol DWNewPlaceViewControllerDelegate
 - (void)newPlaceCancelled;
-- (void)newPlaceCreated:(NSString*)placeHashedID;
+- (void)newPlaceCreated:(DWPlace*)place;
 @end

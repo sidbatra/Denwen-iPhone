@@ -1,91 +1,99 @@
 //
 //  DWLoadingCell.m
-//  Denwen
-//
-//  Created by Deepak Rao on 2/3/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWLoadingCell.h"
 
-@interface DWLoadingCell() 
+static NSString* const kImgBackground	= @"main_bg.png";
 
-- (void) createSpinner;
-- (void) createMessageLabel;
-- (void) drawCellItems;
-
-@end
-
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWLoadingCell
 
-@synthesize spinner,messageLabel;
+@synthesize spinner;
 
-
-#pragma mark -
-#pragma mark Cell Lifecycle 
-
-
-// Override the init method
-//
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+//----------------------------------------------------------------------------------------------------
+- (id)initWithStyle:(UITableViewCellStyle)style
+	reuseIdentifier:(NSString *)reuseIdentifier {
     
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self drawCellItems];
-    }
+    self = [super initWithStyle:style
+				reuseIdentifier:reuseIdentifier];
+    
+	if (self) {
+		[self createBackground];
+        [self createSpinner];
+		[self createMessageLabel];
+		
+		self.selectionStyle		= UITableViewCellSelectionStyleNone;
+	}
+	
     return self;
 }
 
-
-#pragma mark -
-#pragma mark Cell Creation 
-
-
-// Creates a button which is used to display the spinner in the loading cell
-//
-- (void) createSpinner {
-	CGRect rect = CGRectMake(111, (LOADING_CELL_HEIGHT-SPINNER_HEIGHT)/2, SPINNER_HEIGHT, SPINNER_HEIGHT); 
-	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-	spinner.frame = rect;
-	
-	[self.contentView addSubview:spinner];	
-	[spinner release];
-}
-
-
-// Creates a message label for the loading text
-//
-- (void) createMessageLabel {
-	CGRect rect = CGRectMake(137, (LOADING_CELL_HEIGHT-SPINNER_HEIGHT)/2 - 1, 0, 17);
-	messageLabel = [[UILabel alloc] initWithFrame:rect];	
-	messageLabel.font = [UIFont fontWithName:@"Helvetica" size:17];	
-	messageLabel.textColor = [UIColor colorWithRed:0.5294 green:0.5294 blue:0.5294 alpha:1.0];
-	messageLabel.textAlignment = UITextAlignmentLeft;
-	messageLabel.text = LOADING_CELL_MSG;
-	[messageLabel sizeToFit];
-	
-	[self.contentView addSubview:messageLabel];
-	[messageLabel release];
-}
-
-
-// Create a customized wireframe of the loading cell.
-//
-- (void) drawCellItems {
-	[self createSpinner];
-	[self createMessageLabel];
-}
-
-
-#pragma mark -
-#pragma mark Memory Management 
-
-
-// The ususal memory cleanup
-//
+//----------------------------------------------------------------------------------------------------
 - (void)dealloc {
     [super dealloc];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)createBackground {
+	
+	backgroundImageView                 = [[[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,367)] autorelease];
+	backgroundImageView.image			= [UIImage imageNamed:kImgBackground];
+	backgroundImageView.contentMode		= UIViewContentModeScaleToFill;
+	
+	[self.contentView addSubview:backgroundImageView];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)createSpinner {
+	spinner			= [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
+    spinner.alpha   = 0.5;
+	spinner.frame	= CGRectMake(109,167,20,20);
+	
+	[self.contentView addSubview:spinner];	
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)createMessageLabel {
+	messageLabel					= [[[UILabel alloc] initWithFrame:CGRectMake(136,167,90,20)] autorelease];	
+	messageLabel.backgroundColor	= [UIColor clearColor];
+	messageLabel.font				= [UIFont fontWithName:@"HelveticaNeue" size:17];	
+	messageLabel.textColor			= [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
+	messageLabel.textAlignment		= UITextAlignmentLeft;
+	messageLabel.text				= @"Loading...";
+
+	[self.contentView addSubview:messageLabel];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)shorterCellMode {
+	
+	if(!_isShortMode) {
+		CGRect messageFrame		= messageLabel.frame;
+		messageFrame.origin.y	= messageFrame.origin.y - 44;
+		messageLabel.frame		= messageFrame;
+		
+		CGRect spinnerFrame		= spinner.frame;
+		spinnerFrame.origin.y	= spinnerFrame.origin.y - 44;
+		spinner.frame			= spinnerFrame;
+		
+		_isShortMode			= YES;
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)defaultAppleMode {
+    backgroundImageView.hidden  = YES;
+    
+    messageLabel.textColor      = [UIColor colorWithRed:0.5294 green:0.5294 blue:0.5294 alpha:1.0];
+    messageLabel.frame          = CGRectMake(135,100-16,90,20);
+    
+    spinner.frame                       = CGRectMake(109,100-16,20,20);
+    spinner.activityIndicatorViewStyle  = UIActivityIndicatorViewStyleGray;
+    
+}
 
 @end

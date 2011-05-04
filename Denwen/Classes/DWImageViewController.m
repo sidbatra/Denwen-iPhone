@@ -10,6 +10,7 @@
 #import "DWImageViewController.h"
 
 
+
 @implementation DWImageViewController
 
 
@@ -26,9 +27,18 @@
     
 	if (self) {
 		url	 = [[NSString alloc] initWithString:theURL];
+		key	= [[NSDate date] timeIntervalSince1970];
+
 		
-		NSArray *listItems = [url componentsSeparatedByString:@"/"];
-		key = [[NSString alloc] initWithFormat:@"%@",[listItems objectAtIndex:[listItems count]-1]];
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageLoaded:) 
+													 name:kNImgActualUserImageLoaded
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self 
+												 selector:@selector(imageError:) 
+													 name:kNImgActualUserImageError
+												   object:nil];
 	}
     
 	return self;
@@ -39,9 +49,11 @@
 //
 - (void)viewDidLoad {
 	[DWGUIManager showSpinnerInNav:self];
-		
-	connection = [[DWURLConnection alloc] initWithDelegate:self];
-	[connection fetchData:url withKey:key withCache:YES withActivitySpinner:YES];
+	[[DWRequestsManager sharedDWRequestsManager] getImageAt:url 
+											 withResourceID:key
+										successNotification:kNImgActualUserImageLoaded
+										  errorNotification:kNImgActualUserImageError];
+	 
 }
 
 
@@ -56,7 +68,7 @@
 // Reset the navigation and status bar style changes
 //
 - (void)viewWillDisappear:(BOOL)animated {
-	[[UIApplication sharedApplication] setStatusBarStyle:STATUS_BAR_STYLE];
+	[[UIApplication sharedApplication] setStatusBarStyle:kStatusBarStyle];
 	self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 }
 
@@ -82,42 +94,24 @@
 }
 
 
-
-#pragma mark -
-#pragma mark GURLConnection messages
-
-
-// Display the image when it is successfully downloaded
-//
--(void)finishedLoadingData:(NSMutableData *)data forInstanceID:(NSInteger)instanceID {
-	[(DWImageView*)self.view setupImageView:data];
+- (void)imageLoaded:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
 		
-	[DWGUIManager hideSpinnnerInNav:self];
-	
-	[connection release];
-    connection=nil;
+	if(resourceID == key) {
+		[(DWImageView*)self.view setupImageView:(UIImage*)[info objectForKey:kKeyImage]];
+		[DWGUIManager hideSpinnnerInNav:self];
+	}
 }
 
-
-// Display an alert when the image can't be downloaded from
-// the filesystem
-//
--(void)errorLoadingData:(NSError *)error forInstanceID:(NSInteger)instanceID {
-	[DWGUIManager hideSpinnnerInNav:self];
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" 
-													message:@"There was an error downloading this image, please try again later"
-												   delegate:nil 
-										  cancelButtonTitle:@"OK" 
-										  otherButtonTitles: nil];
-	[alert show];
-	[alert release];
-	
-	[connection release];
-    connection=nil;
+- (void)imageError:(NSNotification*)notification {
+	NSDictionary *info		= [notification userInfo];
+	NSInteger resourceID	= [[info objectForKey:kKeyResourceID] integerValue];
+		
+	if(resourceID == key) {
+		[DWGUIManager hideSpinnnerInNav:self];
+	}
 }
-
-
 
 #pragma mark -
 #pragma mark Memory management
@@ -133,13 +127,9 @@
 // The usual cleanup
 //
 - (void)dealloc {
-	if (connection != nil) {
-		[connection cancel];
-		[connection release];
-	}
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	[url release];
-	[key release];
     [super dealloc];
 }
 

@@ -9,14 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "Constants.h"
+#import "DWConstants.h"
 
 @interface DWPlaceCell : UITableViewCell {
 	id _eventTarget;
 	NSInteger _rowInTable;	
 	
 	UILabel *placeName;
-	UIButton *editPlaceImage;
 	UIButton *followButton;
 	UIButton *unfollowButton;
 	UIButton *shareButton;
@@ -37,8 +36,5 @@
 
 - (void)displayFollowingState;
 - (void)displayUnfollowingState;
-
-- (void)displaySignedInState:(BOOL)hasPhoto;
-- (void)displaySignedOutState;
 
 @end

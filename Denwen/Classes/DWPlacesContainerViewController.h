@@ -1,30 +1,42 @@
 //
 //  DWPlacesContainerViewController.h
-//  Denwen
-//
-//  Created by Siddharth Batra on 1/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "DWNearbyPlacesViewController.h"
-#import "DWPopularPlacesViewController.h"
-#import "DWNewPlaceViewController.h"
 #import "DWContainerViewController.h"
 
+@class DWPopularPlacesViewController;
+@class DWSearchPlacesViewController;
+@class DWNearbyPlacesViewController;
+@class DWSegmentedControl;
 
-#import "DWSessionManager.h"
-#import "Constants.h"
-
-
+/**
+ * Primary view for the places tab and container for popular
+ * and nearby places views
+ */
 @interface DWPlacesContainerViewController : DWContainerViewController {
 	
-	DWPopularPlacesViewController *popularViewController;
-	DWNearbyPlacesViewController *nearbyViewController;
-		
-	int _currentSelectedSegmentIndex;
+	DWPopularPlacesViewController	*popularViewController;
+	DWSearchPlacesViewController	*searchPlacesViewController;
+	DWNearbyPlacesViewController	*nearbyViewController;
+	
+	DWSegmentedControl				*_segmentedControl;
 }
 
+/**
+ * Segmented control on the nav bar to show choices to filter places
+ */ 
+@property (nonatomic,retain) DWSegmentedControl *segmentedControl;
+
+@end
+
+/**
+ * Declaration for select private methods
+ */
+@interface DWPlacesContainerViewController (Private)
+- (void)displaySignedOutState;
+- (void)loadSelectedView:(NSInteger)currentSelectedIndex;	
 @end

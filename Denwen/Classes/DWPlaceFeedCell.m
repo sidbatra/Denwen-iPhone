@@ -1,110 +1,198 @@
 //
 //  DWPlaceFeedCell.m
-//  Denwen
-//
-//  Created by Deepak Rao on 1/27/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Denwen. All rights reserved.
 //
 
 #import "DWPlaceFeedCell.h"
 
-@interface DWPlaceFeedCell() 
+static NSString* const kImgSeparator	= @"hr_place_list.png";
+static NSString* const kImgChevron		= @"chevron.png";
 
-- (void) createPlaceName;
-- (void) createPlaceImage;
-- (void) createPlaceDetails;
-- (void) drawCellItems;
+#define kAnimationDuration              0.05
+#define kNoAnimationDuration            0.0
+#define kFadeDelay                      0.3
+#define kNormalAlpha                	0.65
+#define kNormalNoAttachmentAlpha        1.0
+#define kHighlightAlpha                 0.45
+#define kColorNormalBg                  [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
+#define kColorNoAttachmentBg            [UIColor colorWithRed:0.3490 green:0.3490 blue:0.3490 alpha:1.0].CGColor
+#define kColorNoAttachmentHighlightBg   [UIColor colorWithRed:0.2784 green:0.2784 blue:0.2784 alpha:1.0].CGColor
+
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+@implementation DWPlaceFeedCellDrawingLayer
+
+@synthesize placeCell;
+
+//----------------------------------------------------------------------------------------------------
+- (void)drawInContext:(CGContextRef)context {
+	
+	UIGraphicsPushContext(context);
+	
+	if([placeCell isHighlighted] && !placeCell.hasAttachment)
+        CGContextSetFillColorWithColor(context,[UIColor colorWithRed:0.9019
+                                                               green:0.9019 
+                                                                blue:0.9019
+                                                               alpha:1.0].CGColor);	 
+    else
+        CGContextSetFillColorWithColor(context,[UIColor whiteColor].CGColor);	 
+	
+	[placeCell.placeName drawInRect:CGRectMake(20,21,280,28) 
+						   withFont:[UIFont fontWithName:@"HelveticaNeue" size:22]
+					  lineBreakMode:UILineBreakModeTailTruncation
+						  alignment:UITextAlignmentLeft];
+	 
+	[placeCell.placeDetails drawInRect:CGRectMake(20,49,280,20)
+							  withFont:[UIFont fontWithName:@"HelveticaNeue" size:15] 
+						 lineBreakMode:UILineBreakModeTailTruncation
+							 alignment:UITextAlignmentLeft];
+	
+	UIGraphicsPopContext();
+}
 
 @end
 
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 @implementation DWPlaceFeedCell
 
-@synthesize placeName, placeImage,placeDetails;
+@synthesize placeName			= _placeName;
+@synthesize placeData			= _placeData;
+@synthesize placeDetails		= _placeDetails;
+@synthesize hasAttachment       = _hasAttachment;
 
-
-#pragma mark -
-#pragma mark Cell Lifecycle 
-
-
-// Override the init method
-//
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+//----------------------------------------------------------------------------------------------------
+- (id)initWithStyle:(UITableViewCellStyle)style
+	reuseIdentifier:(NSString *)reuseIdentifier {
     
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-		[self drawCellItems];
+    self = [super initWithStyle:style
+				reuseIdentifier:reuseIdentifier];
+    
+	if (self) {
+        
+		CGRect frame = CGRectMake(0,0,320,92);
+		
+		placeImageLayer					= [CALayer layer];
+		placeImageLayer.frame			= frame;
+		placeImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
+		placeImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										   [NSNull null], @"contents",
+										   nil];
+		[[self layer] addSublayer:placeImageLayer];
+		
+		drawingLayer					= [DWPlaceFeedCellDrawingLayer layer];
+		drawingLayer.placeCell			= self;
+		drawingLayer.frame				= frame;
+		drawingLayer.contentsScale		= [[UIScreen mainScreen] scale];
+		drawingLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										   [NSNull null], @"contents",
+										   nil];
+        [[self layer] addSublayer:drawingLayer];
+		
+		CALayer *chevronLayer			= [CALayer layer];
+		chevronLayer.frame				= CGRectMake(307,41,6,11);
+		chevronLayer.contentsScale		= [[UIScreen mainScreen] scale];
+		chevronLayer.contents			= (id)[UIImage imageNamed:kImgChevron].CGImage;
+		[[self layer] addSublayer:chevronLayer];
+		
+		CALayer *separatorLayer			= [CALayer layer];
+		separatorLayer.frame			= CGRectMake(0,91,320,1);
+		separatorLayer.contentsScale	= [[UIScreen mainScreen] scale];
+		separatorLayer.contents			= (id)[UIImage imageNamed:kImgSeparator].CGImage;
+		[[self layer] addSublayer:separatorLayer];
+		
+		
+		self.accessoryType				= UITableViewCellAccessoryNone;
+		self.selectionStyle				= UITableViewCellSelectionStyleNone;
     }
+	
     return self;
 }
 
-
-
-#pragma mark -
-#pragma mark Cell Creation 
-
-
-// Creates a label which is used to display place name in the place feed cell
-//
-- (void) createPlaceName {
-	CGRect rect = CGRectMake(64, 7, 230, 22); //self.contentView.frame.size.width - 56
-	placeName = [[UILabel alloc] initWithFrame:rect];
-	
-	placeName.lineBreakMode = UILineBreakModeTailTruncation;
-	placeName.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];	
-	placeName.textColor = [UIColor blackColor];
-	placeName.highlightedTextColor = [UIColor whiteColor];
-		
-	[self.contentView addSubview:placeName];
-	[placeName release];
-}
-
-
-// Creates an Imageview which is used to display the place image in the place feed cell
-//
-- (void) createPlaceImage {
-	CGRect rect = CGRectMake(0, 0, 55, 55); 
-	placeImage = [[UIImageView alloc] initWithFrame:rect];
-	[self.contentView addSubview:placeImage];	
-	[placeImage release];
-}
-
-
-// Creates a label which is used to display place details
-// like city or country in the place feed cell
-//
-- (void) createPlaceDetails {
-	CGRect rect = CGRectMake(64, 31, 230, 16); //NOTE: WIDTH is correct, dont change
-	placeDetails = [[UILabel alloc] initWithFrame:rect];
-	
-	placeDetails.lineBreakMode = UILineBreakModeTailTruncation;
-	placeDetails.font = [UIFont fontWithName:@"Helvetica" size:13];	
-	placeDetails.textColor = [UIColor colorWithRed:0.1411 green:0.4392 blue:0.8470 alpha:1.0];
-	placeDetails.highlightedTextColor = [UIColor whiteColor];
-	
-	[self.contentView addSubview:placeDetails];
-	[placeDetails release];
-}
-
-
-// Create a customized wireframe of the place feed cell.
-//
-- (void) drawCellItems {
-	self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	[self createPlaceName];
-	[self createPlaceImage];
-	[self createPlaceDetails];
-}
-
-
-
-#pragma mark -
-#pragma mark Memory management
-
-
-// The usual memory cleanup
-//
+//----------------------------------------------------------------------------------------------------
 - (void)dealloc {
+	self.placeName		= nil;
+	self.placeDetails	= nil;
+	self.placeData		= nil;
+	
     [super dealloc];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)reset {
+	_highlighted = NO;
+    
+    [CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:kNoAnimationDuration]
+					 forKey:kCATransactionAnimationDuration];		
+    
+	placeImageLayer.opacity         = _hasAttachment ? kNormalAlpha : kNormalNoAttachmentAlpha;
+    placeImageLayer.backgroundColor = _hasAttachment ? kColorNormalBg : kColorNoAttachmentBg;
+    
+	[CATransaction commit];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setHighlighted:(BOOL)highlighted 
+			  animated:(BOOL)animated {
+	
+	if(highlighted && !_highlighted) {
+		[self highlightCell];
+	}
+	else if(!highlighted && _highlighted) {
+	
+		[self performSelector:@selector(fadeCell)
+				   withObject:nil 
+				   afterDelay:kFadeDelay];
+	}
+	
+}
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)isHighlighted {
+    return _highlighted;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)setPlaceImage:(UIImage*)placeImage {
+	placeImageLayer.contents = (id)placeImage.CGImage;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)redisplay {
+	[drawingLayer setNeedsDisplay];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)highlightCell {
+	_highlighted = YES;
+	
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:kAnimationDuration]
+					 forKey:kCATransactionAnimationDuration];		
+	placeImageLayer.opacity         = _hasAttachment ? kHighlightAlpha : kNormalNoAttachmentAlpha;
+    placeImageLayer.backgroundColor = _hasAttachment ? kColorNormalBg : kColorNoAttachmentHighlightBg;
+    [self redisplay];
+	[CATransaction commit];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)fadeCell {
+	_highlighted = NO;
+	
+	[CATransaction begin];
+	[CATransaction setValue:[NSNumber numberWithFloat:kAnimationDuration]
+					 forKey:kCATransactionAnimationDuration];		
+	placeImageLayer.opacity         = _hasAttachment ? kNormalAlpha : kNormalNoAttachmentAlpha;
+    placeImageLayer.backgroundColor = _hasAttachment ? kColorNormalBg : kColorNoAttachmentBg;
+    [self redisplay];
+	[CATransaction commit];
 }
 
 
