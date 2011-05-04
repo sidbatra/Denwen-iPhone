@@ -2592,7 +2592,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2605,7 +2605,7 @@
 					"\"$(SRCROOT)/External/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = Denwen;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
 				SDKROOT = iphoneos;
 			};
@@ -2616,7 +2616,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Denwen_Prefix.pch;
@@ -2626,7 +2626,7 @@
 					"\"$(SRCROOT)/External/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = Denwen;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2636,8 +2636,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Siddharth Batra";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Siddharth Batra";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -2645,8 +2645,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "CCCBBBDE-031C-4195-8792-F11E28267C19";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CCCBBBDE-031C-4195-8792-F11E28267C19";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Distribution;
@@ -2679,16 +2679,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Siddharth Batra";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Siddharth Batra";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "CCCBBBDE-031C-4195-8792-F11E28267C19";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CCCBBBDE-031C-4195-8792-F11E28267C19";
+				PROVISIONING_PROFILE = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2697,8 +2697,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Siddharth Batra";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Siddharth Batra";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Siddharth Batra (HPSAL66ESR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -2706,8 +2706,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "CCCBBBDE-031C-4195-8792-F11E28267C19";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CCCBBBDE-031C-4195-8792-F11E28267C19";
+				PROVISIONING_PROFILE = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -2723,7 +2723,7 @@
 				BB0CFDB21302489D00F38552 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Distribution;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Denwen" */ = {
 			isa = XCConfigurationList;
@@ -2733,7 +2733,7 @@
 				BB0CFDB11302489D00F38552 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Distribution;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
