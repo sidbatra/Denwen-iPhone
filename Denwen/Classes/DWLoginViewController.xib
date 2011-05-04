@@ -51,7 +51,7 @@
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1048326946"/>
+						<reference key="NSNextKeyView" ref="670579744"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSArray" key="IBUIItems">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -62,7 +62,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="1048326946">
+					<object class="IBUIImageView" id="670579744">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 44}, {320, 416}}</string>
@@ -87,7 +87,7 @@
 								<string key="NSFrame">{{12, 0}, {276, 44}}</string>
 								<reference key="NSSuperview" ref="723651023"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="929905934"/>
+								<reference key="NSNextKeyView" ref="900222844"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -101,13 +101,13 @@
 										<int key="NSID">2</int>
 									</object>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="310269393">
+								<object class="NSFont" key="IBUIFont" id="347001866">
 									<string key="NSName">HelveticaNeue</string>
 									<double key="NSSize">20</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
-								<float key="IBUIMinimumFontSize">17</float>
+								<float key="IBUIMinimumFontSize">20</float>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 									<int key="IBUIAutocorrectionType">1</int>
 									<int key="IBUIKeyboardType">7</int>
@@ -134,9 +134,9 @@
 									<bytes key="NSWhite">MAA</bytes>
 									<reference key="NSCustomColorSpace" ref="1061329527"/>
 								</object>
-								<reference key="IBUIFont" ref="310269393"/>
+								<reference key="IBUIFont" ref="347001866"/>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
-								<float key="IBUIMinimumFontSize">17</float>
+								<float key="IBUIMinimumFontSize">20</float>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 									<int key="IBUIAutocorrectionType">1</int>
 									<int key="IBUIReturnKeyType">9</int>
@@ -145,7 +145,7 @@
 								</object>
 								<int key="IBUIClearButtonMode">1</int>
 							</object>
-							<object class="IBUIImageView" id="929905934">
+							<object class="IBUIImageView" id="900222844">
 								<reference key="NSNextResponder" ref="723651023"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{0, 44}, {300, 1}}</string>
@@ -260,7 +260,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="723651023"/>
 							<reference ref="361593344"/>
-							<reference ref="1048326946"/>
+							<reference ref="670579744"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -299,7 +299,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="487113512"/>
 							<reference ref="959348437"/>
-							<reference ref="929905934"/>
+							<reference ref="900222844"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -315,12 +315,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">25</int>
-						<reference key="object" ref="1048326946"/>
+						<reference key="object" ref="670579744"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">26</int>
-						<reference key="object" ref="929905934"/>
+						<reference key="object" ref="900222844"/>
 						<reference key="parent" ref="723651023"/>
 					</object>
 				</object>
