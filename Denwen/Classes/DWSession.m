@@ -185,6 +185,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
                                                       userInfo:info];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)gotoUnreadItemsMode:(NSInteger)newItemID {
+    [self updateLastReadItemID:newItemID];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNNewFeedItemsLoaded
+                                                        object:nil];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)gotoReadItemsMode {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNNewFeedItemsRead
+                                                        object:nil];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

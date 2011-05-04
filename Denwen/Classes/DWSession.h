@@ -67,11 +67,6 @@
  * Populate the _lastReadItemID from disk
  */
 - (void)readLastReadItemID;
-    
-/**
- * Update the _lastReadItemID in memory and on disk 
- */
-- (void)updateLastReadItemID:(NSInteger)lastItemID;
 
 /**
  * Test whether a user is currently signed in
@@ -82,5 +77,15 @@
  * Tests the given userID with the current user' ID
  */
 - (BOOL)doesCurrentUserHaveID:(NSInteger)userID;
+
+/**
+ * Transitions the app to a mode where there are unread feed items
+ */
+- (void)gotoUnreadItemsMode:(NSInteger)newItemID;
+
+/**
+ * Transitions the app to a mode where the feed items are read
+ */
+- (void)gotoReadItemsMode;
 
 @end

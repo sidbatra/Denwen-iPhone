@@ -272,8 +272,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
         }
     }
     else if(oldSelectedIndex == kTabBarFeedIndex && selectedIndex != kTabBarFeedIndex) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNNewFeedItemsRead
-                                                            object:nil];
+        [[DWSession sharedDWSession] gotoReadItemsMode];
     }
 }
 
@@ -409,6 +408,24 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
         [self.navigationController.navigationBar addSubview:self.userTitleView];
     
     [self.navigationController.navigationBar addSubview:self.smallProfilePicView];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UINavigationControllerDelegate
+//----------------------------------------------------------------------------------------------------
+- (void)navigationController:(UINavigationController *)navigationController 
+	  willShowViewController:(UIViewController *)viewController
+					animated:(BOOL)animated {
+    
+    [super navigationController:navigationController
+         willShowViewController:viewController
+                       animated:animated];
+    
+    if(viewController != self)
+        [[DWSession sharedDWSession] gotoReadItemsMode];
 }
 
 @end

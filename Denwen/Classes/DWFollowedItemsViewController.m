@@ -158,12 +158,10 @@ static NSString* const kImgOnBoarding   = @"Default.png";
        NSInteger newItemID = [_itemManager getItemIDNotByUserID:[DWSession sharedDWSession].currentUser.databaseID
                                               greaterThanItemID:[DWSession sharedDWSession].lastReadItemID];
        
-       if(newItemID) {           
-           [[DWSession sharedDWSession] updateLastReadItemID:newItemID];
-           
-           [[NSNotificationCenter defaultCenter] postNotificationName:kNNewFeedItemsLoaded
-                                                               object:nil];
-       }
+       if(newItemID)
+           [[DWSession sharedDWSession] gotoUnreadItemsMode:newItemID];
+       else
+           [[DWSession sharedDWSession] gotoReadItemsMode];
     }
        
 	
