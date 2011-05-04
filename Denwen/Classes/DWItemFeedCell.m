@@ -10,7 +10,7 @@
 #define kImgTouchIcon                       @"hand.png"
 #define kImgTouchIcon230                    @"hand_230.png"
 #define kImgTouched                         @"touched.png"
-#define kImgPlay                            @"play.png"
+#define kImgPlay                            @"icon_video.png"
 #define kImgShare                           @"share.png"
 #define kImgShare230                        @"share_230.png"
 #define kImgHalo                            @"halo.png"
@@ -257,7 +257,7 @@
 		
 		
 		playImageLayer					= [CALayer layer];
-		playImageLayer.frame			= CGRectMake(7,320-20,20,20);
+		playImageLayer.frame			= CGRectMake(282,290,18,11);
 		playImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		playImageLayer.contents			= (id)[UIImage imageNamed:kImgPlay].CGImage;
 		playImageLayer.hidden			= YES;
@@ -270,13 +270,16 @@
 										   nil];
 		[[self.contentView layer] addSublayer:playImageLayer];
 		
+        /*
 		shareImageLayer						= [CALayer layer];
+        shareImageLayer.hidden              = YES;
 		shareImageLayer.frame				= CGRectMake(280,281,24,19);
 		shareImageLayer.contentsScale		= [[UIScreen mainScreen] scale];
 		shareImageLayer.actions				= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 											   [NSNull null], @"contents",
 											   nil];
 		[[self.contentView layer] addSublayer:shareImageLayer];
+         */
         
         
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
@@ -345,7 +348,7 @@
 		
 		[self.contentView addSubview:userButton];
 		
-		
+		/*
 		shareButton						= [[[UIButton alloc] init] autorelease];
 		//shareButton.backgroundColor		= [UIColor greenColor];
 		shareButton.frame				= CGRectMake(shareImageLayer.frame.origin.x - 9,
@@ -358,7 +361,7 @@
 			 forControlEvents:UIControlEventTouchUpInside];
 
 		[self.contentView addSubview:shareButton];
-		
+		*/
         
         videoView           = [[[DWVideoView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height)] autorelease];
         videoView.delegate  = self;
@@ -501,11 +504,11 @@
 
 	itemImageLayer.opacity			= _attachmentType == kAttachmentNone ? kNoAttachmentAlpha : kNormalAlpha;	
 	itemImageLayer.backgroundColor	= _attachmentType == kAttachmentNone ? kColorNoAttachmentBg : kColorAttachmentBg;
-	//playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
+	playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
     
 	
-	shareImageLayer.hidden			= NO;
-	shareImageLayer.contents		= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgShare230 : kImgShare].CGImage;
+	//shareImageLayer.hidden			= NO;
+	//shareImageLayer.contents		= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgShare230 : kImgShare].CGImage;
 	
 	touchIconImageLayer.hidden		= NO;
 	touchIconImageLayer.contents	= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgTouchIcon230 : kImgTouchIcon].CGImage;
@@ -637,10 +640,10 @@
 	itemImageLayer.opacity          = isTextOnly ? kNoAttachmentAlpha : kHighlightAlpha;
     itemImageLayer.backgroundColor  = isTextOnly ? kColorNoAttachmentHighlightBg : kColorAttachmentBg;
 	
-	//if(_attachmentType == kAttachmentVideo)
-	//	playImageLayer.hidden	= YES;
+	if(_attachmentType == kAttachmentVideo)
+		playImageLayer.hidden	= YES;
 	
-	shareImageLayer.hidden		= YES;
+	//shareImageLayer.hidden		= YES;
 	
 	[self redisplay];
 
@@ -671,10 +674,10 @@
     itemImageLayer.opacity          = isTextOnly ? kNoAttachmentAlpha : kNormalAlpha;
     itemImageLayer.backgroundColor  = isTextOnly ? kColorNoAttachmentBg : kColorAttachmentBg;
 	
-	//if(_attachmentType == kAttachmentVideo)
-	//	playImageLayer.hidden	= NO;
+	if(_attachmentType == kAttachmentVideo)
+		playImageLayer.hidden	= NO;
 	
-	shareImageLayer.hidden		= NO;
+	//shareImageLayer.hidden		= NO;
 	
 	[self redisplay];
 	

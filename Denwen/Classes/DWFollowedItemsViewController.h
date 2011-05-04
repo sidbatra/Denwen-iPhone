@@ -11,6 +11,7 @@
  * Feed view
  */
 @interface DWFollowedItemsViewController : DWItemFeedViewController {
+    UIImageView     *onBoardingImage;
 }
 
 /**

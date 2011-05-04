@@ -9,6 +9,8 @@
 #import "DWRequestsManager.h"
 #import "DWSession.h"
 
+static NSString* const kImgOnBoarding   = @"Default.png";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -55,6 +57,13 @@
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
+    if(!onBoardingImage) {
+        onBoardingImage         = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:kImgOnBoarding]];
+        onBoardingImage.hidden  = YES;
+        onBoardingImage.frame   = CGRectMake(0,0,320,340);
+    }
+    [self.view addSubview:onBoardingImage];
 	 
 	if(!_isLoadedOnce)
         [_dataSourceDelegate loadData];
@@ -67,6 +76,8 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
+    [onBoardingImage release];
+    
     [super dealloc];
 }
 
@@ -83,6 +94,18 @@
 //----------------------------------------------------------------------------------------------------
 - (void)loadNewItems {
     [self hardRefresh];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)enableOnboarding {
+    //onBoardingImage.hidden          = NO;
+    //self.tableView.scrollEnabled    = NO;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)disableOnboarding {
+    onBoardingImage.hidden          = YES;
+    self.tableView.scrollEnabled    = YES;
 }
 
 
@@ -108,16 +131,21 @@
 		
 		NSArray *items = [[info objectForKey:kKeyBody] objectForKey:kKeyItems];
         
+        
 		[_itemManager populateItems:items
                          withBuffer:NO
                           withClear:_isReloading];
+         
 		
 		if(![_itemManager totalItems]) {
 			_tableViewUsage         = kTableViewAsMessage;
 			self.messageCellText    = kMsgNoFollowPlacesCurrentUser;
+            [self enableOnboarding];
 		}
-		else
+		else {
 			_tableViewUsage = kTableViewAsData;
+            [self disableOnboarding];
+        }
 		
 		_isLoadedOnce = YES;
 	}
