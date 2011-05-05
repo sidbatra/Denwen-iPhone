@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J3210</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">301</string>
@@ -46,15 +46,15 @@
 					<object class="IBUIImageView" id="284480069">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{320, 460}</string>
+						<string key="NSFrame">{{0, -20}, {320, 480}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="867349583"/>
+						<reference key="NSNextKeyView" ref="1003867102"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">launch_bg.png</string>
+							<string key="NSResourceName">Default.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="69050042">
@@ -121,20 +121,6 @@
 							<string key="NSResourceName">slice_signup.png</string>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="867349583">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 196}, {50, 60}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1003867102"/>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">d_logo_login_white.png</string>
-						</object>
-					</object>
 				</object>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
@@ -196,7 +182,6 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="284480069"/>
-							<reference ref="867349583"/>
 							<reference ref="69050042"/>
 							<reference ref="1003867102"/>
 						</object>
@@ -228,11 +213,6 @@
 						<reference key="object" ref="284480069"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">9</int>
-						<reference key="object" ref="867349583"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -248,7 +228,6 @@
 					<string>5.IBPluginDependency</string>
 					<string>5.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>8.IBPluginDependency</string>
-					<string>9.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -260,7 +239,6 @@
 					<real value="1"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="1"/>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -335,8 +313,7 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>d_logo_login_white.png</string>
-				<string>launch_bg.png</string>
+				<string>Default.png</string>
 				<string>slice_login.png</string>
 				<string>slice_login_active.png</string>
 				<string>slice_signup.png</string>
@@ -344,8 +321,7 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{50, 60}</string>
-				<string>{1, 460}</string>
+				<string>{320, 480}</string>
 				<string>{320, 92}</string>
 				<string>{320, 92}</string>
 				<string>{320, 92}</string>

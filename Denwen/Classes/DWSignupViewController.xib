@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J3210</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">301</string>
@@ -73,7 +73,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">login_bg_short.png</string>
+							<string key="NSResourceName">main_bg.png</string>
 						</object>
 					</object>
 					<object class="IBUIView" id="618139774">
@@ -94,12 +94,9 @@
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIText"/>
 								<string key="IBUIPlaceholder">First name</string>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MAA</bytes>
-									<object class="NSColorSpace" key="NSCustomColorSpace" id="147156885">
-										<int key="NSID">2</int>
-									</object>
+								<object class="NSColor" key="IBUITextColor" id="1033943590">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4yIDAuMiAwLjIAA</bytes>
 								</object>
 								<object class="NSFont" key="IBUIFont" id="873491715">
 									<string key="NSName">HelveticaNeue</string>
@@ -128,11 +125,7 @@
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIText"/>
 								<string key="IBUIPlaceholder">Last name</string>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MAA</bytes>
-									<reference key="NSCustomColorSpace" ref="147156885"/>
-								</object>
+								<reference key="IBUITextColor" ref="1033943590"/>
 								<reference key="IBUIFont" ref="873491715"/>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 								<float key="IBUIMinimumFontSize">20</float>
@@ -156,11 +149,7 @@
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIText"/>
 								<string key="IBUIPlaceholder">Email</string>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MAA</bytes>
-									<reference key="NSCustomColorSpace" ref="147156885"/>
-								</object>
+								<reference key="IBUITextColor" ref="1033943590"/>
 								<reference key="IBUIFont" ref="873491715"/>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 								<float key="IBUIMinimumFontSize">20</float>
@@ -198,11 +187,7 @@
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIText"/>
 								<string key="IBUIPlaceholder">Password</string>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MAA</bytes>
-									<reference key="NSCustomColorSpace" ref="147156885"/>
-								</object>
+								<reference key="IBUITextColor" ref="1033943590"/>
 								<reference key="IBUIFont" ref="873491715"/>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 								<float key="IBUIMinimumFontSize">20</float>
@@ -246,7 +231,9 @@
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
-							<reference key="NSCustomColorSpace" ref="147156885"/>
+							<object class="NSColorSpace" key="NSCustomColorSpace">
+								<int key="NSID">2</int>
+							</object>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -638,15 +625,15 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>login_bg_short.png</string>
 				<string>login_hr.png</string>
 				<string>login_vr.png</string>
+				<string>main_bg.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{1, 416}</string>
 				<string>{300, 1}</string>
 				<string>{1, 45}</string>
+				<string>{1, 367}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">301</string>
