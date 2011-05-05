@@ -33,7 +33,7 @@ static NSString* const kMsgNetworkError             = @"No connection; pull to r
         
         _dataSourceDelegate     = self;
         _tableViewUsage			= kTableViewAsSpinner;
-		_isReloading			= NO;
+		_isReloading			= YES;
         _isLoadingPage          = NO;
         _lastID                 = kInitialLastID;
 		
@@ -323,6 +323,10 @@ static NSString* const kMsgNetworkError             = @"No connection; pull to r
 
 //----------------------------------------------------------------------------------------------------
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view {
+    
+    if(_isReloading)
+        return;
+    
     [self resetPagination];
     
     _isReloading = YES;

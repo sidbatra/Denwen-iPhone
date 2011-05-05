@@ -23,9 +23,7 @@ static NSString* const kImgOnBoarding   = @"Default.png";
 	self = [super initWithDelegate:delegate];
 	
 	if (self) {
-        
-        _isReloading = YES;
-		
+        		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newItemParsed:) 
 													 name:kNNewItemParsed 
