@@ -301,7 +301,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
 	NSInteger totalFailed	= [[userInfo objectForKey:kKeyTotalFailed] integerValue];
 	float totalProgress		= [[userInfo objectForKey:kKeyTotalProgress] floatValue];
 	
-	NSLog(@"ACTIVE - %d, FAILED - %d, PROGRESS - %f",totalActive,totalFailed,totalProgress);
+	//NSLog(@"ACTIVE - %d, FAILED - %d, PROGRESS - %f",totalActive,totalFailed,totalProgress);
 	
 	if(totalActive || totalFailed) {
 		
@@ -424,7 +424,7 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
          willShowViewController:viewController
                        animated:animated];
     
-    if(viewController != self)
+    if(viewController != self && navigationController.viewControllers && [navigationController.viewControllers count] == 2)
         [[DWSession sharedDWSession] gotoReadItemsMode];
 }
 
