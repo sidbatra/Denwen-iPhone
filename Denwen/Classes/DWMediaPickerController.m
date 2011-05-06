@@ -105,6 +105,8 @@ static float     const kCroppedImageDimension   = 320.0;
         
 	}
     
+    CGImageRelease(imgRef);
+    
 	return [result cropToRect:CGRectMake(0,
                                          (result.size.height - result.size.width)/2,
 										 result.size.width,
