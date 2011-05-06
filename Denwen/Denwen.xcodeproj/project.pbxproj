@@ -2644,8 +2644,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Siddharth Batra";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Siddharth Batra";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -2653,8 +2653,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "3E1A64A0-FD4C-4511-B88D-C9FF1D955288";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3E1A64A0-FD4C-4511-B88D-C9FF1D955288";
 				SDKROOT = iphoneos;
 			};
 			name = Distribution;
@@ -2665,8 +2665,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = ./resources/Entitlements.plist;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = ./resources/Entitlements.plist;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Siddharth Batra";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Siddharth Batra";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Denwen_Prefix.pch;
@@ -2676,8 +2676,8 @@
 					"\"$(SRCROOT)/External/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = Denwen;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "3E1A64A0-FD4C-4511-B88D-C9FF1D955288";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3E1A64A0-FD4C-4511-B88D-C9FF1D955288";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2696,7 +2696,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "759F6277-EC80-4A0F-A693-E8B9D24BD3FD";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
