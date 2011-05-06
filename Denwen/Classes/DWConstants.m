@@ -8,6 +8,9 @@
 
 #import "DWConstants.h"
 
+//----------------------------------------------------------------------------------------------------
+NSString* const kVersion            = @"3.0";
+
 
 #ifdef PRODUCTION
 	NSString* const kDenwenServer	= @"denwen.com";

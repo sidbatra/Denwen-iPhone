@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-
+extern NSString* const kVersion;
 extern NSString* const kDenwenServer;
 
 /**

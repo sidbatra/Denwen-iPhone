@@ -17,7 +17,7 @@
 #import "DWConstants.h"
 
 static NSString* const kDenwenProtocol			= @"http://";
-static NSString* const kDenwenRequestURI		= @"%@%@%@&email=%@&password=%@&ff=mobile";
+static NSString* const kDenwenRequestURI		= @"%@%@%@&email=%@&password=%@&ff=mobile&v=%@";
 
 static NSString* const kPopularPlacesURI		= @"/popular/places.json?page=%d";
 static NSString* const kNearbyPlacesURI			= @"/nearby/places.json?lat=%f&lon=%f";
@@ -79,7 +79,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 					kDenwenServer,
 					localRequestURL,
 					[[DWSession sharedDWSession].currentUser.email stringByEncodingHTMLCharacters],
-					[DWSession sharedDWSession].currentUser.encryptedPassword];
+					[DWSession sharedDWSession].currentUser.encryptedPassword,
+                    kVersion];
 }
 
 //----------------------------------------------------------------------------------------------------
