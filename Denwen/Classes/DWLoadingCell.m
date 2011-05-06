@@ -89,9 +89,9 @@ static NSString* const kImgBackground	= @"main_bg.png";
     backgroundImageView.hidden  = YES;
     
     messageLabel.textColor      = [UIColor colorWithRed:0.5294 green:0.5294 blue:0.5294 alpha:1.0];
-    messageLabel.frame          = CGRectMake(135,100-16,90,20);
+    messageLabel.frame          = CGRectMake(135,100-21,90,20);
     
-    spinner.frame                       = CGRectMake(109,100-16,20,20);
+    spinner.frame                       = CGRectMake(109,100-21,20,20);
     spinner.activityIndicatorViewStyle  = UIActivityIndicatorViewStyleGray;
     
 }
