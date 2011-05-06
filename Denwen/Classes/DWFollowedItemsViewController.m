@@ -9,7 +9,7 @@
 #import "DWRequestsManager.h"
 #import "DWSession.h"
 
-static NSString* const kImgOnBoarding   = @"Default.png";
+static NSString* const kImgOnBoarding   = @"onboarding.png";
 
 
 
@@ -56,12 +56,22 @@ static NSString* const kImgOnBoarding   = @"Default.png";
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    if(!onBoardingImage) {
-        onBoardingImage         = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:kImgOnBoarding]];
-        onBoardingImage.hidden  = YES;
-        onBoardingImage.frame   = CGRectMake(0,0,320,340);
+    if([DWSession sharedDWSession].firstTimeUser && !onBoardingButton) {
+        self.tableView.scrollEnabled                    = NO;
+        
+        onBoardingButton                                = [UIButton buttonWithType:UIButtonTypeCustom];
+        onBoardingButton.adjustsImageWhenHighlighted    = NO;
+        onBoardingButton.frame                          = CGRectMake(0,0,320,367);
+        
+        [onBoardingButton setBackgroundImage:[UIImage imageNamed:kImgOnBoarding] 
+                                    forState:UIControlStateNormal];
+        
+        [onBoardingButton addTarget:self
+                             action:@selector(didTouchDownOnOnBoardingButton:)				
+                   forControlEvents:UIControlEventTouchDown];
+        
+        [self.view addSubview:onBoardingButton];
     }
-    [self.view addSubview:onBoardingImage];
 	 
 	if(!_isLoadedOnce)
         [_dataSourceDelegate loadData];
@@ -73,9 +83,7 @@ static NSString* const kImgOnBoarding   = @"Default.png";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)dealloc {
-    [onBoardingImage release];
-    
+- (void)dealloc {    
     [super dealloc];
 }
 
@@ -95,15 +103,9 @@ static NSString* const kImgOnBoarding   = @"Default.png";
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)enableOnboarding {
-    //onBoardingImage.hidden          = NO;
-    //self.tableView.scrollEnabled    = NO;
-}
-
-//----------------------------------------------------------------------------------------------------
 - (void)disableOnboarding {
-    onBoardingImage.hidden          = YES;
     self.tableView.scrollEnabled    = YES;
+    [onBoardingButton removeFromSuperview];
 }
 
 
@@ -138,11 +140,9 @@ static NSString* const kImgOnBoarding   = @"Default.png";
 		if(![_itemManager totalItems]) {
 			_tableViewUsage         = kTableViewAsMessage;
 			self.messageCellText    = kMsgNoFollowPlacesCurrentUser;
-            [self enableOnboarding];
 		}
 		else {
 			_tableViewUsage = kTableViewAsData;
-            [self disableOnboarding];
         }
 		
 		_isLoadedOnce = YES;
@@ -188,6 +188,17 @@ static NSString* const kImgOnBoarding   = @"Default.png";
 	[[DWRequestsManager sharedDWRequestsManager] getFollowedItemsFromLastID:_lastID];
 }
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIButtonEvents
+
+//----------------------------------------------------------------------------------------------------
+- (void)didTouchDownOnOnBoardingButton:(UIButton*)button {
+    [self disableOnboarding];
+    [[DWSession sharedDWSession] updateFirstTimeUser];
+}
 
 
 @end

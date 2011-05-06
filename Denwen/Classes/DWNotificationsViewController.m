@@ -14,7 +14,7 @@
 
 static NSInteger const kTouchesPerPage          = 10;
 static NSInteger const kTouchCellHeight         = 60;
-static NSString* const kMsgNoItemsTouched       = @"No one has touched your items";
+static NSString* const kMsgNoItemsTouched       = @"No touches from anyone yet";
 static NSString* const kTouchCellIdentifier		= @"TouchCell";
 static NSString* const kTitleText               = @"Notifications";
 

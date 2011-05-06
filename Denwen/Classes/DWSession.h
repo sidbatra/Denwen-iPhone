@@ -16,6 +16,7 @@
 	CLLocation		*_location;
     
 	BOOL			_firstVisitRecorded;
+    BOOL            _firstTimeUser;
     
     NSInteger       _lastReadItemID;
     NSInteger       _selectedTabIndex;
@@ -35,6 +36,11 @@
  * Current location of the user
  */
 @property (nonatomic,retain) CLLocation *location;
+
+/**
+ * Indicates whether its the user's first session 
+ */
+@property (nonatomic,readonly) BOOL firstTimeUser;
 
 /**
  * Database ID of the last item read by the user in the feed
@@ -67,6 +73,16 @@
  * Populate the _lastReadItemID from disk
  */
 - (void)readLastReadItemID;
+
+/**
+ * Reads whether this is a first session or not
+ */
+- (void)readFirstTimeUser;
+
+/**
+ * Updates the firstTimeUser flag on disk
+ */
+- (void)updateFirstTimeUser;
 
 /**
  * Test whether a user is currently signed in

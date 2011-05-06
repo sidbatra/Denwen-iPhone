@@ -12,6 +12,7 @@
 #import "SynthesizeSingleton.h"
 
 static NSString* const kDiskKeyLastReadItemID   = @"last_read_item_id";
+static NSString* const kDiskKeyFirstTimeUser    = @"first_time_user";
 
 
 
@@ -22,6 +23,7 @@ static NSString* const kDiskKeyLastReadItemID   = @"last_read_item_id";
 
 @synthesize currentUser				= _currentUser;
 @synthesize location				= _location;
+@synthesize firstTimeUser           = _firstTimeUser;
 @synthesize lastReadItemID          = _lastReadItemID;
 @synthesize selectedTabIndex        = _selectedTabIndex;
 
@@ -34,6 +36,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	if(self) {
 		[self read];
         [self readLastReadItemID];
+        [self readFirstTimeUser];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(newLocationAvailable:) 
@@ -136,6 +139,29 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 	if (standardUserDefaults) {
         [standardUserDefaults setInteger:_lastReadItemID 
                                   forKey:kDiskKeyLastReadItemID];
+        [standardUserDefaults synchronize];
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)readFirstTimeUser {
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+	
+	if (standardUserDefaults) {
+        _firstTimeUser = ![standardUserDefaults	boolForKey:kDiskKeyFirstTimeUser];
+        [standardUserDefaults synchronize];
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)updateFirstTimeUser {
+    _firstTimeUser = NO;
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+	
+	if (standardUserDefaults) {
+        [standardUserDefaults setBool:!_firstTimeUser
+                                  forKey:kDiskKeyFirstTimeUser];
         [standardUserDefaults synchronize];
 	}
 }
