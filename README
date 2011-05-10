@@ -1,0 +1,10 @@
+The Official Denwen iPhone App
+==============================
+
+
+The Denwen folder contains the XCode Project for the iPhone App.
+
+The POC folder contains isolated proof of concept XCode Projects.
+
+*.p12 are private keys exported for keychain that are needed for the 
+running the app on authorized devices
