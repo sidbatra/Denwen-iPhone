@@ -1,2 +1,2 @@
-svn add Denwen/Classes/ Denwen/External Denwen/resources/ --force
-svn ci
+git add Denwen/Classes/ Denwen/External Denwen/resources/ 
+git commit -a
