@@ -469,7 +469,7 @@
 /* Begin PBXFileReference section */
 		1D3623240D0F684500981E51 /* DWAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* DWAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Denwen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Denwen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Eenwen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eenwen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26000217130DFB0100366CE3 /* KTTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTTextView.h; sourceTree = "<group>"; };
 		26000218130DFB0100366CE3 /* KTTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTTextView.m; sourceTree = "<group>"; };
 		2612D6241362556D005AE9E5 /* DWPlaceTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWPlaceTitleView.h; path = Classes/DWPlaceTitleView.h; sourceTree = "<group>"; };
@@ -1124,7 +1124,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Denwen.app */,
+				1D6058910D05DD3D006BFB54 /* Eenwen.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2106,7 +2106,7 @@
 			);
 			name = Denwen;
 			productName = Denwen;
-			productReference = 1D6058910D05DD3D006BFB54 /* Denwen.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Eenwen.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2612,9 +2612,9 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/External/Twitter+OAuth/Libraries & Headers\"",
 				);
-				PRODUCT_NAME = Denwen;
-				PROVISIONING_PROFILE = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
+				PRODUCT_NAME = Eenwen;
+				PROVISIONING_PROFILE = "EAB2D597-BAF8-4376-9960-21A2501FB508";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EAB2D597-BAF8-4376-9960-21A2501FB508";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2633,7 +2633,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/External/Twitter+OAuth/Libraries & Headers\"",
 				);
-				PRODUCT_NAME = Denwen;
+				PRODUCT_NAME = Eenwen;
 				PROVISIONING_PROFILE = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2675,7 +2675,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/External/Twitter+OAuth/Libraries & Headers\"",
 				);
-				PRODUCT_NAME = Denwen;
+				PRODUCT_NAME = Eenwen;
 				PROVISIONING_PROFILE = "4BAD23BD-EB37-4A16-8403-5874930C2D24";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4BAD23BD-EB37-4A16-8403-5874930C2D24";
 				SDKROOT = iphoneos;
@@ -2695,8 +2695,8 @@
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "F9CDC2E0-4E85-4CF7-93D5-B187154AB50D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "759F6277-EC80-4A0F-A693-E8B9D24BD3FD";
+				PROVISIONING_PROFILE = "EAB2D597-BAF8-4376-9960-21A2501FB508";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EAB2D597-BAF8-4376-9960-21A2501FB508";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
