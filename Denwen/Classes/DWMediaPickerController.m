@@ -124,8 +124,6 @@ static float     const kCroppedImageDimension   = 320.0;
         self.showsCameraControls        = NO;
         self.cameraFlashMode            = UIImagePickerControllerCameraFlashModeOff;
     }
-    else
-        self.allowsEditing              = YES;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -167,33 +165,29 @@ static float     const kCroppedImageDimension   = 320.0;
         UIImage *resizedImage   = nil; 
         UIImage *editedImage    = nil;
         
-        if (picker.sourceType == kMediaPickerCaptureMode) {
-            if(originalImage.size.width > originalImage.size.height) {
-                resizedImage    = [originalImage resizeTo:
-                                   CGSizeMake(originalImage.size.width * 
-                                              kCroppedImageDimension/originalImage.size.height,
-                                              kCroppedImageDimension)];
-                 editedImage    = [resizedImage cropToRect:
-                                   CGRectMake((int)((resizedImage.size.width - kCroppedImageDimension)/2), 0, 
-                                              kCroppedImageDimension, kCroppedImageDimension)];
-            }
-            else {
-                resizedImage    = [originalImage resizeTo:
-                                   CGSizeMake(kCroppedImageDimension,
-                                              originalImage.size.height * 
-                                              kCroppedImageDimension/originalImage.size.width)];
-                editedImage     = [resizedImage cropToRect:
-                                   CGRectMake(0,(int)((resizedImage.size.height - kCroppedImageDimension)/2), 
-                                              kCroppedImageDimension, kCroppedImageDimension)];
-            }
-                
-			UIImageWriteToSavedPhotosAlbum(originalImage, self, 
-                                           @selector(image:didFinishSavingWithError:contextInfo:), 
-                                           nil);
+        if(originalImage.size.width > originalImage.size.height) {
+            resizedImage    = [originalImage resizeTo:
+                               CGSizeMake(originalImage.size.width * 
+                                          kCroppedImageDimension/originalImage.size.height,
+                                          kCroppedImageDimension)];
+             editedImage    = [resizedImage cropToRect:
+                               CGRectMake((int)((resizedImage.size.width - kCroppedImageDimension)/2), 0, 
+                                          kCroppedImageDimension, kCroppedImageDimension)];
         }
         else {
-            editedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+            resizedImage    = [originalImage resizeTo:
+                               CGSizeMake(kCroppedImageDimension,
+                                          originalImage.size.height * 
+                                          kCroppedImageDimension/originalImage.size.width)];
+            editedImage     = [resizedImage cropToRect:
+                               CGRectMake(0,(int)((resizedImage.size.height - kCroppedImageDimension)/2), 
+                                          kCroppedImageDimension, kCroppedImageDimension)];
         }
+        
+        if (picker.sourceType == kMediaPickerCaptureMode)
+            UIImageWriteToSavedPhotosAlbum(originalImage, self, 
+                                           @selector(image:didFinishSavingWithError:contextInfo:), 
+                                           nil);
 		
 		[_mediaDelegate didFinishPickingImage:originalImage 
 								  andEditedTo:editedImage];
