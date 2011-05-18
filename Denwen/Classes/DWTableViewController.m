@@ -44,6 +44,8 @@ static NSString* const kMsgNetworkError             = @"No connection; pull to r
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
+    self.tableView          = nil;
+    
     self.messageCellText	= nil;
 	self.refreshHeaderView	= nil;
     
