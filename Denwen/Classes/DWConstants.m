@@ -340,7 +340,7 @@ NSInteger const kPaginationCellHeight			= 60;
 NSInteger const kUserViewCellHeight				= 126;
 NSInteger const kPlaceViewCellHeight			= 177;
 NSString* const kEmptyString					= @"";
-
+NSInteger const kLocationRefreshDistance		= 300;
 
 
 

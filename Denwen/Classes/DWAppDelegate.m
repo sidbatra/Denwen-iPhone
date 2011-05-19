@@ -17,7 +17,6 @@
 #import "NSString+Helpers.h"
 
 static NSString* const kFacebookURLPrefix			= @"fb";
-static NSInteger const kLocationRefreshDistance		= 500;
 static NSInteger const kLocationFreshnessThreshold	= 10;
 static NSString* const kMsgLowMemoryWarning			= @"Low memory warning recived, memory pool free memory called";
 static NSInteger const kTabBarWidth					= 320;

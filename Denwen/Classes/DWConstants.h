@@ -345,7 +345,7 @@ extern NSInteger const kPaginationCellHeight;
 extern NSInteger const kUserViewCellHeight;
 extern NSInteger const kPlaceViewCellHeight;
 extern NSString* const kEmptyString;
-
+extern NSInteger const kLocationRefreshDistance;
 
 
 
