@@ -163,14 +163,41 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 
 //----------------------------------------------------------------------------------------------------
 - (NSString*)displayAddress {
-	NSString *result = nil;
-	
-	if(_hasAddress)
-		result = [NSString stringWithFormat:@"%@, %@",self.town,self.state];
+	NSString *address = nil;
+    
+	if(_hasAddress) {
+        NSMutableString *result     = [NSMutableString stringWithString:@""];
+        NSInteger parts             = 0;
+        
+        if(self.town && [self.town length] > 0) {
+            [result appendString:self.town];
+            parts++;
+        }
+        
+        if(self.state && [self.state length] > 0) {
+            
+            if(parts == 1)
+                [result appendString:@", "];
+            
+            [result appendString:self.state];
+            
+            parts++;
+        }
+        
+        if(parts < 2 && self.country && [self.country length] > 0) {
+            
+            if(parts == 1)
+                [result appendString:@", "];
+            
+            [result appendString:self.country];
+        }
+        
+        address = [NSString stringWithString:result];
+    }
 	else
-		result = kMsgFindingLocality;
+		address = kMsgFindingLocality;
 	
-	return result;
+	return address;
 }
 
 //----------------------------------------------------------------------------------------------------
