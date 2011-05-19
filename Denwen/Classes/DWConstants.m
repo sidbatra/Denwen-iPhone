@@ -272,7 +272,7 @@ NSInteger const kMaxVideoDuration           = 45;
 //----------------------------------------------------------------------------------------------------
 NSInteger const kLocFreshness				= 9;
 NSInteger const kLocAccuracy				= 1100;
-NSInteger const kLocRefreshDistance			= 750;
+NSInteger const kLocRefreshDistance			= 150;
 NSInteger const kLocFailSafeDuration		= 6;
 NSInteger const kLocNearbyRadius			= 1200;
 
@@ -340,7 +340,6 @@ NSInteger const kPaginationCellHeight			= 60;
 NSInteger const kUserViewCellHeight				= 126;
 NSInteger const kPlaceViewCellHeight			= 177;
 NSString* const kEmptyString					= @"";
-NSInteger const kLocationRefreshDistance		= 300;
 
 
 

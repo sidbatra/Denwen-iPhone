@@ -205,7 +205,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWPlacesCache);
     CLLocation *newLocation = [DWSession sharedDWSession].location;
     
     if(_refreshNearbyPlacesOnNextLocationUpdate ||
-       [newLocation distanceFromLocation:self.lastNearbyUpdateLocation] > kLocationRefreshDistance) {
+       [newLocation distanceFromLocation:self.lastNearbyUpdateLocation] > kLocRefreshDistance) {
         
         _refreshNearbyPlacesOnNextLocationUpdate    = NO;
         self.lastNearbyUpdateLocation               = newLocation;

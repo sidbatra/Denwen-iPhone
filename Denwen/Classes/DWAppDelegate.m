@@ -153,7 +153,7 @@ static NSString* const kMsgCustomButtonTitle        = @"OK";
 	self.locationManager					= [[[CLLocationManager alloc] init] autorelease];
 	self.locationManager.delegate			= self;
 	self.locationManager.desiredAccuracy	= kCLLocationAccuracyBest;
-	self.locationManager.distanceFilter		= kLocationRefreshDistance;
+	self.locationManager.distanceFilter		= kLocRefreshDistance;
 	
 	[self.locationManager startUpdatingLocation];
 }
