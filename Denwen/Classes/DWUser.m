@@ -118,10 +118,13 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 //----------------------------------------------------------------------------------------------------
 - (void)applyNewSmallImage:(UIImage*)image {
     
-	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
-						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
-						   image										,kKeyImage,
-						   nil];
+    
+    self.smallPreviewImage  = image;
+    
+	NSDictionary *info      = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+                               image										,kKeyImage,
+                               nil];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgSmallUserLoaded
 														object:nil
@@ -130,11 +133,13 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 
 //----------------------------------------------------------------------------------------------------
 - (void)applyNewMediumImage:(UIImage*)image {
+    
+    self.mediumPreviewImage = image;
 	    
-	NSDictionary *info	= [NSDictionary dictionaryWithObjectsAndKeys:
-						   [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
-						   image										,kKeyImage,
-						   nil];
+	NSDictionary *info      = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSNumber numberWithInt:self.databaseID]		,kKeyResourceID,
+                               image										,kKeyImage,
+                               nil];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:kNImgMediumUserLoaded
 														object:nil
@@ -194,7 +199,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
         NSDictionary *photo		= [user objectForKey:kKeyPhoto];
         NSString *newSmallURL	= [photo objectForKey:kKeySmallURL]; 
         
-        _hasPhoto               = YES;
+       _hasPhoto               = YES;
         
         if(![self.smallURL isEqualToString:newSmallURL]) {
             self.smallURL		= newSmallURL;
