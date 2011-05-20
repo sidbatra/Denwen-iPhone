@@ -2,13 +2,13 @@
 //  DWContainerViewController.m
 //  Copyright 2011 Denwen. All rights reserved.
 //
-
 #import "DWContainerViewController.h"
 #import "DWTabBarController.h"
 #import "DWUserViewController.h"
 #import "DWPlaceViewController.h"
 #import "DWImageViewController.h"
 #import "DWWebViewController.h"
+#import "DWSharingManager.h"
 #import "NSString+Helpers.h"
 
 
@@ -111,29 +111,13 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)shareSelected:(DWItem *)item {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Facebook",@"Twitter",@"Email",@"SMS", nil];
-    [actionSheet showInView:self.customTabBarController.view];
-    [actionSheet release];    
+    [[DWSharingManager sharedDWSharingManager] shareItem:item
+                                           viaController:self.customTabBarController];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (UIViewController*)requestCustomTabBarController {
     return customTabBarController;
-}
-
-
-
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark UIActionSheet Delegate
-
-//----------------------------------------------------------------------------------------------------
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
 }
 
 
