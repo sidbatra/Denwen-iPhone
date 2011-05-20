@@ -519,6 +519,8 @@
 	playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
     
 	
+    shareButton.enabled             = YES;
+    
 	shareImageLayer.hidden			= NO;
 	shareImageLayer.contents		= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgShare230 : kImgShare].CGImage;
 	
@@ -648,7 +650,7 @@
     
     userButton.enabled      = NO;
     placeButton.enabled     = NO;
-    
+    shareButton.enabled     = NO;
 	
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:kCellAnimationDuration] 
@@ -703,6 +705,7 @@
     
     userButton.enabled      = YES;
     placeButton.enabled     = YES;
+    shareButton.enabled     = YES;
 }
 
 //----------------------------------------------------------------------------------------------------
