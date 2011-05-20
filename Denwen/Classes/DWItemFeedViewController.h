@@ -55,6 +55,11 @@
  */
 - (void)userSelected:(DWUser*)user;
 
+/**
+ * Fired when the user wants to share the given item
+ */
+- (void)shareSelected:(DWItem*)item;
+
 /** 
  * Fired when the custom tab bar controller is requested for showing the 
  * media picker to change profile picture

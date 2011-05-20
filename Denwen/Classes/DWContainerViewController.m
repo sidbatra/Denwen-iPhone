@@ -110,6 +110,11 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)shareSelected:(DWItem *)item {
+    NSLog(@"share selected in constainer %d",item.databaseID);
+}
+
+//----------------------------------------------------------------------------------------------------
 - (UIViewController*)requestCustomTabBarController {
     return customTabBarController;
 }

@@ -276,7 +276,11 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
 
 //----------------------------------------------------------------------------------------------------
 - (void)shareSelectedForItemID:(NSInteger)itemID {
-	NSLog(@"shared seleced for %d",itemID);
+    
+    DWItem *item = (DWItem*)[[DWMemoryPool sharedDWMemoryPool]  getObject:itemID
+																	atRow:kMPItemsIndex];
+	
+	[_delegate shareSelected:item];
 }
 
 //----------------------------------------------------------------------------------------------------
