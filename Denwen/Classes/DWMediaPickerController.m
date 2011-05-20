@@ -115,7 +115,7 @@ static float     const kCroppedImageDimension   = 320.0;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)prepare:(NSInteger)pickerMode {
+- (void)prepare:(NSInteger)pickerMode withPreview:(BOOL)preview {
     self.delegate                   = self;
     self.sourceType                 = pickerMode;
     
@@ -124,18 +124,19 @@ static float     const kCroppedImageDimension   = 320.0;
         self.showsCameraControls        = NO;
         self.cameraFlashMode            = UIImagePickerControllerCameraFlashModeOff;
     }
+    self.allowsEditing = preview;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)prepareForImageWithPickerMode:(NSInteger)pickerMode {
-	[self prepare:pickerMode];
+- (void)prepareForImageWithPickerMode:(NSInteger)pickerMode withPreview:(BOOL)preview {
+	[self prepare:pickerMode withPreview:preview];
     
     [self.cameraOverlayViewController hideCameraCaptureModeButtonForPickingImages];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)prepareForMediaWithPickerMode:(NSInteger)pickerMode {
-	[self prepare:pickerMode];
+	[self prepare:pickerMode withPreview:NO];
     
     self.mediaTypes					= [UIImagePickerController availableMediaTypesForSourceType:
 																self.sourceType];   
@@ -165,29 +166,34 @@ static float     const kCroppedImageDimension   = 320.0;
         UIImage *resizedImage   = nil; 
         UIImage *editedImage    = nil;
         
-        if(originalImage.size.width > originalImage.size.height) {
-            resizedImage    = [originalImage resizeTo:
-                               CGSizeMake(originalImage.size.width * 
-                                          kCroppedImageDimension/originalImage.size.height,
-                                          kCroppedImageDimension)];
-             editedImage    = [resizedImage cropToRect:
-                               CGRectMake((int)((resizedImage.size.width - kCroppedImageDimension)/2), 0, 
-                                          kCroppedImageDimension, kCroppedImageDimension)];
+        if (!picker.allowsEditing) {
+            
+            if(originalImage.size.width > originalImage.size.height) {
+                resizedImage    = [originalImage resizeTo:
+                                   CGSizeMake(originalImage.size.width * 
+                                              kCroppedImageDimension/originalImage.size.height,
+                                              kCroppedImageDimension)];
+                 editedImage    = [resizedImage cropToRect:
+                                   CGRectMake((int)((resizedImage.size.width - kCroppedImageDimension)/2), 0, 
+                                              kCroppedImageDimension, kCroppedImageDimension)];
+            }
+            else {
+                resizedImage    = [originalImage resizeTo:
+                                   CGSizeMake(kCroppedImageDimension,
+                                              originalImage.size.height * 
+                                              kCroppedImageDimension/originalImage.size.width)];
+                editedImage     = [resizedImage cropToRect:
+                                   CGRectMake(0,(int)((resizedImage.size.height - kCroppedImageDimension)/2), 
+                                              kCroppedImageDimension, kCroppedImageDimension)];
+            }
+            
+            if (picker.sourceType == kMediaPickerCaptureMode)
+                UIImageWriteToSavedPhotosAlbum(originalImage, self, 
+                                               @selector(image:didFinishSavingWithError:contextInfo:), 
+                                               nil);
         }
-        else {
-            resizedImage    = [originalImage resizeTo:
-                               CGSizeMake(kCroppedImageDimension,
-                                          originalImage.size.height * 
-                                          kCroppedImageDimension/originalImage.size.width)];
-            editedImage     = [resizedImage cropToRect:
-                               CGRectMake(0,(int)((resizedImage.size.height - kCroppedImageDimension)/2), 
-                                          kCroppedImageDimension, kCroppedImageDimension)];
-        }
-        
-        if (picker.sourceType == kMediaPickerCaptureMode)
-            UIImageWriteToSavedPhotosAlbum(originalImage, self, 
-                                           @selector(image:didFinishSavingWithError:contextInfo:), 
-                                           nil);
+        else
+            editedImage = [info objectForKey:UIImagePickerControllerEditedImage];
 		
 		[_mediaDelegate didFinishPickingImage:originalImage 
 								  andEditedTo:editedImage];

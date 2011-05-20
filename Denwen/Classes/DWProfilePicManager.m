@@ -16,11 +16,12 @@
 @implementation DWProfilePicManager
 
 //----------------------------------------------------------------------------------------------------
-- (id)initWithDelegate:(id)delegate {
+- (id)initWithDelegate:(id)delegate andPickerMode:(NSInteger)pickerMode {
 	self = [super init];
 	
 	if(self != nil) {
-		_delegate = delegate;
+		_delegate               = delegate;
+        _initialImagePickerMode = pickerMode;
 	}
 	return self;  
 }
@@ -31,12 +32,17 @@
 }
 
 //----------------------------------------------------------------------------------------------------
--(void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode {
+-(void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode withPreview:(BOOL)preview {
     [[DWMemoryPool sharedDWMemoryPool] freeMemory];
     
     DWMediaPickerController *picker = [[[DWMediaPickerController alloc] initWithDelegate:self] autorelease];
-    [picker prepareForImageWithPickerMode:pickerMode];
+    [picker prepareForImageWithPickerMode:pickerMode withPreview:preview];
     [[_delegate requestController] presentModalViewController:picker animated:NO];   
+}
+
+//----------------------------------------------------------------------------------------------------
+-(void)presentMediaPickerControllerWithPreview:(BOOL)preview {
+    [self presentMediaPickerControllerForPickerMode:_initialImagePickerMode withPreview:preview];
 }
 
 
@@ -61,14 +67,14 @@
 - (void)mediaPickerCancelledFromMode:(NSInteger)imagePickerMode {    
     [[_delegate requestController] dismissModalViewControllerAnimated:NO];  
     
-    if (imagePickerMode == kMediaPickerLibraryMode)
-        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
+    if (imagePickerMode == kMediaPickerLibraryMode  && _initialImagePickerMode == kMediaPickerCaptureMode)
+        [self presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode withPreview:NO];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)photoLibraryModeSelected {
     [[_delegate requestController] dismissModalViewControllerAnimated:NO];
-    [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode];
+    [self presentMediaPickerControllerForPickerMode:kMediaPickerLibraryMode withPreview:YES];
 }
 
 @end

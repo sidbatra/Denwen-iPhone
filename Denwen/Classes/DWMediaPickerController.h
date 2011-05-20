@@ -40,7 +40,8 @@
 /**
  * Prepare the imagePickerController for images
  */
-- (void)prepareForImageWithPickerMode:(NSInteger)pickingMode;
+- (void)prepareForImageWithPickerMode:(NSInteger)pickingMode 
+                          withPreview:(BOOL)preview;
 						
 @end
 

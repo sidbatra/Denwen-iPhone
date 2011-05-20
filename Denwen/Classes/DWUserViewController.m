@@ -107,9 +107,10 @@ static NSInteger const kActionSheetCancelIndex				= 2;
     else if([self.user isCurrentUser]) {
         
         if(!self.profilePicManager)
-            self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self] autorelease];
+            self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self 
+                                                                      andPickerMode:kMediaPickerLibraryMode] autorelease];
     
-        [self.profilePicManager presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
+        [self.profilePicManager presentMediaPickerControllerWithPreview:YES];
     }
 }
 

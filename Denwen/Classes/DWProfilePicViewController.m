@@ -94,9 +94,10 @@ static NSString* const kMsgImageUploadErrorCancelButton		= @"OK";
 //----------------------------------------------------------------------------------------------------
 - (void)didTapCameraButton:(id)sender event:(id)event {    
     if(!self.profilePicManager)
-        self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self] autorelease];
+        self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self 
+                                                                  andPickerMode:kMediaPickerCaptureMode] autorelease];
     
-    [self.profilePicManager presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode]; 
+    [self.profilePicManager presentMediaPickerControllerWithPreview:NO]; 
 }
 
 
