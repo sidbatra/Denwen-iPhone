@@ -464,6 +464,8 @@
 		BBF89D4F1352CB5400B332CA /* chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89D4D1352CB5400B332CA /* chevron.png */; };
 		BBF89D501352CB5400B332CA /* chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF89D4E1352CB5400B332CA /* chevron@2x.png */; };
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
+		BBFD29441386FE6B0077904A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFD29431386FE6B0077904A /* MessageUI.framework */; };
+		BBFD2948138701280077904A /* DWSharingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD2947138701280077904A /* DWSharingManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1082,6 +1084,9 @@
 		BBF89D4E1352CB5400B332CA /* chevron@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chevron@2x.png"; path = "resources/chevron@2x.png"; sourceTree = "<group>"; };
 		BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWContainerViewController.h; path = Classes/DWContainerViewController.h; sourceTree = "<group>"; };
 		BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWContainerViewController.m; path = Classes/DWContainerViewController.m; sourceTree = "<group>"; };
+		BBFD29431386FE6B0077904A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		BBFD2946138701280077904A /* DWSharingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSharingManager.h; path = Classes/DWSharingManager.h; sourceTree = "<group>"; };
+		BBFD2947138701280077904A /* DWSharingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSharingManager.m; path = Classes/DWSharingManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1089,6 +1094,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBFD29441386FE6B0077904A /* MessageUI.framework in Frameworks */,
 				BB379DCE12ED50CE0071CE08 /* CoreGraphics.framework in Frameworks */,
 				BB379DD412ED50EB0071CE08 /* CoreLocation.framework in Frameworks */,
 				BB379DD812ED50FF0071CE08 /* Foundation.framework in Frameworks */,
@@ -1567,6 +1573,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBFD29431386FE6B0077904A /* MessageUI.framework */,
 				BB379DCD12ED50CE0071CE08 /* CoreGraphics.framework */,
 				BB379DD312ED50EB0071CE08 /* CoreLocation.framework */,
 				BB379DD712ED50FF0071CE08 /* Foundation.framework */,
@@ -1965,6 +1972,8 @@
 				BB641D5B134D3E20002A2325 /* DWItemsManager.m */,
 				BB641C58134D33B3002A2325 /* DWPlacesManager.h */,
 				BB641C59134D33B3002A2325 /* DWPlacesManager.m */,
+				BBFD2946138701280077904A /* DWSharingManager.h */,
+				BBFD2947138701280077904A /* DWSharingManager.m */,
 				26EB072E136B7B71003FB186 /* DWProfilePicManager.h */,
 				26EB072F136B7B71003FB186 /* DWProfilePicManager.m */,
 				BB33134112F2628F00B713F9 /* DWGUIManager.h */,
@@ -2589,6 +2598,7 @@
 				26EB0730136B7B71003FB186 /* DWProfilePicManager.m in Sources */,
 				BB0048A41370A4780013B9A1 /* DWSplashScreenViewController.m in Sources */,
 				26A200B71370F66300B698CE /* DWDoneButtonView.m in Sources */,
+				BBFD2948138701280077904A /* DWSharingManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
