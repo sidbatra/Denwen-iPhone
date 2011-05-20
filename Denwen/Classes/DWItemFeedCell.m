@@ -47,6 +47,7 @@
 #define kTouchesIconXOffset                 4
 #define kTouchesIconY                       287
 #define kTouchesIconWidth                   13
+#define kTouchesIconHeight                  15
 #define kDefaultTextHeight                  20
 #define kNormalAlpha                        0.60
 #define kHighlightAlpha                     1.0
@@ -57,6 +58,10 @@
 #define kNormalFadeInterval                 0.5
 #define kNoAnimationDuration                0.0
 #define kCellAnimationDuration              0.12
+#define kPlayIconXOffset                    7
+#define kPlayIconY                          289
+#define kPlayIconWidth                      18
+#define kPlayIconHeight                     11
 
 
 
@@ -230,7 +235,7 @@
         [self addGestureRecognizer:singleTap];
         
         
-                                  
+        
 		itemImageLayer					= [CALayer layer];
 		itemImageLayer.frame			= frame;
 		itemImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
@@ -242,8 +247,9 @@
 										   nil];
 		[[self.contentView layer] addSublayer:itemImageLayer];
 		
+        
 		touchIconImageLayer					= [CALayer layer];
-		touchIconImageLayer.frame			= CGRectMake(295,292,kTouchesIconWidth,15);
+		touchIconImageLayer.frame			= CGRectMake(295,292,kTouchesIconWidth,kTouchesIconHeight);
 		touchIconImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		touchIconImageLayer.actions			= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 											   [NSNull null], @"onOrderIn",
@@ -257,7 +263,7 @@
 		
 		
 		playImageLayer					= [CALayer layer];
-		playImageLayer.frame			= CGRectMake(282,290,18,11);
+		playImageLayer.frame			= CGRectMake(282,290,kPlayIconWidth,kPlayIconHeight);
 		playImageLayer.contentsScale	= [[UIScreen mainScreen] scale];
 		playImageLayer.contents			= (id)[UIImage imageNamed:kImgPlay].CGImage;
 		playImageLayer.hidden			= YES;
@@ -270,16 +276,14 @@
 										   nil];
 		[[self.contentView layer] addSublayer:playImageLayer];
 		
-        /*
+
 		shareImageLayer						= [CALayer layer];
-        shareImageLayer.hidden              = YES;
 		shareImageLayer.frame				= CGRectMake(280,281,24,19);
 		shareImageLayer.contentsScale		= [[UIScreen mainScreen] scale];
 		shareImageLayer.actions				= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 											   [NSNull null], @"contents",
 											   nil];
 		[[self.contentView layer] addSublayer:shareImageLayer];
-         */
         
         
 		drawingLayer					= [DWItemFeedCellDrawingLayer layer];
@@ -348,7 +352,7 @@
 		
 		[self.contentView addSubview:userButton];
 		
-		/*
+		
 		shareButton						= [[[UIButton alloc] init] autorelease];
 		//shareButton.backgroundColor		= [UIColor greenColor];
 		shareButton.frame				= CGRectMake(shareImageLayer.frame.origin.x - 9,
@@ -361,7 +365,7 @@
 			 forControlEvents:UIControlEventTouchUpInside];
 
 		[self.contentView addSubview:shareButton];
-		*/
+		
         
         videoView           = [[[DWVideoView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,frame.size.height)] autorelease];
         videoView.delegate  = self;
@@ -450,6 +454,14 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)resetPlayImageIconPosition {
+    playImageLayer.frame		= CGRectMake(_createdAtRect.origin.x + _createdAtRect.size.width + kPlayIconXOffset,
+                                             kPlayIconY,
+                                             playImageLayer.frame.size.width,
+                                             playImageLayer.frame.size.height);   
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)reset {
 	_highlighted				= NO;
     _isTouching                 = NO;
@@ -507,14 +519,15 @@
 	playImageLayer.hidden			= _attachmentType != kAttachmentVideo;
     
 	
-	//shareImageLayer.hidden			= NO;
-	//shareImageLayer.contents		= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgShare230 : kImgShare].CGImage;
+	shareImageLayer.hidden			= NO;
+	shareImageLayer.contents		= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgShare230 : kImgShare].CGImage;
 	
 	touchIconImageLayer.hidden		= NO;
 	touchIconImageLayer.contents	= (id)[UIImage imageNamed:_attachmentType == kAttachmentNone ? kImgTouchIcon230 : kImgTouchIcon].CGImage;
 	
 	[self resetTouchImageIconPosition];
     [self resetCreatedAtPosition];
+    [self resetPlayImageIconPosition];
     
 	[CATransaction commit];
 	
@@ -599,6 +612,7 @@
     [self resetItemDetailsPosition];
     [self resetTouchImageIconPosition];
     [self resetCreatedAtPosition];
+    [self resetPlayImageIconPosition];
     [self redisplay];
     	
 	[CATransaction commit];
@@ -647,7 +661,7 @@
 	if(_attachmentType == kAttachmentVideo)
 		playImageLayer.hidden	= YES;
 	
-	//shareImageLayer.hidden		= YES;
+	shareImageLayer.hidden		= YES;
 	
 	[self redisplay];
 
@@ -681,7 +695,7 @@
 	if(_attachmentType == kAttachmentVideo)
 		playImageLayer.hidden	= NO;
 	
-	//shareImageLayer.hidden		= NO;
+	shareImageLayer.hidden		= NO;
 	
 	[self redisplay];
 	
