@@ -111,12 +111,29 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)shareSelected:(DWItem *)item {
-    NSLog(@"share selected in constainer %d",item.databaseID);
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Facebook",@"Twitter",@"Email",@"SMS", nil];
+    [actionSheet showInView:self.customTabBarController.view];
+    [actionSheet release];    
 }
 
 //----------------------------------------------------------------------------------------------------
 - (UIViewController*)requestCustomTabBarController {
     return customTabBarController;
+}
+
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIActionSheet Delegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	
 }
 
 

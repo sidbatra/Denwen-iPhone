@@ -13,7 +13,7 @@
  * Base class for containers which form the root views for
  * each of the tabs
  */
-@interface DWContainerViewController : UIViewController <UINavigationControllerDelegate,DWItemFeedViewControllerDelegate,DWPlaceListViewControllerDelegate> {
+@interface DWContainerViewController : UIViewController <UINavigationControllerDelegate,UIActionSheetDelegate,DWItemFeedViewControllerDelegate,DWPlaceListViewControllerDelegate> {
 	UIViewController *customTabBarController;
 }
 
