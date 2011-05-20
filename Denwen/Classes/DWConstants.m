@@ -22,7 +22,8 @@ NSString* const kVersion            = @"3.0";
 	NSString* const kS3ACL			= @"public-read";
 	NSString* const kS3Server		= @"http://denwen.s3.amazonaws.com/";
 #else
-NSString* const kDenwenServer	= @"ec2-50-19-68-158.compute-1.amazonaws.com";//@"sbat.denwen.com";
+    //NSString* const kDenwenServer	= @"ec2-50-19-68-158.compute-1.amazonaws.com";//@"sbat.denwen.com";
+    NSString* const kDenwenServer	= @"sbat.denwen.com";
 	
 	//----------------------------------------------------------------------------------------------------
 	NSString* const kS3Policy		= @"eydleHBpcmF0aW9uJzogJzIwMTctMDEtMjRUMDQ6MjA6MjguMDAwWicsCiAgICAgICAgJ2NvbmRpdGlvbnMnOiBbCiAgICAgICAgICB7J2J1Y2tldCc6ICd0ZW53ZW4nfSwKICAgICAgICAgIHsnYWNsJzogJ3B1YmxpYy1yZWFkJ30sCiAgICAgICAgICBbJ2NvbnRlbnQtbGVuZ3RoLXJhbmdlJywgMCwgNTI0Mjg4MDBdLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcka2V5JywgJyddLAogICAgICAgICAgWydzdGFydHMtd2l0aCcsICcnLCAnJ10KICAgICAgICBdCiAgICAgIH0=";

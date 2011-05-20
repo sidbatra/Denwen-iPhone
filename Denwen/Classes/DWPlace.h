@@ -72,6 +72,11 @@
  * Update the follower count by the given delta
  */
 - (void)updateFollowerCount:(NSInteger)delta;
+
+/**
+ * Updates the address of the place via a address dictionary
+ */
+- (void)updateAddress:(NSDictionary*)address;
  
 /**
  * Start downloading any images attachmented to the last item

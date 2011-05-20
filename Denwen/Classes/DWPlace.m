@@ -95,16 +95,8 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
                                                     longitude:[[place objectForKey:kKeyLongitude] floatValue]] autorelease];
 	
     
-	NSDictionary *address = [place objectForKey:kKeyAddress];
-	
-	if (address) {
-		_hasAddress		= YES;
-		
-		self.town		= [address objectForKey:kKeyShortTown];
-		self.state		= [address objectForKey:kKeyShortState];
-		self.country	= [address objectForKey:kKeyShortCountry];
-	}
-    
+    [self updateAddress:[place objectForKey:kKeyAddress]];
+
     
 	if([place objectForKey:kKeyAttachment])
         [self populateAttachment:[place objectForKey:kKeyAttachment]];
@@ -132,15 +124,8 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
         self.location = [[[CLLocation alloc] initWithLatitude:[[place objectForKey:kKeyLatitude]  floatValue] 
                                                     longitude:[[place objectForKey:kKeyLongitude] floatValue]] autorelease];
     
-    NSDictionary *address = [place objectForKey:kKeyAddress];
     
-    if(!_hasAddress && address) {
-        _hasAddress		= YES;
-        
-        self.town		= [address objectForKey:kKeyShortTown];
-        self.state		= [address objectForKey:kKeyShortState];
-        self.country	= [address objectForKey:kKeyShortCountry];		
-    }
+    [self updateAddress:[place objectForKey:kKeyAddress]];
     
     
     if([place objectForKey:kKeyAttachment]) {
@@ -159,6 +144,19 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
     }
     
     return YES;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)updateAddress:(NSDictionary*)address {
+    
+    if(!_hasAddress && address) {
+        _hasAddress		= YES;
+        
+        self.town		= [address objectForKey:kKeyShortTown];
+        self.state		= [address objectForKey:kKeyShortState];
+        self.country	= [address objectForKey:kKeyShortCountry];		
+    }
+    
 }
 
 //----------------------------------------------------------------------------------------------------
