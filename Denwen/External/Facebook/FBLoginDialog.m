@@ -35,6 +35,8 @@
   _serverURL = [loginURL retain];
   _params = [params retain];
   _loginDelegate = delegate;
+  super.delegate = self;
+    
   return self;
 }
 
@@ -89,6 +91,23 @@
       [_loginDelegate fbDialogNotLogin:NO];
     }
   }
+}
+
+
+/**
+ * Handle cancel button from HTML dialog by filtering on "touch.facebook.com/l.php" and 
+ * treat it the same way as the same as dialog cancellation would be.
+ */
+- (BOOL)dialog:(FBDialog*)dialog shouldOpenURLInExternalBrowser:(NSURL *)url;
+{
+    // Cancel button clicked
+    if ( [[url host] isEqualToString:@"touch.facebook.com"] && [[url relativePath] isEqualToString:@"/l.php"] )
+    {
+        [self dialogDidCancel:url];
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end
