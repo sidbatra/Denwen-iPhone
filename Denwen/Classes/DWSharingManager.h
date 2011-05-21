@@ -19,6 +19,7 @@
     
     BOOL                _waitingForAddress;
     NSInteger           _sharingType;
+    NSInteger           _cancelButtonIndex;
     
     id<DWSharingManagerDelegate> _delegate;
 }

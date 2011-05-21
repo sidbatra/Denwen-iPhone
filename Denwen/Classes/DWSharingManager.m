@@ -9,17 +9,20 @@
 #import "DWSession.h"
 #import "DWConstants.h"
 
-#define kShareButtonTitles      @"Facebook",@"Twitter",@"Email",@"SMS",nil
 
 static NSString* const kItemShareURI            = @"/i/";
 static NSString* const kSpinnerText             = @"";
-static NSString* const kShareCancelTitle        = @"Cancel";
+static NSInteger const kCancelDefaultIndex      = 3;
 static NSInteger const kShareDefaultIndex       = -1;
 static NSInteger const kShareFBIndex            = 0;
 static NSInteger const kShareTWIndex            = 1;
 static NSInteger const kShareEMIndex            = 2;
 static NSInteger const kShareSMIndex            = 3;
-static NSInteger const kShareCancelIndex        = 4;
+static NSString* const kMsgFBButton             = @"Facebook";
+static NSString* const kMsgTWButton             = @"Twitter";
+static NSString* const kMsgEMButton             = @"Email";
+static NSString* const kMsgSMButton             = @"SMS";
+static NSString* const kMsgCanceButton          = @"Cancel";
 static NSInteger const kRecentItemThreshold     = 900;
 static NSString* const kMsgEmailBlurb           = @"Denwen is a simple way to create places that mean something to you — where you work, where you live,anywhere you spend time. \n\n Download Denwen from the Apple App Store - http://j.mp/denwen";
 static NSString* const kMsgSMSBlurb             = @"Download Denwen from the Apple App Store - http://j.mp/denwen";
@@ -72,6 +75,7 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     
     self.item               = item;
     self.baseController     = baseController;
+    _cancelButtonIndex      = kCancelDefaultIndex;
     
     if(!self.item.place.hasAddress) {
         _waitingForAddress = YES;
@@ -79,13 +83,39 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     }
     
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:kShareCancelTitle
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:kShareButtonTitles];
+    
+    UIActionSheet *actionSheet      = [[UIActionSheet alloc] initWithTitle:nil
+                                                                  delegate:self
+                                                         cancelButtonTitle:nil
+                                                    destructiveButtonTitle:nil
+                                                         otherButtonTitles:nil];
+    [actionSheet addButtonWithTitle:kMsgFBButton];
+    [actionSheet addButtonWithTitle:kMsgTWButton];
+    [actionSheet addButtonWithTitle:kMsgEMButton];
+    
+    if([MFMessageComposeViewController canSendText]) {
+        [actionSheet addButtonWithTitle:kMsgSMButton];
+        _cancelButtonIndex++;
+    }
+    
+    [actionSheet addButtonWithTitle:kMsgCanceButton];
+        
+    [actionSheet setCancelButtonIndex:_cancelButtonIndex];
     [actionSheet showInView:self.baseController.view];
     [actionSheet release];    
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)finishedWithSharingUsingText:(NSString*)sharingText {
+    [[DWRequestsManager sharedDWRequestsManager] createShareForItemWithID:self.item.databaseID
+                                                                 withData:sharingText
+                                                                   sentTo:pow(2,_sharingType)];
+    [_delegate sharingFinished];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)finishedWithoutSharing {
+    [_delegate sharingFinished];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -100,12 +130,11 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     else if(_sharingType == kShareEMIndex) {
         [self shareViaEmail];
     }
+    else if(_sharingType == _cancelButtonIndex) {
+        [self finishedWithoutSharing];
+    }
     else if(_sharingType == kShareSMIndex) {
         [self shareViaSMS];
-    }
-    else if(_sharingType == kShareCancelIndex) {
-        NSLog(@"cancel");
-        [_delegate sharingFinished];
     }
 }
 
@@ -134,19 +163,6 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     if([self.baseController respondsToSelector:@selector(hideSpinner)]) {
         [self.baseController performSelector:@selector(hideSpinner)];
     }
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)finishedWithSharingUsingText:(NSString*)sharingText {
-    [[DWRequestsManager sharedDWRequestsManager] createShareForItemWithID:self.item.databaseID
-                                                                 withData:sharingText
-                                                                   sentTo:pow(2,_sharingType)];
-    [_delegate sharingFinished];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)finishedWithoutSharing {
-    [_delegate sharingFinished];
 }
 
 
@@ -218,7 +234,7 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
 
 //----------------------------------------------------------------------------------------------------
 - (void)shareViaSMS {
-    
+
     MFMessageComposeViewController *smsView = [[[MFMessageComposeViewController alloc] init] autorelease];
     smsView.messageComposeDelegate          = self;
     
