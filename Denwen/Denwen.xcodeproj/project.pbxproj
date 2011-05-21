@@ -122,6 +122,7 @@
 		26885A831367A46900C3511F /* profile_pic_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26885A811367A46900C3511F /* profile_pic_placeholder@2x.png */; };
 		268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B56811356682800BB43DC /* DWCameraOverlayViewController.m */; };
 		268B56841356682800BB43DC /* DWCameraOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 268B56821356682800BB43DC /* DWCameraOverlayViewController.xib */; };
+		269767D61387978F00AB91A1 /* DWIntroPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269767D51387978F00AB91A1 /* DWIntroPaneViewController.m */; };
 		26A2009C1370D0DA00B698CE /* launch_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 26A2009A1370D0DA00B698CE /* launch_bg.png */; };
 		26A2009D1370D0DA00B698CE /* launch_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26A2009B1370D0DA00B698CE /* launch_bg@2x.png */; };
 		26A200A01370D24300B698CE /* d_logo_login_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 26A2009E1370D24300B698CE /* d_logo_login_white.png */; };
@@ -585,6 +586,8 @@
 		268B56801356682800BB43DC /* DWCameraOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCameraOverlayViewController.h; path = Classes/DWCameraOverlayViewController.h; sourceTree = "<group>"; };
 		268B56811356682800BB43DC /* DWCameraOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCameraOverlayViewController.m; path = Classes/DWCameraOverlayViewController.m; sourceTree = "<group>"; };
 		268B56821356682800BB43DC /* DWCameraOverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DWCameraOverlayViewController.xib; path = Classes/DWCameraOverlayViewController.xib; sourceTree = "<group>"; };
+		269767D41387978F00AB91A1 /* DWIntroPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWIntroPaneViewController.h; path = Classes/DWIntroPaneViewController.h; sourceTree = "<group>"; };
+		269767D51387978F00AB91A1 /* DWIntroPaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIntroPaneViewController.m; path = Classes/DWIntroPaneViewController.m; sourceTree = "<group>"; };
 		26A2009A1370D0DA00B698CE /* launch_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_bg.png; path = resources/launch_bg.png; sourceTree = "<group>"; };
 		26A2009B1370D0DA00B698CE /* launch_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "launch_bg@2x.png"; path = "resources/launch_bg@2x.png"; sourceTree = "<group>"; };
 		26A2009E1370D24300B698CE /* d_logo_login_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_logo_login_white.png; path = resources/d_logo_login_white.png; sourceTree = "<group>"; };
@@ -1592,6 +1595,8 @@
 		BB3BE0B2133A9CE70055FED0 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				269767D41387978F00AB91A1 /* DWIntroPaneViewController.h */,
+				269767D51387978F00AB91A1 /* DWIntroPaneViewController.m */,
 				BB9EC27513542DF000D6BBF6 /* DWTabBarController.h */,
 				BB9EC27613542DF000D6BBF6 /* DWTabBarController.m */,
 				BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */,
@@ -2546,6 +2551,7 @@
 				BB0048A41370A4780013B9A1 /* DWSplashScreenViewController.m in Sources */,
 				26A200B71370F66300B698CE /* DWDoneButtonView.m in Sources */,
 				BBFD2948138701280077904A /* DWSharingManager.m in Sources */,
+				269767D61387978F00AB91A1 /* DWIntroPaneViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
