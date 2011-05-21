@@ -1595,8 +1595,6 @@
 		BB3BE0B2133A9CE70055FED0 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				269767D41387978F00AB91A1 /* DWIntroPaneViewController.h */,
-				269767D51387978F00AB91A1 /* DWIntroPaneViewController.m */,
 				BB9EC27513542DF000D6BBF6 /* DWTabBarController.h */,
 				BB9EC27613542DF000D6BBF6 /* DWTabBarController.m */,
 				BBF91BEB13274DC400AC3585 /* DWContainerViewController.h */,
@@ -1615,6 +1613,8 @@
 				26D3CB1F1363C617007CE094 /* DWNotificationsViewController.m */,
 				BB0048A11370A4740013B9A1 /* DWSplashScreenViewController.h */,
 				BB0048A21370A4750013B9A1 /* DWSplashScreenViewController.m */,
+				269767D41387978F00AB91A1 /* DWIntroPaneViewController.h */,
+				269767D51387978F00AB91A1 /* DWIntroPaneViewController.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
