@@ -16,7 +16,6 @@
 #import "DWSession.h"
 #import "DWConstants.h"
 
-static NSString* const kDenwenProtocol			= @"http://";
 static NSString* const kDenwenRequestURI		= @"%@%@%@&email=%@&password=%@&ff=mobile&v=%@";
 
 static NSString* const kPopularPlacesURI		= @"/popular/places.json?page=%d";

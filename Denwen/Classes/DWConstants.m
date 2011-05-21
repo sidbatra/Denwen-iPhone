@@ -10,6 +10,7 @@
 
 //----------------------------------------------------------------------------------------------------
 NSString* const kVersion            = @"3.0";
+NSString* const kDenwenProtocol     = @"http://";
 
 
 #ifdef PRODUCTION

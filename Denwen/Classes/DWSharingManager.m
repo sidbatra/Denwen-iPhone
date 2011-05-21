@@ -9,17 +9,19 @@
 #import "DWSession.h"
 #import "DWConstants.h"
 
-
 #define kShareButtonTitles      @"Facebook",@"Twitter",@"Email",@"SMS",nil
 
-static NSString* const kSpinnerText         = @"";
-static NSString* const kShareCancelTitle    = @"Cancel";
-static NSInteger const kShareDefaultIndex   = -1;
-static NSInteger const kShareFBIndex        = 0;
-static NSInteger const kShareTWIndex        = 1;
-static NSInteger const kShareEMIndex        = 2;
-static NSInteger const kShareSMIndex        = 3;
-static NSInteger const kShareCancelIndex    = 4;
+static NSString* const kItemShareURI            = @"/i/";
+static NSString* const kSpinnerText             = @"";
+static NSString* const kShareCancelTitle        = @"Cancel";
+static NSInteger const kShareDefaultIndex       = -1;
+static NSInteger const kShareFBIndex            = 0;
+static NSInteger const kShareTWIndex            = 1;
+static NSInteger const kShareEMIndex            = 2;
+static NSInteger const kShareSMIndex            = 3;
+static NSInteger const kShareCancelIndex        = 4;
+static NSInteger const kRecentItemThreshold     = 900;
+static NSString* const kMsgEmailBlurb           = @"Denwen is a simple way to create places that mean something to you — where you work, where you live,anywhere you spend time. \n\n Download Denwen from the Apple App Store - http://j.mp/denwen";
 
 
 
@@ -64,23 +66,6 @@ static NSInteger const kShareCancelIndex    = 4;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)displaySpinner {
-    
-    if([self.baseController respondsToSelector:@selector(displaySpinnerWithText:)]) {
-        [self.baseController performSelector:@selector(displaySpinnerWithText:) 
-                                  withObject:kSpinnerText];
-    }
-}
-
-//----------------------------------------------------------------------------------------------------
-- (void)hideSpinner {
-    
-    if([self.baseController respondsToSelector:@selector(hideSpinner)]) {
-       [self.baseController performSelector:@selector(hideSpinner)];
-    }
-}
-
-//----------------------------------------------------------------------------------------------------
 - (void)shareItem:(DWItem*)item 
     viaController:(UIViewController*)baseController {
     
@@ -112,16 +97,7 @@ static NSInteger const kShareCancelIndex    = 4;
         NSLog(@"twitter"); 
     }
     else if(_sharingType == kShareEMIndex) {
-        MFMailComposeViewController *mailView = [[[MFMailComposeViewController alloc] init] autorelease];
-        
-        mailView.mailComposeDelegate = self;
-        
-        [mailView setSubject:@"Well hellooo"];    
-        [mailView setMessageBody:@"hi there waldo"
-                          isHTML:YES];
-        
-        [self.baseController presentModalViewController:mailView
-                                               animated:YES];
+        [self shareViaEmail];
     }
     else if(_sharingType == kShareSMIndex) {
         NSLog(@"sms");
@@ -142,11 +118,114 @@ static NSInteger const kShareCancelIndex    = 4;
     }
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)displaySpinner {
+    
+    if([self.baseController respondsToSelector:@selector(displaySpinnerWithText:)]) {
+        [self.baseController performSelector:@selector(displaySpinnerWithText:) 
+                                  withObject:kSpinnerText];
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)hideSpinner {
+    
+    if([self.baseController respondsToSelector:@selector(hideSpinner)]) {
+        [self.baseController performSelector:@selector(hideSpinner)];
+    }
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark UIActionSheet Delegate
+#pragma mark Distributon to different modalities
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)generateSharingPlaceText {
+    NSString *specificAddressField = [self.item.place mostSpecificAddressString];
+    
+    return [specificAddressField length] ? 
+            [NSString stringWithFormat:@"%@ (%@)",self.item.place.name,specificAddressField] : 
+            [NSString stringWithString:self.item.place.name];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)generateSharingText {
+    
+    NSString *text          = nil;
+    NSString *placeText     = [self generateSharingPlaceText];
+    NSString *urlText       = [NSString stringWithFormat:@"on Denwen %@%@%@%@",
+                                kDenwenProtocol,
+                                kDenwenServer,
+                                kItemShareURI,
+                                self.item.hashedID];
+    BOOL isRecentItem       = [self.item createdTimeAgoStamp] <= kRecentItemThreshold;
+    BOOL isOwnItem          = [self.item.user isCurrentUser];
+    
+    
+    if(isOwnItem && isRecentItem) {
+        text = [NSString stringWithFormat:@"Just posted at %@ %@",
+                    placeText,
+                    urlText];
+    }
+    else if(isOwnItem) {
+        text = [NSString stringWithFormat:@"My post at %@ %@",
+                placeText,
+                urlText];
+    }
+    else if(isRecentItem) {
+        text = [NSString stringWithFormat:@"Just saw this at %@ %@",
+                placeText,
+                urlText];
+    }
+    else {
+        text = [NSString stringWithFormat:@"Saw this at %@ %@",
+                placeText,
+                urlText];
+    }
+    
+    return text;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)shareViaEmail {
+    
+    MFMailComposeViewController *mailView   = [[[MFMailComposeViewController alloc] init] autorelease];
+    mailView.mailComposeDelegate            = self;
+    
+    [mailView setSubject:[NSString stringWithFormat:@"%@ shared a post with you",[DWSession sharedDWSession].currentUser.firstName]];    
+    [mailView setMessageBody:[NSString stringWithFormat:@"%@ \n\n %@",[self generateSharingText],kMsgEmailBlurb]
+                      isHTML:NO];
+    
+    [self.baseController presentModalViewController:mailView
+                                           animated:YES];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark MFMailComposeViewControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)mailComposeController:(MFMailComposeViewController*)controller 
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError*)error {
+    
+    [self.baseController dismissModalViewControllerAnimated:YES];
+    
+    if(result == MFMailComposeResultSaved || result == MFMailComposeResultSent) {
+    }
+    else {
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UIActionSheetDelegate
 
 //----------------------------------------------------------------------------------------------------
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {	

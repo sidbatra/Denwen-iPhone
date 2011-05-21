@@ -56,6 +56,7 @@
 @interface DWSharingManager(Private)
 - (void)hideSpinner;
 - (void)displaySpinner;
+- (void)shareViaEmail;
 @end
 
 
