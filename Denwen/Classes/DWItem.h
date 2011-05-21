@@ -75,6 +75,11 @@
 - (void)touchesCountDelta:(NSInteger)delta;
 
 /**
+ * Timestamp representing in seconds the age of the item
+ */
+- (NSInteger)createdTimeAgoStamp;
+
+/**
  * User friendly string for displaying the time when the
  * item was created
  */ 

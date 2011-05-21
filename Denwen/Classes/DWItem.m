@@ -80,6 +80,14 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSInteger)createdTimeAgoStamp {
+	NSDate *createdDate = [NSDate dateWithTimeIntervalSince1970:_createdAtTimestamp];
+    NSDate *todayDate	= [NSDate date];
+    
+    return [todayDate timeIntervalSinceDate:createdDate];    
+}
+
+//----------------------------------------------------------------------------------------------------
 - (NSString*)createdTimeAgoInWords {
 	
 	NSDate *createdDate = [NSDate dateWithTimeIntervalSince1970:_createdAtTimestamp];
