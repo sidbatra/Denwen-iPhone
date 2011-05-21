@@ -164,8 +164,16 @@
 - (void)createSessionWithEmail:(NSString*)email
 				  withPassword:(NSString*)password;
 
+
+/**
+ * Create a new share for the given item
+ */
+- (void)createShareForItemWithID:(NSInteger)itemID
+                        withData:(NSString*)data
+                          sentTo:(NSInteger)sentTo;
+
 /** 
- * Createa a new share
+ * Create a new share for the given place
  */
 - (void)createShareForPlaceWithID:(NSInteger)placeID
 						 withData:(NSString*)data

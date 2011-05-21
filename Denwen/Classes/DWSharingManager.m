@@ -135,6 +135,19 @@ static NSString* const kMsgEmailBlurb           = @"Denwen is a simple way to cr
     }
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)finishedWithSharingUsingText:(NSString*)sharingText {
+    [[DWRequestsManager sharedDWRequestsManager] createShareForItemWithID:self.item.databaseID
+                                                                 withData:sharingText
+                                                                   sentTo:pow(2,_sharingType)];
+    [_delegate sharingFinished];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)finishedWithoutSharing {
+    [_delegate sharingFinished];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -215,10 +228,10 @@ static NSString* const kMsgEmailBlurb           = @"Denwen is a simple way to cr
     
     [self.baseController dismissModalViewControllerAnimated:YES];
     
-    if(result == MFMailComposeResultSaved || result == MFMailComposeResultSent) {
-    }
-    else {
-    }
+    if(result == MFMailComposeResultSaved || result == MFMailComposeResultSent)
+        [self finishedWithSharingUsingText:kEmptyString];
+    else
+        [self finishedWithoutSharing];
 }
 
 
