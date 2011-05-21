@@ -178,7 +178,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWSession);
 
 //----------------------------------------------------------------------------------------------------
 - (void)createVisit {
-	[[DWRequestsManager sharedDWRequestsManager] createVisit];
+    if ([[DWSession sharedDWSession] isActive])
+        [[DWRequestsManager sharedDWRequestsManager] createVisit];
 }
 
 //----------------------------------------------------------------------------------------------------
