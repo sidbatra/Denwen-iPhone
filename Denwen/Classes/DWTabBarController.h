@@ -6,6 +6,9 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MPMoviePlayerController.h>
 
+#import "MBProgressHUD.h"
+
+
 @class DWTabBar;
 @protocol DWTabBarControllerDelegate;
 
@@ -17,6 +20,8 @@
     UIImageView         *_topShadowView;
     UIImageView         *_bottomShadowView;
 	NSArray				*_subControllers;
+    
+    MBProgressHUD       *mbProgressIndicator;
 	
 	id<DWTabBarControllerDelegate> _delegate;
 }
@@ -75,6 +80,16 @@
  * Dim the tab at the given index
  */
 - (void)dimTabAtIndex:(NSInteger)index;
+
+/**
+ * Display spinner in the center of the screen freezing the UI
+ */
+- (void)displaySpinnerWithText:(NSString*)message;
+
+/**
+ * Hide the spinner with animation
+ */
+- (void)hideSpinner;
 
 @end
 

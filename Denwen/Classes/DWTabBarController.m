@@ -22,10 +22,10 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 //----------------------------------------------------------------------------------------------------
 @implementation DWTabBarController
 
-@synthesize tabBar				= _tabBar;
-@synthesize topShadowView       = _topShadowView;
-@synthesize bottomShadowView    = _bottomShadowView;
-@synthesize subControllers		= _subControllers;
+@synthesize tabBar                  = _tabBar;
+@synthesize topShadowView           = _topShadowView;
+@synthesize bottomShadowView        = _bottomShadowView;
+@synthesize subControllers          = _subControllers;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithDelegate:(id)theDelegate 
@@ -73,6 +73,9 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
     [self.view addSubview:self.bottomShadowView];
 	[self.view addSubview:self.tabBar];
 	[self addViewAtIndex:self.tabBar.selectedIndex];
+    
+    mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    [self.view addSubview:mbProgressIndicator];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -139,6 +142,17 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 //----------------------------------------------------------------------------------------------------
 - (void)dimTabAtIndex:(NSInteger)index {
     [self.tabBar dimTabAtIndex:index];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)displaySpinnerWithText:(NSString*)message {
+    mbProgressIndicator.labelText = message;
+	[mbProgressIndicator showUsingAnimation:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)hideSpinner {
+    [mbProgressIndicator hideUsingAnimation:YES];
 }
 
 
