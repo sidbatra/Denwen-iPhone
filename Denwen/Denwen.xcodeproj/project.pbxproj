@@ -468,6 +468,14 @@
 		BBFD299F1387A7190077904A /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29981387A7190077904A /* FBLoginDialog.m */; };
 		BBFD29A01387A7190077904A /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD299A1387A7190077904A /* FBRequest.m */; };
 		BBFD29A41388245C0077904A /* DWFacebookConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29A31388245C0077904A /* DWFacebookConnect.m */; };
+		BBFD29AD13883BB70077904A /* intro_pane_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29A513883BB70077904A /* intro_pane_1.png */; };
+		BBFD29AE13883BB70077904A /* intro_pane_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29A613883BB70077904A /* intro_pane_1@2x.png */; };
+		BBFD29AF13883BB70077904A /* intro_pane_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29A713883BB70077904A /* intro_pane_2.png */; };
+		BBFD29B013883BB70077904A /* intro_pane_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29A813883BB70077904A /* intro_pane_2@2x.png */; };
+		BBFD29B113883BB70077904A /* intro_pane_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29A913883BB70077904A /* intro_pane_3.png */; };
+		BBFD29B213883BB70077904A /* intro_pane_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29AA13883BB70077904A /* intro_pane_3@2x.png */; };
+		BBFD29B313883BB70077904A /* intro_pane_4.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29AB13883BB70077904A /* intro_pane_4.png */; };
+		BBFD29B413883BB70077904A /* intro_pane_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29AC13883BB70077904A /* intro_pane_4@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1093,6 +1101,14 @@
 		BBFD299A1387A7190077904A /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
 		BBFD29A21388245C0077904A /* DWFacebookConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFacebookConnect.h; path = Classes/DWFacebookConnect.h; sourceTree = "<group>"; };
 		BBFD29A31388245C0077904A /* DWFacebookConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFacebookConnect.m; path = Classes/DWFacebookConnect.m; sourceTree = "<group>"; };
+		BBFD29A513883BB70077904A /* intro_pane_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = intro_pane_1.png; path = resources/intro_pane_1.png; sourceTree = "<group>"; };
+		BBFD29A613883BB70077904A /* intro_pane_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "intro_pane_1@2x.png"; path = "resources/intro_pane_1@2x.png"; sourceTree = "<group>"; };
+		BBFD29A713883BB70077904A /* intro_pane_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = intro_pane_2.png; path = resources/intro_pane_2.png; sourceTree = "<group>"; };
+		BBFD29A813883BB70077904A /* intro_pane_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "intro_pane_2@2x.png"; path = "resources/intro_pane_2@2x.png"; sourceTree = "<group>"; };
+		BBFD29A913883BB70077904A /* intro_pane_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = intro_pane_3.png; path = resources/intro_pane_3.png; sourceTree = "<group>"; };
+		BBFD29AA13883BB70077904A /* intro_pane_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "intro_pane_3@2x.png"; path = "resources/intro_pane_3@2x.png"; sourceTree = "<group>"; };
+		BBFD29AB13883BB70077904A /* intro_pane_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = intro_pane_4.png; path = resources/intro_pane_4.png; sourceTree = "<group>"; };
+		BBFD29AC13883BB70077904A /* intro_pane_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "intro_pane_4@2x.png"; path = "resources/intro_pane_4@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1169,6 +1185,14 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBFD29A513883BB70077904A /* intro_pane_1.png */,
+				BBFD29A613883BB70077904A /* intro_pane_1@2x.png */,
+				BBFD29A713883BB70077904A /* intro_pane_2.png */,
+				BBFD29A813883BB70077904A /* intro_pane_2@2x.png */,
+				BBFD29A913883BB70077904A /* intro_pane_3.png */,
+				BBFD29AA13883BB70077904A /* intro_pane_3@2x.png */,
+				BBFD29AB13883BB70077904A /* intro_pane_4.png */,
+				BBFD29AC13883BB70077904A /* intro_pane_4@2x.png */,
 				BB83971E1373B02D00343955 /* onboarding.png */,
 				BB83971F1373B02D00343955 /* onboarding@2x.png */,
 				BBAEA5DC137127D2006A50C8 /* new_item_triangle.png */,
@@ -2478,6 +2502,14 @@
 				BBFD298D1387A6D20077904A /* DWShareItemViewController.xib in Resources */,
 				BBFD299C1387A7190077904A /* FBConnect.bundle in Resources */,
 				BBFD299D1387A7190077904A /* FBDialog.bundle in Resources */,
+				BBFD29AD13883BB70077904A /* intro_pane_1.png in Resources */,
+				BBFD29AE13883BB70077904A /* intro_pane_1@2x.png in Resources */,
+				BBFD29AF13883BB70077904A /* intro_pane_2.png in Resources */,
+				BBFD29B013883BB70077904A /* intro_pane_2@2x.png in Resources */,
+				BBFD29B113883BB70077904A /* intro_pane_3.png in Resources */,
+				BBFD29B213883BB70077904A /* intro_pane_3@2x.png in Resources */,
+				BBFD29B313883BB70077904A /* intro_pane_4.png in Resources */,
+				BBFD29B413883BB70077904A /* intro_pane_4@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

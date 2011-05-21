@@ -94,6 +94,14 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
     
     self.dataTextView.text  = self.sharingText;
     [self.dataTextView becomeFirstResponder];
+    
+    
+    mbProgressIndicator         = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    mbProgressIndicator.frame   = CGRectMake(mbProgressIndicator.frame.origin.x,
+                                             mbProgressIndicator.frame.origin.y-20,
+                                             mbProgressIndicator.frame.size.width,
+                                             mbProgressIndicator.frame.size.height);
+	[self.view addSubview:mbProgressIndicator];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -127,11 +135,12 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 
 //----------------------------------------------------------------------------------------------------
 - (void)freezeUI {
-    [self.dataTextView resignFirstResponder];
+    [mbProgressIndicator showUsingAnimation:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)unfreezeUI {
+    [mbProgressIndicator hideUsingAnimation:YES];
     [self.dataTextView becomeFirstResponder];
 }
 
@@ -174,7 +183,7 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 //----------------------------------------------------------------------------------------------------
 - (void)fbAuthenticated {
     [self freezeUI];
-    
+        
     [self.facebookConnect createWallPostWithMessage:self.dataTextView.text
                                                name:self.item.place.name
                                         description:@" " 
@@ -226,7 +235,6 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
     if(_sharingDestination == kSharingDestinationFacebook) 
         [self.facebookConnect authenticate];
     
-    [self.dataTextView resignFirstResponder];
 }	
 
 

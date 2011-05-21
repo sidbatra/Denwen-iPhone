@@ -6,6 +6,7 @@
 #import <UIKit/UIKit.h>
 
 #import "DWFacebookConnect.h"
+#import "MBProgressHUD.h"
 
 @class DWItem;
 @protocol DWShareItemViewControllerDelegate;
@@ -30,6 +31,8 @@ typedef enum DWSharingDestination DWSharingDestination;
     DWSharingDestination    _sharingDestination;
     
     DWFacebookConnect       *_facebookConnect;
+    
+    MBProgressHUD           *mbProgressIndicator;
     
 	UIImageView             *_previewImageView;
 	UIImageView             *_transImageView;
