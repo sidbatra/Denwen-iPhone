@@ -168,12 +168,12 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
         NSMutableString *result     = [NSMutableString stringWithString:@""];
         NSInteger parts             = 0;
         
-        if(self.town && [self.town length] > 0) {
+        if(self.town && [self.town length]) {
             [result appendString:self.town];
             parts++;
         }
         
-        if(self.state && [self.state length] > 0) {
+        if(self.state && [self.state length]) {
             
             if(parts == 1)
                 [result appendString:@", "];
@@ -183,7 +183,7 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
             parts++;
         }
         
-        if(parts < 2 && self.country && [self.country length] > 0) {
+        if(parts < 2 && self.country && [self.country length]) {
             
             if(parts == 1)
                 [result appendString:@", "];
@@ -197,6 +197,24 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 		address = kMsgFindingLocality;
 	
 	return address;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)mostSpecificAddressString {
+    
+    NSString *address = kEmptyString;
+    
+    if(!_hasAddress)
+        return address;
+    
+    if(self.town && [self.town length])
+        address = self.town;
+    else if(self.state && [self.state length])
+        address = self.state;
+    else if(self.country && [self.country length])
+        address = self.country;
+    
+    return address;
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -94,6 +94,12 @@
 - (NSString*)displayAddress;
 
 /**
+ * Return the most specific address string in the order of
+ * town -> state -> country -> ""
+ */
+- (NSString*)mostSpecificAddressString;
+
+/**
  * Number of followers for the place
  */
 - (NSInteger)followersCount;
