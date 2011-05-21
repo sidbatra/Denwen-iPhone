@@ -23,7 +23,7 @@ static NSString* const kImgSplashScreenPrefix = @"intro_pane";
                            [UIImage imageNamed:[NSString stringWithFormat:@"%@_%d.png",kImgSplashScreenPrefix,pageNumber+1]]] 
                           autorelease];
         
-        self.imageView.frame = CGRectMake(0, 0, 320, 295);
+        self.imageView.frame = CGRectMake(0, 0, 320, 296);
     }
     return self;
 }
