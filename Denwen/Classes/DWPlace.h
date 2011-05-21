@@ -42,6 +42,11 @@
 @property (nonatomic,copy) NSString *hashedID;
 
 /**
+ * Indicates presence of address
+ */
+@property (nonatomic,readonly) BOOL hasAddress;
+
+/**
  * Town in which the place is located
  */
 @property (nonatomic,copy) NSString *town;

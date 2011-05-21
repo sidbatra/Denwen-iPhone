@@ -23,6 +23,7 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 
 @synthesize name				= _name;
 @synthesize hashedID			= _hashedID;
+@synthesize hasAddress          = _hasAddress;
 @synthesize location			= _location;
 @synthesize attachment			= _attachment;
 @synthesize	town				= _town;
