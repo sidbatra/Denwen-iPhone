@@ -169,6 +169,24 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 }
 
 
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITextViewDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)textView:(UITextView *)theTextView shouldChangeTextInRange:(NSRange)range 
+ replacementText:(NSString *)text{
+	
+	NSUInteger newLength = [self.dataTextView.text length] + [text length] - range.length;
+    
+    return (_sharingDestination == kSharingDestinationTwitter && newLength > kMaxTwitterDataLength) 
+                || [text isEqualToString:@"\n"] ? NO : YES;
+}
+
+
+
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
