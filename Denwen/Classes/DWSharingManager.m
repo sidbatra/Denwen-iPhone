@@ -22,6 +22,7 @@ static NSInteger const kShareSMIndex            = 3;
 static NSInteger const kShareCancelIndex        = 4;
 static NSInteger const kRecentItemThreshold     = 900;
 static NSString* const kMsgEmailBlurb           = @"Denwen is a simple way to create places that mean something to you — where you work, where you live,anywhere you spend time. \n\n Download Denwen from the Apple App Store - http://j.mp/denwen";
+static NSString* const kMsgSMSBlurb             = @"Download Denwen from the Apple App Store - http://j.mp/denwen";
 
 
 
@@ -100,7 +101,7 @@ static NSString* const kMsgEmailBlurb           = @"Denwen is a simple way to cr
         [self shareViaEmail];
     }
     else if(_sharingType == kShareSMIndex) {
-        NSLog(@"sms");
+        [self shareViaSMS];
     }
     else if(_sharingType == kShareCancelIndex) {
         NSLog(@"cancel");
@@ -208,13 +209,41 @@ static NSString* const kMsgEmailBlurb           = @"Denwen is a simple way to cr
     mailView.mailComposeDelegate            = self;
     
     [mailView setSubject:[NSString stringWithFormat:@"%@ shared a post with you",[DWSession sharedDWSession].currentUser.firstName]];    
-    [mailView setMessageBody:[NSString stringWithFormat:@"%@ \n\n %@",[self generateSharingText],kMsgEmailBlurb]
+    [mailView setMessageBody:[NSString stringWithFormat:@"%@\n\n%@",[self generateSharingText],kMsgEmailBlurb]
                       isHTML:NO];
     
     [self.baseController presentModalViewController:mailView
                                            animated:YES];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)shareViaSMS {
+    
+    MFMessageComposeViewController *smsView = [[[MFMessageComposeViewController alloc] init] autorelease];
+    smsView.messageComposeDelegate          = self;
+    
+    [smsView setBody:[NSString stringWithFormat:@"%@\n%@",[self generateSharingText],kMsgSMSBlurb]];
+    
+    [self.baseController presentModalViewController:smsView
+                                           animated:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark MFMessageComposeViewControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
+                 didFinishWithResult:(MessageComposeResult)result {
+    
+    [self.baseController dismissModalViewControllerAnimated:YES];
+    
+    if(result == MessageComposeResultSent)
+        [self finishedWithSharingUsingText:kEmptyString];
+    else
+        [self finishedWithoutSharing];
+}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

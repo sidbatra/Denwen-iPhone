@@ -12,7 +12,7 @@
 /**
  * Manage sharing via different modalities
  */
-@interface DWSharingManager : NSObject<UIActionSheetDelegate,MFMailComposeViewControllerDelegate> {
+@interface DWSharingManager : NSObject<UIActionSheetDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate> {
     
     DWItem              *_item;
     UIViewController    *_baseController;
@@ -57,6 +57,7 @@
 - (void)hideSpinner;
 - (void)displaySpinner;
 - (void)shareViaEmail;
+- (void)shareViaSMS;
 @end
 
 
