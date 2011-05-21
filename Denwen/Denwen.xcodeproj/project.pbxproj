@@ -1748,8 +1748,8 @@
 		BB40518412F2373E00916688 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				BBFD298F1387A7190077904A /* Facebook */,
 				BBB8ADE9132F337A00AC0566 /* SynthesizeSingleton.h */,
+				BBFD298F1387A7190077904A /* Facebook */,
 				BB3BE213133AB7B60055FED0 /* Reachability */,
 				BB3BE17E133AB65F0055FED0 /* ASI */,
 				BB6EBA651311CCCC009D2DAF /* Twitter+OAuth */,

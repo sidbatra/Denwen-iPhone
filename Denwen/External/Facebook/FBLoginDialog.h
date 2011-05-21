@@ -26,7 +26,7 @@
  * It start pop-ups prompting for credentials and permissions.
  */
 
-@interface FBLoginDialog : FBDialog {
+@interface FBLoginDialog : FBDialog <FBDialogDelegate> {
   id<FBLoginDialogDelegate> _loginDelegate;
 }
 
