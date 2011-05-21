@@ -15,6 +15,7 @@
 @implementation DWItem
 
 @synthesize data				= _data;
+@synthesize hashedID            = _hashedID;
 @synthesize touchesCount		= _touchesCount;
 @synthesize attachment			= _attachment;
 @synthesize place				= _place;
@@ -43,6 +44,7 @@
 	//NSLog(@"item being removed - %d",_databaseID);
 	
 	self.data		= nil;
+    self.hashedID   = nil;
     
     if(self.attachment) {
         
@@ -143,6 +145,8 @@
 	_touchesCount			= [[item objectForKey:kKeyTouchesCount] integerValue];
 	_isTouched				= ![[item objectForKey:kKeyTouchID] isKindOfClass:[NSNull class]];
 	_createdAtTimestamp		= [[item objectForKey:kKeyCreatedAt] doubleValue];
+    
+    self.hashedID			= [item objectForKey:kKeyHashedID];
 	self.data				= [item objectForKey:kKeyData];
     
 	

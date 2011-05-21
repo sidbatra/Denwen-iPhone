@@ -17,6 +17,7 @@
  */
 @interface DWItem : DWPoolObject {	
 	NSString		*_data;
+    NSString        *_hashedID;
 	
 	NSInteger		_touchesCount;
 	
@@ -35,6 +36,11 @@
  * where URLs have been shortened
  */
 @property (nonatomic,copy) NSString *data;
+
+/**
+ * Unique ID for the item used in obfuscated URLs
+ */
+@property (nonatomic,copy) NSString *hashedID;
 
 /**
  * Total touches on the item
