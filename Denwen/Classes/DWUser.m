@@ -44,7 +44,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 @synthesize smallPreviewImage	= _smallPreviewImage;
 @synthesize	mediumPreviewImage	= _mediumPreviewImage;
 @synthesize	hasPhoto			= _hasPhoto;
-@synthesize twitterOAuthData	= _twitterOAuthData;
+@synthesize twitterXAuthToken	= _twitterXAuthToken;
 @synthesize	facebookAccessToken = _facebookAccessToken;
 @synthesize followingCount      = _followingCount;
 
@@ -94,7 +94,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 	self.lastName				= nil;
 	self.email					= nil;
 	self.encryptedPassword		= nil;
-	self.twitterOAuthData		= nil;
+	self.twitterXAuthToken		= nil;
 	self.facebookAccessToken	= nil;
 	
 	if(_hasPhoto) {
@@ -267,14 +267,14 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
 #pragma mark Read Write to NSUserDefaults
 
 //----------------------------------------------------------------------------------------------------
-- (void)storeTwitterData:(NSString *)data {
+- (void)storeTwitterData:(NSData*)data {
 	
-	self.twitterOAuthData = data;
+	self.twitterXAuthToken = data;
 	
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	
 	if(standardUserDefaults) {
-		[standardUserDefaults setObject:self.twitterOAuthData forKey:kDiskKeyTwitterData];
+		[standardUserDefaults setObject:self.twitterXAuthToken forKey:kDiskKeyTwitterData];
 		[standardUserDefaults synchronize];
 	}
 }
@@ -351,7 +351,7 @@ static NSString* const kDiskKeyFollowingCount           = @"signedin_user__follo
             self.smallURL               = [standardUserDefaults objectForKey:kDiskKeySmallUrl];
             self.mediumURL              = [standardUserDefaults objectForKey:kDiskKeyMediumUrl];
             self.largeURL               = [standardUserDefaults objectForKey:kDiskKeyLargeUrl];
-			self.twitterOAuthData		= [standardUserDefaults objectForKey:kDiskKeyTwitterData];
+			self.twitterXAuthToken		= [standardUserDefaults objectForKey:kDiskKeyTwitterData];
 			self.facebookAccessToken	= [standardUserDefaults objectForKey:kDiskKeyFacebookData];
             
             _hasPhoto                   = self.smallURL ? YES : NO;

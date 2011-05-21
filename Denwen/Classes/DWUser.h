@@ -18,7 +18,7 @@
 	NSString	*_smallURL;
 	NSString	*_mediumURL;
     NSString	*_largeURL;
-	NSString	*_twitterOAuthData;
+	NSData      *_twitterXAuthToken;
 	NSString	*_facebookAccessToken;
 	
 	UIImage		*_smallPreviewImage;
@@ -68,11 +68,11 @@
 @property (nonatomic,copy) NSString *largeURL;
 
 /**
- * Twitter OAuth data obtained after twitter connect.
- * It is saved using NSUserDefaults and read in every session
+ * Twitter XAuth token obtained after twitter connect.
+ * Its saved using NSUserDefaults and read in every session
  * for future usage
  */
-@property (nonatomic,copy) NSString *twitterOAuthData;
+@property (nonatomic,retain) NSData *twitterXAuthToken;
 
 /**
  * Facebook access token obtained after facebook connect.
@@ -127,13 +127,13 @@
  * Store twitter oauth data obtained after twitter connect
  * using NSUserDefaults
  */
-- (void)storeTwitterData:(NSString *)data;
+- (void)storeTwitterData:(NSData*)data;
 
 /**
  * Store facebook access token obtained after facebook connect
  * using NSUserDefaults
  */
-- (void)storeFacebookToken:(NSString *)token;
+- (void)storeFacebookToken:(NSString*)token;
 
 /**
  * Save vital information about the user to disk - only used
