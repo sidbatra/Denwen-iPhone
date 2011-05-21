@@ -106,9 +106,10 @@ static NSString* const kImgNotificationsButton  = @"button_notifications.png";
     }
     else {
         if(!self.profilePicManager)
-            self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self] autorelease];
+            self.profilePicManager = [[[DWProfilePicManager alloc] initWithDelegate:self 
+                                                                      andPickerMode:kMediaPickerLibraryMode] autorelease];
         
-        [self.profilePicManager presentMediaPickerControllerForPickerMode:kMediaPickerCaptureMode];
+        [self.profilePicManager presentMediaPickerControllerWithPreview:YES];
     }
 }
 

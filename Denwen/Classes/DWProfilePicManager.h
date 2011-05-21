@@ -15,17 +15,18 @@
  */
 @interface DWProfilePicManager : NSObject<DWMediaPickerControllerDelegate> {
     id <DWProfilePicManagerDelegate>       _delegate;
+    NSInteger                              _initialImagePickerMode;
 }
 
 /**
- *  * Init with delegate to capture DWMediaPicker events
+ *  * Init with picker mode and delegate to capture DWMediaPicker events
  */
-- (id)initWithDelegate:(id)delegate;
+- (id)initWithDelegate:(id)delegate andPickerMode:(NSInteger)pickerMode;
 
 /**
  * Present the media picker controller for changing profile picture
  */
-- (void)presentMediaPickerControllerForPickerMode:(NSInteger)pickerMode;
+-(void)presentMediaPickerControllerWithPreview:(BOOL)preview;
 
 @end
 
