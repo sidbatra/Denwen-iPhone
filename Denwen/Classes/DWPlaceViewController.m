@@ -5,7 +5,6 @@
 
 #import "DWPlaceViewController.h"
 #import "DWPlaceDetailsViewController.h"
-#import "DWShareViewController.h"
 #import "DWRequestsManager.h"
 #import "DWGUIManager.h"
 #import "DWItemFeedCell.h"
@@ -255,18 +254,6 @@ static NSInteger const kTagUnfollowActionSheet              = -1;
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Click events from across the view
-
-//----------------------------------------------------------------------------------------------------
-- (void)didTapShareButton:(id)sender event:(id)event {
-	DWShareViewController *shareView	= [[DWShareViewController alloc] initWithPlace:self.place
-																		   andDelegate:self];
-	shareView.modalTransitionStyle		= UIModalTransitionStyleFlipHorizontal;	
-	
-    [self.navigationController presentModalViewController:shareView 
-												 animated:YES];
-	
-	[shareView release];
-}
 
 //----------------------------------------------------------------------------------------------------
 - (void)didTapPlaceDetailsButton:(id)sender event:(id)event {
