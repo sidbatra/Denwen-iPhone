@@ -462,6 +462,7 @@
 		BBFD29CD1388462E0077904A /* TwitterToken.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29C51388462E0077904A /* TwitterToken.m */; };
 		BBFD29CE1388462E0077904A /* TwitterTweetPoster.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29C71388462E0077904A /* TwitterTweetPoster.m */; };
 		BBFD29CF1388462E0077904A /* TwitterUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29C91388462E0077904A /* TwitterUtils.m */; };
+		BBFD29DD138849AB0077904A /* DWTwitterConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29DC138849AB0077904A /* DWTwitterConnect.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1052,6 +1053,8 @@
 		BBFD29C71388462E0077904A /* TwitterTweetPoster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterTweetPoster.m; sourceTree = "<group>"; };
 		BBFD29C81388462E0077904A /* TwitterUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterUtils.h; sourceTree = "<group>"; };
 		BBFD29C91388462E0077904A /* TwitterUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterUtils.m; sourceTree = "<group>"; };
+		BBFD29DB138849AB0077904A /* DWTwitterConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTwitterConnect.h; path = Classes/DWTwitterConnect.h; sourceTree = "<group>"; };
+		BBFD29DC138849AB0077904A /* DWTwitterConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTwitterConnect.m; path = Classes/DWTwitterConnect.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1983,6 +1986,8 @@
 				BBFD2947138701280077904A /* DWSharingManager.m */,
 				BBFD29A21388245C0077904A /* DWFacebookConnect.h */,
 				BBFD29A31388245C0077904A /* DWFacebookConnect.m */,
+				BBFD29DB138849AB0077904A /* DWTwitterConnect.h */,
+				BBFD29DC138849AB0077904A /* DWTwitterConnect.m */,
 			);
 			name = Sharing;
 			sourceTree = "<group>";
@@ -2505,6 +2510,7 @@
 				BBFD29CD1388462E0077904A /* TwitterToken.m in Sources */,
 				BBFD29CE1388462E0077904A /* TwitterTweetPoster.m in Sources */,
 				BBFD29CF1388462E0077904A /* TwitterUtils.m in Sources */,
+				BBFD29DD138849AB0077904A /* DWTwitterConnect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

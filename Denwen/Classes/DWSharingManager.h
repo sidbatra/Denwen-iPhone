@@ -61,6 +61,7 @@
 - (void)hideSpinner;
 - (void)displaySpinner;
 - (void)shareViaFacebook;
+- (void)shareViaTwitter;
 - (void)shareViaEmail;
 - (void)shareViaSMS;
 @end

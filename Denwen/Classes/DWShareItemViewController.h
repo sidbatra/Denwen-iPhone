@@ -6,6 +6,7 @@
 #import <UIKit/UIKit.h>
 
 #import "DWFacebookConnect.h"
+#import "DWTwitterConnect.h"
 #import "MBProgressHUD.h"
 
 @class DWItem;
@@ -24,13 +25,14 @@ typedef enum DWSharingDestination DWSharingDestination;
 /**
  * View for sharing items to Facebook and Twiiter
  */
-@interface DWShareItemViewController : UIViewController<DWFacebookConnectDelegate> {
+@interface DWShareItemViewController : UIViewController<DWFacebookConnectDelegate,DWTwitterConnectDelegate> {
     DWItem                  *_item;
     NSString                *_itemURL;
     NSString                *_sharingText;
     DWSharingDestination    _sharingDestination;
     
     DWFacebookConnect       *_facebookConnect;
+    DWTwitterConnect        *_twitterConnect;
     
     MBProgressHUD           *mbProgressIndicator;
     
@@ -65,6 +67,11 @@ typedef enum DWSharingDestination DWSharingDestination;
 @property (nonatomic,retain) DWFacebookConnect *facebookConnect;
 
 /**
+ * Instance of the twitter connect wrapper
+ */
+@property (nonatomic,retain) DWTwitterConnect *twitterConnect;
+
+/**
  * Delegate to receive events about the sharing lifecycle
  */
 @property (nonatomic,assign) id<DWShareItemViewControllerDelegate> delegate;
@@ -90,6 +97,11 @@ typedef enum DWSharingDestination DWSharingDestination;
  */
 - (void)prepareForFacebookWithText:(NSString*)text 
                             andURL:(NSString*)url;
+
+/**
+ * Prepare UI and flow for sharing to twitter
+ */
+- (void)prepareForTwitterWithText:(NSString*)text;
 
 /**
  * IBActions

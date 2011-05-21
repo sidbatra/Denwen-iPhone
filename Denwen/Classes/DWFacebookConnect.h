@@ -19,7 +19,7 @@
 }
 
 /**
- * Facebook iOS SDK object
+ * Facebook iOS SDK interface instance
  */
 @property (nonatomic,retain) Facebook *facebook;
 

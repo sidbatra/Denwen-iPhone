@@ -125,7 +125,7 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
         [self shareViaFacebook];
     }
     else if(_sharingType == kShareTWIndex) {
-        NSLog(@"twitter"); 
+        [self shareViaTwitter];
     }
     else if(_sharingType == kShareEMIndex) {
         [self shareViaEmail];
@@ -231,6 +231,17 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     [shareItemView prepareForFacebookWithText:[self generateSharingText]
                                        andURL:[self generateSharingURL]];
     
+    [self.baseController presentModalViewController:shareItemView
+                                           animated:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)shareViaTwitter {
+    DWShareItemViewController *shareItemView    = [[[DWShareItemViewController alloc] initWithItem:self.item] autorelease];
+    shareItemView.delegate                      = self;
+    
+    [shareItemView prepareForTwitterWithText:[self generateSharingText]];
+
     [self.baseController presentModalViewController:shareItemView
                                            animated:YES];
 }

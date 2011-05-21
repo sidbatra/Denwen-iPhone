@@ -98,9 +98,10 @@
                     withPhotoFilename:(NSString*)photoFilename;
 
 /**
- * Update twitter access token for the logged in user
+ * Update twitter token and secret for the logged in user
  */
-- (void)updateTwitterDataForCurrentUser:(NSString*)twitterData;
+- (void)updateTwitterDataForCurrentUser:(NSString*)twitterToken
+                          twitterSecret:(NSString*)twitterSecret;
 
 /**
  * Update facebook token for the logged in user

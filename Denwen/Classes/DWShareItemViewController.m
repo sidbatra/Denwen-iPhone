@@ -25,6 +25,7 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 @synthesize itemURL             = _itemURL;
 @synthesize sharingText         = _sharingText;
 @synthesize facebookConnect     = _facebookConnect;
+@synthesize twitterConnect      = _twitterConnect;
 @synthesize delegate            = _delegate;
 @synthesize previewImageView    = _previewImageView;
 @synthesize transImageView      = _transImageView;
@@ -59,6 +60,7 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
     self.itemURL            = nil;
     self.sharingText        = nil;
     self.facebookConnect    = nil;
+    self.twitterConnect     = nil;
     self.previewImageView   = nil;
     self.transImageView     = nil;
     self.dataTextView       = nil;
@@ -156,6 +158,16 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
     self.facebookConnect.delegate   = self;
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)prepareForTwitterWithText:(NSString *)text {
+    
+    _sharingDestination             = kSharingDestinationTwitter;
+    self.sharingText                = text;
+    
+    self.twitterConnect             = [[[DWTwitterConnect alloc] init] autorelease];
+    self.twitterConnect.delegate    = self;
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -218,6 +230,42 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 	[self unfreezeUI];
 }
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWTwitterConnectDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)twAuthenticated {
+    [self freezeUI];
+    
+    [self.twitterConnect createTweetWithText:self.dataTextView.text];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)twAuthenticationFailed {
+    [self unfreezeUI];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)twSharingDone {
+    [_delegate sharingFinishedWithText:self.dataTextView.text];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)twSharingFailed {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorAlertTitle
+													message:kMsgTwitterError
+												   delegate:nil 
+										  cancelButtonTitle:kMsgCancelTitle
+										  otherButtonTitles: nil];
+	[alert show];
+	[alert release];
+	
+	
+	[self unfreezeUI];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -234,7 +282,8 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
     
     if(_sharingDestination == kSharingDestinationFacebook) 
         [self.facebookConnect authenticate];
-    
+    else if(_sharingDestination == kSharingDestinationTwitter)
+        [self.twitterConnect authenticate];
 }	
 
 

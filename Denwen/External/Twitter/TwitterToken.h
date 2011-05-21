@@ -20,7 +20,6 @@
 #import <Foundation/Foundation.h>
 
 @interface TwitterToken : NSObject <NSCoding> {
-  @private
 	NSString* _token;
 	NSString* _secret;
 }

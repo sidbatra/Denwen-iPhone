@@ -32,7 +32,7 @@ static NSString* const kNewTouchURI				= @"/touches.json?item_id=%d";
 static NSString* const kTouchesURI				= @"/touches.json?last_id=%d";
 static NSString* const kUserURI					= @"/users/%d.json?last_id=%d";
 static NSString* const kUserUpdatePhotoURI		= @"/users/%d.json?photo_filename=%@";
-static NSString* const kUserUpdateTwitterURI	= @"/users/%d.json?twitter_data=%@";
+static NSString* const kUserUpdateTwitterURI	= @"/users/%d.json?twitter_token=%@&twitter_secret=%@";
 static NSString* const kUserUpdateFacebookURI	= @"/users/%d.json?facebook_data=%@";
 static NSString* const kUserUpdateDeviceURI		= @"/users/%d.json?iphone_device_id=%@";
 static NSString* const kUserUpdateSubtrahendURI	= @"/users/%d.json?unread_subtrahend=%d";
@@ -338,11 +338,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)updateTwitterDataForCurrentUser:(NSString*)twitterData {
+- (void)updateTwitterDataForCurrentUser:(NSString*)twitterToken
+                          twitterSecret:(NSString*)twitterSecret {
 	
 	NSString *localRequestURL = [NSString stringWithFormat:kUserUpdateTwitterURI,
 									[DWSession sharedDWSession].currentUser.databaseID,
-									[twitterData stringByEncodingHTMLCharacters]];
+									[twitterToken stringByEncodingHTMLCharacters],
+                                    [twitterSecret stringByEncodingHTMLCharacters]];
 	
 	[self createDenwenRequest:localRequestURL 
 		  successNotification:nil
