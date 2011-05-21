@@ -44,6 +44,7 @@ static NSString* const kNewItemWithPlaceURI		= @"/items.json?item[data]=%@&attac
 static NSString* const kNewUserURI				= @"%@%@/users.json?user[first_name]=%@&user[last_name]=%@&user[email]=%@&user[password]=%@&user[photo_filename]=%@&ff=mobile";
 static NSString* const kNewSessionURI			= @"%@%@/session.json?email=%@&password=%@&ff=mobile";
 static NSString* const kNewShareURI				= @"/shares.json?data=%@&sent_to=%d&place_id=%d";
+static NSString* const kAddressesURI            = @"/addresses.json?place_ids=%d";
 
 static NSString* const kGet						= @"GET";
 static NSString* const kPost					= @"POST";
@@ -406,6 +407,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DWRequestsManager);
           successNotification:nil
             errorNotification:nil
                 requestMethod:kDelete];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)getAddressForPlaceID:(NSInteger)placeID {
+    
+    NSString *localRequestURL = [NSString stringWithFormat:kAddressesURI,
+                                 placeID];
+	
+	[self createDenwenRequest:localRequestURL 
+		  successNotification:kNAddressLoaded
+			errorNotification:kNAddressError
+				requestMethod:kGet
+                   resourceID:placeID];
 }
 
 //----------------------------------------------------------------------------------------------------

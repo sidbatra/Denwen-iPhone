@@ -130,6 +130,11 @@
 - (void)deleteItemWithID:(NSInteger)itemID;
 
 /**
+ * Get address for the given place ID
+ */
+- (void)getAddressForPlaceID:(NSInteger)placeID;
+
+/**
  * Create a new item
  */
 - (NSInteger)createItemWithData:(NSString*)data 
