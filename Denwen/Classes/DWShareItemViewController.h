@@ -5,6 +5,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DWFacebookConnect.h"
+
 @class DWItem;
 @protocol DWShareItemViewControllerDelegate;
 
@@ -21,18 +23,20 @@ typedef enum DWSharingDestination DWSharingDestination;
 /**
  * View for sharing items to Facebook and Twiiter
  */
-@interface DWShareItemViewController : UIViewController {
+@interface DWShareItemViewController : UIViewController<DWFacebookConnectDelegate> {
     DWItem                  *_item;
     NSString                *_itemURL;
     NSString                *_sharingText;
     DWSharingDestination    _sharingDestination;
     
-	UIImageView		*_previewImageView;
-	UIImageView     *_transImageView;
-	UITextView      *_dataTextView;
-	UIButton		*_cancelButton;
-	UIButton		*_doneButton;
-	UILabel			*_coverLabel;
+    DWFacebookConnect       *_facebookConnect;
+    
+	UIImageView             *_previewImageView;
+	UIImageView             *_transImageView;
+	UITextView              *_dataTextView;
+	UIButton                *_cancelButton;
+	UIButton                *_doneButton;
+	UILabel                 *_coverLabel;
     
     id<DWShareItemViewControllerDelegate>   _delegate;
 }
@@ -51,6 +55,11 @@ typedef enum DWSharingDestination DWSharingDestination;
  * Text initially displayed in the text view
  */
 @property (nonatomic,copy) NSString *sharingText;
+
+/**
+ * Instance of the facebook connect wrapper
+ */
+@property (nonatomic,retain) DWFacebookConnect *facebookConnect;
 
 /**
  * Delegate to receive events about the sharing lifecycle

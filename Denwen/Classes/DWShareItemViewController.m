@@ -7,6 +7,12 @@
 #import "DWConstants.h"
 #import "DWItem.h"
 
+static NSInteger const kMaxTwitterDataLength	= 140;
+static NSString* const kMsgErrorAlertTitle      = @"Low connectivity";
+static NSString* const kMsgFacebookError        = @"Can't connect to Facebook";
+static NSString* const kMsgTwitterError         = @"Can't connect to Twitter";
+static NSString* const kMsgCancelTitle          = @"OK";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -17,6 +23,7 @@
 @synthesize item                = _item;
 @synthesize itemURL             = _itemURL;
 @synthesize sharingText         = _sharingText;
+@synthesize facebookConnect     = _facebookConnect;
 @synthesize delegate            = _delegate;
 @synthesize previewImageView    = _previewImageView;
 @synthesize transImageView      = _transImageView;
@@ -50,6 +57,7 @@
     self.item               = nil;
     self.itemURL            = nil;
     self.sharingText        = nil;
+    self.facebookConnect    = nil;
     self.previewImageView   = nil;
     self.transImageView     = nil;
     self.dataTextView       = nil;
@@ -95,12 +103,25 @@
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)freezeUI {
+    [self.dataTextView resignFirstResponder];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)unfreezeUI {
+    [self.dataTextView becomeFirstResponder];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)prepareForFacebookWithText:(NSString*)text 
                             andURL:(NSString*)url {
     
-    _sharingDestination     = kSharingDestinationFacebook;
-    self.itemURL            = url;
-    self.sharingText        = text;
+    _sharingDestination             = kSharingDestinationFacebook;
+    self.itemURL                    = url;
+    self.sharingText                = text;
+    
+    self.facebookConnect            = [[[DWFacebookConnect alloc] init] autorelease];
+    self.facebookConnect.delegate   = self;
 }
 
 
@@ -108,6 +129,7 @@
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark Notifications
+
 //----------------------------------------------------------------------------------------------------
 - (void)itemAttachmentLoaded:(NSNotification*)notification {
 	
@@ -124,6 +146,50 @@
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
+#pragma mark DWFacebookConnectDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)fbAuthenticated {
+    [self freezeUI];
+    
+    [self.facebookConnect createWallPostWithMessage:self.dataTextView.text
+                                               name:self.item.place.name
+                                        description:@" " 
+                                            caption:@"denwen.com"
+                                               link:self.itemURL 
+                                         pictureURL:self.item.attachment ? 
+                                                        self.item.attachment.previewURL : 
+                                                        kEmptyString];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)fbAuthenticationFailed {
+    [self unfreezeUI];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)fbSharingDone {
+    [_delegate sharingFinishedWithText:self.dataTextView.text];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)fbSharingFailed {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgErrorAlertTitle
+													message:kMsgFacebookError
+												   delegate:nil 
+										  cancelButtonTitle:kMsgCancelTitle
+										  otherButtonTitles: nil];
+	[alert show];
+	[alert release];
+	
+	
+	[self unfreezeUI];
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
 #pragma mark IBActions
 
 //----------------------------------------------------------------------------------------------------
@@ -133,7 +199,11 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)doneButtonClicked:(id)sender {
-    [_delegate sharingFinishedWithText:self.dataTextView.text];
+    
+    if(_sharingDestination == kSharingDestinationFacebook) 
+        [self.facebookConnect authenticate];
+    
+    [self.dataTextView resignFirstResponder];
 }	
 
 

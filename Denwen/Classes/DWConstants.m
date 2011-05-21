@@ -322,12 +322,16 @@ NSString* const kFacebookAppID					= @"127979053940843";
 
 #else
 
+NSString* const kTwitterOAuthConsumerKey		= @"Y8wcijb0orzZSbkd3fQ4g";
+NSString* const kTwitterOAuthConsumerSecret		= @"i7Oqqpy1I1ZycqRpJOSsBMylURsFlC2Qo7pQc0YbUzk";
+NSString* const kFacebookAppID					= @"127979053940843";
+
 /**
  * Tenwen Twitter and Facebook apps made by drao
  */
-NSString* const kTwitterOAuthConsumerKey		= @"kC2Kv9gsqYdZGwHHzx4bTQ";
-NSString* const kTwitterOAuthConsumerSecret		= @"CO7MYDyF2TyzBAVPzARIWt7GI6SLSb1fgAcMPhLgE";
-NSString* const kFacebookAppID					= @"176869555684965";
+//NSString* const kTwitterOAuthConsumerKey		= @"kC2Kv9gsqYdZGwHHzx4bTQ";
+//NSString* const kTwitterOAuthConsumerSecret		= @"CO7MYDyF2TyzBAVPzARIWt7GI6SLSb1fgAcMPhLgE";
+//NSString* const kFacebookAppID					= @"176869555684965";
 
 #endif
 

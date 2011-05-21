@@ -28,6 +28,22 @@
  */
 @property (nonatomic,assign) id<DWFacebookConnectDelegate> delegate;
 
+
+/**
+ * If not authenticated ask for permissions, else setup auth token
+ */
+- (void)authenticate;
+
+/**
+ * Post a message to the wall
+ */
+- (void)createWallPostWithMessage:(NSString*)message 
+                             name:(NSString*)name 
+                      description:(NSString*)description 
+                          caption:(NSString*)caption
+                             link:(NSString*)link
+                       pictureURL:(NSString*)pictureURL;
+
 @end
 
 
@@ -35,6 +51,8 @@
  * Protocol to fire events about the fbSharing lifecycle
  */
 @protocol DWFacebookConnectDelegate 
+- (void)fbAuthenticated;
+- (void)fbAuthenticationFailed;
 - (void)fbSharingDone;
-- (void)fbSharingCancelled;
+- (void)fbSharingFailed;
 @end
