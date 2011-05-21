@@ -7,24 +7,36 @@
 #import <MessageUI/MessageUI.h>
 
 @class DWItem;
+@protocol DWSharingManagerDelegate;
 
 /**
  * Manage sharing via different modalities
  */
 @interface DWSharingManager : NSObject<UIActionSheetDelegate,MFMailComposeViewControllerDelegate> {
     
-    UIViewController *_baseController;
+    DWItem              *_item;
+    UIViewController    *_baseController;
+    
+    BOOL                _waitingForAddress;
+    NSInteger           _sharingType;
+    
+    id<DWSharingManagerDelegate> _delegate;
 }
 
 /**
- * Shared sole instance of the class
+ * The item being shared
  */
-+ (DWSharingManager *)sharedDWSharingManager;
+@property (nonatomic,retain) DWItem *item;
 
 /**
  * Base controller for presenting the UI elements
  */
 @property (nonatomic,assign) UIViewController *baseController;
+
+/**
+ * DWSharingManagerDelegate
+ */
+@property (nonatomic,assign) id<DWSharingManagerDelegate> delegate;
 
 
 /**
@@ -34,5 +46,27 @@
 - (void)shareItem:(DWItem*)item 
     viaController:(UIViewController*)baseController;
 
+
+@end
+
+
+/**
+ * Declarations for private methods
+ */ 
+@interface DWSharingManager(Private)
+- (void)hideSpinner;
+- (void)displaySpinner;
+@end
+
+
+/**
+ * Fires events about the sharing lifecycle
+ */
+@protocol DWSharingManagerDelegate
+
+/**
+ * Fired when the sharing is cancelled or successfully finished
+ */
+- (void)sharingFinished;
 
 @end

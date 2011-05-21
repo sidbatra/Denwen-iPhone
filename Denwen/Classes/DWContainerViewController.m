@@ -18,7 +18,8 @@
 //----------------------------------------------------------------------------------------------------
 @implementation DWContainerViewController
 
-@synthesize customTabBarController;
+@synthesize customTabBarController  = customTabBarController;
+@synthesize sharingManager          = _sharingManager;
 
 //----------------------------------------------------------------------------------------------------
 - (void)awakeFromNib {
@@ -111,13 +112,27 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)shareSelected:(DWItem *)item {
-    [[DWSharingManager sharedDWSharingManager] shareItem:item
-                                           viaController:self.customTabBarController];
+    self.sharingManager             = [[[DWSharingManager alloc] init] autorelease];
+    self.sharingManager.delegate    = self;
+    
+    [self.sharingManager shareItem:item
+                     viaController:self.customTabBarController];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (UIViewController*)requestCustomTabBarController {
     return customTabBarController;
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWSharingManagerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)sharingFinished {
+    self.sharingManager = nil;
 }
 
 
