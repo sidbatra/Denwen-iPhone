@@ -7,12 +7,13 @@
 #import "DWConstants.h"
 #import "DWItem.h"
 
-static NSInteger const kMaxTwitterDataLength	= 140;
-static NSString* const kMsgErrorAlertTitle      = @"Low connectivity";
-static NSString* const kMsgFacebookError        = @"Can't connect to Facebook";
-static NSString* const kMsgTwitterError         = @"Can't connect to Twitter";
-static NSString* const kMsgCancelTitle          = @"OK";
-
+static NSInteger const kMaxTwitterDataLength        = 140;
+static NSString* const kMsgErrorAlertTitle          = @"Low connectivity";
+static NSString* const kMsgFacebookError            = @"Can't connect to Facebook";
+static NSString* const kMsgTwitterError             = @"Can't connect to Twitter";
+static NSString* const kMsgCancelTitle              = @"OK";
+static NSString* const kImgLightCancelButton		= @"button_gray_light_cancel.png";
+static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_active.png";
 
 
 //----------------------------------------------------------------------------------------------------
@@ -87,6 +88,9 @@ static NSString* const kMsgCancelTitle          = @"OK";
         if(self.item.attachment.previewImage)
             self.previewImageView.image = self.item.attachment.previewImage;
     }
+    else
+        [self displayTextUI];
+    
     
     self.dataTextView.text  = self.sharingText;
     [self.dataTextView becomeFirstResponder];
@@ -100,6 +104,25 @@ static NSString* const kMsgCancelTitle          = @"OK";
 //----------------------------------------------------------------------------------------------------
 - (void)viewWillAppear:(BOOL)animated {
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)displayTextUI {
+	
+	self.coverLabel.backgroundColor		= [UIColor whiteColor];
+	
+	self.previewImageView.hidden		= YES;
+	self.transImageView.hidden			= YES;
+    
+    self.dataTextView.textColor         = [UIColor colorWithRed:0.498
+                                                          green:0.498 
+                                                           blue:0.498
+                                                          alpha:1.0];
+         
+    [self.cancelButton setBackgroundImage:[UIImage imageNamed:kImgLightCancelButton] 
+								 forState:UIControlStateNormal];
+	[self.cancelButton setBackgroundImage:[UIImage imageNamed:kImgLightCancelButtonActive]
+								 forState:UIControlStateHighlighted];
 }
 
 //----------------------------------------------------------------------------------------------------

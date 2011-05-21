@@ -97,6 +97,13 @@ typedef enum DWSharingDestination DWSharingDestination;
 @end
 
 /**
+ * Declarations for private methods
+ */
+@interface DWShareItemViewController(Private)
+- (void)displayTextUI;
+@end
+
+/**
  * Delegate to send events about the item sharing lifecycle
  */
 @protocol DWShareItemViewControllerDelegate
