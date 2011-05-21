@@ -458,6 +458,14 @@
 		BBF91BEE13274DC400AC3585 /* DWContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF91BEC13274DC400AC3585 /* DWContainerViewController.m */; };
 		BBFD29441386FE6B0077904A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFD29431386FE6B0077904A /* MessageUI.framework */; };
 		BBFD2948138701280077904A /* DWSharingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD2947138701280077904A /* DWSharingManager.m */; };
+		BBFD29711387912D0077904A /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29671387912D0077904A /* Facebook.m */; };
+		BBFD29721387912D0077904A /* FBConnect.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29681387912D0077904A /* FBConnect.bundle */; };
+		BBFD29731387912D0077904A /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBFD296A1387912D0077904A /* FBDialog.bundle */; };
+		BBFD29741387912D0077904A /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD296C1387912D0077904A /* FBDialog.m */; };
+		BBFD29751387912D0077904A /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD296E1387912D0077904A /* FBLoginDialog.m */; };
+		BBFD29761387912D0077904A /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29701387912D0077904A /* FBRequest.m */; };
+		BBFD297F1387A4880077904A /* DWShareItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD297D1387A4810077904A /* DWShareItemViewController.m */; };
+		BBFD29801387A4880077904A /* DWShareItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBFD297E1387A4840077904A /* DWShareItemViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1065,6 +1073,20 @@
 		BBFD29431386FE6B0077904A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BBFD2946138701280077904A /* DWSharingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSharingManager.h; path = Classes/DWSharingManager.h; sourceTree = "<group>"; };
 		BBFD2947138701280077904A /* DWSharingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSharingManager.m; path = Classes/DWSharingManager.m; sourceTree = "<group>"; };
+		BBFD29661387912D0077904A /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
+		BBFD29671387912D0077904A /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Facebook.m; sourceTree = "<group>"; };
+		BBFD29681387912D0077904A /* FBConnect.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBConnect.bundle; sourceTree = "<group>"; };
+		BBFD29691387912D0077904A /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
+		BBFD296A1387912D0077904A /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
+		BBFD296B1387912D0077904A /* FBDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialog.h; sourceTree = "<group>"; };
+		BBFD296C1387912D0077904A /* FBDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBDialog.m; sourceTree = "<group>"; };
+		BBFD296D1387912D0077904A /* FBLoginDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginDialog.h; sourceTree = "<group>"; };
+		BBFD296E1387912D0077904A /* FBLoginDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLoginDialog.m; sourceTree = "<group>"; };
+		BBFD296F1387912D0077904A /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
+		BBFD29701387912D0077904A /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
+		BBFD297C1387A4800077904A /* DWShareItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWShareItemViewController.h; path = Classes/DWShareItemViewController.h; sourceTree = "<group>"; };
+		BBFD297D1387A4810077904A /* DWShareItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWShareItemViewController.m; path = Classes/DWShareItemViewController.m; sourceTree = "<group>"; };
+		BBFD297E1387A4840077904A /* DWShareItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DWShareItemViewController.xib; path = Classes/DWShareItemViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1541,6 +1563,7 @@
 				26CF62D512F3E92200505A37 /* DWWebViewController.xib */,
 				BB6419AC134BAE93002A2325 /* DWCreateViewController.xib */,
 				BBF899CA13510E7800B332CA /* DWChooseLocationViewController.xib */,
+				BBFD297E1387A4840077904A /* DWShareItemViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Denwen-Info.plist */,
 			);
@@ -1610,6 +1633,8 @@
 				26D3CB1F1363C617007CE094 /* DWNotificationsViewController.m */,
 				BB0048A11370A4740013B9A1 /* DWSplashScreenViewController.h */,
 				BB0048A21370A4750013B9A1 /* DWSplashScreenViewController.m */,
+				BBFD297C1387A4800077904A /* DWShareItemViewController.h */,
+				BBFD297D1387A4810077904A /* DWShareItemViewController.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1692,6 +1717,7 @@
 		BB40518412F2373E00916688 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				BBFD29651387912D0077904A /* Facebook */,
 				BBB8ADE9132F337A00AC0566 /* SynthesizeSingleton.h */,
 				BB3BE213133AB7B60055FED0 /* Reachability */,
 				BB3BE17E133AB65F0055FED0 /* ASI */,
@@ -2053,6 +2079,25 @@
 			name = "Creation Queue";
 			sourceTree = "<group>";
 		};
+		BBFD29651387912D0077904A /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				BBFD29661387912D0077904A /* Facebook.h */,
+				BBFD29671387912D0077904A /* Facebook.m */,
+				BBFD29681387912D0077904A /* FBConnect.bundle */,
+				BBFD29691387912D0077904A /* FBConnect.h */,
+				BBFD296A1387912D0077904A /* FBDialog.bundle */,
+				BBFD296B1387912D0077904A /* FBDialog.h */,
+				BBFD296C1387912D0077904A /* FBDialog.m */,
+				BBFD296D1387912D0077904A /* FBLoginDialog.h */,
+				BBFD296E1387912D0077904A /* FBLoginDialog.m */,
+				BBFD296F1387912D0077904A /* FBRequest.h */,
+				BBFD29701387912D0077904A /* FBRequest.m */,
+			);
+			name = Facebook;
+			path = External/Facebook;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2412,6 +2457,9 @@
 				BBAEA5DF137127D3006A50C8 /* new_item_triangle@2x.png in Resources */,
 				BB8397201373B02D00343955 /* onboarding.png in Resources */,
 				BB8397211373B02D00343955 /* onboarding@2x.png in Resources */,
+				BBFD29721387912D0077904A /* FBConnect.bundle in Resources */,
+				BBFD29731387912D0077904A /* FBDialog.bundle in Resources */,
+				BBFD29801387A4880077904A /* DWShareItemViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2546,6 +2594,11 @@
 				BB0048A41370A4780013B9A1 /* DWSplashScreenViewController.m in Sources */,
 				26A200B71370F66300B698CE /* DWDoneButtonView.m in Sources */,
 				BBFD2948138701280077904A /* DWSharingManager.m in Sources */,
+				BBFD29711387912D0077904A /* Facebook.m in Sources */,
+				BBFD29741387912D0077904A /* FBDialog.m in Sources */,
+				BBFD29751387912D0077904A /* FBLoginDialog.m in Sources */,
+				BBFD29761387912D0077904A /* FBRequest.m in Sources */,
+				BBFD297F1387A4880077904A /* DWShareItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

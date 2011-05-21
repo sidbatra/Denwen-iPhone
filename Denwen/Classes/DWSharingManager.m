@@ -122,7 +122,7 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
 - (void)presentSharingUI {
     
     if(_sharingType == kShareFBIndex) {
-        NSLog(@"facebook");
+        [self shareViaFacebook];
     }
     else if(_sharingType == kShareTWIndex) {
         NSLog(@"twitter"); 
@@ -219,6 +219,15 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
 }
 
 //----------------------------------------------------------------------------------------------------
+- (void)shareViaFacebook {
+    DWShareItemViewController *shareItemView    = [[[DWShareItemViewController alloc] initWithItem:self.item] autorelease];
+    shareItemView.delegate                      = self;
+    
+    [self.baseController presentModalViewController:shareItemView
+                                           animated:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (void)shareViaEmail {
     
     MFMailComposeViewController *mailView   = [[[MFMailComposeViewController alloc] init] autorelease];
@@ -243,6 +252,25 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     [self.baseController presentModalViewController:smsView
                                            animated:YES];
 }
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark DWShareItemViewControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)sharingCancelled {
+    [self.baseController dismissModalViewControllerAnimated:YES];
+    [self finishedWithoutSharing];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)sharingFinishedWithText:(NSString *)text {
+    [self.baseController dismissModalViewControllerAnimated:YES];
+    [self finishedWithSharingUsingText:text];
+}
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

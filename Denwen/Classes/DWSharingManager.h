@@ -6,13 +6,16 @@
 #import <Foundation/Foundation.h>
 #import <MessageUI/MessageUI.h>
 
+#import "DWShareItemViewController.h"
+
+
 @class DWItem;
 @protocol DWSharingManagerDelegate;
 
 /**
  * Manage sharing via different modalities
  */
-@interface DWSharingManager : NSObject<UIActionSheetDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate> {
+@interface DWSharingManager : NSObject<UIActionSheetDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,DWShareItemViewControllerDelegate> {
     
     DWItem              *_item;
     UIViewController    *_baseController;
@@ -57,6 +60,7 @@
 @interface DWSharingManager(Private)
 - (void)hideSpinner;
 - (void)displaySpinner;
+- (void)shareViaFacebook;
 - (void)shareViaEmail;
 - (void)shareViaSMS;
 @end

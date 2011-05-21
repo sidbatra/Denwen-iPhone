@@ -6,7 +6,6 @@
 #import "DWTabBarController.h"
 #import "DWUserViewController.h"
 #import "DWPlaceViewController.h"
-#import "DWImageViewController.h"
 #import "DWWebViewController.h"
 #import "DWSharingManager.h"
 #import "NSString+Helpers.h"
