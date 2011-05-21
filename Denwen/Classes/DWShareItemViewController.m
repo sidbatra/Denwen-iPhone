@@ -15,6 +15,8 @@
 @implementation DWShareItemViewController
 
 @synthesize item                = _item;
+@synthesize itemURL             = _itemURL;
+@synthesize sharingText         = _sharingText;
 @synthesize delegate            = _delegate;
 @synthesize previewImageView    = _previewImageView;
 @synthesize transImageView      = _transImageView;
@@ -46,6 +48,8 @@
 	[[UIApplication sharedApplication] setStatusBarStyle:kStatusBarStyle];
     
     self.item               = nil;
+    self.itemURL            = nil;
+    self.sharingText        = nil;
     self.previewImageView   = nil;
     self.transImageView     = nil;
     self.dataTextView       = nil;
@@ -76,6 +80,7 @@
             self.previewImageView.image = self.item.attachment.previewImage;
     }
     
+    self.dataTextView.text  = self.sharingText;
     [self.dataTextView becomeFirstResponder];
 }
 
@@ -89,6 +94,14 @@
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 }
 
+//----------------------------------------------------------------------------------------------------
+- (void)prepareForFacebookWithText:(NSString*)text 
+                            andURL:(NSString*)url {
+    
+    _sharingDestination     = kSharingDestinationFacebook;
+    self.itemURL            = url;
+    self.sharingText        = text;
+}
 
 
 //----------------------------------------------------------------------------------------------------

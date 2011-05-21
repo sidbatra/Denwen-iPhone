@@ -181,36 +181,41 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSString*)generateSharingURL {
+    return [NSString stringWithFormat:@"%@%@%@%@",
+                kDenwenProtocol,
+                kDenwenServer,
+                kItemShareURI,
+                self.item.hashedID];
+}
+
+//----------------------------------------------------------------------------------------------------
 - (NSString*)generateSharingText {
     
     NSString *text          = nil;
     NSString *placeText     = [self generateSharingPlaceText];
-    NSString *urlText       = [NSString stringWithFormat:@"on Denwen %@%@%@%@",
-                                kDenwenProtocol,
-                                kDenwenServer,
-                                kItemShareURI,
-                                self.item.hashedID];
+    NSString *urlText       = [NSString stringWithFormat:@"on Denwen %@",[self generateSharingURL]];
     BOOL isRecentItem       = [self.item createdTimeAgoStamp] <= kRecentItemThreshold;
     BOOL isOwnItem          = [self.item.user isCurrentUser];
     
     
     if(isOwnItem && isRecentItem) {
-        text = [NSString stringWithFormat:@"Just posted at %@ %@",
+        text = [NSString stringWithFormat:@"Just posted at %@ %@ ",
                     placeText,
                     urlText];
     }
     else if(isOwnItem) {
-        text = [NSString stringWithFormat:@"My post at %@ %@",
+        text = [NSString stringWithFormat:@"My post at %@ %@ ",
                 placeText,
                 urlText];
     }
     else if(isRecentItem) {
-        text = [NSString stringWithFormat:@"Just saw this at %@ %@",
+        text = [NSString stringWithFormat:@"Just saw this at %@ %@ ",
                 placeText,
                 urlText];
     }
     else {
-        text = [NSString stringWithFormat:@"Saw this at %@ %@",
+        text = [NSString stringWithFormat:@"Saw this at %@ %@ ",
                 placeText,
                 urlText];
     }
@@ -222,6 +227,9 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
 - (void)shareViaFacebook {
     DWShareItemViewController *shareItemView    = [[[DWShareItemViewController alloc] initWithItem:self.item] autorelease];
     shareItemView.delegate                      = self;
+    
+    [shareItemView prepareForFacebookWithText:[self generateSharingText]
+                                       andURL:[self generateSharingURL]];
     
     [self.baseController presentModalViewController:shareItemView
                                            animated:YES];

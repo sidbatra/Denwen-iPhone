@@ -9,10 +9,23 @@
 @protocol DWShareItemViewControllerDelegate;
 
 /**
+ * Enum sharing destinations
+ */
+enum DWSharingDestination {
+    kSharingDestinationFacebook,
+    kSharingDestinationTwitter
+};
+
+typedef enum DWSharingDestination DWSharingDestination;
+
+/**
  * View for sharing items to Facebook and Twiiter
  */
 @interface DWShareItemViewController : UIViewController {
-    DWItem          *_item;
+    DWItem                  *_item;
+    NSString                *_itemURL;
+    NSString                *_sharingText;
+    DWSharingDestination    _sharingDestination;
     
 	UIImageView		*_previewImageView;
 	UIImageView     *_transImageView;
@@ -28,6 +41,16 @@
  * The item being shared
  */
 @property (nonatomic,retain) DWItem *item;
+
+/**
+ * URL for the item being shared
+ */
+@property (nonatomic,copy) NSString *itemURL;
+
+/**
+ * Text initially displayed in the text view
+ */
+@property (nonatomic,copy) NSString *sharingText;
 
 /**
  * Delegate to receive events about the sharing lifecycle
@@ -49,6 +72,12 @@
  * Init with the item to be shared
  */
 - (id)initWithItem:(DWItem*)theItem;
+
+/**
+ * Prepare UI and flow for sharing to facebook
+ */
+- (void)prepareForFacebookWithText:(NSString*)text 
+                            andURL:(NSString*)url;
 
 /**
  * IBActions
