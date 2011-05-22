@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 #import "TwitterAuthenticator.h"
 #import "TwitterTweetPoster.h"
@@ -62,6 +63,7 @@
  */
 @protocol DWTwitterConnectDelegate
 - (void)twAuthenticated;
+- (void)twAuthenticating;
 - (void)twAuthenticationFailed;
 - (void)twSharingDone;
 - (void)twSharingFailed;

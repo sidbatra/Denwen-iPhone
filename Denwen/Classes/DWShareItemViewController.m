@@ -7,6 +7,7 @@
 #import "DWConstants.h"
 #import "DWItem.h"
 
+static CGFloat   const kAlphaThresholdForMOG        = 0.001;
 static NSInteger const kMaxTwitterDataLength        = 140;
 static NSString* const kMsgErrorAlertTitle          = @"Low connectivity";
 static NSString* const kMsgFacebookError            = @"Can't connect to Facebook";
@@ -137,7 +138,8 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 
 //----------------------------------------------------------------------------------------------------
 - (void)freezeUI {
-    [mbProgressIndicator showUsingAnimation:YES];
+    if(mbProgressIndicator.alpha < kAlphaThresholdForMOG)
+        [mbProgressIndicator showUsingAnimation:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -264,6 +266,11 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
     [self freezeUI];
     
     [self.twitterConnect createTweetWithText:self.dataTextView.text];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)twAuthenticating {
+    [self freezeUI];
 }
 
 //----------------------------------------------------------------------------------------------------

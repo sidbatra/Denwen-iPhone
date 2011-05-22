@@ -11,6 +11,10 @@
 #import "TwitterTweetPoster.h"
 #import "DWConstants.h"
 
+static NSUInteger const kTagTwitterUsername     = 19875;
+static NSUInteger const kTagTwitterPassword     = 19455;
+static NSUInteger const kTwitterAlertOKIndex    = 1;
+
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -44,20 +48,61 @@
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)authenticate {
+- (void)displayAuthenticationUI {
     
+    UIAlertView *alertView  = [[[UIAlertView alloc] init] autorelease];
+    alertView.delegate      = self;
+    alertView.title         = @"Twitter Login";
+    alertView.message       = @"\n\n\n";
+    
+    [alertView addButtonWithTitle:@"Cancel"];
+    [alertView addButtonWithTitle:@"OK"];
+    
+    
+    
+    UITextField *userNameField          = [[[UITextField alloc] initWithFrame:CGRectMake(20.0,
+                                                                                         55.0,
+                                                                                         245.0,
+                                                                                         25.0)] autorelease];
+    userNameField.placeholder           = @"Username";
+    userNameField.tag                   = kTagTwitterUsername;
+    userNameField.backgroundColor       = [UIColor whiteColor];
+    userNameField.layer.cornerRadius    = 1;
+    userNameField.autocorrectionType    = UITextAutocorrectionTypeNo;
+    
+    [alertView addSubview:userNameField];    
+    
+    
+    UITextField *passwordField          = [[[UITextField alloc] initWithFrame:CGRectMake(20.0,
+                                                                                         85.0,
+                                                                                         245.0,
+                                                                                         25.0)] autorelease];
+    passwordField.placeholder           = @"Password";
+    passwordField.tag                   = kTagTwitterPassword;
+    passwordField.backgroundColor       = [UIColor whiteColor];
+    passwordField.layer.cornerRadius    = 1;
+    passwordField.autocorrectionType    = UITextAutocorrectionTypeNo;
+    passwordField.secureTextEntry       = YES;
+    
+    [alertView addSubview:passwordField];    
+    
+    
+    
+    [alertView show];
+    
+    [userNameField performSelector:@selector(becomeFirstResponder) 
+                        withObject:nil
+                        afterDelay:0.35];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)authenticate {
+
     if([DWSession sharedDWSession].currentUser.twitterXAuthToken) {
         [_delegate twAuthenticated];
     }
     else {
-        self.authenticator              = [TwitterAuthenticator new];
-
-        self.authenticator.consumer     = self.consumer;
-        self.authenticator.username     = @"qenwen";
-        self.authenticator.password     = @"sometimes";
-        self.authenticator.delegate     = self;
-
-        [_authenticator authenticate];
+        [self displayAuthenticationUI];
     }
 }
 
@@ -78,12 +123,50 @@
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
+#pragma mark UIAlertViewDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex == kTwitterAlertOKIndex) {
+        
+        NSString *username = nil;
+        NSString *password = nil;
+        
+        for(UIView *subview in alertView.subviews) {
+            if(subview.tag == kTagTwitterUsername)
+                username    = ((UITextField*)subview).text;
+            else if(subview.tag == kTagTwitterPassword)
+                password    = ((UITextField*)subview).text;
+        }
+        
+        self.authenticator              = [TwitterAuthenticator new];
+        
+        self.authenticator.consumer     = self.consumer;
+        self.authenticator.username     = username;
+        self.authenticator.password     = password;
+        self.authenticator.delegate     = self;
+        
+        [_authenticator authenticate];
+        
+        [_delegate twAuthenticating];
+    }
+    else {
+        [_delegate twAuthenticationFailed];
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
 #pragma mark TwitterAuthenticatorDelegate
 
 //----------------------------------------------------------------------------------------------------
 - (void) twitterAuthenticator:(TwitterAuthenticator*)twitterAuthenticator
              didFailWithError:(NSError*)error {
     
+    [self displayAuthenticationUI];
     [_delegate twAuthenticationFailed];
 }
 
