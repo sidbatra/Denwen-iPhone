@@ -350,9 +350,6 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
     cell.itemPlaceName		= item.place.name;
     cell.itemUserName		= item.user.firstName;
     
-    [cell setDetails:item.touchesCount 
-        andCreatedAt:[item createdTimeAgoInWords]];
-    
     
     [item startRemoteImagesDownload];
     
@@ -370,6 +367,9 @@ static NSString* const kMsgActionSheetDelete		= @"Delete";
         
         cell.attachmentType = kAttachmentNone;
     }
+    
+    [cell setDetails:item.touchesCount 
+        andCreatedAt:[item createdTimeAgoInWords]];
     
     [cell reset];
     [cell redisplay];

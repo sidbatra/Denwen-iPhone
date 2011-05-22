@@ -58,7 +58,7 @@
 #define kNormalFadeInterval                 0.5
 #define kNoAnimationDuration                0.0
 #define kCellAnimationDuration              0.12
-#define kPlayIconXOffset                    7
+#define kPlayIconXOffset                    1
 #define kPlayIconY                          289
 #define kPlayIconWidth                      18
 #define kPlayIconHeight                     11
@@ -278,7 +278,7 @@
 		
 
 		shareImageLayer						= [CALayer layer];
-		shareImageLayer.frame				= CGRectMake(280,281,24,19);
+		shareImageLayer.frame				= CGRectMake(280,283,24,19);
 		shareImageLayer.contentsScale		= [[UIScreen mainScreen] scale];
 		shareImageLayer.actions				= [NSMutableDictionary dictionaryWithObjectsAndKeys:
 											   [NSNull null], @"contents",
@@ -573,7 +573,11 @@
 	  andCreatedAt:(NSString*)createdAt {
 	
 	_itemTouchesCount               = touchesCount;
-	self.itemCreatedAt              = [NSString stringWithFormat:@"  |  %@",createdAt];
+    
+    if(_attachmentType != kAttachmentVideo)
+        self.itemCreatedAt          = [NSString stringWithFormat:@"  |  %@",createdAt];
+    else
+        self.itemCreatedAt          = [NSString stringWithFormat:@"  |  %@  |  ",createdAt];
 }
 
 //----------------------------------------------------------------------------------------------------
