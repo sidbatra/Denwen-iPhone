@@ -45,7 +45,7 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUILabel" id="92986896">
+					<object class="IBUILabel" id="179435097">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{0, -20}, {320, 20}}</string>
@@ -62,7 +62,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText"/>
-						<object class="NSColor" key="IBUITextColor" id="1006083574">
+						<object class="NSColor" key="IBUITextColor" id="1067422422">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
 						</object>
@@ -100,7 +100,7 @@
 						<string key="NSFrame">{{0, 5}, {320, 195}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="92986896"/>
+						<reference key="NSNextKeyView" ref="179435097"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="655951333">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -169,7 +169,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText"/>
-						<reference key="IBUITextColor" ref="1006083574"/>
+						<reference key="IBUITextColor" ref="1067422422"/>
 						<reference key="IBUIHighlightedColor" ref="967395652"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -306,7 +306,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">topCoverLabel</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="92986896"/>
+						<reference key="destination" ref="179435097"/>
 					</object>
 					<int key="connectionID">49</int>
 				</object>
@@ -331,7 +331,7 @@
 							<reference ref="232273232"/>
 							<reference ref="812040701"/>
 							<reference ref="57302990"/>
-							<reference ref="92986896"/>
+							<reference ref="179435097"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -384,7 +384,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">48</int>
-						<reference key="object" ref="92986896"/>
+						<reference key="object" ref="179435097"/>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">status bar background</string>
 					</object>
