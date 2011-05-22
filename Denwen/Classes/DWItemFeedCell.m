@@ -58,7 +58,7 @@
 #define kNormalFadeInterval                 0.5
 #define kNoAnimationDuration                0.0
 #define kCellAnimationDuration              0.12
-#define kPlayIconXOffset                    1
+#define kPlayIconXOffset                    0
 #define kPlayIconY                          289
 #define kPlayIconWidth                      18
 #define kPlayIconHeight                     11
