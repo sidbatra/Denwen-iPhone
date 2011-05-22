@@ -18,6 +18,10 @@ static NSString* const kMsgTwitterLoading           = @"Tweeting...";
 static NSString* const kMsgAuthenticating           = @"Logging In...";
 static NSString* const kImgLightCancelButton		= @"button_gray_light_cancel.png";
 static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_active.png";
+static NSString* const kImgDoneFBButton             = @"button_blue_share.png";
+static NSString* const kImgDoneFBButtonActive       = @"button_blue_share_active.png";
+static NSString* const kImgDoneTWButton             = @"button_blue_tweet.png";
+static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active.png";
 
 
 
@@ -111,6 +115,20 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
                                              mbProgressIndicator.frame.size.width,
                                              mbProgressIndicator.frame.size.height+1);
 	[self.view addSubview:mbProgressIndicator];
+    
+    
+    if(_sharingDestination == kSharingDestinationFacebook) {
+        [self.doneButton setBackgroundImage:[UIImage imageNamed:kImgDoneFBButton] 
+                                     forState:UIControlStateNormal];
+        [self.doneButton setBackgroundImage:[UIImage imageNamed:kImgDoneFBButtonActive]
+                                     forState:UIControlStateHighlighted];
+    }
+    else if(_sharingDestination == kSharingDestinationTwitter ) {
+        [self.doneButton setBackgroundImage:[UIImage imageNamed:kImgDoneTWButton] 
+                                   forState:UIControlStateNormal];
+        [self.doneButton setBackgroundImage:[UIImage imageNamed:kImgDoneTWButtonActive]
+                                   forState:UIControlStateHighlighted];
+    }
 }
 
 //----------------------------------------------------------------------------------------------------

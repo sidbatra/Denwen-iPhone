@@ -463,6 +463,14 @@
 		BBFD29CE1388462E0077904A /* TwitterTweetPoster.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29C71388462E0077904A /* TwitterTweetPoster.m */; };
 		BBFD29CF1388462E0077904A /* TwitterUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29C91388462E0077904A /* TwitterUtils.m */; };
 		BBFD29E81388625D0077904A /* DWTwitterConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFD29E71388625D0077904A /* DWTwitterConnect.m */; };
+		BBFD29F21389817A0077904A /* button_blue_share_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29EA1389817A0077904A /* button_blue_share_active.png */; };
+		BBFD29F31389817A0077904A /* button_blue_share_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29EB1389817A0077904A /* button_blue_share_active@2x.png */; };
+		BBFD29F41389817A0077904A /* button_blue_share.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29EC1389817A0077904A /* button_blue_share.png */; };
+		BBFD29F51389817A0077904A /* button_blue_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29ED1389817A0077904A /* button_blue_share@2x.png */; };
+		BBFD29F61389817A0077904A /* button_blue_tweet_active.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29EE1389817A0077904A /* button_blue_tweet_active.png */; };
+		BBFD29F71389817A0077904A /* button_blue_tweet_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29EF1389817A0077904A /* button_blue_tweet_active@2x.png */; };
+		BBFD29F81389817A0077904A /* button_blue_tweet.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29F01389817A0077904A /* button_blue_tweet.png */; };
+		BBFD29F91389817A0077904A /* button_blue_tweet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBFD29F11389817A0077904A /* button_blue_tweet@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1055,6 +1063,14 @@
 		BBFD29C91388462E0077904A /* TwitterUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterUtils.m; sourceTree = "<group>"; };
 		BBFD29E61388625D0077904A /* DWTwitterConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTwitterConnect.h; path = Classes/DWTwitterConnect.h; sourceTree = "<group>"; };
 		BBFD29E71388625D0077904A /* DWTwitterConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTwitterConnect.m; path = Classes/DWTwitterConnect.m; sourceTree = "<group>"; };
+		BBFD29EA1389817A0077904A /* button_blue_share_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blue_share_active.png; path = resources/button_blue_share_active.png; sourceTree = "<group>"; };
+		BBFD29EB1389817A0077904A /* button_blue_share_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_blue_share_active@2x.png"; path = "resources/button_blue_share_active@2x.png"; sourceTree = "<group>"; };
+		BBFD29EC1389817A0077904A /* button_blue_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blue_share.png; path = resources/button_blue_share.png; sourceTree = "<group>"; };
+		BBFD29ED1389817A0077904A /* button_blue_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_blue_share@2x.png"; path = "resources/button_blue_share@2x.png"; sourceTree = "<group>"; };
+		BBFD29EE1389817A0077904A /* button_blue_tweet_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blue_tweet_active.png; path = resources/button_blue_tweet_active.png; sourceTree = "<group>"; };
+		BBFD29EF1389817A0077904A /* button_blue_tweet_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_blue_tweet_active@2x.png"; path = "resources/button_blue_tweet_active@2x.png"; sourceTree = "<group>"; };
+		BBFD29F01389817A0077904A /* button_blue_tweet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_blue_tweet.png; path = resources/button_blue_tweet.png; sourceTree = "<group>"; };
+		BBFD29F11389817A0077904A /* button_blue_tweet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_blue_tweet@2x.png"; path = "resources/button_blue_tweet@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1130,6 +1146,14 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBFD29EA1389817A0077904A /* button_blue_share_active.png */,
+				BBFD29EB1389817A0077904A /* button_blue_share_active@2x.png */,
+				BBFD29EC1389817A0077904A /* button_blue_share.png */,
+				BBFD29ED1389817A0077904A /* button_blue_share@2x.png */,
+				BBFD29EE1389817A0077904A /* button_blue_tweet_active.png */,
+				BBFD29EF1389817A0077904A /* button_blue_tweet_active@2x.png */,
+				BBFD29F01389817A0077904A /* button_blue_tweet.png */,
+				BBFD29F11389817A0077904A /* button_blue_tweet@2x.png */,
 				BBFD29A513883BB70077904A /* intro_pane_1.png */,
 				BBFD29A613883BB70077904A /* intro_pane_1@2x.png */,
 				BBFD29A713883BB70077904A /* intro_pane_2.png */,
@@ -2379,6 +2403,14 @@
 				BBFD29B213883BB70077904A /* intro_pane_3@2x.png in Resources */,
 				BBFD29B313883BB70077904A /* intro_pane_4.png in Resources */,
 				BBFD29B413883BB70077904A /* intro_pane_4@2x.png in Resources */,
+				BBFD29F21389817A0077904A /* button_blue_share_active.png in Resources */,
+				BBFD29F31389817A0077904A /* button_blue_share_active@2x.png in Resources */,
+				BBFD29F41389817A0077904A /* button_blue_share.png in Resources */,
+				BBFD29F51389817A0077904A /* button_blue_share@2x.png in Resources */,
+				BBFD29F61389817A0077904A /* button_blue_tweet_active.png in Resources */,
+				BBFD29F71389817A0077904A /* button_blue_tweet_active@2x.png in Resources */,
+				BBFD29F81389817A0077904A /* button_blue_tweet.png in Resources */,
+				BBFD29F91389817A0077904A /* button_blue_tweet@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

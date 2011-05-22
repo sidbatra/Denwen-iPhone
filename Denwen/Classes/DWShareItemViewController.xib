@@ -45,13 +45,13 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUILabel" id="179435097">
+					<object class="IBUILabel" id="280189075">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{0, -20}, {320, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="812040701"/>
+						<reference key="NSNextKeyView" ref="646704253"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="967395652">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -62,7 +62,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText"/>
-						<object class="NSColor" key="IBUITextColor" id="1067422422">
+						<object class="NSColor" key="IBUITextColor" id="268468878">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
 						</object>
@@ -100,7 +100,7 @@
 						<string key="NSFrame">{{0, 5}, {320, 195}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="179435097"/>
+						<reference key="NSNextKeyView" ref="812040701"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="655951333">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -143,14 +143,6 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button_blue_done_active.png</string>
-						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button_blue_done.png</string>
-						</object>
 					</object>
 					<object class="IBUILabel" id="276129353">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -169,7 +161,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText"/>
-						<reference key="IBUITextColor" ref="1067422422"/>
+						<reference key="IBUITextColor" ref="268468878"/>
 						<reference key="IBUIHighlightedColor" ref="967395652"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -203,7 +195,7 @@
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="646704253"/>
+				<reference key="NSNextKeyView" ref="280189075"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -306,7 +298,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">topCoverLabel</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="179435097"/>
+						<reference key="destination" ref="280189075"/>
 					</object>
 					<int key="connectionID">49</int>
 				</object>
@@ -331,7 +323,7 @@
 							<reference ref="232273232"/>
 							<reference ref="812040701"/>
 							<reference ref="57302990"/>
-							<reference ref="179435097"/>
+							<reference ref="280189075"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -384,7 +376,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">48</int>
-						<reference key="object" ref="179435097"/>
+						<reference key="object" ref="280189075"/>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">status bar background</string>
 					</object>
@@ -434,7 +426,7 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw0IAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="0.0"/>
+					<real value="1"/>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDfQAAw2sAAA</bytes>
 					</object>
@@ -591,16 +583,12 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>button_blue_done.png</string>
-				<string>button_blue_done_active.png</string>
 				<string>button_gray_dark_cancel.png</string>
 				<string>button_gray_dark_cancel_active.png</string>
 				<string>trans55.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{62, 32}</string>
-				<string>{60, 30}</string>
 				<string>{62, 32}</string>
 				<string>{60, 30}</string>
 				<string>{1, 1}</string>
