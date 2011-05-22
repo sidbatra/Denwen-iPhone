@@ -1980,14 +1980,14 @@
 		BBFD29A11388241D0077904A /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
-				BBFD29E61388625D0077904A /* DWTwitterConnect.h */,
-				BBFD29E71388625D0077904A /* DWTwitterConnect.m */,
 				BBFD29891387A6D20077904A /* DWShareItemViewController.h */,
 				BBFD298A1387A6D20077904A /* DWShareItemViewController.m */,
 				BBFD2946138701280077904A /* DWSharingManager.h */,
 				BBFD2947138701280077904A /* DWSharingManager.m */,
 				BBFD29A21388245C0077904A /* DWFacebookConnect.h */,
 				BBFD29A31388245C0077904A /* DWFacebookConnect.m */,
+				BBFD29E61388625D0077904A /* DWTwitterConnect.h */,
+				BBFD29E71388625D0077904A /* DWTwitterConnect.m */,
 			);
 			name = Sharing;
 			sourceTree = "<group>";
