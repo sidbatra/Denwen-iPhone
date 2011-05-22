@@ -74,7 +74,8 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 	[self.view addSubview:self.tabBar];
 	[self addViewAtIndex:self.tabBar.selectedIndex];
     
-    mbProgressIndicator = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    mbProgressIndicator         = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    mbProgressIndicator.opacity = 0.001;
     [self.view addSubview:mbProgressIndicator];
 }
 

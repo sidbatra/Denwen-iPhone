@@ -52,7 +52,7 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
     
     UIAlertView *alertView  = [[[UIAlertView alloc] init] autorelease];
     alertView.delegate      = self;
-    alertView.title         = @"Twitter Login";
+    alertView.title         = @"Log In to Twitter";
     alertView.message       = @"\n\n\n";
     
     [alertView addButtonWithTitle:@"Cancel"];
@@ -64,7 +64,7 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
                                                                                          55.0,
                                                                                          245.0,
                                                                                          25.0)] autorelease];
-    userNameField.placeholder           = @"Username";
+    userNameField.placeholder           = @"Twitter username";
     userNameField.tag                   = kTagTwitterUsername;
     userNameField.backgroundColor       = [UIColor whiteColor];
     userNameField.layer.cornerRadius    = 1;
@@ -77,7 +77,7 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
                                                                                          85.0,
                                                                                          245.0,
                                                                                          25.0)] autorelease];
-    passwordField.placeholder           = @"Password";
+    passwordField.placeholder           = @"Twitter password";
     passwordField.tag                   = kTagTwitterPassword;
     passwordField.backgroundColor       = [UIColor whiteColor];
     passwordField.layer.cornerRadius    = 1;

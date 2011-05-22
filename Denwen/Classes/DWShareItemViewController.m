@@ -13,8 +13,12 @@ static NSString* const kMsgErrorAlertTitle          = @"Low connectivity";
 static NSString* const kMsgFacebookError            = @"Can't connect to Facebook";
 static NSString* const kMsgTwitterError             = @"Can't connect to Twitter";
 static NSString* const kMsgCancelTitle              = @"OK";
+static NSString* const kMsgFacebookLoading          = @"Sharing...";
+static NSString* const kMsgTwitterLoading           = @"Tweeting...";
+static NSString* const kMsgAuthenticating           = @"Logging In...";
 static NSString* const kImgLightCancelButton		= @"button_gray_light_cancel.png";
 static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_active.png";
+
 
 
 //----------------------------------------------------------------------------------------------------
@@ -103,9 +107,9 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
     
     mbProgressIndicator         = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
     mbProgressIndicator.frame   = CGRectMake(mbProgressIndicator.frame.origin.x,
-                                             mbProgressIndicator.frame.origin.y-105,
+                                             mbProgressIndicator.frame.origin.y-87,
                                              mbProgressIndicator.frame.size.width,
-                                             mbProgressIndicator.frame.size.height);
+                                             mbProgressIndicator.frame.size.height+1);
 	[self.view addSubview:mbProgressIndicator];
 }
 
@@ -140,9 +144,22 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)freezeUI {
+- (void)freezeUI:(BOOL)isAuthenticating {
+    
+    if(isAuthenticating)
+        mbProgressIndicator.labelText = kMsgAuthenticating;
+    else if(_sharingDestination == kSharingDestinationFacebook)
+        mbProgressIndicator.labelText = kMsgFacebookLoading;
+    else if(_sharingDestination == kSharingDestinationTwitter)
+        mbProgressIndicator.labelText = kMsgTwitterLoading;
+    
     if(mbProgressIndicator.alpha < kAlphaThresholdForMOG)
         [mbProgressIndicator showUsingAnimation:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)freezeUI {
+    [self freezeUI:NO];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -273,7 +290,7 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 
 //----------------------------------------------------------------------------------------------------
 - (void)twAuthenticating {
-    [self freezeUI];
+    [self freezeUI:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
