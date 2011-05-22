@@ -4,7 +4,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
 
 #import "TwitterAuthenticator.h"
 #import "TwitterTweetPoster.h"

@@ -11,6 +11,7 @@
 #import "TwitterTweetPoster.h"
 #import "DWConstants.h"
 
+
 static NSUInteger const kTagTwitterUsername     = 19875;
 static NSUInteger const kTagTwitterPassword     = 19455;
 static NSUInteger const kTwitterAlertOKIndex    = 1;
@@ -52,37 +53,39 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
     
     UIAlertView *alertView  = [[[UIAlertView alloc] init] autorelease];
     alertView.delegate      = self;
-    alertView.title         = @"Log In to Twitter";
+    alertView.title         = @"Log in to Twitter";
     alertView.message       = @"\n\n\n";
     
     [alertView addButtonWithTitle:@"Cancel"];
-    [alertView addButtonWithTitle:@"OK"];
+    [alertView addButtonWithTitle:@"Log In"];
     
     
     
-    UITextField *userNameField          = [[[UITextField alloc] initWithFrame:CGRectMake(20.0,
-                                                                                         55.0,
-                                                                                         245.0,
-                                                                                         25.0)] autorelease];
-    userNameField.placeholder           = @"Twitter username";
-    userNameField.tag                   = kTagTwitterUsername;
-    userNameField.backgroundColor       = [UIColor whiteColor];
-    userNameField.layer.cornerRadius    = 1;
-    userNameField.autocorrectionType    = UITextAutocorrectionTypeNo;
+    UITextField *userNameField              = [[[UITextField alloc] initWithFrame:CGRectMake(11,
+                                                                                             43.0,
+                                                                                             262,
+                                                                                             32)] autorelease];
+    userNameField.placeholder               = @"Twitter username";
+    userNameField.borderStyle               = UITextBorderStyleRoundedRect;
+    userNameField.contentVerticalAlignment  = UIControlContentHorizontalAlignmentCenter;
+    userNameField.tag                       = kTagTwitterUsername;
+    userNameField.backgroundColor           = [UIColor clearColor];
+    userNameField.autocorrectionType        = UITextAutocorrectionTypeNo;
     
     [alertView addSubview:userNameField];    
     
     
-    UITextField *passwordField          = [[[UITextField alloc] initWithFrame:CGRectMake(20.0,
-                                                                                         85.0,
-                                                                                         245.0,
-                                                                                         25.0)] autorelease];
-    passwordField.placeholder           = @"Twitter password";
-    passwordField.tag                   = kTagTwitterPassword;
-    passwordField.backgroundColor       = [UIColor whiteColor];
-    passwordField.layer.cornerRadius    = 1;
-    passwordField.autocorrectionType    = UITextAutocorrectionTypeNo;
-    passwordField.secureTextEntry       = YES;
+    UITextField *passwordField              = [[[UITextField alloc] initWithFrame:CGRectMake(11,
+                                                                                             81,
+                                                                                             262,
+                                                                                             32)] autorelease];
+    passwordField.placeholder               = @"Twitter password";
+    passwordField.borderStyle               = UITextBorderStyleRoundedRect;
+    passwordField.contentVerticalAlignment  = UIControlContentHorizontalAlignmentCenter;
+    passwordField.tag                       = kTagTwitterPassword;
+    passwordField.backgroundColor           = [UIColor clearColor];
+    passwordField.autocorrectionType        = UITextAutocorrectionTypeNo;
+    passwordField.secureTextEntry           = YES;
     
     [alertView addSubview:passwordField];    
     
