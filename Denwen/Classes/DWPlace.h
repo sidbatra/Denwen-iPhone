@@ -29,6 +29,7 @@
 	NSInteger		_followersCount;
 	
 	BOOL			_hasAddress;
+    BOOL			_usesMemoryPool;
 }
 
 /**
@@ -45,6 +46,12 @@
  * Indicates presence of address
  */
 @property (nonatomic,readonly) BOOL hasAddress;
+
+/**
+ * Indicates whether the place relies on the memory pool
+ * for its members
+ */
+@property (nonatomic,assign) BOOL usesMemoryPool;
 
 /**
  * Town in which the place is located

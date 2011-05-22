@@ -24,6 +24,7 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 @synthesize name				= _name;
 @synthesize hashedID			= _hashedID;
 @synthesize hasAddress          = _hasAddress;
+@synthesize usesMemoryPool      = _usesMemoryPool;
 @synthesize location			= _location;
 @synthesize attachment			= _attachment;
 @synthesize	town				= _town;
@@ -35,6 +36,7 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 	self = [super init];
 	
 	if(self) {
+        _usesMemoryPool = YES;
 	}
 	
 	return self;  
@@ -107,7 +109,11 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 - (BOOL)update:(NSDictionary*)place {
     if(![super update:place])
         return NO;
-    		
+
+    if(!_usesMemoryPool) 
+        _databaseID = [[place objectForKey:kKeyID] integerValue];
+    
+    
     NSString *newName = [place objectForKey:kKeyName];
      
      if(![self.name isEqualToString:newName])

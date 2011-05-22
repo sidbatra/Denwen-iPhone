@@ -82,9 +82,10 @@ static NSString*  const kDenwenURLPrefix    = @"denwen://p/";
 	
     if([url hasPrefix:kDenwenURLPrefix]) {
         
-        DWPlace *place      = [[[DWPlace alloc] init] autorelease];
-        place.databaseID    = [[NSDate date] timeIntervalSince1970];
-        place.hashedID      = [url substringFromIndex:[kDenwenURLPrefix length]];
+        DWPlace *place          = [[[DWPlace alloc] init] autorelease];
+        place.usesMemoryPool    = NO;
+        place.databaseID        = [[NSDate date] timeIntervalSince1970];
+        place.hashedID          = [url substringFromIndex:[kDenwenURLPrefix length]];
         
         [self displaySelectedPlace:place];
     }
