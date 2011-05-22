@@ -247,8 +247,8 @@
         self.mode = MBProgressHUDModeIndeterminate;
         self.labelText = nil;
         self.detailsLabelText = nil;
-        self.opacity = 0.8;
-        self.labelFont = [UIFont boldSystemFontOfSize:LABELFONTSIZE];
+        self.opacity = 1.0;
+        self.labelFont = [UIFont fontWithName:@"HelveticaNeue" size:15]; //[UIFont boldSystemFontOfSize:LABELFONTSIZE];
         self.detailsLabelFont = [UIFont boldSystemFontOfSize:LABELDETAILSFONTSIZE];
         self.xOffset = 0.0;
         self.yOffset = 0.0;
@@ -299,7 +299,7 @@
     CGRect frame = self.bounds;
 	
     // Compute HUD dimensions based on indicator size (add margin to HUD border)
-    CGRect indFrame = indicator.bounds;
+    CGRect indFrame = CGRectMake(0,0,20,20);// indicator.bounds;
     self.width = indFrame.size.width + 2 * MARGIN;
     self.height = indFrame.size.height + 2 * MARGIN;
 	
@@ -344,7 +344,7 @@
 		
         // Set the label position and dimensions
         CGRect lFrame = CGRectMake(floor((frame.size.width - lWidth) / 2) + xOffset,
-                                   floor(indFrame.origin.y + indFrame.size.height + PADDING),
+                                   floor(indFrame.origin.y + indFrame.size.height + PADDING+1),
                                    lWidth, lHeight);
         label.frame = lFrame;
 		
@@ -569,7 +569,7 @@
 }
 
 - (void)fillRoundedRect:(CGRect)rect inContext:(CGContextRef)context {
-    float radius = 10.0f;
+    float radius = 5.0f;
 	
     CGContextBeginPath(context);
     CGContextSetGrayFillColor(context, 0.0, self.opacity);

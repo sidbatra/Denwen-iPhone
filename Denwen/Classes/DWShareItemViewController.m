@@ -103,7 +103,7 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
     
     mbProgressIndicator         = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
     mbProgressIndicator.frame   = CGRectMake(mbProgressIndicator.frame.origin.x,
-                                             mbProgressIndicator.frame.origin.y-20,
+                                             mbProgressIndicator.frame.origin.y-105,
                                              mbProgressIndicator.frame.size.width,
                                              mbProgressIndicator.frame.size.height);
 	[self.view addSubview:mbProgressIndicator];
