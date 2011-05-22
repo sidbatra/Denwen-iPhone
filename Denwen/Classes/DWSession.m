@@ -23,6 +23,7 @@ static NSString* const kDiskKeyFirstTimeUser    = @"first_time_user";
 
 @synthesize currentUser				= _currentUser;
 @synthesize location				= _location;
+@synthesize launchURL               = _launchURL;
 @synthesize firstTimeUser           = _firstTimeUser;
 @synthesize lastReadItemID          = _lastReadItemID;
 @synthesize selectedTabIndex        = _selectedTabIndex;

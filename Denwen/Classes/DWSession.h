@@ -14,6 +14,7 @@
 @interface DWSession : NSObject {
 	DWUser			*_currentUser;
 	CLLocation		*_location;
+    NSURL           *_launchURL;
     
 	BOOL			_firstVisitRecorded;
     BOOL            _firstTimeUser;
@@ -36,6 +37,11 @@
  * Current location of the user
  */
 @property (nonatomic,retain) CLLocation *location;
+
+/**
+ * Holds a launch URL if the was loaded via a url
+ */
+@property (nonatomic,retain) NSURL *launchURL;
 
 /**
  * Indicates whether its the user's first session 

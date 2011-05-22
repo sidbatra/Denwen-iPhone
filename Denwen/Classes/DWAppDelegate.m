@@ -72,7 +72,8 @@ static NSString* const kMsgCustomButtonTitle        = @"OK";
 												 name:kNNewFeedItemsRead
 											   object:nil];
 	
-	//launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
+    
+    [DWSession sharedDWSession].launchURL = (NSURL*)[launchOptions valueForKey:@"UIApplicationLaunchOptionsURLKey"];
 
     return YES;
 }

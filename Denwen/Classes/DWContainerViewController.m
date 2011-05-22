@@ -8,7 +8,10 @@
 #import "DWPlaceViewController.h"
 #import "DWWebViewController.h"
 #import "DWSharingManager.h"
+#import "DWSession.h"
 #import "NSString+Helpers.h"
+
+static NSString*  const kDenwenURLPrefix    = @"denwen://p/";
 
 
 
@@ -38,11 +41,16 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
-	//if(launchURL) {
-	//	[self processLaunchURL:[launchURL absoluteString]];
-	//	launchURL = nil;
-	//}
+    
     self.navigationController.delegate = self;
+    
+    NSURL *launchURL = [DWSession sharedDWSession].launchURL;
+                        
+    if(launchURL) {
+		[self processLaunchURL:[launchURL absoluteString]];
+        [DWSession sharedDWSession].launchURL = nil;
+	}
+    
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -71,8 +79,15 @@
 
 //----------------------------------------------------------------------------------------------------
 - (void)processLaunchURL:(NSString*)url {
-	//if([url hasPrefix:DENWEN_URL_PREFIX])
-	//	[self displaySelectedPlace:[url substringFromIndex:[DENWEN_URL_PREFIX length]]];
+	
+    if([url hasPrefix:kDenwenURLPrefix]) {
+        
+        DWPlace *place      = [[[DWPlace alloc] init] autorelease];
+        place.databaseID    = [[NSDate date] timeIntervalSince1970];
+        place.hashedID      = [url substringFromIndex:[kDenwenURLPrefix length]];
+        
+        [self displaySelectedPlace:place];
+    }
 }
 
 

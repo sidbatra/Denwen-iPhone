@@ -40,4 +40,9 @@
 @end
 
 
-
+/**
+ * Declarations for private methods
+ */
+@interface DWContainerViewController(Private)
+- (void)processLaunchURL:(NSString*)url;
+@end
