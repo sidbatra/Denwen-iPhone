@@ -52,6 +52,7 @@
  */
 @protocol DWFacebookConnectDelegate 
 - (void)fbAuthenticated;
+- (void)fbAuthenticating;
 - (void)fbAuthenticationFailed;
 - (void)fbSharingDone;
 - (void)fbSharingFailed;

@@ -212,6 +212,7 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 
 //----------------------------------------------------------------------------------------------------
 - (void)fbAuthenticated {
+    [self.dataTextView becomeFirstResponder];
     [self freezeUI];
         
     [self.facebookConnect createWallPostWithMessage:self.dataTextView.text
@@ -222,6 +223,11 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
                                          pictureURL:self.item.attachment ? 
                                                         self.item.attachment.previewURL : 
                                                         kEmptyString];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)fbAuthenticating {
+    [self.dataTextView resignFirstResponder];
 }
 
 //----------------------------------------------------------------------------------------------------

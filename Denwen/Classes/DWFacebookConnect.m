@@ -65,6 +65,8 @@
                                   @"friends_checkins",
                                   @"user_events",nil] 
                         delegate:self];
+        
+        [_delegate fbAuthenticating];
     }
 }
 
