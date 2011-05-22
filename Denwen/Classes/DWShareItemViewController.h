@@ -42,6 +42,7 @@ typedef enum DWSharingDestination DWSharingDestination;
 	UIButton                *_cancelButton;
 	UIButton                *_doneButton;
 	UILabel                 *_coverLabel;
+    UILabel                 *_topCoverLabel;
     
     id<DWShareItemViewControllerDelegate>   _delegate;
 }
@@ -85,6 +86,7 @@ typedef enum DWSharingDestination DWSharingDestination;
 @property (nonatomic,retain) IBOutlet UIButton *cancelButton;
 @property (nonatomic,retain) IBOutlet UIButton *doneButton;
 @property (nonatomic,retain) IBOutlet UILabel *coverLabel;
+@property (nonatomic,retain) IBOutlet UILabel *topCoverLabel;
 
 
 /**

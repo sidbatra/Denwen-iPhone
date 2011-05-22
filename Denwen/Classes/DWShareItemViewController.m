@@ -34,6 +34,7 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 @synthesize cancelButton        = _cancelButton;
 @synthesize doneButton          = _doneButton;
 @synthesize coverLabel          = _coverLabel;
+@synthesize topCoverLabel       = _topCoverLabel;
 
 //----------------------------------------------------------------------------------------------------
 - (id)initWithItem:(DWItem*)theItem {
@@ -68,6 +69,7 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
     self.cancelButton       = nil;
     self.doneButton         = nil;
     self.coverLabel         = nil;
+    self.topCoverLabel      = nil;
     
     [super dealloc];
 }
@@ -120,6 +122,7 @@ static NSString* const kImgLightCancelButtonActive	= @"button_gray_light_cancel_
 //----------------------------------------------------------------------------------------------------
 - (void)displayTextUI {
 	
+    self.topCoverLabel.hidden           = NO;
 	self.coverLabel.backgroundColor		= [UIColor whiteColor];
 	
 	self.previewImageView.hidden		= YES;
