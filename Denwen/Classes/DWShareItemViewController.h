@@ -27,8 +27,6 @@ typedef enum DWSharingDestination DWSharingDestination;
  */
 @interface DWShareItemViewController : UIViewController<DWFacebookConnectDelegate,DWTwitterConnectDelegate> {
     DWItem                  *_item;
-    NSString                *_itemURL;
-    NSString                *_sharingText;
     DWSharingDestination    _sharingDestination;
     
     DWFacebookConnect       *_facebookConnect;
@@ -51,16 +49,6 @@ typedef enum DWSharingDestination DWSharingDestination;
  * The item being shared
  */
 @property (nonatomic,retain) DWItem *item;
-
-/**
- * URL for the item being shared
- */
-@property (nonatomic,copy) NSString *itemURL;
-
-/**
- * Text initially displayed in the text view
- */
-@property (nonatomic,copy) NSString *sharingText;
 
 /**
  * Instance of the facebook connect wrapper
@@ -97,13 +85,12 @@ typedef enum DWSharingDestination DWSharingDestination;
 /**
  * Prepare UI and flow for sharing to facebook
  */
-- (void)prepareForFacebookWithText:(NSString*)text 
-                            andURL:(NSString*)url;
+- (void)prepareForFacebook;
 
 /**
  * Prepare UI and flow for sharing to twitter
  */
-- (void)prepareForTwitterWithText:(NSString*)text;
+- (void)prepareForTwitter;
 
 /**
  * IBActions
@@ -124,6 +111,9 @@ typedef enum DWSharingDestination DWSharingDestination;
  * Delegate to send events about the item sharing lifecycle
  */
 @protocol DWShareItemViewControllerDelegate
+- (NSString*)sharingFBText;
+- (NSString*)sharingTWText;
+- (NSString*)sharingItemURL;
 - (void)sharingCancelled;
 - (void)sharingFinishedWithText:(NSString*)text;
 @end

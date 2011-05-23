@@ -24,8 +24,8 @@ static NSString* const kMsgEMButton             = @"Email";
 static NSString* const kMsgSMButton             = @"SMS";
 static NSString* const kMsgCanceButton          = @"Cancel";
 static NSInteger const kRecentItemThreshold     = 900;
-static NSString* const kMsgEmailBlurb           = @"Denwen is a simple way to create places that mean something to you — where you work, where you live,anywhere you spend time. \n\n Download Denwen from the Apple App Store - http://j.mp/denwen";
-static NSString* const kMsgSMSBlurb             = @"Download Denwen from the Apple App Store - http://j.mp/denwen";
+static NSString* const kMsgEmailBlurb           = @"Download Denwen for iPhone: itun.es/igX5BK\nDenwen helps you show what it's like to be where you work and live.";
+static NSString* const kMsgSMSBlurb             = @"Download Denwen for iPhone itun.es/igX5BK";
 
 
 
@@ -172,55 +172,72 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
 #pragma mark Distributon to different modalities
 
 //----------------------------------------------------------------------------------------------------
-- (NSString*)generateSharingPlaceText {
-    NSString *specificAddressField = [self.item.place mostSpecificAddressString];
+- (NSString*)generateSharingPlaceText:(BOOL)withAddress {
+    NSString *specificAddressField = [self.item.place displayAddressWithDefautMessage:NO];
     
-    return [specificAddressField length] ? 
+    return [specificAddressField length] && withAddress ? 
             [NSString stringWithFormat:@"%@ (%@)",self.item.place.name,specificAddressField] : 
             [NSString stringWithString:self.item.place.name];
 }
 
 //----------------------------------------------------------------------------------------------------
-- (NSString*)generateSharingURL {
-    return [NSString stringWithFormat:@"%@%@%@%@",
-                kDenwenProtocol,
-                kDenwenServer,
-                kItemShareURI,
-                self.item.hashedID];
-}
-
-//----------------------------------------------------------------------------------------------------
-- (NSString*)generateSharingText {
-    
+- (NSString*)generateSharingItemText:(BOOL)withAddress {
     NSString *text          = nil;
-    NSString *placeText     = [self generateSharingPlaceText];
-    NSString *urlText       = [NSString stringWithFormat:@"on Denwen %@",[self generateSharingURL]];
+    NSString *placeText     = [self generateSharingPlaceText:withAddress];
     BOOL isRecentItem       = [self.item createdTimeAgoStamp] <= kRecentItemThreshold;
     BOOL isOwnItem          = [self.item.user isCurrentUser];
     
     
     if(isOwnItem && isRecentItem) {
-        text = [NSString stringWithFormat:@"Just posted at %@ %@ ",
-                    placeText,
-                    urlText];
+        text = [NSString stringWithFormat:@"Just posted at %@",
+                placeText];
     }
     else if(isOwnItem) {
-        text = [NSString stringWithFormat:@"My post at %@ %@ ",
-                placeText,
-                urlText];
+        text = [NSString stringWithFormat:@"My post at %@",
+                placeText];
     }
     else if(isRecentItem) {
-        text = [NSString stringWithFormat:@"Just saw this at %@ %@ ",
-                placeText,
-                urlText];
+        text = [NSString stringWithFormat:@"Just saw this at %@",
+                placeText];
     }
     else {
-        text = [NSString stringWithFormat:@"Saw this at %@ %@ ",
-                placeText,
-                urlText];
+        text = [NSString stringWithFormat:@"Saw this at %@",
+                placeText];
     }
     
     return text;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)generateSharingURL:(BOOL)addProtocol {
+    
+    NSString *url = nil;
+    
+    if(addProtocol) {
+        url = [NSString stringWithFormat:@"%@%@%@%@",
+                kDenwenProtocol,
+                kDenwenServer,
+                kItemShareURI,
+                self.item.hashedID];   
+    }
+    else {
+        url = [NSString stringWithFormat:@"%@%@%@",
+                kDenwenServer,
+                kItemShareURI,
+                self.item.hashedID];
+    }
+    
+    return url;
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)generateSharingText:(BOOL)addProtocol 
+                     withAddress:(BOOL)withAddress {
+    
+    NSString *url           = [self generateSharingURL:addProtocol];
+    NSString *itemText      = [self generateSharingItemText:withAddress];
+    
+    return [NSString stringWithFormat:@"%@ on Denwen %@ ",itemText,url];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -228,8 +245,7 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     DWShareItemViewController *shareItemView    = [[[DWShareItemViewController alloc] initWithItem:self.item] autorelease];
     shareItemView.delegate                      = self;
     
-    [shareItemView prepareForFacebookWithText:[self generateSharingText]
-                                       andURL:[self generateSharingURL]];
+    [shareItemView prepareForFacebook];
     
     [self.baseController presentModalViewController:shareItemView
                                            animated:YES];
@@ -240,7 +256,7 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     DWShareItemViewController *shareItemView    = [[[DWShareItemViewController alloc] initWithItem:self.item] autorelease];
     shareItemView.delegate                      = self;
     
-    [shareItemView prepareForTwitterWithText:[self generateSharingText]];
+    [shareItemView prepareForTwitter];
 
     [self.baseController presentModalViewController:shareItemView
                                            animated:YES];
@@ -252,8 +268,9 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     MFMailComposeViewController *mailView   = [[[MFMailComposeViewController alloc] init] autorelease];
     mailView.mailComposeDelegate            = self;
     
-    [mailView setSubject:[NSString stringWithFormat:@"%@ shared a post with you",[DWSession sharedDWSession].currentUser.firstName]];    
-    [mailView setMessageBody:[NSString stringWithFormat:@"%@\n\n%@",[self generateSharingText],kMsgEmailBlurb]
+    [mailView setSubject:[self generateSharingItemText:NO]];
+    [mailView setMessageBody:[NSString stringWithFormat:@"%@\n--\n%@",[self generateSharingText:YES 
+                                                                                        withAddress:YES],kMsgEmailBlurb]
                       isHTML:NO];
     
     [self.baseController presentModalViewController:mailView
@@ -266,7 +283,8 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
     MFMessageComposeViewController *smsView = [[[MFMessageComposeViewController alloc] init] autorelease];
     smsView.messageComposeDelegate          = self;
     
-    [smsView setBody:[NSString stringWithFormat:@"%@\n%@",[self generateSharingText],kMsgSMSBlurb]];
+    [smsView setBody:[NSString stringWithFormat:@"%@\n--\n%@",[self generateSharingText:YES 
+                                                                            withAddress:YES],kMsgSMSBlurb]];
     
     [self.baseController presentModalViewController:smsView
                                            animated:YES];
@@ -277,6 +295,23 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen from the App
 //----------------------------------------------------------------------------------------------------
 #pragma mark -
 #pragma mark DWShareItemViewControllerDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)sharingFBText {
+    return [self generateSharingText:YES 
+                         withAddress:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)sharingTWText {
+    return [self generateSharingText:YES 
+                         withAddress:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)sharingItemURL {
+    return [self generateSharingURL:YES];
+}
 
 //----------------------------------------------------------------------------------------------------
 - (void)sharingCancelled {

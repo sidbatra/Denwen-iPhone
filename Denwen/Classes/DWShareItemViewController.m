@@ -31,8 +31,6 @@ static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active
 @implementation DWShareItemViewController
 
 @synthesize item                = _item;
-@synthesize itemURL             = _itemURL;
-@synthesize sharingText         = _sharingText;
 @synthesize facebookConnect     = _facebookConnect;
 @synthesize twitterConnect      = _twitterConnect;
 @synthesize delegate            = _delegate;
@@ -67,8 +65,6 @@ static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active
 	[[UIApplication sharedApplication] setStatusBarStyle:kStatusBarStyle];
     
     self.item               = nil;
-    self.itemURL            = nil;
-    self.sharingText        = nil;
     self.facebookConnect    = nil;
     self.twitterConnect     = nil;
     self.previewImageView   = nil;
@@ -105,7 +101,6 @@ static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active
         [self displayTextUI];
     
     
-    self.dataTextView.text  = self.sharingText;
     [self.dataTextView becomeFirstResponder];
     
     
@@ -118,12 +113,16 @@ static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active
     
     
     if(_sharingDestination == kSharingDestinationFacebook) {
+        self.dataTextView.text  = [_delegate sharingFBText];
+                                       
         [self.doneButton setBackgroundImage:[UIImage imageNamed:kImgDoneFBButton] 
                                      forState:UIControlStateNormal];
         [self.doneButton setBackgroundImage:[UIImage imageNamed:kImgDoneFBButtonActive]
                                      forState:UIControlStateHighlighted];
     }
     else if(_sharingDestination == kSharingDestinationTwitter ) {
+        self.dataTextView.text  = [_delegate sharingTWText];
+        
         [self.doneButton setBackgroundImage:[UIImage imageNamed:kImgDoneTWButton] 
                                    forState:UIControlStateNormal];
         [self.doneButton setBackgroundImage:[UIImage imageNamed:kImgDoneTWButtonActive]
@@ -187,22 +186,18 @@ static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)prepareForFacebookWithText:(NSString*)text 
-                            andURL:(NSString*)url {
+- (void)prepareForFacebook {
     
     _sharingDestination             = kSharingDestinationFacebook;
-    self.itemURL                    = url;
-    self.sharingText                = text;
     
     self.facebookConnect            = [[[DWFacebookConnect alloc] init] autorelease];
     self.facebookConnect.delegate   = self;
 }
 
 //----------------------------------------------------------------------------------------------------
-- (void)prepareForTwitterWithText:(NSString *)text {
+- (void)prepareForTwitter {
     
     _sharingDestination             = kSharingDestinationTwitter;
-    self.sharingText                = text;
     
     self.twitterConnect             = [[[DWTwitterConnect alloc] init] autorelease];
     self.twitterConnect.delegate    = self;
@@ -256,10 +251,10 @@ static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active
     [self freezeUI];
         
     [self.facebookConnect createWallPostWithMessage:self.dataTextView.text
-                                               name:self.item.place.name
+                                               name:[self.item.data length] ? self.item.data : self.item.place.name
                                         description:@" " 
-                                            caption:@"denwen.com"
-                                               link:self.itemURL 
+                                            caption:[self.item.place fullAddress]
+                                               link:[_delegate sharingItemURL]
                                          pictureURL:self.item.attachment ? 
                                                         self.item.attachment.previewURL : 
                                                         kEmptyString];

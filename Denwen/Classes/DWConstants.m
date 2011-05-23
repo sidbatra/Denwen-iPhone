@@ -324,7 +324,9 @@ NSString* const kFacebookAppID					= @"127979053940843";
 
 NSString* const kTwitterOAuthConsumerKey		= @"Y8wcijb0orzZSbkd3fQ4g";
 NSString* const kTwitterOAuthConsumerSecret		= @"i7Oqqpy1I1ZycqRpJOSsBMylURsFlC2Qo7pQc0YbUzk";
-NSString* const kFacebookAppID					= @"127979053940843";
+//NSString* const kFacebookAppID					= @"127979053940843";
+NSString* const kFacebookAppID					= @"176869555684965";
+
 
 /**
  * Tenwen Twitter and Facebook apps made by drao
