@@ -9,7 +9,7 @@
 #import "DWConstants.h"
 
 //----------------------------------------------------------------------------------------------------
-NSString* const kVersion            = @"3.0";
+NSString* const kVersion            = @"3.1";
 NSString* const kDenwenProtocol     = @"http://";
 
 
