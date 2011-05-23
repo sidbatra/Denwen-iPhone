@@ -11,7 +11,7 @@
 
 
 static NSString* const kItemShareURI            = @"/i/";
-static NSString* const kSpinnerText             = @"";
+static NSString* const kSpinnerText             = @"Loading...";
 static NSInteger const kCancelDefaultIndex      = 3;
 static NSInteger const kShareDefaultIndex       = -1;
 static NSInteger const kShareFBIndex            = 0;
