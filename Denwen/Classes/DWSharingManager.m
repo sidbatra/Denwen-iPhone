@@ -25,8 +25,8 @@ static NSString* const kMsgSMButton             = @"SMS";
 static NSString* const kMsgCanceButton          = @"Cancel";
 static NSInteger const kRecentItemThreshold     = 900;
 static NSString* const kActionSheetTitle        = @"Share this using";
-static NSString* const kMsgEmailBlurb           = @"Download Denwen for iPhone: itun.es/igX5BK\nDenwen helps you show what it's like to be where you work, live and spend time.";
-static NSString* const kMsgSMSBlurb             = @"Download Denwen for iPhone itun.es/igX5BK";
+static NSString* const kMsgEmailBlurb           = @"Download Denwen for iPhone: http://itun.es/igX5BK\nDenwen helps you show what it's like to be where you work, live and spend time.";
+static NSString* const kMsgSMSBlurb             = @"Download Denwen for iPhone http://itun.es/igX5BK";
 
 
 
@@ -198,11 +198,11 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen for iPhone i
                 placeText];
     }
     else if(isRecentItem) {
-        text = [NSString stringWithFormat:@"Just saw this at %@",
+        text = [NSString stringWithFormat:@"This was just posted at %@",
                 placeText];
     }
     else {
-        text = [NSString stringWithFormat:@"Saw this at %@",
+        text = [NSString stringWithFormat:@"Saw this posted at %@",
                 placeText];
     }
     
