@@ -41,16 +41,7 @@ static NSString*  const kDenwenURLPrefix    = @"denwen://p/";
 
 //----------------------------------------------------------------------------------------------------
 - (void)viewDidLoad {
-    
     self.navigationController.delegate = self;
-    
-    NSURL *launchURL = [DWSession sharedDWSession].launchURL;
-                        
-    if(launchURL) {
-		[self processLaunchURL:[launchURL absoluteString]];
-        [DWSession sharedDWSession].launchURL = nil;
-	}
-    
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -75,6 +66,19 @@ static NSString*  const kDenwenURLPrefix    = @"denwen://p/";
 																		andDelegate:self];
 	[self.navigationController pushViewController:placeView animated:YES];
 	[placeView release];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (void)testLaunchURL {
+    NSURL *launchURL = [DWSession sharedDWSession].launchURL;
+    
+    if(launchURL) {
+         NSString *absoluteString               = [[launchURL absoluteString] copy];
+         [DWSession sharedDWSession].launchURL  = nil;
+        
+         [self processLaunchURL:absoluteString];
+         [absoluteString release];
+    }
 }
 
 //----------------------------------------------------------------------------------------------------

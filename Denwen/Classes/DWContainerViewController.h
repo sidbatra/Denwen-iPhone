@@ -36,6 +36,11 @@
  */
 - (BOOL)isSelectedTab;
 
+/**
+ * Test for the presence launch url in the session
+ */
+- (void)testLaunchURL;
+
 
 @end
 
