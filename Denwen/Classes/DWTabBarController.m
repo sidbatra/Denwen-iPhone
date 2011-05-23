@@ -147,12 +147,12 @@ static NSString* const kImgBottomShadow     = @"shadow_bottom.png";
 //----------------------------------------------------------------------------------------------------
 - (void)displaySpinnerWithText:(NSString*)message {
     mbProgressIndicator.labelText = message;
-	[mbProgressIndicator showUsingAnimation:YES];
+	[mbProgressIndicator show:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)hideSpinner {
-    [mbProgressIndicator hideUsingAnimation:YES];
+    [mbProgressIndicator hide:YES];
 }
 
 
