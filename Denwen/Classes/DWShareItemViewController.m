@@ -105,10 +105,7 @@ static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active
     
     
     mbProgressIndicator         = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
-    mbProgressIndicator.frame   = CGRectMake(mbProgressIndicator.frame.origin.x,
-                                             mbProgressIndicator.frame.origin.y-87,
-                                             mbProgressIndicator.frame.size.width,
-                                             mbProgressIndicator.frame.size.height+1);
+    mbProgressIndicator.yOffset = -87;
 	[self.view addSubview:mbProgressIndicator];
     
     
@@ -171,7 +168,7 @@ static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active
         mbProgressIndicator.labelText = kMsgTwitterLoading;
     
     if(mbProgressIndicator.alpha < kAlphaThresholdForMOG)
-        [mbProgressIndicator showUsingAnimation:YES];
+        [mbProgressIndicator show:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -181,7 +178,7 @@ static NSString* const kImgDoneTWButtonActive       = @"button_blue_tweet_active
 
 //----------------------------------------------------------------------------------------------------
 - (void)unfreezeUI {
-    [mbProgressIndicator hideUsingAnimation:YES];
+    [mbProgressIndicator hide:YES];
     [self.dataTextView becomeFirstResponder];
 }
 
