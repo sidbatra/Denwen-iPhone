@@ -25,7 +25,7 @@ static NSString* const kMsgSMButton             = @"SMS";
 static NSString* const kMsgCanceButton          = @"Cancel";
 static NSInteger const kRecentItemThreshold     = 900;
 static NSString* const kActionSheetTitle        = @"Share this using";
-static NSString* const kMsgEmailBlurb           = @"Download Denwen for iPhone: itun.es/igX5BK\nDenwen helps you show what it's like to be where you work and live.";
+static NSString* const kMsgEmailBlurb           = @"Download Denwen for iPhone: itun.es/igX5BK\nDenwen helps you show what it's like to be where you work, live and spend time.";
 static NSString* const kMsgSMSBlurb             = @"Download Denwen for iPhone itun.es/igX5BK";
 
 
@@ -238,7 +238,7 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen for iPhone i
     NSString *url           = [self generateSharingURL:addProtocol];
     NSString *itemText      = [self generateSharingItemText:withAddress];
     
-    return [NSString stringWithFormat:@"%@ on Denwen %@ ",itemText,url];
+    return [NSString stringWithFormat:@"%@ %@ ",itemText,url];
 }
 
 //----------------------------------------------------------------------------------------------------
