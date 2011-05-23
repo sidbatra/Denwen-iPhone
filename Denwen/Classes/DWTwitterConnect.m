@@ -71,6 +71,7 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
     userNameField.tag                       = kTagTwitterUsername;
     userNameField.backgroundColor           = [UIColor clearColor];
     userNameField.autocorrectionType        = UITextAutocorrectionTypeNo;
+    userNameField.autocapitalizationType    = UITextAutocapitalizationTypeNone;
     
     [alertView addSubview:userNameField];    
     

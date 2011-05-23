@@ -355,10 +355,10 @@
 		
 		shareButton						= [[[UIButton alloc] init] autorelease];
 		//shareButton.backgroundColor		= [UIColor greenColor];
-		shareButton.frame				= CGRectMake(shareImageLayer.frame.origin.x - 20,
+		shareButton.frame				= CGRectMake(shareImageLayer.frame.origin.x - 25,
 													 shareImageLayer.frame.origin.y - 15,
-													 shareImageLayer.frame.size.width + 25,
-													 shareImageLayer.frame.size.height + 25);
+													 shareImageLayer.frame.size.width + 40,
+													 shareImageLayer.frame.size.height + 30);
 		
 		[shareButton addTarget:self
 					   action:@selector(didTouchUpOnShareButton:) 

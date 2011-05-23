@@ -12,7 +12,7 @@
 
 static NSString* const kTabTitle							= @"Create";
 static NSString* const kImgTab								= @"profile.png";
-static NSString* const kMsgDataTextViewPlaceholder			= @"What's the latest?";
+static NSString* const kMsgDataTextViewPlaceholder			= @"What's happening here?";
 static NSInteger const kTableViewX							= 0;
 static NSInteger const kTableViewY							= 44;
 static NSInteger const kTableViewWidth						= 320;

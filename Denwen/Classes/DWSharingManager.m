@@ -24,8 +24,9 @@ static NSString* const kMsgEMButton             = @"Email";
 static NSString* const kMsgSMButton             = @"SMS";
 static NSString* const kMsgCanceButton          = @"Cancel";
 static NSInteger const kRecentItemThreshold     = 900;
-static NSString* const kMsgEmailBlurb           = @"Download Denwen for iPhone: itun.es/igX5BK\nDenwen helps you show what it's like to be where you work and live.";
-static NSString* const kMsgSMSBlurb             = @"Download Denwen for iPhone itun.es/igX5BK";
+static NSString* const kActionSheetTitle        = @"Share this";
+static NSString* const kMsgEmailBlurb           = @"Denwen is a simple way to create places that mean something to you — where you work, where you live,anywhere you spend time. \n\n Download Denwen from the Apple App Store - http://j.mp/denwen";
+static NSString* const kMsgSMSBlurb             = @"Download Denwen from the Apple App Store - http://j.mp/denwen";
 
 
 
@@ -84,7 +85,7 @@ static NSString* const kMsgSMSBlurb             = @"Download Denwen for iPhone i
     
     
     
-    UIActionSheet *actionSheet      = [[UIActionSheet alloc] initWithTitle:nil
+    UIActionSheet *actionSheet      = [[UIActionSheet alloc] initWithTitle:kActionSheetTitle
                                                                   delegate:self
                                                          cancelButtonTitle:nil
                                                     destructiveButtonTitle:nil
