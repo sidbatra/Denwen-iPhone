@@ -96,9 +96,19 @@
 - (void)startPreviewDownload;
 
 /**
- * Generate the display address for a place
+ * Return display address for place with the option of a default message
+ */
+- (NSString*)displayAddressWithDefautMessage:(BOOL)addDefaultMessage;
+
+/**
+ * Return the display address for a place with the default message
  */
 - (NSString*)displayAddress;
+
+/**
+ * place name + [self displayAddressWithDefautMessage:NO] 
+ */
+- (NSString*)fullAddress;
 
 /**
  * Return the most specific address string in the order of

@@ -167,7 +167,19 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
 }
 
 //----------------------------------------------------------------------------------------------------
+- (NSString*)fullAddress {
+    NSString *address = [self displayAddressWithDefautMessage:NO];
+    return [address length] ? [NSString stringWithFormat:@"%@ in %@",self.name,address] : self.name;
+}
+
+//----------------------------------------------------------------------------------------------------
 - (NSString*)displayAddress {
+    return [self displayAddressWithDefautMessage:YES];
+}
+
+//----------------------------------------------------------------------------------------------------
+- (NSString*)displayAddressWithDefautMessage:(BOOL)addDefaultMessage {
+    
 	NSString *address = nil;
     
 	if(_hasAddress) {
@@ -200,7 +212,7 @@ static NSString* const kMsgFindingLocality	= @"Finding locality";
         address = [NSString stringWithString:result];
     }
 	else
-		address = kMsgFindingLocality;
+		address = addDefaultMessage ? kMsgFindingLocality : kEmptyString;
 	
 	return address;
 }
