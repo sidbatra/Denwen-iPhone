@@ -11,8 +11,13 @@
  * Feed view
  */
 @interface DWFollowedItemsViewController : DWItemFeedViewController {
-    UIButton     *onBoardingButton;
+    UIButton     *_onBoardingButton;
 }
+
+/**
+ * Displays a clickable onboarding image
+ */
+@property (nonatomic,retain) UIButton *onBoardingButton;
 
 /**
  * Init with delegate to receive events when navigation
