@@ -122,6 +122,12 @@
 		26885A831367A46900C3511F /* profile_pic_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26885A811367A46900C3511F /* profile_pic_placeholder@2x.png */; };
 		268B56831356682800BB43DC /* DWCameraOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B56811356682800BB43DC /* DWCameraOverlayViewController.m */; };
 		268B56841356682800BB43DC /* DWCameraOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 268B56821356682800BB43DC /* DWCameraOverlayViewController.xib */; };
+		268C02E41389FA4B00DA1541 /* pointer_gray_light_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 268C02E21389FA4B00DA1541 /* pointer_gray_light_active.png */; };
+		268C02E51389FA4B00DA1541 /* pointer_gray_light_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 268C02E31389FA4B00DA1541 /* pointer_gray_light_active@2x.png */; };
+		268C02EA1389FD1100DA1541 /* pointer_gray_dark_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 268C02E61389FD1100DA1541 /* pointer_gray_dark_active.png */; };
+		268C02EB1389FD1100DA1541 /* pointer_gray_dark_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 268C02E71389FD1100DA1541 /* pointer_gray_dark_active@2x.png */; };
+		268C02EC1389FD1100DA1541 /* pointer_gray_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 268C02E81389FD1100DA1541 /* pointer_gray_dark.png */; };
+		268C02ED1389FD1100DA1541 /* pointer_gray_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 268C02E91389FD1100DA1541 /* pointer_gray_dark@2x.png */; };
 		269767D61387978F00AB91A1 /* DWIntroPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269767D51387978F00AB91A1 /* DWIntroPaneViewController.m */; };
 		26A2009C1370D0DA00B698CE /* launch_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 26A2009A1370D0DA00B698CE /* launch_bg.png */; };
 		26A2009D1370D0DA00B698CE /* launch_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26A2009B1370D0DA00B698CE /* launch_bg@2x.png */; };
@@ -598,6 +604,12 @@
 		268B56801356682800BB43DC /* DWCameraOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWCameraOverlayViewController.h; path = Classes/DWCameraOverlayViewController.h; sourceTree = "<group>"; };
 		268B56811356682800BB43DC /* DWCameraOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWCameraOverlayViewController.m; path = Classes/DWCameraOverlayViewController.m; sourceTree = "<group>"; };
 		268B56821356682800BB43DC /* DWCameraOverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DWCameraOverlayViewController.xib; path = Classes/DWCameraOverlayViewController.xib; sourceTree = "<group>"; };
+		268C02E21389FA4B00DA1541 /* pointer_gray_light_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pointer_gray_light_active.png; path = resources/pointer_gray_light_active.png; sourceTree = "<group>"; };
+		268C02E31389FA4B00DA1541 /* pointer_gray_light_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pointer_gray_light_active@2x.png"; path = "resources/pointer_gray_light_active@2x.png"; sourceTree = "<group>"; };
+		268C02E61389FD1100DA1541 /* pointer_gray_dark_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pointer_gray_dark_active.png; path = resources/pointer_gray_dark_active.png; sourceTree = "<group>"; };
+		268C02E71389FD1100DA1541 /* pointer_gray_dark_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pointer_gray_dark_active@2x.png"; path = "resources/pointer_gray_dark_active@2x.png"; sourceTree = "<group>"; };
+		268C02E81389FD1100DA1541 /* pointer_gray_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pointer_gray_dark.png; path = resources/pointer_gray_dark.png; sourceTree = "<group>"; };
+		268C02E91389FD1100DA1541 /* pointer_gray_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pointer_gray_dark@2x.png"; path = "resources/pointer_gray_dark@2x.png"; sourceTree = "<group>"; };
 		269767D41387978F00AB91A1 /* DWIntroPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWIntroPaneViewController.h; path = Classes/DWIntroPaneViewController.h; sourceTree = "<group>"; };
 		269767D51387978F00AB91A1 /* DWIntroPaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWIntroPaneViewController.m; path = Classes/DWIntroPaneViewController.m; sourceTree = "<group>"; };
 		26A2009A1370D0DA00B698CE /* launch_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_bg.png; path = resources/launch_bg.png; sourceTree = "<group>"; };
@@ -1146,6 +1158,12 @@
 		267A0DA112E818AC001B0604 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				268C02E61389FD1100DA1541 /* pointer_gray_dark_active.png */,
+				268C02E71389FD1100DA1541 /* pointer_gray_dark_active@2x.png */,
+				268C02E81389FD1100DA1541 /* pointer_gray_dark.png */,
+				268C02E91389FD1100DA1541 /* pointer_gray_dark@2x.png */,
+				268C02E21389FA4B00DA1541 /* pointer_gray_light_active.png */,
+				268C02E31389FA4B00DA1541 /* pointer_gray_light_active@2x.png */,
 				BBFD29EA1389817A0077904A /* button_blue_share_active.png */,
 				BBFD29EB1389817A0077904A /* button_blue_share_active@2x.png */,
 				BBFD29EC1389817A0077904A /* button_blue_share.png */,
@@ -2411,6 +2429,12 @@
 				BBFD29F71389817A0077904A /* button_blue_tweet_active@2x.png in Resources */,
 				BBFD29F81389817A0077904A /* button_blue_tweet.png in Resources */,
 				BBFD29F91389817A0077904A /* button_blue_tweet@2x.png in Resources */,
+				268C02E41389FA4B00DA1541 /* pointer_gray_light_active.png in Resources */,
+				268C02E51389FA4B00DA1541 /* pointer_gray_light_active@2x.png in Resources */,
+				268C02EA1389FD1100DA1541 /* pointer_gray_dark_active.png in Resources */,
+				268C02EB1389FD1100DA1541 /* pointer_gray_dark_active@2x.png in Resources */,
+				268C02EC1389FD1100DA1541 /* pointer_gray_dark.png in Resources */,
+				268C02ED1389FD1100DA1541 /* pointer_gray_dark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

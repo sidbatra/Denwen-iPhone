@@ -31,8 +31,10 @@ static NSString* const kImgCheckedLightCameraButton			= @"camera_white_checked.p
 static NSString* const kImgCheckedBlueCameraButton			= @"camera_blue_checked.png";
 static NSString* const kImgCheckedLightVideoButton			= @"video_white_checked.png";
 static NSString* const kImgCheckedBlueVideoButton			= @"video_blue_checked.png";
-static NSString* const kImgLightMapButton					= @"pointer_white.png";
+static NSString* const kImgLightMapButton					= @"pointer_gray_dark.png";
+static NSString* const kImgLightMapButtonActive				= @"pointer_gray_dark_active.png";
 static NSString* const kImgDarkMapButton					= @"pointer_gray_light.png";
+static NSString* const kImgDarkMapButtonActive				= @"pointer_gray_light_active.png";
 static NSString* const kMsgMissingFieldsTitle				= @"Incomplete";
 static NSString* const kMsgPlaceMissing						= @"Add where you are";
 static NSString* const kMsgDataMissing						= @"Add an update using text, photo and video";
@@ -163,6 +165,9 @@ static NSString* const kMsgDataMissing						= @"Add an update using text, photo 
 	
 	[self.mapButton setBackgroundImage:[UIImage imageNamed:kImgLightMapButton]
 								 forState:UIControlStateNormal];
+    
+    [self.mapButton setBackgroundImage:[UIImage imageNamed:kImgLightMapButtonActive]
+                              forState:UIControlStateHighlighted];
 	
 	[self.cameraButton setBackgroundImage:[UIImage imageNamed:kImgLightCameraButton]
 								 forState:UIControlStateNormal];
@@ -187,6 +192,9 @@ static NSString* const kMsgDataMissing						= @"Add an update using text, photo 
 	
 	[self.mapButton setBackgroundImage:[UIImage imageNamed:kImgDarkMapButton]
 							  forState:UIControlStateNormal];
+    
+    [self.mapButton setBackgroundImage:[UIImage imageNamed:kImgDarkMapButtonActive]
+							  forState:UIControlStateHighlighted];
 	
 	self.placeNameTextField.textColor	= [UIColor colorWithRed:.498 green:.498 blue:.498 alpha:1.0];		
 	self.atLabel.textColor				= [UIColor colorWithRed:0.7019 green:0.7019 blue:0.7019 alpha:1.0];

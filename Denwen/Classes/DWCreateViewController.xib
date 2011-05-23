@@ -308,7 +308,7 @@
 					<object class="IBUIButton" id="1042229770">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{253, 7}, {60, 30}}</string>
+						<string key="NSFrame">{{251, 6}, {62, 32}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="844613630"/>
@@ -323,6 +323,10 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="900694610"/>
+						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">pointer_gray_light_active.png</string>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">pointer_gray_light.png</string>
@@ -667,6 +671,7 @@
 					<string>19.IBPluginDependency</string>
 					<string>19.IBViewBoundsToFrameTransform</string>
 					<string>24.IBPluginDependency</string>
+					<string>24.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>24.IBViewBoundsToFrameTransform</string>
 					<string>34.IBPluginDependency</string>
 					<string>34.IBViewBoundsToFrameTransform</string>
@@ -713,6 +718,7 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABDCgAAw2sAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="1"/>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDhIAAwegAAA</bytes>
 					</object>
@@ -946,6 +952,7 @@
 				<string>camera_gray_dark.png</string>
 				<string>hr_gray_create.png</string>
 				<string>pointer_gray_light.png</string>
+				<string>pointer_gray_light_active.png</string>
 				<string>trans55.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
@@ -956,7 +963,8 @@
 				<string>{60, 30}</string>
 				<string>{47, 37}</string>
 				<string>{320, 1}</string>
-				<string>{60, 30}</string>
+				<string>{62, 32}</string>
+				<string>{62, 32}</string>
 				<string>{1, 1}</string>
 			</object>
 		</object>
