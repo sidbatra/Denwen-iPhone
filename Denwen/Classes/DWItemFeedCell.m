@@ -8,16 +8,21 @@
 #import "DWConstants.h"
 
 #define kImgTouchIcon                       @"hand.png"
-#define kImgTouchIcon230                    @"hand_230.png"
+#define kImgTouchIcon230                    @"hand_text.png"
 #define kImgTouched                         @"touched.png"
 #define kImgPlay                            @"icon_video.png"
 #define kImgShare                           @"share.png"
-#define kImgShare230                        @"share_230.png"
+#define kImgShare230                        @"share_text.png"
 #define kImgHalo                            @"halo.png"
 #define kImgSeparator                       @"hr_place_list.png"
 #define kColorAttachmentBg                  [UIColor colorWithRed:0.2627 green:0.2627 blue:0.2627 alpha:1.0].CGColor
-#define kColorNoAttachmentBg                [UIColor colorWithRed:0.3490 green:0.3490 blue:0.3490 alpha:1.0].CGColor
-#define kColorNoAttachmentHighlightBg       [UIColor colorWithRed:0.5450 green:0.5450 blue:0.5450 alpha:1.0].CGColor
+#define kColorNoAttachmentBg                [UIColor colorWithRed:0.8000 green:0.8000 blue:0.8000 alpha:1.0].CGColor
+#define kColorNoAttachmentHighlightBg       [UIColor colorWithRed:1.0000 green:1.0000 blue:1.0000 alpha:1.0].CGColor
+#define kColorLinkPressedWithAttachment     [UIColor colorWithRed:0.8000 green:0.8000 blue:0.8000 alpha:1.0].CGColor
+#define kColorLinkPressedNoAttachment       [UIColor colorWithRed:0.2000 green:0.2000 blue:0.2000 alpha:1.0].CGColor
+#define kColorTextWithAttachment            [UIColor colorWithRed:1.0000 green:1.0000 blue:1.0000 alpha:1.0].CGColor
+#define kColorTextNoAttachment              [UIColor colorWithRed:0.4000 green:0.4000 blue:0.4000 alpha:1.0].CGColor
+#define kColorTextHighlightedNoAttachment   [UIColor colorWithRed:0.4980 green:0.4980 blue:0.4980 alpha:1.0].CGColor
 #define kFontItemUserName                   [UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
 #define kFontItemUserNameDisabled           [UIFont fontWithName:@"HelveticaNeue" size:15]
 #define kFontAt                             [UIFont fontWithName:@"HelveticaNeue" size:15]
@@ -88,20 +93,14 @@
     
     BOOL isTextOnly = [itemCell attachmentType] == kAttachmentNone;
     
-    CGColorRef textColor = [UIColor colorWithRed:1.0
-                                           green:1.0
-                                            blue:1.0
-                                           alpha:1.0].CGColor;
+    CGColorRef textColor = isTextOnly ? kColorTextNoAttachment : kColorTextWithAttachment;
     
 	
 	if(![itemCell isHighlighted]) {
 		
 		//----------------------------------
         CGColorRef userColor = itemCell.userButtonPressed ? 
-                                [UIColor colorWithRed:0.8 
-                                                green:0.8 
-                                                 blue:0.8
-                                                alpha:1.0].CGColor : 
+                                (isTextOnly ? kColorLinkPressedNoAttachment : kColorLinkPressedWithAttachment) : 
                                 textColor;
         
 		CGContextSetFillColorWithColor(context,userColor);
@@ -125,10 +124,7 @@
 		
 		//----------------------------------	
         CGColorRef placeColor = itemCell.placeButtonPressed ? 
-                                [UIColor colorWithRed:0.8
-                                                green:0.8
-                                                 blue:0.8
-                                                alpha:1.0].CGColor : 
+                                (isTextOnly ? kColorLinkPressedNoAttachment : kColorLinkPressedWithAttachment) : 
                                 textColor;
         
 		CGContextSetFillColorWithColor(context,placeColor);
@@ -157,9 +153,11 @@
     //----------------------------------
     if(![itemCell isHighlighted] || isTextOnly) {
         
-        CGColorRef dataColor = isTextOnly && ![itemCell isHighlighted] ? 
-                                [UIColor colorWithRed:0.9019 green:0.9019 blue:0.9019 alpha:1.0].CGColor :
+        
+        CGColorRef dataColor = isTextOnly && [itemCell isHighlighted] ? 
+                                kColorTextHighlightedNoAttachment :
                                 textColor;
+        
 
         CGContextSetFillColorWithColor(context,dataColor);
         
@@ -478,7 +476,7 @@
 											constrainedToSize:CGSizeMake(kItemDataWidth,kItemDataHeight)
 												lineBreakMode:UILineBreakModeWordWrap];
 	
-    if(dataSize.height <= kItemDataSubtitleHeightThreshold) {
+    if(dataSize.height <= kItemDataSubtitleHeightThreshold  && _attachmentType != kAttachmentNone) {
         _dataRect                   = CGRectMake(kItemDataX-kItemDataXSubTitleOffset,
                                                  320 - kItemDataYSubtitleOffset - dataSize.height,
                                                  dataSize.width,
