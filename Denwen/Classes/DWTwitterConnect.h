@@ -14,10 +14,13 @@
 /**
  * Wrapper over the Twitter XAuth Libs
  */
-@interface DWTwitterConnect : NSObject<TwitterAuthenticatorDelegate,TwitterTweetPosterDelegate> {
+@interface DWTwitterConnect : NSObject<TwitterAuthenticatorDelegate,TwitterTweetPosterDelegate,UITextFieldDelegate> {
     TwitterConsumer         *_consumer;
     TwitterAuthenticator    *_authenticator;
     TwitterTweetPoster      *_poster;
+    
+    UIAlertView             *_xAuthAlertView;
+
     
     id<DWTwitterConnectDelegate>    _delegate;
 }
@@ -36,6 +39,11 @@
  * Tweet posting wrapper
  */
 @property (nonatomic,retain) TwitterTweetPoster *poster;
+
+/**
+ * Customized alert view for getting the user's xauth info
+ */
+@property (nonatomic,retain) UIAlertView *xAuthAlertView;
 
 /**
  * DWTwitterConnectDelegate

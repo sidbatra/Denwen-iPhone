@@ -25,6 +25,7 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
 @synthesize consumer        = _consumer;
 @synthesize authenticator   = _authenticator;
 @synthesize poster          = _poster;
+@synthesize xAuthAlertView  = _xAuthAlertView;
 @synthesize delegate        = _delegate;
 
 //----------------------------------------------------------------------------------------------------
@@ -41,9 +42,10 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
 
 //----------------------------------------------------------------------------------------------------
 - (void)dealloc {
-    self.consumer       = nil;
-    self.authenticator  = nil;
-    self.poster         = nil;
+    self.consumer           = nil;
+    self.authenticator      = nil;
+    self.poster             = nil;
+    self.xAuthAlertView     = nil;
     
     [super dealloc];
 }
@@ -51,13 +53,13 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
 //----------------------------------------------------------------------------------------------------
 - (void)displayAuthenticationUI {
     
-    UIAlertView *alertView  = [[[UIAlertView alloc] init] autorelease];
-    alertView.delegate      = self;
-    alertView.title         = @"Log in to Twitter";
-    alertView.message       = @"\n\n\n";
+    self.xAuthAlertView               = [[[UIAlertView alloc] init] autorelease];
+    self.xAuthAlertView.delegate      = self;
+    self.xAuthAlertView.title         = @"Log in to Twitter";
+    self.xAuthAlertView.message       = @"\n\n\n";
     
-    [alertView addButtonWithTitle:@"Cancel"];
-    [alertView addButtonWithTitle:@"Log In"];
+    [self.xAuthAlertView addButtonWithTitle:@"Cancel"];
+    [self.xAuthAlertView addButtonWithTitle:@"Log In"];
     
     
     
@@ -66,6 +68,8 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
                                                                                              262,
                                                                                              32)] autorelease];
     userNameField.placeholder               = @"Twitter username";
+    userNameField.delegate                  = self;
+    userNameField.returnKeyType             = UIReturnKeyNext;
     userNameField.borderStyle               = UITextBorderStyleRoundedRect;
     userNameField.contentVerticalAlignment  = UIControlContentHorizontalAlignmentCenter;
     userNameField.tag                       = kTagTwitterUsername;
@@ -73,7 +77,7 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
     userNameField.autocorrectionType        = UITextAutocorrectionTypeNo;
     userNameField.autocapitalizationType    = UITextAutocapitalizationTypeNone;
     
-    [alertView addSubview:userNameField];    
+    [self.xAuthAlertView addSubview:userNameField];    
     
     
     UITextField *passwordField              = [[[UITextField alloc] initWithFrame:CGRectMake(11,
@@ -81,6 +85,8 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
                                                                                              262,
                                                                                              32)] autorelease];
     passwordField.placeholder               = @"Twitter password";
+    passwordField.delegate                  = self;
+    passwordField.returnKeyType             = UIReturnKeyDone;
     passwordField.borderStyle               = UITextBorderStyleRoundedRect;
     passwordField.contentVerticalAlignment  = UIControlContentHorizontalAlignmentCenter;
     passwordField.tag                       = kTagTwitterPassword;
@@ -88,11 +94,11 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
     passwordField.autocorrectionType        = UITextAutocorrectionTypeNo;
     passwordField.secureTextEntry           = YES;
     
-    [alertView addSubview:passwordField];    
+    [self.xAuthAlertView addSubview:passwordField];    
     
     
     
-    [alertView show];
+    [self.xAuthAlertView show];
     
     [userNameField performSelector:@selector(becomeFirstResponder) 
                         withObject:nil
@@ -136,7 +142,7 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
         
         NSString *username = nil;
         NSString *password = nil;
-        
+
         for(UIView *subview in alertView.subviews) {
             if(subview.tag == kTagTwitterUsername)
                 username    = ((UITextField*)subview).text;
@@ -158,6 +164,30 @@ static NSUInteger const kTwitterAlertOKIndex    = 1;
     else {
         [_delegate twAuthenticationFailed];
     }
+}
+
+
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITextFieldDelegate
+
+//----------------------------------------------------------------------------------------------------
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	
+	if(textField.tag == kTagTwitterUsername) {
+        
+        for(UIView *subview in self.xAuthAlertView.subviews)
+            if(subview.tag == kTagTwitterPassword)
+                [((UITextField*)subview) becomeFirstResponder];
+	}
+	else if(textField.tag == kTagTwitterPassword) {
+        [self.xAuthAlertView dismissWithClickedButtonIndex:kTwitterAlertOKIndex 
+                                                  animated:YES];
+		[self alertView:self.xAuthAlertView clickedButtonAtIndex:kTwitterAlertOKIndex];
+	}
+    
+	return YES;
 }
 
 
