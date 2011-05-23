@@ -95,10 +95,7 @@ static NSString* const kLoginText               = @"Log In";
 	[self.emailTextField becomeFirstResponder];
 	
     mbProgressIndicator         = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
-    mbProgressIndicator.frame   = CGRectMake(mbProgressIndicator.frame.origin.x,
-                                             mbProgressIndicator.frame.origin.y-87,
-                                             mbProgressIndicator.frame.size.width,
-                                             mbProgressIndicator.frame.size.height+1);
+    mbProgressIndicator.yOffset = -87;
 	[self.view addSubview:mbProgressIndicator];
 }
 
@@ -118,12 +115,12 @@ static NSString* const kLoginText               = @"Log In";
 	//[self.passwordTextField resignFirstResponder];
 	
 	mbProgressIndicator.labelText = kMsgProgressIndicator;
-	[mbProgressIndicator showUsingAnimation:YES];
+	[mbProgressIndicator show:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)unfreezeUI {
-	[mbProgressIndicator hideUsingAnimation:YES];
+	[mbProgressIndicator hide:YES];
 	[self.emailTextField becomeFirstResponder];
 }
 

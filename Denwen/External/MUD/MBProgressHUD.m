@@ -301,7 +301,7 @@
     // Compute HUD dimensions based on indicator size (add margin to HUD border)
     CGRect indFrame = CGRectMake(0,0,20,20);// indicator.bounds;
     self.width = indFrame.size.width + 2 * MARGIN;
-    self.height = indFrame.size.height + 2 * MARGIN;
+    self.height = indFrame.size.height + 2 * MARGIN + 1;
 	
     // Position the indicator
     indFrame.origin.x = floor((frame.size.width - indFrame.size.width) / 2) + self.xOffset;

@@ -97,10 +97,7 @@ static NSString* const kSignUpText              = @"Sign Up";
 	[self.firstNameTextField becomeFirstResponder];
 	
     mbProgressIndicator         = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
-    mbProgressIndicator.frame   = CGRectMake(mbProgressIndicator.frame.origin.x,
-                                             mbProgressIndicator.frame.origin.y-87,
-                                             mbProgressIndicator.frame.size.width,
-                                             mbProgressIndicator.frame.size.height+1);
+    mbProgressIndicator.yOffset = -87;
 	[self.view addSubview:mbProgressIndicator];
 }
 
@@ -122,14 +119,13 @@ static NSString* const kSignUpText              = @"Sign Up";
 	//[self.passwordTextField resignFirstResponder];
 	
 	mbProgressIndicator.labelText = kMsgProgressIndicator;
-	[mbProgressIndicator showUsingAnimation:YES];
+	[mbProgressIndicator show:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
 - (void)unfreezeUI {
 	[self.firstNameTextField becomeFirstResponder];
-	
-	[mbProgressIndicator hideUsingAnimation:YES];
+	[mbProgressIndicator hide:YES];
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -163,6 +159,7 @@ static NSString* const kSignUpText              = @"Sign Up";
                                                                        withEmail:self.emailTextField.text
                                                                     withPassword:self.password
                                                                withPhotoFilename:kEmptyString];
+             
 		}
 		else
 			_signupInitiated    = YES;
