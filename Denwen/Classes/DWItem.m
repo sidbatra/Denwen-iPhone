@@ -98,41 +98,29 @@
     int diff;
     	
 	if (ti < 60) {
-		if (ti <= 1) 
-			return @"1 second ago";
-		
-        return [NSString stringWithFormat:@"%d seconds ago", ti];
+        return (ti <= 1) ? @"1 second ago": [NSString stringWithFormat:@"%d seconds ago", ti];
+        
     } 
 	else if (ti < 3600) {
-        diff = round(ti / 60);
-		
-		if (diff == 1)
-			return @"1 minute ago";	
-		
-        return [NSString stringWithFormat:@"%d minutes ago", diff];
+        diff = round(ti/60);
+        return (diff == 1) ? @"1 minute ago" : [NSString stringWithFormat:@"%d minutes ago", diff];
+        
     } 
 	else if (ti < 86400) {
-        diff = round(ti / 60 / 60);
-		
-		if (diff == 1) 
-			return @"1 hour ago";
+        diff = round(ti/3600);		
+        return (diff == 1) ? @"1 hour ago" : [NSString stringWithFormat:@"%d hours ago", diff];
         
-		return [NSString stringWithFormat:@"%d hours ago", diff];
     } 
     else if (ti < 518400) {
-        diff = round(ti / 60 / 60 / 24);
+        diff = round(ti/86400);        
+        return (diff == 1) ? @"1 day ago" : [NSString stringWithFormat:@"%d days ago", diff];
         
-        if (diff == 1) 
-			return @"1 day ago";
-        
-        return [NSString stringWithFormat:@"%d days ago", diff];
     }
 	else {
 		NSDateFormatter *outputFormatter = [[[NSDateFormatter alloc] init] autorelease];
 		[outputFormatter setDateFormat:@"d MMM"];
 		
-		NSString *outputString = [NSString stringWithString:[outputFormatter stringFromDate:createdDate]];
-		
+		NSString *outputString = [NSString stringWithString:[outputFormatter stringFromDate:createdDate]];		
 		return outputString;
     }
 }
