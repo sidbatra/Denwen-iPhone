@@ -51,8 +51,8 @@
 #define kDetailsY                           285
 #define kTouchesIconXOffset                 4
 #define kTouchesIconY                       287
-#define kTouchesIconWidth                   13
-#define kTouchesIconHeight                  15
+#define kTouchesIconWidth                   14
+#define kTouchesIconHeight                  16
 #define kDefaultTextHeight                  20
 #define kNormalAlpha                        0.60
 #define kHighlightAlpha                     1.0
